@@ -1,8 +1,0 @@
-WhereNext component integration status:
-- Home page (/) shows: The Letter, Find Your..., The Index + Home/Site Index/All Assessments links
-- PRI standalone page shows: Mescaline Deep Dive, Find Your..., The Body + Home/Site Index/All Assessments links
-- Both are rendering correctly with the right contextual suggestions
-- Standalone pages get isDark=true variant
-- Main layout pages get isDark based on theme context
-
-The "Keep going" section appears clean and editorial at the bottom of every page.

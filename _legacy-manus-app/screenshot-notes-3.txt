@@ -1,1 +1,0 @@
-Screenshot after DispatchPreview + Kit tag mapping: No TS errors, no LSP errors, site compiles and renders cleanly. Home page hero intact. Need to run tests next.

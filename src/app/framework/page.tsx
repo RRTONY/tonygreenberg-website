@@ -20,12 +20,14 @@ export const metadata: Metadata = {
   alternates: { canonical: "/framework" },
 };
 
+const ICON_PROPS = { size: 22, className: "text-brand-gold" } as const;
+
 const FRAMEWORK_STEPS: FrameworkStep[] = [
   {
     num: "01",
     title: "Name the Real Problem",
     subtitle: "Not the symptom. The structure.",
-    icon: Target,
+    icon: <Target {...ICON_PROPS} />,
     description:
       "Most people come to me with a symptom: costs are too high, a vendor is underperforming, the board is nervous. The first thing I do is refuse to solve that problem. Instead, I ask: what system produced this outcome? What incentive structure made this inevitable? You can't fix a leak by mopping the floor.",
     prompt: "What keeps happening despite your best efforts to stop it?",
@@ -36,7 +38,7 @@ const FRAMEWORK_STEPS: FrameworkStep[] = [
     num: "02",
     title: "Map the Stakeholders",
     subtitle: "Who benefits from the status quo?",
-    icon: Layers,
+    icon: <Layers {...ICON_PROPS} />,
     description:
       "Every problem persists because someone is profiting from it. Not maliciously — structurally. The vendor who overcharges you has a quota. The consultant who extends the engagement has a mortgage. The internal champion who chose the failing platform has a reputation. Until you map who wins and who loses from change, you're negotiating in the dark.",
     prompt: "Who would be uncomfortable if this problem disappeared overnight?",
@@ -47,7 +49,7 @@ const FRAMEWORK_STEPS: FrameworkStep[] = [
     num: "03",
     title: "Find the Leverage Point",
     subtitle: "Where does a small push create a large shift?",
-    icon: Zap,
+    icon: <Zap {...ICON_PROPS} />,
     description:
       "Donella Meadows taught me that systems have leverage points — places where a small intervention produces disproportionate change. Most people push on the wrong part of the system. They negotiate harder on price when the real leverage is in contract structure. They hire more people when the real leverage is in process design. Find the fulcrum.",
     prompt: "If you could change only one thing, what would unlock everything else?",
@@ -58,7 +60,7 @@ const FRAMEWORK_STEPS: FrameworkStep[] = [
     num: "04",
     title: "Design the First Move",
     subtitle: "Bias toward reversible action.",
-    icon: Lightbulb,
+    icon: <Lightbulb {...ICON_PROPS} />,
     description:
       "Analysis paralysis kills more good ideas than bad execution. But recklessness kills more companies than caution. The resolution: design a first move that is bold enough to generate real data but reversible enough that failure is a lesson, not a catastrophe. Jeff Bezos calls these 'Type 2 decisions' — doors you can walk back through.",
     prompt: "What is the smallest experiment that would prove or disprove your thesis?",
@@ -69,7 +71,7 @@ const FRAMEWORK_STEPS: FrameworkStep[] = [
     num: "05",
     title: "Build the Feedback Loop",
     subtitle: "What you measure is what you become.",
-    icon: Shield,
+    icon: <Shield {...ICON_PROPS} />,
     description:
       "The difference between a strategy and a wish is a feedback loop. Every move should generate information that makes the next move smarter. Most organizations measure outputs (revenue, headcount, deliverables) when they should be measuring learning velocity: how fast are we getting smarter about this problem?",
     prompt: "How will you know in 30 days whether this is working?",

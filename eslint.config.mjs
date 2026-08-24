@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Archived legacy Vite/Express app — not part of the deployed Next.js app.
+    "_legacy-manus-app/**",
   ]),
 ]);
 

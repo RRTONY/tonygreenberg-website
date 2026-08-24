@@ -1,14 +1,14 @@
 "use client";
 
-import { useState } from "react";
-import { ChevronDown, ChevronUp, type LucideIcon } from "lucide-react";
+import { useState, type ReactNode } from "react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 
 export type FrameworkStep = {
   num: string;
   title: string;
   subtitle: string;
-  icon: LucideIcon;
+  icon: ReactNode;
   description: string;
   prompt: string;
   example: string;
@@ -19,15 +19,21 @@ export type FrameworkStep = {
 // /journeys and /intel: a real-world example is real content, not a
 // decorative reveal, so it needs to exist in the raw SSR HTML even before a
 // visitor clicks "See Real-World Example".
+//
+// `icon` is a pre-rendered element (not a component reference) because a
+// raw component function can't cross the Server→Client prop boundary —
+// this exact page crashed the production build (`next build`) with
+// "Functions cannot be passed directly to Client Components" until the
+// caller (framework/page.tsx) started passing `<Target ... />` instead of
+// `Target`.
 export function FrameworkStepCard({ step }: { step: FrameworkStep }) {
   const [open, setOpen] = useState(false);
-  const Icon = step.icon;
 
   return (
     <div className="mb-6 rounded-lg border border-brand-gold/15 bg-card p-8 shadow-xs transition-shadow hover:shadow-md">
       <div className="flex items-start gap-4">
         <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-brand-gold/15 to-brand-gold/25">
-          <Icon size={22} className="text-brand-gold" />
+          {step.icon}
         </div>
         <div className="flex-1">
           <div className="mb-1 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">

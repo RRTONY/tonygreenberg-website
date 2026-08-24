@@ -1,4 +1,0 @@
-ALTER TABLE `assessment_results` MODIFY COLUMN `assessmentType` enum('dharma','consciousness','grant-study','mirror','find-your-me','therapy','sake','spirit','religion','diet','movement','sleep','coffee','kitchen','style','attachment','love-language','psychedelic-readiness','peptide','sexuality','soulscore','self-portrait','kava','brewsoul-quiz') NOT NULL;--> statement-breakpoint
-ALTER TABLE `assessment_results` ADD `sharedWithTony` boolean DEFAULT false;--> statement-breakpoint
-ALTER TABLE `assessment_results` ADD `userName` varchar(255);--> statement-breakpoint
-ALTER TABLE `assessment_results` ADD `userEmail` varchar(255);

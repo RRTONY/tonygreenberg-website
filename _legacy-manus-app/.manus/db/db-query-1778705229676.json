@@ -1,9 +1,0 @@
-{
-  "query": "INSERT INTO short_urls (code, target_path, created_at) VALUES ('hos', '/blog/human-operating-system', NOW());",
-  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2tyUkvbqvVnVXqA.2023efd789ca --database gXhndHxpF4hLjcgkrqbdCP --execute INSERT INTO short_urls (code, target_path, created_at) VALUES ('hos', '/blog/human-operating-system', NOW());",
-  "rows": [],
-  "messages": [],
-  "stdout": "",
-  "stderr": "",
-  "execution_time_ms": 284
-}

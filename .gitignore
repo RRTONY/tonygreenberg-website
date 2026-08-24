@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# archived legacy Vite/Express/Manus app — kept on disk for reference,
+# not part of the deployed Next.js app, not pushed to GitHub
+/_legacy-manus-app

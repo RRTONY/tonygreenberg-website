@@ -1,2 +1,0 @@
-SoulScore build: Zero TypeScript errors, zero LSP errors. Route added at /soulscore as standalone.
-Site homepage looks correct. Need to verify the SoulScore page renders properly.
