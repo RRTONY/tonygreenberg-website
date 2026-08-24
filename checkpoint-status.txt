@@ -1,0 +1,8 @@
+Checkpoint status check - Feb 14, 2026
+- Homepage renders correctly with hero, social proof ticker, partner quotes
+- 0 TypeScript errors, 0 LSP errors
+- All 31 tests passing
+- Server running clean
+- Share buttons rewritten with anchor-click approach + Web Share API
+- Inline markdown rendering added to LinkedParagraph
+- 9 more posts cleaned of metadata cruft

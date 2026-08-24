@@ -1,0 +1,53 @@
+SoulSmoke Mezcal Site — Design Analysis
+
+BRAND NAME: SOULSMOKE — "The Miracle of Mezcal"
+TAGLINE: "What enters the mouth must speak to the mind and stay with the heart."
+
+COLOR PALETTE:
+- Primary background: Very dark green-black (#0D0D0A or similar)
+- Accent: Lime/chartreuse green (#C5FF00 or similar) for CTAs and highlights
+- Secondary accent: Gold/amber (#C5A23C) for badges (EVI, EEI)
+- Text: Warm off-white/cream for body text
+- Headlines: Bright white with decorative serif font
+
+TYPOGRAPHY:
+- Headlines: Decorative serif with medieval/alchemical feel — very large, dramatic
+- "SOULSMOKE" wordmark: Custom blackletter/uncial style, massive
+- Body: Elegant serif for descriptions
+- Labels/CTAs: Sans-serif or mono, uppercase, with letter-spacing
+
+LAYOUT STRUCTURE:
+1. Hero: Full-viewport dark background, massive wordmark, tagline in italic serif, CTA button
+2. "Be the Glitch" section: Split layout — text left, atmospheric photo right (clay pot over fire with green smoke)
+3. "Two Ways to Measure Magic" — EVI and EEI rating system cards on dark background
+4. "Choose Your Adventure" — 5 clickable cards with photo backgrounds (US Hunt, Mexico Source, Scent-to-Agave Finder, Agave Encyclopedia, Ancestral Process)
+5. Email signup section
+6. Journey progress indicator at bottom
+
+KEY DESIGN ELEMENTS:
+- Ambient sound toggle ("Light fire")
+- SoulSmoke/Aficionado mode toggle
+- EN/ES language toggle
+- Photo backgrounds with dark overlays on cards
+- Atmospheric photography: fire, smoke, agave fields, copper stills
+- Journey progress indicator (1 of 6: Home)
+- Green glow/smoke effects
+- Cards with hover animations
+
+INTERACTIVE FEATURES:
+- Scent-to-Agave Finder (interactive flavor decoder)
+- Agave Encyclopedia (27 species)
+- Scroll-driven ancestral process journey
+- Two rating indices (EVI, EEI)
+- Collection of 25 US bottles, 25 Mexico legends
+
+VOICE/TONE:
+- Irreverent, passionate, anti-mainstream
+- "Zero interest in the ordinary, the predictable"
+- "Bottles that give your palate an existential crisis"
+- "Rupture in the matrix of mass-produced spirits"
+- Deeply knowledgeable but never pretentious
+
+MULTI-PAGE STRUCTURE:
+- Home, The Evolution, The Agaves, The Process
+- Plus: Explore dropdown, More dropdown

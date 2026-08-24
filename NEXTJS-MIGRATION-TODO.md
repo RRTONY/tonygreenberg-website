@@ -1,0 +1,322 @@
+# TonyGreenberg.com → Next.js Migration — Master Todo
+
+> Work through this **top to bottom, one checkbox at a time**. Check items off as they're completed.
+> New Next.js codebase lives at [`web/`](web/) inside this same project. Legacy Vite/Express app
+> (`client/`, `server/`, `shared/`) stays untouched and running at the project root until Phase 12 cutover.
+> Companion doc: [ROUTES-INVENTORY.md](ROUTES-INVENTORY.md) — full route → source-file map used to port each page.
+
+**Scope for this pass** (confirmed with Tony's team, 2026-08-22):
+- ✅ IN: Marketing pages, Blog (121 posts), BrewSoul, PRI/Kava encyclopedias, Manifesto, all Find-Your/HumanOS assessments, FauxTony chatbot, publish-approval workflow.
+- ⛔ OUT (stays on legacy stack for now, ported in a later phase): Admin dashboards, Stripe billing, spam-tracking/Spamtoast system.
+- CMS boundary: **Sanity** holds editorial content only — blog posts, page copy, SEO metadata, images. Assessment questions/scoring logic and encyclopedia data stay as versioned code/config in the repo.
+- **Supabase** covers auth/login, the change-request/publish-approval log, and chatbot conversation history.
+- UI: Tailwind CSS v4 + shadcn/ui (Radix base) — same design-system convention the team already uses elsewhere. `next/image` for all images. No framer-motion — CSS transitions / `tailwindcss-animate` only.
+
+---
+
+## Phase 0 — Bootstrap
+
+- [x] Scaffold Next.js 16 (App Router, TypeScript, Tailwind v4, `src/` dir, `@/*` import alias) at `web/`
+- [x] Initialize shadcn/ui (Radix base, Nova preset, CSS variables)
+- [x] Install core UI components (button, card, dialog, sheet, dropdown-menu, accordion, tabs, avatar, tooltip, separator, select, checkbox, radio-group, switch, popover, navigation-menu, badge, input, label, skeleton, progress, alert, scroll-area, carousel, aspect-ratio, hover-card, sonner, slider, toggle, toggle-group)
+- [x] Install Sanity (`sanity`, `next-sanity`, `@sanity/image-url`, `@sanity/vision`, `@portabletext/react`)
+- [x] Install Supabase (`@supabase/supabase-js`, `@supabase/ssr`)
+- [x] Install `zod`, `react-hook-form`, `@hookform/resolvers`, `date-fns`, `next-themes`, `@anthropic-ai/sdk`, `reading-time`
+- [x] Fix `pnpm-workspace.yaml` `allowBuilds` (esbuild, sharp → true)
+- [x] Configure `next.config.ts` `images.remotePatterns` (Sanity CDN + legacy Manus/CloudFront hosts, temporary)
+- [x] Read Next.js 16 bundled docs (`node_modules/next/dist/docs/`) for breaking changes vs. Next 13-15 (proxy.ts vs middleware.ts, Promise `params`, cache directives, Image config defaults) — confirmed, documented in agent notes
+- [x] `pnpm install` clean, `pnpm dev` boots with no errors (verified: Turbopack ready in 375ms, HTTP 200)
+- [x] Add `.env.local.example` documenting every env var this app needs (Sanity project ID/dataset/token, Supabase URL/anon/service keys, Anthropic API key, site URL)
+- [x] `web/README.md` rewritten: what this app is, how it relates to the legacy app at the repo root, how to run it, how Sanity/Supabase are wired, Next.js 16 breaking-change notes
+
+## Phase 1 — Sanity Studio & Schema
+
+- [x] Connected to an existing Sanity project already owned by the team ("Tonygreenberg", project ID `a3q1cyqs`, dataset `production`) — found via an already-authenticated CLI session rather than creating a new one; recorded in `web/.env.local`
+- [x] Embed Studio at `web/src/app/studio/[[...tool]]/page.tsx`
+- [x] Schema: `post` (title, slug, subtitle, excerpt, pullQuote, body [portable text], heroImage, author ref, category ref, tags[], publishedAt, readTime, seo) — actual path `web/src/sanity/schemas/post.ts`
+- [x] Schema: `author` (name, slug, avatar, bio)
+- [x] Schema: `category` (title, slug, description)
+- [x] Schema: `page` (title, slug, body, seo) — for marketing pages that need CMS-editable copy
+- [x] Schema: `seo` object (metaTitle, metaDescription, keywords, ogImage, noIndex) — reused across `post`/`page`/`pageSeo`
+- [x] Schema: `pageSeo` (route-keyed SEO override, not in the original plan — added because this site has far more routes than a `page` document per route would suit; see the schema file for why)
+- [x] Schema: `siteSettings` singleton (site title, tagline, logo, defaultSeo, navigation, footerColumns, footerText, socialLinks)
+- [x] Schema: `redirect` (source, destination, permanent) — backs the Manus→Next.js 301 map (Phase 12)
+- [x] Sanity client + typed query helpers — actual path `web/src/lib/sanity/client.ts` + `queries.ts` (not `web/src/sanity/*` as originally sketched here; schemas live in `src/sanity/`, app-facing read code lives in `src/lib/sanity/`)
+- [x] Sanity image URL builder helper (`web/src/lib/sanity/image.ts`) wrapping `@sanity/image-url`, used by `next/image` everywhere
+- [x] Write one-off migration script (`web/scripts/migrate-blog-posts.ts`, `pnpm migrate:blog [--dry-run]`): reads `client/src/data/blogData.json` (121 posts) → creates Sanity `post` documents, idempotent by deterministic `_id` (skips posts that already exist)
+- [x] Ran the migration: **121/121 posts created, 0 errors.** Author (`Tony Greenberg`) and 9 categories auto-created. 22 posts got a real hero image uploaded (17 already on RampRate's own CloudFront + 4 rescued live from the legacy `/api/img/` proxy + 1 rescued from `/manus-storage/` before Manus is decommissioned). 99 posts have no hero image yet — tracked per-post in [`BLOG-IMAGE-BRIEFS.md`](../BLOG-IMAGE-BRIEFS.md) with a suggested generation prompt for each; check them off there as real art goes in via Studio
+- [ ] Spot-check 5-10 migrated posts in Studio (`/studio`) — verify body formatting (headings/lists/links) came through correctly from the markdown conversion
+- [x] **Real bug found and fixed**: `markdown-to-portable-text.ts`'s list-item conversion only ever looked for a `"text"`-type token inside `item.tokens`; marked wraps any "loose" list item (one followed by a body paragraph on the next line — e.g. five-cups' "Five Questions Worth Sitting With") in a `"paragraph"` token instead, so every such item silently converted to an empty Portable Text block (visible live as a bare, contentless numbered list). Fixed the converter to handle both token shapes, then wrote `scripts/backfill-list-item-content.ts` (idempotent, patches only `body`) and ran it against all 121 already-migrated posts — **6 posts had at least one empty list item; all 6 fixed in place.**
+
+## Phase 2 — Supabase
+
+- [ ] **Blocked on you:** creating the actual Supabase project needs an interactive browser login (`supabase login`) or the dashboard — not something that can be done headlessly, same category of blocker as the earlier Sanity API-token issue. Either run `supabase login` yourself and say so, or create the project at supabase.com/dashboard and paste the Project URL + anon key + service-role key here (same handling as the DB password and Sanity token before — straight into `web/.env.local`, gitignored, never in a tracked file)
+- [x] `web/src/lib/supabase/server.ts` (SSR client for Server Components/Actions, current `getAll`/`setAll` cookie API) and `client.ts` (browser client) helpers
+- [x] `web/src/lib/supabase/service-role.ts` — bypasses RLS, server-only, for chat logging (not in the original plan, but required to satisfy "service-role write only, no public read" below)
+- [x] `web/src/proxy.ts` — Supabase's required session-refresh middleware, renamed to `proxy.ts` per Next.js 16. **Ships with a guard**: if `NEXT_PUBLIC_SUPABASE_URL`/`_ANON_KEY` aren't set yet, it no-ops instead of throwing — without that guard it took the *entire site* down (every route 500'd) the moment it was added, since it ran on every request. Safe to leave in place; it activates automatically once real credentials land in `.env.local`
+- [x] Auth: email/password login for internal approvers — `web/src/app/(auth)/login/page.tsx` + `login-form.tsx` + `actions.ts` (Server Action via `useActionState`, real spinner on submit per the loader rule in `CONTRIBUTING.md`, not text). Renders correctly now (verified: HTTP 200, real form) but signing in will fail until the Supabase project above actually exists
+- [x] SQL migration written (`web/supabase/migrations/0001_init.sql`): `change_requests` table, `chat_conversations` + `chat_messages` tables, RLS enabled on all three. Not yet run against a live database — needs the project above first (`supabase db push` once the CLI is linked, or paste into the SQL editor)
+- [x] Row-level security policies written in that same migration: authenticated-only read/write on `change_requests` (noted in-file to scope tighter than "any authenticated user" once more accounts exist); chat tables get RLS enabled with **zero** policies for `anon`/`authenticated`, which is what actually enforces "service-role write only, no public read" (service role bypasses RLS entirely — that's not a policy, it's the point)
+- [ ] Seed one approver account for testing — blocked on the project existing
+
+## Phase 3 — Shared Layout & Design System
+
+- [x] Root layout (`web/src/app/layout.tsx`): fonts (Playfair Display / DM Mono / Source Sans 3 via `next/font/google`), `<TooltipProvider>`, theme provider (next-themes, class strategy), global `<Toaster />` (sonner), skip-to-content link
+- [x] Global metadata defaults in root layout (`metadataBase`, title template, default OG/Twitter card)
+- [x] Favicon (`src/app/icon.tsx`) — real brand mark, not the default Next.js icon: a generated 32×32 PNG of the "G" from the header's actual "TonyG" wordmark (Playfair Display, brand-gold), since the full wordmark doesn't read at favicon scale. Deleted the stale default `favicon.ico`.
+- [x] Header/nav component (`site-header.tsx`) — real nav structure ported from legacy `Layout.tsx` (primary links, "Fix Myself"/"Explore" mega-menus, socials, theme toggle), built with shadcn `NavigationMenu`. **Deliberately not ported**: `StartHereBanner`, `ExitIntentTony`, `TonyAvatarTrigger`, `NotificationBell`, `ReadingStreakBadge`, `WhereNext` — separate behavioral/engagement features, not core layout, out of scope for this phase
+- [x] Mobile nav (shadcn `Sheet` + `Accordion`, real nav content, no framer-motion)
+- [x] Footer component (`site-footer.tsx`) — real content ported from `Layout.tsx`'s footer JSX (quote, contact, BioChain routing note, socials, CTAs, bio line, legal/copyright). Note: `footerData.json` turned out to be per-post article-footer data (exercise/related/riddle/CTA), not site footer content — that belongs in Phase 5, not here
+- [x] Brand design tokens in `globals.css` (`--brand-gold`/`--brand-gold-light`/backgrounds/borders) ported from the real site palette (`#8B6914`, `#D4B96A`, `#0A0A10`, `#FAFAF7`, purple-tinted borders) instead of shadcn's default grayscale theme
+- [x] Shared typography components — ended up built directly in Phase 5 (`portable-text.tsx`, drop-cap CSS, pull-quote block) rather than as a separate Phase 3 deliverable, since that's where they're actually consumed
+- [x] `robots.ts` (AI crawlers explicitly allowed per the current SEO plan, scraper bots blocked) and `sitemap.ts` (live from Sanity post slugs already, extended per-section in later phases)
+- [x] Error boundary (`error.tsx`) and `not-found.tsx` (real legacy 404 copy + countdown-redirect behavior ported from `pages/NotFound.tsx`)
+- [x] Loading UI (`loading.tsx`) using shadcn `Skeleton`
+- [x] Icon library decision: lucide-react for all standard UI icons (menu, sun/moon, chevrons); `react-icons/fa6` only for the X/LinkedIn brand marks, since lucide-react v1 dropped brand/logo icons entirely
+- [x] Top-of-page navigation progress bar (`nav-progress-bar.tsx`) — visible feedback on route transitions, built on the Navigation API (`window.navigation`) rather than a dependency like nprogress; progressive enhancement, renders nothing where unsupported
+- [ ] Verify header/footer/nav visually in a real browser (only checked via HTTP fetch + grep so far, not actually viewed)
+
+## Phase 4 — Marketing Core Pages (30 routes)
+
+Source: legacy `client/src/pages/*.tsx`. Port real copy/structure into Next.js pages under `web/src/app/`, styled with Tailwind + shadcn primitives, content that should be editable moved into Sanity `page` documents.
+
+- [x] `/` (homepage) — Blog.tsx. **Not the same page as `/the-letter`** — legacy actually routes `path="/"` to the `Blog` component, not `Home.tsx` (`Home.tsx` is legacy's `/the-letter`, already ported separately below); this had briefly regressed to a plain paginated post list before this pass corrected it. Real content ported: hero (headline, stats line, essay count/nav line), Four Doors (Read/Diagnose/Engage/Verify — reusing the shared `FourDoors` component built for `/the-letter`, extended with an icon-tile fallback since these 4 source photos live on the now-fully-decommissioned Manus host, see Phase 13 note), Editor's Picks (5 real curated posts), GemSpark Strip (a real, small editorial motif — only 3 posts in the whole corpus reference it; hand-ported subtitles since Portable Text has no raw-heading string left to regex the way legacy did), Case File banner, Latest Thinking, Positioning Statement, Core Themes (4 theme cards linking to `/?theme=X#essays-archive`, read by the archive below), Ecosystem CTA (essay count now live from Sanity instead of legacy's stale hardcoded "ninety-one"), and the full searchable/filterable archive + sidebar (Curated Journeys, Tip Me Off, Follow). **Intentionally not ported**: the ABIT waitlist email-capture form (posts to a tRPC subscribe mutation — a backend/CRM feature, out of this migration's "no backend features" scope, not a content gap) and legacy's "Most Read"/"Most Provocative" sidebar widgets (both ranked by a `reads` count that defaulted to a flat placeholder value for any post without one — not real analytics, and this migration doesn't fabricate numbers it can't back; revisit once real view-count data exists). Legacy also rendered this exact same component at `/blog` — this app briefly made `/blog` a redirect to `/` instead, then restored it as its own real page (reusing the same `HomeArchive` component under its own heading/metadata, no hero/doors/editor's-picks in front) per explicit direction to keep `/blog` and `/` as two distinct pages, matching nav's own "Read" → `/blog` link. Used lucide-react icons throughout (themes, curated journeys, doors, search bar) instead of the legacy emoji. All new sections use the site's existing theme tokens (`background`/`secondary`/`foreground`), not hardcoded colors, so they follow the light/dark toggle like every other page. Verified live: 200 OK, all sections present in SSR HTML, real post data, `/blog` redirects, lint+typecheck clean. **Two real post-ship bugs caught and fixed**: (1) `HomeArchive`'s `useState(initialTheme)` only applies on first mount — clicking a Core Themes card while already on `/` is a same-route client-side navigation that doesn't remount the component, so the theme filter silently never activated; fixed with the same "adjust state during render" pattern already used in `site-header.tsx`. (2) `site-header.tsx`'s rightmost "Explore" mega-menu (640px, `viewport={false}` on `NavigationMenu` so no built-in collision avoidance) overflowed off the right edge of the viewport on laptop-width screens; fixed by right-anchoring that one trigger's content (`right-0 left-auto`) plus a `max-w-[calc(100vw-2rem)]` safety net on both mega-menus.
+- [x] `/the-letter` — Home.tsx. Real content/links/data ported (hero, Three Paths, Start Here essays, Four Doors as a shadcn `Dialog` instead of the legacy custom modal, Featured Essay pulled live from Sanity, How Tony Works, Investment Thesis, Open Questions, What I Build, Most Read, BrewSoul teaser). Deliberately not reproduced: floating-particle animation, glowing-bowl gradients, glitch text, magnetic-hover physics, typewriter intro — decorative flourishes, same judgment call as Phase 3's engagement widgets. Rescued 5 images (hero + 4 door photos) from the still-live legacy `/api/img/` proxy into Sanity before porting (`scripts/rescue-homepage-images.ts`) rather than reference the fragile path. Fixed 2 legacy bugs found while porting: `/ramprate` and `/human-os` linked to routes that don't exist (corrected to `https://ramprate.com` and `/humanos`); "Most Read"'s 5 items all pointed at the same generic `/blog` placeholder instead of each post's real slug — corrected using the real migrated post slugs. Verified live: 200 OK, real content, fixed links, real images, no leaked inline styles, lint+typecheck clean.
+- [x] `/walk-through` — WalkThrough.tsx. Real content ported (7 doors, entity pills w/ real named investments, "Ask me about" lines, cross-links, pull quotes, "The Lesson" callout). Hero reuses the Tony headshot already rescued to Sanity (Phase 12 JSON-LD work) rather than re-fetching. Not ported: `AutoLinkedText`'s automatic entity hyperlinking — that's driven by the site-wide `linkMap.ts`, a genuine cross-cutting feature affecting many pages, not a one-off for this page; folded into the existing "preserve internal cross-link structure" open item in Phase 5. Verified live: 200 OK, real content, real image, correct next-page link.
+- [x] `/the-territory` — Territory.tsx. Real content ported (10 heroes/influences with full notes, Operating Philosophy, pull quote, "The Lesson" callout, next-page link). Verified live: 200 OK, real content, correct next-page link.
+- [x] `/engine-room` — EngineRoom.tsx. Real content ported (6 active ventures, 4 active engagements, pull quote, "The Lesson" callout, next-page link). Verified live: 200 OK, real content, correct next-page link.
+- [x] `/under-nda` — UnderNDA.tsx. Real content ported (Corridor overview, pull quote, "What We're Building" list, inline quote, "The Lesson", next-page link). Verified live: 200 OK.
+- [x] `/the-body` — TheBody.tsx. Real content ported (Alt Therapy Scorecard, Current Protocols, Peptide Research Tools links, pull quote, "The Lesson"). Hero image rescued from legacy `/api/img/` into Sanity before porting. Verified live: 200 OK, real image.
+- [x] `/the-nightstand` — Nightstand.tsx. Real content ported (7 books, 5 key concepts, pull quote, "The Lesson"). Hero image rescued into Sanity. Verified live: 200 OK, real image.
+- [x] `/the-web` — TheWeb.tsx. Real content ported (20 client badges, 4 key partnerships, pull quote, adage strip, "The Lesson"). Hero image rescued into Sanity. Verified live: 200 OK, real image.
+- [x] `/pick-up-the-phone` — PickUp.tsx. Real content ported (Engagement Audit CTA to /engage, email/location, "What to Talk About" topics, social links, pull quote, "The Lesson"). Verified live: 200 OK.
+- [x] `/journeys` — Journeys.tsx. Real content ported (7 curated journeys, all real stops/teasers), rebuilt as a proper shadcn `Accordion` instead of hand-rolled expand state. Fixed 2 legacy bugs: stops pointing at `/` meant the old homepage — remapped to `/the-letter` since `/` is now the blog index; 3 "Crusade Files" stops pointed at the generic `/blog` placeholder instead of the specific post — corrected to real slugs. **Also caught a real SEO issue**: shadcn's `AccordionContent` doesn't render collapsed-panel children into the DOM at all by default — every internal link on this link-heavy page was invisible to crawlers until a user clicked to expand it. Fixed with `forceMount` (documented inline). Worth checking any other page that ends up using `Accordion` for real content, not just decoration. Verified live: 200 OK, all links (including the corrected ones) present in the raw server-rendered HTML, not just after hydration.
+- [x] `/recent-creations` — Portfolio.tsx. Real content ported (11 project cards, real accent colors — the one legitimate per-item inline-style exception, static Tailwind classes can't express 11 runtime hex values). Fixed a dead internal link (Homeaglow Exposed pointed at a route that doesn't exist anywhere; corrected to the real external homeaglowexposed.com already used consistently on other ported pages) and remapped `/` → `/the-letter`. Flagged but did NOT fix: "FusionRamp / STRATUM" points at `/humanos`, same as the unrelated Human OS card — looks like a copy-paste bug but there's no confirmed correct destination anywhere in the codebase, so ported as-is with a comment rather than guessed; worth a content-team check. Verified live: 200 OK, fixed links present.
+- [x] `/intel` — Intel.tsx. Real content ported in full (9 portfolio companies, each with investment thesis, three gates, 7-dimension compass scores, full iRR framework, competitive landscape). Rebuilt as a shadcn `Accordion` with `forceMount` from the start (learned from `/journeys`), verified live that investment-thesis/competitor text is present in the raw SSR HTML, not just after a click. Verified live: 200 OK.
+- [x] `/about` — About.tsx. Real content ported in full (3 narrative chapters, "The Receipts" stats, "What I'm Thinking Now", The Muse, Featured In, closing CTA). Built `partner-quotes.tsx` as a proper shared component (19 real client testimonials — Disney, Microsoft, eBay, Sony, etc.) since it's a cross-page resource, not a one-off; made it deterministic instead of the legacy `Math.random()` shuffle so quotes are actually in the SSR HTML. Reused the headshot + homepage hero images already rescued to Sanity. Correctly left this page's "Back to the Essays" link at `/` as-is (unlike other pages, this one genuinely means the blog/essays index). Verified live: 200 OK, both images, real quotes.
+- [x] `/speaking` — Speaking.tsx. Real content ported (4 speaking topics, 4 formats, rooms spoken at, CTA). Verified live: 200 OK.
+- [x] `/ecosystem` — Ecosystem.tsx. Real content ported (What It Is, Who It's For, What Members Receive, invitation CTA). Verified live: 200 OK.
+- [x] `/start-here` — StartHere.tsx. Real content ported (5 curated essay cards, "After the Foundation" CTA). **Found all 5 curated essays have no real hero image** — a subset of the 99 in `BLOG-IMAGE-BRIEFS.md`, but higher priority since this is the site's own "read these first" page; renders a graceful tag-colored number panel instead of a broken image meanwhile. Verified live: 200 OK.
+- [x] `/published` — Published.tsx. Real content ported in full (5 publication badges, 30 real bylines with real external URLs across 6 categories, speaking/podcast list). **Caught two real Tailwind bugs before shipping**: (1) building class names via `` `hover:${c.border}` ``/`` `${c.border}/20` `` template-literal concatenation doesn't work — Tailwind's scanner needs the complete literal string present in source, so those never would have generated any CSS; fixed by precomposing every exact variant as a full literal string. (2) mixing an all-sides `border-[color]` with a directional `border-l-4` would have fought the base `border-border` on other sides — fixed using directional `border-l-[color]` utilities instead. Verified the fix by running a full production build and grepping the compiled CSS chunk directly for `border-l-[#2563eb]/30` and `hover:border-l-[#2563eb]` — both present as real rules, not just present as strings in the HTML. Also ran `pnpm build` clean across all 16 pages shipped so far (154 static pages total) as a broader checkpoint.
+- [x] `/clients` — Clients.tsx. Real content ported in full (90 real client names with industry + Hawkins-score data, real filter/sort interactivity rebuilt in a small client component, Hawkins scale legend, CTA). Caught another real React bug before shipping: `FilterButton` was defined inside `ClientsGrid`'s render body (`react-hooks/static-components` — recreates the component type every render, resetting its state); moved to module scope. Verified live: 200 OK, real client names present.
+- [x] `/series` — Series.tsx ("The Collections"). Real content ported in full (11 real curated essay series with real, already-migrated post slugs, 6 legacy category colors as precomposed literal Tailwind classes per the `/published` pattern — not fragment-assembled). Episode titles/hero images now fetched live from Sanity via a new `postsBySlugsQuery` instead of the legacy static blogData.json import, so they stay in sync as posts get real hero images added. Fixed a dead legacy link: `/the-index` (not a real route, not in nav) → `/search` (the label "Search All Essays" clearly describes this app's planned search page). Verified live: 200 OK, all 11 series titles present, 49 real post links, real Sanity hero images rendering where the linked post has one.
+- [x] `/framework` — LeadMagnet.tsx ("How I'd Approach Your Problem"). Real content ported in full (5-step framework, each with real description/prompt/real-world example). Rebuilt the per-step "see real-world example" toggle as shadcn `Collapsible` with `forceMount` (same crawlability rule as `/journeys`/`/intel` — verified the example text is in the raw SSR HTML, not just after a click), installed via `pnpm dlx shadcn add collapsible` since it wasn't in the project yet. **Intentionally not ported**: the email-gated "download the worksheet" form — it posted to a tRPC subscribe mutation and didn't actually attach/send a real PDF even in the legacy source (just showed a success message), a backend feature with no real deliverable behind it, out of scope. Replaced with a direct CTA to `/pick-up-the-phone`. Verified live: 200 OK, all 5 steps + real-world examples present in SSR HTML, lint+typecheck clean.
+- [x] `/spirits` — Spirits.tsx ("The Liquid Library"). Real content ported in full (5 categories — Mezcal, Tequila, Sake, Coffee, Wine — each with philosophy, obsessions list, pullquote; Tequila's 5-item "Agave Matchmaker" newsletter digest; Sake's "coming soon" note). **Caught two dead external links**: the Mezcal and Tequila companion sites (SoulSmoke, LiquidSun) were hosted on `*.manus.space` — confirmed 503 along with the rest of Manus, not just the primary domain. Rendered as a non-linked "no longer live" card instead of a broken outbound link, keeping the real descriptive copy. Coffee's `/brewsoul` link kept as-is (real future internal route, Phase 6, not yet built). Verified live: 200 OK, all 5 categories + digest content present, dead external links correctly not rendered as `<a>` tags.
+- [x] `/community` (+ `/find-my-tribe` → 308 redirect, `next.config.ts`) — Community.tsx. Legacy is almost entirely a functional community/CRM platform (auth-gated profile editing, CSV contact upload, email invites, member directory) backed by tRPC + a custom auth system — a backend feature, not a content page, out of this migration's scope. Ported the only real editorial content (hero copy, closing manifesto quote/link) and replaced the auth-gated CRUD tabs with an honest "still being built" note + a real CTA to `/pick-up-the-phone`, rather than reproducing a non-functional sign-in gate. Verified live: 200 OK, redirect confirmed 308.
+- [x] `/engage` — Engage.tsx ("The Gate"). The qualification quiz itself (5 real questions, the exact scoring heuristic, all 3 result screens — qualified/not-ready/wrong-fit, the real Calendly link, the 2× guarantee copy) is genuinely client-side logic already in legacy (scored by a pure regex/word-count function, no server round-trip needed to decide the outcome) — ported in full as real assessment logic per the CMS-boundary rule. **Not ported**: the tRPC `engage.submit` mutation that logged each submission for Tony's own records — a lead-tracking write, out of scope; dropping it doesn't change the visitor's experience, the gate still scores and unlocks the real Calendly link correctly. Verified live: 200 OK, full quiz flow present, lint+typecheck clean.
+- [x] `/amplifier` — Amplifier.tsx. Real content ported in full and unreduced (Matt Mochary note, 5 pillars, unfair advantage, 2× guarantee, 4 real pricing tiers, prep-doc requirements, "what Tony will not do" list). No backend dependency at all — every CTA is either an internal `/engage` link or a real `mailto:`. Verified live: 200 OK, all sections + both CTA link types present.
+- [x] `/diamond-cut` — DiamondCut.tsx. Real content ported in full (Honest Note re: Matt Mochary, 5 cuts, 2× guarantee, 4 real pricing tiers). Legacy's 3 non-"Setting" tiers used a live `StripeCheckoutButton` — checkout/billing is deferred per this migration's scope, so those now route to `/engage` instead (pricing/copy unchanged, matching how `/amplifier`'s tiers already work), rather than wiring up a real payment flow this pass. Verified live: 200 OK, all sections + tiers present.
+- [x] `/essays` — Essays.tsx. A second, distinct essay index from the homepage's archive — filters by "archetype" (Builder/Crusader/Investor, ported from `client/src/data/archetypes.ts` as `src/lib/content/archetypes.ts`) instead of Core Themes, compact list layout instead of a card grid. Not linked from current nav (legacy didn't link it from nav either — it's a real destination referenced by other not-yet-built pages like SkippyMap/CheshireGrin). Posts now fetched live from Sanity instead of the static blogData.json import. Verified live: 200 OK, archetype/category filters + real post list present.
+- [x] `/invest` — Invest.tsx ("Invest in the Thesis"). Real content ported in full — 6 portfolio categories, 32 real named companies with role/note, "and many more" teaser → `/engage`, ABIT waitlist section. The waitlist is a real outbound link to impactsoul.is (confirmed live, a separate real site) — no backend/email-capture on this page at all. Verified live: 200 OK, all 6 categories + companies + outbound link present.
+- [x] `/akbar` — AkbarEssay.tsx ("Los Angeles Is Losing Its Memory"). Real essay prose ported in full, unchanged (every section, every pull quote, all 6 wine pairings, the 3 reframe terms). Legacy was a ~20-image photo essay entirely on the now-fully-dead Manus `/api/img/` host — none recoverable, confirmed 404/503. Rather than fabricate placeholder imagery for a piece about specific real photographs, ported as a clean long-form article and tracked the loss explicitly (see Phase 13) instead of pretending it's not there. Kept the deliberately dark, fixed palette (this is a one-off bespoke essay design, not site chrome, so a permanent dark mood is the real intent) but reused the site's existing loaded fonts instead of the 3 extra webfonts legacy imported for just this page. Verified live: 200 OK, full essay text present.
+- [x] `/living-declaration` (+ `/manifesto` → 308 redirect, `next.config.ts`) — Manifesto.tsx ("A Living Declaration — The Measurement of Becoming"). Real essay prose ported in full: the premise, "Boiling the Human" retrospective, 4 real pull quotes (Tristan Harris, Toffler, Harari, Eisenstein), the original 6 numbered practices + exceptions + specific steps, Phase 2/Balaji Srinivasan section, The Puzzle Pieces (acknowledgments), the 6 Roman-numeral principles, and the closing CTAs. Legacy's hero photo, "hand breakthrough" image, and Clarisse Abelarde's artwork photo are all on the now-fully-dead Manus host — dropped (real text credit to her kept), not fabricated. The "Ecosystem Map" 6-card grid originally linked to 6 *other* Manus-hosted micro-sites (Gem Spark, Regenerative Protocol, SoulSmoke, LiquidSun, Sacred Waters, Intimacy Assessment) plus a "Vancefolio" site — confirmed all 503; those link chips dropped, keeping only chips to pages actually live in this app (or genuinely planned, like `/humanos`/`/flow-circuit`, already referenced elsewhere in this migration). The interactive questionnaire (`trpc.manifesto.submit` — unlike `/engage`'s audit, this one has no logic that works without a backend) replaced with a direct, real `mailto:` invitation instead of a form that would go nowhere. Corrected `/assessment` → `/assessments` (the real legacy route name, confirmed in `App.tsx`; the singular looks like a typo in the original). Verified live: 200 OK, all sections + quotes present, redirect confirmed 308.
+- [x] `/protecting-your-business` — ProtectingYourBusiness.tsx. Real documented fraud case file (Kristi Klawiter) ported in full — every factual claim, citation, the fact/opinion separation (`AlertBox`/`OpinionBox`), all quoted correspondence, the 13-section structure, and the full Legal Notice preserved verbatim; already-published, court-record-cited content, not new allegations authored here. **Not ported**: the "Submit Your Story" form (`trpc.cheshire.submit` — a lead-intake backend feature with no client-side logic of its own) replaced with a real `mailto:`; the closing SEO keyword-stuffing footer (bare repeated-name list, no informational content) dropped as an actual SEO improvement — modern search engines penalize that pattern, and the same keywords already live correctly in page metadata. Simplified the floating hamburger/TOC overlay to a plain inline jump-to-section list. Verified live: 200 OK, all sections + full legal notice present.
+- [x] **Real bug found and fixed** (while verifying the above): a Core Themes selection (e.g. "The Crusades") often shares its display name with a real post category — showing it as a separate floating chip *next to* the category pill row (rather than merging into the matching pill) read as two disconnected, contradictory controls. Fixed `HomeArchive` so an active theme lights up the matching category pill directly (with the same click-to-clear ✕ affordance) instead of a separate chip; a theme with no same-named category still falls back to its own chip.
+- [x] `/rip-peptide-sciences` — RipPeptideSciences.tsx. Real content ported in full (7-event timeline, 3 shutdown-reason cards, COA explainer, 9-vendor sortable scorecard, Tony's quote). Built `components/marketing/biochain-cta.tsx` — a shared CTA used across every peptide/bio-sourcing page, real static outbound links to RampRate's own BioChain site (confirmed live), no backend on this side. Installed `formik`+`yup` this pass for upcoming multi-field forms (peptide quiz, etc.) — documented as the house convention in `CONTRIBUTING.md`. Verified live: 200 OK, timeline/reasons/vendors/quote all present.
+- [x] `/whats-legal` — WhatsLegal.tsx. Real content ported in full — 17 real compounds with real US/UK/Australia regulatory status, searchable/risk-filterable table, the 3 "key distinctions" callouts. No backend dependency. Verified live: 200 OK, full table + all real compounds present.
+- [x] `/verify-your-coa` — VerifyYourCoa.tsx. Real content ported in full (interactive 7-point checklist with live score, 4-step Janoshik verification walkthrough). Extracted `components/marketing/peptide-shutdown-banner.tsx` (shared FDA-shutdown banner, was duplicated inline on `/whats-legal`, now both use the one component) and `components/marketing/coa-checklist.tsx`. Also caught and fixed 3 duplicated `EyebrowLabel` component definitions (identical code in `/amplifier`, `/diamond-cut`, `/living-declaration`) — extracted to `components/marketing/eyebrow-label.tsx`. Verified live: 200 OK, full checklist + walkthrough present.
+- [x] `/price-tracker` — PriceTracker.tsx. Real content ported in full — 14 real compounds with research-vendor vs. telehealth price ranges, Tony's takes, sortable table, and the interactive up-to-4 stack cost calculator. Reused `PeptideShutdownBanner`. Verified live: 200 OK, full price table + calculator present.
+- [x] `/test-your-peptides` — TestYourPeptides.tsx. Real content ported in full — 4 real independent-verification options (Janoshik, r/Peptides, Eroids, telehealth route) with real sites, costs, and Tony's notes. Reused `PeptideShutdownBanner` + `BioChainCTA`. Verified live: 200 OK, all 4 options present. Also renamed `/blog`'s heading from "The Blog" to "Essays" per feedback (matches `/essays` and the site's own voice).
+- [x] `/peptide-library` — PeptideLibrary.tsx. Real content ported in full — 20 real compound profiles across 8 categories, each with mechanism, safety tier, evidence score, regulatory status, pricing, stack partners, Oura tracking, key study, and Tony's take; expandable cards with category filter. Reused `PeptideShutdownBanner` + `BioChainCTA`. Verified live: 200 OK, all 20 compounds present.
+- [x] `/peptide-hall-of-shame` — PeptideHallOfShame.tsx. Real content ported in full — 20 real named clinics/providers audited on 6 weighted clinical criteria, sortable rankings with expandable weaknesses/strengths, comparison callout for the site's own assessment, methodology note. Reused `PeptideShutdownBanner` + `BioChainCTA`; built `ClinicRankings` (`components/marketing/clinic-rankings.tsx`). Real bug caught and fixed: `CRITERIA` was defined and exported from `clinic-rankings.tsx` (a `"use client"` file) and imported directly into the Server Component `page.tsx`, which crashed at runtime (`CRITERIA.map is not a function`) — a plain data re-export doesn't survive the Client→Server boundary. Fixed by moving `CRITERIA` to a new shared plain module, `lib/content/peptide-criteria.ts`, imported by both. Verified live: 200 OK, no error digest, all 20 clinic names and both methodology-card criteria present in rendered HTML.
+- [x] `/peptide-supply-chain` — PeptideSupplyChain.tsx. Real content ported in full — 12 real named providers audited on a 7-category cost breakdown (manufacturing/marketing/compliance/physician/R&D/shipping/profit) with a derived credibility score, sortable rankings, expandable per-provider dollar breakdown + red-flag tags, green/red-flag guidance, methodology note. Built `SupplyChainRankings` (`components/marketing/supply-chain-rankings.tsx`) + shared `lib/content/supply-chain-providers.ts` (kept data out of the client file per the same Client→Server export pitfall fixed on `/peptide-hall-of-shame`). Dropped the legacy `EmailGate` (`trpc.subscribe.add` backend mutation) — full analysis now renders directly with no gate, matching `/peptide-library` and `/price-tracker`. Legacy hero background image (CloudFront) confirmed 403, same host/failure as `/peptide-hall-of-shame` — dropped for a CSS gradient. Reused `PeptideShutdownBanner` + `BioChainCTA`. Verified live: 200 OK, all 12 providers present.
+- [x] `/peptide-matrix` — PeptideMatrix.tsx. Real content ported in full — interactive canvas scatter plot (review score vs. scientific evidence score) mapping 8 real named entities (influencers, clinics, a vendor, doctors, USADA as regulatory) across 4 quadrants, sortable/clickable entity table with selected-entity detail, 5 danger-zone psychology mechanisms, evidence-scoring methodology (crawlable via forceMount), full fair-comment/appeals legal framework. Built `PeptideMatrixExplorer` (canvas + table, client) and `PeptideMatrixMethodology` (client) + shared `lib/content/peptide-matrix.ts` (plain data module, not re-exported from either client file — same pattern as the `/peptide-hall-of-shame` CRITERIA fix). Converted every legacy emoji (🧠🔄⏰📊💰🧬🏚️📝🛡️📰✓✕▶) to lucide icons. Legacy hero background image (CloudFront) confirmed 403, same as the other peptide pages — dropped for a CSS gradient. Reused `PeptideShutdownBanner` + `BioChainCTA`. Verified live: 200 OK, all entities, quadrants, and legal-framework text present.
+- [ ] `/peptide-watch` — PeptideWatch.tsx
+- [ ] `/quiz_25q` — PeptideQuiz25.tsx
+- [ ] `/clock-keeper-part-2` — ClockKeeperPartII.tsx
+- [ ] `/charity-scorecard` + `/charity-scorecard/:slug` — CharityScorecard.tsx, CharityProfile.tsx (uses `charityData.ts`)
+- [ ] `/find-your-journey` — JourneyFinder.tsx
+- [ ] `/skippy` — SkippyMap.tsx
+- [ ] `/ecosystem-map` — EcosystemMap.tsx
+- [ ] `/my-highlights` — MyHighlights.tsx
+- [ ] `/my-impact` — MyReferrals.tsx
+- [ ] `/friend-gate` — FriendGate.tsx
+- [ ] `/friend-survey/:token` — FriendSurvey.tsx
+- [ ] `/impact-dashboard` — ImpactDashboard.tsx
+- [ ] `/medicine-sequencing` — MedicineSequencing.tsx
+- [ ] `/the-philosophy` — ThePhilosophy.tsx
+- [ ] `/post-intervention` — PostIntervention.tsx
+- [ ] `/flow-circuit` — redirect stub to `flow.tonygreenberg.com` (keep as a Next.js `redirect()`)
+- [ ] `/supplier-intake` + `/supplier-intake-long/:token` — SupplierIntakeForm.tsx, SupplierIntakeLong.tsx (evaluate: keep pointed at legacy backend API for now, since this is a live business form — do not break lead capture)
+- [ ] `/shop`, `/subscribe`, `/payment-success`, `/payment-cancel` — **defer**: these are Stripe-backed; flag for the later billing-migration phase, do not port checkout logic yet, static/informational content only if ported now
+- [ ] Drop dead code, do not port: `HumanOS.tsx`, `ComponentShowcase.tsx`, `VendorIntakeForm.tsx`, `VendorIntakeLong.tsx`, pre-consolidation manifesto sub-pages (`AttentionEconomics.tsx`, `BlockerFinder.tsx`, `LegalDatabase.tsx`, `TenWeapons.tsx`, `ReportSpammer.tsx`)
+
+## Phase 5 — Blog Engine (Sanity-backed)
+
+- [x] `/` and `/blog` — blog index, paginated (12/page), category filter pills, real Sanity data — verified live: 200 OK, real post links, real category links
+- [x] `/blog/[slug]` — post template: hero image (`next/image`), portable text renderer, byline/reading time, pull quote (added `pullQuote` field to the `post` schema + backfilled 15 posts that had one — wasn't in the original schema, would've been silently dropped otherwise), drop caps (CSS `::first-letter` on the article's first paragraph, in `globals.css` — position-based, not per-post data, so it works for every post automatically), related posts (same-category, falling back to most-recent) — verified live against a real post: correct `<title>`, correct read time, body rendered
+- [x] `/blog/category/[slug]` — category listing + pagination (not explicitly in the original phase list, but linked from the index's category pills — built so that link isn't a 404; own quality bar already requires "every page links to 2+", not dead links)
+- [x] `generateStaticParams` for all post slugs and category slugs (SSG)
+- [x] `sitemap.ts` already live from real Sanity data (122 URLs verified: homepage + 121 posts)
+- [ ] `/search` — full-text search across posts (start with Sanity GROQ text match via `searchPostsQuery`, already written; page not built yet)
+- [ ] `/articles` — full archive grouped by category
+- [ ] `/thesis-threads` — curated-by-thread view
+- [ ] `/impact-futurism` — curated category view
+- [ ] On-demand `revalidatePath`/webhook-triggered revalidation on Sanity publish (Phase 11 — currently relies on the default `sanityFetch` revalidate window, not instant)
+- [ ] Article footer standardization (exercise + 3 related + riddle + CTA, from `footerData.json` — confirmed during this phase that file is per-post article-footer data, NOT site footer content as first assumed; not yet built)
+- [ ] Spot-check the remaining ~115 migrated posts in Studio for body-formatting fidelity (only 1 checked live so far, via curl)
+- [ ] Reconcile `blogData.json` vs. the legacy `blogPosts.ts` module (flagged as a possible duplicate/alternate source during inventory) — still unconfirmed which is authoritative; migration used `blogData.json`
+- [ ] Preserve internal cross-link structure from `client/src/data/linkMap.ts` / `readingPaths.ts` — not yet cross-referenced against ported posts
+
+## Phase 6 — BrewSoul (28 routes)
+
+Source: `client/src/pages/brewsoul/*`, data from `brewsoul-coffees-expanded.ts`, `brewsoul-encyclopedia.ts`, `brewsoul-chains.ts`, `cityData.ts`, `wallOfShameData.ts`. Port as Next.js pages under `web/src/app/brewsoul/`; encyclopedia/coffee data stays as typed `.ts` modules in the new codebase (not Sanity, per CMS-boundary decision).
+
+- [ ] `/brewsoul` — welcome/landing gate
+- [ ] `/brewsoul/first-sip` — onboarding intro
+- [ ] `/brewsoul/home` — section home
+- [ ] `/brewsoul/browse` — coffee listing
+- [ ] `/brewsoul/coffee/[id]` — coffee detail
+- [ ] `/brewsoul/quiz` — matching quiz
+- [ ] `/brewsoul/wall-of-shame` — content page
+- [ ] `/brewsoul/follow-the-dollar` — supply-chain essay
+- [ ] `/brewsoul/health` — health deep-dive
+- [ ] `/brewsoul/farms` — sourcing content
+- [ ] `/brewsoul/mold-free` — mycotoxin content
+- [ ] `/brewsoul/experiences` — experiential content
+- [ ] `/brewsoul/varieties` — reference: varieties
+- [ ] `/brewsoul/processing` — reference: processing
+- [ ] `/brewsoul/roasters` — reference: roaster directory
+- [ ] `/brewsoul/glossary` — reference: glossary
+- [ ] `/brewsoul/pairings` — reference: pairings
+- [ ] `/brewsoul/economics` — reference: economics
+- [ ] `/brewsoul/compare` — tool: compare coffees
+- [ ] `/brewsoul/blend-builder` — tool: blend builder
+- [ ] `/brewsoul/drops` — tool: product drops
+- [ ] `/brewsoul/collection` — tool: personal collection tracker
+- [ ] `/brewsoul/submit` — tool: submit a coffee
+- [ ] `/brewsoul/prescription` — personalized "prescription"
+- [ ] `/brewsoul/chains` — supply-chain visualization
+- [ ] `/brewsoul/biodynamic` — biodynamic content
+- [ ] `/brewsoul/decaf` — decaf content
+- [ ] `/brewsoul/esoteric` — rare-coffee content
+- [ ] `/brewsoul/cities` + `/brewsoul/cities/[slug]` — city directory + detail
+- [ ] `/brewsoul/directory` — roaster directory
+- [ ] `/brewsoul/guest` + `/brewsoul/guest/shanita-nicholas` — guest series index + profile
+- [ ] Shared: port `BrewSoulLayout`, `CategoryBadge`, `JourneyBar`, `NextSteps` as Next.js layout/components
+
+## Phase 7 — PRI & Kava Encyclopedias (19 routes)
+
+- [ ] Kava: `/kava` (home), `/kava/origins`, `/kava/interactions`, `/kava/science`, `/kava/assessment`, `/kava/hawaii`, `/kava/myths`, `/kava/caffeine`, `/kava/products`, `/kava/certification`
+- [ ] PRI: `/psychedelic-readiness-index` (core tool — port scoring logic from `pri/data.ts` as-is)
+- [ ] PRI: `/peyote-mescaline` — MescalineDeepDive (uses `mescaline-module.ts`)
+- [ ] PRI: `/iboga-ibogaine` — IbogaDeepDive (uses `iboga-module.ts`, embeds `IbogaCompassSection`)
+- [ ] PRI: `/iboga-compass` — IbogaCompassAssessment (uses `iboga-compass-data.ts`, `iboga-compass-engine.ts`)
+- [ ] PRI: `/pri-calibration` — forced-rank calibration study
+- [ ] PRI: `/pri-efficacy` — psychometric validation dashboard
+- [ ] PRI: `/pri-research` — **confirm access model**: legacy description says "admin-facing" — gate behind Supabase auth rather than porting as public
+- [ ] PRI: `/facilitator-index` — facilitator directory (uses `iboga-facility-data.ts`)
+- [ ] Port shared safety/medicine data modules (`safety-data.ts`, `medicine-images.ts`) as typed `.ts` content in the new codebase
+
+## Phase 8 — Attention Theft Manifesto (7 routes)
+
+- [ ] `/attention-theft` — consolidated mega-page (port `AttentionTheft.tsx` as the single source; do not resurrect the 5 orphaned pre-consolidation sub-pages)
+- [ ] Legacy anchor redirects: `/attention-theft/economics`, `/blocker-finder`, `/legal`, `/weapons`, `/report` → 301/redirect to `/attention-theft#<anchor>` (use Next.js `redirect()` / `redirects()` in `next.config.ts`)
+- [ ] Port `ManifestoLayout` scroll-tracking wrapper behavior
+
+## Phase 9 — Assessments (33 routes)
+
+Logic (questions, scoring, branching) stays as code per the CMS-boundary decision — port as typed data modules, not Sanity documents.
+
+- [ ] HumanOS section (`/humanos`, `/humanos/philosophy`, `/humanos/ecosystem`, `/humanos/resources`, `/humanos/connect`, `/humanos/path-to-here`) — own layout, no main nav/footer
+- [ ] `/find-your-me` (+ `/find-my-me`, `/discover`)
+- [ ] `/find-your-therapy` (+ `/find-my-therapy`)
+- [ ] `/find-your-sake`
+- [ ] `/find-your-spirit` (+ `/find-my-spirit`)
+- [ ] `/find-your-religion`
+- [ ] `/find-your-diet` (+ `/find-my-diet`)
+- [ ] `/find-your-movement` (+ `/find-my-movement`)
+- [ ] `/find-your-sleep` (+ `/find-my-sleep`)
+- [ ] `/find-your-coffee` (+ `/find-my-coffee`)
+- [ ] `/find-your-kitchen`
+- [ ] `/find-your-style`
+- [ ] `/find-your-attachment-style` (+ `/find-my-attachment-style`, `/find-my-we`)
+- [ ] `/find-your-love-language`
+- [ ] `/find-your-peptide` (+ `/find-my-peptide`)
+- [ ] `/find-your-sexuality` (+ `/find-my-sexuality`)
+- [ ] `/find-my` — FindMyHub directory
+- [ ] `/assessments` — hub page
+- [ ] `/dharma-finder` (+ `/assessments/dharma-finder`)
+- [ ] `/consciousness-scale` (+ `/assessments/consciousness-scale`)
+- [ ] `/grant-study` (+ `/assessments/grant-study`)
+- [ ] `/soulscore`
+- [ ] `/self-portrait` — composite of completed assessments (needs a persistence decision: Supabase-backed per-user storage vs. local-only; **decide before porting**)
+- [ ] `/life-assessment` (+ `/the-mirror`) — uses `mirrorData.json`
+- [ ] `/assessment` — 5-question scored assessment
+- [ ] Fix dead-end pages flagged in `STATUS.md`: sake, therapy, love-language, soulscore need next-step navigation added during port (don't just copy the dead end forward)
+- [ ] Port shared radar-chart / PDF-export / email-gate components used across assessments
+
+## Phase 10 — FauxTony Chatbot
+
+- [ ] Netlify-style route handler → Next.js Route Handler at `web/src/app/api/chat/route.ts`, proxies to Claude API (`@anthropic-ai/sdk`), API key server-side only via env var
+- [ ] Content-grounding index built from Sanity content (mirrors legacy `SITE_PAGES`/`searchablePages.ts` approach) passed as context
+- [ ] Chat widget component (`web/src/components/faux-tony/`) — no new animation dependency, CSS transitions only
+- [ ] Session memory (client-side session id + Supabase-logged history)
+- [ ] Log every conversation turn to Supabase `chat_conversations`/`chat_messages`
+- [ ] Cost controls: prompt caching on grounding content, capped `max_tokens`, fast/cheap model tier by default
+- [ ] Port 3-question-limit / "Tony's voice" system prompt behavior from legacy `tonyKnowledgeBase.ts`
+- [ ] `/shared-chat/[shareId]` — read-only shared transcript viewer
+
+## Phase 11 — Publish-Approval Workflow
+
+- [ ] Internal dashboard `web/src/app/(dashboard)/approvals/page.tsx`, gated by Supabase Auth
+- [ ] List pending `change_requests` with preview links
+- [ ] "Approve & Publish" action: Server Action that (a) publishes the Sanity draft via Sanity's mutate API, or (b) triggers the relevant deploy, then updates the Supabase row to `published` with timestamp + approver
+- [ ] Webhook/Server Action that creates a `change_requests` row whenever a Sanity draft is created (Sanity webhook → Next.js Route Handler)
+- [ ] Full audit trail view (who approved what, when)
+
+## Phase 12 — SEO Hardening, Redirects & Cutover Prep
+
+- [ ] Per-page `generateMetadata` (title, description, OG, Twitter Card, canonical) for every ported route, sourced from Sanity `seo` object where content is CMS-backed, static otherwise
+- [ ] `sitemap.ts` generated from real Sanity content + static route list, auto-updates on publish
+- [x] `llms.txt` — fetched verbatim from the still-live site and saved to `web/public/llms.txt` (real content: Tony's bio, expertise, full article index by category, every product/tool section) — do this before Manus goes away, it won't be recoverable after
+- [x] `robots.txt` — same approach: fetched the real live file (not my earlier guessed `robots.ts`, which has been removed) and saved verbatim to `web/public/robots.txt`, plus added `Disallow: /studio` for the new Sanity Studio route. Confirmed live: real AI-crawler allowlist (GPTBot, Claude-Web, PerplexityBot, etc.), scraper blocklist, and the site's non-standard `LLMs:` directive all intact
+- [x] JSON-LD: `WebSite` + `Person` schema ported verbatim from the live homepage's actual `<script type="application/ld+json">` tags (not reconstructed from memory) — rendered site-wide from `src/lib/structured-data.ts` in the root layout. The Person `image` was hardcoded to a `/api/img/...` legacy proxy path on the live site — rescued that headshot (downloaded it while still live, uploaded to Sanity as the `author-tony-greenberg` document's avatar) so the new site's JSON-LD has zero Manus dependency instead of just copying the fragile path forward
+- [x] `Article` JSON-LD on `/blog/[slug]`, built from real per-post Sanity data (headline, image, datePublished/dateModified, author, canonical URL) — verified live on a real post
+- [ ] Build the full Manus/legacy-URL → Next.js-URL 301 redirect map (`next.config.ts` `redirects()` or Sanity `redirect` documents) — **hard QA gate, nothing proceeds to DNS cutover until this is complete and tested**
+- [ ] Visual diff pass: every ported page vs. legacy page
+- [ ] Link check across all ported pages (no 404s, no broken internal cross-references)
+- [ ] Lighthouse pass (performance/accessibility/SEO) on top 20 pages by traffic
+- [ ] Connect Google Search Console + GA4 to the new deployment on day one of cutover
+- [ ] Restore/adapt the manus.space triple-layer noindex lockdown pattern for any remaining staging URLs
+
+## Phase 13 — Images Needed in Sanity
+
+**⚠ The legacy Manus-hosted site (tonygreenberg.com's old backend) is now fully down — confirmed 503 on the root domain and 404 on every `/api/img/` path as of this pass, not just "will be decommissioned soon."** Every earlier "rescue before it disappears" image pull already done is safe (uploaded to Sanity), but **no further image rescues from the legacy host are possible** — any image reference still pointing there for a not-yet-ported page/post is now permanently lost, not just at risk. Treat every remaining item below as "source new art" from here on, not "go fetch the old one."
+
+Every image below needs to exist as a real asset uploaded to Sanity (or explicitly kept as a static `public/` file if it's a UI/brand asset, not content). Fill in as each is sourced/uploaded — do not launch with placeholder images.
+
+- [x] Favicon — real "G" brand mark generated from the header's actual wordmark treatment (`src/app/icon.tsx`), see Phase 3
+- [ ] Site-wide: logo (light + dark) beyond the current text wordmark, default/fallback OG image (1200×630)
+- [ ] Author photo(s) for blog `author` schema (Tony Greenberg headshot at minimum)
+- [x] Blog hero images — audited, then migrated. Final state:
+  - [x] 22 posts have a real hero image, now live in Sanity (17 already on RampRate's own CloudFront + 4 rescued from the legacy `/api/img/` proxy + 1 rescued from `/manus-storage/`, all pulled over by `migrate-blog-posts.ts` before Manus is decommissioned)
+  - [ ] **99 posts still need a real, unique hero image** (98 previously pointed at the generic `og-default.jpg` fallback; 1 had no image field at all). Tracked one row per post, with a suggested image-generation prompt, in [`BLOG-IMAGE-BRIEFS.md`](../BLOG-IMAGE-BRIEFS.md) — work through that file and check items off there, not here. No image-generation tool was connected in this environment as of this writing; either connect one (e.g. an MCP image-gen extension) or source these manually/with a designer, then upload via Sanity Studio (`/studio`).
+- [ ] Blog: per-post OG image if different from hero (many posts can reuse hero as OG)
+- [ ] Marketing pages: hero/section images for `/the-letter`, `/the-territory`, `/engine-room`, `/the-body`, `/the-nightstand`, `/recent-creations` (portfolio thumbnails), `/published` (publication logos), `/clients` (client logos — confirm licensing before re-hosting)
+- [ ] `/akbar` essay images (~20 photos — hero mosaic, JC portrait, full-bleeds, food grids, footer gallery) — **confirmed permanently lost**, not just at-risk: all were on the now-dead Manus `/api/img/` host (404/503). Needs a real photo shoot or licensed stock, not a rescue script.
+- [ ] BrewSoul: coffee/product images (`brewsoul-coffees-expanded.ts` likely has image refs — audit), city guide header images, roaster directory photos
+- [ ] PRI/Kava: medicine reference images (`medicine-images.ts`), facility images for `/facilitator-index`
+- [ ] Manifesto/Attention Theft: any diagram/illustration assets used on the mega-page
+- [ ] Assessment result-screen background art (flagged in `STATUS.md` as a known gap — 18/20 assessments currently have plain black backgrounds; sourcing themed art here also closes that gap)
+- [ ] Chatbot: FauxTony avatar/icon
+- [ ] Audit `client/public/` (including `alex-azzi/`, `brewsoul/` subfolders) for any static assets already sitting there unused that should be pulled in rather than re-created
+
+## Phase 14 — QA & Launch
+
+- [ ] Mobile responsive pass on every ported section
+- [ ] Accessibility pass (WCAG AA contrast, 44px touch targets, keyboard nav) — same bar as legacy `QA_MASTER_PROMPT.md`
+- [ ] No dead-end pages (every page links to 2+ others) — same bar as legacy `MASTER_QUALITY_PROMPT.md`
+- [ ] Cross-browser check (Safari iOS in particular, per legacy performance notes)
+- [ ] Remove `noindex` only when sign-off is given — do not launch indexable by accident
+- [ ] Final stakeholder sign-off (Tony/Darryl/Kimberly) on the ported site before DNS cutover
+- [ ] DNS cutover, legacy app decommissioned only after a stable overlap window
+
+---
+
+## Explicitly deferred to a later, separate phase (not in this migration pass)
+
+- Admin dashboards (`/admin/*`, `/analytics`)
+- Stripe billing (`/shop`, `/subscribe` full checkout flow — Phase 4 ports these as static/informational only)
+- Spam-tracking system (`/youve-been-reported`, `/spamtoast`, admin spam tooling)
+- Supplier/vendor intake backend wiring (Phase 4 ports the form UI only, keeps pointing at legacy backend)

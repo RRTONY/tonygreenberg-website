@@ -1,0 +1,21 @@
+{
+  "supplier_id": "SUP-001",
+  "legal_entity_name": "PeptidePro Labs LLC",
+  "state_country_of_incorporation": "Delaware, USA",
+  "primary_contact_name": "Jane Smith",
+  "email": "jane@peptidepro.com",
+  "phone": "+1-555-0100",
+  "website": "https://peptidepro.com",
+  "current_peptide_products": "BPC-157, TB-500, Semaglutide, Tirzepatide",
+  "facility_type": "Own Mfg",
+  "number_of_employees": "51–200",
+  "monthly_production_capacity": "500kg/month",
+  "chain_of_custody_capability": "Full chain-of-custody with lot-level traceability",
+  "pricing_model": "Transparent tiered pricing with published price list",
+  "standard_lead_time": "1–2 weeks",
+  "minimum_order_quantity": "< 100g",
+  "independent_testing_willingness": "Yes, we welcome independent testing",
+  "facility_classification": "FDA-registered cGMP facility",
+  "product_labeling_sale_restrictions": "Research use only (RUO)",
+  "recall_capa_history": "No recalls or CAPA events"
+}

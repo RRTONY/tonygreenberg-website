@@ -1,0 +1,105 @@
+{
+  "total_score": 52,
+  "max_score": 59,
+  "max_possible_given_data": 54,
+  "pct_of_ceiling": 88.1,
+  "pending_fields": [
+    "testing_protocols"
+  ],
+  "category_scores": {
+    "chain_of_custody": {
+      "earned": 10,
+      "max": 10,
+      "pending": 0
+    },
+    "price_competitiveness": {
+      "earned": 10,
+      "max": 10,
+      "pending": 0
+    },
+    "reliability": {
+      "earned": 12,
+      "max": 14,
+      "pending": 0
+    },
+    "verification_coa": {
+      "earned": 5,
+      "max": 5,
+      "pending": 0
+    },
+    "regulatory_compliance": {
+      "earned": 15,
+      "max": 15,
+      "pending": 0
+    }
+  },
+  "mass_spec_bonus": false,
+  "scorecard": [
+    {
+      "field": "chain_of_custody_capability",
+      "value": "Full chain-of-custody with lot-level traceability",
+      "pts_earned": 10,
+      "pts_max": 10,
+      "category": "chain_of_custody",
+      "flag": null
+    },
+    {
+      "field": "pricing_model",
+      "value": "Transparent tiered pricing with published price list",
+      "pts_earned": 10,
+      "pts_max": 10,
+      "category": "price_competitiveness",
+      "flag": null
+    },
+    {
+      "field": "standard_lead_time",
+      "value": "1\u20132 weeks",
+      "pts_earned": 7,
+      "pts_max": 7,
+      "category": "reliability",
+      "flag": null
+    },
+    {
+      "field": "minimum_order_quantity",
+      "value": "< 100g",
+      "pts_earned": 5,
+      "pts_max": 7,
+      "category": "reliability",
+      "flag": null
+    },
+    {
+      "field": "independent_testing_willingness",
+      "value": "Yes, we welcome independent testing",
+      "pts_earned": 5,
+      "pts_max": 5,
+      "category": "verification_coa",
+      "flag": null
+    },
+    {
+      "field": "facility_classification",
+      "value": "FDA-registered cGMP facility",
+      "pts_earned": 5,
+      "pts_max": 5,
+      "category": "regulatory_compliance",
+      "flag": null
+    },
+    {
+      "field": "product_labeling_sale_restrictions",
+      "value": "Research use only (RUO)",
+      "pts_earned": 5,
+      "pts_max": 5,
+      "category": "regulatory_compliance",
+      "flag": null
+    },
+    {
+      "field": "recall_capa_history",
+      "value": "No recalls or CAPA events",
+      "pts_earned": 5,
+      "pts_max": 5,
+      "category": "regulatory_compliance",
+      "flag": null
+    }
+  ],
+  "grade": "A",
+  "recommendation": "Pursue \u2014 send Stage 2 link"
+}

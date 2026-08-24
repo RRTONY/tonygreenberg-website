@@ -1,0 +1,6 @@
+Screenshot observations after jewel redesign:
+- Site compiles cleanly, no TS errors, no LSP errors
+- Home page hero looks good with the warm bowl/candle image
+- "THREE DOORS" section visible below
+- Navigation intact
+- All HMR updates applied for ConversionMechanics and CommitmentEscalation

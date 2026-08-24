@@ -1,0 +1,27 @@
+{
+  "name": "Tony Greenberg — Only Time Buys Trust",
+  "short_name": "Tony Greenberg",
+  "description": "25 years exposing broken systems and building what replaces them. Enterprise technology, impact investing, psychedelic medicine.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#FAFAF7",
+  "theme_color": "#2C1810",
+  "lang": "en-US",
+  "icons": [
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    }
+  ]
+}

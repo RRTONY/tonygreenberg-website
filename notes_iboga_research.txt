@@ -1,0 +1,65 @@
+IBOGA VS IBOGAINE RESEARCH NOTES
+=================================
+
+SOURCE: Tabernanthe iboga root bark
+- Contains 6% indole alkaloids total
+- Principal alkaloids: ibogaine (most abundant), ibogaline, ibogamine, tabernanthine, voacangine, coronaridine, noribogaine
+- Root bark contains "hundreds of alkaloids" per some sources; at least 12+ identified
+
+IBOGA (WHOLE PLANT / ROOT BARK):
+- Raw or powdered root bark consumed in Bwiti ceremonies (Gabon, Cameroon)
+- Full-spectrum alkaloid profile - "entourage effect" of multiple compounds
+- More intense, longer-lasting experience
+- Spiritually immersive, used for initiation rites
+- Unpredictable due to variable alkaloid concentrations
+- Traditional context: Bwiti religion, healing ceremonies, rites of passage
+- Sub-flood microdosing also practiced
+
+IBOGAINE (ISOLATED ALKALOID - HCl):
+- Single purified compound extracted from root bark
+- Ibogaine hydrochloride (HCl) is the clinical form
+- More controlled dosage, precise administration
+- Therapeutic, focused effect
+- Fewer hallucinations, more introspective
+- Used in clinical addiction treatment settings
+- FDA Breakthrough Therapy potential (not yet approved)
+
+KEY PHARMACOLOGY (IBOGAINE):
+- NMDA receptor antagonist (glutamate system)
+- Kappa-opioid receptor agonist
+- Sigma-2 receptor agonist
+- Serotonin transporter inhibitor (SERT)
+- Dopamine transporter inhibitor (DAT)
+- Nicotinic acetylcholine receptor antagonist
+- 5-HT2A partial agonist (psychedelic effects)
+- Metabolized to noribogaine (12-hydroxyibogamine) - longer-acting metabolite
+- Noribogaine: more potent at mu-opioid and serotonin receptors
+
+WHOLE PLANT ADDITIONAL ALKALOIDS:
+- Ibogamine: structurally similar to ibogaine, less potent
+- Tabernanthine: CNS stimulant properties
+- Voacangine: anti-inflammatory, analgesic
+- Coronaridine: anti-addictive properties (studied independently)
+- Noribogaine: naturally present in bark, also metabolite of ibogaine
+- These create "entourage effect" - synergistic action
+
+SAFETY DIFFERENCES:
+- Both carry cardiac risk (QT prolongation)
+- Ibogaine HCl: more predictable dosing, easier to monitor
+- Whole iboga: variable alkaloid content, harder to dose precisely
+- Both require cardiac screening (EKG), liver function tests
+- Contraindicated with heart conditions, certain medications
+
+TONY'S INVESTMENTS:
+- MycoMedica Life Sciences (co-founded with Paul Stamets)
+- AtaiBeckley (FDA Breakthrough Therapy)
+- Wake Network
+- Radicle Science
+- Tripp
+
+CLINICAL EVIDENCE:
+- Glick et al. 1997: kappa-opioid and NMDA roles in anti-addictive effects
+- Sershen et al. 1995: kappa-opioid and 5-HT3 involvement
+- Multiple case studies on opioid addiction interruption
+- Noribogaine has longer half-life (24-48h vs 4-7h for ibogaine)
+- Growing evidence for TBI, PTSD, depression applications

@@ -1,0 +1,1 @@
+ALTER TABLE `assessment_results` MODIFY COLUMN `assessmentType` enum('dharma','consciousness','grant-study','mirror','find-your-me','therapy','sake','spirit','religion','diet','movement','sleep','coffee','kitchen','style','attachment','love-language','psychedelic-readiness','peptide','sexuality','soulscore','self-portrait','kava','brewsoul-quiz','iboga-compass') NOT NULL;

@@ -1,0 +1,2980 @@
+========================================================================
+BREWSOUL COFFEE CATALOG — tonygreenberg.com/brewsoul
+Tony Greenberg's curated coffee intelligence platform
+Generated: 2026-06-25T18:49:46.794Z
+107 specialty coffees · 100 coffee chain rankings
+========================================================================
+
+This file is machine-readable. Fetch it at:
+  https://tonygreenberg.com/brewsoul/catalog.txt  (plain text)
+  https://tonygreenberg.com/brewsoul/catalog.json (structured JSON)
+
+ABOUT BREWSOUL
+----------------------------------------
+BrewSoul is Tony Greenberg's coffee curation platform — a comprehensive
+intelligence database covering specialty single-origin lots, competition
+winners, rare microlots, and the full spectrum of coffee chains from
+S-tier specialty roasters to F-tier commodity chains. Every coffee is
+scored on: cupping score, flavor profile, mold test status, farmer
+transparency, price-per-gram value, and a "wow proxy" (0-100).
+
+========================================================================
+PART 1: SPECIALTY COFFEE CATALOG (107 entries)
+========================================================================
+
+[gesha-village-lot-74]
+Name: Gesha Village Lot 74
+Producer: Gesha Village Coffee Estate (Ethiopia)
+Origin: Ethiopia, Bench Maji, SNNPR — Gesha Village Estate
+Altitude: 1900m
+Variety: Gesha 1931 · Species: Arabica
+Processing: Washed · Roast: Light
+Cupping Score: 94.5/100 (SCA Certified)
+Tasting Notes: Jasmine, Bergamot, Peach, Raw honey, White tea
+Price: $85/200g
+Mold Test: verified (Third-party lab, 2024)
+Transparency Grade: A · Farmer Share: 65%
+Brew Methods: Pour-over, Chemex, Aeropress
+Food Pairings: Lemon tart, Fresh berries, Shortbread
+Wow Proxy: 95/100
+Limited Release: Yes · In Stock: Yes
+Awards: Best of Panama 2023 (Gesha category)
+Tony's Note: The Gesha that started the modern specialty revolution. Lot 74 is the estate's crown jewel — floral complexity that unfolds over 20 minutes as it cools. If you've never had a coffee that made you question everything you thought you knew, this is it.
+Buy: Gesha Village Direct — https://geshacoffee.com
+
+[black-forager-natural]
+Name: Black Forager Natural
+Producer: Onyx Coffee Lab (USA)
+Origin: Ethiopia, Guji, Oromia
+Altitude: 2100m
+Variety: Heirloom Ethiopian · Species: Arabica
+Processing: Natural · Roast: Light
+Cupping Score: 91/100 (Onyx internal)
+Tasting Notes: Blueberry, Dark chocolate, Strawberry jam, Wine
+Price: $32/284g
+Mold Test: claims
+Transparency Grade: A · Farmer Share: 40%
+Brew Methods: Pour-over, Chemex, Cold brew
+Food Pairings: Dark chocolate, Blueberry pancakes, Brie
+Wow Proxy: 75/100
+Limited Release: No · In Stock: Yes
+Awards: Good Food Awards 2023
+Tony's Note: The gateway drug of specialty coffee. If someone tells you they don't like fruity coffee, hand them this. The natural process turns Ethiopian heirlooms into a blueberry bomb that converts skeptics.
+Buy: Onyx Coffee Lab — https://onyxcoffeelab.com
+
+[finca-deborah-aurora]
+Name: Finca Deborah Aurora
+Producer: Finca Deborah (Panama)
+Origin: Panama, Boquete, Chiriquí — Finca Deborah
+Altitude: 1900m
+Variety: Gesha · Species: Arabica
+Processing: Anaerobic Natural · Roast: Light
+Cupping Score: 93/100 (Best of Panama)
+Tasting Notes: Tropical fruit, Champagne, Rose water, Mango, Vanilla
+Price: $120/150g
+Mold Test: verified (Third-party lab)
+Transparency Grade: A · Farmer Share: 70%
+Brew Methods: Pour-over, Siphon
+Food Pairings: Tropical fruit salad, Crème brûlée, Macarons
+Wow Proxy: 98/100
+Limited Release: Yes · In Stock: Yes
+Awards: Best of Panama 2024 Winner; Producers & Roasters Forum Gold
+Tony's Note: Jamison Savage doesn't make coffee. He composes it. The Aurora lot uses anaerobic fermentation at controlled temperatures to create something that tastes more like a fine Champagne than any coffee you've ever had. This is where coffee becomes art.
+Buy: Finca Deborah — https://fincadeborah.com
+
+[cat-and-cloud-night-shift]
+Name: Night Shift Blend
+Producer: Cat & Cloud (USA)
+Origin: Blend, Colombia / Ethiopia
+Variety: Mixed · Species: Arabica
+Processing: Washed/Natural Blend · Roast: Medium
+Cupping Score: 86/100 (Internal)
+Tasting Notes: Milk chocolate, Caramel, Brown sugar, Walnut
+Price: $18/340g
+Mold Test: untested
+Transparency Grade: B
+Brew Methods: Espresso, Drip, French press
+Food Pairings: Chocolate croissant, Banana bread, Oatmeal
+Wow Proxy: 35/100
+Limited Release: No · In Stock: Yes
+Tony's Note: The perfect daily driver. Not every coffee needs to be a religious experience. Sometimes you just need a cup that's reliably excellent, pairs with milk without flinching, and costs less than your avocado toast. Night Shift is that cup.
+Buy: Cat & Cloud — https://catandcloud.com
+
+[proud-mary-kenya-aa]
+Name: Kenya AA Kiambu
+Producer: Proud Mary (Australia)
+Origin: Kenya, Kiambu County
+Altitude: 1750m
+Variety: SL28 / SL34 · Species: Arabica
+Processing: Washed · Roast: Light-Medium
+Cupping Score: 90/100 (SCA Certified)
+Tasting Notes: Blackcurrant, Grapefruit, Tomato, Brown sugar, Sparkling
+Price: $28/250g
+Mold Test: claims
+Transparency Grade: A · Farmer Share: 35%
+Brew Methods: Pour-over, Aeropress, Batch brew
+Food Pairings: Citrus tart, Goat cheese, Dark berries
+Wow Proxy: 78/100
+Limited Release: No · In Stock: Yes
+Awards: Melbourne International Coffee Expo 2023
+Tony's Note: Kenya AA is the electric guitar of coffee. SL28 and SL34 varieties produce an acidity so bright it's almost savory — blackcurrant and tomato notes that make you question whether this is really coffee. Proud Mary roasts it to let every note scream.
+Buy: Proud Mary — https://proudmarycoffee.com
+
+[sey-colombia-la-palma]
+Name: La Palma y El Tucán Sidra
+Producer: SEY Coffee (USA)
+Origin: Colombia, Cundinamarca — La Palma y El Tucán
+Altitude: 1700m
+Variety: Sidra · Species: Arabica
+Processing: Lactic Anaerobic · Roast: Light
+Cupping Score: 91.5/100 (SCA Certified)
+Tasting Notes: Lychee, Cider apple, Cream, Floral honey, Spice
+Price: $38/250g
+Mold Test: verified (SEY transparency report)
+Transparency Grade: A · Farmer Share: 55%
+Brew Methods: Pour-over, Chemex
+Food Pairings: Apple tart, Aged cheddar, Honey cake
+Wow Proxy: 82/100
+Limited Release: Yes · In Stock: Yes
+Tony's Note: Sidra is the variety that's rewriting Colombian coffee. A natural Bourbon-Typica hybrid with Ethiopian-like complexity. La Palma's lactic anaerobic process adds a creamy, cider-like quality that's unlike anything else in the catalog. SEY's sourcing is impeccable.
+Buy: SEY Coffee — https://www.seycoffee.com
+
+[george-howell-mamuto]
+Name: Mamuto AA
+Producer: George Howell Coffee (USA)
+Origin: Kenya, Kirinyaga — Mamuto Estate
+Altitude: 1800m
+Variety: SL28 · Species: Arabica
+Processing: Washed · Roast: Light
+Cupping Score: 92/100 (George Howell internal)
+Tasting Notes: Raspberry, Red currant, Dark chocolate, Tamarind, Floral
+Price: $35/340g
+Mold Test: claims
+Transparency Grade: A · Farmer Share: 45%
+Brew Methods: Pour-over, Chemex, Siphon
+Food Pairings: Raspberry tart, Dark chocolate, Aged gouda
+Wow Proxy: 80/100
+Limited Release: No · In Stock: Yes
+Awards: Cup of Excellence Kenya 2022
+Tony's Note: George Howell is the godfather of American specialty coffee. He was sourcing single-origin before it had a name. Mamuto AA is his masterclass in Kenyan terroir — the kind of coffee that makes you understand why SL28 is considered the world's greatest coffee variety.
+Buy: George Howell Coffee — https://georgehowellcoffee.com
+
+[intelligentsia-frequency]
+Name: Frequency Blend
+Producer: Intelligentsia (USA)
+Origin: Blend, Latin America / East Africa
+Variety: Mixed · Species: Arabica
+Processing: Washed · Roast: Medium
+Cupping Score: 85/100 (Internal)
+Tasting Notes: Milk chocolate, Caramel, Citrus, Toffee
+Price: $17/340g
+Mold Test: untested
+Transparency Grade: B
+Brew Methods: Drip, Espresso, French press
+Food Pairings: Toast, Granola, Muffins
+Wow Proxy: 25/100
+Limited Release: No · In Stock: Yes
+Tony's Note: The original third-wave daily driver. Frequency has been Intelligentsia's flagship blend for over a decade. It's not going to change your life, but it's going to make every morning slightly better. Reliable, balanced, and available everywhere.
+Buy: Intelligentsia — https://www.intelligentsia.com
+
+[luna-yemeni-haraaz]
+Name: Yemen Haraaz Red
+Producer: Luna Coffee (USA)
+Origin: Yemen, Haraaz Mountains
+Altitude: 2200m
+Variety: Yemeni Heirloom (Udaini) · Species: Arabica
+Processing: Natural · Roast: Light
+Cupping Score: 93/100 (Alliance for Coffee Excellence)
+Tasting Notes: Dried fig, Cardamom, Dark cherry, Cacao nib, Spice, Port wine
+Price: $95/150g
+Mold Test: verified (Third-party lab)
+Transparency Grade: A · Farmer Share: 50%
+Brew Methods: Pour-over, Cezve/Ibrik, Aeropress
+Food Pairings: Dates, Baklava, Dark chocolate truffles, Aged cheese
+Wow Proxy: 95/100
+Limited Release: Yes · In Stock: Yes
+Awards: Yemen Coffee Championship 2024
+Tony's Note: Coffee was born in Yemen. These heirloom varieties have been growing in the Haraaz Mountains for centuries, untouched by modern hybridization. The result is a flavor profile that exists nowhere else on earth — dried fruit, spice, and a body so rich it feels like drinking history. Every cup funds farmers in an active conflict zone.
+Buy: Luna Coffee — https://lunacoffeeroasters.com
+
+[passenger-burundi-kibira]
+Name: Burundi Kibira Honey
+Producer: Passenger Coffee (USA)
+Origin: Burundi, Kayanza Province
+Altitude: 1800m
+Variety: Red Bourbon · Species: Arabica
+Processing: Honey · Roast: Light
+Cupping Score: 89/100 (Passenger internal)
+Tasting Notes: Peach, Brown sugar, Vanilla, Plum, Almond
+Price: $22/284g
+Mold Test: claims
+Transparency Grade: A · Farmer Share: 38%
+Brew Methods: Pour-over, Kalita Wave, Batch brew
+Food Pairings: Peach cobbler, Almond croissant, Vanilla ice cream
+Wow Proxy: 60/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Burundi is the most underrated origin in specialty coffee. Same terroir as Rwanda, same Bourbon varieties, but a fraction of the price. Passenger's honey-processed Kibira is stone fruit heaven — the kind of coffee that makes you wonder why you've been paying twice as much for Ethiopian.
+Buy: Passenger Coffee — https://www.passengercoffee.com
+
+[brandywine-sumatra-gayo]
+Name: Sumatra Gayo Wet-Hulled
+Producer: Brandywine Coffee Roasters (USA)
+Origin: Indonesia, Aceh, Gayo Highlands
+Altitude: 1500m
+Variety: Catimor / Typica · Species: Arabica
+Processing: Wet-Hulled (Giling Basah) · Roast: Medium-Dark
+Cupping Score: 86/100 (Internal)
+Tasting Notes: Cedar, Dark chocolate, Tobacco, Earth, Mushroom, Herbs
+Price: $19/340g
+Mold Test: untested
+Transparency Grade: B
+Brew Methods: French press, Espresso, Moka pot
+Food Pairings: Steak, Mushroom risotto, Dark chocolate, Aged cheddar
+Wow Proxy: 45/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Sumatra is the heavy metal of coffee. The wet-hulled process creates a flavor profile that's polarizing — earthy, herbal, almost funky. You either love it or you don't. But if you do, nothing else scratches the itch. This is the coffee that pairs with a rainy afternoon and a leather-bound book.
+Buy: Brandywine — https://brandywinecoffeeroasters.com
+
+[manhattan-ethiopia-yirgacheffe]
+Name: Ethiopia Yirgacheffe Kochere
+Producer: Manhattan Coffee Roasters (Netherlands)
+Origin: Ethiopia, Yirgacheffe, Kochere
+Altitude: 2000m
+Variety: Heirloom Ethiopian · Species: Arabica
+Processing: Washed · Roast: Light
+Cupping Score: 90/100 (SCA Certified)
+Tasting Notes: Lemon, Jasmine, Earl Grey, Apricot, Honey
+Price: $18/250g
+Mold Test: claims
+Transparency Grade: A · Farmer Share: 30%
+Brew Methods: Pour-over, Aeropress, Chemex
+Food Pairings: Lemon cake, Scones, Light pastries
+Wow Proxy: 65/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Yirgacheffe Kochere is the benchmark for washed Ethiopian coffee. Floral, citrus, tea-like — it's the coffee that taught the world what 'terroir' means in a cup. Manhattan roasts it with European precision, letting the origin speak without interference.
+Buy: Manhattan Coffee — https://manhattancoffeeroasters.com
+
+[sw-roasting-costa-rica-tarrazú]
+Name: Costa Rica Tarrazú Honey
+Producer: SW Roasting (USA)
+Origin: Costa Rica, Tarrazú
+Altitude: 1600m
+Variety: Caturra · Species: Arabica
+Processing: Red Honey · Roast: Medium
+Cupping Score: 87/100 (Internal)
+Tasting Notes: Maple syrup, Red apple, Milk chocolate, Hazelnut
+Price: $16/340g
+Mold Test: untested
+Transparency Grade: B
+Brew Methods: Drip, Pour-over, Espresso
+Food Pairings: Waffles, Apple pie, Hazelnut biscotti
+Wow Proxy: 40/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Costa Rica's honey process is the country's gift to specialty coffee. Red honey leaves some of the fruit mucilage on the bean during drying, creating a sweetness that bridges the gap between washed clarity and natural fruitiness. Tarrazú's volcanic soil adds the rest.
+Buy: SW Roasting — https://swroasting.com
+
+[tim-wendelboe-finca-tamana]
+Name: Finca Tamana Castillo
+Producer: Tim Wendelboe (Norway)
+Origin: Colombia, Huila — Finca Tamana
+Altitude: 1750m
+Variety: Castillo · Species: Arabica
+Processing: Washed · Roast: Light
+Cupping Score: 89/100 (Tim Wendelboe internal)
+Tasting Notes: Caramel, Orange, Milk chocolate, Toffee, Clean
+Price: $22/250g
+Mold Test: verified (Tim Wendelboe transparency page)
+Transparency Grade: A · Farmer Share: 60%
+Brew Methods: Aeropress, Pour-over, Espresso
+Food Pairings: Orange cake, Caramel flan, Butter cookies
+Wow Proxy: 55/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Tim Wendelboe is the most transparent roaster on earth. He publishes exactly what he pays farmers, how he sources, and why. Finca Tamana is his longest relationship — a Colombian farm he's been buying from for over a decade. The coffee is clean, sweet, and a masterclass in what 'washed Colombian' should taste like.
+Buy: Tim Wendelboe — https://timwendelboe.no
+
+[ninety-plus-kemgin]
+Name: Kemgin Lot W2
+Producer: Ninety Plus (USA)
+Origin: Ethiopia, Bench Maji
+Altitude: 1950m
+Variety: Wild Ethiopian · Species: Arabica
+Processing: Proprietary Controlled Fermentation · Roast: Light
+Cupping Score: 94/100 (Ninety Plus internal)
+Tasting Notes: Mango, Papaya, Vanilla cream, Jasmine, Honey, Cinnamon
+Price: $150/120g
+Mold Test: verified (Ninety Plus lab)
+Transparency Grade: B · Farmer Share: 45%
+Brew Methods: Pour-over, Siphon
+Food Pairings: Mango sticky rice, Crème brûlée, Tropical fruit
+Wow Proxy: 92/100
+Limited Release: Yes · In Stock: Yes
+Awards: World Brewers Cup supply 2023
+Tony's Note: Ninety Plus is the most controversial name in specialty coffee. Their proprietary fermentation process creates flavor profiles that shouldn't be possible — tropical fruit bombs that taste like someone blended a mango smoothie into your pour-over. Critics call it manipulation. Fans call it genius. You decide.
+Buy: Ninety Plus — https://ninetypluscoffee.com
+
+[counter-culture-hologram]
+Name: Hologram Blend
+Producer: Counter Culture Coffee (USA)
+Origin: Blend, Colombia / Ethiopia
+Variety: Mixed · Species: Arabica
+Processing: Washed · Roast: Medium
+Cupping Score: 86/100 (Internal)
+Tasting Notes: Chocolate, Caramel, Berry, Nutty
+Price: $15/340g
+Mold Test: untested
+Transparency Grade: A · Farmer Share: 35%
+Brew Methods: Drip, Pour-over, Espresso, French press
+Food Pairings: Toast, Oatmeal, Chocolate chip cookies
+Wow Proxy: 30/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Counter Culture publishes their full transparency report every year — every farm, every price, every lot. Hologram is their everyday blend, and it's proof that ethical sourcing and accessible pricing aren't mutually exclusive. The best $15 you can spend on coffee.
+Buy: Counter Culture — https://counterculturecoffee.com
+
+[black-white-natural-ethiopia]
+Name: The Natural Ethiopia
+Producer: Black & White Coffee (USA)
+Origin: Ethiopia, Sidamo
+Altitude: 1950m
+Variety: Heirloom Ethiopian · Species: Arabica
+Processing: Natural · Roast: Light
+Cupping Score: 89/100 (Internal)
+Tasting Notes: Strawberry, Blueberry, Grape, Chocolate, Tropical
+Price: $24/284g
+Mold Test: claims
+Transparency Grade: B
+Brew Methods: Pour-over, Chemex, Cold brew
+Food Pairings: Berry tart, Yogurt parfait, Chocolate truffles
+Wow Proxy: 65/100
+Limited Release: No · In Stock: Yes
+Awards: US Brewers Cup supply 2023
+Tony's Note: Black & White has quietly become one of the best roasters in America. Their natural Ethiopians are consistently fruit-forward without being over-fermented — a balance that's harder to achieve than it sounds. This is the coffee you serve to friends who say they don't like black coffee.
+Buy: Black & White — https://www.blackwhiteroasters.com
+
+[dak-colombia-pink-bourbon]
+Name: Colombia Pink Bourbon Washed
+Producer: DAK Coffee Roasters (Netherlands)
+Origin: Colombia, Huila
+Altitude: 1850m
+Variety: Pink Bourbon · Species: Arabica
+Processing: Washed · Roast: Light
+Cupping Score: 90/100 (SCA Certified)
+Tasting Notes: Rosewater, Peach, Vanilla, Mandarin, Silky
+Price: $20/250g
+Mold Test: claims
+Transparency Grade: A · Farmer Share: 40%
+Brew Methods: Pour-over, Aeropress
+Food Pairings: Rose Turkish delight, Peach tart, Vanilla panna cotta
+Wow Proxy: 72/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Pink Bourbon is the mystery variety of Colombian coffee — nobody's entirely sure of its genetics, but everyone agrees the cup is extraordinary. Floral, peachy, silky body. DAK roasts it with Nordic precision, letting the variety's natural elegance do the talking.
+Buy: DAK Coffee — https://dfrankfurt.com
+
+[regalia-guatemala-huehuetenango]
+Name: Guatemala Huehuetenango Pacamara
+Producer: Regalia Coffee (USA)
+Origin: Guatemala, Huehuetenango
+Altitude: 1800m
+Variety: Pacamara · Species: Arabica
+Processing: Washed · Roast: Light-Medium
+Cupping Score: 88/100 (Cup of Excellence)
+Tasting Notes: Plum, Dark chocolate, Almond, Citrus zest, Creamy
+Price: $25/340g
+Mold Test: claims
+Transparency Grade: B · Farmer Share: 30%
+Brew Methods: Pour-over, Espresso, Chemex
+Food Pairings: Plum cake, Dark chocolate, Almonds
+Wow Proxy: 58/100
+Limited Release: No · In Stock: Yes
+Awards: Cup of Excellence Guatemala 2023
+Tony's Note: Pacamara is the giant of coffee varieties — literally. The beans are enormous, and the cup is equally oversized in flavor. Huehuetenango's dry microclimate at altitude creates a unique terroir that gives Pacamara a chocolatey depth you won't find anywhere else.
+Buy: Regalia Coffee — https://regaliacoffee.com
+
+[elida-estate-catuai-natural]
+Name: Elida Estate Catuaí Natural
+Producer: Elida Estate (Panama)
+Origin: Panama, Boquete, Chiriquí — Elida Estate
+Altitude: 1850m
+Variety: Catuaí · Species: Arabica
+Processing: Natural · Roast: Light
+Cupping Score: 91/100 (Best of Panama)
+Tasting Notes: Cherry, Rum raisin, Cacao, Tropical fruit, Caramel
+Price: $55/200g
+Mold Test: verified (Elida Estate lab)
+Transparency Grade: A · Farmer Share: 75%
+Brew Methods: Pour-over, Chemex, Aeropress
+Food Pairings: Cherry pie, Rum cake, Dark chocolate truffles
+Wow Proxy: 78/100
+Limited Release: Yes · In Stock: Yes
+Awards: Best of Panama 2024 (Catuaí category)
+Tony's Note: Elida Estate proves that Gesha isn't the only game in Panama. Their Catuaí natural is a revelation — proof that processing and terroir can elevate a 'common' variety into something extraordinary. The Lamastus family has been farming this land for over a century.
+Buy: Elida Estate — https://elidaestate.com
+
+[koppi-rwanda-buf-cafe]
+Name: Rwanda Buf Café Bourbon
+Producer: Koppi Roasters (Sweden)
+Origin: Rwanda, Nyamasheke
+Altitude: 1800m
+Variety: Red Bourbon · Species: Arabica
+Processing: Washed · Roast: Light
+Cupping Score: 88/100 (Cup of Excellence Rwanda)
+Tasting Notes: Red grape, Plum, Floral, Caramel, Tea-like
+Price: $17/250g
+Mold Test: claims
+Transparency Grade: A · Farmer Share: 42%
+Brew Methods: Pour-over, Aeropress, Batch brew
+Food Pairings: Grape tart, Plum cake, Light pastries
+Wow Proxy: 55/100
+Limited Release: No · In Stock: Yes
+Awards: Cup of Excellence Rwanda 2023
+Tony's Note: Rwanda is the rising star of African coffee. Buf Café washing station produces some of the cleanest, most elegant Bourbons on the continent. Koppi's Nordic light roast lets the terroir shine — red grape, plum, and a tea-like delicacy that makes you forget this costs less than a cocktail.
+Buy: Koppi — https://koppi.se
+
+[orfeo-brazil-mogiana]
+Name: Brazil Mogiana Natural
+Producer: Orfeo Coffee (USA)
+Origin: Brazil, Mogiana, São Paulo
+Altitude: 1100m
+Variety: Yellow Bourbon · Species: Arabica
+Processing: Natural · Roast: Medium
+Cupping Score: 85/100 (Internal)
+Tasting Notes: Peanut butter, Dark chocolate, Caramel, Dried fruit, Low acidity
+Price: $14/340g
+Mold Test: untested
+Transparency Grade: C
+Brew Methods: Espresso, French press, Moka pot, Cold brew
+Food Pairings: Peanut butter toast, Chocolate cake, Tiramisu
+Wow Proxy: 25/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Brazil is the world's largest coffee producer, and most of it is forgettable. But Mogiana's Yellow Bourbon natural is the exception — nutty, chocolatey, zero acidity, and the best espresso base money can buy at this price. The daily driver for people who like their coffee to taste like coffee.
+Buy: Orfeo Coffee — https://orfeocoffee.com
+
+[hacienda-la-esmeralda-gesha]
+Name: Hacienda La Esmeralda Gesha Private Collection
+Producer: Hacienda La Esmeralda (Panama)
+Origin: Panama, Boquete, Chiriquí — Hacienda La Esmeralda
+Altitude: 1800m
+Variety: Gesha · Species: Arabica
+Processing: Washed · Roast: Light
+Cupping Score: 95/100 (Best of Panama)
+Tasting Notes: Jasmine, Bergamot, Peach nectar, Honey, Lemongrass
+Price: $200/200g
+Mold Test: verified (Third-party lab)
+Transparency Grade: A · Farmer Share: 80%
+Brew Methods: Pour-over, Siphon
+Food Pairings: Jasmine tea cake, Fresh peaches, Honey comb
+Wow Proxy: 99/100
+Limited Release: Yes · In Stock: Yes
+Awards: Best of Panama 15x winner; Most expensive coffee sold at auction
+Tony's Note: The coffee that broke the auction record. La Esmeralda's Gesha is the Romanée-Conti of coffee — the benchmark against which all other coffees are measured. If you've never tasted it, you haven't tasted what coffee can be.
+Buy: Hacienda La Esmeralda — https://haciendaesmeralda.com
+
+[ona-coffee-raspberry-candy]
+Name: Raspberry Candy
+Producer: ONA Coffee (Australia)
+Origin: Ethiopia, Guji, Shakiso
+Altitude: 2100m
+Variety: Heirloom Ethiopian · Species: Arabica
+Processing: Carbonic Maceration Natural · Roast: Light
+Cupping Score: 92/100 (ONA internal)
+Tasting Notes: Raspberry, Candy, Watermelon, Rose, Cream soda
+Price: $45/200g
+Mold Test: verified (ONA lab)
+Transparency Grade: A · Farmer Share: 50%
+Brew Methods: Pour-over, Aeropress
+Food Pairings: Raspberry sorbet, White chocolate, Macarons
+Wow Proxy: 90/100
+Limited Release: Yes · In Stock: Yes
+Awards: World Barista Championship supply 2023
+Tony's Note: Sasa Sestic's ONA pioneered carbonic maceration in coffee, borrowing from winemaking. The result is a coffee that tastes like raspberry candy — literally. Controversial? Absolutely. Delicious? Undeniably.
+Buy: ONA Coffee — https://onacoffee.com.au
+
+[manhattan-gesha-auction-lot]
+Name: Gesha Auction Lot — Volcanica
+Producer: Manhattan Coffee Roasters (Netherlands)
+Origin: Colombia, Nariño — Finca El Vergel
+Altitude: 1950m
+Variety: Gesha · Species: Arabica
+Processing: Double Anaerobic Washed · Roast: Light
+Cupping Score: 93/100 (SCA Certified)
+Tasting Notes: Jasmine, Lychee, Vanilla, Lime zest, Silk
+Price: $65/150g
+Mold Test: verified
+Transparency Grade: A · Farmer Share: 55%
+Brew Methods: Pour-over, Siphon, Chemex
+Food Pairings: Lychee sorbet, Vanilla bean ice cream, Lime tart
+Wow Proxy: 92/100
+Limited Release: Yes · In Stock: Yes
+Awards: World Brewers Cup supply 2024
+Tony's Note: Manhattan is the quiet giant of European specialty. Their Gesha lots from El Vergel are consistently among the best in the world. Double anaerobic washing creates a clarity that lets every floral note ring like a bell.
+Buy: Manhattan Coffee — https://manhattancoffeeroasters.com
+
+[april-ethiopia-halo-beriti]
+Name: Halo Beriti Washed
+Producer: April Coffee Roasters (Denmark)
+Origin: Ethiopia, Yirgacheffe, Gedeo
+Altitude: 2050m
+Variety: Heirloom Ethiopian · Species: Arabica
+Processing: Washed · Roast: Light
+Cupping Score: 92/100 (April internal)
+Tasting Notes: White peach, Jasmine, Lemon curd, Earl Grey, Silky
+Price: $28/250g
+Mold Test: verified
+Transparency Grade: A · Farmer Share: 48%
+Brew Methods: Pour-over, Aeropress
+Food Pairings: Peach tart, Shortbread, Earl Grey cake
+Wow Proxy: 88/100
+Limited Release: No · In Stock: Yes
+Awards: World Brewers Cup Champion supply 2021
+Tony's Note: April is the most elegant roaster in Scandinavia. Their washed Ethiopians are so clean, so transparent, that you can taste the altitude. Halo Beriti is the definition of 'tea-like' — and that's the highest compliment in specialty coffee.
+Buy: April Coffee — https://aprilcoffeeroasters.com
+
+[the-barn-kenya-gakuyuini]
+Name: Kenya Gakuyuini AA
+Producer: The Barn (Germany)
+Origin: Kenya, Nyeri
+Altitude: 1800m
+Variety: SL28 / SL34 · Species: Arabica
+Processing: Washed · Roast: Light
+Cupping Score: 91/100 (The Barn internal)
+Tasting Notes: Blackcurrant, Blood orange, Cranberry, Brown sugar, Sparkling
+Price: $24/250g
+Mold Test: verified
+Transparency Grade: A · Farmer Share: 40%
+Brew Methods: Pour-over, Aeropress, Batch brew
+Food Pairings: Blood orange tart, Dark chocolate, Goat cheese
+Wow Proxy: 85/100
+Limited Release: No · In Stock: Yes
+Tony's Note: The Barn is Berlin's most famous roaster for a reason. Their Kenyan lots are electric — SL28 from Nyeri produces an acidity so bright it's almost carbonated. This is the coffee that converts dark-roast drinkers.
+Buy: The Barn — https://thebarn.de
+
+[tropicalia-colombia-eugenioides]
+Name: Eugenioides — The Ancestor
+Producer: Tropicalia Coffee (Colombia)
+Origin: Colombia, Huila
+Altitude: 1700m
+Variety: Eugenioides · Species: Coffea eugenioides
+Processing: Washed · Roast: Light
+Cupping Score: 93/100 (World Brewers Cup)
+Tasting Notes: Sugarcane, Vanilla, Chamomile, Peach, Cream
+Price: $95/100g
+Mold Test: verified
+Transparency Grade: A · Farmer Share: 70%
+Brew Methods: Pour-over, Siphon
+Food Pairings: Vanilla panna cotta, Chamomile honey, White peach
+Wow Proxy: 97/100
+Limited Release: Yes · In Stock: Yes
+Awards: World Brewers Cup 2021 winning coffee
+Tony's Note: Eugenioides is not Arabica. It's the parent species of Arabica — the ancient ancestor that crossed with Canephora millions of years ago. It produces almost no bitterness, almost no acidity, and sweetness that borders on surreal. This is the rarest coffee on earth.
+Buy: Tropicalia — https://tropicaliacoffee.com
+
+[kross-panama-gesha-honey]
+Name: Gesha Honey — Finca Lerida
+Producer: Kross Coffee (Panama)
+Origin: Panama, Boquete — Finca Lerida
+Altitude: 1800m
+Variety: Gesha · Species: Arabica
+Processing: Honey · Roast: Light
+Cupping Score: 92/100 (Best of Panama)
+Tasting Notes: Mango, Honey, Jasmine, Papaya, Caramel
+Price: $70/150g
+Mold Test: verified
+Transparency Grade: A · Farmer Share: 65%
+Brew Methods: Pour-over, Chemex
+Food Pairings: Mango sticky rice, Honey cake, Tropical fruit
+Wow Proxy: 90/100
+Limited Release: Yes · In Stock: Yes
+Awards: Best of Panama 2024 Honey category
+Tony's Note: Honey-processed Gesha is the sweet spot between washed clarity and natural fruit. Finca Lerida's altitude and Boquete's microclimate create a cup that's simultaneously delicate and explosively sweet.
+Buy: Kross Coffee — https://krosscoffee.com
+
+[heart-colombia-la-palma-gesha]
+Name: La Palma y El Tucán Gesha
+Producer: Heart Coffee Roasters (USA)
+Origin: Colombia, Cundinamarca — La Palma y El Tucán
+Altitude: 1700m
+Variety: Gesha · Species: Arabica
+Processing: Washed · Roast: Light
+Cupping Score: 92/100 (Heart internal)
+Tasting Notes: Jasmine, Bergamot, Peach, Lemon verbena, Silk
+Price: $48/200g
+Mold Test: claims
+Transparency Grade: A · Farmer Share: 50%
+Brew Methods: Pour-over, Aeropress
+Food Pairings: Lemon tart, Jasmine tea cake, Fresh berries
+Wow Proxy: 88/100
+Limited Release: Yes · In Stock: Yes
+Tony's Note: Heart in Portland is one of the most consistent roasters in America. Their Gesha lots from La Palma are textbook — floral, clean, with a silky body that makes you wonder if someone added cream. They didn't.
+Buy: Heart Coffee — https://heartroasters.com
+
+[ceremony-ethiopia-banko-gotiti]
+Name: Banko Gotiti Natural
+Producer: Ceremony Coffee Roasters (USA)
+Origin: Ethiopia, Gedeo, Yirgacheffe
+Altitude: 2000m
+Variety: Heirloom Ethiopian · Species: Arabica
+Processing: Natural · Roast: Light
+Cupping Score: 90/100 (Ceremony internal)
+Tasting Notes: Blueberry, Strawberry, Dark chocolate, Wine, Tropical
+Price: $22/284g
+Mold Test: claims
+Transparency Grade: A · Farmer Share: 38%
+Brew Methods: Pour-over, Chemex, Cold brew
+Food Pairings: Berry cobbler, Dark chocolate, Yogurt
+Wow Proxy: 75/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Ceremony is the quiet powerhouse of the mid-Atlantic. Their natural Ethiopians are fruit bombs that never cross into over-fermented territory. Banko Gotiti is the gateway — blueberry and strawberry so vivid you'll check the bag twice.
+Buy: Ceremony Coffee — https://ceremonycoffee.com
+
+[ruby-colombia-el-paraiso]
+Name: El Paraíso Double Anaerobic
+Producer: Ruby Coffee Roasters (USA)
+Origin: Colombia, Huila — Finca El Paraíso
+Altitude: 1750m
+Variety: Castillo · Species: Arabica
+Processing: Double Anaerobic · Roast: Light
+Cupping Score: 92/100 (Cup of Excellence)
+Tasting Notes: Lychee, Bubblegum, Tropical punch, Vanilla, Cream
+Price: $42/200g
+Mold Test: verified
+Transparency Grade: A · Farmer Share: 55%
+Brew Methods: Pour-over, Aeropress
+Food Pairings: Lychee sorbet, Tropical fruit salad, Vanilla cake
+Wow Proxy: 88/100
+Limited Release: Yes · In Stock: Yes
+Awards: Cup of Excellence Colombia 2023
+Tony's Note: El Paraíso is the most talked-about farm in Colombia right now. Their double anaerobic process creates flavors that shouldn't exist in coffee — lychee, bubblegum, tropical punch. Purists hate it. Everyone else can't stop drinking it.
+Buy: Ruby Coffee — https://rubycoffeeroasters.com
+
+[verve-kenya-kagumoini]
+Name: Kenya Kagumoini AA
+Producer: Verve Coffee Roasters (USA)
+Origin: Kenya, Nyeri
+Altitude: 1850m
+Variety: SL28 / SL34 · Species: Arabica
+Processing: Washed · Roast: Light
+Cupping Score: 90/100 (Verve internal)
+Tasting Notes: Blackcurrant, Grapefruit, Hibiscus, Brown sugar, Juicy
+Price: $26/284g
+Mold Test: claims
+Transparency Grade: A · Farmer Share: 35%
+Brew Methods: Pour-over, Aeropress, Batch brew
+Food Pairings: Grapefruit tart, Dark chocolate, Goat cheese
+Wow Proxy: 80/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Verve's Kenyan lots are consistently among the best in the US. Kagumoini AA from Nyeri is electric — the kind of acidity that makes your tongue tingle and your brain light up. If you think you don't like bright coffee, you haven't had this.
+Buy: Verve Coffee — https://vervecoffee.com
+
+[equator-ethiopia-worka-sakaro]
+Name: Ethiopia Worka Sakaro
+Producer: Equator Coffees (USA)
+Origin: Ethiopia, Gedeo, Yirgacheffe
+Altitude: 2000m
+Variety: Heirloom Ethiopian · Species: Arabica
+Processing: Washed · Roast: Light
+Cupping Score: 89/100 (Equator internal)
+Tasting Notes: Lemon, Jasmine, Peach, Tea-like, Clean
+Price: $22/284g
+Mold Test: claims
+Transparency Grade: A · Farmer Share: 35%
+Brew Methods: Pour-over, Aeropress, Drip
+Food Pairings: Lemon cake, Shortbread, Fresh fruit
+Wow Proxy: 65/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Equator is a certified B Corp that proves ethical sourcing and great coffee aren't mutually exclusive. Their washed Yirgacheffe is textbook — clean, floral, tea-like, and priced fairly. The daily driver for people who care about both cup quality and farmer welfare.
+Buy: Equator Coffees — https://equatorcoffees.com
+
+[little-wolf-guatemala-acatenango]
+Name: Guatemala Acatenango Gesha
+Producer: Little Wolf Coffee (USA)
+Origin: Guatemala, Acatenango Valley
+Altitude: 1900m
+Variety: Gesha · Species: Arabica
+Processing: Washed · Roast: Light
+Cupping Score: 91/100 (SCA Certified)
+Tasting Notes: Jasmine, Peach, Bergamot, Honey, Silky
+Price: $35/200g
+Mold Test: claims
+Transparency Grade: A · Farmer Share: 45%
+Brew Methods: Pour-over, Aeropress
+Food Pairings: Peach tart, Honey cake, Shortbread
+Wow Proxy: 82/100
+Limited Release: Yes · In Stock: Yes
+Tony's Note: Little Wolf is one of the most underrated roasters in America. Their Guatemalan Gesha from Acatenango is proof that Panama doesn't have a monopoly on the variety — volcanic soil at altitude creates a cup that rivals Boquete at half the price.
+Buy: Little Wolf — https://littlewolfcoffee.com
+
+[stumptown-hair-bender]
+Name: Hair Bender Blend
+Producer: Stumptown Coffee Roasters (USA)
+Origin: Blend, Latin America / Africa
+Variety: Mixed · Species: Arabica
+Processing: Washed/Natural Blend · Roast: Medium
+Cupping Score: 86/100 (Internal)
+Tasting Notes: Dark chocolate, Citrus, Caramel, Toffee
+Price: $17/340g
+Mold Test: untested
+Transparency Grade: B
+Brew Methods: Espresso, Drip, French press
+Food Pairings: Chocolate croissant, Toast, Banana bread
+Wow Proxy: 35/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Hair Bender is the blend that launched Portland's coffee revolution. It's not the most exciting coffee in the world, but it's one of the most reliable. Chocolate, citrus, caramel — every single time. The Toyota Camry of specialty coffee, and that's a compliment.
+Buy: Stumptown — https://stumptowncoffee.com
+
+[blue-bottle-hayes-valley]
+Name: Hayes Valley Espresso
+Producer: Blue Bottle Coffee (USA)
+Origin: Blend, Africa / Latin America
+Variety: Mixed · Species: Arabica
+Processing: Washed/Natural Blend · Roast: Medium
+Cupping Score: 85/100 (Internal)
+Tasting Notes: Chocolate, Butterscotch, Baking spice, Smooth
+Price: $19/340g
+Mold Test: untested
+Transparency Grade: B
+Brew Methods: Espresso, Moka pot, Drip
+Food Pairings: Chocolate cake, Biscotti, Croissant
+Wow Proxy: 30/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Blue Bottle was acquired by Nestlé in 2017, and purists wrote it off. But Hayes Valley Espresso remains a solid, approachable blend. It's not going to change your life, but it won't disappoint you either. The question is whether you want to support Nestlé's version of 'craft.'
+Buy: Blue Bottle — https://bluebottlecoffee.com
+
+[onyx-monarch]
+Name: Monarch Blend
+Producer: Onyx Coffee Lab (USA)
+Origin: Blend, Ethiopia / Guatemala
+Variety: Mixed · Species: Arabica
+Processing: Washed/Natural Blend · Roast: Medium-Light
+Cupping Score: 87/100 (Onyx internal)
+Tasting Notes: Chocolate, Cherry, Caramel, Nutty, Sweet
+Price: $18/284g
+Mold Test: claims
+Transparency Grade: A
+Brew Methods: Drip, Pour-over, Espresso, French press
+Food Pairings: Chocolate chip cookies, Cherry pie, Toast
+Wow Proxy: 45/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Onyx's everyday blend is better than most roasters' flagship single origins. Monarch is the proof that 'blend' doesn't mean 'compromise.' Cherry, chocolate, caramel — balanced, sweet, and endlessly drinkable.
+Buy: Onyx Coffee Lab — https://onyxcoffeelab.com
+
+[passenger-kenya-nyeri-othaya]
+Name: Kenya Nyeri Othaya AB
+Producer: Passenger Coffee (USA)
+Origin: Kenya, Nyeri, Othaya
+Altitude: 1800m
+Variety: SL28 / SL34 · Species: Arabica
+Processing: Washed · Roast: Light
+Cupping Score: 90/100 (Passenger internal)
+Tasting Notes: Blackcurrant, Tomato, Grapefruit, Molasses, Sparkling
+Price: $25/284g
+Mold Test: claims
+Transparency Grade: A · Farmer Share: 38%
+Brew Methods: Pour-over, Aeropress, Batch brew
+Food Pairings: Citrus salad, Dark chocolate, Aged cheese
+Wow Proxy: 78/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Passenger is Lancaster, PA's gift to specialty coffee. Their Kenyan lots are consistently electric — Othaya AB has that signature Nyeri acidity that makes your tongue tingle. If you think coffee can't taste like blackcurrant and tomato simultaneously, prepare to be wrong.
+Buy: Passenger Coffee — https://passengercoffee.com
+
+[george-howell-tarrazu-herbazu]
+Name: Tarrazú Herbazú Caturra
+Producer: George Howell Coffee (USA)
+Origin: Costa Rica, Tarrazú — Herbazú
+Altitude: 1700m
+Variety: Caturra · Species: Arabica
+Processing: Honey · Roast: Light
+Cupping Score: 89/100 (George Howell internal)
+Tasting Notes: Honey, Apricot, Milk chocolate, Caramel, Clean
+Price: $24/340g
+Mold Test: claims
+Transparency Grade: A · Farmer Share: 40%
+Brew Methods: Pour-over, Drip, Aeropress
+Food Pairings: Apricot tart, Honey cake, Butter cookies
+Wow Proxy: 65/100
+Limited Release: No · In Stock: Yes
+Tony's Note: George Howell literally invented the concept of 'specialty coffee' in the 1970s. His Tarrazú lots are a masterclass in what Costa Rica does best — clean, sweet, balanced. Herbazú's honey process adds an apricot sweetness that elevates it above the crowd.
+Buy: George Howell — https://georgehowellcoffee.com
+
+[sey-ethiopia-worka-chelbesa]
+Name: Ethiopia Worka Chelbesa Washed
+Producer: SEY Coffee (USA)
+Origin: Ethiopia, Gedeo, Yirgacheffe
+Altitude: 2100m
+Variety: Heirloom Ethiopian · Species: Arabica
+Processing: Washed · Roast: Light
+Cupping Score: 91/100 (SEY internal)
+Tasting Notes: Jasmine, Lemon, Peach, Earl Grey, Silk
+Price: $26/250g
+Mold Test: verified (SEY transparency report)
+Transparency Grade: A · Farmer Share: 52%
+Brew Methods: Pour-over, Aeropress
+Food Pairings: Lemon tart, Earl Grey cake, Fresh peaches
+Wow Proxy: 82/100
+Limited Release: No · In Stock: Yes
+Tony's Note: SEY is the most transparent roaster in New York. Their washed Ethiopians are the gold standard — Worka Chelbesa is so clean and floral it tastes like drinking a garden. The kind of coffee that makes you sit in silence for a moment.
+Buy: SEY Coffee — https://www.seycoffee.com
+
+[counter-culture-fast-forward]
+Name: Fast Forward Blend
+Producer: Counter Culture Coffee (USA)
+Origin: Blend, Ethiopia / Colombia
+Variety: Mixed · Species: Arabica
+Processing: Washed · Roast: Light-Medium
+Cupping Score: 87/100 (Internal)
+Tasting Notes: Citrus, Floral, Caramel, Berry, Clean
+Price: $16/340g
+Mold Test: untested
+Transparency Grade: A · Farmer Share: 35%
+Brew Methods: Drip, Pour-over, Aeropress
+Food Pairings: Toast, Fruit, Granola
+Wow Proxy: 40/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Counter Culture's lighter blend for people who want to taste fruit and floral without going full Nordic light roast. Fast Forward is the bridge between commodity coffee and specialty — bright enough to be interesting, approachable enough for anyone.
+Buy: Counter Culture — https://counterculturecoffee.com
+
+[devocion-toro]
+Name: Toro — Fresh from Colombia
+Producer: Devoción (USA/Colombia)
+Origin: Colombia, Huila / Nariño
+Altitude: 1800m
+Variety: Caturra / Castillo · Species: Arabica
+Processing: Washed · Roast: Medium
+Cupping Score: 87/100 (Devoción internal)
+Tasting Notes: Dark chocolate, Caramel, Dried fruit, Nutty, Smooth
+Price: $20/340g
+Mold Test: claims
+Transparency Grade: A · Farmer Share: 45%
+Brew Methods: Drip, Espresso, French press
+Food Pairings: Chocolate cake, Caramel flan, Nuts
+Wow Proxy: 55/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Devoción's entire model is freshness — they ship green beans from Colombia to Brooklyn within 10 days of harvest. Most roasters take months. The result is a vibrancy that you can literally taste. Toro is their everyday blend, and it's fresher than anything else on the shelf.
+Buy: Devoción — https://dfrankfurt.com
+
+[la-cabra-kenya-kiambu]
+Name: Kenya Kiambu Washed
+Producer: La Cabra (Denmark)
+Origin: Kenya, Kiambu
+Altitude: 1750m
+Variety: SL28 · Species: Arabica
+Processing: Washed · Roast: Light
+Cupping Score: 91/100 (La Cabra internal)
+Tasting Notes: Blackcurrant, Rhubarb, Cranberry, Raw sugar, Sparkling
+Price: $28/250g
+Mold Test: verified
+Transparency Grade: A · Farmer Share: 42%
+Brew Methods: Pour-over, Aeropress
+Food Pairings: Rhubarb crumble, Dark chocolate, Goat cheese
+Wow Proxy: 85/100
+Limited Release: No · In Stock: Yes
+Tony's Note: La Cabra is the Danish roaster that coffee professionals drink when they want to be impressed. Their Kenyan lots are legendary — SL28 from Kiambu produces an acidity so complex it evolves in the cup over 20 minutes. This is coffee as a meditation practice.
+Buy: La Cabra — https://lacabra.dk
+
+[intelligentsia-black-cat]
+Name: Black Cat Classic Espresso
+Producer: Intelligentsia Coffee (USA)
+Origin: Blend, Latin America / Africa
+Variety: Mixed · Species: Arabica
+Processing: Washed · Roast: Medium
+Cupping Score: 86/100 (Internal)
+Tasting Notes: Milk chocolate, Caramel, Cola, Smooth
+Price: $18/340g
+Mold Test: untested
+Transparency Grade: B
+Brew Methods: Espresso, Moka pot, Drip
+Food Pairings: Chocolate, Pastries, Breakfast
+Wow Proxy: 32/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Black Cat is the espresso blend that launched a thousand coffee shops. Intelligentsia pioneered direct trade in the US, and while they've been acquired by Peet's, Black Cat remains a solid, reliable espresso. Not exciting. Not disappointing. Just good.
+Buy: Intelligentsia — https://intelligentsia.com
+
+[proud-mary-colombia-la-esperanza]
+Name: Colombia La Esperanza Thermal Shock
+Producer: Proud Mary (Australia)
+Origin: Colombia, Huila — La Esperanza
+Altitude: 1800m
+Variety: Pink Bourbon · Species: Arabica
+Processing: Thermal Shock · Roast: Light
+Cupping Score: 91/100 (Proud Mary internal)
+Tasting Notes: Strawberry milkshake, Vanilla, Rose, Candy, Cream
+Price: $38/200g
+Mold Test: verified
+Transparency Grade: A · Farmer Share: 50%
+Brew Methods: Pour-over, Aeropress
+Food Pairings: Strawberry shortcake, Vanilla ice cream, Rose Turkish delight
+Wow Proxy: 90/100
+Limited Release: Yes · In Stock: Yes
+Awards: Melbourne International Coffee Expo 2024
+Tony's Note: Thermal shock processing is the newest frontier — rapid temperature changes during fermentation create flavor profiles that are almost hallucinogenic. This Pink Bourbon tastes like a strawberry milkshake. No, really. It's the most 'is this even coffee?' coffee in the catalog.
+Buy: Proud Mary — https://proudmarycoffee.com
+
+[folgers-classic-roast]
+Name: Classic Roast
+Producer: Folgers (J.M. Smucker) (USA)
+Origin: Blend, Brazil / Vietnam / Unknown
+Variety: Robusta / Arabica blend · Species: Mixed
+Processing: Industrial · Roast: Medium
+Cupping Score: 55/100 (Industry estimate)
+Tasting Notes: Burnt rubber, Cardboard, Bitter, Flat, Stale
+Price: $8/907g
+Mold Test: untested
+Transparency Grade: F
+Brew Methods: Drip
+Wow Proxy: 0/100
+Limited Release: No · In Stock: Yes
+Tony's Note: The best part of waking up is not this in your cup. Folgers is the poster child for commodity coffee — pre-ground, months old, blended with Robusta, and roasted to oblivion to hide the defects. The fact that it's the #1 selling coffee in America is a national tragedy.
+Buy: Grocery stores — https://folgers.com
+
+[maxwell-house-original]
+Name: Original Roast
+Producer: Maxwell House (Kraft Heinz) (USA)
+Origin: Blend, Brazil / Vietnam / Unknown
+Variety: Robusta / Arabica blend · Species: Mixed
+Processing: Industrial · Roast: Medium
+Cupping Score: 52/100 (Industry estimate)
+Tasting Notes: Cardboard, Ash, Bitter, Hollow, Stale
+Price: $7/907g
+Mold Test: untested
+Transparency Grade: F
+Brew Methods: Drip
+Wow Proxy: 0/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Maxwell House claims it's 'good to the last drop.' We tested this claim. It is not good at any drop. Pre-ground commodity coffee that sits on shelves for months, blended to be as inoffensive as possible, which means it's offensive to anyone who's tasted real coffee.
+Buy: Grocery stores — https://maxwellhouse.com
+
+[keurig-green-mountain]
+Name: Breakfast Blend K-Cup
+Producer: Green Mountain (Keurig Dr Pepper) (USA)
+Origin: Blend, Unknown
+Variety: Unknown · Species: Arabica
+Processing: Industrial · Roast: Light
+Cupping Score: 58/100 (Industry estimate)
+Tasting Notes: Watery, Cardboard, Slightly bitter, Thin, Forgettable
+Price: $12/340g
+Mold Test: untested
+Transparency Grade: F
+Brew Methods: K-Cup machine
+Wow Proxy: 2/100
+Limited Release: No · In Stock: Yes
+Tony's Note: K-Cups are the single greatest environmental and gustatory crime in coffee history. Each pod generates plastic waste, the coffee inside is stale before it's sealed, and the brewing method under-extracts everything. You're paying $40/lb for coffee that tastes like hot cardboard water.
+Buy: Grocery stores — https://keurig.com
+
+[nescafe-instant-classic]
+Name: Clasico Instant
+Producer: Nescafé (Nestlé) (Switzerland)
+Origin: Blend, Unknown
+Variety: Robusta / Arabica · Species: Mixed
+Processing: Spray-dried instant · Roast: Dark
+Cupping Score: 45/100 (Industry estimate)
+Tasting Notes: Burnt, Chemical, Bitter, Hollow, Metallic
+Price: $9/200g
+Mold Test: untested
+Transparency Grade: F
+Brew Methods: Hot water
+Wow Proxy: 0/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Nescafé is the world's most consumed coffee brand. Let that sink in. Spray-dried instant coffee made from the cheapest beans on earth, processed to remove every trace of character. Nestlé has done more damage to coffee culture than any single entity in history.
+Buy: Grocery stores — https://nescafe.com
+
+[death-wish-dark-roast]
+Name: Death Wish Dark Roast
+Producer: Death Wish Coffee (USA)
+Origin: Blend, India / Unknown
+Variety: Robusta / Arabica · Species: Mixed
+Processing: Industrial · Roast: Dark
+Cupping Score: 62/100 (Industry estimate)
+Tasting Notes: Charcoal, Bitter, Thick, Smoky, Caffeine
+Price: $20/454g
+Mold Test: untested
+Transparency Grade: D
+Brew Methods: Drip, French press
+Wow Proxy: 5/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Death Wish markets itself as 'the world's strongest coffee.' That's like marketing a wine as 'the most alcoholic.' They use Robusta beans (high caffeine, low flavor) and roast them to charcoal. If your goal is caffeine, take a pill. If your goal is coffee, look elsewhere.
+Buy: Death Wish — https://deathwishcoffee.com
+
+[starbucks-pike-place]
+Name: Pike Place Roast
+Producer: Starbucks (USA)
+Origin: Blend, Latin America
+Variety: Mixed · Species: Arabica
+Processing: Washed · Roast: Medium
+Cupping Score: 72/100 (Industry estimate)
+Tasting Notes: Smoky, Nutty, Bitter, Flat, Burnt edges
+Price: $12/340g
+Mold Test: untested
+Transparency Grade: C
+Brew Methods: Drip
+Wow Proxy: 10/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Starbucks buys more specialty-grade coffee than anyone on earth and then roasts it all into the same dark, smoky, bitter profile. Pike Place is their 'medium' roast, which in any other context would be called 'dark.' It's not terrible. It's just a waste of good beans.
+Buy: Starbucks — https://starbucks.com
+
+[dunkin-original-blend]
+Name: Original Blend
+Producer: Dunkin' (USA)
+Origin: Blend, Latin America
+Variety: Mixed · Species: Arabica
+Processing: Washed · Roast: Medium
+Cupping Score: 70/100 (Industry estimate)
+Tasting Notes: Smooth, Mild, Nutty, Inoffensive, Watery
+Price: $10/340g
+Mold Test: untested
+Transparency Grade: D
+Brew Methods: Drip
+Wow Proxy: 5/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Dunkin' is America's coffee. Not because it's good, but because it's everywhere and it's cheap. The Original Blend is engineered to be inoffensive — smooth, mild, forgettable. It's the beige paint of coffee. Nobody hates it. Nobody remembers it.
+Buy: Dunkin' — https://dunkinathome.com
+
+[lavazza-super-crema]
+Name: Super Crema Espresso
+Producer: Lavazza (Italy)
+Origin: Blend, Brazil / India / Colombia / Indonesia
+Variety: Arabica / Robusta · Species: Mixed
+Processing: Industrial · Roast: Medium
+Cupping Score: 68/100 (Industry estimate)
+Tasting Notes: Hazelnut, Cream, Mild bitter, Flat, Woody
+Price: $18/1000g
+Mold Test: untested
+Transparency Grade: D
+Brew Methods: Espresso, Moka pot
+Wow Proxy: 8/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Lavazza is Italy's largest coffee company, and Super Crema is their most popular blend. It produces a thick crema (hence the name) but the flavor underneath is unremarkable — hazelnut, cream, and a woody bitterness from the Robusta. Italy's coffee culture is stuck in the 1950s, and Lavazza is the reason.
+Buy: Lavazza — https://lavazza.com
+
+[bulletproof-original]
+Name: The Original Medium Roast
+Producer: Bulletproof (USA)
+Origin: Blend, Guatemala / Colombia
+Variety: Mixed · Species: Arabica
+Processing: Washed · Roast: Medium
+Cupping Score: 78/100 (Internal)
+Tasting Notes: Chocolate, Nutty, Clean, Mild, Smooth
+Price: $19/340g
+Mold Test: claims (Bulletproof claims 'clean coffee' process)
+Transparency Grade: C
+Brew Methods: Drip, French press, Pour-over
+Wow Proxy: 15/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Bulletproof built an empire on mycotoxin fear — claiming their 'clean coffee' process removes mold that other coffees contain. The science is dubious at best. The coffee itself is... fine. A perfectly average medium roast sold at a premium because of marketing, not quality.
+Buy: Bulletproof — https://bulletproof.com
+
+[peets-major-dickasons]
+Name: Major Dickason's Blend
+Producer: Peet's Coffee (USA)
+Origin: Blend, Unknown
+Variety: Mixed · Species: Arabica
+Processing: Washed · Roast: Dark
+Cupping Score: 75/100 (Internal)
+Tasting Notes: Smoky, Dark chocolate, Earthy, Heavy, Bitter
+Price: $15/340g
+Mold Test: untested
+Transparency Grade: C
+Brew Methods: Drip, French press
+Wow Proxy: 12/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Peet's is the godfather of dark roast in America — Alfred Peet literally taught the Starbucks founders. Major Dickason's is their flagship, and it's a monument to the philosophy that darker = better. It's not. But if you like your coffee to taste like a campfire, this is your jam.
+Buy: Peet's — https://peets.com
+
+[eight-oclock-original]
+Name: The Original
+Producer: Eight O'Clock Coffee (Tata) (USA)
+Origin: Blend, Unknown
+Variety: Mixed · Species: Arabica
+Processing: Industrial · Roast: Medium
+Cupping Score: 60/100 (Industry estimate)
+Tasting Notes: Flat, Mild, Slightly bitter, Cardboard, Forgettable
+Price: $7/680g
+Mold Test: untested
+Transparency Grade: F
+Brew Methods: Drip
+Wow Proxy: 2/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Eight O'Clock is the coffee your grandparents drank because there was nothing else. Now owned by Tata Global Beverages, it's mass-produced commodity coffee with zero transparency about sourcing. At $5/lb, you get exactly what you pay for: nothing memorable.
+Buy: Grocery stores — https://eightoclock.com
+
+[cafe-bustelo-espresso]
+Name: Espresso Style
+Producer: Café Bustelo (J.M. Smucker) (USA)
+Origin: Blend, Unknown
+Variety: Mixed · Species: Arabica / Robusta
+Processing: Industrial · Roast: Dark
+Cupping Score: 58/100 (Industry estimate)
+Tasting Notes: Burnt, Bitter, Thick, Smoky, Harsh
+Price: $6/283g
+Mold Test: untested
+Transparency Grade: F
+Brew Methods: Moka pot, Espresso
+Wow Proxy: 3/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Café Bustelo has a cult following, and we respect the cultural significance. But let's be honest about what's in the can: over-roasted commodity beans, likely including Robusta, ground to dust. It makes a strong, bitter cup that's best drowned in sugar and milk. The espresso label is generous.
+Buy: Grocery stores — https://cafebustelo.com
+
+[onyx-geometry]
+Name: Geometry Blend
+Producer: Onyx Coffee Lab (USA)
+Origin: Blend, Ethiopia / Colombia
+Variety: Mixed · Species: Arabica
+Processing: Washed/Natural Blend · Roast: Light-Medium
+Cupping Score: 88/100 (Onyx internal)
+Tasting Notes: Berry, Citrus, Chocolate, Floral, Balanced
+Price: $20/284g
+Mold Test: claims
+Transparency Grade: A
+Brew Methods: Drip, Pour-over, Aeropress
+Food Pairings: Fruit tart, Chocolate, Pastries
+Wow Proxy: 50/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Geometry is Onyx's 'I want something interesting but not weird' blend. Berry, citrus, chocolate — it hits every note without going overboard on any of them. The blend that converts Starbucks drinkers to specialty without scaring them.
+Buy: Onyx Coffee Lab — https://onyxcoffeelab.com
+
+[brandywine-ethiopia-natural-guji]
+Name: Ethiopia Guji Natural
+Producer: Brandywine Coffee Roasters (USA)
+Origin: Ethiopia, Guji, Oromia
+Altitude: 2100m
+Variety: Heirloom Ethiopian · Species: Arabica
+Processing: Natural · Roast: Light
+Cupping Score: 89/100 (Brandywine internal)
+Tasting Notes: Blueberry, Strawberry, Tropical, Wine, Floral
+Price: $22/284g
+Mold Test: claims
+Transparency Grade: A · Farmer Share: 38%
+Brew Methods: Pour-over, Chemex, Cold brew
+Food Pairings: Berry cobbler, Dark chocolate, Yogurt
+Wow Proxy: 70/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Brandywine is Delaware's best-kept secret. Their natural Ethiopians are fruit bombs — Guji heirlooms processed naturally produce blueberry and strawberry notes so vivid they border on candy. At $22 for 10oz, it's one of the best values in specialty coffee.
+Buy: Brandywine — https://brandywinecoffeeroasters.com
+
+[tim-wendelboe-aeropress-blend]
+Name: Aeropress Blend
+Producer: Tim Wendelboe (Norway)
+Origin: Blend, Colombia / Ethiopia
+Variety: Mixed · Species: Arabica
+Processing: Washed · Roast: Light
+Cupping Score: 88/100 (Tim Wendelboe internal)
+Tasting Notes: Caramel, Citrus, Floral, Clean, Balanced
+Price: $18/250g
+Mold Test: verified
+Transparency Grade: A · Farmer Share: 55%
+Brew Methods: Aeropress, Pour-over
+Food Pairings: Toast, Fruit, Light pastries
+Wow Proxy: 55/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Tim Wendelboe won the World Barista Championship in 2004 and has been the conscience of specialty coffee ever since. His Aeropress Blend is designed for the brewer he helped popularize — clean, sweet, balanced, and a masterclass in what 'light roast' should taste like.
+Buy: Tim Wendelboe — https://timwendelboe.no
+
+[square-mile-red-brick]
+Name: Red Brick Seasonal Espresso
+Producer: Square Mile Coffee Roasters (UK)
+Origin: Blend, Seasonal rotation
+Variety: Mixed · Species: Arabica
+Processing: Washed · Roast: Medium-Light
+Cupping Score: 87/100 (Square Mile internal)
+Tasting Notes: Chocolate, Caramel, Fruit, Sweet, Balanced
+Price: $18/350g
+Mold Test: claims
+Transparency Grade: A · Farmer Share: 40%
+Brew Methods: Espresso, Aeropress, Moka pot
+Food Pairings: Chocolate brownie, Caramel desserts, Pastries
+Wow Proxy: 50/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Square Mile was founded by James Hoffmann (World Barista Champion 2007) and Anette Moldvaer. Red Brick is their flagship espresso — it changes seasonally but always delivers chocolate, caramel, and sweetness. The benchmark for what modern espresso should taste like.
+Buy: Square Mile — https://shop.squaremilecoffee.com
+
+[catalyst-colombia-washed]
+Name: Colombia Washed Caturra
+Producer: Catalyst Coffee (USA)
+Origin: Colombia, Huila
+Altitude: 1700m
+Variety: Caturra · Species: Arabica
+Processing: Washed · Roast: Light-Medium
+Cupping Score: 86/100 (Internal)
+Tasting Notes: Caramel, Chocolate, Citrus, Clean, Sweet
+Price: $17/340g
+Mold Test: untested
+Transparency Grade: B
+Brew Methods: Drip, Pour-over, Espresso
+Food Pairings: Toast, Chocolate, Pastries
+Wow Proxy: 35/100
+Limited Release: No · In Stock: Yes
+Tony's Note: A solid, reliable Colombian washed coffee from a small-batch roaster. Nothing flashy, nothing wrong. The kind of coffee that makes you realize most of what you've been drinking is either over-roasted or under-sourced.
+Buy: Catalyst — https://catalystcoffee.co
+
+[tandem-ethiopia-yirgacheffe-washed]
+Name: Ethiopia Yirgacheffe Washed
+Producer: Tandem Coffee Roasters (USA)
+Origin: Ethiopia, Yirgacheffe, Gedeo
+Altitude: 1950m
+Variety: Heirloom Ethiopian · Species: Arabica
+Processing: Washed · Roast: Light
+Cupping Score: 89/100 (Tandem internal)
+Tasting Notes: Lemon, Jasmine, Peach, Tea-like, Delicate
+Price: $20/340g
+Mold Test: claims
+Transparency Grade: A · Farmer Share: 35%
+Brew Methods: Pour-over, Aeropress, Batch brew
+Food Pairings: Lemon tart, Shortbread, Fresh fruit
+Wow Proxy: 65/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Tandem is Portland, Maine's finest. Their washed Yirgacheffe is a textbook example of why Ethiopian coffee is the benchmark — lemon, jasmine, peach, and a tea-like delicacy that makes you slow down and pay attention.
+Buy: Tandem Coffee — https://tandemcoffee.com
+
+[madcap-kenya-gichatha]
+Name: Kenya Gichatha-ini AA
+Producer: Madcap Coffee (USA)
+Origin: Kenya, Nyeri
+Altitude: 1800m
+Variety: SL28 / SL34 · Species: Arabica
+Processing: Washed · Roast: Light
+Cupping Score: 90/100 (Madcap internal)
+Tasting Notes: Blackcurrant, Grapefruit, Tomato, Brown sugar, Juicy
+Price: $25/284g
+Mold Test: claims
+Transparency Grade: A · Farmer Share: 38%
+Brew Methods: Pour-over, Aeropress, Batch brew
+Food Pairings: Citrus tart, Dark chocolate, Aged cheese
+Wow Proxy: 78/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Madcap in Grand Rapids, Michigan is proof that great coffee doesn't require a coastal zip code. Their Kenyan lots are consistently among the best in America — Gichatha-ini AA has that signature Nyeri brightness that makes your palate wake up and pay attention.
+Buy: Madcap Coffee — https://madcapcoffee.com
+
+[spyhouse-ethiopia-worka]
+Name: Ethiopia Worka Natural
+Producer: Spyhouse Coffee (USA)
+Origin: Ethiopia, Gedeo, Yirgacheffe
+Altitude: 2000m
+Variety: Heirloom Ethiopian · Species: Arabica
+Processing: Natural · Roast: Light
+Cupping Score: 88/100 (Spyhouse internal)
+Tasting Notes: Blueberry, Strawberry, Wine, Chocolate, Sweet
+Price: $19/340g
+Mold Test: claims
+Transparency Grade: B
+Brew Methods: Pour-over, Chemex, Cold brew
+Food Pairings: Berry tart, Yogurt, Dark chocolate
+Wow Proxy: 60/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Spyhouse is Minneapolis's flagship specialty roaster. Their natural Ethiopians are crowd-pleasers — blueberry and strawberry notes that are vivid without being over-fermented. At $19 for 12oz, it's one of the best values in the Midwest.
+Buy: Spyhouse — https://spyhousecoffee.com
+
+[barista-parlor-golden-sound]
+Name: Golden Sound Blend
+Producer: Barista Parlor (USA)
+Origin: Blend, Ethiopia / Colombia
+Variety: Mixed · Species: Arabica
+Processing: Washed/Natural Blend · Roast: Medium-Light
+Cupping Score: 87/100 (Internal)
+Tasting Notes: Chocolate, Berry, Caramel, Sweet, Balanced
+Price: $18/340g
+Mold Test: claims
+Transparency Grade: B
+Brew Methods: Drip, Pour-over, Espresso
+Food Pairings: Pastries, Chocolate, Toast
+Wow Proxy: 42/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Nashville's Barista Parlor brings Southern hospitality to specialty coffee. Golden Sound is their everyday blend — approachable, sweet, balanced. Not going to blow your mind, but it'll make your morning better. The kind of coffee that makes you a regular.
+Buy: Barista Parlor — https://baristaparlor.com
+
+[methodical-colombia-el-paraiso-lactic]
+Name: Colombia El Paraíso Lactic
+Producer: Methodical Coffee (USA)
+Origin: Colombia, Huila — Finca El Paraíso
+Altitude: 1750m
+Variety: Castillo · Species: Arabica
+Processing: Lactic Anaerobic · Roast: Light
+Cupping Score: 91/100 (Cup of Excellence)
+Tasting Notes: Mango, Yogurt, Tropical, Vanilla, Cream
+Price: $35/200g
+Mold Test: claims
+Transparency Grade: A · Farmer Share: 50%
+Brew Methods: Pour-over, Aeropress
+Food Pairings: Mango lassi, Vanilla cake, Tropical fruit
+Wow Proxy: 85/100
+Limited Release: Yes · In Stock: Yes
+Awards: Cup of Excellence Colombia 2024
+Tony's Note: Methodical in Greenville, SC is quietly becoming one of the best roasters in the Southeast. Their El Paraíso lactic lot is a tropical explosion — mango, yogurt, vanilla. The lactic fermentation adds a creamy quality that makes it taste like a dessert.
+Buy: Methodical — https://methodicalcoffee.com
+
+[black-white-the-classic]
+Name: The Classic Espresso
+Producer: Black & White Coffee (USA)
+Origin: Blend, Colombia / Ethiopia
+Variety: Mixed · Species: Arabica
+Processing: Washed/Natural Blend · Roast: Medium-Light
+Cupping Score: 87/100 (Internal)
+Tasting Notes: Chocolate, Caramel, Berry, Sweet, Creamy
+Price: $18/284g
+Mold Test: claims
+Transparency Grade: B
+Brew Methods: Espresso, Moka pot, Aeropress
+Food Pairings: Chocolate cake, Caramel desserts, Pastries
+Wow Proxy: 42/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Black & White's espresso blend is the workhorse that funds their exotic single origins. Chocolate, caramel, berry — it's designed to be the best espresso you can pull at home without a $3,000 grinder. And it delivers.
+Buy: Black & White — https://www.blackwhiteroasters.com
+
+[james-coffee-ethiopia-sidamo]
+Name: Ethiopia Sidamo Natural
+Producer: James Coffee Co. (USA)
+Origin: Ethiopia, Sidamo
+Altitude: 1900m
+Variety: Heirloom Ethiopian · Species: Arabica
+Processing: Natural · Roast: Light
+Cupping Score: 88/100 (Internal)
+Tasting Notes: Blueberry, Wine, Chocolate, Floral, Sweet
+Price: $20/340g
+Mold Test: claims
+Transparency Grade: B
+Brew Methods: Pour-over, Chemex, Cold brew
+Food Pairings: Berry tart, Dark chocolate, Yogurt
+Wow Proxy: 58/100
+Limited Release: No · In Stock: Yes
+Tony's Note: San Diego's James Coffee brings California sunshine to Ethiopian naturals. Their Sidamo is a crowd-pleaser — blueberry and wine notes that are vivid but not overwhelming. The kind of coffee that makes you want to sit on a patio and do nothing.
+Buy: James Coffee — https://jamescoffeeco.com
+
+[huckleberry-guatemala-finca-el-injerto]
+Name: Guatemala Finca El Injerto Bourbon
+Producer: Huckleberry Roasters (USA)
+Origin: Guatemala, Huehuetenango — Finca El Injerto
+Altitude: 1800m
+Variety: Bourbon · Species: Arabica
+Processing: Washed · Roast: Light-Medium
+Cupping Score: 89/100 (Cup of Excellence)
+Tasting Notes: Dark chocolate, Plum, Caramel, Almond, Creamy
+Price: $22/284g
+Mold Test: claims
+Transparency Grade: A · Farmer Share: 40%
+Brew Methods: Pour-over, Espresso, Drip
+Food Pairings: Dark chocolate, Plum cake, Almonds
+Wow Proxy: 68/100
+Limited Release: No · In Stock: Yes
+Awards: Cup of Excellence Guatemala 2023
+Tony's Note: Huckleberry in Denver is the Rocky Mountain's best roaster. El Injerto is one of Guatemala's most decorated farms — Cup of Excellence winner multiple times. The Bourbon variety at altitude produces a chocolatey, plummy cup that's equally at home as espresso or pour-over.
+Buy: Huckleberry — https://huckleberryroasters.com
+
+[switchback-rwanda-kilimbi]
+Name: Rwanda Kilimbi Washed
+Producer: Switchback Coffee Roasters (USA)
+Origin: Rwanda, Nyamasheke
+Altitude: 1800m
+Variety: Red Bourbon · Species: Arabica
+Processing: Washed · Roast: Light
+Cupping Score: 88/100 (Internal)
+Tasting Notes: Red grape, Plum, Floral, Honey, Tea-like
+Price: $19/340g
+Mold Test: claims
+Transparency Grade: A · Farmer Share: 38%
+Brew Methods: Pour-over, Aeropress, Batch brew
+Food Pairings: Grape tart, Light pastries, Honey cake
+Wow Proxy: 55/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Switchback in Colorado Springs is proof that great coffee exists outside the big cities. Their Rwandan lots are elegant — Kilimbi's Red Bourbon produces a tea-like cup with grape and plum notes that's perfect for anyone who finds Kenyan coffee too aggressive.
+Buy: Switchback — https://switchbackroasters.com
+
+[ghost-town-colombia-pink-bourbon-natural]
+Name: Colombia Pink Bourbon Natural
+Producer: Ghost Town Coffee Roasters (USA)
+Origin: Colombia, Huila
+Altitude: 1850m
+Variety: Pink Bourbon · Species: Arabica
+Processing: Natural · Roast: Light
+Cupping Score: 90/100 (Internal)
+Tasting Notes: Strawberry, Rose, Vanilla, Tropical, Candy
+Price: $25/284g
+Mold Test: claims
+Transparency Grade: A · Farmer Share: 42%
+Brew Methods: Pour-over, Aeropress
+Food Pairings: Strawberry shortcake, Rose Turkish delight, Vanilla cake
+Wow Proxy: 75/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Ghost Town in Bozeman, Montana roasts some of the most exciting coffees in the mountain west. Their natural Pink Bourbon is a candy bomb — strawberry, rose, vanilla. The natural process amplifies Pink Bourbon's inherent sweetness into something almost surreal.
+Buy: Ghost Town — https://ghosttowncoffee.com
+
+[dragonfly-yemen-haraz]
+Name: Yemen Haraz Natural
+Producer: Dragonfly Coffee Roasters (USA)
+Origin: Yemen, Haraz Mountains
+Altitude: 2200m
+Variety: Yemeni Heirloom · Species: Arabica
+Processing: Natural · Roast: Light-Medium
+Cupping Score: 91/100 (SCA Certified)
+Tasting Notes: Dried fruit, Spice, Dark chocolate, Wine, Tobacco, Leather
+Price: $65/200g
+Mold Test: claims
+Transparency Grade: B · Farmer Share: 55%
+Brew Methods: Pour-over, French press, Siphon
+Food Pairings: Dates, Dark chocolate, Aged cheese, Dried figs
+Wow Proxy: 88/100
+Limited Release: Yes · In Stock: Yes
+Tony's Note: Yemen is where coffee began — literally. The Haraz Mountains have been growing coffee for 500+ years, and the heirloom varieties produce a cup unlike anything else on earth. Dried fruit, spice, wine, tobacco — it's complex, ancient, and irreplaceable. This is coffee archaeology.
+Buy: Dragonfly Coffee — https://dragonflycoffeeroasters.com
+
+[sey-colombia-gesha-el-paraiso]
+Name: El Paraíso Gesha Washed
+Producer: SEY Coffee (USA)
+Origin: Colombia, Huila — Finca El Paraíso
+Altitude: 1750m
+Variety: Gesha · Species: Arabica
+Processing: Washed · Roast: Light
+Cupping Score: 93/100 (SEY internal)
+Tasting Notes: Jasmine, Bergamot, Peach, Honey, Silk
+Price: $55/200g
+Mold Test: verified (SEY transparency report)
+Transparency Grade: A · Farmer Share: 55%
+Brew Methods: Pour-over, Siphon
+Food Pairings: Jasmine tea cake, Peach tart, Honey
+Wow Proxy: 92/100
+Limited Release: Yes · In Stock: Yes
+Awards: Cup of Excellence Colombia 2024
+Tony's Note: When SEY sources Gesha from El Paraíso, the result is one of the most refined coffees available in the US. Washed processing strips away the experimental funk and reveals pure varietal character — jasmine, bergamot, peach. This is what Gesha was born to taste like.
+Buy: SEY Coffee — https://www.seycoffee.com
+
+[george-howell-panama-gesha-esmeralda]
+Name: Panama Gesha — Esmeralda Special
+Producer: George Howell Coffee (USA)
+Origin: Panama, Boquete, Chiriquí — Hacienda La Esmeralda
+Altitude: 1800m
+Variety: Gesha · Species: Arabica
+Processing: Washed · Roast: Light
+Cupping Score: 94/100 (George Howell internal)
+Tasting Notes: Jasmine, Bergamot, Peach, Honey, Lemongrass
+Price: $95/200g
+Mold Test: verified
+Transparency Grade: A · Farmer Share: 70%
+Brew Methods: Pour-over, Siphon
+Food Pairings: Jasmine tea cake, Fresh peaches, Honey comb
+Wow Proxy: 96/100
+Limited Release: Yes · In Stock: Yes
+Awards: Best of Panama multiple years
+Tony's Note: George Howell roasting Esmeralda Gesha is the GOAT roasting the GOAT coffee. The man who coined 'specialty coffee' applying his 50 years of expertise to the most celebrated lot on earth. The result is transcendent — floral, sweet, complex beyond description.
+Buy: George Howell — https://georgehowellcoffee.com
+
+[proud-mary-ethiopia-halo-hartume]
+Name: Ethiopia Halo Hartume Anaerobic
+Producer: Proud Mary (Australia)
+Origin: Ethiopia, Gedeo, Yirgacheffe
+Altitude: 2050m
+Variety: Heirloom Ethiopian · Species: Arabica
+Processing: Anaerobic Natural · Roast: Light
+Cupping Score: 91/100 (Proud Mary internal)
+Tasting Notes: Strawberry, Mango, Cream, Tropical, Candy
+Price: $35/200g
+Mold Test: verified
+Transparency Grade: A · Farmer Share: 48%
+Brew Methods: Pour-over, Aeropress
+Food Pairings: Strawberry shortcake, Mango sorbet, Vanilla ice cream
+Wow Proxy: 85/100
+Limited Release: Yes · In Stock: Yes
+Tony's Note: Proud Mary's anaerobic Ethiopians are the most fun coffees in the catalog. Halo Hartume is a tropical candy bomb — strawberry, mango, cream. The anaerobic process amplifies the fruit to 11. Not for purists. Perfect for everyone else.
+Buy: Proud Mary — https://proudmarycoffee.com
+
+[trade-coffee-subscription-mystery]
+Name: Mystery Subscription Box
+Producer: Trade Coffee (aggregator) (USA)
+Origin: Varies, Varies
+Variety: Varies · Species: Arabica
+Processing: Varies · Roast: Varies
+Cupping Score: 82/100 (Aggregate estimate)
+Tasting Notes: Varies by roaster, Generally solid, Occasionally excellent
+Price: $15/340g
+Mold Test: untested
+Transparency Grade: C
+Brew Methods: Drip, Pour-over
+Wow Proxy: 25/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Trade is a subscription aggregator that matches you with roasters based on a quiz. The concept is solid — they partner with 400+ roasters. But the algorithm tends toward safe, middle-of-the-road picks. Good for discovery, not for depth.
+Buy: Trade Coffee — https://trade.coffee
+
+[charbucks-italian-roast]
+Name: Italian Roast
+Producer: Starbucks (USA)
+Origin: Blend, Unknown
+Variety: Mixed · Species: Arabica
+Processing: Washed · Roast: Extra Dark
+Cupping Score: 65/100 (Industry estimate)
+Tasting Notes: Charcoal, Smoke, Bitter, Ash, Burnt
+Price: $13/340g
+Mold Test: untested
+Transparency Grade: C
+Brew Methods: Drip
+Wow Proxy: 3/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Starbucks Italian Roast is what happens when you take perfectly good specialty-grade beans and roast them until every trace of origin character is incinerated. It's not Italian — no Italian would drink this. It's just burnt. The coffee equivalent of a well-done wagyu steak.
+Buy: Starbucks — https://starbucks.com
+
+[mcdonalds-premium-roast]
+Name: Premium Roast
+Producer: McDonald's (McCafé) (USA)
+Origin: Blend, Latin America
+Variety: Mixed · Species: Arabica
+Processing: Washed · Roast: Medium
+Cupping Score: 68/100 (Industry estimate)
+Tasting Notes: Mild, Smooth, Slightly nutty, Inoffensive, Watery
+Price: $9/340g
+Mold Test: untested
+Transparency Grade: D
+Brew Methods: Drip
+Wow Proxy: 8/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Here's the dirty secret: McDonald's coffee is actually better than Starbucks drip. They use 100% Arabica, roast it medium, and serve it fresh. It's not good by specialty standards, but it's honest — and at $1 for a large, it's the best value in fast food coffee.
+Buy: McDonald's — https://mcdonalds.com
+
+[klatch-belle-espresso]
+Name: Belle Espresso
+Producer: Klatch Coffee (USA)
+Origin: Blend, Ethiopia / Colombia / Guatemala
+Variety: Mixed · Species: Arabica
+Processing: Washed/Natural Blend · Roast: Medium
+Cupping Score: 88/100 (Klatch internal)
+Tasting Notes: Chocolate, Cherry, Caramel, Sweet, Creamy
+Price: $19/340g
+Mold Test: claims
+Transparency Grade: A
+Brew Methods: Espresso, Moka pot, Aeropress
+Food Pairings: Chocolate cake, Cherry pie, Biscotti
+Wow Proxy: 52/100
+Limited Release: No · In Stock: Yes
+Awards: World Barista Championship supply
+Tony's Note: Klatch won the World Barista Championship with their coffee. Belle Espresso is their flagship blend — chocolate, cherry, caramel. It's designed for espresso but works beautifully as a pour-over. One of the best values in specialty espresso.
+Buy: Klatch Coffee — https://klatchcoffee.com
+
+[vibrant-ethiopia-guji-natural]
+Name: Ethiopia Guji Uraga Natural
+Producer: Vibrant Coffee Roasters (USA)
+Origin: Ethiopia, Guji, Uraga
+Altitude: 2100m
+Variety: Heirloom Ethiopian · Species: Arabica
+Processing: Natural · Roast: Light
+Cupping Score: 89/100 (Vibrant internal)
+Tasting Notes: Blueberry, Grape, Chocolate, Wine, Floral
+Price: $21/284g
+Mold Test: claims
+Transparency Grade: A · Farmer Share: 38%
+Brew Methods: Pour-over, Chemex, Cold brew
+Food Pairings: Berry cobbler, Dark chocolate, Yogurt
+Wow Proxy: 68/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Vibrant in Philadelphia is one of the most exciting young roasters in the US. Their Guji naturals are fruit bombs — blueberry and grape so vivid they border on wine. At $21 for 10oz, it's a steal for this quality level.
+Buy: Vibrant Coffee — https://vibrantcoffeeroasters.com
+
+[coava-kilenso-mokonissa]
+Name: Kilenso Mokonissa
+Producer: Coava Coffee Roasters (USA)
+Origin: Ethiopia, Guji, Oromia
+Altitude: 2100m
+Variety: Heirloom Ethiopian · Species: Arabica
+Processing: Washed · Roast: Light
+Cupping Score: 90/100 (Coava internal)
+Tasting Notes: Lemon, Peach, Jasmine, Honey, Tea-like
+Price: $22/284g
+Mold Test: claims
+Transparency Grade: A · Farmer Share: 40%
+Brew Methods: Pour-over, Aeropress, Batch brew
+Food Pairings: Lemon cake, Shortbread, Fresh fruit
+Wow Proxy: 72/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Coava in Portland is the roaster that other roasters respect. Their washed Ethiopians are textbook — clean, floral, tea-like. Kilenso Mokonissa is the kind of coffee that makes you understand why people spend $22 on 10oz of beans.
+Buy: Coava Coffee — https://coavacoffee.com
+
+[olympia-ethiopia-ardi]
+Name: Ardi — Ethiopia Natural
+Producer: Olympia Coffee Roasting (USA)
+Origin: Ethiopia, Guji, Oromia
+Altitude: 2000m
+Variety: Heirloom Ethiopian · Species: Arabica
+Processing: Natural · Roast: Light
+Cupping Score: 89/100 (Olympia internal)
+Tasting Notes: Blueberry, Strawberry, Chocolate, Floral, Sweet
+Price: $20/284g
+Mold Test: claims
+Transparency Grade: A · Farmer Share: 42%
+Brew Methods: Pour-over, Chemex, Cold brew
+Food Pairings: Berry tart, Dark chocolate, Yogurt
+Wow Proxy: 65/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Olympia in Olympia, WA is a B Corp that proves you can source ethically and roast brilliantly. Ardi is their flagship natural Ethiopian — blueberry and strawberry notes that are vivid without being over-fermented. A crowd-pleaser that also happens to be ethically sourced.
+Buy: Olympia Coffee — https://olympiacoffee.com
+
+[ritual-guatemala-finca-rosma]
+Name: Guatemala Finca Rosma Bourbon
+Producer: Ritual Coffee Roasters (USA)
+Origin: Guatemala, Huehuetenango — Finca Rosma
+Altitude: 1800m
+Variety: Bourbon · Species: Arabica
+Processing: Washed · Roast: Light-Medium
+Cupping Score: 88/100 (Ritual internal)
+Tasting Notes: Chocolate, Plum, Caramel, Almond, Clean
+Price: $22/340g
+Mold Test: claims
+Transparency Grade: A · Farmer Share: 38%
+Brew Methods: Pour-over, Drip, Espresso
+Food Pairings: Dark chocolate, Plum cake, Almonds
+Wow Proxy: 55/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Ritual is San Francisco's OG specialty roaster. Their Guatemalan Bourbon from Finca Rosma is a classic — chocolate, plum, caramel. Not flashy, not boring. Just really, really good coffee from a roaster that's been doing this longer than most.
+Buy: Ritual Coffee — https://ritualroasters.com
+
+[sightglass-banner-dark]
+Name: Banner Dark Blend
+Producer: Sightglass Coffee (USA)
+Origin: Blend, Latin America / Africa
+Variety: Mixed · Species: Arabica
+Processing: Washed · Roast: Dark
+Cupping Score: 84/100 (Internal)
+Tasting Notes: Dark chocolate, Smoky, Caramel, Nutty, Bold
+Price: $18/340g
+Mold Test: untested
+Transparency Grade: B
+Brew Methods: French press, Drip, Espresso
+Food Pairings: Chocolate brownie, S'mores, Steak
+Wow Proxy: 30/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Sightglass proves that dark roast doesn't have to mean burnt. Banner Dark is roasted with care — you get chocolate and caramel instead of charcoal. The dark roast for people who want depth without destruction.
+Buy: Sightglass — https://sightglasscoffee.com
+
+[eiland-colombia-pink-bourbon-honey]
+Name: Colombia Pink Bourbon Honey
+Producer: Eiland Coffee Roasters (USA)
+Origin: Colombia, Huila
+Altitude: 1850m
+Variety: Pink Bourbon · Species: Arabica
+Processing: Honey · Roast: Light
+Cupping Score: 90/100 (Internal)
+Tasting Notes: Peach, Rose, Honey, Vanilla, Silky
+Price: $24/284g
+Mold Test: claims
+Transparency Grade: A · Farmer Share: 42%
+Brew Methods: Pour-over, Aeropress
+Food Pairings: Peach tart, Rose Turkish delight, Honey cake
+Wow Proxy: 72/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Eiland in Texas is quietly producing some of the best light roasts in the South. Their honey-processed Pink Bourbon is a stunner — peach, rose, honey, with a silky body that makes it feel like drinking liquid velvet.
+Buy: Eiland Coffee — https://eilandcoffee.com
+
+[parlor-ethiopia-worka-natural]
+Name: Ethiopia Worka Natural
+Producer: Parlor Coffee (USA)
+Origin: Ethiopia, Gedeo, Yirgacheffe
+Altitude: 2000m
+Variety: Heirloom Ethiopian · Species: Arabica
+Processing: Natural · Roast: Light
+Cupping Score: 89/100 (Parlor internal)
+Tasting Notes: Blueberry, Strawberry, Wine, Floral, Sweet
+Price: $24/284g
+Mold Test: claims
+Transparency Grade: A · Farmer Share: 38%
+Brew Methods: Pour-over, Chemex, Cold brew
+Food Pairings: Berry tart, Dark chocolate, Yogurt
+Wow Proxy: 65/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Parlor in Brooklyn is the roaster for people who think they've outgrown Brooklyn roasters. Their natural Ethiopians are precise — fruit-forward without being sloppy. Worka Natural is the kind of coffee that makes you cancel your next meeting.
+Buy: Parlor Coffee — https://parlorcoffee.com
+
+[black-rifle-beyond-black]
+Name: Beyond Black — Dark Roast
+Producer: Black Rifle Coffee Company (USA)
+Origin: Blend, Colombia / Brazil
+Variety: Mixed · Species: Arabica
+Processing: Washed · Roast: Extra Dark
+Cupping Score: 70/100 (Industry estimate)
+Tasting Notes: Charcoal, Smoke, Bitter, Burnt, Heavy
+Price: $16/340g
+Mold Test: untested
+Transparency Grade: D
+Brew Methods: Drip, French press
+Wow Proxy: 5/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Black Rifle is a culture brand that happens to sell coffee. Their 'Beyond Black' is roasted so dark it's essentially charcoal. The marketing is about identity, not quality. If you want to support veterans, there are better ways. If you want good coffee, look literally anywhere else.
+Buy: Black Rifle — https://blackriflecoffee.com
+
+[bones-coffee-sinn-o-bun]
+Name: S'inn-O-Bun Flavored
+Producer: Bones Coffee Company (USA)
+Origin: Blend, Unknown
+Variety: Mixed · Species: Arabica
+Processing: Industrial + Flavoring · Roast: Medium
+Cupping Score: 50/100 (Industry estimate)
+Tasting Notes: Artificial cinnamon, Chemical sweetness, Vanilla extract, Stale base
+Price: $16/340g
+Mold Test: untested
+Transparency Grade: F
+Brew Methods: Drip
+Wow Proxy: 2/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Flavored coffee is the industry's dirty secret — it exists to mask the taste of low-quality beans. Bones Coffee uses artificial flavorings to make commodity coffee taste like dessert. If you want cinnamon roll flavor, eat a cinnamon roll. Don't ruin coffee.
+Buy: Bones Coffee — https://bonescoffee.com
+
+[community-coffee-signature]
+Name: Signature Blend
+Producer: Community Coffee (USA)
+Origin: Blend, Latin America
+Variety: Mixed · Species: Arabica
+Processing: Washed · Roast: Medium
+Cupping Score: 72/100 (Industry estimate)
+Tasting Notes: Mild, Nutty, Smooth, Inoffensive, Flat
+Price: $8/340g
+Mold Test: untested
+Transparency Grade: D
+Brew Methods: Drip
+Wow Proxy: 8/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Community Coffee is Louisiana's largest coffee brand and a regional institution. The Signature Blend is perfectly adequate — mild, smooth, forgettable. It's the coffee equivalent of a participation trophy. Not bad enough to complain about, not good enough to remember.
+Buy: Community Coffee — https://communitycoffee.com
+
+[tim-hortons-original]
+Name: Original Blend
+Producer: Tim Hortons (Restaurant Brands International) (Canada)
+Origin: Blend, Latin America
+Variety: Mixed · Species: Arabica
+Processing: Washed · Roast: Medium
+Cupping Score: 68/100 (Industry estimate)
+Tasting Notes: Mild, Smooth, Slightly sweet, Watery, Forgettable
+Price: $10/340g
+Mold Test: untested
+Transparency Grade: D
+Brew Methods: Drip
+Wow Proxy: 5/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Tim Hortons is Canada's national coffee chain, and Canadians defend it with patriotic fervor. The coffee itself is unremarkable — mild, smooth, designed to be consumed in large quantities. It's the coffee you drink because it's there, not because it's good.
+Buy: Tim Hortons — https://timhortons.com
+
+[wrecking-ball-el-salvador-pacamara]
+Name: El Salvador Pacamara Washed
+Producer: Wrecking Ball Coffee Roasters (USA)
+Origin: El Salvador, Santa Ana
+Altitude: 1600m
+Variety: Pacamara · Species: Arabica
+Processing: Washed · Roast: Light
+Cupping Score: 89/100 (Internal)
+Tasting Notes: Plum, Dark chocolate, Citrus, Creamy, Complex
+Price: $24/284g
+Mold Test: claims
+Transparency Grade: A · Farmer Share: 40%
+Brew Methods: Pour-over, Espresso, Aeropress
+Food Pairings: Plum cake, Dark chocolate, Aged cheese
+Wow Proxy: 62/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Wrecking Ball in San Francisco sources some of the best Pacamaras in the country. El Salvador's giant-bean variety produces a cup with unusual depth — plum, chocolate, citrus, and a creamy body that makes it work as both espresso and filter.
+Buy: Wrecking Ball — https://wreckingballcoffee.com
+
+[luna-panama-gesha-natural]
+Name: Panama Gesha Natural — Finca Sophia
+Producer: Luna Coffee (USA)
+Origin: Panama, Volcán, Chiriquí — Finca Sophia
+Altitude: 1900m
+Variety: Gesha · Species: Arabica
+Processing: Natural · Roast: Light
+Cupping Score: 93/100 (Best of Panama)
+Tasting Notes: Tropical fruit, Jasmine, Mango, Honey, Wine
+Price: $80/150g
+Mold Test: verified
+Transparency Grade: A · Farmer Share: 65%
+Brew Methods: Pour-over, Siphon
+Food Pairings: Tropical fruit, Jasmine tea cake, Honey
+Wow Proxy: 94/100
+Limited Release: Yes · In Stock: Yes
+Awards: Best of Panama 2024 Natural Gesha
+Tony's Note: Finca Sophia is the highest-altitude coffee farm in Panama. Their natural Gesha is a tropical explosion — mango, jasmine, honey, wine. Luna roasts it with a light touch that lets every note sing. This is the coffee that makes you understand why people pay $80 for 150g.
+Buy: Luna Coffee — https://lunacoffeeroasters.com
+
+[swift-cup-instant-colombia]
+Name: Colombia Instant Specialty
+Producer: Swift Cup Coffee (USA)
+Origin: Colombia, Huila
+Variety: Caturra · Species: Arabica
+Processing: Washed · Roast: Light-Medium
+Cupping Score: 84/100 (Internal)
+Tasting Notes: Chocolate, Caramel, Citrus, Clean, Mild
+Price: $15/42g
+Mold Test: claims
+Transparency Grade: B
+Brew Methods: Hot water
+Food Pairings: Travel snacks, Camping food, Anything on the go
+Wow Proxy: 35/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Swift Cup proves that instant coffee doesn't have to be terrible. They freeze-dry specialty-grade beans, and the result is shockingly good — chocolate, caramel, citrus. It's not as good as fresh pour-over, but it's 10x better than Nescafé. The future of travel coffee.
+Buy: Swift Cup — https://swiftcupcoffee.com
+
+[intelligentsia-el-gallo]
+Name: El Gallo — Guatemala
+Producer: Intelligentsia Coffee (USA)
+Origin: Guatemala, Huehuetenango
+Altitude: 1800m
+Variety: Bourbon / Caturra · Species: Arabica
+Processing: Washed · Roast: Light-Medium
+Cupping Score: 88/100 (Intelligentsia internal)
+Tasting Notes: Chocolate, Orange, Caramel, Almond, Clean
+Price: $22/340g
+Mold Test: claims
+Transparency Grade: B · Farmer Share: 35%
+Brew Methods: Pour-over, Drip, Espresso
+Food Pairings: Orange cake, Dark chocolate, Almonds
+Wow Proxy: 50/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Intelligentsia's single origins are better than their blends. El Gallo from Huehuetenango is a classic Guatemalan — chocolate, orange, caramel. Not revolutionary, but reliably excellent. The kind of coffee that reminds you why you started drinking specialty.
+Buy: Intelligentsia — https://intelligentsia.com
+
+[joe-coffee-daily-blend]
+Name: The Daily Blend
+Producer: Joe Coffee Company (USA)
+Origin: Blend, Colombia / Ethiopia
+Variety: Mixed · Species: Arabica
+Processing: Washed · Roast: Medium
+Cupping Score: 85/100 (Internal)
+Tasting Notes: Chocolate, Caramel, Nutty, Smooth, Balanced
+Price: $17/340g
+Mold Test: untested
+Transparency Grade: B
+Brew Methods: Drip, Pour-over, Espresso
+Food Pairings: Toast, Pastries, Breakfast
+Wow Proxy: 32/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Joe Coffee is New York's neighborhood roaster. The Daily Blend is exactly what it sounds like — chocolate, caramel, smooth. Not trying to be anything it's not. The coffee you drink every morning without thinking about it, which is actually the highest compliment.
+Buy: Joe Coffee — https://joecoffeecompany.com
+
+[cafe-grumpy-heartbreaker]
+Name: Heartbreaker Espresso
+Producer: Café Grumpy (USA)
+Origin: Blend, Latin America / Africa
+Variety: Mixed · Species: Arabica
+Processing: Washed/Natural Blend · Roast: Medium
+Cupping Score: 86/100 (Internal)
+Tasting Notes: Chocolate, Cherry, Caramel, Sweet, Rich
+Price: $19/340g
+Mold Test: claims
+Transparency Grade: B
+Brew Methods: Espresso, Moka pot, Aeropress
+Food Pairings: Chocolate cake, Cherry pie, Biscotti
+Wow Proxy: 42/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Café Grumpy got famous from a cameo on Girls, but the coffee was good before HBO showed up. Heartbreaker is their espresso blend — chocolate, cherry, caramel. It's designed to be the best espresso in your neighborhood, and in most neighborhoods, it is.
+Buy: Café Grumpy — https://cafegrumpy.com
+
+[kicking-horse-kick-ass]
+Name: Kick Ass Dark Roast
+Producer: Kicking Horse Coffee (Lavazza) (Canada)
+Origin: Blend, Indonesia / Central America / Africa
+Variety: Mixed · Species: Arabica
+Processing: Washed · Roast: Dark
+Cupping Score: 76/100 (Industry estimate)
+Tasting Notes: Smoky, Chocolate, Earthy, Bold, Bitter
+Price: $13/284g
+Mold Test: untested
+Transparency Grade: C
+Brew Methods: Drip, French press
+Wow Proxy: 10/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Kicking Horse was a beloved Canadian organic roaster until Lavazza bought them. Kick Ass is their flagship dark roast — smoky, bold, and marketed with aggressive branding. The coffee is fine for dark roast fans, but 'organic' and 'fair trade' labels don't make up for over-roasting.
+Buy: Kicking Horse — https://kickinghorsecoffee.com
+
+[jot-ultra-coffee-concentrate]
+Name: Ultra Coffee Concentrate
+Producer: Jot (USA)
+Origin: Blend, Unknown
+Variety: Mixed · Species: Arabica
+Processing: Concentrated extraction · Roast: Dark
+Cupping Score: 74/100 (Industry estimate)
+Tasting Notes: Intense, Chocolate, Bitter, Concentrated, Thick
+Price: $24/200g
+Mold Test: untested
+Transparency Grade: D
+Brew Methods: Add to milk/water
+Wow Proxy: 12/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Jot is a coffee concentrate — one tablespoon in milk or water makes a cup. The concept is convenient, but the execution prioritizes strength over flavor. It's dark, intense, and one-dimensional. Good for people who want caffeine delivery, not for people who want to taste coffee.
+Buy: Jot — https://jot.co
+
+[counter-culture-apollo]
+Name: Apollo Blend
+Producer: Counter Culture Coffee (USA)
+Origin: Blend, Ethiopia / Colombia
+Variety: Mixed · Species: Arabica
+Processing: Washed/Natural Blend · Roast: Medium
+Cupping Score: 87/100 (Internal)
+Tasting Notes: Chocolate, Caramel, Berry, Sweet, Smooth
+Price: $15/340g
+Mold Test: untested
+Transparency Grade: A · Farmer Share: 35%
+Brew Methods: Drip, Espresso, French press
+Food Pairings: Chocolate, Pastries, Breakfast
+Wow Proxy: 40/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Apollo is Counter Culture's crowd-pleaser — the blend designed to make everyone happy. Chocolate, caramel, berry, smooth. It's the coffee you serve at a dinner party when you don't know everyone's preferences. And at $15 for 12oz from a transparently-sourced roaster, it's a genuine bargain.
+Buy: Counter Culture — https://counterculturecoffee.com
+
+[cuvee-black-and-blue]
+Name: Black & Blue Espresso
+Producer: Cuvée Coffee (USA)
+Origin: Blend, Ethiopia / Brazil
+Variety: Mixed · Species: Arabica
+Processing: Washed/Natural Blend · Roast: Medium
+Cupping Score: 87/100 (Internal)
+Tasting Notes: Blueberry, Chocolate, Caramel, Sweet, Rich
+Price: $18/340g
+Mold Test: claims
+Transparency Grade: B
+Brew Methods: Espresso, Moka pot, Drip
+Food Pairings: Blueberry muffin, Dark chocolate, Pastries
+Wow Proxy: 48/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Cuvée in Austin pioneered nitro cold brew and continues to push boundaries. Black & Blue is their espresso blend — blueberry from the Ethiopian component, chocolate from the Brazilian. It's designed for espresso but makes a killer cold brew too.
+Buy: Cuvée Coffee — https://cuveecoffee.com
+
+[verve-streetlevel]
+Name: Streetlevel Espresso
+Producer: Verve Coffee Roasters (USA)
+Origin: Blend, Latin America / Africa
+Variety: Mixed · Species: Arabica
+Processing: Washed · Roast: Medium
+Cupping Score: 87/100 (Verve internal)
+Tasting Notes: Chocolate, Caramel, Toffee, Sweet, Balanced
+Price: $19/340g
+Mold Test: claims
+Transparency Grade: A
+Brew Methods: Espresso, Moka pot, Aeropress
+Food Pairings: Chocolate, Toffee, Pastries
+Wow Proxy: 45/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Verve's espresso blend is Santa Cruz sunshine in a cup. Streetlevel is chocolate, caramel, toffee — designed to be the best espresso on your block. It's not trying to be exotic. It's trying to be perfect, and it comes close.
+Buy: Verve Coffee — https://vervecoffee.com
+
+[pulse-n-pause-lemongrass-gesha]
+Name: Finca La Dinastia Lemongrass Gesha
+Producer: Pulse N Pause Coffee (USA)
+Origin: Colombia, Wilder Lazo, Finca La Dinastia — Finca La Dinastia
+Altitude: 1515m
+Variety: Gesha · Species: Arabica
+Processing: Washed Lemongrass Fermentation · Roast: Light
+Cupping Score: 91/100 (Estimated from variety/process)
+Tasting Notes: Lemongrass, Peach, Apricot, Wild
+Price: $38/227g
+Mold Test: untested
+Transparency Grade: A · Farmer Share: 50%
+Brew Methods: Pour-over, Chemex, V60
+Food Pairings: Lemon tart, Stone fruit, Thai basil dessert
+Wow Proxy: 88/100
+Limited Release: Yes · In Stock: Yes
+Tony's Note: Wilder Lazo's lemongrass-fermented Gesha is the kind of coffee that makes you question what coffee even is. The lemongrass fermentation adds an herbal, almost tea-like dimension to the already floral Gesha variety. Roasted in San Francisco. This is experimental processing at its most audacious — and it works.
+Buy: Pulse N Pause Coffee — https://pulsenpausecoffee.com
+
+[modcup-london-fog]
+Name: London Fog
+Producer: Modcup Coffee (USA)
+Origin: Blend, Cauca, Colombia & Yirgacheffe, Ethiopia
+Altitude: 1875m
+Variety: Caturra / Ethiopian Heirloom · Species: Arabica
+Processing: Semi-washed · Roast: Light-Medium
+Cupping Score: 89/100 (Estimated from tasting notes)
+Tasting Notes: Lavender, Bergamot, Lemon blossom
+Price: $30/340g
+Mold Test: untested
+Transparency Grade: B
+Brew Methods: Pour-over, Aeropress, Chemex
+Food Pairings: Earl Grey shortbread, Lavender scone, Lemon curd
+Wow Proxy: 72/100
+Limited Release: No · In Stock: Yes
+Tony's Note: Jersey City's Modcup calls this a 'Modern Expression' and they're not wrong. London Fog bridges Colombian modern processing with Ethiopian washed clarity — the result is a cup that smells like walking through a botanical garden. Lavender, bergamot, lemon blossom. It's an Earl Grey tea lover's gateway into specialty coffee.
+Buy: Modcup Coffee — https://modcup.com
+
+[nordaggios-wush-wush-kodawari-ii]
+Name: Wush Wush — Kodawari Volume II
+Producer: Nordaggios Coffee (USA)
+Origin: Colombia, Santuario, Risaralda — Finca Esmeralda Negra
+Altitude: 1900m
+Variety: Wush Wush · Species: Arabica
+Processing: Anaerobic Washed, Thermal Shock · Roast: Light
+Cupping Score: 92/100 (Competition microlot)
+Tasting Notes: Raspberry, Passionfruit, Peach, White chocolate
+Price: $55/200g
+Mold Test: untested
+Transparency Grade: A
+Brew Methods: Pour-over, V60, Kalita Wave
+Food Pairings: Raspberry tart, White chocolate truffle, Passionfruit mousse
+Wow Proxy: 94/100
+Limited Release: Yes · In Stock: Yes
+Awards: Boris Herrera Competition Microlot
+Tony's Note: Boris Herrera's competition microlot is what Nordaggios calls 'A Liquid Collectable' — and they mean it. Wush Wush is one of the rarest coffee varieties on earth, originally from the Wush Wush forest in Ethiopia, now grown at 1900m in Colombia's Risaralda region. The anaerobic washed thermal shock process took 240 hours. Raspberry, passionfruit, peach, white chocolate. This is coffee as fine art. Kodawari Volume II — the Japanese concept of relentless pursuit of perfection.
+Buy: Nordaggios Coffee — https://nordaggios.com
+
+[flower-child-lisbeth-marino-sl9]
+Name: Lisbeth Marino SL9
+Producer: Flower Child Coffee (USA)
+Origin: Peru, Inkahuasi, Cusco
+Altitude: 2200m
+Variety: SL9 · Species: Arabica
+Processing: Washed · Roast: Light
+Cupping Score: 89/100 (Estimated from variety/origin)
+Tasting Notes: Floral, Citrus, Stone fruit, Clean
+Price: $32/250g
+Mold Test: untested
+Transparency Grade: A
+Brew Methods: Pour-over, V60, Chemex
+Food Pairings: Citrus cake, Almond biscotti, Fresh berries
+Wow Proxy: 78/100
+Limited Release: Yes · In Stock: Yes
+Tony's Note: Flower Child Coffee sources directly from Lisbeth Marino's farm at 2200 MASL in Cusco, Peru — one of the highest-altitude coffee origins in the world. SL9 is a Kenyan variety rarely seen outside East Africa, now thriving in the Peruvian highlands. Harvested October 2025, washed clean. The handwritten label tells you everything about the scale of this operation — this is artisan coffee at its most intimate.
+Buy: Flower Child Coffee — https://flowerchildcoffee.com
+
+========================================================================
+PART 2: COFFEE CHAIN RANKINGS (100 entries)
+Scoring: Coffee Quality 30% + Value 25% + Sourcing Ethics 20% + Experience 15% + Consistency 10%
+========================================================================
+
+#1 [S-TIER] Counter Culture Coffee
+HQ: Durham, NC · Founded: 1995 · Locations: 3 · Type: specialty
+Score: 88/100 · Price Range: $14-22/bag
+Scores — Coffee Quality: 9/10 · Value: 8/10 · Sourcing Ethics: 10/10 · Experience: 8/10 · Consistency: 9/10
+Signature: Hologram Blend pour-over
+Strengths: Full transparency report; Direct trade pioneer; Consistent roast quality; Training centers nationwide
+Weaknesses: Limited retail locations; Not widely available in stores
+Verdict: The gold standard. Publishes full transparency report every year. Every farm, every price, every lot. The best $15/bag in America.
+Website: https://counterculturecoffee.com
+
+#2 [S-TIER] Onyx Coffee Lab
+HQ: Rogers, AR · Founded: 2012 · Locations: 4 · Type: specialty
+Score: 88/100 · Price Range: $18-45/bag
+Scores — Coffee Quality: 10/10 · Value: 7/10 · Sourcing Ethics: 9/10 · Experience: 9/10 · Consistency: 9/10
+Signature: Black Forager Natural pour-over
+Strengths: Competition winners; Exceptional single origins; Beautiful café design; Transparent sourcing
+Weaknesses: Premium pricing; Limited locations
+Verdict: The most exciting roaster in America. Competition-winning quality at every price point. Their cafés are temples of coffee.
+Website: https://onyxcoffeelab.com
+
+#3 [A-TIER] Intelligentsia Coffee
+HQ: Chicago, IL · Founded: 1995 · Locations: 12 · Type: specialty
+Score: 80/100 · Price Range: $16-28/bag
+Scores — Coffee Quality: 8/10 · Value: 7/10 · Sourcing Ethics: 9/10 · Experience: 8/10 · Consistency: 8/10
+Signature: Black Cat Espresso
+Strengths: Direct trade pioneer; Multiple locations; Strong training program; Consistent quality
+Weaknesses: Corporate ownership (Peet's); Some locations feel corporate
+Verdict: Pioneered direct trade in the US. Now owned by Peet's but quality remains high. The OG of third-wave coffee.
+Website: https://intelligentsia.com
+
+#4 [A-TIER] Verve Coffee Roasters
+HQ: Santa Cruz, CA · Founded: 2007 · Locations: 8 · Type: specialty
+Score: 84/100 · Price Range: $17-30/bag
+Scores — Coffee Quality: 9/10 · Value: 7/10 · Sourcing Ethics: 9/10 · Experience: 9/10 · Consistency: 8/10
+Signature: Streetlevel Espresso
+Strengths: Stunning café design; Excellent single origins; Strong sourcing; LA + Santa Cruz presence
+Weaknesses: Premium pricing; West Coast only
+Verdict: California sunshine in a cup. Beautiful cafés, exceptional single origins, and a sourcing program that rivals anyone.
+Website: https://vervecoffee.com
+
+#5 [S-TIER] SEY Coffee
+HQ: Brooklyn, NY · Founded: 2017 · Locations: 1 · Type: specialty
+Score: 89/100 · Price Range: $18-55/bag
+Scores — Coffee Quality: 10/10 · Value: 7/10 · Sourcing Ethics: 10/10 · Experience: 8/10 · Consistency: 9/10
+Signature: Worka Chelbesa Washed pour-over
+Strengths: Unmatched transparency; Best washed Ethiopians in US; Rigorous quality control
+Weaknesses: Single location; Premium pricing; Can feel intimidating
+Verdict: The most transparent roaster in New York. Their washed Ethiopians are the gold standard. One location, zero compromises.
+Website: https://www.seycoffee.com
+
+#6 [A-TIER] Heart Coffee Roasters
+HQ: Portland, OR · Founded: 2009 · Locations: 3 · Type: specialty
+Score: 84/100 · Price Range: $18-48/bag
+Scores — Coffee Quality: 9/10 · Value: 7/10 · Sourcing Ethics: 9/10 · Experience: 8/10 · Consistency: 9/10
+Signature: Colombia Gesha pour-over
+Strengths: Exceptional consistency; World-class Geshas; Clean minimalist cafés
+Weaknesses: Portland only; Limited blends
+Verdict: Portland's most consistent roaster. Every single origin is excellent. Their Gesha lots are world-class.
+Website: https://heartroasters.com
+
+#7 [S-TIER] George Howell Coffee
+HQ: Boston, MA · Founded: 1984 · Locations: 3 · Type: specialty
+Score: 88/100 · Price Range: $16-95/bag
+Scores — Coffee Quality: 10/10 · Value: 8/10 · Sourcing Ethics: 9/10 · Experience: 7/10 · Consistency: 9/10
+Signature: Mamuto AA Kenya pour-over
+Strengths: Legendary founder; Exceptional roast quality; Deep sourcing relationships; Fair pricing for quality
+Weaknesses: Limited locations; Cafés feel dated
+Verdict: The man who coined 'specialty coffee.' 50 years of expertise. His coffees are masterclasses in roasting restraint.
+Website: https://georgehowellcoffee.com
+
+#8 [S-TIER] Passenger Coffee
+HQ: Lancaster, PA · Founded: 2014 · Locations: 3 · Type: specialty
+Score: 85/100 · Price Range: $16-30/bag
+Scores — Coffee Quality: 9/10 · Value: 8/10 · Sourcing Ethics: 9/10 · Experience: 8/10 · Consistency: 8/10
+Signature: Kenya Nyeri pour-over
+Strengths: Outstanding Kenyan coffees; Fair pricing; Beautiful Lancaster café; Strong sourcing
+Weaknesses: Limited to Lancaster area; Small operation
+Verdict: Lancaster's gift to specialty coffee. Exceptional Kenyan lots and a sourcing program that punches way above its weight.
+Website: https://passengercoffee.com
+
+#9 [A-TIER] Ceremony Coffee Roasters
+HQ: Annapolis, MD · Founded: 2008 · Locations: 6 · Type: specialty
+Score: 83/100 · Price Range: $15-25/bag
+Scores — Coffee Quality: 9/10 · Value: 8/10 · Sourcing Ethics: 8/10 · Experience: 8/10 · Consistency: 8/10
+Signature: Banko Gotiti Natural pour-over
+Strengths: Excellent natural Ethiopians; Multiple locations; Good value; Consistent quality
+Weaknesses: Mid-Atlantic only; Blends are average
+Verdict: The mid-Atlantic's best roaster. Natural Ethiopians that convert skeptics. Multiple locations without losing quality.
+Website: https://ceremonycoffee.com
+
+#10 [A-TIER] Madcap Coffee
+HQ: Grand Rapids, MI · Founded: 2008 · Locations: 3 · Type: specialty
+Score: 83/100 · Price Range: $16-28/bag
+Scores — Coffee Quality: 9/10 · Value: 8/10 · Sourcing Ethics: 8/10 · Experience: 8/10 · Consistency: 8/10
+Signature: Kenya Gichatha-ini AA pour-over
+Strengths: Outstanding Kenyans; Midwest accessibility; Fair pricing; Beautiful cafés
+Weaknesses: Michigan only; Limited online presence
+Verdict: Proof that great coffee doesn't require a coastal zip code. Their Kenyan lots are consistently among the best in America.
+Website: https://madcapcoffee.com
+
+#11 [A-TIER] Stumptown Coffee Roasters
+HQ: Portland, OR · Founded: 1999 · Locations: 10 · Type: specialty
+Score: 77/100 · Price Range: $15-25/bag
+Scores — Coffee Quality: 8/10 · Value: 7/10 · Sourcing Ethics: 8/10 · Experience: 8/10 · Consistency: 7/10
+Signature: Hair Bender Espresso
+Strengths: Iconic blends; Multiple locations; Strong brand; Good cold brew
+Weaknesses: Corporate ownership; Quality inconsistency across locations; Resting on reputation
+Verdict: Portland's OG. Hair Bender is iconic. Now owned by Peet's, and some say the magic has faded. Still better than 95% of what's out there.
+Website: https://stumptowncoffee.com
+
+#12 [B-TIER] Blue Bottle Coffee
+HQ: Oakland, CA · Founded: 2002 · Locations: 100 · Type: premium
+Score: 69/100 · Price Range: $16-28/bag
+Scores — Coffee Quality: 7/10 · Value: 5/10 · Sourcing Ethics: 7/10 · Experience: 9/10 · Consistency: 8/10
+Signature: Hayes Valley Espresso
+Strengths: Stunning café design; Consistent experience; Wide availability; Strong brand
+Weaknesses: Nestlé ownership; Overpriced for quality; Style over substance
+Verdict: Beautiful cafés, decent coffee, Nestlé money. The Apple Store of coffee — the experience is the product, not the beans.
+Website: https://bluebottlecoffee.com
+
+#13 [A-TIER] Devoción
+HQ: Brooklyn, NY · Founded: 2006 · Locations: 5 · Type: specialty
+Score: 80/100 · Price Range: $16-25/bag
+Scores — Coffee Quality: 8/10 · Value: 7/10 · Sourcing Ethics: 9/10 · Experience: 9/10 · Consistency: 7/10
+Signature: Toro Blend
+Strengths: Unmatched freshness; Direct from Colombia; Stunning Williamsburg café; Unique model
+Weaknesses: Colombia only; Inconsistent across locations; Premium pricing
+Verdict: The freshest coffee in America — beans ship from Colombia within 10 days of harvest. The Williamsburg café is a destination.
+Website: https://dfrankfurt.com
+
+#14 [A-TIER] Coava Coffee Roasters
+HQ: Portland, OR · Founded: 2008 · Locations: 4 · Type: specialty
+Score: 81/100 · Price Range: $17-28/bag
+Scores — Coffee Quality: 9/10 · Value: 7/10 · Sourcing Ethics: 8/10 · Experience: 8/10 · Consistency: 8/10
+Signature: Kilenso Mokonissa pour-over
+Strengths: Exceptional washed coffees; Respected by industry; Clean roasting style
+Weaknesses: Portland only; Can feel austere; Limited blends
+Verdict: The roaster that other roasters respect. Their washed Ethiopians are textbook. Portland's most serious coffee.
+Website: https://coavacoffee.com
+
+#15 [A-TIER] Equator Coffees
+HQ: San Rafael, CA · Founded: 1995 · Locations: 6 · Type: specialty
+Score: 83/100 · Price Range: $14-24/bag
+Scores — Coffee Quality: 8/10 · Value: 8/10 · Sourcing Ethics: 10/10 · Experience: 7/10 · Consistency: 8/10
+Signature: Ethiopia Worka Sakaro pour-over
+Strengths: B Corp certified; Exceptional ethics; Fair pricing; Women-owned
+Weaknesses: Bay Area only; Cafés are functional not beautiful
+Verdict: Certified B Corp that proves ethical sourcing and great coffee aren't mutually exclusive. The conscience of California coffee.
+Website: https://equatorcoffees.com
+
+#16 [A-TIER] Olympia Coffee Roasting
+HQ: Olympia, WA · Founded: 2005 · Locations: 4 · Type: specialty
+Score: 81/100 · Price Range: $15-24/bag
+Scores — Coffee Quality: 8/10 · Value: 8/10 · Sourcing Ethics: 9/10 · Experience: 7/10 · Consistency: 8/10
+Signature: Ardi Natural Ethiopia
+Strengths: B Corp certified; Excellent naturals; Fair pricing; Strong ethics
+Weaknesses: Washington only; Limited brand recognition
+Verdict: B Corp roaster with exceptional ethics. Their natural Ethiopians are crowd-pleasers. Pacific Northwest's conscience.
+Website: https://olympiacoffee.com
+
+#17 [A-TIER] Ritual Coffee Roasters
+HQ: San Francisco, CA · Founded: 2005 · Locations: 4 · Type: specialty
+Score: 77/100 · Price Range: $16-26/bag
+Scores — Coffee Quality: 8/10 · Value: 7/10 · Sourcing Ethics: 8/10 · Experience: 8/10 · Consistency: 7/10
+Signature: Guatemala Finca Rosma pour-over
+Strengths: SF institution; Strong Guatemalan lots; Multiple locations
+Weaknesses: Resting on reputation; Inconsistent across locations
+Verdict: San Francisco's OG specialty roaster. Their Guatemalans are classics. Still relevant after 20 years.
+Website: https://ritualroasters.com
+
+#18 [A-TIER] Tandem Coffee Roasters
+HQ: Portland, ME · Founded: 2012 · Locations: 2 · Type: specialty
+Score: 83/100 · Price Range: $15-24/bag
+Scores — Coffee Quality: 9/10 · Value: 8/10 · Sourcing Ethics: 8/10 · Experience: 8/10 · Consistency: 8/10
+Signature: Ethiopia Yirgacheffe Washed pour-over
+Strengths: Exceptional washed coffees; Amazing pastries; Cozy cafés; Fair pricing
+Weaknesses: Maine only; Small operation
+Verdict: Portland, Maine's finest. Washed Ethiopians that are textbook. Also makes incredible pastries.
+Website: https://tandemcoffee.com
+
+#19 [A-TIER] Brandywine Coffee Roasters
+HQ: Wilmington, DE · Founded: 2013 · Locations: 1 · Type: specialty
+Score: 84/100 · Price Range: $14-24/bag
+Scores — Coffee Quality: 9/10 · Value: 9/10 · Sourcing Ethics: 8/10 · Experience: 7/10 · Consistency: 8/10
+Signature: Ethiopia Guji Natural pour-over
+Strengths: Exceptional value; Outstanding naturals; Strong online presence
+Weaknesses: Single location; Limited brand recognition
+Verdict: Delaware's best-kept secret. Natural Ethiopians that rival anyone. Possibly the best value in specialty coffee.
+Website: https://brandywinecoffeeroasters.com
+
+#20 [A-TIER] Black & White Coffee Roasters
+HQ: Wake Forest, NC · Founded: 2015 · Locations: 2 · Type: specialty
+Score: 82/100 · Price Range: $16-28/bag
+Scores — Coffee Quality: 9/10 · Value: 8/10 · Sourcing Ethics: 8/10 · Experience: 7/10 · Consistency: 8/10
+Signature: The Natural Ethiopia pour-over
+Strengths: Competition-quality coffees; Fair pricing; Strong online
+Weaknesses: Limited locations; Low brand awareness
+Verdict: Quietly becoming one of the best roasters in America. Their natural Ethiopians and espresso blends are exceptional.
+Website: https://www.blackwhiteroasters.com
+
+#21 [A-TIER] Methodical Coffee
+HQ: Greenville, SC · Founded: 2015 · Locations: 3 · Type: specialty
+Score: 80/100 · Price Range: $17-35/bag
+Scores — Coffee Quality: 9/10 · Value: 7/10 · Sourcing Ethics: 8/10 · Experience: 8/10 · Consistency: 7/10
+Signature: El Paraíso Lactic pour-over
+Strengths: Exceptional experimental lots; Beautiful cafés; Growing reputation
+Weaknesses: Southeast only; Experimental coffees aren't for everyone
+Verdict: The Southeast's most exciting roaster. Their El Paraíso lots are world-class. Greenville's coffee destination.
+Website: https://methodicalcoffee.com
+
+#22 [A-TIER] Cat & Cloud Coffee
+HQ: Santa Cruz, CA · Founded: 2016 · Locations: 3 · Type: specialty
+Score: 80/100 · Price Range: $15-22/bag
+Scores — Coffee Quality: 8/10 · Value: 8/10 · Sourcing Ethics: 7/10 · Experience: 9/10 · Consistency: 8/10
+Signature: Night Shift Blend
+Strengths: Exceptional community; Fun brand; Great blends; YouTube education
+Weaknesses: Santa Cruz only; Single origins are average
+Verdict: The most fun coffee company in America. Great blends, great vibes, great YouTube content. Coffee as community.
+Website: https://catandcloud.com
+
+#23 [A-TIER] Spyhouse Coffee
+HQ: Minneapolis, MN · Founded: 2000 · Locations: 6 · Type: specialty
+Score: 77/100 · Price Range: $14-22/bag
+Scores — Coffee Quality: 8/10 · Value: 8/10 · Sourcing Ethics: 7/10 · Experience: 8/10 · Consistency: 7/10
+Signature: Ethiopia Worka Natural
+Strengths: Great value; Multiple locations; Strong naturals; Midwest institution
+Weaknesses: Minnesota only; Blends are average
+Verdict: Minneapolis's flagship roaster. Natural Ethiopians that are crowd-pleasers. Best value in the Midwest.
+Website: https://spyhousecoffee.com
+
+#24 [B-TIER] Barista Parlor
+HQ: Nashville, TN · Founded: 2011 · Locations: 4 · Type: specialty
+Score: 71/100 · Price Range: $16-24/bag
+Scores — Coffee Quality: 7/10 · Value: 6/10 · Sourcing Ethics: 7/10 · Experience: 9/10 · Consistency: 7/10
+Signature: Golden Sound Blend
+Strengths: Stunning café design; Nashville institution; Great vibes
+Weaknesses: Style over substance; Overpriced; Coffee is good not great
+Verdict: Nashville's coolest coffee shops. The experience is the product — motorcycle-themed, industrial-chic, Instagram-ready.
+Website: https://baristaparlor.com
+
+#25 [A-TIER] Huckleberry Roasters
+HQ: Denver, CO · Founded: 2011 · Locations: 2 · Type: specialty
+Score: 78/100 · Price Range: $15-25/bag
+Scores — Coffee Quality: 8/10 · Value: 8/10 · Sourcing Ethics: 8/10 · Experience: 7/10 · Consistency: 7/10
+Signature: Guatemala El Injerto pour-over
+Strengths: Excellent Guatemalans; Fair pricing; Consistent quality
+Weaknesses: Denver only; Low brand recognition
+Verdict: Denver's best roaster. Their Guatemalan lots are exceptional. Solid across the board without being flashy.
+Website: https://huckleberryroasters.com
+
+#26 [B-TIER] Sightglass Coffee
+HQ: San Francisco, CA · Founded: 2009 · Locations: 3 · Type: specialty
+Score: 71/100 · Price Range: $16-26/bag
+Scores — Coffee Quality: 7/10 · Value: 6/10 · Sourcing Ethics: 7/10 · Experience: 9/10 · Consistency: 7/10
+Signature: Banner Dark Blend
+Strengths: Stunning roastery; Great experience; SF institution
+Weaknesses: Overpriced for quality; Style over substance
+Verdict: San Francisco's most beautiful roastery. The SOMA location is a cathedral of coffee. Quality is good, not transcendent.
+Website: https://sightglasscoffee.com
+
+#27 [B-TIER] Joe Coffee Company
+HQ: New York, NY · Founded: 2003 · Locations: 15 · Type: specialty
+Score: 70/100 · Price Range: $15-22/bag
+Scores — Coffee Quality: 7/10 · Value: 7/10 · Sourcing Ethics: 7/10 · Experience: 7/10 · Consistency: 7/10
+Signature: The Daily Blend
+Strengths: Many NYC locations; Consistent; Approachable; Good value
+Weaknesses: Not exceptional; Generic feel at some locations
+Verdict: New York's neighborhood roaster. Not trying to be the best — trying to be your local. And succeeding.
+Website: https://joecoffeecompany.com
+
+#28 [B-TIER] Café Grumpy
+HQ: New York, NY · Founded: 2005 · Locations: 8 · Type: specialty
+Score: 70/100 · Price Range: $16-22/bag
+Scores — Coffee Quality: 7/10 · Value: 7/10 · Sourcing Ethics: 7/10 · Experience: 7/10 · Consistency: 7/10
+Signature: Heartbreaker Espresso
+Strengths: Multiple NYC locations; Consistent quality; Good espresso
+Weaknesses: Riding TV fame; Not exceptional
+Verdict: Got famous from Girls, but the coffee was good before HBO. Solid NYC chain that doesn't try too hard.
+Website: https://cafegrumpy.com
+
+#29 [A-TIER] Parlor Coffee
+HQ: Brooklyn, NY · Founded: 2012 · Locations: 1 · Type: specialty
+Score: 76/100 · Price Range: $17-26/bag
+Scores — Coffee Quality: 8/10 · Value: 7/10 · Sourcing Ethics: 8/10 · Experience: 7/10 · Consistency: 8/10
+Signature: Ethiopia Worka Natural
+Strengths: Clean roasting; Strong naturals; No pretension
+Weaknesses: Single location; Limited availability
+Verdict: Brooklyn's roaster for people who've outgrown Brooklyn roasters. Precise, clean, no-nonsense.
+Website: https://parlorcoffee.com
+
+#30 [B-TIER] Cuvée Coffee
+HQ: Austin, TX · Founded: 1998 · Locations: 2 · Type: specialty
+Score: 70/100 · Price Range: $15-22/bag
+Scores — Coffee Quality: 7/10 · Value: 7/10 · Sourcing Ethics: 7/10 · Experience: 7/10 · Consistency: 7/10
+Signature: Black & Blue Espresso
+Strengths: Nitro cold brew pioneer; Austin institution; Innovative
+Weaknesses: Texas only; Coffee quality is good not great
+Verdict: Austin's pioneer. Invented nitro cold brew on draft. The coffee is solid, the innovation is real.
+Website: https://cuveecoffee.com
+
+#31 [B-TIER] La Colombe Coffee Roasters
+HQ: Philadelphia, PA · Founded: 1994 · Locations: 30 · Type: premium
+Score: 67/100 · Price Range: $14-22/bag
+Scores — Coffee Quality: 7/10 · Value: 6/10 · Sourcing Ethics: 7/10 · Experience: 7/10 · Consistency: 6/10
+Signature: Draft Latte (can)
+Strengths: Draft Latte innovation; Wide availability; Good cafés
+Weaknesses: Quality stretching with growth; Inconsistent across locations
+Verdict: Draft Latte in a can changed the game. The cafés are good. The coffee is fine. Growing fast, quality is stretching.
+Website: https://lacolombe.com
+
+#32 [B-TIER] Peet's Coffee
+HQ: Emeryville, CA · Founded: 1966 · Locations: 200 · Type: premium
+Score: 61/100 · Price Range: $12-18/bag
+Scores — Coffee Quality: 6/10 · Value: 6/10 · Sourcing Ethics: 6/10 · Experience: 6/10 · Consistency: 7/10
+Signature: Major Dickason's Blend
+Strengths: Historical significance; Wide availability; Consistent
+Weaknesses: Over-roasts everything; Corporate feel; Stuck in the past
+Verdict: The godfather of dark roast. Alfred Peet taught the Starbucks founders. Now a corporate chain that over-roasts everything.
+Website: https://peets.com
+
+#33 [B-TIER] Philz Coffee
+HQ: San Francisco, CA · Founded: 2003 · Locations: 70 · Type: premium
+Score: 58/100 · Price Range: $5-7/cup
+Scores — Coffee Quality: 5/10 · Value: 6/10 · Sourcing Ethics: 5/10 · Experience: 8/10 · Consistency: 6/10
+Signature: Mint Mojito Iced Coffee
+Strengths: Unique experience; Customization; Loyal following; Fun vibes
+Weaknesses: Coffee quality is average; Pre-blended with cream/sugar; No transparency
+Verdict: The anti-espresso bar. Every cup is hand-poured and customized. The experience is great. The coffee is mediocre.
+Website: https://philzcoffee.com
+
+#34 [C-TIER] Caribou Coffee
+HQ: Minneapolis, MN · Founded: 1992 · Locations: 400 · Type: premium
+Score: 56/100 · Price Range: $10-16/bag
+Scores — Coffee Quality: 5/10 · Value: 6/10 · Sourcing Ethics: 5/10 · Experience: 6/10 · Consistency: 7/10
+Signature: Caribou Blend
+Strengths: Midwest presence; Better than Starbucks; Consistent
+Weaknesses: Generic chain feel; Average coffee; No transparency
+Verdict: The Midwest's Starbucks alternative. Slightly better coffee, slightly better vibes. Still a chain.
+Website: https://cariboucoffee.com
+
+#35 [C-TIER] Dutch Bros Coffee
+HQ: Grants Pass, OR · Founded: 1992 · Locations: 900 · Type: mass-market
+Score: 49/100 · Price Range: $4-7/drink
+Scores — Coffee Quality: 3/10 · Value: 6/10 · Sourcing Ethics: 3/10 · Experience: 8/10 · Consistency: 7/10
+Signature: Annihilator (sugar bomb)
+Strengths: Exceptional service; Fun culture; Fast; Loyal following
+Weaknesses: Coffee is terrible; Sugar-forward drinks; Zero transparency; Not really coffee
+Verdict: The In-N-Out of coffee. The experience is the product — friendly baristas, drive-through speed, sugar bombs. The coffee itself is an afterthought.
+Website: https://dutchbros.com
+
+#36 [B-TIER] Gregorys Coffee
+HQ: New York, NY · Founded: 2006 · Locations: 35 · Type: premium
+Score: 61/100 · Price Range: $4-6/drink
+Scores — Coffee Quality: 6/10 · Value: 7/10 · Sourcing Ethics: 5/10 · Experience: 6/10 · Consistency: 6/10
+Signature: Cold Brew
+Strengths: NYC convenience; Fair pricing; Better than Starbucks
+Weaknesses: Generic; No transparency; Growing too fast
+Verdict: NYC's fastest-growing chain. Better than Starbucks, cheaper than specialty. The commuter's choice.
+Website: https://gregoryscoffee.com
+
+#37 [B-TIER] Birch Coffee
+HQ: New York, NY · Founded: 2009 · Locations: 10 · Type: premium
+Score: 64/100 · Price Range: $4-6/drink
+Scores — Coffee Quality: 6/10 · Value: 7/10 · Sourcing Ethics: 6/10 · Experience: 7/10 · Consistency: 6/10
+Signature: Latte
+Strengths: Cozy cafés; Good vibes; Fair pricing
+Weaknesses: Average coffee; NYC only
+Verdict: NYC's coziest chain. The cafés feel like living rooms. The coffee is decent. The vibes are the real product.
+Website: https://birchcoffee.com
+
+#38 [B-TIER] Blank Street Coffee
+HQ: New York, NY · Founded: 2020 · Locations: 50 · Type: premium
+Score: 59/100 · Price Range: $3-5/drink
+Scores — Coffee Quality: 5/10 · Value: 8/10 · Sourcing Ethics: 4/10 · Experience: 6/10 · Consistency: 7/10
+Signature: Matcha Latte
+Strengths: Cheapest specialty-adjacent; Convenient locations; Fast
+Weaknesses: VC-funded growth model; Average coffee; No soul
+Verdict: The VC-funded disruptor. Tiny kiosks, robot-assisted, cheaper than everyone. The coffee is fine. The model is interesting.
+Website: https://blankstreet.com
+
+#39 [C-TIER] Alfred Coffee
+HQ: Los Angeles, CA · Founded: 2013 · Locations: 10 · Type: premium
+Score: 53/100 · Price Range: $6-9/drink
+Scores — Coffee Quality: 5/10 · Value: 4/10 · Sourcing Ethics: 4/10 · Experience: 9/10 · Consistency: 6/10
+Signature: Iced Vanilla Latte
+Strengths: Instagram-perfect; Celebrity clientele; Great design
+Weaknesses: Overpriced; Style over substance; Average coffee
+Verdict: LA's most Instagrammable coffee. 'But First, Coffee' is the brand. The experience is the product. The coffee is forgettable.
+Website: https://alfred.la
+
+#40 [B-TIER] Trade Coffee (subscription)
+HQ: New York, NY · Founded: 2018 · Locations: 0 · Type: premium
+Score: 65/100 · Price Range: $13-22/bag
+Scores — Coffee Quality: 7/10 · Value: 7/10 · Sourcing Ethics: 6/10 · Experience: 6/10 · Consistency: 5/10
+Signature: Varies by subscription
+Strengths: Huge roaster network; Good discovery tool; Convenient
+Weaknesses: Inconsistent quality; Algorithm plays it safe; Middleman markup
+Verdict: Subscription aggregator partnering with 400+ roasters. Good for discovery. Algorithm tends toward safe picks.
+Website: https://trade.coffee
+
+#41 [C-TIER] Starbucks
+HQ: Seattle, WA · Founded: 1971 · Locations: 35000 · Type: mass-market
+Score: 47/100 · Price Range: $10-16/bag
+Scores — Coffee Quality: 4/10 · Value: 3/10 · Sourcing Ethics: 5/10 · Experience: 6/10 · Consistency: 8/10
+Signature: Pike Place Roast
+Strengths: Ubiquitous; Consistent globally; Good benefits for employees; Mobile ordering
+Weaknesses: Over-roasts everything; Overpriced; Destroyed the word 'specialty'
+Verdict: The world's largest coffee chain. Buys more specialty-grade coffee than anyone and roasts it all to charcoal. Consistent mediocrity at premium prices.
+Website: https://starbucks.com
+
+#42 [C-TIER] Panera Bread Coffee
+HQ: St. Louis, MO · Founded: 1987 · Locations: 2100 · Type: mass-market
+Score: 52/100 · Price Range: $12/month unlimited
+Scores — Coffee Quality: 4/10 · Value: 7/10 · Sourcing Ethics: 4/10 · Experience: 5/10 · Consistency: 7/10
+Signature: Dark Roast (unlimited)
+Strengths: Unlimited subscription; Convenient; Decent value
+Weaknesses: Mediocre coffee; Not a coffee company
+Verdict: Unlimited coffee subscription for $12/month. The coffee is mediocre but the value proposition is real.
+Website: https://panerabread.com
+
+#43 [C-TIER] Dunkin'
+HQ: Canton, MA · Founded: 1950 · Locations: 12500 · Type: mass-market
+Score: 49/100 · Price Range: $8-12/bag
+Scores — Coffee Quality: 4/10 · Value: 7/10 · Sourcing Ethics: 3/10 · Experience: 4/10 · Consistency: 7/10
+Signature: Original Blend Medium
+Strengths: Cheap; Fast; Everywhere; Honest about what it is
+Weaknesses: Mediocre coffee; Zero transparency; Ugly stores
+Verdict: America runs on Dunkin'. The coffee is mild, forgettable, and cheap. It's not good by any standard, but it's honest about what it is.
+Website: https://dunkinathome.com
+
+#44 [D-TIER] Tim Hortons
+HQ: Toronto, Canada · Founded: 1964 · Locations: 5600 · Type: mass-market
+Score: 42/100 · Price Range: $8-12/bag
+Scores — Coffee Quality: 3/10 · Value: 6/10 · Sourcing Ethics: 3/10 · Experience: 4/10 · Consistency: 6/10
+Signature: Original Blend Double-Double
+Strengths: Canadian institution; Cheap; Convenient
+Weaknesses: Mediocre coffee; Declining quality; Zero transparency
+Verdict: Canada's national coffee chain. Canadians defend it with patriotic fervor. The coffee is unremarkable.
+Website: https://timhortons.com
+
+#45 [C-TIER] Wawa Coffee
+HQ: Wawa, PA · Founded: 1964 · Locations: 1000 · Type: mass-market
+Score: 53/100 · Price Range: $2-4/cup
+Scores — Coffee Quality: 4/10 · Value: 8/10 · Sourcing Ethics: 3/10 · Experience: 5/10 · Consistency: 7/10
+Signature: Regular Coffee
+Strengths: Best convenience store coffee; Cheap; Always fresh; 24/7
+Weaknesses: It's gas station coffee; Zero transparency
+Verdict: The best gas station coffee in America. That's a low bar, but Wawa clears it. Fresh, cheap, and available 24/7.
+Website: https://wawa.com
+
+#46 [C-TIER] McDonald's (McCafé)
+HQ: Chicago, IL · Founded: 1955 · Locations: 40000 · Type: fast-food
+Score: 55/100 · Price Range: $1-3/cup
+Scores — Coffee Quality: 4/10 · Value: 9/10 · Sourcing Ethics: 4/10 · Experience: 3/10 · Consistency: 8/10
+Signature: Premium Roast Coffee
+Strengths: Best value anywhere; 100% Arabica; Consistent; Better than Starbucks
+Weaknesses: It's McDonald's; Zero transparency; Terrible experience
+Verdict: Dirty secret: McDonald's coffee is better than Starbucks drip. 100% Arabica, medium roast, $1 for a large. The best value in fast food coffee.
+Website: https://mcdonalds.com
+
+#47 [C-TIER] 7-Eleven Coffee
+HQ: Dallas, TX · Founded: 1927 · Locations: 13000 · Type: fast-food
+Score: 44/100 · Price Range: $1-3/cup
+Scores — Coffee Quality: 3/10 · Value: 8/10 · Sourcing Ethics: 2/10 · Experience: 3/10 · Consistency: 6/10
+Signature: Big Gulp Coffee
+Strengths: Cheap; Everywhere; 24/7
+Weaknesses: Gas station quality; Stale; Zero transparency
+Verdict: The original convenience store coffee. Cheap, available, and exactly what you'd expect from a gas station.
+Website: https://7-eleven.com
+
+#48 [C-TIER] Black Rifle Coffee Company
+HQ: Salt Lake City, UT · Founded: 2014 · Locations: 30 · Type: mass-market
+Score: 44/100 · Price Range: $14-18/bag
+Scores — Coffee Quality: 4/10 · Value: 4/10 · Sourcing Ethics: 4/10 · Experience: 5/10 · Consistency: 6/10
+Signature: Beyond Black Dark Roast
+Strengths: Strong brand identity; Veteran-owned; Loyal following
+Weaknesses: Over-roasted; Overpriced; Culture over quality
+Verdict: A culture brand that happens to sell coffee. The marketing is about identity, not quality. The coffee is over-roasted and overpriced.
+Website: https://blackriflecoffee.com
+
+#49 [D-TIER] Scooter's Coffee
+HQ: Omaha, NE · Founded: 1998 · Locations: 700 · Type: mass-market
+Score: 41/100 · Price Range: $4-6/drink
+Scores — Coffee Quality: 3/10 · Value: 5/10 · Sourcing Ethics: 3/10 · Experience: 5/10 · Consistency: 6/10
+Signature: Caramelicious
+Strengths: Fast drive-through; Friendly service; Growing fast
+Weaknesses: Mediocre coffee; Sugar-forward; No transparency
+Verdict: Midwest drive-through chain. Fast, friendly, forgettable. The coffee is a vehicle for sugar and milk.
+Website: https://scooterscoffee.com
+
+#50 [C-TIER] Biggby Coffee
+HQ: East Lansing, MI · Founded: 1995 · Locations: 350 · Type: mass-market
+Score: 44/100 · Price Range: $4-6/drink
+Scores — Coffee Quality: 3/10 · Value: 6/10 · Sourcing Ethics: 3/10 · Experience: 5/10 · Consistency: 6/10
+Signature: Butter Bear Latte
+Strengths: Friendly; Cheap; Midwest presence
+Weaknesses: Mediocre coffee; Flavored drink focus
+Verdict: Michigan's drive-through chain. Friendly, cheap, and the coffee is an afterthought to the flavored drinks.
+Website: https://biggby.com
+
+#51 [B-TIER] Saxbys
+HQ: Philadelphia, PA · Founded: 2005 · Locations: 15 · Type: premium
+Score: 62/100 · Price Range: $4-6/drink
+Scores — Coffee Quality: 6/10 · Value: 6/10 · Sourcing Ethics: 6/10 · Experience: 7/10 · Consistency: 6/10
+Strengths: Social mission; Student employment
+Weaknesses: Average coffee
+Verdict: Philadelphia chain with a social mission — student-run locations at universities. Coffee is decent, mission is admirable.
+Website: https://saxbys.com
+
+#52 [B-TIER] Compass Coffee
+HQ: Washington, DC · Founded: 2014 · Locations: 15 · Type: premium
+Score: 62/100 · Price Range: $14-18/bag
+Scores — Coffee Quality: 6/10 · Value: 7/10 · Sourcing Ethics: 5/10 · Experience: 7/10 · Consistency: 6/10
+Strengths: DC presence; Fair pricing; Good vibes
+Weaknesses: Average coffee; No transparency
+Verdict: DC's homegrown chain. Better than Starbucks, cheaper than specialty. The capital's daily driver.
+Website: https://compasscoffee.com
+
+#53 [A-TIER] James Coffee Co.
+HQ: San Diego, CA · Founded: 2014 · Locations: 3 · Type: specialty
+Score: 73/100 · Price Range: $16-24/bag
+Scores — Coffee Quality: 8/10 · Value: 7/10 · Sourcing Ethics: 7/10 · Experience: 7/10 · Consistency: 7/10
+Strengths: Good naturals; San Diego presence
+Weaknesses: Limited locations
+Verdict: San Diego's best roaster. Natural Ethiopians that bring California sunshine. Solid across the board.
+Website: https://jamescoffeeco.com
+
+#54 [A-TIER] Switchback Coffee Roasters
+HQ: Colorado Springs, CO · Founded: 2011 · Locations: 2 · Type: specialty
+Score: 76/100 · Price Range: $14-22/bag
+Scores — Coffee Quality: 8/10 · Value: 8/10 · Sourcing Ethics: 7/10 · Experience: 7/10 · Consistency: 7/10
+Strengths: Excellent Rwandans; Fair pricing
+Weaknesses: Small market
+Verdict: Colorado Springs' best. Rwandan lots that are elegant. Proof great coffee exists outside big cities.
+Website: https://switchbackroasters.com
+
+#55 [A-TIER] Ghost Town Coffee Roasters
+HQ: Bozeman, MT · Founded: 2015 · Locations: 1 · Type: specialty
+Score: 73/100 · Price Range: $16-28/bag
+Scores — Coffee Quality: 8/10 · Value: 7/10 · Sourcing Ethics: 7/10 · Experience: 7/10 · Consistency: 7/10
+Strengths: Exciting coffees; Unique location
+Weaknesses: Single location; Remote
+Verdict: Montana's most exciting roaster. Pink Bourbon naturals that rival anyone. The mountain west's hidden gem.
+Website: https://ghosttowncoffee.com
+
+#56 [A-TIER] Klatch Coffee
+HQ: Rancho Cucamonga, CA · Founded: 1993 · Locations: 3 · Type: specialty
+Score: 72/100 · Price Range: $16-24/bag
+Scores — Coffee Quality: 8/10 · Value: 7/10 · Sourcing Ethics: 7/10 · Experience: 6/10 · Consistency: 7/10
+Strengths: Competition-grade; Strong espresso
+Weaknesses: Limited locations; Low profile
+Verdict: World Barista Championship supplier. Their espresso blends are competition-grade. SoCal's quiet champion.
+Website: https://klatchcoffee.com
+
+#57 [A-TIER] Eiland Coffee Roasters
+HQ: Tyler, TX · Founded: 2016 · Locations: 1 · Type: specialty
+Score: 72/100 · Price Range: $16-26/bag
+Scores — Coffee Quality: 8/10 · Value: 7/10 · Sourcing Ethics: 7/10 · Experience: 6/10 · Consistency: 7/10
+Strengths: Excellent light roasts; Great Pink Bourbons
+Weaknesses: Single location; Low awareness
+Verdict: Texas's best light roaster. Pink Bourbon honeys that are stunning. The South's most underrated roaster.
+Website: https://eilandcoffee.com
+
+#58 [A-TIER] Little Wolf Coffee
+HQ: Ipswich, MA · Founded: 2017 · Locations: 1 · Type: specialty
+Score: 74/100 · Price Range: $16-35/bag
+Scores — Coffee Quality: 8/10 · Value: 8/10 · Sourcing Ethics: 7/10 · Experience: 6/10 · Consistency: 7/10
+Strengths: Exceptional Geshas; Great value
+Weaknesses: Single location; Unknown
+Verdict: One of the most underrated roasters in America. Guatemalan Geshas that rival Panama at half the price.
+Website: https://littlewolfcoffee.com
+
+#59 [A-TIER] Vibrant Coffee Roasters
+HQ: Philadelphia, PA · Founded: 2018 · Locations: 1 · Type: specialty
+Score: 74/100 · Price Range: $15-24/bag
+Scores — Coffee Quality: 8/10 · Value: 8/10 · Sourcing Ethics: 7/10 · Experience: 6/10 · Consistency: 7/10
+Strengths: Exciting naturals; Great value
+Weaknesses: Single location; New
+Verdict: Philadelphia's most exciting young roaster. Guji naturals that are fruit bombs. One to watch.
+Website: https://vibrantcoffeeroasters.com
+
+#60 [A-TIER] Wrecking Ball Coffee Roasters
+HQ: San Francisco, CA · Founded: 2011 · Locations: 1 · Type: specialty
+Score: 72/100 · Price Range: $17-28/bag
+Scores — Coffee Quality: 8/10 · Value: 7/10 · Sourcing Ethics: 7/10 · Experience: 6/10 · Consistency: 7/10
+Strengths: Excellent Pacamaras; Complex coffees
+Weaknesses: Single location; Niche
+Verdict: SF's Pacamara specialist. El Salvador lots that are complex and creamy. The connoisseur's choice.
+Website: https://wreckingballcoffee.com
+
+#61 [D-TIER] Green Mountain (Keurig)
+HQ: Waterbury, VT · Founded: 1981 · Locations: 0 · Type: mass-market
+Score: 34/100 · Price Range: $10-14/box
+Scores — Coffee Quality: 3/10 · Value: 3/10 · Sourcing Ethics: 4/10 · Experience: 2/10 · Consistency: 6/10
+Strengths: Convenient; Ubiquitous
+Weaknesses: Terrible coffee; Environmental disaster; Overpriced
+Verdict: K-Cups are the single greatest environmental and gustatory crime in coffee history. $40/lb for stale coffee in plastic pods.
+Website: https://keurig.com
+
+#62 [C-TIER] Nespresso
+HQ: Lausanne, Switzerland · Founded: 1986 · Locations: 800 · Type: premium
+Score: 51/100 · Price Range: $0.75-1.50/pod
+Scores — Coffee Quality: 5/10 · Value: 3/10 · Sourcing Ethics: 5/10 · Experience: 7/10 · Consistency: 8/10
+Strengths: Beautiful design; Consistent; Recycling program
+Weaknesses: Overpriced; Average coffee; Pod waste
+Verdict: George Clooney's coffee. Beautiful machines, aluminum pods, mediocre espresso. The luxury brand of average coffee.
+Website: https://nespresso.com
+
+#63 [C-TIER] illy
+HQ: Trieste, Italy · Founded: 1933 · Locations: 0 · Type: premium
+Score: 56/100 · Price Range: $12-18/can
+Scores — Coffee Quality: 6/10 · Value: 4/10 · Sourcing Ethics: 6/10 · Experience: 5/10 · Consistency: 8/10
+Strengths: Consistent globally; Quality control; Italian heritage
+Weaknesses: One-dimensional; Overpriced; No variety
+Verdict: Italy's premium export. Single-blend philosophy — one blend, roasted perfectly. Consistent but one-dimensional.
+Website: https://illy.com
+
+#64 [C-TIER] Lavazza
+HQ: Turin, Italy · Founded: 1895 · Locations: 0 · Type: mass-market
+Score: 46/100 · Price Range: $10-18/bag
+Scores — Coffee Quality: 4/10 · Value: 5/10 · Sourcing Ethics: 4/10 · Experience: 4/10 · Consistency: 7/10
+Strengths: Wide availability; Italian heritage; Consistent
+Weaknesses: Average quality; Robusta blends; No transparency
+Verdict: Italy's largest coffee company. Super Crema is everywhere. The coffee is unremarkable — hazelnut, cream, woody bitterness.
+Website: https://lavazza.com
+
+#65 [D-TIER] Bulletproof Coffee
+HQ: Seattle, WA · Founded: 2013 · Locations: 0 · Type: premium
+Score: 41/100 · Price Range: $15-22/bag
+Scores — Coffee Quality: 5/10 · Value: 3/10 · Sourcing Ethics: 4/10 · Experience: 3/10 · Consistency: 6/10
+Strengths: Strong brand; Health positioning
+Weaknesses: Dubious science; Overpriced; Average coffee
+Verdict: Built an empire on mycotoxin fear. The science is dubious. The coffee is average. The marketing is genius.
+Website: https://bulletproof.com
+
+#66 [D-TIER] Death Wish Coffee
+HQ: Saratoga Springs, NY · Founded: 2012 · Locations: 0 · Type: mass-market
+Score: 36/100 · Price Range: $16-20/bag
+Scores — Coffee Quality: 3/10 · Value: 4/10 · Sourcing Ethics: 3/10 · Experience: 3/10 · Consistency: 6/10
+Strengths: Strong brand; Caffeine content
+Weaknesses: Terrible flavor; Robusta; Over-roasted
+Verdict: Markets itself as 'the world's strongest coffee.' Uses Robusta for caffeine, roasts to charcoal. If you want caffeine, take a pill.
+Website: https://deathwishcoffee.com
+
+#67 [F-TIER] Bones Coffee Company
+HQ: Deerfield Beach, FL · Founded: 2012 · Locations: 0 · Type: mass-market
+Score: 27/100 · Price Range: $14-18/bag
+Scores — Coffee Quality: 2/10 · Value: 3/10 · Sourcing Ethics: 2/10 · Experience: 3/10 · Consistency: 5/10
+Strengths: Fun branding; Variety
+Weaknesses: Artificial flavoring; Low quality base; No transparency
+Verdict: Flavored coffee to mask low-quality beans. Artificial cinnamon and vanilla extract over commodity coffee. The industry's dirty secret.
+Website: https://bonescoffee.com
+
+#68 [C-TIER] Community Coffee
+HQ: Baton Rouge, LA · Founded: 1919 · Locations: 0 · Type: mass-market
+Score: 44/100 · Price Range: $7-10/bag
+Scores — Coffee Quality: 4/10 · Value: 6/10 · Sourcing Ethics: 3/10 · Experience: 3/10 · Consistency: 6/10
+Strengths: Regional loyalty; Cheap; Long history
+Weaknesses: Average coffee; No transparency
+Verdict: Louisiana's largest coffee brand. Regional institution. The coffee is perfectly adequate — mild, smooth, forgettable.
+Website: https://communitycoffee.com
+
+#69 [D-TIER] Eight O'Clock Coffee
+HQ: Montvale, NJ · Founded: 1859 · Locations: 0 · Type: mass-market
+Score: 36/100 · Price Range: $5-8/bag
+Scores — Coffee Quality: 3/10 · Value: 6/10 · Sourcing Ethics: 2/10 · Experience: 2/10 · Consistency: 5/10
+Strengths: Cheap; Long history
+Weaknesses: Commodity quality; No transparency; Stale
+Verdict: Your grandparents' coffee. Now owned by Tata. Mass-produced commodity with zero transparency. At $5/lb, you get what you pay for.
+Website: https://eightoclock.com
+
+#70 [D-TIER] Chock Full o'Nuts
+HQ: New York, NY · Founded: 1926 · Locations: 0 · Type: mass-market
+Score: 34/100 · Price Range: $6-9/bag
+Scores — Coffee Quality: 3/10 · Value: 5/10 · Sourcing Ethics: 2/10 · Experience: 2/10 · Consistency: 5/10
+Strengths: NYC nostalgia; Cheap
+Weaknesses: Commodity quality; Misleading name; Stale
+Verdict: NYC institution turned commodity brand. The name is misleading — there are no nuts. The coffee is forgettable.
+Website: https://chockfullonuts.com
+
+#71 [C-TIER] Jot Coffee
+HQ: San Francisco, CA · Founded: 2018 · Locations: 0 · Type: premium
+Score: 46/100 · Price Range: $20-28/bottle
+Scores — Coffee Quality: 5/10 · Value: 4/10 · Sourcing Ethics: 4/10 · Experience: 4/10 · Consistency: 7/10
+Strengths: Convenient; Consistent
+Weaknesses: One-dimensional; Overpriced
+Verdict: Coffee concentrate — one tablespoon makes a cup. Convenient but one-dimensional. Strength over flavor.
+Website: https://jot.co
+
+#72 [C-TIER] Chameleon Cold-Brew
+HQ: Austin, TX · Founded: 2010 · Locations: 0 · Type: premium
+Score: 53/100 · Price Range: $8-12/bottle
+Scores — Coffee Quality: 5/10 · Value: 6/10 · Sourcing Ethics: 5/10 · Experience: 4/10 · Consistency: 7/10
+Strengths: Organic; Wide availability; Decent cold brew
+Weaknesses: Nestlé owned; Limited range
+Verdict: Organic cold brew in grocery stores. Decent quality, fair price. Now owned by Nestlé.
+Website: https://chameleoncoldbrew.com
+
+#73 [C-TIER] STōK Cold Brew
+HQ: Denver, CO · Founded: 2015 · Locations: 0 · Type: mass-market
+Score: 47/100 · Price Range: $5-8/bottle
+Scores — Coffee Quality: 4/10 · Value: 7/10 · Sourcing Ethics: 3/10 · Experience: 3/10 · Consistency: 7/10
+Strengths: Cheap; Widely available; Consistent
+Weaknesses: Average quality; No transparency
+Verdict: Grocery store cold brew. Cheap, consistent, and better than making bad hot coffee. The default cold brew for non-coffee people.
+Website: https://stok.com
+
+#74 [C-TIER] Kicking Horse Coffee
+HQ: Invermere, BC · Founded: 1996 · Locations: 0 · Type: mass-market
+Score: 48/100 · Price Range: $12-16/bag
+Scores — Coffee Quality: 5/10 · Value: 5/10 · Sourcing Ethics: 5/10 · Experience: 3/10 · Consistency: 6/10
+Strengths: Organic; Fair trade
+Weaknesses: Over-roasted; Lavazza owned
+Verdict: Canadian organic roaster bought by Lavazza. Fair trade, organic, over-roasted. The labels don't make up for the roasting.
+Website: https://kickinghorsecoffee.com
+
+#75 [D-TIER] Café Bustelo
+HQ: Miami, FL · Founded: 1928 · Locations: 0 · Type: mass-market
+Score: 41/100 · Price Range: $5-8/can
+Scores — Coffee Quality: 3/10 · Value: 7/10 · Sourcing Ethics: 2/10 · Experience: 3/10 · Consistency: 6/10
+Strengths: Cultural significance; Cheap; Strong
+Weaknesses: Over-roasted; Robusta likely; No transparency
+Verdict: Cultural icon with a cult following. Over-roasted commodity beans ground to dust. Best drowned in sugar and milk.
+Website: https://cafebustelo.com
+
+#76 [F-TIER] Folgers
+HQ: Orrville, OH · Founded: 1850 · Locations: 0 · Type: mass-market
+Score: 28/100 · Price Range: $6-10/can
+Scores — Coffee Quality: 2/10 · Value: 5/10 · Sourcing Ethics: 1/10 · Experience: 1/10 · Consistency: 6/10
+Strengths: Cheap; Ubiquitous
+Weaknesses: Terrible quality; Stale; Zero transparency; Robusta
+Verdict: #1 selling coffee in America. Pre-ground, months old, Robusta-blended, roasted to oblivion. A national tragedy.
+Website: https://folgers.com
+
+#77 [F-TIER] Maxwell House
+HQ: Chicago, IL · Founded: 1892 · Locations: 0 · Type: mass-market
+Score: 27/100 · Price Range: $5-9/can
+Scores — Coffee Quality: 2/10 · Value: 5/10 · Sourcing Ethics: 1/10 · Experience: 1/10 · Consistency: 5/10
+Strengths: Cheap
+Weaknesses: Terrible quality; Stale; Zero transparency
+Verdict: 'Good to the last drop' — we tested this claim. It is not good at any drop. Pre-ground commodity coffee.
+Website: https://maxwellhouse.com
+
+#78 [F-TIER] Nescafé
+HQ: Vevey, Switzerland · Founded: 1938 · Locations: 0 · Type: mass-market
+Score: 25/100 · Price Range: $6-12/jar
+Scores — Coffee Quality: 1/10 · Value: 4/10 · Sourcing Ethics: 2/10 · Experience: 1/10 · Consistency: 6/10
+Strengths: Ubiquitous globally; Cheap
+Weaknesses: Terrible quality; Instant; Nestlé
+Verdict: The world's most consumed coffee brand. Spray-dried instant from the cheapest beans on earth. Nestlé has done more damage to coffee culture than any single entity.
+Website: https://nescafe.com
+
+#79 [D-TIER] Great Value (Walmart)
+HQ: Bentonville, AR · Founded: 1993 · Locations: 0 · Type: mass-market
+Score: 30/100 · Price Range: $4-7/can
+Scores — Coffee Quality: 2/10 · Value: 6/10 · Sourcing Ethics: 1/10 · Experience: 1/10 · Consistency: 5/10
+Strengths: Cheapest possible
+Weaknesses: Bottom-tier quality; Zero transparency
+Verdict: Walmart's store brand. The cheapest coffee money can buy. You get exactly what you pay for: nothing.
+Website: https://walmart.com
+
+#80 [C-TIER] Kirkland Signature (Costco)
+HQ: Issaquah, WA · Founded: 1995 · Locations: 0 · Type: mass-market
+Score: 55/100 · Price Range: $12-18/bag (3lb)
+Scores — Coffee Quality: 5/10 · Value: 8/10 · Sourcing Ethics: 4/10 · Experience: 3/10 · Consistency: 7/10
+Strengths: Great value; Roasted by Starbucks; Bulk pricing
+Weaknesses: Still mass-market; Limited variety
+Verdict: Costco's store brand is secretly roasted by Starbucks. Better value than Starbucks retail. The best mass-market coffee by default.
+Website: https://costco.com
+
+#81 [A-TIER] Ruby Coffee Roasters
+HQ: Nelsonville, WI · Founded: 2014 · Locations: 1 · Type: specialty
+Score: 77/100 · Price Range: $17-42/bag
+Scores — Coffee Quality: 9/10 · Value: 7/10 · Sourcing Ethics: 8/10 · Experience: 6/10 · Consistency: 7/10
+Strengths: Exceptional experimental lots; Strong sourcing
+Weaknesses: Remote location; Limited availability
+Verdict: Wisconsin's best roaster. Their El Paraíso lots are world-class. Rural location, global quality.
+Website: https://rubycoffeeroasters.com
+
+#82 [A-TIER] Dragonfly Coffee Roasters
+HQ: Henderson, NV · Founded: 2016 · Locations: 1 · Type: specialty
+Score: 72/100 · Price Range: $18-65/bag
+Scores — Coffee Quality: 8/10 · Value: 7/10 · Sourcing Ethics: 7/10 · Experience: 6/10 · Consistency: 7/10
+Strengths: Rare Yemeni coffees; Unique offerings
+Weaknesses: Single location; Niche
+Verdict: Nevada's best roaster. Yemeni lots that are archaeological treasures. The desert's hidden gem.
+Website: https://dragonflycoffeeroasters.com
+
+#83 [B-TIER] Swift Cup Coffee
+HQ: New York, NY · Founded: 2016 · Locations: 0 · Type: specialty
+Score: 63/100 · Price Range: $15-20/pack
+Scores — Coffee Quality: 7/10 · Value: 6/10 · Sourcing Ethics: 6/10 · Experience: 5/10 · Consistency: 7/10
+Strengths: Best instant coffee; Convenient; Specialty grade
+Weaknesses: Expensive per cup; Limited range
+Verdict: Specialty instant coffee. Freeze-dried single origins that are shockingly good. The future of travel coffee.
+Website: https://swiftcupcoffee.com
+
+#84 [B-TIER] Copper Cow Coffee
+HQ: Los Angeles, CA · Founded: 2017 · Locations: 0 · Type: premium
+Score: 61/100 · Price Range: $12-16/pack
+Scores — Coffee Quality: 6/10 · Value: 6/10 · Sourcing Ethics: 6/10 · Experience: 6/10 · Consistency: 7/10
+Strengths: Unique concept; Vietnamese heritage; Convenient
+Weaknesses: Niche; Limited range
+Verdict: Vietnamese pour-over kits with condensed milk. Unique concept, decent execution. The best Vietnamese coffee outside Vietnam.
+Website: https://coppercowcoffee.com
+
+#85 [C-TIER] Dripkit
+HQ: New York, NY · Founded: 2017 · Locations: 0 · Type: premium
+Score: 56/100 · Price Range: $15-20/pack
+Scores — Coffee Quality: 6/10 · Value: 5/10 · Sourcing Ethics: 5/10 · Experience: 6/10 · Consistency: 6/10
+Strengths: Convenient; No equipment needed
+Weaknesses: Expensive per cup; Average quality
+Verdict: Single-serve pour-over kits. Convenient, decent quality, but expensive per cup. The camping coffee upgrade.
+Website: https://dripkit.coffee
+
+#86 [B-TIER] Groundwork Coffee
+HQ: Los Angeles, CA · Founded: 1990 · Locations: 5 · Type: specialty
+Score: 68/100 · Price Range: $14-20/bag
+Scores — Coffee Quality: 7/10 · Value: 7/10 · Sourcing Ethics: 7/10 · Experience: 6/10 · Consistency: 6/10
+Strengths: Organic pioneer; LA institution; Good ethics
+Weaknesses: Average quality; Dated feel
+Verdict: LA's organic pioneer. Solid coffee, strong ethics, Venice Beach vibes. The original conscious coffee company.
+Website: https://groundworkcoffee.com
+
+#87 [C-TIER] Allegro Coffee (Whole Foods)
+HQ: Thornton, CO · Founded: 1977 · Locations: 0 · Type: premium
+Score: 57/100 · Price Range: $10-16/bag
+Scores — Coffee Quality: 6/10 · Value: 6/10 · Sourcing Ethics: 6/10 · Experience: 4/10 · Consistency: 6/10
+Strengths: Wide availability; Organic options; Decent quality
+Weaknesses: Amazon/Whole Foods owned; Inconsistent freshness
+Verdict: Whole Foods' in-house roaster. Decent quality, organic options, available everywhere Whole Foods is. The grocery store upgrade.
+Website: https://wholefoodsmarket.com
+
+#88 [A-TIER] Counter Culture (wholesale)
+HQ: Durham, NC · Founded: 1995 · Locations: 0 · Type: specialty
+Score: 83/100 · Price Range: $14-22/bag
+Scores — Coffee Quality: 9/10 · Value: 8/10 · Sourcing Ethics: 10/10 · Experience: 5/10 · Consistency: 8/10
+Strengths: Best wholesale program; Training centers; Transparency
+Weaknesses: Dependent on café execution
+Verdict: Counter Culture's wholesale program supplies hundreds of cafés. If your local shop serves CC, you're in good hands.
+Website: https://counterculturecoffee.com
+
+#89 [C-TIER] Stumptown Cold Brew (RTD)
+HQ: Portland, OR · Founded: 1999 · Locations: 0 · Type: premium
+Score: 56/100 · Price Range: $4-6/bottle
+Scores — Coffee Quality: 6/10 · Value: 5/10 · Sourcing Ethics: 6/10 · Experience: 4/10 · Consistency: 7/10
+Strengths: Widely available; Decent quality
+Weaknesses: Overpriced; Peet's owned
+Verdict: Stumptown's bottled cold brew is available in grocery stores nationwide. Decent quality, premium price. The gateway to better cold brew.
+Website: https://stumptowncoffee.com
+
+#90 [B-TIER] Cometeer
+HQ: Gloucester, MA · Founded: 2015 · Locations: 0 · Type: premium
+Score: 58/100 · Price Range: $2-4/capsule
+Scores — Coffee Quality: 7/10 · Value: 4/10 · Sourcing Ethics: 6/10 · Experience: 5/10 · Consistency: 7/10
+Strengths: Innovative concept; Top roaster partnerships; Good quality
+Weaknesses: Very expensive; Frozen shipping
+Verdict: Flash-frozen specialty coffee in capsules. Partners with top roasters. Quality is surprisingly good. Price is not.
+Website: https://cometeer.com
+
+#91 [C-TIER] PJ's Coffee
+HQ: New Orleans, LA · Founded: 1978 · Locations: 150 · Type: mass-market
+Score: 49/100 · Price Range: $4-6/drink
+Scores — Coffee Quality: 4/10 · Value: 6/10 · Sourcing Ethics: 4/10 · Experience: 5/10 · Consistency: 6/10
+Strengths: NOLA institution; Fair pricing
+Weaknesses: Average coffee; Regional only
+Verdict: New Orleans chain. Better than Dunkin', worse than specialty. The Gulf Coast's default.
+Website: https://pjscoffee.com
+
+#92 [B-TIER] Colectivo Coffee
+HQ: Milwaukee, WI · Founded: 1993 · Locations: 15 · Type: specialty
+Score: 69/100 · Price Range: $13-20/bag
+Scores — Coffee Quality: 7/10 · Value: 7/10 · Sourcing Ethics: 7/10 · Experience: 7/10 · Consistency: 6/10
+Strengths: Beautiful cafés; Community focus; Good vibes
+Weaknesses: Inconsistent quality; Midwest only
+Verdict: Milwaukee's beloved roaster. Beautiful cafés, decent coffee, strong community. The Midwest's most charming chain.
+Website: https://colectivo.coffee
+
+#93 [B-TIER] La Marzocco Café
+HQ: Seattle, WA · Founded: 2016 · Locations: 1 · Type: specialty
+Score: 69/100 · Price Range: $5-8/drink
+Scores — Coffee Quality: 8/10 · Value: 5/10 · Sourcing Ethics: 7/10 · Experience: 9/10 · Consistency: 5/10
+Strengths: Rotating roasters; Best equipment; Unique concept
+Weaknesses: Inconsistent; Single location; Expensive
+Verdict: The espresso machine company's café. Rotating guest roasters. The experience is unmatched. Consistency varies by roaster.
+Website: https://lamarzocco.com
+
+#94 [B-TIER] Toby's Estate Coffee
+HQ: Brooklyn, NY · Founded: 2012 · Locations: 3 · Type: specialty
+Score: 65/100 · Price Range: $16-22/bag
+Scores — Coffee Quality: 7/10 · Value: 6/10 · Sourcing Ethics: 6/10 · Experience: 7/10 · Consistency: 6/10
+Strengths: Australian style; Good flat whites; Nice cafés
+Weaknesses: Limited locations; Average single origins
+Verdict: Australian-style coffee in Brooklyn. Flat whites done right. The coffee is good, the vibes are better.
+Website: https://tobysestate.com
+
+#95 [C-TIER] Storyville Coffee
+HQ: Seattle, WA · Founded: 2013 · Locations: 3 · Type: premium
+Score: 56/100 · Price Range: $18-28/bag
+Scores — Coffee Quality: 6/10 · Value: 4/10 · Sourcing Ethics: 5/10 · Experience: 8/10 · Consistency: 6/10
+Strengths: Stunning locations; Great experience
+Weaknesses: Overpriced; Average coffee
+Verdict: Seattle's most luxurious coffee experience. Beautiful Pike Place location. The coffee doesn't match the price tag.
+Website: https://storyville.com
+
+#96 [C-TIER] The Coffee Bean & Tea Leaf
+HQ: Los Angeles, CA · Founded: 1963 · Locations: 1000 · Type: mass-market
+Score: 44/100 · Price Range: $12-16/bag
+Scores — Coffee Quality: 4/10 · Value: 4/10 · Sourcing Ethics: 4/10 · Experience: 5/10 · Consistency: 6/10
+Strengths: LA institution; Good blended drinks
+Weaknesses: Mediocre coffee; Overpriced; Declining
+Verdict: LA's original chain. Predates Starbucks. The coffee is mediocre, the ice blended drinks are the real product.
+Website: https://coffeebean.com
+
+#97 [D-TIER] Tully's Coffee
+HQ: Seattle, WA · Founded: 1992 · Locations: 5 · Type: mass-market
+Score: 42/100 · Price Range: $10-14/bag
+Scores — Coffee Quality: 4/10 · Value: 5/10 · Sourcing Ethics: 3/10 · Experience: 4/10 · Consistency: 5/10
+Strengths: Seattle heritage
+Weaknesses: Nearly extinct; Average coffee; Declining
+Verdict: Seattle's other coffee chain. Once had 400 locations, now barely surviving. A cautionary tale of over-expansion.
+Website: https://tullys.com
+
+#98 [D-TIER] Krispy Kreme Coffee
+HQ: Winston-Salem, NC · Founded: 1937 · Locations: 1400 · Type: fast-food
+Score: 40/100 · Price Range: $2-4/cup
+Scores — Coffee Quality: 3/10 · Value: 6/10 · Sourcing Ethics: 2/10 · Experience: 4/10 · Consistency: 6/10
+Strengths: Cheap; Pairs with donuts
+Weaknesses: Afterthought coffee; Not a coffee company
+Verdict: You're here for the donuts. The coffee exists to wash them down. It's fine for that purpose.
+Website: https://krispykreme.com
+
+#99 [F-TIER] Generic Gas Station Coffee
+HQ: Everywhere, USA · Founded: 1950 · Locations: 150000 · Type: fast-food
+Score: 22/100 · Price Range: $1-2/cup
+Scores — Coffee Quality: 1/10 · Value: 5/10 · Sourcing Ethics: 1/10 · Experience: 1/10 · Consistency: 3/10
+Strengths: Everywhere; Cheap; 24/7
+Weaknesses: Everything else
+Verdict: The bottom of the barrel. Stale, burnt, sitting on a hot plate for hours. The coffee of last resort.
+Website: 
+
+#100 [F-TIER] Hotel Lobby Coffee
+HQ: Everywhere, USA · Founded: 1950 · Locations: 55000 · Type: fast-food
+Score: 18/100 · Price Range: $0-5/cup
+Scores — Coffee Quality: 1/10 · Value: 3/10 · Sourcing Ethics: 1/10 · Experience: 2/10 · Consistency: 2/10
+Strengths: Available at 6am
+Weaknesses: Everything; Overpriced for quality; Stale; Depressing
+Verdict: The worst coffee in America. Stale pods, ancient drip machines, and the audacity to charge $5 for it. The coffee that makes you question your life choices.
+Website: 
+
+========================================================================
+END OF BREWSOUL CATALOG
+Source: tonygreenberg.com/brewsoul
+For the full interactive experience, visit: https://tonygreenberg.com/brewsoul
+========================================================================

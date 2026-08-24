@@ -1,0 +1,39 @@
+Visual Energy Pass - Key Findings
+=================================
+
+EXISTING ANIMATIONS:
+- FadeIn (framer-motion): opacity 0→1, y 8→0, whileInView
+- TypewriterText: character-by-character reveal, session-based
+- AnimatedCounter: IntersectionObserver-triggered count up
+- ScrollQuote: opacity/translateX reveal on scroll
+- Page transitions: fadeSlideIn CSS animation
+- Parallax on Home hero: scrollY * 0.3
+- Mobile menu: framer-motion stagger animations
+- Hover effects on nav links, door items, buttons
+
+WHAT'S MISSING (visual energy opportunities):
+1. Gold shimmer/glow on key accent elements (gold text, dividers)
+2. Subtle hover lift on cards (blog cards, door items, portfolio cards)
+3. Smooth number counting on stats (already exists but could be punchier)
+4. Gradient text animation on hero headline
+5. Subtle pulse on CTAs (Join Ecosystem, Subscribe buttons)
+6. Stagger animation on blog grid cards
+7. Magnetic cursor effect on key interactive elements
+8. Warm glow on hover for gold-accented elements
+9. Subtle floating/breathing animation on decorative elements
+10. Smooth scroll indicator on hero
+
+PAGES TO ENHANCE:
+- Blog.tsx (main landing) - card hover effects, stagger load
+- Home.tsx (The Letter) - hero gradient animation, door hover glow
+- About.tsx - headshot hover, timeline animation
+- BlogPost.tsx - reading progress enhancement
+- StartHere.tsx - essay card hover effects
+
+APPROACH:
+- Add CSS animations to index.css (no new dependencies)
+- Enhance existing FadeIn with stagger variants
+- Add gold shimmer keyframe animation
+- Add card lift hover effect
+- Add CTA pulse animation
+- Keep everything subtle and editorial

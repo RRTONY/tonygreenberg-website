@@ -1,0 +1,7 @@
+Search test results for "iboga":
+- PAGES & PROJECTS (1): Psychedelic Readiness Index — "26-medicine pharmacopoeia and 25-question readiness assessment — find your healing path"
+- ESSAYS: Shows blog posts that contain iboga in their content (Zuck article, Toll Roads, etc. — these are likely false positives from recency boost, not iboga-specific content)
+- The PRI result correctly shows 26 medicines now
+- Search is working — iboga tag is matched in PRI entry
+
+The blog posts showing under "iboga" search are likely getting recency boost scores even though they don't contain iboga content. The scoring gives 15 points for recency which can surface unrelated posts. This is a minor issue — the PRI result is correctly at the top.

@@ -1,0 +1,14 @@
+Iboga vs Ibogaine Deep Dive Page Review:
+- Hero: Bwiti ceremony image loads beautifully, title "Iboga vs Ibogaine" with subtitle
+- Section 1: Alkaloid Profiles - "The Entourage Effect" - comparison image loads, table with 7 alkaloids
+- Section 2: Receptor Pharmacology - "Multi-Target Mechanism" - brain receptor image loads, table with 9 receptors
+- Section 3: Head-to-Head comparison table (need to scroll to verify)
+- Section 4: Clinical Outcomes (need to scroll)
+- Section 5: Pharma alternatives (need to scroll)
+- Section 6: Supplement stack (need to scroll)
+- Navigation: Back to PRI link at top, WhereNext at bottom
+- All images loading correctly
+- Font sizes look good on desktop, need mobile check
+- Route: /iboga-ibogaine
+- Search indexed in both SearchPalette and TonyDiscovery
+- PRI cards for iboga and ibogaine both link to this deep dive

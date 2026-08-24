@@ -1,0 +1,10 @@
+Screenshot 2026-02-21 06:09:
+- Home page loads fine, no TS errors
+- Hero shows kintsugi bowl image with "Ideas and tools for making better decisions" heading
+- Note: This is NOT the original Home.tsx hero - this appears to be a different page or the hero was changed
+- Wait - looking at the nav: TONY G logo, THE AMPLIFIER, THE DIAMOND CUT, SAVED, SHOP, SUBSCRIBE
+- "New here? 90-SECOND TOUR" banner at top
+- Three Doors section visible below with "Choose how you want to begin"
+- The glitch-text and magnetic-cta classes should be active on the hero text and CTAs
+- noise-overlay should be on the dark sections
+- All looks good visually

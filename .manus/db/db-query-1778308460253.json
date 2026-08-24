@@ -1,0 +1,130 @@
+{
+  "query": "SELECT sessionId, role, LEFT(content, 100) as content_preview, createdAt FROM faux_tony_chats ORDER BY createdAt DESC LIMIT 20;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2tyUkvbqvVnVXqA.2023efd789ca --database gXhndHxpF4hLjcgkrqbdCP --execute SELECT sessionId, role, LEFT(content, 100) as content_preview, createdAt FROM faux_tony_chats ORDER BY createdAt DESC LIMIT 20;",
+  "rows": [
+    {
+      "sessionId": "disc_1776788512544_hslzi0lf",
+      "role": "assistant",
+      "content_preview": "Ah, you're asking about the tools, the contraptions, the artifacts that populate this digital landsc",
+      "createdAt": "2026-04-21 21:11:49"
+    },
+    {
+      "sessionId": "disc_1776788512544_hslzi0lf",
+      "role": "user",
+      "content_preview": "What devices are in this website",
+      "createdAt": "2026-04-21 21:11:44"
+    },
+    {
+      "sessionId": "disc_1776404785657_4fcta4qq",
+      "role": "assistant",
+      "content_preview": "Benchmarking data center pricing isn't like checking the price of a gallon of milk, or even a barrel",
+      "createdAt": "2026-04-17 05:46:51"
+    },
+    {
+      "sessionId": "disc_1776404785657_4fcta4qq",
+      "role": "user",
+      "content_preview": "How do you benchmark data center pricing?",
+      "createdAt": "2026-04-17 05:46:45"
+    },
+    {
+      "sessionId": "disc_1771456806034_43g7tika",
+      "role": "assistant",
+      "content_preview": "Ah, the coffee dollar. A question that cuts right to the heart of the matter, doesn't it? Most folks",
+      "createdAt": "2026-02-24 20:04:57"
+    },
+    {
+      "sessionId": "disc_1771456806034_43g7tika",
+      "role": "user",
+      "content_preview": "Where does my coffee dollar actually go?",
+      "createdAt": "2026-02-24 20:04:52"
+    },
+    {
+      "sessionId": "disc_1771449063502_1jzpj6vh",
+      "role": "assistant",
+      "content_preview": "Evaluating \"alt therapies\" is like trying to navigate a jungle where half the plants are medicinal a",
+      "createdAt": "2026-02-18 21:13:13"
+    },
+    {
+      "sessionId": "disc_1771449063502_1jzpj6vh",
+      "role": "user",
+      "content_preview": "How to evaluate alt therapies",
+      "createdAt": "2026-02-18 21:13:07"
+    },
+    {
+      "sessionId": "disc_1771449063502_1jzpj6vh",
+      "role": "assistant",
+      "content_preview": "Peptides, eh? We're not just talking about protein fragments here; we're talking about the body's ow",
+      "createdAt": "2026-02-18 21:12:50"
+    },
+    {
+      "sessionId": "disc_1771449063502_1jzpj6vh",
+      "role": "user",
+      "content_preview": "Tell me about peptides",
+      "createdAt": "2026-02-18 21:12:44"
+    },
+    {
+      "sessionId": "disc_1771449063502_1jzpj6vh",
+      "role": "assistant",
+      "content_preview": "Ah, the [Grant Study](/assessments/grant-study) – one of the longest, most comprehensive dives into ",
+      "createdAt": "2026-02-18 21:11:17"
+    },
+    {
+      "sessionId": "disc_1771449063502_1jzpj6vh",
+      "role": "user",
+      "content_preview": "What can the Grant Study tell me about happiness?",
+      "createdAt": "2026-02-18 21:11:12"
+    },
+    {
+      "sessionId": "disc_1771446657383_y7oc1i8w",
+      "role": "assistant",
+      "content_preview": "Ah, if only it were that simple, my friend. Listing \"all\" our clients publicly would be like a Miche",
+      "createdAt": "2026-02-18 20:32:05"
+    },
+    {
+      "sessionId": "disc_1771446657383_y7oc1i8w",
+      "role": "user",
+      "content_preview": "List all the clients",
+      "createdAt": "2026-02-18 20:32:00"
+    },
+    {
+      "sessionId": "disc_1771446657383_y7oc1i8w",
+      "role": "assistant",
+      "content_preview": "At [RampRate](https://ramprate.com), our clients are typically the titans of industry – Fortune 500 ",
+      "createdAt": "2026-02-18 20:31:47"
+    },
+    {
+      "sessionId": "disc_1771446657383_y7oc1i8w",
+      "role": "user",
+      "content_preview": "Who are RampRate’s clients",
+      "createdAt": "2026-02-18 20:31:42"
+    },
+    {
+      "sessionId": "disc_1771446657383_y7oc1i8w",
+      "role": "assistant",
+      "content_preview": "Ah, data center pricing. That's not just a number on a spreadsheet; it's a multi-dimensional chess m",
+      "createdAt": "2026-02-18 20:31:10"
+    },
+    {
+      "sessionId": "disc_1771446657383_y7oc1i8w",
+      "role": "user",
+      "content_preview": "How do you benchmark data center pricing?",
+      "createdAt": "2026-02-18 20:31:03"
+    },
+    {
+      "sessionId": "disc_1771445580351_oidmgamn",
+      "role": "assistant",
+      "content_preview": "That's a question that keeps me up at night, not because I'm crunching your personal numbers (that's",
+      "createdAt": "2026-02-18 20:14:06"
+    },
+    {
+      "sessionId": "disc_1771445580351_oidmgamn",
+      "role": "user",
+      "content_preview": "How much carbon am I using daily?",
+      "createdAt": "2026-02-18 20:13:59"
+    }
+  ],
+  "messages": [],
+  "stdout": "sessionId\trole\tcontent_preview\tcreatedAt\ndisc_1776788512544_hslzi0lf\tassistant\tAh, you're asking about the tools, the contraptions, the artifacts that populate this digital landsc\t2026-04-21 21:11:49\ndisc_1776788512544_hslzi0lf\tuser\tWhat devices are in this website\t2026-04-21 21:11:44\ndisc_1776404785657_4fcta4qq\tassistant\tBenchmarking data center pricing isn't like checking the price of a gallon of milk, or even a barrel\t2026-04-17 05:46:51\ndisc_1776404785657_4fcta4qq\tuser\tHow do you benchmark data center pricing?\t2026-04-17 05:46:45\ndisc_1771456806034_43g7tika\tassistant\tAh, the coffee dollar. A question that cuts right to the heart of the matter, doesn't it? Most folks\t2026-02-24 20:04:57\ndisc_1771456806034_43g7tika\tuser\tWhere does my coffee dollar actually go?\t2026-02-24 20:04:52\ndisc_1771449063502_1jzpj6vh\tassistant\tEvaluating \"alt therapies\" is like trying to navigate a jungle where half the plants are medicinal a\t2026-02-18 21:13:13\ndisc_1771449063502_1jzpj6vh\tuser\tHow to evaluate alt therapies\t2026-02-18 21:13:07\ndisc_1771449063502_1jzpj6vh\tassistant\tPeptides, eh? We're not just talking about protein fragments here; we're talking about the body's ow\t2026-02-18 21:12:50\ndisc_1771449063502_1jzpj6vh\tuser\tTell me about peptides\t2026-02-18 21:12:44\ndisc_1771449063502_1jzpj6vh\tassistant\tAh, the [Grant Study](/assessments/grant-study) – one of the longest, most comprehensive dives into \t2026-02-18 21:11:17\ndisc_1771449063502_1jzpj6vh\tuser\tWhat can the Grant Study tell me about happiness?\t2026-02-18 21:11:12\ndisc_1771446657383_y7oc1i8w\tassistant\tAh, if only it were that simple, my friend. Listing \"all\" our clients publicly would be like a Miche\t2026-02-18 20:32:05\ndisc_1771446657383_y7oc1i8w\tuser\tList all the clients\t2026-02-18 20:32:00\ndisc_1771446657383_y7oc1i8w\tassistant\tAt [RampRate](https://ramprate.com), our clients are typically the titans of industry – Fortune 500 \t2026-02-18 20:31:47\ndisc_1771446657383_y7oc1i8w\tuser\tWho are RampRate’s clients\t2026-02-18 20:31:42\ndisc_1771446657383_y7oc1i8w\tassistant\tAh, data center pricing. That's not just a number on a spreadsheet; it's a multi-dimensional chess m\t2026-02-18 20:31:10\ndisc_1771446657383_y7oc1i8w\tuser\tHow do you benchmark data center pricing?\t2026-02-18 20:31:03\ndisc_1771445580351_oidmgamn\tassistant\tThat's a question that keeps me up at night, not because I'm crunching your personal numbers (that's\t2026-02-18 20:14:06\ndisc_1771445580351_oidmgamn\tuser\tHow much carbon am I using daily?\t2026-02-18 20:13:59\n",
+  "stderr": "",
+  "execution_time_ms": 419
+}

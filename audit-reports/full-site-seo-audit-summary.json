@@ -1,0 +1,2375 @@
+{
+  "summary": {
+    "sitemapUrls": 294,
+    "pagesChecked": 294,
+    "pageFailures": 173,
+    "imageResourcesChecked": 67,
+    "imageFailures": 20,
+    "issueCounts": {
+      "canonical": 10,
+      "description": 48,
+      "h1": 7,
+      "jsonld": 27,
+      "ogImage": 117,
+      "sessionImage": 28,
+      "sitemap": 1,
+      "ssrText": 13
+    }
+  },
+  "issueGroups": {
+    "canonical": [
+      {
+        "path": "/bio",
+        "issues": [
+          "canonical"
+        ],
+        "canonical": "https://tonygreenberg.com/about",
+        "ssrTextLength": 2544
+      },
+      {
+        "path": "/manifesto",
+        "issues": [
+          "description",
+          "canonical",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/living-declaration",
+        "ssrTextLength": 7427
+      },
+      {
+        "path": "/essays",
+        "issues": [
+          "canonical"
+        ],
+        "canonical": "https://tonygreenberg.com/blog",
+        "ssrTextLength": 30007
+      },
+      {
+        "path": "/discover",
+        "issues": [
+          "canonical"
+        ],
+        "canonical": "https://tonygreenberg.com/find-your-me",
+        "ssrTextLength": 958
+      },
+      {
+        "path": "/walk-through",
+        "issues": [
+          "description",
+          "canonical",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/seven-doors",
+        "ssrTextLength": 3660
+      },
+      {
+        "path": "/assessments/dharma-finder",
+        "issues": [
+          "description",
+          "canonical"
+        ],
+        "canonical": "https://tonygreenberg.com/dharma-finder",
+        "ssrTextLength": 2177
+      },
+      {
+        "path": "/find-my-peptide",
+        "issues": [
+          "canonical"
+        ],
+        "canonical": "https://tonygreenberg.com/find-your-peptide",
+        "ssrTextLength": 5654
+      },
+      {
+        "path": "/the-mirror",
+        "issues": [
+          "canonical"
+        ],
+        "canonical": "https://tonygreenberg.com/life-assessment",
+        "ssrTextLength": 1439
+      },
+      {
+        "path": "/supplier-intake-long",
+        "issues": [
+          "description",
+          "canonical"
+        ],
+        "canonical": "https://tonygreenberg.com/supplier-intake",
+        "ssrTextLength": 9713
+      },
+      {
+        "path": "/vendor-intake",
+        "issues": [
+          "description",
+          "canonical"
+        ],
+        "canonical": "https://tonygreenberg.com/supplier-intake",
+        "ssrTextLength": 9713
+      }
+    ],
+    "description": [
+      {
+        "path": "/living-declaration",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/living-declaration",
+        "ssrTextLength": 7427
+      },
+      {
+        "path": "/seven-doors",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/seven-doors",
+        "ssrTextLength": 3660
+      },
+      {
+        "path": "/manifesto",
+        "issues": [
+          "description",
+          "canonical",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/living-declaration",
+        "ssrTextLength": 7427
+      },
+      {
+        "path": "/articles",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/articles",
+        "ssrTextLength": 13357
+      },
+      {
+        "path": "/journeys",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/journeys",
+        "ssrTextLength": 556
+      },
+      {
+        "path": "/ecosystem",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/ecosystem",
+        "ssrTextLength": 693
+      },
+      {
+        "path": "/impact",
+        "issues": [
+          "description",
+          "ssrText:490",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/impact",
+        "ssrTextLength": 490
+      },
+      {
+        "path": "/heroes",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/heroes",
+        "ssrTextLength": 561
+      },
+      {
+        "path": "/community",
+        "issues": [
+          "description"
+        ],
+        "canonical": "https://tonygreenberg.com/community",
+        "ssrTextLength": 1184
+      },
+      {
+        "path": "/engage",
+        "issues": [
+          "description"
+        ],
+        "canonical": "https://tonygreenberg.com/engage",
+        "ssrTextLength": 1489
+      },
+      {
+        "path": "/engine-room",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/engine-room",
+        "ssrTextLength": 576
+      },
+      {
+        "path": "/the-body",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/the-body",
+        "ssrTextLength": 653
+      },
+      {
+        "path": "/the-web",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/the-web",
+        "ssrTextLength": 628
+      },
+      {
+        "path": "/pick-up-the-phone",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/pick-up-the-phone",
+        "ssrTextLength": 562
+      },
+      {
+        "path": "/the-open-door",
+        "issues": [
+          "description",
+          "ssrText:495",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/the-open-door",
+        "ssrTextLength": 495
+      },
+      {
+        "path": "/walk-through",
+        "issues": [
+          "description",
+          "canonical",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/seven-doors",
+        "ssrTextLength": 3660
+      },
+      {
+        "path": "/spirits",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/spirits",
+        "ssrTextLength": 2751
+      },
+      {
+        "path": "/library",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/library",
+        "ssrTextLength": 590
+      },
+      {
+        "path": "/health",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/health",
+        "ssrTextLength": 702
+      },
+      {
+        "path": "/assessments/dharma-finder",
+        "issues": [
+          "description",
+          "canonical"
+        ],
+        "canonical": "https://tonygreenberg.com/dharma-finder",
+        "ssrTextLength": 2177
+      },
+      {
+        "path": "/dharma-finder",
+        "issues": [
+          "description"
+        ],
+        "canonical": "https://tonygreenberg.com/dharma-finder",
+        "ssrTextLength": 2177
+      },
+      {
+        "path": "/find-your-attachment-style",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-your-attachment-style",
+        "ssrTextLength": 545
+      },
+      {
+        "path": "/find-my-movement",
+        "issues": [
+          "description",
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-my-movement",
+        "ssrTextLength": 1007
+      },
+      {
+        "path": "/find-my-tribe",
+        "issues": [
+          "description",
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-my-tribe",
+        "ssrTextLength": 609
+      },
+      {
+        "path": "/flow-circuit",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/flow-circuit",
+        "ssrTextLength": 778
+      },
+      {
+        "path": "/supplier-intake",
+        "issues": [
+          "description"
+        ],
+        "canonical": "https://tonygreenberg.com/supplier-intake",
+        "ssrTextLength": 9713
+      },
+      {
+        "path": "/supplier-intake-long",
+        "issues": [
+          "description",
+          "canonical"
+        ],
+        "canonical": "https://tonygreenberg.com/supplier-intake",
+        "ssrTextLength": 9713
+      },
+      {
+        "path": "/vendor-intake",
+        "issues": [
+          "description",
+          "canonical"
+        ],
+        "canonical": "https://tonygreenberg.com/supplier-intake",
+        "ssrTextLength": 9713
+      },
+      {
+        "path": "/attention-theft/blocker-finder",
+        "issues": [
+          "description",
+          "h1:0",
+          "jsonld",
+          "ssrText:226",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/attention-theft/blocker-finder",
+        "ssrTextLength": 226
+      },
+      {
+        "path": "/thesis-threads",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/thesis-threads",
+        "ssrTextLength": 732
+      },
+      {
+        "path": "/fauxtony",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/fauxtony",
+        "ssrTextLength": 2299
+      },
+      {
+        "path": "/brewsoul",
+        "issues": [
+          "description"
+        ],
+        "canonical": "https://tonygreenberg.com/brewsoul",
+        "ssrTextLength": 8223
+      },
+      {
+        "path": "/brewsoul/home",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/brewsoul/home",
+        "ssrTextLength": 612
+      },
+      {
+        "path": "/kava/hawaii",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/kava/hawaii",
+        "ssrTextLength": 684
+      },
+      {
+        "path": "/kava/myths",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/kava/myths",
+        "ssrTextLength": 711
+      },
+      {
+        "path": "/blog/iboga-ibogaine-the-full-paradox",
+        "issues": [
+          "description"
+        ],
+        "canonical": "https://tonygreenberg.com/blog/iboga-ibogaine-the-full-paradox",
+        "ssrTextLength": 11739
+      },
+      {
+        "path": "/blog/the-butchers-daughter-the-carbon-toll-and-the-cheese-that-ate-the-planet",
+        "issues": [
+          "description"
+        ],
+        "canonical": "https://tonygreenberg.com/blog/the-butchers-daughter-the-carbon-toll-and-the-cheese-that-ate-the-planet",
+        "ssrTextLength": 4461
+      },
+      {
+        "path": "/blog/restaurants-beware-of-vegans-and-vegans-beware-of-lying-restaurants",
+        "issues": [
+          "description"
+        ],
+        "canonical": "https://tonygreenberg.com/blog/restaurants-beware-of-vegans-and-vegans-beware-of-lying-restaurants",
+        "ssrTextLength": 5916
+      },
+      {
+        "path": "/blog/molecule-as-mirror-3-the-new-cartographers",
+        "issues": [
+          "description"
+        ],
+        "canonical": "https://tonygreenberg.com/blog/molecule-as-mirror-3-the-new-cartographers",
+        "ssrTextLength": 6913
+      },
+      {
+        "path": "/blog/molecule-as-mirror-7-the-pathway-to-dharma",
+        "issues": [
+          "description"
+        ],
+        "canonical": "https://tonygreenberg.com/blog/molecule-as-mirror-7-the-pathway-to-dharma",
+        "ssrTextLength": 4065
+      },
+      {
+        "path": "/blog/molecule-as-mirror-8-resources-and-costs",
+        "issues": [
+          "description"
+        ],
+        "canonical": "https://tonygreenberg.com/blog/molecule-as-mirror-8-resources-and-costs",
+        "ssrTextLength": 6488
+      },
+      {
+        "path": "/blog/covid-deniers-need-to-take-a-breath",
+        "issues": [
+          "description"
+        ],
+        "canonical": "https://tonygreenberg.com/blog/covid-deniers-need-to-take-a-breath",
+        "ssrTextLength": 3279
+      },
+      {
+        "path": "/blog/6-act-of-speech-speaking-as-a-tool",
+        "issues": [
+          "description"
+        ],
+        "canonical": "https://tonygreenberg.com/blog/6-act-of-speech-speaking-as-a-tool",
+        "ssrTextLength": 3138
+      },
+      {
+        "path": "/blog/marc-andreessen-rebuttal-2020",
+        "issues": [
+          "description"
+        ],
+        "canonical": "https://tonygreenberg.com/blog/marc-andreessen-rebuttal-2020",
+        "ssrTextLength": 2553
+      },
+      {
+        "path": "/blog/when-valuations-dont-mean-valuable",
+        "issues": [
+          "description"
+        ],
+        "canonical": "https://tonygreenberg.com/blog/when-valuations-dont-mean-valuable",
+        "ssrTextLength": 8622
+      },
+      {
+        "path": "/blog/jumping-through-hoops-with-hulu-will-hollywood-kill-their-offspring-again",
+        "issues": [
+          "description"
+        ],
+        "canonical": "https://tonygreenberg.com/blog/jumping-through-hoops-with-hulu-will-hollywood-kill-their-offspring-again",
+        "ssrTextLength": 8255
+      },
+      {
+        "path": "/blog/triple-bottom-line-of-soul-gregory-markel",
+        "issues": [
+          "description"
+        ],
+        "canonical": "https://tonygreenberg.com/blog/triple-bottom-line-of-soul-gregory-markel",
+        "ssrTextLength": 7338
+      },
+      {
+        "path": "/blog/truth-bias-mutually-exclusive",
+        "issues": [
+          "description"
+        ],
+        "canonical": "https://tonygreenberg.com/blog/truth-bias-mutually-exclusive",
+        "ssrTextLength": 2559
+      }
+    ],
+    "h1": [
+      {
+        "path": "/find-my-car",
+        "issues": [
+          "h1:0",
+          "jsonld",
+          "ssrText:212",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-my-car",
+        "ssrTextLength": 212
+      },
+      {
+        "path": "/iboga-compass",
+        "issues": [
+          "h1:0",
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/iboga-compass",
+        "ssrTextLength": 1357
+      },
+      {
+        "path": "/attention-theft/blocker-finder",
+        "issues": [
+          "description",
+          "h1:0",
+          "jsonld",
+          "ssrText:226",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/attention-theft/blocker-finder",
+        "ssrTextLength": 226
+      },
+      {
+        "path": "/attention-theft/legal",
+        "issues": [
+          "h1:0",
+          "jsonld",
+          "ssrText:218",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/attention-theft/legal",
+        "ssrTextLength": 218
+      },
+      {
+        "path": "/attention-theft/weapons",
+        "issues": [
+          "h1:0",
+          "jsonld",
+          "ssrText:241",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/attention-theft/weapons",
+        "ssrTextLength": 241
+      },
+      {
+        "path": "/attention-theft/report",
+        "issues": [
+          "h1:0",
+          "jsonld",
+          "ssrText:226",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/attention-theft/report",
+        "ssrTextLength": 226
+      },
+      {
+        "path": "/blog/when-healing-becomes-extraction",
+        "issues": [
+          "h1:3"
+        ],
+        "canonical": "https://tonygreenberg.com/blog/when-healing-becomes-extraction",
+        "ssrTextLength": 16640
+      }
+    ],
+    "jsonld": [
+      {
+        "path": "/find-my-attachment-style",
+        "issues": [
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-my-attachment-style",
+        "ssrTextLength": 1046
+      },
+      {
+        "path": "/find-my-car",
+        "issues": [
+          "h1:0",
+          "jsonld",
+          "ssrText:212",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-my-car",
+        "ssrTextLength": 212
+      },
+      {
+        "path": "/find-my-coffee",
+        "issues": [
+          "jsonld",
+          "ssrText:416",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-my-coffee",
+        "ssrTextLength": 416
+      },
+      {
+        "path": "/find-my-diet",
+        "issues": [
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-my-diet",
+        "ssrTextLength": 1035
+      },
+      {
+        "path": "/find-my-me",
+        "issues": [
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-my-me",
+        "ssrTextLength": 6167
+      },
+      {
+        "path": "/find-my-movement",
+        "issues": [
+          "description",
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-my-movement",
+        "ssrTextLength": 1007
+      },
+      {
+        "path": "/find-my-sexuality",
+        "issues": [
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-my-sexuality",
+        "ssrTextLength": 927
+      },
+      {
+        "path": "/find-my-sleep",
+        "issues": [
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-my-sleep",
+        "ssrTextLength": 1188
+      },
+      {
+        "path": "/find-my-spirit",
+        "issues": [
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-my-spirit",
+        "ssrTextLength": 958
+      },
+      {
+        "path": "/find-my-therapy",
+        "issues": [
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-my-therapy",
+        "ssrTextLength": 1000
+      },
+      {
+        "path": "/find-my-tribe",
+        "issues": [
+          "description",
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-my-tribe",
+        "ssrTextLength": 609
+      },
+      {
+        "path": "/find-my-we",
+        "issues": [
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-my-we",
+        "ssrTextLength": 1042
+      },
+      {
+        "path": "/pri-calibration",
+        "issues": [
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/pri-calibration",
+        "ssrTextLength": 830
+      },
+      {
+        "path": "/pri-efficacy",
+        "issues": [
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/pri-efficacy",
+        "ssrTextLength": 2431
+      },
+      {
+        "path": "/humanos/connect",
+        "issues": [
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/humanos/connect",
+        "ssrTextLength": 1094
+      },
+      {
+        "path": "/humanos/ecosystem",
+        "issues": [
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/humanos/ecosystem",
+        "ssrTextLength": 3640
+      },
+      {
+        "path": "/humanos/path-to-here",
+        "issues": [
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/humanos/path-to-here",
+        "ssrTextLength": 2515
+      },
+      {
+        "path": "/humanos/resources",
+        "issues": [
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/humanos/resources",
+        "ssrTextLength": 3541
+      },
+      {
+        "path": "/iboga-compass",
+        "issues": [
+          "h1:0",
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/iboga-compass",
+        "ssrTextLength": 1357
+      },
+      {
+        "path": "/peptide-library",
+        "issues": [
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/peptide-library",
+        "ssrTextLength": 4211
+      },
+      {
+        "path": "/verify-your-coa",
+        "issues": [
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/verify-your-coa",
+        "ssrTextLength": 3230
+      },
+      {
+        "path": "/attention-theft/blocker-finder",
+        "issues": [
+          "description",
+          "h1:0",
+          "jsonld",
+          "ssrText:226",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/attention-theft/blocker-finder",
+        "ssrTextLength": 226
+      },
+      {
+        "path": "/attention-theft/legal",
+        "issues": [
+          "h1:0",
+          "jsonld",
+          "ssrText:218",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/attention-theft/legal",
+        "ssrTextLength": 218
+      },
+      {
+        "path": "/attention-theft/weapons",
+        "issues": [
+          "h1:0",
+          "jsonld",
+          "ssrText:241",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/attention-theft/weapons",
+        "ssrTextLength": 241
+      },
+      {
+        "path": "/attention-theft/report",
+        "issues": [
+          "h1:0",
+          "jsonld",
+          "ssrText:226",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/attention-theft/report",
+        "ssrTextLength": 226
+      },
+      {
+        "path": "/youve-been-reported",
+        "issues": [
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/youve-been-reported",
+        "ssrTextLength": 12794
+      },
+      {
+        "path": "/brewsoul/esoteric",
+        "issues": [
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/brewsoul/esoteric",
+        "ssrTextLength": 4505
+      }
+    ],
+    "ogImage": [
+      {
+        "path": "/start-here",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/start-here",
+        "ssrTextLength": 1947
+      },
+      {
+        "path": "/self-portrait",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/self-portrait",
+        "ssrTextLength": 1048
+      },
+      {
+        "path": "/the-letter",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/the-letter",
+        "ssrTextLength": 752
+      },
+      {
+        "path": "/living-declaration",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/living-declaration",
+        "ssrTextLength": 7427
+      },
+      {
+        "path": "/seven-doors",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/seven-doors",
+        "ssrTextLength": 3660
+      },
+      {
+        "path": "/manifesto",
+        "issues": [
+          "description",
+          "canonical",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/living-declaration",
+        "ssrTextLength": 7427
+      },
+      {
+        "path": "/articles",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/articles",
+        "ssrTextLength": 13357
+      },
+      {
+        "path": "/journeys",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/journeys",
+        "ssrTextLength": 556
+      },
+      {
+        "path": "/series",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/series",
+        "ssrTextLength": 946
+      },
+      {
+        "path": "/projects",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/projects",
+        "ssrTextLength": 1063
+      },
+      {
+        "path": "/ecosystem",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/ecosystem",
+        "ssrTextLength": 693
+      },
+      {
+        "path": "/invest",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/invest",
+        "ssrTextLength": 786
+      },
+      {
+        "path": "/impact",
+        "issues": [
+          "description",
+          "ssrText:490",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/impact",
+        "ssrTextLength": 490
+      },
+      {
+        "path": "/heroes",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/heroes",
+        "ssrTextLength": 561
+      },
+      {
+        "path": "/published",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/published",
+        "ssrTextLength": 601
+      },
+      {
+        "path": "/clients",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/clients",
+        "ssrTextLength": 701
+      },
+      {
+        "path": "/built-on-manus",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/built-on-manus",
+        "ssrTextLength": 703
+      },
+      {
+        "path": "/connect",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/connect",
+        "ssrTextLength": 605
+      },
+      {
+        "path": "/subscribe",
+        "issues": [
+          "ssrText:494",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/subscribe",
+        "ssrTextLength": 494
+      },
+      {
+        "path": "/amplifier",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/amplifier",
+        "ssrTextLength": 591
+      },
+      {
+        "path": "/the-territory",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/the-territory",
+        "ssrTextLength": 814
+      },
+      {
+        "path": "/engine-room",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/engine-room",
+        "ssrTextLength": 576
+      },
+      {
+        "path": "/the-body",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/the-body",
+        "ssrTextLength": 653
+      },
+      {
+        "path": "/the-nightstand",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/the-nightstand",
+        "ssrTextLength": 526
+      },
+      {
+        "path": "/the-web",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/the-web",
+        "ssrTextLength": 628
+      },
+      {
+        "path": "/pick-up-the-phone",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/pick-up-the-phone",
+        "ssrTextLength": 562
+      },
+      {
+        "path": "/intel",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/intel",
+        "ssrTextLength": 666
+      },
+      {
+        "path": "/the-open-door",
+        "issues": [
+          "description",
+          "ssrText:495",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/the-open-door",
+        "ssrTextLength": 495
+      },
+      {
+        "path": "/the-index",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/the-index",
+        "ssrTextLength": 500
+      },
+      {
+        "path": "/walk-through",
+        "issues": [
+          "description",
+          "canonical",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/seven-doors",
+        "ssrTextLength": 3660
+      },
+      {
+        "path": "/recent-creations",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/recent-creations",
+        "ssrTextLength": 694
+      },
+      {
+        "path": "/framework",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/framework",
+        "ssrTextLength": 697
+      },
+      {
+        "path": "/spirits",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/spirits",
+        "ssrTextLength": 2751
+      },
+      {
+        "path": "/library",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/library",
+        "ssrTextLength": 590
+      },
+      {
+        "path": "/health",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/health",
+        "ssrTextLength": 702
+      },
+      {
+        "path": "/assessments",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/assessments",
+        "ssrTextLength": 2266
+      },
+      {
+        "path": "/assessment",
+        "issues": [
+          "ssrText:490",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/assessment",
+        "ssrTextLength": 490
+      },
+      {
+        "path": "/find-my",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-my",
+        "ssrTextLength": 2942
+      },
+      {
+        "path": "/assessments/consciousness-scale",
+        "issues": [
+          "ssrText:498",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/assessments/consciousness-scale",
+        "ssrTextLength": 498
+      },
+      {
+        "path": "/assessments/grant-study",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/assessments/grant-study",
+        "ssrTextLength": 639
+      },
+      {
+        "path": "/consciousness-scale",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/consciousness-scale",
+        "ssrTextLength": 1208
+      },
+      {
+        "path": "/find-your-sake",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-your-sake",
+        "ssrTextLength": 2368
+      },
+      {
+        "path": "/find-your-spirit",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-your-spirit",
+        "ssrTextLength": 2533
+      },
+      {
+        "path": "/find-your-religion",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-your-religion",
+        "ssrTextLength": 2310
+      },
+      {
+        "path": "/find-your-diet",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-your-diet",
+        "ssrTextLength": 2132
+      },
+      {
+        "path": "/find-your-movement",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-your-movement",
+        "ssrTextLength": 2161
+      },
+      {
+        "path": "/find-your-sleep",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-your-sleep",
+        "ssrTextLength": 2346
+      },
+      {
+        "path": "/find-your-coffee",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-your-coffee",
+        "ssrTextLength": 2300
+      },
+      {
+        "path": "/find-your-kitchen",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-your-kitchen",
+        "ssrTextLength": 2158
+      },
+      {
+        "path": "/find-your-style",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-your-style",
+        "ssrTextLength": 2328
+      },
+      {
+        "path": "/find-your-attachment-style",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-your-attachment-style",
+        "ssrTextLength": 545
+      },
+      {
+        "path": "/find-your-love-language",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-your-love-language",
+        "ssrTextLength": 657
+      },
+      {
+        "path": "/find-your-sexuality",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-your-sexuality",
+        "ssrTextLength": 631
+      },
+      {
+        "path": "/find-your-journey",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-your-journey",
+        "ssrTextLength": 709
+      },
+      {
+        "path": "/flow-circuit",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/flow-circuit",
+        "ssrTextLength": 778
+      },
+      {
+        "path": "/facilitator-index",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/facilitator-index",
+        "ssrTextLength": 1560
+      },
+      {
+        "path": "/humanos/philosophy",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/humanos/philosophy",
+        "ssrTextLength": 2626
+      },
+      {
+        "path": "/iboga-ibogaine",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/iboga-ibogaine",
+        "ssrTextLength": 3544
+      },
+      {
+        "path": "/peyote-mescaline",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/peyote-mescaline",
+        "ssrTextLength": 565
+      },
+      {
+        "path": "/peptide-watch",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/peptide-watch",
+        "ssrTextLength": 2186
+      },
+      {
+        "path": "/peptide-hall-of-shame",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/peptide-hall-of-shame",
+        "ssrTextLength": 634
+      },
+      {
+        "path": "/peptide-supply-chain",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/peptide-supply-chain",
+        "ssrTextLength": 548
+      },
+      {
+        "path": "/peptide-matrix",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/peptide-matrix",
+        "ssrTextLength": 658
+      },
+      {
+        "path": "/rip-peptide-sciences",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/rip-peptide-sciences",
+        "ssrTextLength": 1690
+      },
+      {
+        "path": "/price-tracker",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/price-tracker",
+        "ssrTextLength": 1342
+      },
+      {
+        "path": "/test-your-peptides",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/test-your-peptides",
+        "ssrTextLength": 1296
+      },
+      {
+        "path": "/the-philosophy",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/the-philosophy",
+        "ssrTextLength": 2578
+      },
+      {
+        "path": "/attention-theft",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/attention-theft",
+        "ssrTextLength": 592
+      },
+      {
+        "path": "/attention-theft/economics",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/attention-theft/economics",
+        "ssrTextLength": 1155
+      },
+      {
+        "path": "/alex-azzi",
+        "issues": [
+          "ssrText:493",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/alex-azzi",
+        "ssrTextLength": 493
+      },
+      {
+        "path": "/cheshire-grin",
+        "issues": [
+          "ssrText:493",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/cheshire-grin",
+        "ssrTextLength": 493
+      },
+      {
+        "path": "/shop",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/shop",
+        "ssrTextLength": 2093
+      },
+      {
+        "path": "/diamond-cut",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/diamond-cut",
+        "ssrTextLength": 680
+      },
+      {
+        "path": "/ecosystem-map",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/ecosystem-map",
+        "ssrTextLength": 1590
+      },
+      {
+        "path": "/impact-dashboard",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/impact-dashboard",
+        "ssrTextLength": 2346
+      },
+      {
+        "path": "/thesis-threads",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/thesis-threads",
+        "ssrTextLength": 732
+      },
+      {
+        "path": "/fauxtony",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/fauxtony",
+        "ssrTextLength": 2299
+      },
+      {
+        "path": "/clock-keeper-part-2",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/clock-keeper-part-2",
+        "ssrTextLength": 2033
+      },
+      {
+        "path": "/brewsoul/home",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/brewsoul/home",
+        "ssrTextLength": 612
+      },
+      {
+        "path": "/brewsoul/browse",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/brewsoul/browse",
+        "ssrTextLength": 522
+      },
+      {
+        "path": "/brewsoul/first-sip",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/brewsoul/first-sip",
+        "ssrTextLength": 541
+      },
+      {
+        "path": "/brewsoul/quiz",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/brewsoul/quiz",
+        "ssrTextLength": 536
+      },
+      {
+        "path": "/brewsoul/wall-of-shame",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/brewsoul/wall-of-shame",
+        "ssrTextLength": 551
+      },
+      {
+        "path": "/brewsoul/follow-the-dollar",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/brewsoul/follow-the-dollar",
+        "ssrTextLength": 543
+      },
+      {
+        "path": "/brewsoul/health",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/brewsoul/health",
+        "ssrTextLength": 546
+      },
+      {
+        "path": "/brewsoul/farms",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/brewsoul/farms",
+        "ssrTextLength": 545
+      },
+      {
+        "path": "/brewsoul/mold-free",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/brewsoul/mold-free",
+        "ssrTextLength": 550
+      },
+      {
+        "path": "/brewsoul/experiences",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/brewsoul/experiences",
+        "ssrTextLength": 540
+      },
+      {
+        "path": "/brewsoul/varieties",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/brewsoul/varieties",
+        "ssrTextLength": 530
+      },
+      {
+        "path": "/brewsoul/processing",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/brewsoul/processing",
+        "ssrTextLength": 555
+      },
+      {
+        "path": "/brewsoul/roasters",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/brewsoul/roasters",
+        "ssrTextLength": 553
+      },
+      {
+        "path": "/brewsoul/glossary",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/brewsoul/glossary",
+        "ssrTextLength": 547
+      },
+      {
+        "path": "/brewsoul/pairings",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/brewsoul/pairings",
+        "ssrTextLength": 554
+      },
+      {
+        "path": "/brewsoul/economics",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/brewsoul/economics",
+        "ssrTextLength": 548
+      },
+      {
+        "path": "/brewsoul/compare",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/brewsoul/compare",
+        "ssrTextLength": 533
+      },
+      {
+        "path": "/brewsoul/blend-builder",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/brewsoul/blend-builder",
+        "ssrTextLength": 529
+      },
+      {
+        "path": "/brewsoul/drops",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/brewsoul/drops",
+        "ssrTextLength": 540
+      },
+      {
+        "path": "/brewsoul/collection",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/brewsoul/collection",
+        "ssrTextLength": 541
+      },
+      {
+        "path": "/brewsoul/submit",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/brewsoul/submit",
+        "ssrTextLength": 548
+      },
+      {
+        "path": "/brewsoul/prescription",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/brewsoul/prescription",
+        "ssrTextLength": 553
+      },
+      {
+        "path": "/brewsoul/chains",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/brewsoul/chains",
+        "ssrTextLength": 554
+      },
+      {
+        "path": "/brewsoul/biodynamic",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/brewsoul/biodynamic",
+        "ssrTextLength": 548
+      },
+      {
+        "path": "/brewsoul/decaf",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/brewsoul/decaf",
+        "ssrTextLength": 543
+      },
+      {
+        "path": "/brewsoul/directory",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/brewsoul/directory",
+        "ssrTextLength": 525
+      },
+      {
+        "path": "/brewsoul/cities",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/brewsoul/cities",
+        "ssrTextLength": 539
+      },
+      {
+        "path": "/brewsoul/guest",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/brewsoul/guest",
+        "ssrTextLength": 554
+      },
+      {
+        "path": "/brewsoul/guest/shanita-nicholas",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/brewsoul/guest/shanita-nicholas",
+        "ssrTextLength": 557
+      },
+      {
+        "path": "/kava",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/kava",
+        "ssrTextLength": 1925
+      },
+      {
+        "path": "/kava/origins",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/kava/origins",
+        "ssrTextLength": 701
+      },
+      {
+        "path": "/kava/interactions",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/kava/interactions",
+        "ssrTextLength": 702
+      },
+      {
+        "path": "/kava/science",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/kava/science",
+        "ssrTextLength": 686
+      },
+      {
+        "path": "/kava/assessment",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/kava/assessment",
+        "ssrTextLength": 676
+      },
+      {
+        "path": "/kava/hawaii",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/kava/hawaii",
+        "ssrTextLength": 684
+      },
+      {
+        "path": "/kava/myths",
+        "issues": [
+          "description",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/kava/myths",
+        "ssrTextLength": 711
+      },
+      {
+        "path": "/kava/caffeine",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/kava/caffeine",
+        "ssrTextLength": 694
+      },
+      {
+        "path": "/kava/products",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/kava/products",
+        "ssrTextLength": 723
+      },
+      {
+        "path": "/kava/certification",
+        "issues": [
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/kava/certification",
+        "ssrTextLength": 694
+      }
+    ],
+    "sessionImage": [
+      {
+        "path": "/find-my-attachment-style",
+        "issues": [
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-my-attachment-style",
+        "ssrTextLength": 1046
+      },
+      {
+        "path": "/find-my-car",
+        "issues": [
+          "h1:0",
+          "jsonld",
+          "ssrText:212",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-my-car",
+        "ssrTextLength": 212
+      },
+      {
+        "path": "/find-my-coffee",
+        "issues": [
+          "jsonld",
+          "ssrText:416",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-my-coffee",
+        "ssrTextLength": 416
+      },
+      {
+        "path": "/find-my-diet",
+        "issues": [
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-my-diet",
+        "ssrTextLength": 1035
+      },
+      {
+        "path": "/find-my-me",
+        "issues": [
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-my-me",
+        "ssrTextLength": 6167
+      },
+      {
+        "path": "/find-my-movement",
+        "issues": [
+          "description",
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-my-movement",
+        "ssrTextLength": 1007
+      },
+      {
+        "path": "/find-my-sexuality",
+        "issues": [
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-my-sexuality",
+        "ssrTextLength": 927
+      },
+      {
+        "path": "/find-my-sleep",
+        "issues": [
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-my-sleep",
+        "ssrTextLength": 1188
+      },
+      {
+        "path": "/find-my-spirit",
+        "issues": [
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-my-spirit",
+        "ssrTextLength": 958
+      },
+      {
+        "path": "/find-my-therapy",
+        "issues": [
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-my-therapy",
+        "ssrTextLength": 1000
+      },
+      {
+        "path": "/find-my-tribe",
+        "issues": [
+          "description",
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-my-tribe",
+        "ssrTextLength": 609
+      },
+      {
+        "path": "/find-my-we",
+        "issues": [
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-my-we",
+        "ssrTextLength": 1042
+      },
+      {
+        "path": "/psychedelic-readiness-index",
+        "issues": [
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/psychedelic-readiness-index",
+        "ssrTextLength": 6802
+      },
+      {
+        "path": "/pri-calibration",
+        "issues": [
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/pri-calibration",
+        "ssrTextLength": 830
+      },
+      {
+        "path": "/pri-efficacy",
+        "issues": [
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/pri-efficacy",
+        "ssrTextLength": 2431
+      },
+      {
+        "path": "/humanos/connect",
+        "issues": [
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/humanos/connect",
+        "ssrTextLength": 1094
+      },
+      {
+        "path": "/humanos/ecosystem",
+        "issues": [
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/humanos/ecosystem",
+        "ssrTextLength": 3640
+      },
+      {
+        "path": "/humanos/path-to-here",
+        "issues": [
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/humanos/path-to-here",
+        "ssrTextLength": 2515
+      },
+      {
+        "path": "/humanos/resources",
+        "issues": [
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/humanos/resources",
+        "ssrTextLength": 3541
+      },
+      {
+        "path": "/iboga-compass",
+        "issues": [
+          "h1:0",
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/iboga-compass",
+        "ssrTextLength": 1357
+      },
+      {
+        "path": "/peptide-library",
+        "issues": [
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/peptide-library",
+        "ssrTextLength": 4211
+      },
+      {
+        "path": "/verify-your-coa",
+        "issues": [
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/verify-your-coa",
+        "ssrTextLength": 3230
+      },
+      {
+        "path": "/attention-theft/blocker-finder",
+        "issues": [
+          "description",
+          "h1:0",
+          "jsonld",
+          "ssrText:226",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/attention-theft/blocker-finder",
+        "ssrTextLength": 226
+      },
+      {
+        "path": "/attention-theft/legal",
+        "issues": [
+          "h1:0",
+          "jsonld",
+          "ssrText:218",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/attention-theft/legal",
+        "ssrTextLength": 218
+      },
+      {
+        "path": "/attention-theft/weapons",
+        "issues": [
+          "h1:0",
+          "jsonld",
+          "ssrText:241",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/attention-theft/weapons",
+        "ssrTextLength": 241
+      },
+      {
+        "path": "/attention-theft/report",
+        "issues": [
+          "h1:0",
+          "jsonld",
+          "ssrText:226",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/attention-theft/report",
+        "ssrTextLength": 226
+      },
+      {
+        "path": "/youve-been-reported",
+        "issues": [
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/youve-been-reported",
+        "ssrTextLength": 12794
+      },
+      {
+        "path": "/brewsoul/esoteric",
+        "issues": [
+          "jsonld",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/brewsoul/esoteric",
+        "ssrTextLength": 4505
+      }
+    ],
+    "sitemap": [
+      {
+        "path": "/",
+        "issues": [
+          "sitemap"
+        ],
+        "canonical": "https://tonygreenberg.com",
+        "ssrTextLength": 1917
+      }
+    ],
+    "ssrText": [
+      {
+        "path": "/impact",
+        "issues": [
+          "description",
+          "ssrText:490",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/impact",
+        "ssrTextLength": 490
+      },
+      {
+        "path": "/subscribe",
+        "issues": [
+          "ssrText:494",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/subscribe",
+        "ssrTextLength": 494
+      },
+      {
+        "path": "/the-open-door",
+        "issues": [
+          "description",
+          "ssrText:495",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/the-open-door",
+        "ssrTextLength": 495
+      },
+      {
+        "path": "/assessment",
+        "issues": [
+          "ssrText:490",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/assessment",
+        "ssrTextLength": 490
+      },
+      {
+        "path": "/assessments/consciousness-scale",
+        "issues": [
+          "ssrText:498",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/assessments/consciousness-scale",
+        "ssrTextLength": 498
+      },
+      {
+        "path": "/find-my-car",
+        "issues": [
+          "h1:0",
+          "jsonld",
+          "ssrText:212",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-my-car",
+        "ssrTextLength": 212
+      },
+      {
+        "path": "/find-my-coffee",
+        "issues": [
+          "jsonld",
+          "ssrText:416",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/find-my-coffee",
+        "ssrTextLength": 416
+      },
+      {
+        "path": "/attention-theft/blocker-finder",
+        "issues": [
+          "description",
+          "h1:0",
+          "jsonld",
+          "ssrText:226",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/attention-theft/blocker-finder",
+        "ssrTextLength": 226
+      },
+      {
+        "path": "/attention-theft/legal",
+        "issues": [
+          "h1:0",
+          "jsonld",
+          "ssrText:218",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/attention-theft/legal",
+        "ssrTextLength": 218
+      },
+      {
+        "path": "/attention-theft/weapons",
+        "issues": [
+          "h1:0",
+          "jsonld",
+          "ssrText:241",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/attention-theft/weapons",
+        "ssrTextLength": 241
+      },
+      {
+        "path": "/attention-theft/report",
+        "issues": [
+          "h1:0",
+          "jsonld",
+          "ssrText:226",
+          "sessionImage"
+        ],
+        "canonical": "https://tonygreenberg.com/attention-theft/report",
+        "ssrTextLength": 226
+      },
+      {
+        "path": "/alex-azzi",
+        "issues": [
+          "ssrText:493",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/alex-azzi",
+        "ssrTextLength": 493
+      },
+      {
+        "path": "/cheshire-grin",
+        "issues": [
+          "ssrText:493",
+          "ogImage"
+        ],
+        "canonical": "https://tonygreenberg.com/cheshire-grin",
+        "ssrTextLength": 493
+      }
+    ]
+  },
+  "failedImages": [
+    {
+      "url": "https://tonygreenberg.com/og-default.jpg",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "ok": true
+    },
+    {
+      "url": "http://localhost:3000/$%7BBASE_URL%7D/og-default.jpg",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "ok": true
+    },
+    {
+      "url": "http://localhost:3000/manus-storage/energy-money-memory-chart_bd2d497b.png",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "ok": true
+    },
+    {
+      "url": "http://localhost:3000/manus-storage/energy-memory-bottleneck_1286ea43.jpg",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "ok": true
+    },
+    {
+      "url": "http://localhost:3000/manus-storage/alchemy-caduceus_70c4aed7.jpg",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "ok": true
+    },
+    {
+      "url": "http://localhost:3000/manus-storage/alchemy-habitat_acb7ae9a.jpg",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "ok": true
+    },
+    {
+      "url": "http://localhost:3000/manus-storage/alchemy-hero_82ca7158.jpg",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "ok": true
+    },
+    {
+      "url": "http://localhost:3000/manus-storage/alchemy-redlight_57bca32b.jpg",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "ok": true
+    },
+    {
+      "url": "http://localhost:3000/manus-storage/alchemy-art_4ba74934.jpg",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "ok": true
+    },
+    {
+      "url": "http://localhost:3000/manus-storage/alchemy-services_bb7a6b49.jpg",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "ok": true
+    },
+    {
+      "url": "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_63_1770967639434_9858f1b6.jpg",
+      "status": 200,
+      "contentType": "application/octet-stream",
+      "ok": true
+    },
+    {
+      "url": "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_59_1770967537979_23054eb5.jpg",
+      "status": 200,
+      "contentType": "application/octet-stream",
+      "ok": true
+    },
+    {
+      "url": "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_62_1770967561052_a40b3ff2.jpg",
+      "status": 200,
+      "contentType": "application/octet-stream",
+      "ok": true
+    },
+    {
+      "url": "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_57_1770967573125_cdb631d3.jpg",
+      "status": 200,
+      "contentType": "application/octet-stream",
+      "ok": true
+    },
+    {
+      "url": "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_60_1770967582703_50e7378e.jpg",
+      "status": 200,
+      "contentType": "application/octet-stream",
+      "ok": true
+    },
+    {
+      "url": "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_58_1770967610831_3c769d0a.jpg",
+      "status": 200,
+      "contentType": "application/octet-stream",
+      "ok": true
+    },
+    {
+      "url": "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_61_1770967549603_6b2bd7fa.jpg",
+      "status": 200,
+      "contentType": "application/octet-stream",
+      "ok": true
+    },
+    {
+      "url": "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_56_1770967625132_23870520.jpg",
+      "status": 200,
+      "contentType": "application/octet-stream",
+      "ok": true
+    },
+    {
+      "url": "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_55_1770967596019_f36d5f42.jpg",
+      "status": 200,
+      "contentType": "application/octet-stream",
+      "ok": true
+    },
+    {
+      "url": "https://tonygreenberg.com/wp-content/uploads/2011/08/saas-cloud-money.jpg",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "ok": true
+    }
+  ]
+}

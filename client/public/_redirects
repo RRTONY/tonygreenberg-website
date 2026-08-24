@@ -1,0 +1,4 @@
+# The platform handles these at the edge (Cloudflare) before Express
+# Using 302 to avoid browser caching issues with 301
+https://tonygreenberg.manus.space/* https://tonygreenberg.com/:splat 302!
+https://tonygreenb-gxhndhxp.manus.space/* https://tonygreenberg.com/:splat 302!

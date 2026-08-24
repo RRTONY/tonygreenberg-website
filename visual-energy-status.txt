@@ -1,0 +1,13 @@
+Visual Energy Pass Status:
+- Homepage: gold-shimmer on hero headline, scroll-indicator on hero, cta-glow on CTA buttons, gold-glow on door numbers
+- Blog: gold-shimmer on hero headline, card-lift on theme cards, cta-glow on CTA buttons, stagger-grid on archive, img-hover-zoom on grid cards
+- About: gold-shimmer on hero headline
+- StartHere: gold-shimmer on hero headline, card-lift on essay cards
+- Ecosystem: gold-shimmer on hero headline
+- FauxTony: stagger-grid on sample questions, card-lift on question buttons
+- Editorial: gold-glow on divider component
+- Enhancements: stat-glow on animated stats
+- CSS: @keyframes gold-shimmer, card-lift, cta-glow, stagger-grid, scroll-indicator, gold-glow, stat-glow, img-hover-zoom
+
+Server status: running clean, no TypeScript errors
+The console error about routers.ts:215 is OLD (from 00:46) and was already fixed

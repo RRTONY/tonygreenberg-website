@@ -1,0 +1,23 @@
+CREATE TABLE `vendor_applications` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`legalEntityName` varchar(256) NOT NULL,
+	`dbaName` varchar(256),
+	`stateOfIncorporation` varchar(128) NOT NULL,
+	`yearFounded` varchar(8) NOT NULL,
+	`website` varchar(512) NOT NULL,
+	`linkedin` varchar(512),
+	`headquartersAddress` text NOT NULL,
+	`manufacturingAddress` text,
+	`employeeCount` varchar(32),
+	`contactName` varchar(256) NOT NULL,
+	`contactTitle` varchar(256) NOT NULL,
+	`contactEmail` varchar(320) NOT NULL,
+	`contactPhone` varchar(64) NOT NULL,
+	`ownershipStructure` text NOT NULL,
+	`formData` text NOT NULL,
+	`status` enum('submitted','reviewing','approved','rejected') NOT NULL DEFAULT 'submitted',
+	`adminNotes` text,
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
+	CONSTRAINT `vendor_applications_id` PRIMARY KEY(`id`)
+);
