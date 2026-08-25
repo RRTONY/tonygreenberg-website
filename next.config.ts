@@ -14,6 +14,35 @@ const nextConfig: NextConfig = {
         destination: "/living-declaration",
         permanent: true,
       },
+      // Legacy did this client-side via `window.location.replace(...)` (a
+      // flash-of-loading-text redirect to the separate Flow Circuit app,
+      // confirmed live). A real 308 is strictly better — no JS required,
+      // no flash.
+      {
+        source: "/flow-circuit",
+        destination: "https://flow.tonygreenberg.com",
+        permanent: true,
+      },
+      // /supplier-intake and /supplier-intake-long/:token were real lead
+      // capture forms backed by a tRPC vendor-onboarding flow
+      // (submitStage1/submitStage2, token-gated file uploads) that no
+      // longer exists — the Manus backend it ran on is fully dead. 5
+      // already-ported pages ("Become a Supply Partner") link to
+      // /supplier-intake, so leaving it 404 breaks real, live CTAs.
+      // BioChainCTA already established the real replacement: RampRate's
+      // own live supplier intake at ramprate.com/biochain (confirmed
+      // reachable) — redirecting here instead of rebuilding a form whose
+      // only working backend doesn't exist anymore.
+      {
+        source: "/supplier-intake",
+        destination: "https://ramprate.com/biochain/supplier-intake",
+        permanent: true,
+      },
+      {
+        source: "/supplier-intake-long/:token",
+        destination: "https://ramprate.com/biochain/supplier-intake",
+        permanent: true,
+      },
     ];
   },
   images: {
