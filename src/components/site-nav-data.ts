@@ -29,6 +29,8 @@ export const navCategories: { title: string; items: (NavLink & { foundation?: st
     title: "Read",
     items: [
       { href: "/articles", label: "All Essays" },
+      { href: "/thesis-threads", label: "Thesis Threads" },
+      { href: "/impact-futurism", label: "Impact Futurism" },
       { href: "/the-letter", label: "The Letter" },
       { href: "/attention-theft", label: "Attention Theft Manifesto" },
       { href: "/published", label: "Published" },

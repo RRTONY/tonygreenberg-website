@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu } from "lucide-react";
+import { Menu, Search } from "lucide-react";
 import { FaLinkedin, FaXTwitter } from "react-icons/fa6";
 import {
   NavigationMenu,
@@ -177,11 +177,23 @@ export function SiteHeader() {
               {s.label === "X" ? <FaXTwitter size={15} /> : <FaLinkedin size={15} />}
             </a>
           ))}
+          <Link
+            href="/search"
+            aria-label="Search"
+            className="text-muted-foreground transition-colors hover:text-brand-gold-light"
+          >
+            <Search size={16} />
+          </Link>
           <ThemeToggle />
         </div>
 
         {/* Mobile menu */}
         <div className="flex items-center gap-1 xl:hidden">
+          <Link href="/search" aria-label="Search">
+            <Button variant="ghost" size="icon">
+              <Search className="size-5" />
+            </Button>
+          </Link>
           <ThemeToggle />
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger asChild>

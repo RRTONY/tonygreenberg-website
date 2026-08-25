@@ -117,6 +117,27 @@
   }
 }
 
+/* Ported from legacy client/src/pages/ThesisThreads.tsx's floating-particle
+   background, used by thesis-threads-explorer.tsx. Pure CSS @keyframes (no
+   canvas, no requestAnimationFrame loop) — cheap enough to keep, unlike the
+   canvas particle fields dropped elsewhere in this migration. */
+@keyframes float-up {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-100vh) scale(0.3);
+    opacity: 0;
+  }
+}
+
 /* Ported from legacy client/src/components/JewelPopup.tsx's inline <style>
    tag, used by newsletter-popup.tsx. The canvas particle field and rotating
    sacred-geometry SVG were dropped (same "not worth the runtime cost for

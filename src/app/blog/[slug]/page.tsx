@@ -12,6 +12,7 @@ import {
 import { urlFor } from "@/lib/sanity/image";
 import { PortableText, portableTextComponents } from "@/lib/sanity/portable-text";
 import { PostCard } from "@/components/blog/post-card";
+import { ArticleFooter } from "@/components/blog/article-footer";
 import { getArticleJsonLd } from "@/lib/structured-data";
 
 type PostDetail = {
@@ -213,6 +214,8 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
           </div>
         </section>
       )}
+
+      <ArticleFooter slug={post.slug.current} />
     </article>
   );
 }

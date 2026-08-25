@@ -59,7 +59,14 @@ export const portableTextComponents: PortableTextComponents = {
       <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-sm">{children}</code>
     ),
     link: ({ children, value }) => {
-      const href = value?.href ?? "#";
+      const href = value?.href;
+      // A real content-data issue found across ~8 migrated posts: their
+      // original source markdown has `[text]()` links with an empty URL
+      // (predates this migration — the href was already lost before the
+      // content ever reached blogData.json). Rendering those as `href="#"`
+      // silently created a fake dead link; render the marked text plain
+      // instead of pretending it points somewhere.
+      if (!href) return <>{children}</>;
       const isExternal = /^https?:\/\//.test(href);
       return isExternal ? (
         <a
