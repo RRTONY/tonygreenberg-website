@@ -10,13 +10,15 @@ import { CoreThemes } from "@/components/marketing/core-themes";
 import { EcosystemCTA } from "@/components/marketing/ecosystem-cta";
 import { HomeArchive } from "@/components/blog/home-archive";
 import { PostCard } from "@/components/blog/post-card";
+import { NewsletterPopup } from "@/components/marketing/newsletter-popup";
 import Link from "next/link";
 
 // Matches legacy client/src/pages/Blog.tsx's <SEO> block for path="/" — the
 // legacy router renders that Blog component at "/" (and, identically, at
-// "/blog" — see app/blog/page.tsx for why that's now a redirect instead of a
-// duplicate page). Home.tsx, despite the name, is actually routed at
-// /the-letter, already ported separately.
+// "/blog" — app/blog/page.tsx is its own real page here, reusing the same
+// HomeArchive component rather than duplicating this whole file). Home.tsx,
+// despite the name, is actually routed at /the-letter, already ported
+// separately.
 export const metadata: Metadata = {
   title: "Tony Greenberg | Strategist, Author & Systems Thinker",
   description:
@@ -137,6 +139,7 @@ export default async function Home({ searchParams }: PageProps<"/">) {
       <EcosystemCTA essayCount={posts.length} />
 
       <HomeArchive posts={posts} initialTheme={theme} />
+      <NewsletterPopup />
     </div>
   );
 }

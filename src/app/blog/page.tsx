@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { sanityFetch } from "@/lib/sanity/client";
 import { allPostsForArchiveQuery } from "@/lib/sanity/queries";
 import { HomeArchive } from "@/components/blog/home-archive";
+import { NewsletterPopup } from "@/components/marketing/newsletter-popup";
 
 // A real, standalone blog index — distinct from the homepage. Legacy
 // rendered the exact same Blog.tsx component at both "/" and "/blog"; this
@@ -39,6 +40,7 @@ export default async function BlogPage({ searchParams }: PageProps<"/blog">) {
       </div>
 
       <HomeArchive posts={posts} initialTheme={theme} />
+      <NewsletterPopup />
     </div>
   );
 }
