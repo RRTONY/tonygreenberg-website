@@ -34,9 +34,9 @@ export const portableTextComponents: PortableTextComponents = {
     },
   },
   block: {
-    h2: ({ children }) => <h2 className="mt-10 mb-4 text-2xl font-bold">{children}</h2>,
-    h3: ({ children }) => <h3 className="mt-8 mb-3 text-xl font-bold">{children}</h3>,
-    h4: ({ children }) => <h4 className="mt-6 mb-2 text-lg font-semibold">{children}</h4>,
+    h2: ({ children }) => <h2 className="mt-10 mb-4 font-heading text-2xl font-bold">{children}</h2>,
+    h3: ({ children }) => <h3 className="mt-8 mb-3 font-heading text-xl font-bold">{children}</h3>,
+    h4: ({ children }) => <h4 className="mt-6 mb-2 font-heading text-lg font-semibold">{children}</h4>,
     normal: ({ children }) => <p className="mb-5 leading-relaxed">{children}</p>,
     blockquote: ({ children }) => (
       <blockquote className="my-6 border-l-4 border-primary/40 pl-5 italic text-muted-foreground">

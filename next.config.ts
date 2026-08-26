@@ -43,6 +43,20 @@ const nextConfig: NextConfig = {
         destination: "https://ramprate.com/biochain/supplier-intake",
         permanent: true,
       },
+      // Legacy's 5 pre-consolidation Attention Theft sub-pages, now merged
+      // into one mega-page at /attention-theft (see NEXTJS-MIGRATION-TODO.md
+      // Phase 8) — redirect each old path to the matching in-page anchor
+      // instead of resurrecting the sub-pages.
+      { source: "/attention-theft/economics", destination: "/attention-theft#heresy", permanent: true },
+      { source: "/blocker-finder", destination: "/attention-theft#blocker-finder", permanent: true },
+      { source: "/legal", destination: "/attention-theft#legal", permanent: true },
+      { source: "/weapons", destination: "/attention-theft#weapons", permanent: true },
+      { source: "/report", destination: "/attention-theft#report", permanent: true },
+      // Legacy registers "/find-my-movement" as a second path to the same
+      // FindYourMovement component — same duplicate-route pattern as
+      // /find-my-tribe above.
+      { source: "/find-my-movement", destination: "/find-your-movement", permanent: true },
+      { source: "/find-my-diet", destination: "/find-your-diet", permanent: true },
     ];
   },
   images: {

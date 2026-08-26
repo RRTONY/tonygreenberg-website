@@ -8,11 +8,15 @@ import {
   allPostSlugsQuery,
   relatedPostsQuery,
   recentPostsQuery,
+  postsForReadingPathQuery,
 } from "@/lib/sanity/queries";
+import { READING_PATHS } from "@/lib/content/reading-paths";
 import { urlFor } from "@/lib/sanity/image";
 import { PortableText, portableTextComponents } from "@/lib/sanity/portable-text";
+import { autoLinkBody } from "@/lib/sanity/auto-link-body";
 import { PostCard } from "@/components/blog/post-card";
 import { ArticleFooter } from "@/components/blog/article-footer";
+import { TrackLastBlogVisit } from "@/components/blog/track-last-blog-visit";
 import { getArticleJsonLd } from "@/lib/structured-data";
 
 type PostDetail = {
@@ -87,22 +91,34 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
   const post = await getPost(slug);
   if (!post) notFound();
 
-  const categorySlug = post.category?.slug.current;
-  const related = categorySlug
-    ? await sanityFetch<Awaited<ReturnType<typeof getPost>>[]>({
-        query: relatedPostsQuery,
-        params: { slug, categoryId: post.category ? `category-${categorySlug}` : "" },
-        tags: ["post"],
-      })
-    : [];
-  const fallbackRelated = related.length
-    ? []
-    : await sanityFetch<Awaited<ReturnType<typeof getPost>>[]>({
-        query: recentPostsQuery,
-        params: { slug },
-        tags: ["post"],
-      });
-  const relatedPosts = (related.length ? related : fallbackRelated).filter(Boolean);
+  type RelatedPost = NonNullable<Awaited<ReturnType<typeof getPost>>>;
+  const curatedPath = READING_PATHS[post.slug.current];
+  let relatedPosts: RelatedPost[];
+  let reasonBySlug: Record<string, string> = {};
+
+  if (curatedPath?.length) {
+    const curatedPosts = await sanityFetch<RelatedPost[]>({
+      query: postsForReadingPathQuery,
+      params: { slugs: curatedPath.map((c) => c.slug) },
+      tags: ["post"],
+    });
+    const bySlug = new Map(curatedPosts.map((p) => [p.slug.current, p]));
+    relatedPosts = curatedPath.map((c) => bySlug.get(c.slug)).filter((p): p is RelatedPost => Boolean(p));
+    reasonBySlug = Object.fromEntries(curatedPath.map((c) => [c.slug, c.reason]));
+  } else {
+    const categorySlug = post.category?.slug.current;
+    const related = categorySlug
+      ? await sanityFetch<RelatedPost[]>({
+          query: relatedPostsQuery,
+          params: { slug, categoryId: `category-${categorySlug}` },
+          tags: ["post"],
+        })
+      : [];
+    const fallbackRelated = related.length
+      ? []
+      : await sanityFetch<RelatedPost[]>({ query: recentPostsQuery, params: { slug }, tags: ["post"] });
+    relatedPosts = related.length ? related : fallbackRelated;
+  }
 
   const date = new Date(post.publishedAt).toLocaleDateString("en-US", {
     month: "long",
@@ -122,6 +138,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
 
   return (
     <article className="mx-auto max-w-3xl px-4 py-10">
+      <TrackLastBlogVisit slug={post.slug.current} title={post.title} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
@@ -175,7 +192,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
           @tailwindcss/typography dependency) — .article-body only exists
           to scope the drop-cap selector in globals.css. */}
       <div className="article-body text-foreground">
-        <PortableText value={post.body} components={portableTextComponents} />
+        <PortableText value={autoLinkBody(post.body)} components={portableTextComponents} />
       </div>
 
       {post.tags && post.tags.length > 0 && (
@@ -195,22 +212,23 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
         <section className="mt-14 border-t border-border pt-10">
           <h2 className="mb-5 font-heading text-xl font-bold text-foreground">Read next</h2>
           <div className="grid gap-6 sm:grid-cols-3">
-            {relatedPosts.slice(0, 3).map(
-              (p) =>
-                p && (
-                  <PostCard
-                    key={p._id}
-                    post={{
-                      _id: p._id,
-                      title: p.title,
-                      slug: p.slug,
-                      publishedAt: p.publishedAt,
-                      excerpt: p.excerpt,
-                      heroImage: p.heroImage,
-                    }}
-                  />
-                ),
-            )}
+            {relatedPosts.slice(0, 3).map((p) => (
+              <div key={p._id}>
+                <PostCard
+                  post={{
+                    _id: p._id,
+                    title: p.title,
+                    slug: p.slug,
+                    publishedAt: p.publishedAt,
+                    excerpt: p.excerpt,
+                    heroImage: p.heroImage,
+                  }}
+                />
+                {reasonBySlug[p.slug.current] && (
+                  <p className="mt-2 text-sm text-muted-foreground italic">{reasonBySlug[p.slug.current]}</p>
+                )}
+              </div>
+            ))}
           </div>
         </section>
       )}

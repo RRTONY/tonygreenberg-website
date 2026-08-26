@@ -109,13 +109,24 @@ export const postBySlugQuery = groq`
 export const relatedPostsQuery = groq`
   *[_type == "post" && slug.current != $slug && category._ref == $categoryId]
     | order(publishedAt desc) [0...3]{
-    _id, title, slug, excerpt, heroImage
+    _id, title, slug, publishedAt, excerpt, heroImage
   }
 `;
 
 export const recentPostsQuery = groq`
   *[_type == "post" && slug.current != $slug] | order(publishedAt desc) [0...3]{
-    _id, title, slug, excerpt, heroImage
+    _id, title, slug, publishedAt, excerpt, heroImage
+  }
+`;
+
+// Same slug-list lookup as postsBySlugsQuery above, but shaped to match
+// postBySlugQuery's PostDetail (object-form `slug.current`, `_id`,
+// `publishedAt`) for lib/content/reading-paths.ts's curated "read next"
+// picks on /blog/[slug] — GROQ's `in` doesn't preserve $slugs' order, so
+// callers re-sort by the original curated order after fetching.
+export const postsForReadingPathQuery = groq`
+  *[_type == "post" && slug.current in $slugs]{
+    _id, title, slug, publishedAt, excerpt, heroImage
   }
 `;
 

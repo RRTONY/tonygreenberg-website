@@ -13,16 +13,18 @@ const CONTACT_EMAIL = "tony@tonygreenberg.com";
 // the homepage hero's particle canvas); the prismatic border, glyph pulse,
 // shimmering text, and CTA pulse are real CSS keyframes and carry over.
 //
-// Legacy submitted straight to a tRPC subscribe mutation — no such backend
-// exists yet in this app (Supabase setup is still pending), so submitting
-// opens the visitor's own email client via a pre-filled mailto: instead of
-// a fake success state. The confirmation copy reflects that honestly
-// ("send it and you're in") rather than claiming they're already
-// subscribed.
+// Legacy submitted straight to a tRPC subscribe mutation that (among other
+// things) forwarded to Kit (ConvertKit). That real Kit forwarding now
+// exists at /api/subscribe (see app/api/subscribe/route.ts) — submitting
+// tries that first. Only if it fails (no Kit credentials configured, or
+// the API errors) does it fall back to a pre-filled mailto: to the
+// visitor's own email client, same honest non-fake-success behavior as
+// before this endpoint existed.
 export function NewsletterPopup() {
   const [show, setShow] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [viaMailto, setViaMailto] = useState(false);
   const [email, setEmail] = useState("");
 
   useEffect(() => {
@@ -45,12 +47,23 @@ export function NewsletterPopup() {
 
   const handleDismiss = () => setShow(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
-    const subject = encodeURIComponent("Subscribe me to the newsletter");
-    const body = encodeURIComponent(`Please add this address to the list: ${email}`);
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, source: "footer" }),
+      });
+      const data = await res.json();
+      if (!data.success) throw new Error(data.message);
+    } catch {
+      const subject = encodeURIComponent("Subscribe me to the newsletter");
+      const body = encodeURIComponent(`Please add this address to the list: ${email}`);
+      window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+      setViaMailto(true);
+    }
     try {
       localStorage.setItem("tg_subscribed", "true");
     } catch {}
@@ -115,12 +128,12 @@ export function NewsletterPopup() {
                     backgroundSize: "300% auto",
                   }}
                 >
-                  Almost there.
+                  {viaMailto ? "Almost there." : "You're in."}
                 </h3>
                 <p className="mx-auto mb-7 max-w-85 text-sm leading-relaxed text-[#F5EDE0]/50">
-                  Your email app just opened with a note ready to go. Send it, and you&apos;re on
-                  the list — no schedule, no algorithm, just the things I can&apos;t stop thinking
-                  about.
+                  {viaMailto
+                    ? "Your email app just opened with a note ready to go. Send it, and you're on the list — no schedule, no algorithm, just the things I can't stop thinking about."
+                    : "You're on the list — no schedule, no algorithm, just the things I can't stop thinking about."}
                 </p>
                 <div
                   className="mx-auto mb-6 h-px max-w-50"

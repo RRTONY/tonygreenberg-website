@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { SiteChrome } from "@/components/site-chrome";
 import { NavProgressBar } from "@/components/nav-progress-bar";
 import { getWebsiteJsonLd, getPersonJsonLd } from "@/lib/structured-data";
 import "./globals.css";
@@ -80,11 +81,15 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
             >
               Skip to main content
             </a>
-            <SiteHeader />
+            <SiteChrome>
+              <SiteHeader />
+            </SiteChrome>
             <main id="main-content" role="main" className="flex-1">
               {children}
             </main>
-            <SiteFooter />
+            <SiteChrome>
+              <SiteFooter />
+            </SiteChrome>
             <Toaster />
           </TooltipProvider>
         </ThemeProvider>

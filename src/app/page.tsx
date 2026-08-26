@@ -11,6 +11,7 @@ import { EcosystemCTA } from "@/components/marketing/ecosystem-cta";
 import { HomeArchive } from "@/components/blog/home-archive";
 import { PostCard } from "@/components/blog/post-card";
 import { NewsletterPopup } from "@/components/marketing/newsletter-popup";
+import { ReturningVisitorHero } from "@/components/marketing/returning-visitor-hero";
 import Link from "next/link";
 
 // Matches legacy client/src/pages/Blog.tsx's <SEO> block for path="/" — the
@@ -56,6 +57,7 @@ export default async function Home({ searchParams }: PageProps<"/">) {
 
   return (
     <div>
+      <ReturningVisitorHero />
       <HomeHero essayCount={posts.length} />
 
       <section className="bg-secondary px-4 py-10 sm:px-6 sm:py-12">
