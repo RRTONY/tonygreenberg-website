@@ -21,11 +21,20 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({
   params,
+  searchParams,
 }: PageProps<"/blog/category/[slug]">): Promise<Metadata> {
   const { slug } = await params;
+  const search = await searchParams;
+  const page = Number(search?.page) || 1;
   const category = await client.fetch<{ title: string } | null>(categoryBySlugQuery, { slug });
   if (!category) return {};
-  return { title: category.title, description: `Essays filed under ${category.title}.` };
+
+  const title = page > 1 ? `${category.title} — Page ${page}` : category.title;
+  // Each page has genuinely different posts, so it self-canonicals rather
+  // than consolidating to page 1 (Google's current pagination guidance).
+  const canonical = page > 1 ? `/blog/category/${slug}?page=${page}` : `/blog/category/${slug}`;
+
+  return { title, description: `Essays filed under ${category.title}.`, alternates: { canonical } };
 }
 
 export default async function CategoryPage({

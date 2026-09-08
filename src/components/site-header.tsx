@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, Search } from "lucide-react";
+import { SearchModal } from "@/components/search-modal";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -61,6 +62,7 @@ function NavItemLink({
 export function SiteHeader() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   // Close the mobile menu on route change. Adjusted during render (React's
   // documented pattern for "reset state when a prop changes") rather than in
@@ -74,6 +76,7 @@ export function SiteHeader() {
   const isActive = (href: string) => pathname === href;
 
   return (
+    <>
     <header className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur-md supports-backdrop-filter:bg-background/70">
       <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-4 px-4">
         <Link href="/" className="flex flex-shrink-0 items-center gap-2">
@@ -163,23 +166,22 @@ export function SiteHeader() {
         </NavigationMenu>
 
         <div className="hidden items-center gap-3 xl:flex">
-          <Link
-            href="/search"
+          <button
+            type="button"
+            onClick={() => setSearchOpen(true)}
             aria-label="Search"
             className="text-muted-foreground transition-colors hover:text-brand-gold-light"
           >
             <Search size={16} />
-          </Link>
+          </button>
           <ThemeToggle />
         </div>
 
         {/* Mobile menu */}
         <div className="flex items-center gap-1 xl:hidden">
-          <Link href="/search" aria-label="Search">
-            <Button variant="ghost" size="icon">
-              <Search className="size-5" />
-            </Button>
-          </Link>
+          <Button variant="ghost" size="icon" aria-label="Search" onClick={() => setSearchOpen(true)}>
+            <Search className="size-5" />
+          </Button>
           <ThemeToggle />
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger asChild>
@@ -253,5 +255,7 @@ export function SiteHeader() {
         </div>
       </div>
     </header>
+    <SearchModal open={searchOpen} onOpenChange={setSearchOpen} />
+    </>
   );
 }
