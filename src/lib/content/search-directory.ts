@@ -59,7 +59,7 @@ import type { PageItem } from "@/lib/search-engine";
  * house rule against introducing emoji into written files.
  */
 export const SEARCH_DIRECTORY: PageItem[] = [
-  { title: "Blog", href: "/", description: "92 essays spanning 15 years of enterprise tech, impact, and consciousness", tags: ["blog", "essays", "writing", "articles"] },
+  { title: "Blog", href: "/blog", description: "92 essays spanning 15 years of enterprise tech, impact, and consciousness", tags: ["blog", "essays", "writing", "articles"] },
   { title: "Start Here", href: "/start-here", description: "The five essays that tell you who Tony is and what he's about", tags: ["start", "begin", "intro", "first"] },
   { title: "About", href: "/about", description: "The full story — from enterprise tech to psychedelic medicine", tags: ["about", "bio", "biography", "tony"] },
   { title: "The Letter", href: "/the-letter", description: "I have something to show you — the seven doors", tags: ["letter", "home", "doors", "seven"] },
