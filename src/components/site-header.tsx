@@ -77,7 +77,7 @@ export function SiteHeader() {
 
   return (
     <>
-    <header className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur-md supports-backdrop-filter:bg-background/70">
+    <header className="sticky top-0 z-50 border-b border-border bg-background/90 shadow-sm backdrop-blur-md supports-backdrop-filter:bg-background/85">
       <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-4 px-4">
         <Link href="/" className="flex flex-shrink-0 items-center gap-2">
           <span className="font-heading text-lg font-bold tracking-tight text-foreground">
