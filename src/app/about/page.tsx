@@ -42,7 +42,7 @@ export default function AboutPage() {
             alt="Tony Greenberg"
             width={200}
             height={200}
-            className="size-40 shrink-0 rounded-md border-2 border-brand-gold-light/40 object-cover sm:size-52"
+            className="size-40 shrink-0 rounded-md border-2 border-brand-gold-light/40 object-cover object-top sm:size-52"
           />
           <div className="min-w-70 flex-1">
             <p className="mb-4 font-mono text-xs tracking-[0.25em] text-brand-gold-light uppercase">

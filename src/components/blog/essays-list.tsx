@@ -7,6 +7,7 @@ import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ARCHETYPES, type ArchetypeKey } from "@/lib/content/archetypes";
+import { AUTHOR_FALLBACK_IMAGE } from "@/lib/content/author-fallback";
 import { urlFor } from "@/lib/sanity/image";
 
 type Post = {
@@ -121,11 +122,14 @@ export function EssaysList({ posts }: { posts: Post[] }) {
             href={`/blog/${post.slug}`}
             className="flex gap-4 rounded-md border border-border bg-card p-4 transition-colors hover:border-brand-gold/40"
           >
-            {post.heroImage && (
-              <div className="relative size-18 shrink-0 overflow-hidden rounded-md">
-                <Image src={urlFor(post.heroImage).width(144).height(144).url()} alt="" fill className="object-cover" />
-              </div>
-            )}
+            <div className="relative size-18 shrink-0 overflow-hidden rounded-md">
+              <Image
+                src={post.heroImage ? urlFor(post.heroImage).width(144).height(144).url() : AUTHOR_FALLBACK_IMAGE}
+                alt=""
+                fill
+                className={`object-cover ${post.heroImage ? "" : "object-top"}`}
+              />
+            </div>
             <div className="min-w-0 flex-1">
               {post.category && (
                 <div className="mb-1 font-mono text-[0.65rem] tracking-wide text-brand-gold uppercase">

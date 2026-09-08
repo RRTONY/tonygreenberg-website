@@ -11,6 +11,7 @@ import {
   postsForReadingPathQuery,
 } from "@/lib/sanity/queries";
 import { READING_PATHS } from "@/lib/content/reading-paths";
+import { AUTHOR_FALLBACK_IMAGE } from "@/lib/content/author-fallback";
 import { urlFor } from "@/lib/sanity/image";
 import { PortableText, portableTextComponents } from "@/lib/sanity/portable-text";
 import { autoLinkBody } from "@/lib/sanity/auto-link-body";
@@ -66,7 +67,9 @@ export async function generateMetadata({
   const title = post.seo?.metaTitle || post.title;
   const description = post.seo?.metaDescription || post.excerpt;
   const ogImageSource = post.seo?.ogImage || post.heroImage;
-  const ogImage = ogImageSource ? urlFor(ogImageSource).width(1200).height(630).url() : undefined;
+  const ogImage = ogImageSource
+    ? urlFor(ogImageSource).width(1200).height(630).url()
+    : AUTHOR_FALLBACK_IMAGE;
 
   return {
     title,
@@ -172,18 +175,16 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
 
       <BlogShareBar path={`/blog/${post.slug.current}`} title={post.title} />
 
-      {post.heroImage && (
-        <div className="relative mb-8 aspect-video overflow-hidden rounded-lg">
-          <Image
-            src={urlFor(post.heroImage).width(1600).height(900).url()}
-            alt={post.title}
-            fill
-            priority
-            sizes="(max-width: 768px) 100vw, 768px"
-            className="object-cover"
-          />
-        </div>
-      )}
+      <div className="relative mb-8 aspect-video overflow-hidden rounded-lg">
+        <Image
+          src={post.heroImage ? urlFor(post.heroImage).width(1600).height(900).url() : AUTHOR_FALLBACK_IMAGE}
+          alt={post.title}
+          fill
+          priority
+          sizes="(max-width: 768px) 100vw, 768px"
+          className={`object-cover ${post.heroImage ? "" : "object-top"}`}
+        />
+      </div>
 
       {post.pullQuote && (
         <blockquote className="mb-8 border-y border-border py-6 text-center font-heading text-xl italic text-foreground">

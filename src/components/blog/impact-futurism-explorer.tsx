@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { urlFor } from "@/lib/sanity/image";
+import { AUTHOR_FALLBACK_IMAGE } from "@/lib/content/author-fallback";
 import { FEATURED_COUNT, IMPACT_FUTURISM_ENTRIES, TAG_BADGE, type ImpactFuturismEntry } from "@/lib/content/impact-futurism";
 import type { ArchivePost } from "@/components/blog/articles-explorer";
 
@@ -44,7 +45,13 @@ function FeaturedCard({ post, entry }: { post: FuturismPost; entry: ImpactFuturi
             className="object-cover transition-transform duration-300 group-hover:scale-105"
           />
         ) : (
-          <div className="flex h-full items-center justify-center font-heading text-sm text-muted-foreground">Tony Greenberg</div>
+          <Image
+            src={AUTHOR_FALLBACK_IMAGE}
+            alt="Tony Greenberg"
+            fill
+            sizes="(max-width: 768px) 100vw, 400px"
+            className="object-cover object-top transition-transform duration-300 group-hover:scale-105"
+          />
         )}
         <div className="absolute top-3 left-3">
           <TagBadge tag={entry.tag} />
