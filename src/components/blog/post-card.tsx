@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { urlFor } from "@/lib/sanity/image";
-import { AUTHOR_FALLBACK_IMAGE } from "@/lib/content/author-fallback";
+import { DEFAULT_OG_IMAGE } from "@/lib/content/default-image";
 
 type PostCardData = {
   _id: string;
@@ -34,11 +34,11 @@ export function PostCard({ post }: { post: PostCardData }) {
           />
         ) : (
           <Image
-            src={AUTHOR_FALLBACK_IMAGE}
-            alt="Tony Greenberg"
+            src={DEFAULT_OG_IMAGE}
+            alt=""
             fill
             sizes="(max-width: 768px) 100vw, 400px"
-            className="object-cover object-top transition-transform duration-300 group-hover:scale-105"
+            className="object-cover transition-transform duration-300 group-hover:scale-105"
           />
         )}
       </Link>

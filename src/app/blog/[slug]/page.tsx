@@ -11,7 +11,7 @@ import {
   postsForReadingPathQuery,
 } from "@/lib/sanity/queries";
 import { READING_PATHS } from "@/lib/content/reading-paths";
-import { AUTHOR_FALLBACK_IMAGE } from "@/lib/content/author-fallback";
+import { DEFAULT_OG_IMAGE } from "@/lib/content/default-image";
 import { urlFor } from "@/lib/sanity/image";
 import { PortableText, portableTextComponents } from "@/lib/sanity/portable-text";
 import { autoLinkBody } from "@/lib/sanity/auto-link-body";
@@ -69,7 +69,7 @@ export async function generateMetadata({
   const ogImageSource = post.seo?.ogImage || post.heroImage;
   const ogImage = ogImageSource
     ? urlFor(ogImageSource).width(1200).height(630).url()
-    : AUTHOR_FALLBACK_IMAGE;
+    : DEFAULT_OG_IMAGE;
 
   return {
     title,
@@ -177,12 +177,12 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
 
       <div className="relative mb-8 aspect-video overflow-hidden rounded-lg">
         <Image
-          src={post.heroImage ? urlFor(post.heroImage).width(1600).height(900).url() : AUTHOR_FALLBACK_IMAGE}
+          src={post.heroImage ? urlFor(post.heroImage).width(1600).height(900).url() : DEFAULT_OG_IMAGE}
           alt={post.title}
           fill
           priority
           sizes="(max-width: 768px) 100vw, 768px"
-          className={`object-cover ${post.heroImage ? "" : "object-top"}`}
+          className="object-cover"
         />
       </div>
 
