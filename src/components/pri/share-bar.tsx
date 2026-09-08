@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { Check, Copy, Mail } from "lucide-react";
+import { FacebookIcon, LinkedinIcon, XIcon } from "@/components/icons/brand-icons";
 
 // Ported from legacy's `PriShareBar` — real social/copy/email share intents,
 // unchanged. Legacy's share URL pointed at the stale `onlytimebuystrust.com`
@@ -27,19 +29,27 @@ export function PriShareBar() {
       <div className="mb-3 text-xs font-bold tracking-[0.12em] text-pri-purple-light uppercase">Share This Instrument</div>
       <div className="flex flex-wrap justify-center gap-3">
         <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(SHARE_URL)}&text=${encodeURIComponent(SHARE_TEXT)}`} target="_blank" rel="noopener noreferrer" className={BTN_CLASS}>
-          𝕏 Share on X
+          <XIcon className="size-3.5" /> X / Twitter
         </a>
         <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(SHARE_URL)}`} target="_blank" rel="noopener noreferrer" className={BTN_CLASS}>
-          in Share on LinkedIn
+          <LinkedinIcon className="size-3.5" /> LinkedIn
         </a>
         <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(SHARE_URL)}`} target="_blank" rel="noopener noreferrer" className={BTN_CLASS}>
-          f Share on Facebook
+          <FacebookIcon className="size-3.5" /> Facebook
         </a>
         <a href={`mailto:?subject=${encodeURIComponent("The Psychedelic Readiness Index")}&body=${encodeURIComponent(SHARE_TEXT + "\n\n" + SHARE_URL)}`} className={BTN_CLASS}>
-          ✉ Send by Email
+          <Mail className="size-3.5" /> Send by Email
         </a>
         <button onClick={copyLink} className={BTN_CLASS}>
-          {copied ? "✓ Copied" : "⧉ Copy Link"}
+          {copied ? (
+            <>
+              <Check className="size-3.5" /> Copied
+            </>
+          ) : (
+            <>
+              <Copy className="size-3.5" /> Copy Link
+            </>
+          )}
         </button>
       </div>
     </div>

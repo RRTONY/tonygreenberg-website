@@ -3,6 +3,7 @@
 import { useCallback, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { Heart, X, AlertTriangle, Ban, Star, FileText, CheckCircle2, Target } from "lucide-react";
 import {
   MEDICINES,
   QUESTIONS,
@@ -568,7 +569,7 @@ export function PsychedelicReadinessIndex() {
                     title={isSaved ? "Remove from saved" : "Save medicine"}
                     className={`absolute top-1.5 right-1.5 z-5 flex size-6.5 items-center justify-center rounded-full text-[.82rem] text-pri-cream transition-opacity ${isSaved ? "bg-pri-purple opacity-100" : "bg-pri-ink/45 opacity-60 hover:opacity-100"}`}
                   >
-                    {isSaved ? "♥" : "♡"}
+                    <Heart className="size-3.5" fill={isSaved ? "currentColor" : "none"} />
                   </button>
                 )}
                 {MEDICINE_IMAGES[m.id] && (
@@ -653,7 +654,7 @@ export function PsychedelicReadinessIndex() {
                       title="Remove from saved"
                       className="flex size-7.5 shrink-0 items-center justify-center rounded-full bg-pri-purple/10 text-[.85rem] text-pri-purple"
                     >
-                      ✕
+                      <X className="size-3.5" />
                     </button>
                   </div>
                 );
@@ -890,7 +891,17 @@ export function PsychedelicReadinessIndex() {
                 <div key={med.category} className="bg-pri-parchment px-6 py-5">
                   <div className="mb-2 flex flex-wrap items-start justify-between gap-2">
                     <div className="font-heading text-base font-extrabold text-pri-ink">{med.category}</div>
-                    <div className="text-xs font-bold tracking-[0.04em] text-pri-purple uppercase">{isHardStop ? "⛔ Hard Stop" : "⚠️ Caution"}</div>
+                    <div className="flex items-center gap-1 text-xs font-bold tracking-[0.04em] text-pri-purple uppercase">
+                      {isHardStop ? (
+                        <>
+                          <Ban className="size-3.5" /> Hard Stop
+                        </>
+                      ) : (
+                        <>
+                          <AlertTriangle className="size-3.5" /> Caution
+                        </>
+                      )}
+                    </div>
                   </div>
                   <div className="mb-1.5 text-[.78rem] text-pri-tan">{med.medications}</div>
                   <div className="mb-1.5 text-[.85rem] leading-[1.6] text-pri-brown">
@@ -990,7 +1001,7 @@ export function PsychedelicReadinessIndex() {
           {/* INTRO */}
           {state === "intro" && (
             <div className="px-5 py-8 text-center">
-              <div className="mb-4 text-5xl">🌟</div>
+              <Star className="mx-auto mb-4 size-11 text-brand-gold" fill="currentColor" />
               <h2 className="mb-4 font-heading text-[clamp(1.5rem,4vw,2rem)] text-pri-cream">Your Readiness Assessment</h2>
               <p className="mx-auto mb-8 max-w-130 text-[clamp(.88rem,2.5vw,1rem)] text-pri-cream/65">
                 Most people walk into these experiences with a plan. Very few walk in with a map. This is the map ... {QUESTIONS.length} questions across 6
@@ -1143,7 +1154,10 @@ export function PsychedelicReadinessIndex() {
 
               <div className="mb-4 text-xs font-extrabold tracking-[0.14em] text-pri-purple uppercase">Where Your Profile Points</div>
               <div className="mb-4 border border-pri-purple/30 bg-pri-purple/10 px-5 py-4">
-                <div className="mb-1 text-xs font-extrabold tracking-[0.06em] text-pri-purple uppercase">⚠️ Review Safety Data Before Trying Any Medicine</div>
+                <div className="mb-1 flex items-center gap-1.5 text-xs font-extrabold tracking-[0.06em] text-pri-purple uppercase">
+                  <AlertTriangle className="size-3.5" />
+                  Review Safety Data Before Trying Any Medicine
+                </div>
                 <div className="text-[.82rem] leading-[1.6] text-pri-cream/60">
                   Click any medicine below to view its full contraindications, drug interactions, and side effects. This information is essential before
                   making any decisions.
@@ -1192,8 +1206,9 @@ export function PsychedelicReadinessIndex() {
               ))}
 
               <div className="mt-8 flex flex-wrap justify-center gap-3 pb-8 text-center">
-                <button onClick={exportPDF} className="bg-pri-purple px-8 py-3.5 font-mono text-sm font-bold tracking-[0.05em] text-pri-cream uppercase">
-                  📄 Save My Results
+                <button onClick={exportPDF} className="flex items-center justify-center gap-2 bg-pri-purple px-8 py-3.5 font-mono text-sm font-bold tracking-[0.05em] text-pri-cream uppercase">
+                  <FileText className="size-4" />
+                  Save My Results
                 </button>
 
                 {!referralSent ? (
@@ -1242,14 +1257,15 @@ export function PsychedelicReadinessIndex() {
                   </div>
                 ) : (
                   <div className="mt-4 w-full border border-pri-purple-light/25 bg-pri-purple-light/8 p-5 text-center">
-                    <div className="mb-1 text-xl">✓</div>
+                    <CheckCircle2 className="mx-auto mb-1 size-6 text-pri-purple-light" />
                     <div className="text-[.85rem] font-bold text-pri-purple-light">Your email client should be open.</div>
                     <div className="mt-1 text-[.78rem] text-pri-cream/50">Send it and Tony will reach out personally when he has a match in your region.</div>
                   </div>
                 )}
 
-                <Link href="/pri-calibration" className="bg-linear-to-br from-pri-purple to-pri-purple-light px-6 py-3 text-sm font-bold text-pri-cream uppercase">
-                  🎯 Calibrate My Results
+                <Link href="/pri-calibration" className="flex items-center justify-center gap-2 bg-linear-to-br from-pri-purple to-pri-purple-light px-6 py-3 text-sm font-bold text-pri-cream uppercase">
+                  <Target className="size-4" />
+                  Calibrate My Results
                 </Link>
 
                 <button onClick={resetQuiz} className="border-[1.5px] border-pri-cream/20 px-6 py-3 text-sm font-bold text-pri-cream uppercase">
@@ -1258,9 +1274,10 @@ export function PsychedelicReadinessIndex() {
                 {savedMeds.length > 0 && (
                   <button
                     onClick={() => document.querySelector("[data-saved-panel]")?.scrollIntoView({ behavior: "smooth" })}
-                    className="border-[1.5px] border-pri-purple/40 px-6 py-3 text-sm font-bold text-pri-purple uppercase"
+                    className="flex items-center justify-center gap-2 border-[1.5px] border-pri-purple/40 px-6 py-3 text-sm font-bold text-pri-purple uppercase"
                   >
-                    ♥ View Saved ({savedMeds.length})
+                    <Heart className="size-4" fill="currentColor" />
+                    View Saved ({savedMeds.length})
                   </button>
                 )}
               </div>

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { Heart, X, AlertTriangle } from "lucide-react";
 import type { MedicineWithSafety } from "@/lib/content/pri-data";
 import { MEDICINE_IMAGES } from "@/lib/content/pri-medicine-images";
 import { TAG_CLASS, DEFAULT_TAG_CLASS } from "@/lib/content/pri-shared";
@@ -49,11 +50,11 @@ export function MedicineModal({
               title={isSaved ? "Remove from saved" : "Save medicine"}
               className={`flex size-8 items-center justify-center rounded-full text-base text-pri-cream ${isSaved ? "bg-pri-purple" : "bg-pri-ink/60"}`}
             >
-              {isSaved ? "♥" : "♡"}
+              <Heart className="size-4" fill={isSaved ? "currentColor" : "none"} />
             </button>
           )}
           <button onClick={onClose} className="flex size-8 items-center justify-center rounded-full bg-pri-ink/60 text-lg text-pri-cream">
-            ✕
+            <X className="size-4" />
           </button>
         </div>
 
@@ -94,9 +95,9 @@ export function MedicineModal({
             <button
               key={t.key}
               onClick={() => setTab(t.key)}
-              className={`-mb-0.5 border-b-2 px-4 py-3 text-xs font-bold tracking-[0.06em] uppercase transition-colors ${tab === t.key ? "border-pri-purple text-pri-purple" : "border-transparent text-pri-tan"}`}
+              className={`-mb-0.5 flex items-center gap-1.5 border-b-2 px-4 py-3 text-xs font-bold tracking-[0.06em] uppercase transition-colors ${tab === t.key ? "border-pri-purple text-pri-purple" : "border-transparent text-pri-tan"}`}
             >
-              {t.key === "safety" && "⚠️ "}
+              {t.key === "safety" && <AlertTriangle className="size-3.5" />}
               {t.label}
             </button>
           ))}
@@ -179,7 +180,10 @@ export function MedicineModal({
               )}
 
               <div className="mt-6 border-l-4 border-[#E65100] bg-[#FFF3E0] p-4">
-                <div className="mb-1 text-xs font-extrabold tracking-[0.06em] text-[#E65100] uppercase">⚠️ Review Safety Data Before Proceeding</div>
+                <div className="mb-1 flex items-center gap-1.5 text-xs font-extrabold tracking-[0.06em] text-[#E65100] uppercase">
+                  <AlertTriangle className="size-3.5" />
+                  Review Safety Data Before Proceeding
+                </div>
                 <p className="m-0 text-[.82rem] text-pri-brown">
                   This medicine has {medicine.contraindications.length} contraindications and {medicine.drugInteractions.length} known drug interactions.{" "}
                   <button onClick={() => setTab("safety")} className="p-0 font-bold text-pri-purple underline">

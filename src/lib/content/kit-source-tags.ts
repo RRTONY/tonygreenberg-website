@@ -9,6 +9,7 @@ export const KIT_TAG_MAP: Record<string, string> = {
   footer: "Website Footer",
   "first-sip": "BrewSoul: First Sip",
   "find-your-me": "Assessment: Find Your Me",
+  "find-your-mirror": "Assessment: Find Your Mirror",
   "find-your-peptide": "Assessment: Find Your Peptide",
   "find-your-attachment-style": "Assessment: Attachment Style",
   "find-your-love-language": "Assessment: Love Language",
@@ -33,6 +34,20 @@ export const KIT_TAG_MAP: Record<string, string> = {
   "dharma-finder": "Assessment: Dharma Finder",
   "journey-finder": "Assessment: Journey Finder",
   "living-declaration": "Community: Living Declaration",
+  // EmailGate always sources as `find-your-<assessmentSlug>` (see that
+  // component), but these 3 assessments' real routes are the bare
+  // /consciousness-scale, /grant-study, /dharma-finder — not /find-your-*
+  // — so their EmailGate calls produce a `find-your-` prefixed source that
+  // wouldn't otherwise match the bare keys above. Same tag value as the
+  // bare key; just the alias EmailGate's fixed prefix actually looks up.
+  "find-your-consciousness-scale": "Assessment: Consciousness Scale",
+  "find-your-grant-study": "Assessment: Grant Study",
+  "find-your-dharma-finder": "Assessment: Dharma Finder",
+  // /assessment's 3-way Builder/Crusader/Investor archetype quiz — real
+  // per-archetype segmentation, ported from legacy's own source strings.
+  "assessment-builder": "Assessment: Builder",
+  "assessment-crusader": "Assessment: Crusader",
+  "assessment-investor": "Assessment: Investor",
 };
 
 // Prefix-matched sources (dynamic per-post/per-flow identifiers).

@@ -50,10 +50,7 @@ import {
 // legacy hero images themselves, which used the banned `/api/img/` Manus
 // path (CONTRIBUTING.md's zero-Manus-dependency rule) — replaced with a
 // plain gradient hero. The "LAUNCH SOULSCORE ENGINE" / "LAUNCH C-NPV
-// CALCULATOR" links pointed to `/soulscore`, which doesn't exist yet in
-// this migration — rendered as a disabled "Coming Soon" note instead of a
-// broken link, not silently dropped, so the SoulScore engine promise
-// isn't misrepresented as unlinked-but-real, or invented as a live link.
+// CALCULATOR" links now point to the real `/soulscore` page (Phase 9).
 const ICONS: Record<string, LucideIcon> = {
   waves: Waves,
   bone: Bone,
@@ -122,12 +119,14 @@ function HBar({ value, max, color, label, sublabel }: { value: number; max: numb
   );
 }
 
-function ComingSoonLink({ label }: { label: string }) {
+function SoulScoreLink({ label }: { label: string }) {
   return (
-    <span className="inline-flex items-center gap-1.5 font-mono text-xs tracking-wide text-muted-foreground">
-      {label}
-      <span className="rounded-full bg-muted px-2 py-0.5 text-[0.6rem] uppercase">Coming Soon</span>
-    </span>
+    <Link
+      href="/soulscore"
+      className="inline-flex items-center gap-1.5 font-mono text-xs tracking-wide text-brand-gold transition-colors hover:text-brand-gold-light"
+    >
+      {label} →
+    </Link>
   );
 }
 
@@ -211,7 +210,7 @@ export function ImpactDashboardExplorer() {
               <div className="mb-1 font-heading text-base font-bold text-foreground">SoulScore Engine</div>
               <div className="text-sm text-muted-foreground">12-dimension measurement</div>
               <div className="mt-2">
-                <ComingSoonLink label="Launch Engine" />
+                <SoulScoreLink label="Launch Engine" />
               </div>
             </GlassCard>
             <Link href="/charity-scorecard">
@@ -447,7 +446,7 @@ export function ImpactDashboardExplorer() {
               against benchmarks, explore the 6-tier supply chain deep dive, and calculate
               Consciousness-Adjusted NPV.
             </p>
-            <ComingSoonLink label="Launch SoulScore Engine" />
+            <SoulScoreLink label="Launch SoulScore Engine" />
           </GlassCard>
         </div>
 
@@ -582,7 +581,7 @@ export function ImpactDashboardExplorer() {
               Use the interactive SoulScore engine to calculate Consciousness-Adjusted NPV for any
               entity. See what happens when consciousness enters the discount rate.
             </p>
-            <ComingSoonLink label="Launch C-NPV Calculator" />
+            <SoulScoreLink label="Launch C-NPV Calculator" />
           </GlassCard>
         </div>
       </main>

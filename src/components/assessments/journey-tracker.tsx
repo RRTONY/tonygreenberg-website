@@ -28,10 +28,11 @@ export interface JourneyExperience {
 
 export const JOURNEY_MAP: JourneyExperience[] = [
   { id: "find-your-me", name: "Find Your Me", category: "know", url: "/find-your-me", estimatedMinutes: 3, isExternal: false, questionCount: 5 },
-  { id: "find-your-purpose", name: "Find Your Purpose", category: "know", url: "/assessments/dharma-finder", estimatedMinutes: 12, isExternal: false, questionCount: 25 },
-  { id: "find-your-mirror", name: "Find Your Mirror", category: "know", url: "/the-mirror", estimatedMinutes: 10, isExternal: false, questionCount: 18 },
-  { id: "find-your-level", name: "Find Your Level", category: "know", url: "/assessments/consciousness-scale", estimatedMinutes: 12, isExternal: false, questionCount: 25 },
-  { id: "find-your-score", name: "Find Your Score", category: "know", url: "/assessments/grant-study", estimatedMinutes: 12, isExternal: false, questionCount: 25 },
+  { id: "find-your-purpose", name: "Find Your Purpose", category: "know", url: "/dharma-finder", estimatedMinutes: 12, isExternal: false, questionCount: 25 },
+  { id: "find-your-mirror", name: "Find Your Mirror", category: "know", url: "/the-mirror", estimatedMinutes: 4, isExternal: false, questionCount: 18 },
+  { id: "find-your-level", name: "Find Your Level", category: "know", url: "/consciousness-scale", estimatedMinutes: 12, isExternal: false, questionCount: 25 },
+  { id: "find-your-score", name: "Find Your Score", category: "know", url: "/grant-study", estimatedMinutes: 12, isExternal: false, questionCount: 25 },
+  { id: "soulscore", name: "SoulScore", category: "know", url: "/soulscore", estimatedMinutes: 10, isExternal: false },
   { id: "find-your-spirit", name: "Find Your Spirit", category: "know", url: "/find-your-spirit", estimatedMinutes: 18, isExternal: false, questionCount: 35 },
   { id: "find-your-partner", name: "Find Your Partner", category: "love", url: "https://intimacyassess-tcir3hon.manus.space", estimatedMinutes: 10, isExternal: true, questionCount: 15 },
   { id: "find-your-tribe", name: "Find Your Tribe", category: "love", url: "/community", estimatedMinutes: 5, isExternal: false },

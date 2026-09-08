@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { AlertTriangle } from "lucide-react";
 
 // Ported from legacy client/src/pages/pri/PsychedelicReadinessIndex.tsx's
 // `DisclaimerGate` — the real full legal/harm-reduction disclaimer text and
@@ -26,7 +27,7 @@ export function DisclaimerGate({ onConsent }: { onConsent: () => void }) {
     <div className="fixed inset-0 z-300 flex items-center justify-center overflow-y-auto bg-pri-ink/92 p-4 backdrop-blur-md">
       <div className="max-h-[92vh] w-full max-w-160 overflow-y-auto bg-pri-parchment px-8 py-10">
         <div className="mb-8 text-center">
-          <div className="mb-3 text-4xl">⚠️</div>
+          <AlertTriangle className="mx-auto mb-3 size-9 text-pri-purple" />
           <h2 className="mb-2 font-heading text-[clamp(1.5rem,4vw,2rem)] font-extrabold tracking-tight text-pri-ink">Before You Go In</h2>
           <div className="text-xs font-bold tracking-[0.1em] text-pri-purple uppercase">Read this. Actually read it.</div>
         </div>

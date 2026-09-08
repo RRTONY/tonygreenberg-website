@@ -2,6 +2,7 @@
 
 import { useCallback, useMemo, useState } from "react";
 import Link from "next/link";
+import { BarChart3, RefreshCw, ShieldCheck, Target, Sparkles } from "lucide-react";
 import { DIM_LABELS, DIM_ICONS, type DimKey } from "@/lib/content/pri-data";
 import efficacyData from "@/lib/content/pri-efficacy-data.json";
 
@@ -148,22 +149,22 @@ export function CalibrationAssessment() {
               </p>
               <div className="mb-6 grid grid-cols-2 gap-4 text-left">
                 <div className="rounded-2xl border border-pri-cream/8 bg-pri-cream/4 p-4">
-                  <div className="mb-1 text-2xl">📊</div>
+                  <BarChart3 className="mb-1 size-6 text-pri-purple-light" />
                   <div className="mb-1 text-[.78rem] font-bold">+26.9% Accuracy</div>
                   <div className="text-[.72rem] text-pri-cream/40">vs. standard Likert scoring</div>
                 </div>
                 <div className="rounded-2xl border border-pri-cream/8 bg-pri-cream/4 p-4">
-                  <div className="mb-1 text-2xl">🔄</div>
+                  <RefreshCw className="mb-1 size-6 text-pri-purple-light" />
                   <div className="mb-1 text-[.78rem] font-bold">0.609 Test-Retest</div>
                   <div className="text-[.72rem] text-pri-cream/40">Reliability coefficient</div>
                 </div>
                 <div className="rounded-2xl border border-pri-cream/8 bg-pri-cream/4 p-4">
-                  <div className="mb-1 text-2xl">🛡️</div>
+                  <ShieldCheck className="mb-1 size-6 text-pri-purple-light" />
                   <div className="mb-1 text-[.78rem] font-bold">38% Less Fakeable</div>
                   <div className="text-[.72rem] text-pri-cream/40">Shift resistance vs. Likert</div>
                 </div>
                 <div className="rounded-2xl border border-pri-cream/8 bg-pri-cream/4 p-4">
-                  <div className="mb-1 text-2xl">🎯</div>
+                  <Target className="mb-1 size-6 text-pri-purple-light" />
                   <div className="mb-1 text-[.78rem] font-bold">Perfect Entropy</div>
                   <div className="text-[.72rem] text-pri-cream/40">1.0 normalized distribution</div>
                 </div>
@@ -243,7 +244,7 @@ export function CalibrationAssessment() {
         {phase === "results" && (
           <div>
             <div className="mb-8 text-center">
-              <div className="mb-2 text-5xl">✨</div>
+              <Sparkles className="mx-auto mb-2 size-9 text-pri-purple-light" />
               <h2 className="mb-2 font-heading text-2xl text-pri-cream">Calibrated Profile</h2>
               <p className="text-[.85rem] text-pri-cream/50">Your forced-rank readiness scores, corrected for acquiescence bias</p>
             </div>

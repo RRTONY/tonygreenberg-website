@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { AlertTriangle } from "lucide-react";
 import {
   COMPASS_INTRO,
   COMPASS_WHATS_NEW,
@@ -253,7 +254,10 @@ export function IbogaCompassSection() {
       <section id="compass-validity" className="bg-pri-cream px-5 py-12 text-pri-ink">
         <div className="mx-auto max-w-225">
           <div className="border-l-4 border-[#581C87] bg-[#F3E8FF] p-5">
-            <p className="m-0 mb-2 text-base font-extrabold text-[#581C87]">⚠ Validity Notice</p>
+            <p className="m-0 mb-2 flex items-center gap-2 text-base font-extrabold text-[#581C87]">
+              <AlertTriangle className="size-4" />
+              Validity Notice
+            </p>
             <p className="m-0 text-[.95rem] leading-[1.7] text-pri-brown">{COMPASS_VALIDITY_NOTICE}</p>
           </div>
         </div>

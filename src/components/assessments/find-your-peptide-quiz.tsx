@@ -720,7 +720,7 @@ export function FindYourPeptideQuiz() {
         </div>
 
         <div className="mb-10 text-center">
-          <AssessmentResultActions accentColor={ACCENT} />
+          <AssessmentResultActions accentColor={ACCENT} resultSlug="find-your-peptide" />
           <button onClick={handleRestart} className="rounded-sm border border-brand-gold/30 px-6 py-2.5 font-mono text-[0.75rem] text-brand-gold">
             Retake Assessment
           </button>

@@ -16,6 +16,7 @@ import { PortableText, portableTextComponents } from "@/lib/sanity/portable-text
 import { autoLinkBody } from "@/lib/sanity/auto-link-body";
 import { PostCard } from "@/components/blog/post-card";
 import { ArticleFooter } from "@/components/blog/article-footer";
+import { BlogShareBar } from "@/components/blog/blog-share-bar";
 import { TrackLastBlogVisit } from "@/components/blog/track-last-blog-visit";
 import { getArticleJsonLd } from "@/lib/structured-data";
 
@@ -168,6 +169,8 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
           )}
         </div>
       </header>
+
+      <BlogShareBar path={`/blog/${post.slug.current}`} title={post.title} />
 
       {post.heroImage && (
         <div className="relative mb-8 aspect-video overflow-hidden rounded-lg">

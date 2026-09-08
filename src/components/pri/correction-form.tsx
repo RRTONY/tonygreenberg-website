@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { CheckCircle2 } from "lucide-react";
 import type { MedicineWithSafety } from "@/lib/content/pri-data";
 
 const CONTACT_EMAIL = "tony@tonygreenberg.com";
@@ -56,7 +57,7 @@ export function CorrectionForm({ medicine, onClose }: { medicine: MedicineWithSa
   if (submitted) {
     return (
       <div className="py-8 text-center">
-        <div className="mb-4 text-4xl">✅</div>
+        <CheckCircle2 className="mx-auto mb-4 size-9 text-[#3D6B44]" />
         <h3 className="mb-2 font-heading text-[1.3rem] font-extrabold text-pri-ink">Thank You</h3>
         <p className="text-[.9rem] text-pri-tan">Your email client should be open with the correction pre-filled — send it and Tony will review it.</p>
         <button onClick={onClose} className="mt-4 bg-pri-ink px-8 py-3 font-mono text-sm font-bold tracking-wide text-pri-cream uppercase">

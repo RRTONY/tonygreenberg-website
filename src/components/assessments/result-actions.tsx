@@ -1,7 +1,8 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { Download } from "lucide-react";
+import { saveAssessmentResult } from "@/lib/assessments/result-log";
 
 // Simplified from legacy client/src/components/AssessmentResultActions.tsx
 // — a shared "Your Results" action bar used across several assessment
@@ -13,13 +14,28 @@ import { Download } from "lucide-react";
 // honest-degradation pattern used throughout this migration. `sessionId`/
 // answer-serialization props existed only to feed that dropped submit
 // call, so this version's API is simpler: just the element to print.
+// `resultSlug` is optional — pages built before /self-portrait existed
+// (the original 15 "Find Your X" quizzes) can keep calling this without it
+// and nothing breaks; they just won't show up in /self-portrait's log
+// until someone threads it through. Every quiz built from Phase 9's back
+// half onward passes its own slug (matching lib/content/find-your-me.ts's
+// `ECOSYSTEM_CATEGORIES` url, minus the leading slash).
 export function AssessmentResultActions({
   printTargetRef,
   accentColor = "#8B6914",
+  resultSlug,
 }: {
   printTargetRef?: React.RefObject<HTMLElement | null>;
   accentColor?: string;
+  resultSlug?: string;
 }) {
+  // Logging a completion is a real one-time side effect (not derived render
+  // state), so an effect is the right tool here — this isn't the
+  // effect-mirrors-a-prop anti-pattern CONTRIBUTING.md warns about.
+  useEffect(() => {
+    if (resultSlug) saveAssessmentResult(resultSlug);
+  }, [resultSlug]);
+
   const handleDownloadPDF = useCallback(() => {
     const target = printTargetRef?.current;
     if (!target) {

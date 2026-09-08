@@ -503,7 +503,7 @@ export function FindYourReligionQuiz() {
       <WhatsNext />
 
       <section className="mx-auto max-w-3xl px-6 pt-8 pb-16 text-center">
-        <AssessmentResultActions accentColor={ACCENT} />
+        <AssessmentResultActions accentColor={ACCENT} resultSlug="find-your-religion" />
         <button
           onClick={() => {
             setPhase("landing");

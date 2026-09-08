@@ -69,6 +69,16 @@ const nextConfig: NextConfig = {
       // same duplicate-route pattern as /find-my-tribe above.
       { source: "/find-my-me", destination: "/find-your-me", permanent: true },
       { source: "/discover", destination: "/find-your-me", permanent: true },
+      // Phase 9's back half: these 3 assessments were referenced
+      // elsewhere in this app (site nav, journey-tracker.tsx,
+      // find-your-me.ts's ecosystem directory) under an /assessments/
+      // prefix before the real pages existed — the pages themselves
+      // landed at the shorter top-level path, matching every other
+      // "Find Your X" route's shape. Redirect rather than rename every
+      // existing internal reference.
+      { source: "/assessments/dharma-finder", destination: "/dharma-finder", permanent: true },
+      { source: "/assessments/consciousness-scale", destination: "/consciousness-scale", permanent: true },
+      { source: "/assessments/grant-study", destination: "/grant-study", permanent: true },
     ];
   },
   images: {

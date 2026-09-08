@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { AlertTriangle, TreeDeciduous, Pill, Star } from "lucide-react";
 import {
   IBOGA_IMAGES,
   IBOGAINE_PHARMACOLOGY,
@@ -215,7 +216,10 @@ export default function IbogaIbogainePage() {
           <div className="mt-8 flex flex-wrap gap-4">
             <span className="rounded border border-[#D4B96A]/40 bg-[#D4B96A]/15 px-4 py-1.5 text-sm font-semibold text-[#D4B96A]">Iboga: 24–72 hrs</span>
             <span className="rounded border border-[#D4B96A]/40 bg-[#D4B96A]/15 px-4 py-1.5 text-sm font-semibold text-[#D4B96A]">Ibogaine: 18–36 hrs</span>
-            <span className="rounded border border-pri-purple/40 bg-pri-purple/15 px-4 py-1.5 text-sm font-semibold text-[#E8A09A]">⚠ Cardiac screening mandatory</span>
+            <span className="flex items-center gap-1.5 rounded border border-pri-purple/40 bg-pri-purple/15 px-4 py-1.5 text-sm font-semibold text-[#E8A09A]">
+              <AlertTriangle className="size-4" />
+              Cardiac screening mandatory
+            </span>
           </div>
         </div>
       </section>
@@ -302,7 +306,10 @@ export default function IbogaIbogainePage() {
           </table>
         </div>
         <div className="mt-6 rounded-md border-l-4 border-[#E57373] bg-[#C62828]/12 p-5">
-          <p className="m-0 mb-1 text-base font-bold text-[#E57373]">⚠ Noribogaine: The Hidden Duration</p>
+          <p className="m-0 mb-1 flex items-center gap-1.5 text-base font-bold text-[#E57373]">
+            <AlertTriangle className="size-4" />
+            Noribogaine: The Hidden Duration
+          </p>
           <p className="m-0 text-[1.05rem] leading-[1.75] text-pri-cream/80">
             Ibogaine&apos;s half-life is 4–7 hours. But its metabolite noribogaine persists for 24–48 hours with stronger mu-opioid and SERT binding. This
             is why opioid withdrawal relief extends far beyond ibogaine&apos;s direct action — and why cardiac monitoring must continue for at least 72
@@ -333,8 +340,18 @@ export default function IbogaIbogainePage() {
             <thead>
               <tr>
                 <th className={thClass}>Dimension</th>
-                <th className="border-b-2 border-[#D4CFC5] bg-[#2A5A2A] px-3 py-2.5 text-left text-xs font-extrabold tracking-[0.08em] whitespace-nowrap text-white uppercase">🌳 Iboga (Whole Plant)</th>
-                <th className="border-b-2 border-[#D4CFC5] bg-[#4A2A5A] px-3 py-2.5 text-left text-xs font-extrabold tracking-[0.08em] whitespace-nowrap text-white uppercase">💊 Ibogaine (HCl Isolate)</th>
+                <th className="border-b-2 border-[#D4CFC5] bg-[#2A5A2A] px-3 py-2.5 text-left text-xs font-extrabold tracking-[0.08em] whitespace-nowrap text-white uppercase">
+                  <span className="flex items-center gap-1.5">
+                    <TreeDeciduous className="size-3.5" />
+                    Iboga (Whole Plant)
+                  </span>
+                </th>
+                <th className="border-b-2 border-[#D4CFC5] bg-[#4A2A5A] px-3 py-2.5 text-left text-xs font-extrabold tracking-[0.08em] whitespace-nowrap text-white uppercase">
+                  <span className="flex items-center gap-1.5">
+                    <Pill className="size-3.5" />
+                    Ibogaine (HCl Isolate)
+                  </span>
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -668,7 +685,7 @@ export default function IbogaIbogainePage() {
             <div className="mb-3 flex flex-wrap items-start gap-4">
               <div>
                 <h3 className="mb-1 flex items-center gap-2 font-heading text-xl text-pri-ink">
-                  {f.star && <span className="text-[#D4B96A]">⭐</span>} {f.name}
+                  {f.star && <Star className="size-4 text-[#D4B96A]" fill="currentColor" />} {f.name}
                 </h3>
                 <p className="m-0 text-[.9rem] text-[#6B5A4E]">
                   {f.location}
@@ -824,7 +841,10 @@ export default function IbogaIbogainePage() {
       <section className="bg-pri-ink px-5 py-8">
         <div className="mx-auto max-w-225">
           <div className="border-l-4 border-[#581C87] bg-[#F3E8FF] p-5">
-            <p className="m-0 mb-2 text-base font-extrabold text-[#581C87]">⚠ Critical Safety Notice</p>
+            <p className="m-0 mb-2 flex items-center gap-1.5 text-base font-extrabold text-[#581C87]">
+              <AlertTriangle className="size-4" />
+              Critical Safety Notice
+            </p>
             <p className="m-0 text-[.95rem] leading-[1.75] text-pri-brown">{IBOGA_DISCLAIMER}</p>
           </div>
           <div className="mt-8 text-center">

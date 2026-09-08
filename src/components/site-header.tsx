@@ -4,7 +4,6 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, Search } from "lucide-react";
-import { FaLinkedin, FaXTwitter } from "react-icons/fa6";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -31,7 +30,6 @@ import {
   primaryNavLinks,
   navCategories,
   findYourMeGroups,
-  socialLinks,
 } from "@/components/site-nav-data";
 
 function NavItemLink({
@@ -165,18 +163,6 @@ export function SiteHeader() {
         </NavigationMenu>
 
         <div className="hidden items-center gap-3 xl:flex">
-          {socialLinks.map((s) => (
-            <a
-              key={s.label}
-              href={s.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground transition-colors hover:text-brand-gold-light"
-              aria-label={s.label}
-            >
-              {s.label === "X" ? <FaXTwitter size={15} /> : <FaLinkedin size={15} />}
-            </a>
-          ))}
           <Link
             href="/search"
             aria-label="Search"
@@ -261,21 +247,6 @@ export function SiteHeader() {
                     </AccordionItem>
                   ))}
                 </Accordion>
-
-                <div className="mt-6 flex items-center gap-5 border-t border-border pt-6">
-                  {socialLinks.map((s) => (
-                    <a
-                      key={s.label}
-                      href={s.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 font-mono text-xs uppercase tracking-wide text-brand-gold"
-                    >
-                      {s.label === "X" ? <FaXTwitter size={16} /> : <FaLinkedin size={16} />}
-                      {s.label}
-                    </a>
-                  ))}
-                </div>
               </div>
             </SheetContent>
           </Sheet>

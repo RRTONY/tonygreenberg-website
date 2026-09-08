@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { AlertTriangle } from "lucide-react";
 import {
   MESCALINE_PHARMACOLOGY,
   LATUDA_MIRROR,
@@ -72,7 +73,10 @@ export default function PeyoteMescalinePage() {
           </div>
 
           <div className="border-l-4 border-[#581C87] bg-[#F3E8FF] p-5">
-            <div className="mb-1 text-[.72rem] font-extrabold tracking-[0.06em] text-[#581C87] uppercase">⚠️ Educational Only — Not Medical Advice</div>
+            <div className="mb-1 flex items-center gap-1.5 text-[.72rem] font-extrabold tracking-[0.06em] text-[#581C87] uppercase">
+              <AlertTriangle className="size-3.5" />
+              Educational Only — Not Medical Advice
+            </div>
             <p className="m-0 text-[.82rem] leading-[1.6] text-pri-brown">{MESCALINE_DISCLAIMER}</p>
           </div>
 
@@ -225,7 +229,10 @@ export default function PeyoteMescalinePage() {
         <PriEyebrow>Pharma → Plant Alternatives</PriEyebrow>
         <h2 className="mb-4 font-heading text-[clamp(1.5rem,4vw,2.5rem)] text-pri-cream">16 Medications &amp; Their Alternatives</h2>
         <div className="mb-8 border-l-4 border-[#581C87] bg-[#581C87]/15 p-5">
-          <div className="mb-1 text-[.72rem] font-extrabold tracking-[0.06em] text-[#EF5350] uppercase">⚠️ Educational Only. Not Medical Advice. Not a Substitution Guide.</div>
+          <div className="mb-1 flex items-center gap-1.5 text-[.72rem] font-extrabold tracking-[0.06em] text-[#EF5350] uppercase">
+            <AlertTriangle className="size-3.5" />
+            Educational Only. Not Medical Advice. Not a Substitution Guide.
+          </div>
           <p className="m-0 text-[.82rem] leading-[1.6] text-pri-cream/55">
             Do not stop or modify any prescribed medication based on this content. Dangerous interactions exist between plant medicines and psychiatric
             drugs. Always consult qualified healthcare professionals.

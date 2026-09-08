@@ -38,6 +38,10 @@
   --color-pri-brown: var(--pri-brown);
   --color-pri-tan: var(--pri-tan);
   --color-pri-border: var(--pri-border);
+  --color-facilitator-ink: var(--facilitator-ink);
+  --color-facilitator-amber: var(--facilitator-amber);
+  --color-facilitator-amber-deep: var(--facilitator-amber-deep);
+  --color-facilitator-amber-light: var(--facilitator-amber-light);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -294,6 +298,15 @@
   --pri-brown: #4a3f35;
   --pri-tan: #7a6a5a;
   --pri-border: #e0d8cc;
+
+  /* Facilitator Index sub-brand palette — warm cream/amber/rose identity,
+     distinct from the rest of PRI's purple palette (this one page always
+     used its own warm gradient, not pri-purple). Ported from legacy's
+     inline `#1A1208`/`#B45309`/etc. */
+  --facilitator-ink: #1a1208;
+  --facilitator-amber: #92400e;
+  --facilitator-amber-deep: #b45309;
+  --facilitator-amber-light: #f59e0b;
 
   --background: #fafaf7;
   --foreground: #111111;

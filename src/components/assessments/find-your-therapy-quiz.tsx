@@ -620,7 +620,7 @@ export function FindYourTherapyQuiz() {
             Retake Assessment
           </button>
 
-          <AssessmentResultActions accentColor={ACCENT} />
+          <AssessmentResultActions accentColor={ACCENT} resultSlug="find-your-therapy" />
 
           <div className="mt-4">
             <Link href="/find-my" className="font-mono text-[0.7rem] tracking-[0.1em] text-brand-gold-light/40 hover:text-brand-gold-light">
