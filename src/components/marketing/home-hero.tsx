@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { AbitWaitlistForm } from "@/components/marketing/abit-waitlist-form";
 
 // Ported from legacy client/src/pages/Blog.tsx's hero section. Real copy,
 // unchanged. The kintsugi bowl hero photo is the same asset already rescued
@@ -9,15 +10,20 @@ import Link from "next/link";
 // homepage-hero-original_d3e7447d.jpg, so no new rescue was needed. One
 // intentional simplification remains: the canvas-based floating-particle
 // animation is dropped — a JS particle canvas isn't worth the runtime cost
-// for pure decoration. The ABIT waitlist email-capture form is also dropped
-// — it posted to a tRPC subscribe mutation, a backend/CRM feature out of
-// this migration's scope (see NEXTJS-MIGRATION-TODO.md's CMS/scope boundary
-// note), not a content gap.
+// for pure decoration.
 //
 // The glow pulse, spinning light rays, shimmering headline, and pulsing CTA
 // below WERE dropped in an earlier pass despite being pure CSS @keyframes
 // (no framer-motion, no canvas) — restored using the animate-* utilities
-// defined in globals.css.
+// defined in globals.css. The ABIT waitlist email capture (also dropped in
+// that same pass, its `trpc` subscribe backend never built) is restored too
+// — a real content section on the live homepage, not decoration — using a
+// `mailto:` fallback (see `abit-waitlist-form.tsx`) instead of a fake
+// subscribe success. Subhead copy corrected to match the live homepage's
+// current text — the `_legacy-manus-app` snapshot in this repo pre-dates a
+// live copy edit ("$10B+ transactions · Microsoft, Disney, Goldman Sachs ·
+// 25 years" → "$10B+ in enterprise contracts priced, audited, and
+// renegotiated"), confirmed against a screenshot of the live site.
 //
 // Text is fixed white/gold over a dark photo overlay, not the site's
 // light/dark theme tokens — same call already made for /the-letter's photo
@@ -70,8 +76,8 @@ export function HomeHero({ essayCount }: { essayCount: number }) {
           </em>
         </h1>
 
-        <p className="mb-5 max-w-xl text-sm text-white/80 sm:text-base">
-          $10B+ transactions · Microsoft, Disney, Goldman Sachs · 25 years
+        <p className="mb-5 max-w-xl text-sm text-white/92 sm:text-base">
+          $10B+ in enterprise contracts priced, audited, and renegotiated
         </p>
 
         <Link
@@ -80,6 +86,10 @@ export function HomeHero({ essayCount }: { essayCount: number }) {
         >
           Find Your Fit
         </Link>
+
+        <div className="mb-4 max-w-120">
+          <AbitWaitlistForm />
+        </div>
 
         <div className="font-mono text-xs tracking-wide text-white/70">
           {essayCount} ESSAYS ·{" "}

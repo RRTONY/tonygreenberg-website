@@ -21,6 +21,23 @@
   --color-crusade-ember: var(--crusade-ember);
   --color-crusade-sand: var(--crusade-sand);
   --color-crusade-warm-white: var(--crusade-warm-white);
+  --color-kava-sand: var(--kava-sand);
+  --color-kava-ink: var(--kava-ink);
+  --color-kava-saffron: var(--kava-saffron);
+  --color-kava-cobalt: var(--kava-cobalt);
+  --color-kava-terracotta: var(--kava-terracotta);
+  --color-kava-sand-muted: var(--kava-sand-muted);
+  --color-kava-saffron-light: var(--kava-saffron-light);
+  --color-kava-cobalt-light: var(--kava-cobalt-light);
+  --color-pri-cream: var(--pri-cream);
+  --color-pri-parchment: var(--pri-parchment);
+  --color-pri-ink: var(--pri-ink);
+  --color-pri-purple: var(--pri-purple);
+  --color-pri-purple-mid: var(--pri-purple-mid);
+  --color-pri-purple-light: var(--pri-purple-light);
+  --color-pri-brown: var(--pri-brown);
+  --color-pri-tan: var(--pri-tan);
+  --color-pri-border: var(--pri-border);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -72,6 +89,8 @@
   --animate-jewel-text-prismatic: jewel-text-prismatic 6s ease infinite;
   --animate-jewel-content-fade: jewel-content-fade 0.8s ease-out;
   --animate-jewel-cta-pulse: jewel-cta-pulse 4s ease-in-out infinite;
+  --animate-jewel-aurora-rotate: jewel-aurora-rotate 20s linear infinite;
+  --animate-jewel-geo-rotate: jewel-geo-rotate 40s linear infinite;
 }
 
 @keyframes bowl-pulse {
@@ -148,10 +167,13 @@
 }
 
 /* Ported from legacy client/src/components/JewelPopup.tsx's inline <style>
-   tag, used by newsletter-popup.tsx. The canvas particle field and rotating
-   sacred-geometry SVG were dropped (same "not worth the runtime cost for
-   pure decoration" reasoning as the homepage hero's particle canvas) — the
-   rest is plain CSS and carries over. */
+   tag, used by newsletter-popup.tsx. Only the canvas-based dust-mote
+   `ParticleField` (a 60-particle requestAnimationFrame loop) is dropped —
+   same "not worth the runtime cost" reasoning as the homepage hero's
+   particle canvas. The rotating aurora-nebula backdrop and sacred-geometry
+   SVG are pure CSS/SVG with no JS loop — a real, visible part of this
+   popup's identity (confirmed against a screenshot of the live popup) that
+   an earlier pass wrongly bundled in with the canvas drop — restored here. */
 @keyframes jewel-prismatic-shift {
   from {
     transform: rotate(0deg);
@@ -211,6 +233,24 @@
   }
 }
 
+@keyframes jewel-aurora-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes jewel-geo-rotate {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
 :root {
   /* Brand constants — same value in both themes (legacy Layout.tsx used
      these as theme-independent hover/active colors, not derived tokens). */
@@ -229,6 +269,31 @@
   --crusade-ember: #d4850a;
   --crusade-sand: #ede9e0;
   --crusade-warm-white: #f5f3ee;
+
+  /* /kava's own "Moroccan Riad 12" accent palette — a deliberate
+     one-off sub-brand identity for the whole Kava encyclopedia
+     subsystem (10 pages), same reasoning as --crusade-*. */
+  --kava-sand: #f5edd8;
+  --kava-ink: #1a1008;
+  --kava-saffron: #b86a28;
+  --kava-cobalt: #2a5aa0;
+  --kava-terracotta: #c84b2a;
+  --kava-sand-muted: #e8dcc4;
+  --kava-saffron-light: #d4923e;
+  --kava-cobalt-light: #4a7ac0;
+
+  /* PRI (Psychedelic Readiness Index) sub-brand palette — this subsystem's
+     own theme-independent identity, same pattern as --crusade-* and
+     --kava-*. Ported from legacy's inline `#6B21A8`/`#F4F0E8`/etc. */
+  --pri-cream: #f4f0e8;
+  --pri-parchment: #faf7f2;
+  --pri-ink: #1c1410;
+  --pri-purple: #6b21a8;
+  --pri-purple-mid: #9333ea;
+  --pri-purple-light: #a855f7;
+  --pri-brown: #4a3f35;
+  --pri-tan: #7a6a5a;
+  --pri-border: #e0d8cc;
 
   --background: #fafaf7;
   --foreground: #111111;

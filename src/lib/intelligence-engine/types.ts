@@ -256,6 +256,32 @@ export interface DollarBreakdown {
   commentary: string;
 }
 
+/* ─── Chain Ranking ─── */
+export interface ChainEntry {
+  rank: number;
+  id: string;
+  name: string;
+  hq: string;
+  locations: number;
+  founded: number;
+  type: "specialty" | "premium" | "mass-market" | "fast-food";
+  scores: {
+    coffeeQuality: number;
+    value: number;
+    sourcingEthics: number;
+    experience: number;
+    consistency: number;
+  };
+  aggregate: number;
+  tier: "S" | "A" | "B" | "C" | "D" | "F";
+  verdict: string;
+  strengths: string[];
+  weaknesses: string[];
+  signatureDrink?: string;
+  priceRange: string;
+  website: string;
+}
+
 /* ─── Site Configuration ─── */
 export interface SiteConfig {
   id: string; // e.g. "brewsoul"

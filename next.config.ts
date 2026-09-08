@@ -57,6 +57,18 @@ const nextConfig: NextConfig = {
       // /find-my-tribe above.
       { source: "/find-my-movement", destination: "/find-your-movement", permanent: true },
       { source: "/find-my-diet", destination: "/find-your-diet", permanent: true },
+      { source: "/find-my-sleep", destination: "/find-your-sleep", permanent: true },
+      { source: "/find-my-attachment-style", destination: "/find-your-attachment-style", permanent: true },
+      { source: "/find-my-we", destination: "/find-your-attachment-style", permanent: true },
+      { source: "/find-my-sexuality", destination: "/find-your-sexuality", permanent: true },
+      { source: "/find-my-spirit", destination: "/find-your-spirit", permanent: true },
+      { source: "/find-my-peptide", destination: "/find-your-peptide", permanent: true },
+      { source: "/find-my-coffee", destination: "/find-your-coffee", permanent: true },
+      { source: "/find-my-therapy", destination: "/find-your-therapy", permanent: true },
+      // Legacy also served /find-your-me at /find-my-me and /discover —
+      // same duplicate-route pattern as /find-my-tribe above.
+      { source: "/find-my-me", destination: "/find-your-me", permanent: true },
+      { source: "/discover", destination: "/find-your-me", permanent: true },
     ];
   },
   images: {
@@ -67,6 +79,13 @@ const nextConfig: NextConfig = {
       // still resolving to *.manuscdn.com must be re-uploaded to Sanity
       // before its page is ported, not proxied through Manus.
       { protocol: "https", hostname: "d2xsxph8kpxj0f.cloudfront.net" },
+      // Real, live Unsplash stock photos used as BrewSoul city hero
+      // images (see lib/content/brewsoul-cities.ts) — not a dead Manus
+      // proxy, but also not yet uploaded to Sanity per this repo's own
+      // image-hosting convention. Tracked as a follow-up in
+      // NEXTJS-MIGRATION-TODO.md rather than blocking the port on a
+      // 25-photo Sanity migration.
+      { protocol: "https", hostname: "images.unsplash.com" },
     ],
   },
 };

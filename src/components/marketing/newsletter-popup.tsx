@@ -8,10 +8,16 @@ const CONTACT_EMAIL = "tony@tonygreenberg.com";
 // Ported from legacy client/src/components/JewelPopup.tsx + the
 // QuirkyEmailPopup wrapper in Blog.tsx — a glass-card newsletter invitation
 // that appears 3 minutes into a visit, once per session, never again once
-// engaged with. The canvas particle field and rotating sacred-geometry SVG
-// were dropped (decoration not worth the JS/canvas cost, same reasoning as
-// the homepage hero's particle canvas); the prismatic border, glyph pulse,
-// shimmering text, and CTA pulse are real CSS keyframes and carry over.
+// engaged with. Only the canvas-based dust-mote particle field (a 60-particle
+// requestAnimationFrame loop) is dropped — decoration not worth the JS/canvas
+// cost, same reasoning as the homepage hero's particle canvas. The rotating
+// aurora-nebula backdrop and sacred-geometry SVG are pure CSS/SVG with no JS
+// loop — a real, visible part of this popup's identity that an earlier pass
+// wrongly bundled in with the canvas drop; restored after comparing against
+// a screenshot of the live popup. The prismatic border, glyph pulse,
+// shimmering text, and CTA pulse are also real CSS keyframes and carry over.
+// **Real button-copy bug also fixed**: this port previously read "Email Me
+// to Subscribe" — legacy's actual button says "JOIN THE CONVERSATION".
 //
 // Legacy submitted straight to a tRPC subscribe mutation that (among other
 // things) forwarded to Kit (ConvertKit). That real Kit forwarding now
@@ -82,6 +88,46 @@ export function NewsletterPopup() {
             "radial-gradient(ellipse at 30% 20%, rgba(61,139,110,0.15) 0%, transparent 50%), radial-gradient(ellipse at 70% 80%, rgba(184,90,90,0.12) 0%, transparent 50%), radial-gradient(ellipse at 50% 50%, rgba(196,132,29,0.1) 0%, transparent 60%)",
         }}
       />
+
+      {/* Aurora nebula layer — rotating conic-gradient blur, pure CSS */}
+      <div className={`absolute inset-0 overflow-hidden transition-opacity duration-1500 ${mounted ? "opacity-40" : "opacity-0"}`}>
+        <div
+          className="absolute -inset-1/2 animate-jewel-aurora-rotate blur-[80px]"
+          style={{
+            backgroundImage: "conic-gradient(from 0deg at 50% 50%, #C4841D22, #B85A5A22, #3D8B6E22, #C4841D22, #F5EDE022, #C4841D22)",
+          }}
+        />
+      </div>
+
+      {/* Sacred geometry — faint rotating SVG line drawing, pure CSS/SVG */}
+      <div className={`transition-opacity duration-2000 ${mounted ? "opacity-100" : "opacity-0"}`}>
+        <svg
+          viewBox="0 0 200 200"
+          fill="none"
+          className="animate-jewel-geo-rotate pointer-events-none absolute top-1/2 left-1/2 z-1 size-85 opacity-6"
+        >
+          <circle cx="100" cy="100" r="90" stroke="url(#jwlGrad)" strokeWidth="0.5" />
+          <circle cx="100" cy="55" r="45" stroke="url(#jwlGrad)" strokeWidth="0.3" />
+          <circle cx="100" cy="145" r="45" stroke="url(#jwlGrad)" strokeWidth="0.3" />
+          <circle cx="61" cy="77" r="45" stroke="url(#jwlGrad)" strokeWidth="0.3" />
+          <circle cx="139" cy="77" r="45" stroke="url(#jwlGrad)" strokeWidth="0.3" />
+          <circle cx="61" cy="123" r="45" stroke="url(#jwlGrad)" strokeWidth="0.3" />
+          <circle cx="139" cy="123" r="45" stroke="url(#jwlGrad)" strokeWidth="0.3" />
+          <polygon points="100,10 177.3,55 177.3,145 100,190 22.7,145 22.7,55" stroke="url(#jwlGrad)" strokeWidth="0.4" />
+          <polygon points="100,30 163,60 163,140 100,170 37,140 37,60" stroke="url(#jwlGrad)" strokeWidth="0.3" />
+          <line x1="100" y1="10" x2="100" y2="190" stroke="url(#jwlGrad)" strokeWidth="0.2" />
+          <line x1="22.7" y1="55" x2="177.3" y2="145" stroke="url(#jwlGrad)" strokeWidth="0.2" />
+          <line x1="22.7" y1="145" x2="177.3" y2="55" stroke="url(#jwlGrad)" strokeWidth="0.2" />
+          <defs>
+            <linearGradient id="jwlGrad" x1="0" y1="0" x2="200" y2="200">
+              <stop offset="0%" stopColor="#C4841D" />
+              <stop offset="33%" stopColor="#B85A5A" />
+              <stop offset="66%" stopColor="#3D8B6E" />
+              <stop offset="100%" stopColor="#C4841D" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
 
       <div
         onClick={(e) => e.stopPropagation()}
@@ -192,7 +238,7 @@ export function NewsletterPopup() {
                       backgroundImage: "linear-gradient(135deg, #C4841D 0%, #B85A5A 50%, #3D8B6E 100%)",
                     }}
                   >
-                    Email Me to Subscribe
+                    Join the Conversation
                   </button>
                 </form>
 

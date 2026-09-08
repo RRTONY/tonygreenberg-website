@@ -60,14 +60,14 @@ export default async function Home({ searchParams }: PageProps<"/">) {
       <ReturningVisitorHero />
       <HomeHero essayCount={posts.length} />
 
-      <section className="bg-secondary px-4 py-10 sm:px-6 sm:py-12">
+      <section className="bg-[#0E0C09] px-4 py-10 sm:px-6 sm:py-12">
         <div className="mx-auto max-w-4xl">
           <div className="mb-6 text-center">
-            <div className="mb-2 font-mono text-xs tracking-[0.2em] text-brand-gold/70 uppercase">
+            <div className="mb-2 font-mono text-xs tracking-[0.2em] text-brand-gold-light/70 uppercase">
               Four Doors
             </div>
-            <h2 className="font-heading text-2xl font-normal text-foreground sm:text-3xl">
-              Choose how you want to <em className="text-brand-gold not-italic">begin</em>
+            <h2 className="font-heading text-2xl font-normal text-white sm:text-3xl">
+              Choose how you want to <em className="text-brand-gold-light not-italic">begin</em>
             </h2>
           </div>
           <FourDoors

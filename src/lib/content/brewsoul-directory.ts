@@ -48,7 +48,7 @@ export const BREWSOUL_CATEGORIES: BrewSoulCategory[] = [
     emoji: "📊",
     desc: "Data-driven coffee research you can't find anywhere else.",
     pages: [
-      { label: "Browse All 103 Coffees", path: "/brewsoul/browse", desc: "Every coffee scored on quality, value, sourcing, and experience", icon: "☕" },
+      { label: "Browse All Coffees", path: "/brewsoul/browse", desc: "Every coffee scored on quality, value, sourcing, and experience", icon: "☕" },
       { label: "Chain Rankings", path: "/brewsoul/chains", desc: "100 coffee chains ranked S through F tier", icon: "🏪" },
       { label: "City Coffee Rankings", path: "/brewsoul/cities", desc: "Best coffee cities ranked worldwide", icon: "🌆" },
       { label: "Compare Coffees", path: "/brewsoul/compare", desc: "Side-by-side comparison tool", icon: "⚖️" },
@@ -89,7 +89,7 @@ export const BREWSOUL_CATEGORIES: BrewSoulCategory[] = [
       { label: "Blend Builder", path: "/brewsoul/blend-builder", desc: "Build your own custom coffee blend", icon: "🎨" },
       { label: "Limited Drops", path: "/brewsoul/drops", desc: "Limited edition and seasonal coffee drops", icon: "✨" },
       { label: "Coffee Experiences", path: "/brewsoul/experiences", desc: "Tastings and experiences worldwide", icon: "🗺️" },
-      { label: "My Collection", path: "/brewsoul/my-coffees", desc: "Your personal coffee journal and favorites", icon: "📓" },
+      { label: "My Collection", path: "/brewsoul/collection", desc: "Your personal coffee journal and favorites", icon: "📓" },
     ],
   },
   {

@@ -17,6 +17,7 @@ const THEME_BG: Record<string, string> = {
   kitchen: "bg-linear-to-br from-[#F5E8D0] via-[#EEDCB8] to-[#F0DEC0]",
   style: "bg-linear-to-br from-[#F5DCE8] via-[#EDCCD8] to-[#F0D4E0]",
   sake: "bg-linear-to-br from-[#F0E8DC] via-[#E8DCC8] to-[#EAE0D0]",
+  coffee: "bg-linear-to-br from-[#F0E4D4] via-[#E4D2B8] to-[#E8D8C0]",
   spirit: "bg-linear-to-br from-[#DCE8F0] via-[#C8DCE8] to-[#D0E0EC]",
   therapy: "bg-linear-to-br from-[#E8D8F0] via-[#DCC8E8] to-[#E0D0EC]",
   religion: "bg-linear-to-br from-[#F5ECD0] via-[#EDE0B8] to-[#F0E4C0]",

@@ -14,7 +14,7 @@ import { usePathname } from "next/navigation";
 // (still-Server-Component) header/footer through as `children` — Server
 // Components can be rendered as children of a Client Component like this
 // without themselves becoming client components.
-const SUPPRESSED_PREFIXES = ["/brewsoul", "/attention-theft"];
+const SUPPRESSED_PREFIXES = ["/brewsoul", "/attention-theft", "/kava"];
 
 export function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();

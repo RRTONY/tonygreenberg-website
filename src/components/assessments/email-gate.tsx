@@ -12,7 +12,16 @@ import { Loader2 } from "lucide-react";
 // assessment, not legacy's own `assessment-gate:<slug>` prefix (which
 // doesn't match any tag in that map). Same "don't block the unlock on API
 // failure" behavior as legacy — the subscribe call is best-effort, the
-// gate opens either way.
+// gate opens either way. **Real contrast bug found and fixed** (caught
+// while porting `/find-your-therapy`, but affects every assessment that
+// renders this shared component): legacy's cream text colors
+// (`rgba(232,228,220,*)`, meant for a dark page) were carried over
+// unchanged even though this component always renders directly on
+// `ThemedBackground`'s light pastel themes — `#E8E4DC` at 60% opacity on
+// a background like sake's `#F0E8DC` is two nearly-identical light colors,
+// functionally invisible text. Replaced with the same dark-ink palette
+// `AssessmentIntro` already uses on the same background (`#6B5B4F`
+// description, `#2C1810` input text, `#8B7B6B` muted footnote).
 export function EmailGate({ assessmentSlug, onUnlock }: { assessmentSlug: string; onUnlock: () => void }) {
   const [email, setEmail] = useState("");
   const [pending, setPending] = useState(false);
@@ -40,7 +49,7 @@ export function EmailGate({ assessmentSlug, onUnlock }: { assessmentSlug: string
         <h2 className="mb-4 font-heading text-[clamp(1.6rem,3vw,2rem)] leading-tight font-normal text-brand-gold-light">
           Enter your email to receive your full personalized report
         </h2>
-        <p className="mb-10 text-[1.05rem] leading-loose text-[#E8E4DC]/60">
+        <p className="mb-10 text-[1.05rem] leading-loose text-[#6B5B4F]">
           Your results are ready. We&apos;ll send your full analysis to your inbox along with actionable next steps.
         </p>
         <form onSubmit={handleSubmit} className="flex gap-2">
@@ -50,7 +59,7 @@ export function EmailGate({ assessmentSlug, onUnlock }: { assessmentSlug: string
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Your email address"
             required
-            className="min-h-12 flex-1 border border-brand-gold-light/30 bg-white/5 px-5 py-3.5 font-mono text-[0.88rem] text-[#E8E4DC] outline-none"
+            className="min-h-12 flex-1 border border-brand-gold-light/40 bg-white/50 px-5 py-3.5 font-mono text-[0.88rem] text-[#2C1810] outline-none placeholder:text-[#8B7B6B]"
           />
           <button
             type="submit"
@@ -61,7 +70,7 @@ export function EmailGate({ assessmentSlug, onUnlock }: { assessmentSlug: string
             {pending ? "Unlocking..." : "Get My Results"}
           </button>
         </form>
-        <p className="mt-6 font-mono text-[0.68rem] tracking-[0.05em] text-[#E8E4DC]/30">
+        <p className="mt-6 font-mono text-[0.68rem] tracking-[0.05em] text-[#8B7B6B]">
           We respect your privacy. Your results and email are never shared or sold.
         </p>
       </div>
