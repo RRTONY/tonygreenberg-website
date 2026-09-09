@@ -11,8 +11,7 @@ until DNS cutover — see `../NEXTJS-MIGRATION-TODO.md` for the full migration p
 - **Next.js 16** (App Router, Turbopack) + TypeScript
 - **Tailwind CSS v4** + **shadcn/ui** (Radix base) — same design-system convention used elsewhere on the team
 - **Sanity** — editorial content only: blog posts, page copy, SEO metadata, images. Studio embedded at `/studio`.
-- **Supabase** — auth/login, the publish-approval log, and chatbot conversation history
-- **Claude API** (`@anthropic-ai/sdk`) — FauxTony chatbot backend, called server-side only via a Route Handler
+- **Supabase** — auth/login
 - `next/image` for every image; no framer-motion — CSS transitions / `tailwindcss-animate` only
 
 Assessment/quiz logic, scoring, and encyclopedia data (BrewSoul, PRI, Kava) are **not** Sanity content —
@@ -25,7 +24,7 @@ before making changes.
 ## Getting started
 
 ```bash
-cp .env.local.example .env.local   # fill in Sanity/Supabase/Anthropic keys
+cp .env.local.example .env.local   # fill in Sanity/Supabase keys
 pnpm install
 pnpm dev
 ```

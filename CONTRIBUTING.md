@@ -47,6 +47,9 @@ nearest existing pattern in the repo rather than inventing a new one.
     non-trivial — see "Automated Enforcement" for what it does and doesn't catch.
 15. Never commit `.env.local` — it's gitignored. Add any new env var to `.env.local.example`
     (with no value) in the same change so the next person knows it exists.
+16. **No new dependency without discussing it with the user first.** This applies to `package.json`
+    additions of any kind — a new npm package, not just a heavy one. If a task seems to need one,
+    say so and what it's for before adding it, rather than installing it unilaterally.
 
 ## Next.js (App Router, v16)
 
@@ -183,13 +186,43 @@ something's clean:
     file's export used anywhere" rule configured here. Check with
     `grep -rl "from [\"']@/path/to/file" src` (excluding the file itself) before assuming
     something built for an earlier idea is still needed. Don't apply this to files explicitly
-    built ahead of a documented upcoming phase (e.g. `lib/supabase/service-role.ts` before
-    Phase 10's chatbot exists to use it) — those are intentional, not dead.
+    built ahead of a documented, currently-active upcoming phase — check
+    `NEXTJS-MIGRATION-TODO.md` before assuming that exception applies, and note that a *cancelled*
+    phase (see Phase 10/Phase 11's 2026-09-10 entries) is the opposite case: code built ahead of a
+    phase that then got cancelled should be removed, not kept "just in case."
   - **Content fidelity.** Nothing lints "this ported page's copy still matches the legacy
     source." That's a manual side-by-side check against the file named in `ROUTES-INVENTORY.md`.
   - **Zero-Manus-dependency.** Nothing automatically flags a new `/api/img/` or `manuscdn.com`
     reference — `grep -rn "manuscdn\|manus-storage\|/api/img/" src public` before considering a
     porting pass done.
+
+## Audit Methodology (a11y / performance / bundle size)
+
+When asked to fix a specific Lighthouse/PageSpeed/axe finding, or to "check accessibility" or
+"check performance" generally, don't stop at the one flagged page — sweep every route and fix the
+shared component causing it, not just the reported instance. A violation on `/` from a shared
+`site-header`/carousel/form component is usually reproduced on every other page that renders it.
+
+Two specific Next.js App Router pitfalls to check for, since they're easy to introduce silently:
+
+- **A shared metadata/layout helper calling `headers()` or `cookies()` forces the *entire site*
+  dynamic**, even pages with zero personalization — killing static rendering, CDN caching, and
+  bfcache. First-pass check: run `pnpm build` and look at the route table — if most/all routes
+  show `ƒ (Dynamic)` instead of `○ (Static)`, look for a Dynamic API call in whatever
+  `generateMetadata`/canonical-URL helper every page shares. (This repo does have real, intentional
+  per-request cookie reads — e.g. `returning-visitor-hero.tsx`, `/self-portrait` — so a dynamic
+  route isn't automatically a bug; confirm it's actually reading personalized state before "fixing"
+  it away.)
+- **A barrel `index.ts` re-export can leak a heavy dependency (Formik, a crypto polyfill, etc.)
+  into every page's initial JS**, even pages that never use the feature that needs it, if
+  `layout.tsx` or another root-level import pulls a component through that barrel instead of
+  importing it directly. If bundle size looks off, check what a shared barrel pulls in
+  transitively before assuming the size is legitimate.
+- **Never trust a single local Lighthouse run's Performance score** — CPU contention on a dev
+  machine can swing the same unchanged build's score by 10-15 points across back-to-back runs.
+  Test against a real production build (`pnpm build && pnpm start`, never `pnpm dev` — dev mode is
+  always heavier and produces misleading "unused JavaScript"/bundle-size warnings) or, better,
+  against the deployed Netlify site/deploy preview.
 
 ## SEO
 
