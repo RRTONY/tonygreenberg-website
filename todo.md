@@ -65,15 +65,15 @@
 - [x] Port the verified public `/ecosystem-map` reference experience using the existing cookie-backed Journey Tracker, current Next.js routes, and focused tests.
 - [x] Correct the visually detected Ecosystem Map phase-header style mapping and revalidate its dark editorial presentation.
 - [x] Rebuild the safe public `/skippy` map using verified current destinations, existing icons, and managed cookie-backed progress without legacy browser storage or stale workflow links.
-- [ ] Create a complete live-site-to-Next.js public route, style, component, image, link, and interaction parity inventory with an implementation priority for each verified gap.
+- [x] Create a complete live-site-to-Next.js public route, style, component, image, link, and interaction parity inventory with an implementation priority for each verified gap.
 - [ ] Implement all safe, self-contained public parity gaps identified by the full inventory using existing Next.js pages, shared components, icons, `next/image`, and `next/link`.
-- [ ] Document backend-dependent, authenticated, payment, or external-service legacy gaps separately rather than copying unsafe or unavailable production workflows.
+- [x] Document backend-dependent, authenticated, payment, or external-service legacy gaps separately rather than copying unsafe or unavailable production workflows.
 - [ ] Validate every newly restored public route at desktop and mobile breakpoints, including media loading, navigation, and cookie-backed interactions.
 - [ ] Compare every reference-repository image and media source with active Next.js usage; reuse verified existing images through `next/image` before generating any replacement asset.
 - [ ] Create and document matching replacement image assets only where a verified required visual is unavailable from the reference repository or its live source.
 - [x] Trace and replace the remaining active Sanity CDN image URLs with verified reference-repository, live-site, or managed assets without changing page semantics.
 - [x] Restore the verified free `/subscribe` newsletter route using the active server-backed newsletter endpoint, while keeping legacy paid Stripe offers explicitly deferred.
-- [ ] Remove the obsolete Netlify build configuration and adapter dependency so the managed Next.js standalone deployment cannot be classified as a legacy static publish.
+- [x] Remove the obsolete Netlify build configuration and adapter dependency so the managed Next.js standalone deployment cannot be classified as a legacy static publish.
 - [ ] Re-run a fresh deployment after the Netlify configuration removal and verify that it no longer uses a legacy static-publish path or stale site binding.
 - [ ] Capture public-domain evidence that the active route set and managed-media markup match the latest Next.js standalone revision.
 - [ ] Continue page, style, image, and interaction parity work using only the public live site and `RRTONY/tonygreenberg` reference evidence; document platform-domain staleness separately without requesting account control.
@@ -96,3 +96,4 @@
 - [x] Replace confirmed raw disclosure and comparison arrow controls in PRI and psychedelic-readiness interfaces with existing Lucide chevrons and focused regression coverage.
 - [x] Replace the Facilitator Index full-instrument disclosure arrow with a Lucide chevron and extend its focused icon-policy test.
 - [x] Replace confirmed raw external-link arrows and subscription-status checkmarks in shared and public-page UI with existing semantic Lucide or shared icon components.
+- [x] Replace SoulScore dimension, entity, diagnostic, and gig-layer Unicode icon data with typed Lucide components and focused regression coverage.

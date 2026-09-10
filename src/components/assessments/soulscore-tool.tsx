@@ -3,7 +3,15 @@
 import { BackIcon, ForwardIcon } from "@/components/ui/inline-icons";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { Activity, BarChart3, CircleDot, Link2, type LucideIcon } from "lucide-react";
+import {
+  Activity,
+  AlertTriangle,
+  BarChart3,
+  CircleDot,
+  Link2,
+  Sparkles,
+  type LucideIcon,
+} from "lucide-react";
 import { ThemedBackground } from "@/components/assessments/themed-background";
 import { WhatsNext } from "@/components/assessments/whats-next";
 import { AssessmentRadarChart } from "@/components/assessments/radar-chart";
@@ -421,19 +429,24 @@ function MeasureTab({
         <div className="mb-1 basis-full">
           <span className={MONO_LABEL}>Entity Type</span>
         </div>
-        {ENTITY_TYPES.map((e) => (
-          <button
-            key={e.id}
-            onClick={() => setEntityType(e.id)}
-            className={`rounded-md border px-3 py-1.5 font-mono text-[0.65rem] transition-colors ${
-              entityType === e.id
-                ? `${PALETTE.gold.border} ${PALETTE.gold.bgSoft} ${PALETTE.gold.text}`
-                : "border-[#E8E4DC] bg-white text-[#666]"
-            }`}
-          >
-            {e.icon} {e.label}
-          </button>
-        ))}
+        {ENTITY_TYPES.map((e) => {
+          const Icon = e.icon;
+
+          return (
+            <button
+              key={e.id}
+              onClick={() => setEntityType(e.id)}
+              className={`inline-flex items-center gap-1.5 rounded-md border px-3 py-1.5 font-mono text-[0.65rem] transition-colors ${
+                entityType === e.id
+                  ? `${PALETTE.gold.border} ${PALETTE.gold.bgSoft} ${PALETTE.gold.text}`
+                  : "border-[#E8E4DC] bg-white text-[#666]"
+              }`}
+            >
+              <Icon aria-hidden="true" className="size-3.5" />
+              {e.label}
+            </button>
+          );
+        })}
         <input
           type="text"
           placeholder="Entity name (optional)"
@@ -504,11 +517,12 @@ function MeasureTab({
         <div className={`mb-4 ${MONO_LABEL}`}>{DIMENSIONS.length} Dimensions</div>
         {DIMENSIONS.map((d, i) => {
           const c = PALETTE[d.colorKey];
+          const Icon = d.icon;
           return (
             <div key={d.id} className="mb-4">
               <div className="mb-1 flex items-baseline justify-between">
-                <span className="text-[0.85rem] font-semibold text-[#0A0A10]">
-                  {d.icon} {d.label}
+                <span className="inline-flex items-center gap-1.5 text-[0.85rem] font-semibold text-[#0A0A10]">
+                  <Icon aria-hidden="true" className="size-3.5" /> {d.label}
                 </span>
                 <span className={`font-mono text-[0.75rem] font-bold ${c.text}`}>
                   <AnimNum value={scores[i]} decimals={0} />
@@ -537,42 +551,54 @@ function MeasureTab({
         <div className={`mb-3 ${MONO_LABEL}`}>Auto-Diagnosis</div>
         {diagnosis.weak.length > 0 && (
           <div className="mb-3">
-            <div className={`mb-1.5 font-mono text-[0.65rem] font-bold ${PALETTE.red.text}`}>
-              ⚠ BELOW THRESHOLD
+            <div
+              className={`mb-1.5 flex items-center gap-1.5 font-mono text-[0.65rem] font-bold ${PALETTE.red.text}`}
+            >
+              <AlertTriangle aria-hidden="true" className="size-3.5" /> BELOW THRESHOLD
             </div>
-            {diagnosis.weak.map((w) => (
-              <div
-                key={w.dim.id}
-                className={`mb-1 flex justify-between rounded-sm ${PALETTE.red.bgSoft} px-2 py-1.5 text-[0.8rem]`}
-              >
-                <span>
-                  {w.dim.icon} {w.dim.label}
-                </span>
-                <span className={`font-mono font-bold ${PALETTE.red.text}`}>
-                  {w.val.toFixed(0)}
-                </span>
-              </div>
-            ))}
+            {diagnosis.weak.map((w) => {
+              const Icon = w.dim.icon;
+
+              return (
+                <div
+                  key={w.dim.id}
+                  className={`mb-1 flex justify-between rounded-sm ${PALETTE.red.bgSoft} px-2 py-1.5 text-[0.8rem]`}
+                >
+                  <span className="inline-flex items-center gap-1.5">
+                    <Icon aria-hidden="true" className="size-3.5" /> {w.dim.label}
+                  </span>
+                  <span className={`font-mono font-bold ${PALETTE.red.text}`}>
+                    {w.val.toFixed(0)}
+                  </span>
+                </div>
+              );
+            })}
           </div>
         )}
         {diagnosis.strong.length > 0 && (
           <div>
-            <div className={`mb-1.5 font-mono text-[0.65rem] font-bold ${PALETTE.green.text}`}>
-              ✦ STRENGTHS
+            <div
+              className={`mb-1.5 flex items-center gap-1.5 font-mono text-[0.65rem] font-bold ${PALETTE.green.text}`}
+            >
+              <Sparkles aria-hidden="true" className="size-3.5" /> STRENGTHS
             </div>
-            {diagnosis.strong.map((s) => (
-              <div
-                key={s.dim.id}
-                className={`mb-1 flex justify-between rounded-sm ${PALETTE.green.bgSoft} px-2 py-1.5 text-[0.8rem]`}
-              >
-                <span>
-                  {s.dim.icon} {s.dim.label}
-                </span>
-                <span className={`font-mono font-bold ${PALETTE.green.text}`}>
-                  {s.val.toFixed(0)}
-                </span>
-              </div>
-            ))}
+            {diagnosis.strong.map((s) => {
+              const Icon = s.dim.icon;
+
+              return (
+                <div
+                  key={s.dim.id}
+                  className={`mb-1 flex justify-between rounded-sm ${PALETTE.green.bgSoft} px-2 py-1.5 text-[0.8rem]`}
+                >
+                  <span className="inline-flex items-center gap-1.5">
+                    <Icon aria-hidden="true" className="size-3.5" /> {s.dim.label}
+                  </span>
+                  <span className={`font-mono font-bold ${PALETTE.green.text}`}>
+                    {s.val.toFixed(0)}
+                  </span>
+                </div>
+              );
+            })}
           </div>
         )}
         {diagnosis.weak.length === 0 && diagnosis.strong.length === 0 && (
@@ -990,13 +1016,14 @@ function GigTab() {
         <div className="flex flex-col">
           {GIG_LAYERS.map((l, i) => {
             const c = PALETTE[l.colorKey];
+            const Icon = l.icon;
             return (
               <div
                 key={l.name}
                 className={`border-l-4 ${c.borderL} ${c.bgSoft} px-4 py-3 ${i < GIG_LAYERS.length - 1 ? "border-b border-[#E8E4DC]" : ""}`}
               >
-                <div className="text-[0.9rem] font-bold text-[#0A0A10]">
-                  {l.icon} {l.name}
+                <div className="inline-flex items-center gap-1.5 text-[0.9rem] font-bold text-[#0A0A10]">
+                  <Icon aria-hidden="true" className="size-4" /> {l.name}
                 </div>
                 <div className="mt-0.5 text-[0.8rem] text-[#666]">{l.desc}</div>
               </div>

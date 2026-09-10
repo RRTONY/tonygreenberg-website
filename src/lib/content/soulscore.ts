@@ -34,6 +34,29 @@
 // Tailwind's scanner finds them same as `c.cardBorderHover` does elsewhere
 // in this codebase.
 
+import type { LucideIcon } from "lucide-react";
+import {
+  BadgeCheck,
+  BarChart3,
+  Banknote,
+  Building2,
+  CircleDot,
+  Coins,
+  Crown,
+  Dna,
+  Gem,
+  Globe2,
+  HandHeart,
+  House,
+  Landmark,
+  Link2,
+  Recycle,
+  Scale,
+  UserRound,
+  Users,
+  Zap,
+} from "lucide-react";
+
 export type ColorKey =
   | "gold"
   | "goldLight"
@@ -193,7 +216,7 @@ export interface Dimension {
   id: number;
   label: string;
   shortLabel: string;
-  icon: string;
+  icon: LucideIcon;
   colorKey: ColorKey;
   weight: number;
   max: number;
@@ -206,7 +229,7 @@ export const DIMENSIONS: Dimension[] = [
     id: 1,
     label: "Consciousness",
     shortLabel: "CONSC",
-    icon: "◉",
+    icon: CircleDot,
     colorKey: "gold",
     weight: 12,
     max: 1000,
@@ -217,7 +240,7 @@ export const DIMENSIONS: Dimension[] = [
     id: 2,
     label: "Carbon & Climate",
     shortLabel: "CARBN",
-    icon: "🌍",
+    icon: Globe2,
     colorKey: "teal",
     weight: 10,
     max: 100,
@@ -228,7 +251,7 @@ export const DIMENSIONS: Dimension[] = [
     id: 3,
     label: "Labor Justice",
     shortLabel: "LABOR",
-    icon: "⚖",
+    icon: Scale,
     colorKey: "red",
     weight: 10,
     max: 100,
@@ -239,7 +262,7 @@ export const DIMENSIONS: Dimension[] = [
     id: 4,
     label: "Supply Chain",
     shortLabel: "SUPLC",
-    icon: "🔗",
+    icon: Link2,
     colorKey: "green",
     weight: 10,
     max: 100,
@@ -250,7 +273,7 @@ export const DIMENSIONS: Dimension[] = [
     id: 5,
     label: "Cultural Preservation",
     shortLabel: "CULTR",
-    icon: "🏛",
+    icon: Landmark,
     colorKey: "purple",
     weight: 8,
     max: 100,
@@ -261,7 +284,7 @@ export const DIMENSIONS: Dimension[] = [
     id: 6,
     label: "Community Multiplier",
     shortLabel: "COMTY",
-    icon: "🏘",
+    icon: House,
     colorKey: "blue",
     weight: 8,
     max: 100,
@@ -272,7 +295,7 @@ export const DIMENSIONS: Dimension[] = [
     id: 7,
     label: "Financial Justice",
     shortLabel: "FINJT",
-    icon: "💎",
+    icon: Gem,
     colorKey: "goldLight",
     weight: 8,
     max: 100,
@@ -283,7 +306,7 @@ export const DIMENSIONS: Dimension[] = [
     id: 8,
     label: "Governance & Trust",
     shortLabel: "GOVNT",
-    icon: "🏗",
+    icon: Building2,
     colorKey: "indigo",
     weight: 7,
     max: 100,
@@ -294,7 +317,7 @@ export const DIMENSIONS: Dimension[] = [
     id: 9,
     label: "Resource Circularity",
     shortLabel: "RSCRC",
-    icon: "♻",
+    icon: Recycle,
     colorKey: "emerald",
     weight: 7,
     max: 100,
@@ -305,7 +328,7 @@ export const DIMENSIONS: Dimension[] = [
     id: 10,
     label: "Human Dignity",
     shortLabel: "DGITY",
-    icon: "✊",
+    icon: HandHeart,
     colorKey: "orange",
     weight: 7,
     max: 100,
@@ -316,7 +339,7 @@ export const DIMENSIONS: Dimension[] = [
     id: 11,
     label: "Regenerative Innovation",
     shortLabel: "REGEN",
-    icon: "🧬",
+    icon: Dna,
     colorKey: "cyan",
     weight: 7,
     max: 100,
@@ -327,7 +350,7 @@ export const DIMENSIONS: Dimension[] = [
     id: 12,
     label: "Radical Transparency",
     shortLabel: "TRANS",
-    icon: "◈",
+    icon: BadgeCheck,
     colorKey: "amber",
     weight: 6,
     max: 100,
@@ -338,15 +361,15 @@ export const DIMENSIONS: Dimension[] = [
 
 export const TOTAL_WEIGHT = DIMENSIONS.reduce((s, d) => s + d.weight, 0);
 
-export const ENTITY_TYPES = [
-  { id: "individual", label: "Individual", icon: "👤" },
-  { id: "gig-worker", label: "Gig Worker", icon: "⚡" },
-  { id: "team", label: "Team", icon: "👥" },
-  { id: "company", label: "Company", icon: "🏢" },
-  { id: "ceo", label: "CEO", icon: "👑" },
-  { id: "supply-chain", label: "Supply Chain", icon: "🔗" },
-  { id: "fund", label: "Fund", icon: "📊" },
-  { id: "token", label: "Tokenized Asset", icon: "🪙" },
+export const ENTITY_TYPES: { id: string; label: string; icon: LucideIcon }[] = [
+  { id: "individual", label: "Individual", icon: UserRound },
+  { id: "gig-worker", label: "Gig Worker", icon: Zap },
+  { id: "team", label: "Team", icon: Users },
+  { id: "company", label: "Company", icon: Building2 },
+  { id: "ceo", label: "CEO", icon: Crown },
+  { id: "supply-chain", label: "Supply Chain", icon: Link2 },
+  { id: "fund", label: "Fund", icon: BarChart3 },
+  { id: "token", label: "Tokenized Asset", icon: Coins },
 ];
 
 export interface BenchmarkEntity {
@@ -550,7 +573,7 @@ export interface GigLayer {
   name: string;
   desc: string;
   colorKey: ColorKey;
-  icon: string;
+  icon: LucideIcon;
 }
 
 export const GIG_LAYERS: GigLayer[] = [
@@ -558,31 +581,31 @@ export const GIG_LAYERS: GigLayer[] = [
     name: "DAO Governance",
     desc: "Workers vote on impact allocation",
     colorKey: "gold",
-    icon: "🏛",
+    icon: Landmark,
   },
   {
     name: "Impact Tokens",
     desc: "ABIT per verified outcome, appreciates with underlying asset",
     colorKey: "amber",
-    icon: "🪙",
+    icon: Coins,
   },
   {
     name: "Impact Attribution",
     desc: "Every task → outcome chain → individual SoulScore",
     colorKey: "cyan",
-    icon: "📊",
+    icon: BarChart3,
   },
   {
     name: "Dignity Infrastructure",
     desc: "Portable credentials, benefits, mental health",
     colorKey: "purple",
-    icon: "✊",
+    icon: HandHeart,
   },
   {
     name: "Fair Compensation",
     desc: "Market rate floor, zero extraction",
     colorKey: "green",
-    icon: "💰",
+    icon: Banknote,
   },
 ];
 
