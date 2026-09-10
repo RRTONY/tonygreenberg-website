@@ -64,6 +64,7 @@ function StatusBadge({ status }: { status: "live" | "coming" }) {
 function LinkCard({ item }: { item: FindMyLink }) {
   const isLive = item.status === "live";
   const isExternal = item.href.startsWith("http");
+  const Icon = item.Icon;
 
   const card = (
     <div
@@ -75,10 +76,10 @@ function LinkCard({ item }: { item: FindMyLink }) {
       style={{ borderLeftColor: item.color }}
     >
       <span
-        className="flex size-10 shrink-0 items-center justify-center rounded-full text-xl"
+        className="flex size-10 shrink-0 items-center justify-center rounded-full"
         style={{ backgroundColor: `${item.color}15` }}
       >
-        {item.icon}
+        <Icon aria-hidden="true" className="size-5" />
       </span>
       <div className="min-w-0 flex-1">
         <div className="font-heading text-[1.05rem] leading-tight font-medium text-foreground">
