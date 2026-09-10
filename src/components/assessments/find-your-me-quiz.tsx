@@ -7,9 +7,11 @@ import {
   ArrowLeft,
   ArrowRight,
   BookOpen,
+  Circle,
   CircleDot,
   Clipboard,
   Mail,
+  Search,
   Share2,
   UsersRound,
   Wrench,
@@ -306,56 +308,61 @@ export function FindYourMeQuiz({ articleTitles }: { articleTitles: Record<string
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2">
-              {WOUND_CARDS.map((item) => (
-                <div
-                  key={item.wound}
-                  className="rounded-2xl border border-brand-gold-light/12 bg-[#0A0A10]/60 p-6 backdrop-blur-xl"
-                  style={{ borderLeft: `2px solid ${item.color}` }}
-                >
-                  <div className="flex items-start gap-4">
-                    <span className="mt-0.5 shrink-0 text-2xl" style={{ color: item.color }}>
-                      {item.icon}
-                    </span>
-                    <div>
-                      <div className="mb-1 text-base font-semibold text-[#F5F0E0]/90">
-                        {item.wound}
-                      </div>
-                      <div className="text-sm leading-relaxed text-[#F5F0E0]/45">
-                        {item.subtext}
+              {WOUND_CARDS.map((item) => {
+                const WoundIcon = item.Icon;
+
+                return (
+                  <div
+                    key={item.wound}
+                    className="rounded-2xl border border-brand-gold-light/12 bg-[#0A0A10]/60 p-6 backdrop-blur-xl"
+                    style={{ borderLeft: `2px solid ${item.color}` }}
+                  >
+                    <div className="flex items-start gap-4">
+                      <WoundIcon
+                        aria-hidden="true"
+                        className="mt-0.5 size-6 shrink-0"
+                        style={{ color: item.color }}
+                      />
+                      <div>
+                        <div className="mb-1 text-base font-semibold text-[#F5F0E0]/90">
+                          {item.wound}
+                        </div>
+                        <div className="text-sm leading-relaxed text-[#F5F0E0]/45">
+                          {item.subtext}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="mt-4 flex flex-col gap-2 pl-10">
-                    {item.links.map((link) => {
-                      const TypeIcon = TYPE_ICON[link.type] ?? CircleDot;
-                      return (
-                        <a
-                          key={link.label}
-                          href={link.path}
-                          target={link.path.startsWith("http") ? "_blank" : undefined}
-                          rel={link.path.startsWith("http") ? "noopener noreferrer" : undefined}
-                          className="flex items-center gap-2 font-mono text-[0.75rem] tracking-[0.1em] transition-opacity hover:opacity-70"
-                          style={{ color: item.color }}
+                    <div className="mt-4 flex flex-col gap-2 pl-10">
+                      {item.links.map((link) => {
+                        const TypeIcon = TYPE_ICON[link.type] ?? CircleDot;
+                        return (
+                          <a
+                            key={link.label}
+                            href={link.path}
+                            target={link.path.startsWith("http") ? "_blank" : undefined}
+                            rel={link.path.startsWith("http") ? "noopener noreferrer" : undefined}
+                            className="flex items-center gap-2 font-mono text-[0.75rem] tracking-[0.1em] transition-opacity hover:opacity-70"
+                            style={{ color: item.color }}
+                          >
+                            <TypeIcon aria-hidden="true" className="size-3.5" />
+                            {link.label}
+                            <ArrowRight aria-hidden="true" className="size-3.5" />
+                          </a>
+                        );
+                      })}
+                      {WOUND_TO_CATEGORY[item.wound] && (
+                        <button
+                          onClick={() => scrollToCategory(WOUND_TO_CATEGORY[item.wound])}
+                          className="mt-1 flex items-center gap-2 py-1 font-mono text-[0.7rem] tracking-[0.1em] text-brand-gold-light/50 transition-colors hover:text-brand-gold-light"
                         >
-                          <TypeIcon aria-hidden="true" className="size-3.5" />
-                          {link.label}
-                          <ArrowRight aria-hidden="true" className="size-3.5" />
-                        </a>
-                      );
-                    })}
-                    {WOUND_TO_CATEGORY[item.wound] && (
-                      <button
-                        onClick={() => scrollToCategory(WOUND_TO_CATEGORY[item.wound])}
-                        className="mt-1 flex items-center gap-2 py-1 font-mono text-[0.7rem] tracking-[0.1em] text-brand-gold-light/50 transition-colors hover:text-brand-gold-light"
-                      >
-                        <span className="text-[0.6rem]">▼</span>
-                        Browse {WOUND_TO_CATEGORY[item.wound]}
-                        <ArrowDown aria-hidden="true" className="size-3.5" />
-                      </button>
-                    )}
+                          <ArrowDown aria-hidden="true" className="size-3.5" />
+                          Browse {WOUND_TO_CATEGORY[item.wound]}
+                        </button>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
@@ -381,23 +388,31 @@ export function FindYourMeQuiz({ articleTitles }: { articleTitles: Record<string
               </p>
 
               <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-                {(["all", "live", "coming"] as const).map((f) => (
-                  <button
-                    key={f}
-                    onClick={() => setDirectoryFilter(f)}
-                    className={`rounded-full border px-5 py-1.5 font-mono text-[0.65rem] tracking-[0.15em] uppercase transition-colors ${
-                      directoryFilter === f
-                        ? "border-brand-gold-light/40 bg-brand-gold-light/15 text-brand-gold"
-                        : "border-brand-gold-light/10 bg-[#0A0A10]/30 text-brand-gold/50"
-                    }`}
-                  >
-                    {f === "all" ? "All" : f === "live" ? "● Live" : "○ Coming"}
-                  </button>
-                ))}
+                {(["all", "live", "coming"] as const).map((f) => {
+                  const StatusIcon = f === "live" ? CircleDot : f === "coming" ? Circle : null;
+
+                  return (
+                    <button
+                      key={f}
+                      onClick={() => setDirectoryFilter(f)}
+                      className={`rounded-full border px-5 py-1.5 font-mono text-[0.65rem] tracking-[0.15em] uppercase transition-colors ${
+                        directoryFilter === f
+                          ? "border-brand-gold-light/40 bg-brand-gold-light/15 text-brand-gold"
+                          : "border-brand-gold-light/10 bg-[#0A0A10]/30 text-brand-gold/50"
+                      }`}
+                    >
+                      <span className="inline-flex items-center gap-1.5">
+                        {StatusIcon && <StatusIcon aria-hidden="true" className="size-3" />}
+                        {f === "all" ? "All" : f === "live" ? "Live" : "Coming"}
+                      </span>
+                    </button>
+                  );
+                })}
                 <div className="relative">
-                  <span className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-xs text-brand-gold/30">
-                    ⌕
-                  </span>
+                  <Search
+                    aria-hidden="true"
+                    className="pointer-events-none absolute top-1/2 left-3 size-3.5 -translate-y-1/2 text-brand-gold/30"
+                  />
                   <input
                     type="text"
                     placeholder="Search experiences..."

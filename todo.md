@@ -89,3 +89,4 @@
 - [x] Remove unsupported hard-coded coffee rating labels and replace disclosure symbols with Lucide controls on the BrewSoul biodynamic roaster page.
 - [x] Replace the remaining BrewSoul disclosure, status, and decorative Unicode UI symbols with existing Lucide icons across the cities, decaf, health, chain, coffee-card, email-capture, and First Sip surfaces.
 - [x] Replace the remaining BrewSoul biodynamic-farms disclosure arrows with Lucide chevrons and extend the BrewSoul icon-policy regression coverage.
+- [x] Replace Find Your Me directory Unicode card and status symbols with existing Lucide components, preserving all current assessment destinations and status logic.

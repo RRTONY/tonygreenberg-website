@@ -38,6 +38,8 @@
 // only worked with a mouse, so on a touch device the links were
 // unreachable — the port always shows the links instead, a real
 // accessibility fix, not a decoration removed.
+import type { LucideIcon } from "lucide-react";
+import { Circle, Compass, Flower2, Heart, House, Sun, UsersRound, Zap } from "lucide-react";
 
 export type Dimension = "relationships" | "purpose" | "body" | "truth" | "tribe" | "consciousness";
 
@@ -496,7 +498,7 @@ export const WOUND_TO_CATEGORY: Record<string, string> = {
 export interface WoundCard {
   wound: string;
   subtext: string;
-  icon: string;
+  Icon: LucideIcon;
   color: string;
   links: { label: string; path: string; type: "assessment" | "tool" | "community" | "reading" }[];
 }
@@ -505,7 +507,7 @@ export const WOUND_CARDS: WoundCard[] = [
   {
     wound: "I keep choosing the wrong people",
     subtext: "Relationships that drain instead of sustain",
-    icon: "♡",
+    Icon: Heart,
     color: "#C97B7B",
     links: [
       {
@@ -520,7 +522,7 @@ export const WOUND_CARDS: WoundCard[] = [
   {
     wound: "I don't know what I'm building anymore",
     subtext: "Purpose that went missing somewhere around 35",
-    icon: "✶",
+    Icon: Compass,
     color: "#8B6914",
     links: [
       { label: "Find Your Purpose", path: "/assessments/dharma-finder", type: "assessment" },
@@ -531,7 +533,7 @@ export const WOUND_CARDS: WoundCard[] = [
   {
     wound: "My body stopped listening to me",
     subtext: "Health as negotiation instead of partnership",
-    icon: "○",
+    Icon: Circle,
     color: "#7BC9A4",
     links: [
       {
@@ -546,7 +548,7 @@ export const WOUND_CARDS: WoundCard[] = [
   {
     wound: "I see what's broken and nobody cares",
     subtext: "Truth-telling in a world that rewards silence",
-    icon: "⚡",
+    Icon: Zap,
     color: "#E8C97B",
     links: [
       { label: "Find Your Purpose", path: "/assessments/dharma-finder", type: "assessment" },
@@ -561,7 +563,7 @@ export const WOUND_CARDS: WoundCard[] = [
   {
     wound: "I can't find my people",
     subtext: "Surrounded by humans, starving for tribe",
-    icon: "◦",
+    Icon: UsersRound,
     color: "#9B8EC9",
     links: [
       { label: "Find Your Score", path: "/assessments/grant-study", type: "assessment" },
@@ -576,7 +578,7 @@ export const WOUND_CARDS: WoundCard[] = [
   {
     wound: "I've glimpsed something bigger and can't unsee it",
     subtext: "Consciousness expanding faster than your life can hold",
-    icon: "☉",
+    Icon: Sun,
     color: "#7BA8C9",
     links: [
       { label: "Find Your Level", path: "/assessments/consciousness-scale", type: "assessment" },
@@ -587,7 +589,7 @@ export const WOUND_CARDS: WoundCard[] = [
   {
     wound: "I'm performing wellness instead of feeling it",
     subtext: "The green juice is a lie and you know it",
-    icon: "❀",
+    Icon: Flower2,
     color: "#A4C97B",
     links: [
       {
@@ -602,7 +604,7 @@ export const WOUND_CARDS: WoundCard[] = [
   {
     wound: "I have the resources but not the impact",
     subtext: "Capital without consciousness is just noise",
-    icon: "⌂",
+    Icon: House,
     color: "#C9A87B",
     links: [
       {
