@@ -3,6 +3,7 @@
 import { ForwardIcon } from "@/components/ui/inline-icons";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import { Copy, Link2, Mail, Share2, type LucideIcon } from "lucide-react";
 import { ThemedBackground } from "@/components/assessments/themed-background";
 import { AssessmentIntro } from "@/components/assessments/assessment-intro";
 import { EmailGate } from "@/components/assessments/email-gate";
@@ -1141,18 +1142,21 @@ export function FindYourTherapyQuiz() {
             The people who need this most won&apos;t search for it. Send it to them.
           </p>
           <div className="flex flex-wrap justify-center gap-3">
-            {[
-              { platform: "twitter", label: "𝕏" },
-              { platform: "linkedin", label: "in" },
-              { platform: "email", label: "✉" },
-              { platform: "copy", label: "⎘" },
-            ].map(({ platform, label }) => (
+            {(
+              [
+                { platform: "twitter", label: "Share on X", icon: Share2 },
+                { platform: "linkedin", label: "Share on LinkedIn", icon: Link2 },
+                { platform: "email", label: "Share by email", icon: Mail },
+                { platform: "copy", label: "Copy link", icon: Copy },
+              ] satisfies { platform: string; label: string; icon: LucideIcon }[]
+            ).map(({ platform, label, icon: Icon }) => (
               <button
                 key={platform}
                 onClick={() => handleShare(platform)}
+                aria-label={label}
                 className="flex size-11 items-center justify-center rounded-full border border-brand-gold/20 bg-brand-gold-light/10 text-base text-brand-gold-light transition-colors hover:bg-brand-gold-light/25"
               >
-                {label}
+                <Icon aria-hidden="true" className="size-4" />
               </button>
             ))}
           </div>

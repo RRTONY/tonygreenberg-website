@@ -1505,14 +1505,15 @@ export function FindYourPeptideQuiz() {
         </div>
 
         <div className="mb-10 rounded-lg border border-red-500/15 bg-red-500/5 p-5">
-          <h3 className="mb-3 font-mono text-[0.7rem] tracking-[0.15em] text-red-800/70 uppercase">
-            ⚠️ Contraindications &amp; Red Flags
+          <h3 className="mb-3 flex items-center gap-1.5 font-mono text-[0.7rem] tracking-[0.15em] text-red-800/70 uppercase">
+            <TriangleAlert aria-hidden="true" className="size-3.5" /> Contraindications &amp; Red
+            Flags
           </h3>
-          {profile.redFlags.map((flag) => (
-            <p key={flag} className="mb-1 text-[0.85rem] leading-relaxed text-red-900/70">
-              • {flag}
-            </p>
-          ))}
+          <ul className="space-y-1 text-[0.85rem] leading-relaxed text-red-900/70">
+            {profile.redFlags.map((flag) => (
+              <li key={flag}>{flag}</li>
+            ))}
+          </ul>
         </div>
 
         <div className="mb-10 text-center">
