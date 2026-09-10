@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import { Coffee } from "lucide-react";
 import { BREWSOUL_COFFEES } from "@/lib/content/brewsoul-coffees";
 import { computeQPR } from "@/lib/intelligence-engine/scoring";
 import { CoffeeCard } from "@/components/brewsoul/coffee-card";
@@ -235,7 +236,7 @@ export function BrowseExplorer() {
           </div>
           {filtered.length === 0 && (
             <div className="mx-auto mt-8 max-w-md rounded-2xl border border-[#8B6914]/12 bg-white/60 p-10 text-center backdrop-blur-md">
-              <div className="mb-3 text-3xl">☕</div>
+              <Coffee aria-hidden="true" className="mx-auto mb-3 size-8 text-[#8B6914]" />
               <p className="mb-1.5 font-heading text-lg text-[#2C1810]">
                 No coffees match your filters.
               </p>

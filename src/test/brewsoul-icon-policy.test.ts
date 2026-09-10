@@ -14,6 +14,8 @@ const completedSources = [
   "src/components/brewsoul/first-sip-email-capture.tsx",
   "src/components/brewsoul/chains-explorer.tsx",
   "src/app/brewsoul/first-sip/page.tsx",
+  "src/app/brewsoul/esoteric/page.tsx",
+  "src/components/brewsoul/browse-explorer.tsx",
 ];
 
 describe("BrewSoul interface icon policy", () => {
@@ -22,7 +24,7 @@ describe("BrewSoul interface icon policy", () => {
       const source = fs.readFileSync(path.join(process.cwd(), relativePath), "utf8");
 
       expect(source, relativePath).toContain('from "lucide-react"');
-      expect(source, relativePath).not.toMatch(/[✦★✓▲▼]/u);
+      expect(source, relativePath).not.toMatch(/[✦★✓▲▼⚠☕]/u);
     }
   });
 });

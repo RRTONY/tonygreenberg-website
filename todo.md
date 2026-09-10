@@ -103,3 +103,4 @@
 - [x] Replace confirmed rendered assessment warning and contact-status glyphs with semantic Lucide components and focused regression coverage.
 - [x] Replace Amplifier and Diamond Cut call-to-action raw arrows with the shared semantic forward icon and focused regression coverage.
 - [x] Replace Walk Through deep-link call-to-action raw arrows with the shared semantic forward icon and focused regression coverage.
+- [x] Replace BrewSoul caution-note and browse empty-state Unicode markers with semantic Lucide components and focused regression coverage.

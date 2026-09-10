@@ -1,5 +1,6 @@
 import { ForwardIcon } from "@/components/ui/inline-icons";
 import type { Metadata } from "next";
+import { TriangleAlert } from "lucide-react";
 import {
   ESOTERIC_COFFEES,
   EXPLORER_SCORES,
@@ -132,7 +133,10 @@ function CoffeeCard({ coffee }: { coffee: EsotericCoffee }) {
       )}
 
       {coffee.note && (
-        <p className="mt-3 text-[13px] text-[#6b5a4e] italic opacity-80">⚠ {coffee.note}</p>
+        <p className="mt-3 flex items-start gap-1.5 text-[13px] text-[#6b5a4e] italic opacity-80">
+          <TriangleAlert aria-hidden="true" className="mt-0.5 size-3.5 shrink-0" />
+          {coffee.note}
+        </p>
       )}
       {coffee.references && (
         <p className="mt-2.5 border-t border-black/5 pt-2.5 text-xs leading-snug text-[#6b5a4e]">
