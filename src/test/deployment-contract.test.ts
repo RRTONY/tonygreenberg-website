@@ -24,4 +24,11 @@ describe("production deployment contract", () => {
     expect(dockerfile).toContain('CMD ["node", "server.js"]');
     expect(dockerfile).not.toContain("dist/public");
   });
+
+  it("does not retain the obsolete Netlify static-publish configuration", () => {
+    const packageJson = readProjectFile("package.json");
+
+    expect(fs.existsSync(path.join(projectRoot, "netlify.toml"))).toBe(false);
+    expect(packageJson).not.toContain("@netlify/plugin-nextjs");
+  });
 });

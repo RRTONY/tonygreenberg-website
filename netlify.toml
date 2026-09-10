@@ -1,8 +1,0 @@
-[build]
-  command = "pnpm ci"
-
-[build.environment]
-  NODE_VERSION = "22"
-
-[[plugins]]
-  package = "@netlify/plugin-nextjs"

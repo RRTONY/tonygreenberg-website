@@ -73,3 +73,6 @@
 - [ ] Create and document matching replacement image assets only where a verified required visual is unavailable from the reference repository or its live source.
 - [x] Trace and replace the remaining active Sanity CDN image URLs with verified reference-repository, live-site, or managed assets without changing page semantics.
 - [x] Restore the verified free `/subscribe` newsletter route using the active server-backed newsletter endpoint, while keeping legacy paid Stripe offers explicitly deferred.
+- [ ] Remove the obsolete Netlify build configuration and adapter dependency so the managed Next.js standalone deployment cannot be classified as a legacy static publish.
+- [ ] Re-run a fresh deployment after the Netlify configuration removal and verify that it no longer uses a legacy static-publish path or stale site binding.
+- [ ] Capture public-domain evidence that the active route set and managed-media markup match the latest Next.js standalone revision.
