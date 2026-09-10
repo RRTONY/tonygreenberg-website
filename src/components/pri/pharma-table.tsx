@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { ChevronDown } from "lucide-react";
 import { PHARMA_ALTERNATIVES } from "@/lib/content/pri-mescaline-module";
 
 // Ported from legacy's `PharmaTable` — the real 16-row pharma-to-plant
@@ -78,7 +79,10 @@ export function PharmaTable() {
             onClick={() => setExpanded(true)}
             className="border-[1.5px] border-pri-ink px-6 py-2.5 text-[.78rem] font-bold text-pri-ink"
           >
-            Show All {PHARMA_ALTERNATIVES.length} Medications ↓
+            <span className="inline-flex items-center gap-1.5">
+              Show All {PHARMA_ALTERNATIVES.length} Medications
+              <ChevronDown aria-hidden="true" className="size-3.5" />
+            </span>
           </button>
         </div>
       )}

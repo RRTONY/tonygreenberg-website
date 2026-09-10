@@ -869,7 +869,9 @@ export function PsychedelicReadinessIndex() {
             href="#compare-panel"
             className="bg-pri-purple px-5 py-2 text-[.7rem] font-bold tracking-[0.06em] text-pri-cream uppercase"
           >
-            View Comparison ↓
+            <span className="inline-flex items-center gap-1.5">
+              View Comparison <ForwardIcon aria-hidden="true" />
+            </span>
           </a>
           <button
             onClick={() => {

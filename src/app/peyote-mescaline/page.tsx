@@ -2,7 +2,7 @@ import { BackIcon, ForwardIcon } from "@/components/ui/inline-icons";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { AlertTriangle } from "lucide-react";
+import { AlertTriangle, ChevronDown } from "lucide-react";
 import {
   MESCALINE_PHARMACOLOGY,
   LATUDA_MIRROR,
@@ -97,7 +97,9 @@ export default function PeyoteMescalinePage() {
               href="#pharmacology"
               className="bg-pri-purple px-8 py-3.5 text-sm font-bold tracking-[0.05em] text-pri-cream uppercase"
             >
-              Explore Pharmacology ↓
+              <span className="inline-flex items-center gap-1.5">
+                Explore Pharmacology <ChevronDown aria-hidden="true" className="size-4" />
+              </span>
             </a>
           </div>
         </div>

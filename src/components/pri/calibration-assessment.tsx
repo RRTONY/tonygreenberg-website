@@ -3,7 +3,15 @@
 import { BackIcon, ForwardIcon } from "@/components/ui/inline-icons";
 import { useCallback, useMemo, useState } from "react";
 import Link from "next/link";
-import { BarChart3, RefreshCw, ShieldCheck, Target, Sparkles } from "lucide-react";
+import {
+  BarChart3,
+  ChevronDown,
+  ChevronUp,
+  RefreshCw,
+  ShieldCheck,
+  Target,
+  Sparkles,
+} from "lucide-react";
 import { DIM_LABELS, DIM_ICONS, type DimKey } from "@/lib/content/pri-data";
 import efficacyData from "@/lib/content/pri-efficacy-data.json";
 
@@ -260,15 +268,17 @@ export function CalibrationAssessment() {
                       onClick={() => moveItem(idx, "up")}
                       disabled={idx === 0}
                       className={`text-base ${idx === 0 ? "text-pri-cream/15" : "text-pri-cream/50"}`}
+                      aria-label="Move up"
                     >
-                      ↑
+                      <ChevronUp aria-hidden="true" className="size-4" />
                     </button>
                     <button
                       onClick={() => moveItem(idx, "down")}
                       disabled={idx === rankings.length - 1}
                       className={`text-base ${idx === rankings.length - 1 ? "text-pri-cream/15" : "text-pri-cream/50"}`}
+                      aria-label="Move down"
                     >
-                      ↓
+                      <ChevronDown aria-hidden="true" className="size-4" />
                     </button>
                   </div>
                 </div>

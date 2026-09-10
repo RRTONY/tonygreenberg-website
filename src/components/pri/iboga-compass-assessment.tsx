@@ -8,8 +8,10 @@ import {
   AlertTriangle,
   Brain,
   CheckCircle2,
+  ChevronDown,
   ChevronLeft,
   ChevronRight,
+  ChevronUp,
   DollarSign,
   GripVertical,
   Heart,
@@ -720,7 +722,7 @@ export function IbogaCompassAssessment() {
                   className="p-0.5 text-muted-foreground hover:text-foreground disabled:opacity-20"
                   aria-label="Move up"
                 >
-                  ▲
+                  <ChevronUp aria-hidden="true" className="size-3.5" />
                 </button>
                 <button
                   onClick={() => moveRankItem(idx, idx + 1)}
@@ -728,7 +730,7 @@ export function IbogaCompassAssessment() {
                   className="p-0.5 text-muted-foreground hover:text-foreground disabled:opacity-20"
                   aria-label="Move down"
                 >
-                  ▼
+                  <ChevronDown aria-hidden="true" className="size-3.5" />
                 </button>
               </div>
             </div>
