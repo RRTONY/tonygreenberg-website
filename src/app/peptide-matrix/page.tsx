@@ -1,5 +1,6 @@
 import { ForwardIcon } from "@/components/ui/inline-icons";
 import type { Metadata } from "next";
+import { TriangleAlert } from "lucide-react";
 import Link from "next/link";
 import {
   Brain,
@@ -133,8 +134,9 @@ export default function PeptideMatrixPage() {
       </section>
 
       <div className="border-y-2 border-[#C0392B] bg-[#C0392B]/8 px-6 py-6 text-center">
-        <p className="font-heading text-xl font-bold text-[#C0392B]">
-          ★★★★★ 4.8/5 &quot;Miracle cure!&quot;
+        <p className="flex items-center justify-center gap-2 font-heading text-xl font-bold text-[#C0392B]">
+          <TriangleAlert aria-hidden="true" className="size-5" />
+          Unverified consumer enthusiasm is not clinical evidence.
         </p>
         <p className="mt-2 font-mono text-xs tracking-wide text-muted-foreground">
           EVIDENCE: 0 Phase 3 RCTs · FDA Category 2 · Contamination Risk

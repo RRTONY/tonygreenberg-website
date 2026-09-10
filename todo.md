@@ -106,3 +106,4 @@
 - [x] Replace BrewSoul caution-note and browse empty-state Unicode markers with semantic Lucide components and focused regression coverage.
 - [x] Replace the Peptide Hall of Shame rendered feature-list check glyph with the semantic Lucide Check component and focused regression coverage.
 - [x] Replace the Search modal raw keyboard navigation arrows with existing Lucide icons and focused regression coverage.
+- [x] Remove any unsupported hard-coded Peptide Matrix review or rating presentation identified in the active public interface and add regression coverage.
