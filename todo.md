@@ -56,6 +56,7 @@
 - [ ] If a fresh deployment still injects the static upload, identify and correct the managed platform setting responsible for static frontend publishing, with documented evidence.
 - [ ] Verify the checkpoint-triggered deployment creates an accessible managed runtime service before treating production validation as complete.
 - [ ] Correct the Docker runtime command so it starts the copied standalone `server.js` at `/app/server.js`, then re-run a checkpoint deployment and verify the startup probe succeeds.
+- [ ] Copy the required pnpm `node_modules` graph into the Docker runtime image so Next.js standalone dependencies such as `@swc/helpers` resolve during startup.
 - [x] Allow-list the verified `tonygreenberg.com` image endpoint in Next.js image configuration and revalidate homepage media rendering.
 - [ ] Protect deployment logs and rotate any temporary credentials exposed in failed-build output before the next production attempt.
 - [x] Add or update focused tests for every verified missing feature or deployment configuration repair.
@@ -63,3 +64,4 @@
 - [x] Port the verified self-contained `/medicine-sequencing` reference experience into the existing Next.js PRI feature area with native links, existing icons, and focused tests.
 - [x] Port the verified public `/ecosystem-map` reference experience using the existing cookie-backed Journey Tracker, current Next.js routes, and focused tests.
 - [x] Correct the visually detected Ecosystem Map phase-header style mapping and revalidate its dark editorial presentation.
+- [x] Rebuild the safe public `/skippy` map using verified current destinations, existing icons, and managed cookie-backed progress without legacy browser storage or stale workflow links.

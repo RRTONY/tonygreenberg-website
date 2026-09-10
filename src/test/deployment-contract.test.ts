@@ -20,6 +20,7 @@ describe("production deployment contract", () => {
 
     expect(dockerfile).toContain(".next/standalone");
     expect(dockerfile).toContain(".next/static");
+    expect(dockerfile).toContain("COPY --from=builder /app/node_modules ./node_modules");
     expect(dockerfile).toContain('CMD ["node", "server.js"]');
     expect(dockerfile).not.toContain("dist/public");
   });

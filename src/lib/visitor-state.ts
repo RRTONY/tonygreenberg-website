@@ -18,6 +18,7 @@ export const VISITOR_STATE_NAMESPACES = [
   "newsletter",
   "pri",
   "reading",
+  "skippy",
 ] as const;
 
 export type VisitorStateNamespace = (typeof VISITOR_STATE_NAMESPACES)[number];
