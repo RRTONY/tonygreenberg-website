@@ -1,5 +1,6 @@
 import { ForwardIcon } from "@/components/ui/inline-icons";
 import Link from "next/link";
+import { Check } from "lucide-react";
 import { ARTICLE_FOOTERS, type ArticleFooterRelatedLink } from "@/lib/content/article-footers";
 
 // Ported from legacy client/src/pages/BlogPost.tsx's post-body footer —
@@ -117,7 +118,10 @@ export function ArticleFooter({ slug }: { slug: string }) {
               const description = isObj ? item.description : undefined;
               return (
                 <li key={title} className="relative pl-5 text-foreground/80">
-                  <span className="absolute left-0 text-brand-gold">◇</span>
+                  <Check
+                    aria-hidden="true"
+                    className="absolute top-1 left-0 size-3.5 text-brand-gold"
+                  />
                   {url ? (
                     <a
                       href={url}

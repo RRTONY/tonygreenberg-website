@@ -53,7 +53,9 @@ export function BioChainCTA({
           rel="noopener noreferrer"
           className="rounded-sm px-6 py-3 font-mono text-xs tracking-wide text-[#8B5A2B] uppercase"
         >
-          BioChain Overview ↗
+          <span className="inline-flex items-center gap-1.5">
+            BioChain Overview <ForwardIcon aria-hidden="true" />
+          </span>
         </a>
       </div>
     </div>

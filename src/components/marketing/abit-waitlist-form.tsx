@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Check } from "lucide-react";
 
 const CONTACT_EMAIL = "tony@tonygreenberg.com";
 
@@ -30,7 +31,7 @@ export function AbitWaitlistForm() {
   if (submitted) {
     return (
       <div className="flex items-center gap-2 font-body text-sm text-brand-gold-light">
-        <span className="text-base">◆</span>
+        <Check aria-hidden="true" className="size-4" />
         <span>Your email client should be open — send it and you&apos;re on the list.</span>
       </div>
     );

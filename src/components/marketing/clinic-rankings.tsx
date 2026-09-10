@@ -166,13 +166,18 @@ export function ClinicRankings({ clinics }: { clinics: Clinic[] }) {
                         return (
                           <span
                             key={c.key}
-                            className={`rounded px-1.5 py-0.5 font-mono text-[0.6rem] ${
+                            className={`inline-flex items-center gap-1 rounded px-1.5 py-0.5 font-mono text-[0.6rem] ${
                               met
                                 ? "bg-[#2E8B57]/10 text-[#2E8B57]"
                                 : "bg-[#B22222]/10 text-[#B22222]"
                             }`}
                           >
-                            {met ? "✓" : "✗"} {c.label}
+                            {met ? (
+                              <Check aria-hidden="true" className="size-3" />
+                            ) : (
+                              <X aria-hidden="true" className="size-3" />
+                            )}
+                            {c.label}
                           </span>
                         );
                       })}
