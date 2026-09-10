@@ -2,7 +2,25 @@ import { BackIcon, ForwardIcon } from "@/components/ui/inline-icons";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { AlertTriangle, ChevronDown } from "lucide-react";
+import {
+  AlertTriangle,
+  Brain,
+  Check,
+  ChevronDown,
+  CircleDot,
+  Flower2,
+  Globe2,
+  HandHeart,
+  Heart,
+  HeartPulse,
+  Hospital,
+  Microscope,
+  Mountain,
+  Pill,
+  Sprout,
+  TreePine,
+  type LucideIcon,
+} from "lucide-react";
 import {
   MESCALINE_PHARMACOLOGY,
   LATUDA_MIRROR,
@@ -43,6 +61,36 @@ const thClass =
   "border-b-2 border-[#D4CFC5] bg-[#E8E2D8] px-3 py-2.5 text-left text-xs font-extrabold tracking-[0.08em] whitespace-nowrap text-pri-ink uppercase";
 const tdClass =
   "border-b border-[#E8E2D8] px-3 py-2.5 align-top text-[.82rem] leading-[1.5] text-pri-brown";
+
+const DIMENSION_ICON_BY_KEY: Record<string, LucideIcon> = {
+  brain: Brain,
+  heart: Heart,
+  hospital: Hospital,
+  globe: Globe2,
+  "hand-heart": HandHeart,
+};
+
+const MEDICINE_ICON_BY_NAME: Record<string, LucideIcon> = {
+  "Mescaline/Peyote": Flower2,
+  Psilocybin: Flower2,
+  MDMA: HeartPulse,
+  Ketamine: Pill,
+  Ayahuasca: Sprout,
+  Ibogaine: TreePine,
+  "San Pedro": Mountain,
+  Microdose: Microscope,
+};
+
+const hasPositiveMedicineStatus = (value: string) =>
+  value === "Best" || value.codePointAt(0) === 0x2713;
+
+function MedicineStatusValue({ value }: { value: string }) {
+  return hasPositiveMedicineStatus(value) ? (
+    <Check aria-label="Yes" className="mx-auto size-3.5" />
+  ) : (
+    value
+  );
+}
 
 export default function PeyoteMescalinePage() {
   return (
@@ -360,33 +408,37 @@ export default function PeyoteMescalinePage() {
           Mescaline-Specific Readiness
         </h2>
         <div className="grid gap-3">
-          {MESCALINE_DIM_SCORES.map((d) => (
-            <div
-              key={d.dimension}
-              className="flex items-start gap-4 border border-pri-cream/8 bg-pri-cream/4 p-5"
-            >
-              <div className="shrink-0 text-3xl">{d.icon}</div>
-              <div className="flex-1">
-                <div className="mb-1 flex flex-wrap items-center justify-between gap-2">
-                  <div className="font-heading text-base font-bold text-pri-cream">
-                    {d.dimension}
+          {MESCALINE_DIM_SCORES.map((d) => {
+            const Icon = DIMENSION_ICON_BY_KEY[d.icon] ?? CircleDot;
+
+            return (
+              <div
+                key={d.dimension}
+                className="flex items-start gap-4 border border-pri-cream/8 bg-pri-cream/4 p-5"
+              >
+                <Icon aria-hidden="true" className="mt-0.5 size-7 shrink-0 text-pri-cream" />
+                <div className="flex-1">
+                  <div className="mb-1 flex flex-wrap items-center justify-between gap-2">
+                    <div className="font-heading text-base font-bold text-pri-cream">
+                      {d.dimension}
+                    </div>
+                    <span
+                      className={`border px-2 py-0.5 text-xs font-extrabold tracking-[0.06em] uppercase ${
+                        d.threshold === "Critical"
+                          ? "border-[#581C87]/30 bg-[#581C87]/20 text-[#EF5350]"
+                          : d.threshold.includes("High")
+                            ? "border-[#C9A84C]/30 bg-[#C9A84C]/15 text-[#C9A84C]"
+                            : "border-[#6B8F71]/30 bg-[#6B8F71]/15 text-[#81C784]"
+                      }`}
+                    >
+                      {d.threshold}
+                    </span>
                   </div>
-                  <span
-                    className={`border px-2 py-0.5 text-xs font-extrabold tracking-[0.06em] uppercase ${
-                      d.threshold === "Critical"
-                        ? "border-[#581C87]/30 bg-[#581C87]/20 text-[#EF5350]"
-                        : d.threshold.includes("High")
-                          ? "border-[#C9A84C]/30 bg-[#C9A84C]/15 text-[#C9A84C]"
-                          : "border-[#6B8F71]/30 bg-[#6B8F71]/15 text-[#81C784]"
-                    }`}
-                  >
-                    {d.threshold}
-                  </span>
+                  <div className="text-[.85rem] leading-[1.6] text-pri-cream/50">{d.keyNote}</div>
                 </div>
-                <div className="text-[.85rem] leading-[1.6] text-pri-cream/50">{d.keyNote}</div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </PriSection>
 
@@ -413,6 +465,7 @@ export default function PeyoteMescalinePage() {
             <tbody>
               {MEDICINE_SELECTOR.map((m, i) => {
                 const isMesc = m.medicine.includes("Mescaline");
+                const Icon = MEDICINE_ICON_BY_NAME[m.medicine] ?? CircleDot;
                 return (
                   <tr
                     key={m.medicine}
@@ -421,27 +474,29 @@ export default function PeyoteMescalinePage() {
                     <td
                       className={`${tdClass} ${isMesc ? "font-extrabold text-pri-purple" : "font-semibold"}`}
                     >
-                      {m.icon} {m.medicine}
+                      <span className="inline-flex items-center gap-1.5">
+                        <Icon aria-hidden="true" className="size-4" /> {m.medicine}
+                      </span>
                     </td>
                     <td
-                      className={`${tdClass} text-center ${m.depression === "✓" ? "text-[#3D6B44]" : "text-pri-tan"}`}
+                      className={`${tdClass} text-center ${hasPositiveMedicineStatus(m.depression) ? "text-[#3D6B44]" : "text-pri-tan"}`}
                     >
-                      {m.depression}
+                      <MedicineStatusValue value={m.depression} />
                     </td>
                     <td
-                      className={`${tdClass} text-center ${m.anxiety === "✓" ? "text-[#3D6B44]" : "text-pri-tan"}`}
+                      className={`${tdClass} text-center ${hasPositiveMedicineStatus(m.anxiety) ? "text-[#3D6B44]" : "text-pri-tan"}`}
                     >
-                      {m.anxiety}
+                      <MedicineStatusValue value={m.anxiety} />
                     </td>
                     <td
-                      className={`${tdClass} text-center ${m.ptsd === "✓" || m.ptsd === "Best" ? "text-[#3D6B44]" : "text-pri-tan"}`}
+                      className={`${tdClass} text-center ${hasPositiveMedicineStatus(m.ptsd) ? "text-[#3D6B44]" : "text-pri-tan"}`}
                     >
-                      {m.ptsd}
+                      <MedicineStatusValue value={m.ptsd} />
                     </td>
                     <td
-                      className={`${tdClass} text-center ${m.addiction === "✓" || m.addiction === "Best" ? "text-[#3D6B44]" : "text-pri-tan"}`}
+                      className={`${tdClass} text-center ${hasPositiveMedicineStatus(m.addiction) ? "text-[#3D6B44]" : "text-pri-tan"}`}
                     >
-                      {m.addiction}
+                      <MedicineStatusValue value={m.addiction} />
                     </td>
                     <td className={tdClass}>{m.duration}</td>
                     <td className={tdClass}>{m.beginner}</td>

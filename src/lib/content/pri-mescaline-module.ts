@@ -307,31 +307,31 @@ export interface DimScoreRow {
 
 export const MESCALINE_DIM_SCORES: DimScoreRow[] = [
   {
-    icon: "\u{1F9E0}",
+    icon: "brain",
     dimension: "Mental",
     threshold: "High",
     keyNote: "8\u201312hr duration demands stability; no active psychosis",
   },
   {
-    icon: "\u{1F496}",
+    icon: "heart",
     dimension: "Emotional",
     threshold: "Moderate-High",
     keyNote: "Gentle vs ibogaine; difficult emotions surface",
   },
   {
-    icon: "\u{1F3E5}",
+    icon: "hospital",
     dimension: "Physical",
     threshold: "Moderate",
     keyNote: "Cardio clearance needed; MAOI/Lithium contraindicated; nausea hrs 1\u20133",
   },
   {
-    icon: "\u{1F30E}",
+    icon: "globe",
     dimension: "Set & Setting",
     threshold: "Critical",
     keyNote: "Ceremonial structure non-negotiable; outdoor > indoor",
   },
   {
-    icon: "\u{1F64F}",
+    icon: "hand-heart",
     dimension: "Spiritual",
     threshold: "High Alignment",
     keyNote: "35\u201350% single most significant spiritual event of life",
