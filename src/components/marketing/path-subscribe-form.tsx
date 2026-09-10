@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import { Loader2 } from "lucide-react";
+import { Check, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import type { ArchetypeKey } from "@/lib/content/archetypes";
@@ -64,7 +64,13 @@ export function PathSubscribeForm({ archetypeKey }: { archetypeKey: ArchetypeKey
           className="h-10 shrink-0 font-mono text-xs tracking-wide uppercase"
         >
           {pending && <Loader2 className="size-4 animate-spin" />}
-          {subscribed ? "Subscribed ✓" : "Subscribe"}
+          {subscribed ? (
+            <span className="inline-flex items-center gap-1">
+              <Check aria-hidden="true" className="size-3.5" /> Subscribed
+            </span>
+          ) : (
+            "Subscribe"
+          )}
         </Button>
       </div>
       {subError && <p className="mt-2 text-left text-sm text-destructive">{subError}</p>}

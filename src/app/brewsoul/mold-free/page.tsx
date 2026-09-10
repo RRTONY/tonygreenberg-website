@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { AlertTriangle, Check } from "lucide-react";
 import { BREWSOUL_COFFEES } from "@/lib/content/brewsoul-coffees";
 import { NextSteps } from "@/components/brewsoul/next-steps";
 
@@ -47,8 +48,8 @@ export default function BrewSoulMoldFreePage() {
         ))}
       </div>
 
-      <h2 className="mb-4 font-heading text-xl font-bold text-[#2C1810]">
-        ✓ Independently Verified
+      <h2 className="mb-4 flex items-center gap-2 font-heading text-xl font-bold text-[#2C1810]">
+        <Check aria-hidden="true" className="size-5 text-[#4A7C59]" /> Independently Verified
       </h2>
       <div className="mb-10 flex flex-col gap-3">
         {verified.length === 0 && (
@@ -73,8 +74,9 @@ export default function BrewSoulMoldFreePage() {
 
       {claims.length > 0 && (
         <>
-          <h2 className="mb-4 font-heading text-xl font-bold text-[#2C1810]">
-            ⚠ Claims Clean (Unverified)
+          <h2 className="mb-4 flex items-center gap-2 font-heading text-xl font-bold text-[#2C1810]">
+            <AlertTriangle aria-hidden="true" className="size-5 text-[#C5A23C]" /> Claims Clean
+            (Unverified)
           </h2>
           <div className="flex flex-col gap-3">
             {claims.map((c) => (

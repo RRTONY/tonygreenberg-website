@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { ForwardIcon } from "@/components/ui/inline-icons";
 import {
   Shield,
   Sprout,
@@ -357,7 +358,10 @@ export default async function AttentionTheftPage({ searchParams }: PageProps<"/a
             <ul className="space-y-2">
               {ECONOMICS_SOURCES.map((s) => (
                 <li key={s.text} className="flex items-start gap-2">
-                  <span className="mt-1 shrink-0 text-crusade-teal/60">↗</span>
+                  <ForwardIcon
+                    aria-hidden="true"
+                    className="mt-1 size-3.5 shrink-0 text-crusade-teal/60"
+                  />
                   {s.url ? (
                     <a
                       href={s.url}

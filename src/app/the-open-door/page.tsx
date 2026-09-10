@@ -753,7 +753,7 @@ export default function TheOpenDoorPage() {
                 {p.show} {p.ep && `— ${p.ep}`}
               </span>
             </span>
-            <span className="text-brand-gold">↗</span>
+            <ForwardIcon aria-hidden="true" className="size-4 text-brand-gold" />
           </a>
         ))}
       </div>

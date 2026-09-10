@@ -95,3 +95,4 @@
 - [x] Replace confirmed active Unicode symbols in shared marketing waitlist, CTA, list-marker, and clinic-status components with existing semantic Lucide or shared icon components.
 - [x] Replace confirmed raw disclosure and comparison arrow controls in PRI and psychedelic-readiness interfaces with existing Lucide chevrons and focused regression coverage.
 - [x] Replace the Facilitator Index full-instrument disclosure arrow with a Lucide chevron and extend its focused icon-policy test.
+- [x] Replace confirmed raw external-link arrows and subscription-status checkmarks in shared and public-page UI with existing semantic Lucide or shared icon components.

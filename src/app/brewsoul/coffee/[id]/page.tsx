@@ -2,7 +2,7 @@ import { ForwardIcon } from "@/components/ui/inline-icons";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ChevronRight, Trophy } from "lucide-react";
+import { ArrowLeft, Check, ChevronRight, Trophy, X } from "lucide-react";
 import { BREWSOUL_COFFEES } from "@/lib/content/brewsoul-coffees";
 import {
   computeQPR,
@@ -263,13 +263,19 @@ export default async function BrewSoulCoffeeDetailPage({
               <div
                 className={`font-mono text-sm font-bold ${coffee.moldTestStatus === "verified" ? "text-[#4A7C59]" : coffee.moldTestStatus === "claims" ? "text-[#C5A23C]" : "text-[#999]"}`}
               >
-                {coffee.moldTestStatus === "verified"
-                  ? "✓ Verified Clean"
-                  : coffee.moldTestStatus === "claims"
-                    ? "Claims Clean"
-                    : coffee.moldTestStatus === "failed"
-                      ? "✗ Failed"
-                      : "Untested"}
+                {coffee.moldTestStatus === "verified" ? (
+                  <span className="inline-flex items-center gap-1">
+                    <Check aria-hidden="true" className="size-3.5" /> Verified Clean
+                  </span>
+                ) : coffee.moldTestStatus === "claims" ? (
+                  "Claims Clean"
+                ) : coffee.moldTestStatus === "failed" ? (
+                  <span className="inline-flex items-center gap-1">
+                    <X aria-hidden="true" className="size-3.5" /> Failed
+                  </span>
+                ) : (
+                  "Untested"
+                )}
               </div>
               {coffee.moldTestSource && (
                 <div className="font-mono text-xs text-[#999]">{coffee.moldTestSource}</div>

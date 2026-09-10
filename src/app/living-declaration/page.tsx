@@ -575,7 +575,9 @@ export default function LivingDeclarationPage() {
                       rel="noopener noreferrer"
                       className="rounded-sm border border-brand-gold/20 px-2.5 py-1 font-mono text-[0.65rem] tracking-wide text-brand-gold uppercase"
                     >
-                      {link.label} ↗
+                      <span className="inline-flex items-center gap-1.5">
+                        {link.label} <ForwardIcon aria-hidden="true" />
+                      </span>
                     </a>
                   ) : (
                     <Link
