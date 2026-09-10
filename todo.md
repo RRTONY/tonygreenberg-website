@@ -54,6 +54,8 @@
 - [ ] Reconfigure deployment so the platform does not append a Vite-style `s5cmd` upload from `/usr/src/app/dist/public` after the successful Next.js build.
 - [ ] Re-run a deployment from a checkpoint that includes the standalone configuration and root Dockerfile; verify the log no longer contains `/usr/src/app/dist/public` or the stale `s5cmd` upload.
 - [ ] If a fresh deployment still injects the static upload, identify and correct the managed platform setting responsible for static frontend publishing, with documented evidence.
+- [ ] Verify the checkpoint-triggered deployment creates an accessible managed runtime service before treating production validation as complete.
+- [x] Allow-list the verified `tonygreenberg.com` image endpoint in Next.js image configuration and revalidate homepage media rendering.
 - [ ] Protect deployment logs and rotate any temporary credentials exposed in failed-build output before the next production attempt.
 - [x] Add or update focused tests for every verified missing feature or deployment configuration repair.
 - [x] Re-run the complete quality suite, production deployment validation, and representative visual checks after repository parity changes.
