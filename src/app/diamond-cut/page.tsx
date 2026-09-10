@@ -1,7 +1,7 @@
-import { ForwardIcon } from "@/components/ui/inline-icons";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { EyebrowLabel } from "@/components/marketing/eyebrow-label";
+import { ForwardIcon } from "@/components/ui/inline-icons";
 
 // Ported from legacy client/src/pages/DiamondCut.tsx ("The Diamond Cut").
 // Real content ported in full. Legacy's tier cards used a live
@@ -55,7 +55,7 @@ const TIERS = [
       "CXO lens assessment.",
       "Written output: is there a product here?",
     ],
-    cta: "Enter the Gate →",
+    cta: "Enter the Gate",
     href: "/engage",
     featured: false,
   },
@@ -69,7 +69,7 @@ const TIERS = [
       "3 BD introductions.",
       "Written deliverable.",
     ],
-    cta: "Enter the Gate →",
+    cta: "Enter the Gate",
     href: "/engage",
     featured: true,
   },
@@ -83,7 +83,7 @@ const TIERS = [
       "CXO translation on demand.",
       "ImpactSoul alignment.",
     ],
-    cta: "Enter the Gate →",
+    cta: "Enter the Gate",
     href: "/engage",
     featured: false,
   },
@@ -92,7 +92,7 @@ const TIERS = [
     price: "Equity + Cash",
     note: "contact directly",
     details: ["Full strategic partnership.", "Board-level engagement.", "The diamond gets set."],
-    cta: "Make Your Case →",
+    cta: "Make Your Case",
     href: "mailto:tony@impactsoul.is?subject=Diamond%20Cut%20-%20The%20Setting",
     featured: false,
   },
@@ -225,20 +225,20 @@ export default function DiamondCutPage() {
               {t.href.startsWith("/") ? (
                 <Link
                   href={t.href}
-                  className={`rounded-sm py-2.5 text-center font-mono text-xs tracking-wide uppercase ${
+                  className={`inline-flex items-center justify-center gap-1.5 rounded-sm py-2.5 text-center font-mono text-xs tracking-wide uppercase ${
                     t.featured
                       ? "bg-brand-gold text-white"
                       : "border border-brand-gold/30 text-brand-gold"
                   }`}
                 >
-                  {t.cta}
+                  {t.cta} <ForwardIcon aria-hidden="true" />
                 </Link>
               ) : (
                 <a
                   href={t.href}
-                  className="rounded-sm border border-brand-gold/30 py-2.5 text-center font-mono text-xs tracking-wide text-brand-gold uppercase"
+                  className="inline-flex items-center justify-center gap-1.5 rounded-sm border border-brand-gold/30 py-2.5 text-center font-mono text-xs tracking-wide text-brand-gold uppercase"
                 >
-                  {t.cta}
+                  {t.cta} <ForwardIcon aria-hidden="true" />
                 </a>
               )}
             </div>

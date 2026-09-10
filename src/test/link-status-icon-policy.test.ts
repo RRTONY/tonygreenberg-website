@@ -9,13 +9,15 @@ const sources = [
   "src/components/marketing/path-subscribe-form.tsx",
   "src/app/brewsoul/mold-free/page.tsx",
   "src/app/brewsoul/coffee/[id]/page.tsx",
+  "src/app/amplifier/page.tsx",
+  "src/app/diamond-cut/page.tsx",
 ];
 
 describe("public link and status icon policy", () => {
   it("uses existing shared or Lucide icon components instead of raw visual symbols", () => {
     for (const relativePath of sources) {
       const source = fs.readFileSync(path.join(process.cwd(), relativePath), "utf8");
-      expect(source, relativePath).not.toMatch(/[↗✓✗⚠]/u);
+      expect(source, relativePath).not.toMatch(/[→↗✓✗⚠]/u);
     }
 
     expect(fs.readFileSync(path.join(process.cwd(), sources[0]), "utf8")).toContain("<ForwardIcon");
@@ -24,5 +26,7 @@ describe("public link and status icon policy", () => {
       "<AlertTriangle",
     );
     expect(fs.readFileSync(path.join(process.cwd(), sources[5]), "utf8")).toContain("<X");
+    expect(fs.readFileSync(path.join(process.cwd(), sources[6]), "utf8")).toContain("<ForwardIcon");
+    expect(fs.readFileSync(path.join(process.cwd(), sources[7]), "utf8")).toContain("<ForwardIcon");
   });
 });

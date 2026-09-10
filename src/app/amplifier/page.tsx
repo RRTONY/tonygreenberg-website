@@ -1,7 +1,7 @@
-import { ForwardIcon } from "@/components/ui/inline-icons";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { EyebrowLabel } from "@/components/marketing/eyebrow-label";
+import { ForwardIcon } from "@/components/ui/inline-icons";
 
 // Ported from legacy client/src/pages/Amplifier.tsx ("The Amplifier").
 // Real content, unchanged — pricing tiers, the 2x guarantee, the Matt
@@ -54,7 +54,7 @@ const TIERS = [
       "One network activation.",
       "One vendor benchmark.",
     ],
-    cta: "Enter the Gate →",
+    cta: "Enter the Gate",
     href: "/engage",
     featured: false,
   },
@@ -63,7 +63,7 @@ const TIERS = [
     price: "$10,000",
     note: "floor",
     details: ["Deep diagnostic.", "Written output.", "3 targeted introductions."],
-    cta: "Enter the Gate →",
+    cta: "Enter the Gate",
     href: "/engage",
     featured: true,
   },
@@ -72,7 +72,7 @@ const TIERS = [
     price: "$15,000–$25,000",
     note: "per month",
     details: ["Continuous BD activation.", "Deal flow access.", "ImpactSoul pipeline visibility."],
-    cta: "Enter the Gate →",
+    cta: "Enter the Gate",
     href: "/engage",
     featured: false,
   },
@@ -81,7 +81,7 @@ const TIERS = [
     price: "Equity + Cash",
     note: "contact directly",
     details: ["Full strategic alignment.", "Board-level engagement.", "Contact directly."],
-    cta: "Make Your Case →",
+    cta: "Make Your Case",
     href: "mailto:tony@impactsoul.is?subject=Board%20/%20Advisory%20Inquiry",
     featured: false,
   },
@@ -270,20 +270,20 @@ export default function AmplifierPage() {
               {t.href.startsWith("/") ? (
                 <Link
                   href={t.href}
-                  className={`rounded-sm py-2.5 text-center font-mono text-xs tracking-wide uppercase ${
+                  className={`inline-flex items-center justify-center gap-1.5 rounded-sm py-2.5 text-center font-mono text-xs tracking-wide uppercase ${
                     t.featured
                       ? "bg-brand-gold text-white"
                       : "border border-brand-gold/30 text-brand-gold"
                   }`}
                 >
-                  {t.cta}
+                  {t.cta} <ForwardIcon aria-hidden="true" />
                 </Link>
               ) : (
                 <a
                   href={t.href}
-                  className="rounded-sm border border-brand-gold/30 py-2.5 text-center font-mono text-xs tracking-wide text-brand-gold uppercase"
+                  className="inline-flex items-center justify-center gap-1.5 rounded-sm border border-brand-gold/30 py-2.5 text-center font-mono text-xs tracking-wide text-brand-gold uppercase"
                 >
-                  {t.cta}
+                  {t.cta} <ForwardIcon aria-hidden="true" />
                 </a>
               )}
             </div>

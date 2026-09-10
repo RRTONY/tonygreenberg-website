@@ -101,3 +101,4 @@
 - [x] Replace active Peyote/Mescaline deep-dive dimension, medicine, and availability table markers with renderer-level Lucide components and focused regression coverage.
 - [x] Replace all rendered BrewSoul directory category and page emoji with semantic Lucide component mappings and focused regression coverage.
 - [x] Replace confirmed rendered assessment warning and contact-status glyphs with semantic Lucide components and focused regression coverage.
+- [x] Replace Amplifier and Diamond Cut call-to-action raw arrows with the shared semantic forward icon and focused regression coverage.
