@@ -2,7 +2,7 @@
 
 import { BackIcon, ForwardIcon } from "@/components/ui/inline-icons";
 import { useState } from "react";
-import { CheckCircle2, Loader2 } from "lucide-react";
+import { CheckCircle2, Compass, ListChecks, Loader2 } from "lucide-react";
 import {
   QUICK_QUESTIONS,
   SCALE_LABELS,
@@ -38,17 +38,17 @@ function RadarBars({ bands }: { bands: { label: string; score: number; color: st
 
 const WHATS_WAITING = [
   {
-    icon: "◈",
+    Icon: ListChecks,
     label: "12 Bands",
     desc: "Context · Philosophy · Temperament · The Map · Container · Consent · Safety · Edges · Lineage · Business · Reciprocity · Integration",
   },
   {
-    icon: "⬡",
+    Icon: ListChecks,
     label: "108 Items",
     desc: "Every question the field has been afraid to ask out loud. Scored, mapped, and returned to you as a living document.",
   },
   {
-    icon: "◉",
+    Icon: Compass,
     label: "Your Archetype Profile",
     desc: "A full practitioner profile — not a personality type, a philosophical position. Where you actually stand.",
   },
@@ -61,12 +61,17 @@ function WhatWaitsTeaser({ onGoDeeper }: { onGoDeeper: () => void }) {
         What&apos;s waiting on the other side
       </div>
       <div className="mb-6 flex flex-col gap-3">
-        {WHATS_WAITING.map((it) => (
-          <div key={it.label} className="flex items-start gap-3.5">
-            <span className="mt-0.5 shrink-0 text-lg text-facilitator-amber-light">{it.icon}</span>
+        {WHATS_WAITING.map(({ Icon, ...item }) => (
+          <div key={item.label} className="flex items-start gap-3.5">
+            <Icon
+              aria-hidden="true"
+              className="mt-0.5 size-5 shrink-0 text-facilitator-amber-light"
+            />
             <div>
-              <div className="mb-0.5 text-sm font-bold text-facilitator-ink">{it.label}</div>
-              <div className="text-[.78rem] leading-normal text-facilitator-ink/55">{it.desc}</div>
+              <div className="mb-0.5 text-sm font-bold text-facilitator-ink">{item.label}</div>
+              <div className="text-[.78rem] leading-normal text-facilitator-ink/55">
+                {item.desc}
+              </div>
             </div>
           </div>
         ))}
@@ -150,7 +155,10 @@ export function QuickIntake({ onGoDeeper }: { onGoDeeper: () => void }) {
   if (step === "intro") {
     return (
       <div className="p-8 text-center">
-        <div className="mb-3 text-4xl drop-shadow-[0_2px_8px_rgba(180,83,9,.3)]">◈</div>
+        <Compass
+          aria-hidden="true"
+          className="mx-auto mb-3 size-10 text-facilitator-amber-deep drop-shadow-[0_2px_8px_rgba(180,83,9,.3)]"
+        />
         <h2 className="mb-2.5 font-heading text-[clamp(1.4rem,3vw,2rem)] font-bold text-facilitator-ink">
           Know Who You Go With
         </h2>
@@ -188,12 +196,16 @@ export function QuickIntake({ onGoDeeper }: { onGoDeeper: () => void }) {
   }
 
   if (step === "reveal") {
+    const ArchetypeIcon = archetype.icon;
+
     return (
       <div className="py-4">
         <div className="mb-6 text-center">
-          <div className="mb-2 text-5xl" style={{ color: archetype.color }}>
-            {archetype.icon}
-          </div>
+          <ArchetypeIcon
+            aria-hidden="true"
+            className="mx-auto mb-2 size-12"
+            style={{ color: archetype.color }}
+          />
           <div
             className="mb-1 text-xs font-bold tracking-[0.18em] uppercase"
             style={{ color: archetype.color }}
@@ -261,12 +273,16 @@ export function QuickIntake({ onGoDeeper }: { onGoDeeper: () => void }) {
   }
 
   if (step === "form") {
+    const ArchetypeIcon = archetype.icon;
+
     return (
       <form onSubmit={handleSubmit} className="py-4">
         <div className="mb-5 text-center">
-          <span className="text-2xl" style={{ color: archetype.color }}>
-            {archetype.icon}
-          </span>
+          <ArchetypeIcon
+            aria-hidden="true"
+            className="mx-auto size-6"
+            style={{ color: archetype.color }}
+          />
           <h3 className="mt-1.5 mb-1 font-heading text-lg text-facilitator-ink">
             Log {archetype.title}
           </h3>

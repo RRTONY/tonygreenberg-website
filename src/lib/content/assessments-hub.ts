@@ -1,3 +1,6 @@
+import type { LucideIcon } from "lucide-react";
+import { Compass, Heart, Triangle } from "lucide-react";
+
 // Ported from legacy client/src/pages/Assessments.tsx's `ASSESSMENTS`
 // array — "Three Maps. One Journey," the deep-instrument hub distinct from
 // `/find-my` (that page is the wide directory of all 26 "Find My ___"
@@ -17,7 +20,7 @@ export interface AssessmentPreview {
   subtitle: string;
   description: string;
   time: string;
-  icon: string;
+  Icon: LucideIcon;
   accent: string;
 }
 
@@ -29,7 +32,7 @@ export const ASSESSMENTS: AssessmentPreview[] = [
     description:
       "Twenty-five questions distilled from Schmachtenberger's Dharma Inquiry — a framework for discovering your unique purpose, the intersection of your gifts and the world's needs. Not what you should do. What you can't not do.",
     time: "15–20 min",
-    icon: "◎",
+    Icon: Compass,
     accent: "#8B6914",
   },
   {
@@ -39,7 +42,7 @@ export const ASSESSMENTS: AssessmentPreview[] = [
     description:
       "Where do you currently sit on the spectrum from Shame to Enlightenment? Twenty-five questions that map your dominant energy field across Hawkins' calibrated levels. Not a judgment — a compass.",
     time: "15–20 min",
-    icon: "△",
+    Icon: Triangle,
     accent: "#6B4C8A",
   },
   {
@@ -49,7 +52,7 @@ export const ASSESSMENTS: AssessmentPreview[] = [
     description:
       "The longest study of human happiness ever conducted. Five factors predict lifelong wellbeing: relationships, adaptive coping, generativity, career satisfaction, and physical vitality. This assessment maps where you stand on each.",
     time: "15–20 min",
-    icon: "♡",
+    Icon: Heart,
     accent: "#2E8B57",
   },
 ];

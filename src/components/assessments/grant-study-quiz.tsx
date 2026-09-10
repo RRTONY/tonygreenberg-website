@@ -3,6 +3,8 @@
 import { BackIcon, ForwardIcon } from "@/components/ui/inline-icons";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import type { LucideIcon } from "lucide-react";
+import { BriefcaseBusiness, Heart, HeartPulse, ShieldCheck, Sprout } from "lucide-react";
 import { ThemedBackground } from "@/components/assessments/themed-background";
 import { AssessmentIntro } from "@/components/assessments/assessment-intro";
 import { EmailGate } from "@/components/assessments/email-gate";
@@ -47,7 +49,7 @@ type FactorKey = "relationships" | "coping" | "generativity" | "career" | "healt
 interface Factor {
   key: FactorKey;
   name: string;
-  icon: string;
+  Icon: LucideIcon;
   description: string;
 }
 
@@ -55,35 +57,35 @@ const FACTORS: Factor[] = [
   {
     key: "relationships",
     name: "Warm Relationships",
-    icon: "♡",
+    Icon: Heart,
     description:
       "The single strongest predictor of life satisfaction. Not quantity — quality. The depth of your connections.",
   },
   {
     key: "coping",
     name: "Adaptive Coping",
-    icon: "◈",
+    Icon: ShieldCheck,
     description:
       "How you metabolize difficulty. Mature defenses (humor, altruism, sublimation) vs. immature ones (denial, projection, passive aggression).",
   },
   {
     key: "generativity",
     name: "Generativity",
-    icon: "❋",
+    Icon: Sprout,
     description:
       "Erikson's concept: the concern for establishing and guiding the next generation. Mentoring, creating, contributing beyond self.",
   },
   {
     key: "career",
     name: "Career Satisfaction",
-    icon: "△",
+    Icon: BriefcaseBusiness,
     description:
       "Not status or income — the sense that your work matters, uses your gifts, and aligns with your values.",
   },
   {
     key: "health",
     name: "Physical Vitality",
-    icon: "○",
+    Icon: HeartPulse,
     description:
       "Not the absence of disease — the active cultivation of the body as an instrument of consciousness.",
   },
@@ -575,6 +577,8 @@ export function GrantStudyQuiz() {
   }
 
   if (phase === "quiz") {
+    const CurrentFactorIcon = currentFactor.Icon;
+
     return (
       <div className="relative z-1 flex min-h-screen flex-col items-center justify-center px-6 font-sans text-[#2C1810]">
         <ThemedBackground theme="journey" />
@@ -587,8 +591,9 @@ export function GrantStudyQuiz() {
 
         <div className="w-full max-w-2xl py-16">
           <div className="mb-6">
-            <p className="font-mono text-[0.65rem] tracking-[0.2em] text-[#2E8B57] uppercase">
-              {currentFactor.icon} {currentFactor.name}
+            <p className="inline-flex items-center gap-1.5 font-mono text-[0.65rem] tracking-[0.2em] text-[#2E8B57] uppercase">
+              <CurrentFactorIcon aria-hidden="true" className="size-3.5" />
+              {currentFactor.name}
             </p>
             <p className="mt-1 text-[0.85rem] text-[#8B7B6B]">{currentFactor.description}</p>
           </div>
@@ -665,6 +670,8 @@ export function GrantStudyQuiz() {
   const sorted = [...factorScores].sort((a, b) => b.score - a.score);
   const strongest = sorted[0];
   const growthEdge = sorted[sorted.length - 1];
+  const StrongestIcon = strongest.Icon;
+  const GrowthEdgeIcon = growthEdge.Icon;
 
   return (
     <div className="relative z-1 min-h-screen py-16 font-sans text-[#2C1810]">
@@ -686,27 +693,32 @@ export function GrantStudyQuiz() {
         <hr className="mb-8 border-t border-brand-gold/15" />
 
         <div className="mb-8">
-          {factorScores.map((f) => (
-            <div key={f.key} className="mb-8">
-              <div className="mb-2 flex items-baseline justify-between">
-                <span className="font-heading text-[1.2rem] text-[#0A0A10]">
-                  {f.icon} {f.name}
-                </span>
-                <span className="font-mono text-[0.85rem] font-semibold text-[#2E8B57]">
-                  {f.score}%
-                </span>
+          {factorScores.map((f) => {
+            const FactorIcon = f.Icon;
+
+            return (
+              <div key={f.key} className="mb-8">
+                <div className="mb-2 flex items-baseline justify-between">
+                  <span className="inline-flex items-center gap-2 font-heading text-[1.2rem] text-[#0A0A10]">
+                    <FactorIcon aria-hidden="true" className="size-5 text-[#2E8B57]" />
+                    {f.name}
+                  </span>
+                  <span className="font-mono text-[0.85rem] font-semibold text-[#2E8B57]">
+                    {f.score}%
+                  </span>
+                </div>
+                <div className="h-2 rounded-sm bg-[#f0ede5]">
+                  <div
+                    className={`h-full rounded-sm transition-[width] duration-1000 ${barClassForScore(f.score)}`}
+                    style={{ width: `${f.score}%` }}
+                  />
+                </div>
+                <p className="mt-3 text-[0.9rem] leading-[1.7] text-[#666]">
+                  {getFactorInsight(f.key, f.score)}
+                </p>
               </div>
-              <div className="h-2 rounded-sm bg-[#f0ede5]">
-                <div
-                  className={`h-full rounded-sm transition-[width] duration-1000 ${barClassForScore(f.score)}`}
-                  style={{ width: `${f.score}%` }}
-                />
-              </div>
-              <p className="mt-3 text-[0.9rem] leading-[1.7] text-[#666]">
-                {getFactorInsight(f.key, f.score)}
-              </p>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         <hr className="mb-8 border-t border-brand-gold/15" />
@@ -716,16 +728,18 @@ export function GrantStudyQuiz() {
             <p className="mb-2 font-mono text-[0.7rem] tracking-[0.2em] text-[#2E8B57] uppercase">
               Your Strength
             </p>
-            <p className="font-heading text-[1.2rem] text-[#0A0A10]">
-              {strongest.icon} {strongest.name}
+            <p className="inline-flex items-center gap-2 font-heading text-[1.2rem] text-[#0A0A10]">
+              <StrongestIcon aria-hidden="true" className="size-5 text-[#2E8B57]" />
+              {strongest.name}
             </p>
           </div>
           <div className="border border-[#e5e0d5] bg-white p-6">
             <p className="mb-2 font-mono text-[0.7rem] tracking-[0.2em] text-brand-gold uppercase">
               Your Growth Edge
             </p>
-            <p className="font-heading text-[1.2rem] text-[#0A0A10]">
-              {growthEdge.icon} {growthEdge.name}
+            <p className="inline-flex items-center gap-2 font-heading text-[1.2rem] text-[#0A0A10]">
+              <GrowthEdgeIcon aria-hidden="true" className="size-5 text-brand-gold" />
+              {growthEdge.name}
             </p>
           </div>
         </div>

@@ -1,4 +1,7 @@
 // Ported from legacy client/src/pages/pri/FacilitatorIndex.tsx — the real
+import type { LucideIcon } from "lucide-react";
+import { BadgeCheck, CircleDot, Compass, Diamond, HeartPulse, Sparkles, Sun } from "lucide-react";
+
 // 108-item, 12-band (plus Band 0) practitioner self-assessment instrument,
 // the real 15-question quick-intake archetype engine, and the real
 // section images (one confirmed real CloudFront asset; two Manus `/api/img/`
@@ -19,6 +22,12 @@
 
 export const FACILITATOR_HERO_IMAGE =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/facilitator-hero-v2-KJX7ZmJuuiqi4wVnYJoJYW.webp";
+
+export const FACILITATOR_BANDS_IMAGE =
+  "https://tonygreenberg.com/api/img/facilitator-bands_93368783.jpg";
+
+export const FACILITATOR_COMPASS_IMAGE =
+  "https://tonygreenberg.com/api/img/facilitator-compass_fb5f9a0c.jpg";
 
 export interface QuickQuestion {
   id: string;
@@ -123,7 +132,7 @@ export interface Archetype {
   subtitle: string;
   description: string;
   color: string;
-  icon: string;
+  icon: LucideIcon;
   bands: { label: string; score: number; color: string }[];
 }
 
@@ -161,7 +170,7 @@ export function deriveArchetype(answers: Record<string, number>): Archetype {
       description:
         "You hold space the way a river holds its banks — present, yielding, and quietly shaping everything that moves through you. You believe the work finds its own form. You've probably been told you're too unstructured. You're not. You're calibrated to something most protocols can't measure.",
       color: "#7C3AED",
-      icon: "◈",
+      icon: Compass,
       bands,
     };
   }
@@ -172,7 +181,7 @@ export function deriveArchetype(answers: Record<string, number>): Archetype {
       description:
         "You bring the rigor the field desperately needs and rarely gets. You've read the research. You've built the container. You know exactly why the set and setting matter and you can defend every choice. The danger is mistaking the map for the territory — but you already know that.",
       color: "#0891B2",
-      icon: "⬡",
+      icon: BadgeCheck,
       bands,
     };
   }
@@ -183,7 +192,7 @@ export function deriveArchetype(answers: Record<string, number>): Archetype {
       description:
         "You read the room through the body before the mind has a chance to catch up. You know when someone is bracing before they do. Your work lives in the nervous system — in breath, in posture, in the micro-tremor that says 'I'm not ready yet.' Rare. Necessary. Irreplaceable.",
       color: "#059669",
-      icon: "◉",
+      icon: HeartPulse,
       bands,
     };
   }
@@ -194,7 +203,7 @@ export function deriveArchetype(answers: Record<string, number>): Archetype {
       description:
         "You understand that healing is relational before it is individual. You build the field that makes the work possible — the trust, the ritual, the shared language. You've probably been in more circles than you can count. You know the difference between a group and a container.",
       color: "#BE185D",
-      icon: "⬟",
+      icon: CircleDot,
       bands,
     };
   }
@@ -205,7 +214,7 @@ export function deriveArchetype(answers: Record<string, number>): Archetype {
       description:
         "You've been doing this long enough to know what you don't know. You stay in supervision not because you have to — because you understand that the work never stops working on the worker. You are the person other practitioners call when something goes sideways.",
       color: "#D97706",
-      icon: "◎",
+      icon: Sun,
       bands,
     };
   }
@@ -216,7 +225,7 @@ export function deriveArchetype(answers: Record<string, number>): Archetype {
       description:
         "You have the structure. Now the field is asking you to develop the philosophy that makes structure meaningful. The best practitioners you'll ever meet will unsettle your certainty — and that's exactly what you need. You're at the most interesting part of the journey.",
       color: "#F59E0B",
-      icon: "◇",
+      icon: Diamond,
       bands,
     };
   }
@@ -226,7 +235,7 @@ export function deriveArchetype(answers: Record<string, number>): Archetype {
     description:
       "You move fluidly between structure and emergence, soma and psyche, solo and community. You resist easy categorization — which is either your greatest strength or the thing you're still working out. Probably both. The field needs more people who can hold the whole map without collapsing it.",
     color: "#B45309",
-    icon: "✦",
+    icon: Sparkles,
     bands,
   };
 }

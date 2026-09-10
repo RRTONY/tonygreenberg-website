@@ -58,6 +58,12 @@ The public Clock Keeper page uses the same near-black, lightly textured hero; mo
 
 The active Next.js global token layer already defines the observed brand gold (`#8B6914` and `#D4B96A`), near-black/cream theme pair (`#0A0A10` and `#F5F0E0`), serif heading font, and mono metadata font. This matches the public Shop and Clock Keeper visual evidence. Route-level work should therefore extend the existing tokens and shared layout rather than import reference CSS or create a competing design system.
 
+The restored Human OS hero was visually rechecked at 1280px, 768px, and 375px widths. The verified hero asset, contrast overlay, heading hierarchy, status label, and responsive navigation all remained legible without overflow at those breakpoints.
+
+### Visual Pattern Check: Facilitator Index
+
+The active Facilitator Index already matches the reference page’s warm cream-to-amber-to-rose research surface, full-bleed amber/purple hero image, cream serif heading, gold mono eyebrow, and translucent watermark treatment. The reference additionally places a Twelve Bands diagram before Band 0 and a five-axis compass diagram after Band J. Both existing live image endpoints were verified as publicly available and are restored in the native component without introducing a new visual source. The full-index expansion requires a final in-browser verification before this item is marked complete.
+
 ## Image and Media Reconciliation Rules
 
 All reference media must be reconciled route by route before replacement. A source image is reused only when it is both available and permitted for the current page. Public images use `next/image`; internal navigation uses `next/link`; assets are allow-listed in `next.config.ts`. The active homepage’s Tony Greenberg API image source has been revalidated through the current `next/image` policy.

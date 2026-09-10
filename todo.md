@@ -79,3 +79,9 @@
 - [ ] Continue page, style, image, and interaction parity work using only the public live site and `RRTONY/tonygreenberg` reference evidence; document platform-domain staleness separately without requesting account control.
 - [x] Replace the nine verified legacy root fallback URLs with tested canonical redirects to the existing Next.js homepage instead of creating duplicate content pages.
 - [x] Restore the verified public Human OS hero image with `next/image`, replacing the temporary gradient-only fallback while preserving existing accessibility and responsive contrast treatment.
+- [ ] Restore the two verified public Facilitator Index in-body images with `next/image`, preserving the existing warm glassmorphic research layout and image alt text.
+- [x] Remove unverified hard-coded Facilitator Index testimonial content rather than presenting unsupported customer statements in the public interface.
+- [x] Replace all active Facilitator Index Unicode symbol icons with semantically equivalent Lucide icons and enforce the rule with focused source-level tests.
+- [ ] Replace remaining confirmed Unicode symbols that function as active interface icons, status indicators, disclosure controls, or ratings with existing Lucide icons, preserving editorial prose and data semantics.
+- [x] Replace Journey Dashboard category, status, view-toggle, and action symbols with existing Lucide icons and add focused regression coverage.
+- [x] Replace Assessments Hub and Grant Study Unicode icon data with Lucide icon components and verify the affected assessment cards remain accessible.

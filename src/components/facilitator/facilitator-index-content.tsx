@@ -1,39 +1,17 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { FACILITATOR_BANDS } from "@/lib/content/facilitator-index-data";
+import {
+  FACILITATOR_BANDS,
+  FACILITATOR_BANDS_IMAGE,
+  FACILITATOR_COMPASS_IMAGE,
+} from "@/lib/content/facilitator-index-data";
 import { QuickIntake } from "@/components/facilitator/quick-intake";
 import { SubmissionForm } from "@/components/facilitator/submission-form";
 import { PrintQuestionsButton } from "@/components/facilitator/print-questions-button";
 import { FacilitatorShareBar } from "@/components/facilitator/share-bar";
-
-const TESTIMONIALS = [
-  {
-    quote:
-      "I've been in this field for eight years. The 108 items named things I'd never had language for. I scored myself honestly for the first time.",
-    name: "K.R.",
-    context: "Psilocybin Facilitator · Colorado",
-  },
-  {
-    quote:
-      "The anonymity isn't a feature — it's the whole point. I answered things I've never said out loud. That's not nothing.",
-    name: "T.M.",
-    context: "Ibogaine Practitioner · Mexico",
-  },
-  {
-    quote:
-      "I got the Threshold Keeper archetype. Read it three times. Sent it to my supervisor. She said it was more accurate than anything she'd written about me in two years.",
-    name: "A.L.",
-    context: "Ketamine-Assisted Therapist · NYC",
-  },
-  {
-    quote:
-      "The supervision band was uncomfortable. I scored low and I knew it was true. I found a peer consultation group six weeks later. That's what this is for.",
-    name: "D.S.",
-    context: "Ayahuasca Facilitator · Netherlands",
-  },
-];
 
 function Item({ n, children }: { n: number; children: React.ReactNode }) {
   return (
@@ -264,6 +242,17 @@ export function FacilitatorIndexContent() {
             </p>
           </div>
 
+          <figure className="mb-10 overflow-hidden rounded-lg border border-facilitator-amber-light/18 shadow-sm">
+            <Image
+              src={FACILITATOR_BANDS_IMAGE}
+              alt="Twelve bands"
+              width={1200}
+              height={675}
+              unoptimized
+              className="h-auto w-full brightness-90 saturate-120"
+            />
+          </figure>
+
           {/* All 12 bands */}
           {FACILITATOR_BANDS.map((band) => (
             <div key={band.id}>
@@ -327,6 +316,19 @@ export function FacilitatorIndexContent() {
                   {item.text}
                 </Item>
               ))}
+
+              {band.id === "band-j" && (
+                <figure className="mt-8 mb-10 overflow-hidden rounded-lg border border-facilitator-amber-light/18 shadow-sm">
+                  <Image
+                    src={FACILITATOR_COMPASS_IMAGE}
+                    alt="The five-axis map"
+                    width={1200}
+                    height={675}
+                    unoptimized
+                    className="h-auto w-full brightness-90 saturate-120"
+                  />
+                </figure>
+              )}
 
               <hr className="my-8 border-facilitator-amber-deep/15" />
             </div>
@@ -517,33 +519,6 @@ export function FacilitatorIndexContent() {
             >
               Inquire About Licensing
             </a>
-          </div>
-
-          {/* Testimonials */}
-          <div className="my-8">
-            <div className="mb-8 text-center text-[.68rem] font-bold tracking-[0.2em] text-facilitator-ink/35 uppercase">
-              From the field
-            </div>
-            <div className="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-5">
-              {TESTIMONIALS.map((t) => (
-                <div
-                  key={t.name}
-                  className="flex flex-col gap-3 rounded-2xl border border-facilitator-amber-light/28 bg-white/82 p-6 shadow-[0_8px_32px_rgba(180,120,0,0.12),0_2px_8px_rgba(0,0,0,.06)] backdrop-blur-2xl"
-                >
-                  <p className="m-0 font-heading text-[clamp(.88rem,2.2vw,.95rem)] leading-[1.75] text-facilitator-ink/72 italic">
-                    &ldquo;{t.quote}&rdquo;
-                  </p>
-                  <div className="border-t border-facilitator-ink/8 pt-2.5">
-                    <div className="text-[.78rem] font-bold tracking-[0.04em] text-facilitator-amber-deep">
-                      {t.name}
-                    </div>
-                    <div className="mt-0.5 text-[.72rem] tracking-[0.03em] text-facilitator-ink/40">
-                      {t.context}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
 
           <FacilitatorShareBar />

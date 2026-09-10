@@ -1,6 +1,7 @@
 import { ForwardIcon } from "@/components/ui/inline-icons";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowDown } from "lucide-react";
 import { ThemedBackground } from "@/components/assessments/themed-background";
 import { JourneyTracker } from "@/components/assessments/journey-tracker";
 import { ASSESSMENTS } from "@/lib/content/assessments-hub";
@@ -46,9 +47,9 @@ export default function AssessmentsPage() {
           <div className="mt-12">
             <a
               href="#instruments"
-              className="inline-block bg-linear-to-br from-brand-gold to-brand-gold-light px-10 py-4 font-mono text-[0.85rem] tracking-[0.15em] text-white uppercase transition-opacity hover:opacity-90"
+              className="inline-flex items-center gap-2 bg-linear-to-br from-brand-gold to-brand-gold-light px-10 py-4 font-mono text-[0.85rem] tracking-[0.15em] text-white uppercase transition-opacity hover:opacity-90"
             >
-              See the Instruments ↓
+              See the Instruments <ArrowDown aria-hidden="true" className="size-4" />
             </a>
           </div>
         </div>
@@ -59,38 +60,46 @@ export default function AssessmentsPage() {
         className="relative z-1 mx-auto max-w-300 px-8 py-[clamp(4rem,6vw,6rem)]"
       >
         <div className="flex flex-col gap-6">
-          {ASSESSMENTS.map((a) => (
-            <Link
-              key={a.slug}
-              href={`/${a.slug}`}
-              className="grid grid-cols-1 items-center gap-6 border border-border bg-background p-8 transition-colors hover:border-brand-gold/40 sm:grid-cols-[auto_1fr_auto] sm:gap-8 sm:p-10"
-            >
-              <div
-                className="flex size-16 items-center justify-center rounded-sm border text-3xl"
-                style={{ color: a.accent, borderColor: `${a.accent}33` }}
+          {ASSESSMENTS.map((a) => {
+            const Icon = a.Icon;
+
+            return (
+              <Link
+                key={a.slug}
+                href={`/${a.slug}`}
+                className="grid grid-cols-1 items-center gap-6 border border-border bg-background p-8 transition-colors hover:border-brand-gold/40 sm:grid-cols-[auto_1fr_auto] sm:gap-8 sm:p-10"
               >
-                {a.icon}
-              </div>
-              <div>
-                <p
-                  className="mb-2 font-mono text-xs tracking-[0.2em] uppercase"
-                  style={{ color: a.accent }}
+                <div
+                  className="flex size-16 items-center justify-center rounded-sm border"
+                  style={{ color: a.accent, borderColor: `${a.accent}33` }}
                 >
-                  {a.subtitle}
-                </p>
-                <h3 className="mb-3 font-heading text-xl font-normal text-foreground">{a.title}</h3>
-                <p className="max-w-170 text-[1.05rem] leading-[1.7] text-muted-foreground">
-                  {a.description}
-                </p>
-              </div>
-              <div className="flex flex-row items-center gap-3 sm:flex-col sm:items-end sm:text-right">
-                <p className="font-mono text-xs tracking-widest text-muted-foreground">{a.time}</p>
-                <span className="rounded-full bg-brand-gold/10 px-2.5 py-1 font-mono text-[0.6rem] tracking-widest text-brand-gold uppercase">
-                  Begin <ForwardIcon aria-hidden="true" />
-                </span>
-              </div>
-            </Link>
-          ))}
+                  <Icon aria-hidden="true" className="size-8" />
+                </div>
+                <div>
+                  <p
+                    className="mb-2 font-mono text-xs tracking-[0.2em] uppercase"
+                    style={{ color: a.accent }}
+                  >
+                    {a.subtitle}
+                  </p>
+                  <h3 className="mb-3 font-heading text-xl font-normal text-foreground">
+                    {a.title}
+                  </h3>
+                  <p className="max-w-170 text-[1.05rem] leading-[1.7] text-muted-foreground">
+                    {a.description}
+                  </p>
+                </div>
+                <div className="flex flex-row items-center gap-3 sm:flex-col sm:items-end sm:text-right">
+                  <p className="font-mono text-xs tracking-widest text-muted-foreground">
+                    {a.time}
+                  </p>
+                  <span className="rounded-full bg-brand-gold/10 px-2.5 py-1 font-mono text-[0.6rem] tracking-widest text-brand-gold uppercase">
+                    Begin <ForwardIcon aria-hidden="true" />
+                  </span>
+                </div>
+              </Link>
+            );
+          })}
         </div>
 
         <p className="mt-10 text-center text-sm text-muted-foreground">

@@ -3,6 +3,19 @@
 import { BackIcon, ForwardIcon } from "@/components/ui/inline-icons";
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import type { LucideIcon } from "lucide-react";
+import {
+  Brain,
+  Check,
+  Compass,
+  ExternalLink,
+  Grid2X2,
+  Heart,
+  HeartPulse,
+  ListTree,
+  Sparkles,
+  Utensils,
+} from "lucide-react";
 import { ThemedBackground } from "@/components/assessments/themed-background";
 import {
   JOURNEY_MAP,
@@ -43,7 +56,7 @@ const CATEGORY_STYLES: Record<
   Category,
   {
     label: string;
-    icon: string;
+    Icon: LucideIcon;
     textClass: string;
     borderClass: string;
     bgClass: string;
@@ -52,7 +65,7 @@ const CATEGORY_STYLES: Record<
 > = {
   know: {
     label: "Know Thyself",
-    icon: "◎",
+    Icon: Compass,
     textClass: "text-brand-gold-light",
     borderClass: "border-brand-gold-light/30",
     bgClass: "bg-brand-gold-light/10",
@@ -60,7 +73,7 @@ const CATEGORY_STYLES: Record<
   },
   love: {
     label: "Love & Belonging",
-    icon: "♡",
+    Icon: Heart,
     textClass: "text-[#C97B7B]",
     borderClass: "border-[#C97B7B]/30",
     bgClass: "bg-[#C97B7B]/10",
@@ -68,7 +81,7 @@ const CATEGORY_STYLES: Record<
   },
   body: {
     label: "Body & Temple",
-    icon: "⌘",
+    Icon: HeartPulse,
     textClass: "text-[#7BC9A4]",
     borderClass: "border-[#7BC9A4]/30",
     bgClass: "bg-[#7BC9A4]/10",
@@ -76,7 +89,7 @@ const CATEGORY_STYLES: Record<
   },
   taste: {
     label: "Taste & Ritual",
-    icon: "◈",
+    Icon: Utensils,
     textClass: "text-[#C9A87B]",
     borderClass: "border-[#C9A87B]/30",
     bgClass: "bg-[#C9A87B]/10",
@@ -84,7 +97,7 @@ const CATEGORY_STYLES: Record<
   },
   mind: {
     label: "Mind & Systems",
-    icon: "⬡",
+    Icon: Brain,
     textClass: "text-[#7BA8C9]",
     borderClass: "border-[#7BA8C9]/30",
     bgClass: "bg-[#7BA8C9]/10",
@@ -181,6 +194,7 @@ function ExperienceCard({
   isCompleted: boolean;
 }) {
   const cat = CATEGORY_STYLES[experience.category];
+  const CategoryIcon = cat.Icon;
   const statusCopy = isCompleted
     ? experience.isExternal
       ? "Marked as visited. Results stored on the external site."
@@ -188,11 +202,11 @@ function ExperienceCard({
     : `${experience.questionCount ? `${experience.questionCount} questions · ` : ""}~${experience.estimatedMinutes} min`;
   const actionLabel = isCompleted
     ? experience.isExternal
-      ? "Visit Again ↗"
-      : "Retake →"
+      ? "Visit Again"
+      : "Retake"
     : experience.isExternal
-      ? "Begin ↗"
-      : "Begin →";
+      ? "Begin"
+      : "Begin";
   const actionClass = `inline-flex items-center gap-1 rounded-md border px-3 py-1.5 font-mono text-[0.6rem] tracking-[0.1em] uppercase ${
     isCompleted ? "border-white/10 text-[#E8E4DC]/40" : `${cat.borderClass} ${cat.textClass}`
   }`;
@@ -204,9 +218,10 @@ function ExperienceCard({
       <div className="mb-3 flex items-start justify-between gap-3">
         <div className="min-w-0">
           <span
-            className={`font-mono text-[0.55rem] tracking-[0.15em] uppercase opacity-70 ${cat.textClass}`}
+            className={`inline-flex items-center gap-1 font-mono text-[0.55rem] tracking-[0.15em] uppercase opacity-70 ${cat.textClass}`}
           >
-            {cat.icon} {cat.label}
+            <CategoryIcon aria-hidden="true" className="size-3" />
+            {cat.label}
           </span>
           <h3 className="mt-1 font-heading text-[1.1rem] leading-tight font-bold text-[#E8E4DC]">
             {experience.name}
@@ -219,7 +234,13 @@ function ExperienceCard({
               : "border-white/5 bg-white/5 text-[#E8E4DC]/30"
           }`}
         >
-          {isCompleted ? "✓ Complete" : "Not Started"}
+          {isCompleted ? (
+            <span className="inline-flex items-center gap-1">
+              <Check aria-hidden="true" className="size-3" /> Complete
+            </span>
+          ) : (
+            "Not Started"
+          )}
         </span>
       </div>
 
@@ -233,11 +254,11 @@ function ExperienceCard({
             rel="noopener noreferrer"
             className={actionClass}
           >
-            {actionLabel}
+            {actionLabel} <ExternalLink aria-hidden="true" className="size-3" />
           </a>
         ) : (
           <Link href={experience.url} className={actionClass}>
-            {actionLabel}
+            {actionLabel} <ForwardIcon />
           </Link>
         )}
       </div>
@@ -271,7 +292,7 @@ function PhaseTimeline({ completed }: { completed: Set<string> }) {
                       : "border-brand-gold-light/15 bg-brand-gold-light/8 text-brand-gold-light"
                 }`}
               >
-                {isComplete ? "✓" : phase.phase}
+                {isComplete ? <Check aria-hidden="true" className="size-3" /> : phase.phase}
               </div>
 
               <div className="mb-1 flex items-baseline gap-2">
@@ -475,7 +496,7 @@ export function MyJourneyDashboard() {
                   rel="noopener noreferrer"
                   className="rounded-lg bg-linear-to-br from-brand-gold to-brand-gold-light px-6 py-2.5 font-mono text-[0.65rem] font-bold tracking-[0.1em] text-[#0A0A10] uppercase"
                 >
-                  Begin ↗
+                  Begin <ExternalLink aria-hidden="true" className="size-3" />
                 </a>
               ) : (
                 <Link
@@ -501,7 +522,15 @@ export function MyJourneyDashboard() {
                     : "border-white/5 text-[#E8E4DC]/30"
                 }`}
               >
-                {mode === "grid" ? "◫ Grid" : "⊞ Timeline"}
+                {mode === "grid" ? (
+                  <span className="inline-flex items-center gap-1">
+                    <Grid2X2 aria-hidden="true" className="size-3" /> Grid
+                  </span>
+                ) : (
+                  <span className="inline-flex items-center gap-1">
+                    <ListTree aria-hidden="true" className="size-3" /> Timeline
+                  </span>
+                )}
               </button>
             ))}
           </div>
@@ -556,7 +585,7 @@ export function MyJourneyDashboard() {
         {stats.pct === 100 && (
           <div className="mx-auto mt-12 max-w-170 px-6 text-center">
             <div className="rounded-[20px] border border-brand-gold-light/20 bg-linear-to-br from-brand-gold-light/10 to-brand-gold/5 px-8 py-12">
-              <div className="mb-4 text-4xl">◎</div>
+              <Sparkles aria-hidden="true" className="mx-auto mb-4 size-10 text-brand-gold-light" />
               <h2 className="mb-3 font-heading text-2xl font-bold text-brand-gold-light">
                 You Found Yourself
               </h2>

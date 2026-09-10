@@ -9,10 +9,10 @@ import { FacilitatorIndexContent } from "@/components/facilitator/facilitator-in
 // `facilitator-index-content.tsx` for the full port note (what's real,
 // what's dropped, and why). This page renders the real hero (one
 // confirmed-live CloudFront photo) and mounts the client content below it.
-// Legacy's two in-body section images (`facilitator-bands`,
-// `facilitator-compass`) were on the Manus `/api/img/` proxy — dropped per
-// this repo's zero-Manus rule rather than proxied, tracked as a real image
-// gap (Phase 13). Legacy's global copy/right-click-blocking `useEffect`
+// The two in-body section images (`facilitator-bands`, `facilitator-compass`)
+// are restored from their verified live public endpoints through `next/image`.
+// Unsupported hard-coded testimonials are deliberately omitted rather than
+// presented as user-generated evidence. Legacy's global copy/right-click-blocking `useEffect`
 // (billed as "IP protection") is dropped — it provides no real security
 // (trivially bypassed) while actively frustrating legitimate visitors
 // (can't copy their own draft answers, can't open a link in a new tab);
