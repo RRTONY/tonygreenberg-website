@@ -1,6 +1,7 @@
 import { ForwardIcon } from "@/components/ui/inline-icons";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Check } from "lucide-react";
 import { PeptideShutdownBanner } from "@/components/marketing/peptide-shutdown-banner";
 import { BioChainCTA } from "@/components/marketing/biochain-cta";
 import { ClinicRankings, type Clinic } from "@/components/marketing/clinic-rankings";
@@ -440,9 +441,9 @@ export default function PeptideHallOfShamePage() {
             ].map((f) => (
               <span
                 key={f}
-                className="rounded bg-emerald-700/10 px-2 py-1 font-mono text-xs text-emerald-700"
+                className="inline-flex items-center gap-1 rounded bg-emerald-700/10 px-2 py-1 font-mono text-xs text-emerald-700"
               >
-                ✓ {f}
+                <Check aria-hidden="true" className="size-3" /> {f}
               </span>
             ))}
           </div>
