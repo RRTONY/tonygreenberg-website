@@ -3,6 +3,7 @@
 import { ForwardIcon } from "@/components/ui/inline-icons";
 import { useMemo, useState } from "react";
 import type { ChainEntry } from "@/lib/intelligence-engine/types";
+import { Check, Minus, Sparkles } from "lucide-react";
 
 const TIER_TAG_CLASS: Record<ChainEntry["tier"], string> = {
   S: "bg-[#C5A23C]/12 text-[#8B6914]",
@@ -137,7 +138,7 @@ function ChainCard({
               </div>
               {chain.strengths.map((s) => (
                 <div key={s} className="flex gap-1.5 py-0.5 text-[0.82rem] text-[#2C1810]">
-                  <span className="text-[#4A7C59]">+</span> {s}
+                  <Check aria-hidden="true" className="mt-0.5 size-3 shrink-0 text-[#4A7C59]" /> {s}
                 </div>
               ))}
             </div>
@@ -147,7 +148,7 @@ function ChainCard({
               </div>
               {chain.weaknesses.map((w) => (
                 <div key={w} className="flex gap-1.5 py-0.5 text-[0.82rem] text-[#2C1810]">
-                  <span className="text-[#8B2500]">−</span> {w}
+                  <Minus aria-hidden="true" className="mt-0.5 size-3 shrink-0 text-[#8B2500]" /> {w}
                 </div>
               ))}
             </div>
@@ -155,8 +156,9 @@ function ChainCard({
 
           <div className="flex flex-wrap items-center gap-6">
             {chain.signatureDrink && (
-              <div className="font-mono text-[0.72rem] text-[#6B5B4F]">
-                <span className="text-[#C5A23C]">★</span> Signature: {chain.signatureDrink}
+              <div className="inline-flex items-center gap-1.5 font-mono text-[0.72rem] text-[#6B5B4F]">
+                <Sparkles aria-hidden="true" className="size-3.5 text-[#C5A23C]" />
+                Signature: {chain.signatureDrink}
               </div>
             )}
             <div className="font-mono text-[0.72rem] text-[#6B5B4F]">{chain.priceRange}</div>

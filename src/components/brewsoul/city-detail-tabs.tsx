@@ -1,7 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { Building2, CupSoda, Skull, Trophy, type LucideIcon, Waypoints } from "lucide-react";
+import {
+  Building2,
+  ChevronDown,
+  ChevronUp,
+  CupSoda,
+  Skull,
+  Trophy,
+  type LucideIcon,
+  Waypoints,
+} from "lucide-react";
 import {
   SCORING_DIMENSIONS,
   getGradeColor,
@@ -97,7 +106,11 @@ function ShopRow({ shop, isBest }: { shop: CoffeeShop; isBest: boolean }) {
             {shop.scores.total}
           </span>
           <GradeBadge grade={shop.scores.grade} size="sm" />
-          <span className="text-sm text-amber-200/40">{expanded ? "▲" : "▼"}</span>
+          {expanded ? (
+            <ChevronUp aria-hidden="true" className="size-4 text-amber-200/40" />
+          ) : (
+            <ChevronDown aria-hidden="true" className="size-4 text-amber-200/40" />
+          )}
         </div>
       </button>
 

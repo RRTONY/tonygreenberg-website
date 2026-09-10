@@ -2,6 +2,7 @@
 
 import { ForwardIcon } from "@/components/ui/inline-icons";
 import { useState } from "react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 interface Product {
   roast: string;
@@ -21,7 +22,6 @@ interface Roaster {
   sub?: string;
   testing: string;
   unique: string;
-  rating: string;
 }
 
 const ROASTER_BORDER_CLASS = [
@@ -82,7 +82,6 @@ const ROASTERS: Roaster[] = [
       "3rd party lab tested: mold, mycotoxins, heavy metals. Results on website. SCA score 85-87.",
     unique:
       "World's first Demeter-certified biodynamic decaf. Roasted in-house (not outsourced). Ships within 1 week of roast date. 9 grind options. Compostable packaging. Forbes featured. Available at Erewhon.",
-    rating: "★★★★★ Best-in-class",
   },
   {
     name: "Cafe Altura",
@@ -110,7 +109,6 @@ const ROASTERS: Roaster[] = [
     testing: "Demeter certified supply chain. No independent mold testing published.",
     unique:
       "The OG — Chris Shepherd traveled to Chiapas in 1980 seeking chemical-free coffee. 44+ years continuous biodynamic. Best price-to-value biodynamic on market. Roasts day 1, ships day 2.",
-    rating: "★★★★☆ Best value",
   },
   {
     name: "Deepvalley Coffee",
@@ -127,7 +125,6 @@ const ROASTERS: Roaster[] = [
     testing: "Demeter certified. No independent lab testing published on site.",
     unique:
       "Also offers Regenerative certified line (separate from biodynamic). 6 blend variety is widest selection. Light/Medium/Dark all available.",
-    rating: "★★★★☆ Best variety",
   },
   {
     name: "Primal Pastures",
@@ -162,7 +159,6 @@ const ROASTERS: Roaster[] = [
     testing: "End-to-end Demeter certification covers sourcing, shipping, warehousing, roasting.",
     unique:
       "Regenerative livestock farm that added biodynamic coffee. Whole bean only. Compostable packaging. Sources from both Honduras and Brazil biodynamic farms.",
-    rating: "★★★★☆ Most transparent supply chain",
   },
   {
     name: "Purity Coffee",
@@ -204,7 +200,6 @@ const ROASTERS: Roaster[] = [
       "Tests for 350+ chemical compounds. Lab results available on request. Mold-free verified.",
     unique:
       "Health-first brand. Highest CGA (chlorogenic acid) focus. Demeter-certified on some lines. Smithsonian Bird Friendly (only 1% of global coffee). Most certifications stacked. Premium price reflects testing depth.",
-    rating: "★★★★★ Most health-optimized",
   },
   {
     name: "Melk Organics",
@@ -225,7 +220,6 @@ const ROASTERS: Roaster[] = [
     testing: "Same lab testing standards as Holistic Roasters biodynamic line.",
     unique:
       "Entry-level product from the Holistic Roasters family. Same quality roasting (Scott Rao trained), same farms, just organic certification instead of full Demeter biodynamic. Good stepping stone.",
-    rating: "★★★☆☆ Best entry point",
   },
 ];
 
@@ -243,12 +237,11 @@ export function BiodynamicRoasters() {
           onClick={() => setExpanded(expanded === i ? null : i)}
           className={`mb-4 cursor-pointer rounded-lg border border-[#5d3a28]/8 bg-white p-6 border-l-4 ${ROASTER_BORDER_CLASS[i]}`}
         >
-          <div className="flex flex-wrap items-start justify-between gap-3">
+          <div className="flex flex-wrap items-start gap-3">
             <div>
               <div className="font-heading text-xl font-bold text-[#1a0e08] italic">{r.name}</div>
               <div className="mt-0.5 text-[13px] text-[#6b5a4e]">{r.loc}</div>
             </div>
-            <div className="font-heading text-base font-bold text-[#c4873b]">{r.rating}</div>
           </div>
 
           <div className="mt-2.5 text-sm leading-relaxed text-[#5c3a28]">{r.unique}</div>
@@ -315,8 +308,17 @@ export function BiodynamicRoasters() {
               </a>
             </div>
           )}
-          <div className="mt-2 font-mono text-[10px] text-[#6b5a4e]">
-            {expanded === i ? "▲ Collapse" : "▼ Tap for details, certs & buy link"}
+          <div className="mt-2 inline-flex items-center gap-1 font-mono text-[10px] text-[#6b5a4e]">
+            {expanded === i ? (
+              <>
+                <ChevronUp aria-hidden="true" className="size-3" /> Collapse
+              </>
+            ) : (
+              <>
+                <ChevronDown aria-hidden="true" className="size-3" /> Tap for details, certs &amp;
+                buy link
+              </>
+            )}
           </div>
         </div>
       ))}

@@ -1,6 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, BarChart3, Check, Coffee, Microscope, Pill, Scale } from "lucide-react";
+import {
+  ArrowRight,
+  BarChart3,
+  Check,
+  Coffee,
+  Microscope,
+  Pill,
+  Scale,
+  Sparkles,
+} from "lucide-react";
 import { NextSteps } from "@/components/brewsoul/next-steps";
 import { FirstSipEmailCapture } from "@/components/brewsoul/first-sip-email-capture";
 import { JourneyBar, MarkVisited } from "@/components/brewsoul/journey-bar";
@@ -464,7 +473,7 @@ export default function FirstSipPage() {
                 href={essay.slug}
                 className={`flex items-center gap-4 py-4 text-[#6B5B4F] ${i < RELATED.length - 1 ? "border-b border-[#6F4E37]/10" : ""}`}
               >
-                <span className="shrink-0 text-xs text-[#C5A23C]">✦</span>
+                <Sparkles aria-hidden="true" className="size-3.5 shrink-0 text-[#C5A23C]" />
                 <span className="flex-1 font-medium text-[0.95rem] text-[#2C1810]">
                   {essay.title}
                 </span>

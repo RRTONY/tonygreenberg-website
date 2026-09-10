@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 interface Farm {
   name: string;
@@ -141,8 +142,16 @@ export function BiodynamicFarms() {
               </div>
             </div>
           )}
-          <div className="mt-2 font-mono text-[10px] text-[#6b5a4e]">
-            {expanded === i ? "▲ Collapse" : "▼ Tap for full story"}
+          <div className="mt-2 inline-flex items-center gap-1 font-mono text-[10px] text-[#6b5a4e]">
+            {expanded === i ? (
+              <>
+                <ChevronUp aria-hidden="true" className="size-3" /> Collapse
+              </>
+            ) : (
+              <>
+                <ChevronDown aria-hidden="true" className="size-3" /> Tap for full story
+              </>
+            )}
           </div>
         </button>
       ))}

@@ -86,3 +86,6 @@
 - [x] Replace Journey Dashboard category, status, view-toggle, and action symbols with existing Lucide icons and add focused regression coverage.
 - [x] Replace Assessments Hub and Grant Study Unicode icon data with Lucide icon components and verify the affected assessment cards remain accessible.
 - [x] Replace all Find My directory emoji and Unicode card icons with existing Lucide components, retaining every current assessment link and status label.
+- [x] Remove unsupported hard-coded coffee rating labels and replace disclosure symbols with Lucide controls on the BrewSoul biodynamic roaster page.
+- [x] Replace the remaining BrewSoul disclosure, status, and decorative Unicode UI symbols with existing Lucide icons across the cities, decaf, health, chain, coffee-card, email-capture, and First Sip surfaces.
+- [x] Replace the remaining BrewSoul biodynamic-farms disclosure arrows with Lucide chevrons and extend the BrewSoul icon-policy regression coverage.

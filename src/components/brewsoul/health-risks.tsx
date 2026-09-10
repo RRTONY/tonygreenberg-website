@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 interface Risk {
   title: string;
@@ -33,7 +34,14 @@ export function HealthRisks({ risks }: { risks: Risk[] }) {
         onClick={() => setExpanded(!expanded)}
         className="mb-6 rounded-sm border border-[#8b4c2a]/50 bg-[#8b4c2a]/30 px-6 py-3 font-mono text-xs tracking-[0.1em] text-[#e8dcc8]"
       >
-        {expanded ? "Collapse Risks ▲" : `Show All ${risks.length} Risks ▼`}
+        <span className="inline-flex items-center gap-1.5">
+          {expanded ? (
+            <ChevronUp aria-hidden="true" className="size-3.5" />
+          ) : (
+            <ChevronDown aria-hidden="true" className="size-3.5" />
+          )}
+          {expanded ? "Collapse Risks" : `Show All ${risks.length} Risks`}
+        </span>
       </button>
 
       {expanded && (

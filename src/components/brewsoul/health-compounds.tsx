@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 interface Compound {
   name: string;
@@ -41,8 +42,14 @@ export function HealthCompounds({ compounds }: { compounds: Compound[] }) {
               <div className="font-mono text-[10px] text-[#6b5a4e]">{c.source}</div>
             </div>
           )}
-          <div className="mt-1.5 font-mono text-[10px] text-[#6b5a4e]">
-            {expanded === i ? "▲" : "▼ Details & citation"}
+          <div className="mt-1.5 inline-flex items-center gap-1 font-mono text-[10px] text-[#6b5a4e]">
+            {expanded === i ? (
+              <ChevronUp aria-hidden="true" className="size-3" />
+            ) : (
+              <>
+                <ChevronDown aria-hidden="true" className="size-3" /> Details &amp; citation
+              </>
+            )}
           </div>
         </button>
       ))}

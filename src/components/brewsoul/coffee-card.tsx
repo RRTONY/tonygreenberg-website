@@ -1,5 +1,6 @@
 import { computeTier, tierLabel } from "@/lib/intelligence-engine/scoring";
 import type { CatalogItem } from "@/lib/intelligence-engine/types";
+import { Check } from "lucide-react";
 
 // Ported from legacy client/src/pages/brewsoul/BrewSoulHome.tsx's
 // `CoffeeCard` (originally defined there and re-exported for BrewSoulBrowse
@@ -45,8 +46,8 @@ export function CoffeeCard({ coffee, scores }: { coffee: CatalogItem; scores: Co
             {tierLabel(computeTier(coffee.cuppingScore || 0))} · {coffee.cuppingScore}
           </span>
           {coffee.moldTestStatus === "verified" && (
-            <span className="rounded-full bg-[#4A7C59]/10 px-2 py-0.5 font-mono text-[0.65rem] text-[#4A7C59]">
-              Mold-Free ✓
+            <span className="inline-flex items-center gap-1 rounded-full bg-[#4A7C59]/10 px-2 py-0.5 font-mono text-[0.65rem] text-[#4A7C59]">
+              <Check aria-hidden="true" className="size-3" /> Mold-Free
             </span>
           )}
           {coffee.limitedRelease && (

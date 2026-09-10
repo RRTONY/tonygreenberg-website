@@ -2,6 +2,7 @@
 
 import { ForwardIcon } from "@/components/ui/inline-icons";
 import { useState } from "react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import { FAME } from "@/lib/content/brewsoul-decaf";
 
 // Ported from legacy client/src/pages/brewsoul/BrewSoulDecaf.tsx's
@@ -60,8 +61,14 @@ export function DecafFame() {
               </a>
             </div>
           )}
-          <div className="mt-1.5 font-mono text-[10px] text-[#6b5a4e]">
-            {expanded === i ? "▲" : "▼ Details & buy link"}
+          <div className="mt-1.5 inline-flex items-center gap-1 font-mono text-[10px] text-[#6b5a4e]">
+            {expanded === i ? (
+              <ChevronUp aria-hidden="true" className="size-3" />
+            ) : (
+              <>
+                <ChevronDown aria-hidden="true" className="size-3" /> Details &amp; buy link
+              </>
+            )}
           </div>
         </button>
       ))}
