@@ -71,4 +71,5 @@
 - [ ] Validate every newly restored public route at desktop and mobile breakpoints, including media loading, navigation, and cookie-backed interactions.
 - [ ] Compare every reference-repository image and media source with active Next.js usage; reuse verified existing images through `next/image` before generating any replacement asset.
 - [ ] Create and document matching replacement image assets only where a verified required visual is unavailable from the reference repository or its live source.
-- [ ] Trace and replace the remaining active Sanity CDN image URLs with verified reference-repository, live-site, or managed assets without changing page semantics.
+- [x] Trace and replace the remaining active Sanity CDN image URLs with verified reference-repository, live-site, or managed assets without changing page semantics.
+- [x] Restore the verified free `/subscribe` newsletter route using the active server-backed newsletter endpoint, while keeping legacy paid Stripe offers explicitly deferred.

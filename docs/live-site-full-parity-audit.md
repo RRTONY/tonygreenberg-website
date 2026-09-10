@@ -62,6 +62,8 @@ The nine remaining active references to the retired Sanity project image host we
 | `/the-web`        | Hero                 | `/manus-storage/the-web-hero_06f8b491.webp`               |
 | `/walk-through`   | Tony portrait hero   | `/manus-storage/about-walkthrough-portrait_f97955e3.webp` |
 
+At the validation checkpoint, the public managed-storage URL returned an edge redirect followed by a `200 image/webp` response. The local Next.js development server does not proxy `/manus-storage/*`, which is expected to be handled by the managed platform edge. Separately, a post-checkpoint inspection of the configured public domain continued to emit the pre-checkpoint Sanity image markup despite a deployment-success notification. Therefore, the asset migration is source- and storage-verified, while final public deployment-media verification remains open in the deployment checklist until the served application revision advances.
+
 ## Implementation Priority
 
 1. Complete route-level image, content, link, and responsive comparison for active high-traffic public pages.

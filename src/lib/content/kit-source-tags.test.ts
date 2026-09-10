@@ -5,6 +5,7 @@ import { resolveKitTag } from "./kit-source-tags";
 describe("resolveKitTag", () => {
   it("returns the established tag for a known form source", () => {
     expect(resolveKitTag("footer")).toBe("Website Footer");
+    expect(resolveKitTag("subscribe")).toBe("Newsletter: Throughline");
     expect(resolveKitTag("jewel-box:latest-essay")).toBe("Exit Intent: Jewel Box");
   });
 

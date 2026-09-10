@@ -7,6 +7,7 @@
 // same as legacy.
 export const KIT_TAG_MAP: Record<string, string> = {
   footer: "Website Footer",
+  subscribe: "Newsletter: Throughline",
   "first-sip": "BrewSoul: First Sip",
   "find-your-me": "Assessment: Find Your Me",
   "find-your-mirror": "Assessment: Find Your Mirror",
