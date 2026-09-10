@@ -2,7 +2,7 @@ import { BackIcon, ForwardIcon } from "@/components/ui/inline-icons";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { AlertTriangle, TreeDeciduous, Pill, Star } from "lucide-react";
+import { AlertTriangle, Check, TreeDeciduous, Pill, Star } from "lucide-react";
 import {
   IBOGA_IMAGES,
   IBOGAINE_PHARMACOLOGY,
@@ -14,6 +14,7 @@ import {
   IBOGA_MEDICINE_SELECTOR,
   IBOGA_SOURCES,
   IBOGA_DISCLAIMER,
+  type MedicineStatus,
 } from "@/lib/content/pri-iboga-module";
 import { PriSection, PriEyebrow } from "@/components/pri/pri-section";
 import { IbogaPharmaTable } from "@/components/pri/iboga-pharma-table";
@@ -52,6 +53,14 @@ const thDarkClass =
   "border-b-2 border-[#3A3530] bg-[#2A2420] px-3 py-2.5 text-left text-xs font-extrabold tracking-[0.08em] whitespace-nowrap text-pri-purple-light uppercase";
 const tdDarkClass =
   "border-b border-[#3A3530] px-3 py-2.5 align-top text-[.95rem] leading-[1.55] text-pri-cream";
+
+function MedicineStatusValue({ value }: { value: MedicineStatus }) {
+  return value === true ? (
+    <Check aria-label="Yes" className="mx-auto size-3.5 text-[#81C784]" />
+  ) : (
+    value
+  );
+}
 
 const UPDATED_RESEARCH = [
   {
@@ -701,23 +710,29 @@ export default function IbogaIbogainePage() {
               </tr>
             </thead>
             <tbody>
-              {IBOGA_DIM_SCORES.map((r, i) => (
-                <tr key={r.dimension} className={i % 2 ? "bg-pri-parchment" : ""}>
-                  <td className={`${tdClass} w-10 text-center text-2xl`}>{r.icon}</td>
-                  <td className={`${tdClass} font-bold whitespace-nowrap`}>{r.dimension}</td>
-                  <td
-                    className={`${tdClass} font-bold ${r.ibogaThreshold.includes("Critical") ? "text-[#581C87]" : "text-[#8B6914]"}`}
-                  >
-                    {r.ibogaThreshold}
-                  </td>
-                  <td
-                    className={`${tdClass} font-bold ${r.ibogaineThreshold.includes("Critical") ? "text-[#581C87]" : "text-[#8B6914]"}`}
-                  >
-                    {r.ibogaineThreshold}
-                  </td>
-                  <td className={tdClass}>{r.keyNote}</td>
-                </tr>
-              ))}
+              {IBOGA_DIM_SCORES.map((r, i) => {
+                const Icon = r.icon;
+
+                return (
+                  <tr key={r.dimension} className={i % 2 ? "bg-pri-parchment" : ""}>
+                    <td className={`${tdClass} w-10 text-center`}>
+                      <Icon aria-hidden="true" className="mx-auto size-5" />
+                    </td>
+                    <td className={`${tdClass} font-bold whitespace-nowrap`}>{r.dimension}</td>
+                    <td
+                      className={`${tdClass} font-bold ${r.ibogaThreshold.includes("Critical") ? "text-[#581C87]" : "text-[#8B6914]"}`}
+                    >
+                      {r.ibogaThreshold}
+                    </td>
+                    <td
+                      className={`${tdClass} font-bold ${r.ibogaineThreshold.includes("Critical") ? "text-[#581C87]" : "text-[#8B6914]"}`}
+                    >
+                      {r.ibogaineThreshold}
+                    </td>
+                    <td className={tdClass}>{r.keyNote}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
@@ -753,21 +768,32 @@ export default function IbogaIbogainePage() {
             <tbody>
               {IBOGA_MEDICINE_SELECTOR.map((r, i) => {
                 const isIboga = r.medicine.includes("Iboga");
+                const Icon = r.icon;
                 return (
                   <tr
                     key={r.medicine}
                     className={isIboga ? "bg-[#D4B96A]/8" : i % 2 ? "bg-white/3" : ""}
                   >
-                    <td className={`${tdDarkClass} w-9 text-center text-xl`}>{r.icon}</td>
+                    <td className={`${tdDarkClass} w-9 text-center`}>
+                      <Icon aria-hidden="true" className="mx-auto size-4" />
+                    </td>
                     <td
                       className={`${tdDarkClass} whitespace-nowrap ${isIboga ? "font-extrabold" : "font-semibold"}`}
                     >
                       {r.medicine}
                     </td>
-                    <td className={`${tdDarkClass} text-center`}>{r.addiction}</td>
-                    <td className={`${tdDarkClass} text-center`}>{r.depression}</td>
-                    <td className={`${tdDarkClass} text-center`}>{r.ptsd}</td>
-                    <td className={`${tdDarkClass} text-center`}>{r.tbi}</td>
+                    <td className={`${tdDarkClass} text-center`}>
+                      <MedicineStatusValue value={r.addiction} />
+                    </td>
+                    <td className={`${tdDarkClass} text-center`}>
+                      <MedicineStatusValue value={r.depression} />
+                    </td>
+                    <td className={`${tdDarkClass} text-center`}>
+                      <MedicineStatusValue value={r.ptsd} />
+                    </td>
+                    <td className={`${tdDarkClass} text-center`}>
+                      <MedicineStatusValue value={r.tbi} />
+                    </td>
                     <td className={`${tdDarkClass} font-mono whitespace-nowrap`}>{r.duration}</td>
                     <td className={`${tdDarkClass} text-center`}>{r.beginner}</td>
                     <td className={tdDarkClass}>{r.evidence}</td>

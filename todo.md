@@ -97,3 +97,4 @@
 - [x] Replace the Facilitator Index full-instrument disclosure arrow with a Lucide chevron and extend its focused icon-policy test.
 - [x] Replace confirmed raw external-link arrows and subscription-status checkmarks in shared and public-page UI with existing semantic Lucide or shared icon components.
 - [x] Replace SoulScore dimension, entity, diagnostic, and gig-layer Unicode icon data with typed Lucide components and focused regression coverage.
+- [x] Replace active Iboga deep-dive dimension, medicine, and checkmark table markers with typed Lucide components and focused regression coverage.

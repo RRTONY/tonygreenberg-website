@@ -4,6 +4,22 @@
  * Mirrors the mescaline-module pattern.
  */
 
+import type { LucideIcon } from "lucide-react";
+import {
+  Brain,
+  Flower2,
+  Globe2,
+  HandHeart,
+  Heart,
+  HeartPulse,
+  Hospital,
+  Leaf,
+  Pill,
+  Sprout,
+  Syringe,
+  TreePine,
+} from "lucide-react";
+
 /* ── Images ── */
 export const IBOGA_IMAGES = {
   hero: "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/iboga-hero-JoM8AmTyxi83oYTSuwPWTz.webp",
@@ -423,7 +439,7 @@ export const IBOGA_SUPPLEMENT_STACKS: SupplementPhase[] = [
 
 /* ── PRI Dimension Scores (iboga/ibogaine-specific) ── */
 export interface DimScoreRow {
-  icon: string;
+  icon: LucideIcon;
   dimension: string;
   ibogaThreshold: string;
   ibogaineThreshold: string;
@@ -431,7 +447,7 @@ export interface DimScoreRow {
 }
 export const IBOGA_DIM_SCORES: DimScoreRow[] = [
   {
-    icon: "🧠",
+    icon: Brain,
     dimension: "Mental",
     ibogaThreshold: "Very High",
     ibogaineThreshold: "High",
@@ -439,14 +455,14 @@ export const IBOGA_DIM_SCORES: DimScoreRow[] = [
       "24–72hr duration demands exceptional psychological stability; no active psychosis, bipolar, or schizophrenia",
   },
   {
-    icon: "💖",
+    icon: Heart,
     dimension: "Emotional",
     ibogaThreshold: "Very High",
     ibogaineThreshold: "High",
     keyNote: "Life-review visions surface buried trauma; full emotional surrender required",
   },
   {
-    icon: "🏥",
+    icon: Hospital,
     dimension: "Physical",
     ibogaThreshold: "Critical",
     ibogaineThreshold: "Critical",
@@ -454,7 +470,7 @@ export const IBOGA_DIM_SCORES: DimScoreRow[] = [
       "Mandatory cardiac screening (EKG + electrolytes); QT prolongation risk; liver function tests required",
   },
   {
-    icon: "🌍",
+    icon: Globe2,
     dimension: "Set & Setting",
     ibogaThreshold: "Critical (Ceremonial)",
     ibogaineThreshold: "Critical (Clinical)",
@@ -462,7 +478,7 @@ export const IBOGA_DIM_SCORES: DimScoreRow[] = [
       "Iboga: Bwiti-trained facilitator non-negotiable. Ibogaine: medical supervision with cardiac monitoring",
   },
   {
-    icon: "🙏",
+    icon: HandHeart,
     dimension: "Spiritual",
     ibogaThreshold: "Highest Alignment",
     ibogaineThreshold: "High Alignment",
@@ -472,53 +488,55 @@ export const IBOGA_DIM_SCORES: DimScoreRow[] = [
 ];
 
 /* ── Medicine Selector (Iboga context) ── */
+export type MedicineStatus = "Some" | "Best" | "Fastest" | "—" | true;
+
 export interface MedicineSelectorRow {
-  icon: string;
+  icon: LucideIcon;
   medicine: string;
-  addiction: string;
-  depression: string;
-  ptsd: string;
-  tbi: string;
+  addiction: MedicineStatus;
+  depression: MedicineStatus;
+  ptsd: MedicineStatus;
+  tbi: MedicineStatus;
   duration: string;
   beginner: string;
   evidence: string;
 }
 export const IBOGA_MEDICINE_SELECTOR: MedicineSelectorRow[] = [
   {
-    icon: "🌳",
+    icon: TreePine,
     medicine: "Iboga (Whole Plant)",
-    addiction: "✓",
+    addiction: true,
     depression: "Some",
-    ptsd: "✓",
+    ptsd: true,
     tbi: "Some",
     duration: "24–72h",
     beginner: "No",
     evidence: "Traditional",
   },
   {
-    icon: "💊",
+    icon: Pill,
     medicine: "Ibogaine HCl",
     addiction: "Best",
-    depression: "✓",
-    ptsd: "✓",
-    tbi: "✓",
+    depression: true,
+    ptsd: true,
+    tbi: true,
     duration: "18–36h",
     beginner: "No",
     evidence: "Moderate–Strong",
   },
   {
-    icon: "🍄",
+    icon: Flower2,
     medicine: "Psilocybin",
-    addiction: "✓",
-    depression: "✓",
-    ptsd: "✓",
+    addiction: true,
+    depression: true,
+    ptsd: true,
     tbi: "Some",
     duration: "4–6h",
     beginner: "Yes",
     evidence: "Strong",
   },
   {
-    icon: "💗",
+    icon: HeartPulse,
     medicine: "MDMA",
     addiction: "Some",
     depression: "Some",
@@ -529,7 +547,7 @@ export const IBOGA_MEDICINE_SELECTOR: MedicineSelectorRow[] = [
     evidence: "Strong",
   },
   {
-    icon: "💉",
+    icon: Syringe,
     medicine: "Ketamine",
     addiction: "Some",
     depression: "Fastest",
@@ -540,22 +558,22 @@ export const IBOGA_MEDICINE_SELECTOR: MedicineSelectorRow[] = [
     evidence: "Strong/FDA",
   },
   {
-    icon: "🌿",
+    icon: Sprout,
     medicine: "Ayahuasca",
-    addiction: "✓",
-    depression: "✓",
-    ptsd: "✓",
+    addiction: true,
+    depression: true,
+    ptsd: true,
     tbi: "—",
     duration: "4–8h",
     beginner: "No",
     evidence: "Moderate",
   },
   {
-    icon: "🌵",
+    icon: Leaf,
     medicine: "Mescaline/Peyote",
-    addiction: "✓",
-    depression: "✓",
-    ptsd: "✓",
+    addiction: true,
+    depression: true,
+    ptsd: true,
     tbi: "—",
     duration: "8–12h",
     beginner: "Moderate",
