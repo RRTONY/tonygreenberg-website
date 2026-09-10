@@ -8,7 +8,8 @@ import Link from "next/link";
 // hyperlinking (driven by the site-wide client/src/data/linkMap.ts) — that's
 // a genuine cross-cutting feature affecting many pages/posts, not a one-off
 // for this page; tracked as an open item in NEXTJS-MIGRATION-TODO.md's
-// internal-cross-link-structure note rather than half-ported here.
+// internal-cross-link-structure note rather than half-ported here. The Tony
+// portrait is the recovered original served from managed storage.
 
 export const metadata: Metadata = {
   title: "The Seven Doors",
@@ -17,8 +18,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/walk-through" },
 };
 
-const HERO_IMAGE =
-  "https://cdn.sanity.io/images/a3q1cyqs/production/adce8df75f9f9debc9faeeb90cbcbb5a9e07881a-980x1721.webp";
+const HERO_IMAGE = "/manus-storage/about-walkthrough-portrait_f97955e3.webp";
 
 type DoorEntity = { name: string; role: string; note?: string; url?: string };
 type Door = {
@@ -198,7 +198,14 @@ export default function WalkThroughPage() {
   return (
     <div>
       <div className="relative h-72 overflow-hidden sm:h-96">
-        <Image src={HERO_IMAGE} alt="Tony Greenberg" fill className="object-cover" priority />
+        <Image
+          src={HERO_IMAGE}
+          alt="Tony Greenberg"
+          fill
+          priority
+          unoptimized
+          className="object-cover"
+        />
       </div>
 
       <div className="mx-auto max-w-3xl px-6 py-10">

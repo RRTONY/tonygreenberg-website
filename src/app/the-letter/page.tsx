@@ -23,8 +23,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/the-letter" },
 };
 
-const HERO_IMAGE =
-  "https://cdn.sanity.io/images/a3q1cyqs/production/4b0c5b229fd4f51c9134a30943d369cadbceab70-1200x670.webp";
+const HERO_IMAGE = "/manus-storage/the-letter-hero_f831d229.webp";
 
 const THREE_PATHS = [
   {
@@ -115,7 +114,7 @@ const FOUR_DOORS: Door[] = [
     title: "Read",
     sub: "Essays on culture, capital & human systems",
     href: "/blog",
-    img: "https://cdn.sanity.io/images/a3q1cyqs/production/7670024ec62a664462e3d5bfdc26cb79475fc237-1200x1607.webp",
+    img: "/manus-storage/the-letter-feature-one_dd233ff1.webp",
     imgWidth: 1200,
     imgHeight: 1607,
     headline: "Twenty-five years of thinking, unfiltered",
@@ -132,7 +131,7 @@ const FOUR_DOORS: Door[] = [
     title: "Diagnose",
     sub: "Assessments that clarify who you are",
     href: "/find-my",
-    img: "https://cdn.sanity.io/images/a3q1cyqs/production/9fa1715fe62fd90ee02f9c4741afc2c5456c4db8-1200x1607.webp",
+    img: "/manus-storage/the-letter-feature-two_4f6cea31.webp",
     imgWidth: 1200,
     imgHeight: 1607,
     headline: "Clarity is a competitive advantage",
@@ -149,7 +148,7 @@ const FOUR_DOORS: Door[] = [
     title: "Engage",
     sub: "Builders & investors in regenerative systems",
     href: "/ecosystem",
-    img: "https://cdn.sanity.io/images/a3q1cyqs/production/f5a276d213f7ddc29f6a9b196028e268413108e2-1200x1607.webp",
+    img: "/manus-storage/the-letter-feature-three_41e72f90.webp",
     imgWidth: 1200,
     imgHeight: 1607,
     headline: "The people building what comes after extraction",
@@ -166,7 +165,7 @@ const FOUR_DOORS: Door[] = [
     title: "Verify",
     sub: "COA checks, testing & vendor scoring",
     href: "/verify-your-coa",
-    img: "https://cdn.sanity.io/images/a3q1cyqs/production/305e817d671e9a50f85d064760e1e01f5a7bb73e-1200x1607.webp",
+    img: "/manus-storage/the-letter-feature-four_f14845b3.webp",
     imgWidth: 1200,
     imgHeight: 1607,
     headline: "Trust, but verify. Actually, just verify.",
@@ -269,7 +268,14 @@ export default async function TheLetterPage() {
     <div>
       {/* Hero */}
       <div className="relative h-[70vh] max-h-[650px] min-h-[420px] overflow-hidden">
-        <Image src={HERO_IMAGE} alt="" fill priority className="object-cover object-[center_40%]" />
+        <Image
+          src={HERO_IMAGE}
+          alt=""
+          fill
+          priority
+          unoptimized
+          className="object-cover object-[center_40%]"
+        />
         <div className="absolute inset-0 bg-linear-to-b from-black/25 via-black/5 to-black/55" />
         <div className="relative flex h-full max-w-3xl flex-col justify-end px-6 pb-12 sm:px-10">
           <p className="mb-3 font-mono text-xs tracking-[0.15em] text-brand-gold-light uppercase">

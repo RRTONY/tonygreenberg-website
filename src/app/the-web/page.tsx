@@ -5,8 +5,8 @@ import Link from "next/link";
 
 // Ported from legacy client/src/pages/TheWeb.tsx ("The Folio" — Ecosystem).
 // Real content kept as-is. Client badges no longer link out via `linkMap` —
-// same reason as AutoLinkedText elsewhere in Phase 4. Hero image rescued
-// from the still-live legacy `/api/img/` proxy into Sanity before porting.
+// same reason as AutoLinkedText elsewhere in Phase 4. The recovered original
+// hero is served from managed storage instead of the retired Sanity CDN.
 
 export const metadata: Metadata = {
   title: "The Web",
@@ -15,8 +15,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/the-web" },
 };
 
-const HERO_IMAGE =
-  "https://cdn.sanity.io/images/a3q1cyqs/production/7669924e0a6ab0065dd7437992b96bddb45c60d8-1200x670.webp";
+const HERO_IMAGE = "/manus-storage/the-web-hero_06f8b491.webp";
 
 const CLIENTS = [
   "Microsoft",
@@ -62,6 +61,7 @@ export default function TheWebPage() {
           alt="Connected network of golden threads"
           fill
           priority
+          unoptimized
           className="object-cover"
         />
       </div>

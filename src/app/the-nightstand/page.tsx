@@ -4,8 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 // Ported from legacy client/src/pages/Nightstand.tsx ("The Folio" —
-// Library). Real content kept as-is. Hero image rescued from the still-live
-// legacy `/api/img/` proxy into Sanity before porting.
+// Library). Real content kept as-is. The recovered original hero is served
+// from managed storage instead of the retired Sanity CDN.
 
 export const metadata: Metadata = {
   title: "The Nightstand",
@@ -14,8 +14,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/the-nightstand" },
 };
 
-const HERO_IMAGE =
-  "https://cdn.sanity.io/images/a3q1cyqs/production/b433b409e1583e1a90ea7105c56b95b757014de4-1200x670.webp";
+const HERO_IMAGE = "/manus-storage/the-nightstand-hero_ffcf4739.webp";
 
 const BOOKS = [
   {
@@ -87,6 +86,7 @@ export default function TheNightstandPage() {
           alt="Books and reading lamp"
           fill
           priority
+          unoptimized
           className="object-cover"
         />
       </div>

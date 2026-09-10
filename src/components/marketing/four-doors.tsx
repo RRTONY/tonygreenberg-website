@@ -59,6 +59,7 @@ export function FourDoors({ doors }: { doors: Door[] }) {
                 alt={door.title}
                 width={door.imgWidth}
                 height={door.imgHeight}
+                unoptimized={door.img.startsWith("/manus-storage/")}
                 className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 onError={() => {
                   setFailedImageDoorNumbers((current) => new Set(current).add(door.num));

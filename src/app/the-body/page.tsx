@@ -4,8 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 // Ported from legacy client/src/pages/TheBody.tsx ("The Folio" — Health &
-// Longevity). Real content kept as-is. Hero image rescued from the still-
-// live legacy `/api/img/` proxy into Sanity before porting.
+// Longevity). Real content kept as-is. The recovered original hero is served
+// from managed storage instead of the retired Sanity CDN.
 
 export const metadata: Metadata = {
   title: "The Body",
@@ -14,8 +14,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/the-body" },
 };
 
-const HERO_IMAGE =
-  "https://cdn.sanity.io/images/a3q1cyqs/production/8319fc5407071051654691a7557003b4eb9eb80e-1200x670.webp";
+const HERO_IMAGE = "/manus-storage/the-body-hero_1ede8372.webp";
 
 const SCORECARD = [
   {
@@ -79,6 +78,7 @@ export default function TheBodyPage() {
           alt="Wellness and longevity elements"
           fill
           priority
+          unoptimized
           className="object-cover"
         />
       </div>

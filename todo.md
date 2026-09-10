@@ -65,3 +65,10 @@
 - [x] Port the verified public `/ecosystem-map` reference experience using the existing cookie-backed Journey Tracker, current Next.js routes, and focused tests.
 - [x] Correct the visually detected Ecosystem Map phase-header style mapping and revalidate its dark editorial presentation.
 - [x] Rebuild the safe public `/skippy` map using verified current destinations, existing icons, and managed cookie-backed progress without legacy browser storage or stale workflow links.
+- [ ] Create a complete live-site-to-Next.js public route, style, component, image, link, and interaction parity inventory with an implementation priority for each verified gap.
+- [ ] Implement all safe, self-contained public parity gaps identified by the full inventory using existing Next.js pages, shared components, icons, `next/image`, and `next/link`.
+- [ ] Document backend-dependent, authenticated, payment, or external-service legacy gaps separately rather than copying unsafe or unavailable production workflows.
+- [ ] Validate every newly restored public route at desktop and mobile breakpoints, including media loading, navigation, and cookie-backed interactions.
+- [ ] Compare every reference-repository image and media source with active Next.js usage; reuse verified existing images through `next/image` before generating any replacement asset.
+- [ ] Create and document matching replacement image assets only where a verified required visual is unavailable from the reference repository or its live source.
+- [ ] Trace and replace the remaining active Sanity CDN image URLs with verified reference-repository, live-site, or managed assets without changing page semantics.

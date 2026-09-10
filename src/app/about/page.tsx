@@ -5,8 +5,8 @@ import Link from "next/link";
 import { PartnerQuotes } from "@/components/marketing/partner-quotes";
 
 // Ported from legacy client/src/pages/About.tsx ("The Story"). Real content
-// kept as-is. Reuses the Tony headshot and homepage hero image already
-// rescued to Sanity in earlier phases rather than re-fetching them.
+// kept as-is. Reuses recovered original imagery served from managed storage,
+// rather than retaining a runtime dependency on the retired Sanity CDN.
 // "Back to the Essays" correctly points at "/" — that's the blog index in
 // this app, matching the label, unlike other pages' "/" references which
 // meant the old homepage.
@@ -18,10 +18,8 @@ export const metadata: Metadata = {
   alternates: { canonical: "/about" },
 };
 
-const HEADSHOT =
-  "https://cdn.sanity.io/images/a3q1cyqs/production/adce8df75f9f9debc9faeeb90cbcbb5a9e07881a-980x1721.webp";
-const HERO_IMAGE =
-  "https://cdn.sanity.io/images/a3q1cyqs/production/4b0c5b229fd4f51c9134a30943d369cadbceab70-1200x670.webp";
+const HEADSHOT = "/manus-storage/about-walkthrough-portrait_f97955e3.webp";
+const HERO_IMAGE = "/manus-storage/the-letter-hero_f831d229.webp";
 
 const RECEIPTS = [
   { label: "Enterprise tech benchmarked", value: "$10B+" },
@@ -45,13 +43,21 @@ export default function AboutPage() {
   return (
     <div>
       <div className="relative flex min-h-[70vh] items-center overflow-hidden">
-        <Image src={HERO_IMAGE} alt="" fill priority className="object-cover brightness-[0.35]" />
+        <Image
+          src={HERO_IMAGE}
+          alt=""
+          fill
+          priority
+          unoptimized
+          className="object-cover brightness-[0.35]"
+        />
         <div className="relative z-10 mx-auto flex max-w-3xl flex-wrap items-center gap-10 px-6 py-16 sm:px-10">
           <Image
             src={HEADSHOT}
             alt="Tony Greenberg"
             width={200}
             height={200}
+            unoptimized
             className="size-40 shrink-0 rounded-md border-2 border-brand-gold-light/40 object-cover object-top sm:size-52"
           />
           <div className="min-w-70 flex-1">
