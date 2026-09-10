@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { ChevronDown } from "lucide-react";
 import {
   FACILITATOR_BANDS,
   FACILITATOR_BANDS_IMAGE,
@@ -74,7 +75,9 @@ export function FacilitatorIndexContent() {
             onClick={() => setShowFullIndex(true)}
             className="rounded-lg border border-facilitator-amber-light/25 px-6 py-2.5 text-[.82rem] tracking-[0.06em] text-facilitator-amber-deep/70"
           >
-            Read the full instrument ↓
+            <span className="inline-flex items-center gap-1.5">
+              Read the full instrument <ChevronDown aria-hidden="true" className="size-3.5" />
+            </span>
           </button>
           <PrintQuestionsButton label="Print / Save as PDF" />
         </div>

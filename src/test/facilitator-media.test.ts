@@ -34,9 +34,11 @@ describe("Facilitator Index media and content policy", () => {
 
     expect(data).toContain('from "lucide-react"');
     expect(intake).toContain('from "lucide-react"');
+    expect(content).toContain('from "lucide-react"');
+    expect(content).toContain("<ChevronDown");
     expect(data).not.toMatch(/[✦◈◎◇⬡◉]/u);
     expect(intake).not.toMatch(/[✦◈◎◇⬡◉]/u);
-    expect(content).not.toMatch(/[✦◈◎◇⬡◉✓]/u);
+    expect(content).not.toMatch(/[✦◈◎◇⬡◉✓↓]/u);
     expect(route).not.toMatch(/[✦◈◎◇⬡◉✓]/u);
   });
 });
