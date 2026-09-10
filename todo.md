@@ -55,6 +55,7 @@
 - [ ] Re-run a deployment from a checkpoint that includes the standalone configuration and root Dockerfile; verify the log no longer contains `/usr/src/app/dist/public` or the stale `s5cmd` upload.
 - [ ] If a fresh deployment still injects the static upload, identify and correct the managed platform setting responsible for static frontend publishing, with documented evidence.
 - [ ] Verify the checkpoint-triggered deployment creates an accessible managed runtime service before treating production validation as complete.
+- [ ] Correct the Docker runtime command so it starts the copied standalone `server.js` at `/app/server.js`, then re-run a checkpoint deployment and verify the startup probe succeeds.
 - [x] Allow-list the verified `tonygreenberg.com` image endpoint in Next.js image configuration and revalidate homepage media rendering.
 - [ ] Protect deployment logs and rotate any temporary credentials exposed in failed-build output before the next production attempt.
 - [x] Add or update focused tests for every verified missing feature or deployment configuration repair.
