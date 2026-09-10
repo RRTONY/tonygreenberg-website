@@ -2,7 +2,15 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Compass, FileText, Loader2, Search } from "lucide-react";
+import {
+  ArrowDown,
+  ArrowUp,
+  Compass,
+  CornerDownLeft,
+  FileText,
+  Loader2,
+  Search,
+} from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { SEARCH_DIRECTORY } from "@/lib/content/search-directory";
 import { searchPages, type PageItem } from "@/lib/search-engine";
@@ -330,10 +338,23 @@ export function SearchModal({
         <div className="flex items-center justify-between border-t border-border bg-muted/40 px-5 py-2.5">
           <div className="flex gap-3 font-mono text-[0.65rem] text-muted-foreground">
             <span>
-              <kbd className="mr-1 rounded border border-border px-1">↑↓</kbd>navigate
+              <kbd
+                className="mr-1 inline-flex items-center gap-0.5 rounded border border-border px-1"
+                aria-label="Arrow keys"
+              >
+                <ArrowUp aria-hidden="true" className="size-2.5" />
+                <ArrowDown aria-hidden="true" className="size-2.5" />
+              </kbd>
+              navigate
             </span>
             <span>
-              <kbd className="mr-1 rounded border border-border px-1">↵</kbd>open
+              <kbd
+                className="mr-1 inline-flex rounded border border-border px-1"
+                aria-label="Enter"
+              >
+                <CornerDownLeft aria-hidden="true" className="size-3" />
+              </kbd>
+              open
             </span>
           </div>
           <span className="font-mono text-[0.65rem] text-muted-foreground">
