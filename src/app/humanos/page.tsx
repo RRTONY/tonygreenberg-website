@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Users } from "lucide-react";
 import { EyebrowLabel } from "@/components/marketing/eyebrow-label";
+import { ForwardIcon } from "@/components/ui/inline-icons";
 import { DIAGNOSTIC_HREF } from "@/lib/content/humanos-content";
 
 // Ported from legacy client/src/pages/humanos/HumanosHome.tsx. Real hero
@@ -11,12 +12,7 @@ import { DIAGNOSTIC_HREF } from "@/lib/content/humanos-content";
 // Maximizer-vs-Satisficer section copy, the "What You'll Discover" list,
 // and the 4 "Explore the System" cards are all ported verbatim.
 //
-// Two things dropped, both deliberate:
-// 1. The hero's `/api/img/humanos-hero-hand_73f45c74.jpg` background photo
-//    — Manus-hosted, never referenced per CONTRIBUTING.md rule 12.
-//    Replaced with a CSS gradient (`bg-linear-to-br` + a radial glow),
-//    same "no substitute image fabricated" call made on /living-declaration.
-// 2. The "Diagnostics Completed" counter (hardcoded start of 264,
+// The "Diagnostics Completed" counter (hardcoded start of 264,
 //    incrementing by a random amount every 25–60s) and its "Someone just
 //    discovered they're a Maximizer" toast — both entirely fabricated
 //    client-side `Math.random()` activity with no real data behind them.
@@ -34,6 +30,7 @@ export const metadata: Metadata = {
 
 const SATISFICER_IMG =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/satisficer-vs-maximizer-8cWbpDMM6EHc2L6u3bi6xT.webp";
+const HUMANOS_HERO_IMAGE = "https://tonygreenberg.com/api/img/humanos-hero-hand_73f45c74.jpg";
 
 const DISCOVERIES = [
   "Your operating system type — Maximizer, Satisficer, or somewhere in between",
@@ -69,8 +66,18 @@ export default function HumanosHome() {
   return (
     <>
       {/* HERO */}
-      <section className="relative flex min-h-[85vh] items-end overflow-hidden bg-linear-to-br from-neutral-950 via-violet-950 to-neutral-950">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(124,58,237,0.25),transparent_55%)]" />
+      <section className="relative flex min-h-[85vh] items-end overflow-hidden bg-neutral-950">
+        <Image
+          src={HUMANOS_HERO_IMAGE}
+          alt="Hand breaking through glass with golden flowers"
+          fill
+          priority
+          unoptimized
+          sizes="100vw"
+          className="object-cover object-top"
+        />
+        <div className="absolute inset-0 bg-linear-to-b from-neutral-950/20 via-neutral-950/35 to-neutral-950/90" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(124,58,237,0.28),transparent_55%)]" />
         <div className="relative z-10 max-w-2xl px-6 pb-16">
           <p className="mb-5 inline-flex items-center gap-2 rounded-md bg-black/40 px-4 py-2 font-mono text-sm tracking-[0.2em] text-white/80 uppercase">
             <span className="inline-block size-2.5 rounded-full bg-emerald-400" />
@@ -133,7 +140,7 @@ export default function HumanosHome() {
             </EyebrowLabel>
             {DISCOVERIES.map((item) => (
               <div key={item} className="mb-3 flex items-start gap-3 last:mb-0">
-                <span className="mt-0.5 shrink-0 font-mono text-sm text-violet-600">&rarr;</span>
+                <ForwardIcon className="mt-1 size-4 shrink-0 text-violet-600" />
                 <p className="text-base leading-relaxed text-neutral-700">{item}</p>
               </div>
             ))}
@@ -192,8 +199,8 @@ export default function HumanosHome() {
                   {card.title}
                 </h3>
                 <p className="text-base leading-relaxed text-neutral-600">{card.desc}</p>
-                <span className="mt-5 inline-block font-mono text-xs tracking-[0.1em] text-violet-600 uppercase">
-                  Explore &rarr;
+                <span className="mt-5 inline-flex items-center font-mono text-xs tracking-[0.1em] text-violet-600 uppercase">
+                  Explore <ForwardIcon />
                 </span>
               </Link>
             ))}

@@ -9,7 +9,7 @@ This inventory compares the public URL set exposed by the live [`tonygreenberg.c
 | Measure                                               | Count | Interpretation                                                                                           |
 | ----------------------------------------------------- | ----: | -------------------------------------------------------------------------------------------------------- |
 | Indexed live sitemap paths                            |   292 | Includes public pages, static article URLs, aliases, redirects, and image endpoints.                     |
-| Direct active `src/app/**/page.tsx` routes            |   144 | Does not count generated dynamic article, coffee, city, or scorecard paths individually.                 |
+| Direct active `src/app/**/page.tsx` routes            |   145 | Does not count generated dynamic article, coffee, city, or scorecard paths individually.                 |
 | Non-blog live paths without a direct active page      |    44 | Includes 9 image endpoints and 22 paths already covered by configured redirects.                         |
 | Current root-level candidates requiring a disposition |    13 | Listed below and deliberately divided into aliases, safe public ports, and gated/service-dependent work. |
 
@@ -25,18 +25,18 @@ This inventory compares the public URL set exposed by the live [`tonygreenberg.c
 
 ## Remaining Sitemap Dispositions
 
-| Live path                                                         | Category                                    | Required handling                                                                                                                                                                                           |
-| ----------------------------------------------------------------- | ------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `/connect`                                                        | Canonical alias                             | Redirect to the current contact/engagement route after route-level content check.                                                                                                                           |
-| `/health`, `/library`, `/heroes`, `/impact`, `/projects`, `/quiz` | Canonical aliases                           | Map each to its active canonical page after verifying its intended current destination. Do not duplicate indexed content.                                                                                   |
-| `/seven-doors`                                                    | Legacy orientation route                    | The live route currently has an inactive/404 behavior. Preserve only if reference source shows a self-contained public page; otherwise create a canonical redirect and remove it from the sitemap path set. |
-| `/built-on-manus`                                                 | Product attribution                         | Treat as optional informational content. Do not add branding or product claims without approved copy.                                                                                                       |
-| `/clock-keeper-part-2`                                            | Potential self-contained legacy public page | Port only after its response flow, stored data, privacy policy, and backend requirement are reviewed.                                                                                                       |
-| `/fauxtony`                                                       | AI-assisted discovery                       | Requires a separate server-side AI integration, abuse protection, and content-scope review; do not copy a legacy client-side implementation.                                                                |
-| `/shop`                                                           | Authenticated and payment-dependent         | Deferred until secure Google OAuth and approved checkout architecture are completed.                                                                                                                        |
-| `/subscribe`                                                      | Newsletter and membership surface           | The newsletter endpoint is active; a dedicated marketing page can be added from approved membership copy without representing payment tiers as active.                                                      |
-| `/supplier-intake`                                                | External supplier workflow                  | Existing redirect covers the external RampRate workflow. Keep as a redirect until an approved managed-database intake replacement is designed.                                                              |
-| `/cheshire-grin`                                                  | Restricted report                           | Existing redirect protects the legacy report surface. Preserve the restriction until approved authentication is added.                                                                                      |
+| Live path                                                         | Category                                    | Required handling                                                                                                                              |
+| ----------------------------------------------------------------- | ------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/connect`                                                        | Verified homepage fallback                  | Permanent redirect to `/`; public retrieval shows no distinct route content.                                                                   |
+| `/health`, `/library`, `/heroes`, `/impact`, `/projects`, `/quiz` | Verified homepage fallbacks                 | Permanent redirects to `/`; public retrieval shows no distinct route content.                                                                  |
+| `/seven-doors`                                                    | Verified homepage fallback                  | Permanent redirect to `/`; public retrieval shows no distinct route content.                                                                   |
+| `/built-on-manus`                                                 | Verified homepage fallback                  | Permanent redirect to `/`; public retrieval shows no approved distinct product-attribution content.                                            |
+| `/clock-keeper-part-2`                                            | Potential self-contained legacy public page | Port only after its response flow, stored data, privacy policy, and backend requirement are reviewed.                                          |
+| `/fauxtony`                                                       | AI-assisted discovery                       | Requires a separate server-side AI integration, abuse protection, and content-scope review; do not copy a legacy client-side implementation.   |
+| `/shop`                                                           | Authenticated and payment-dependent         | Deferred until secure Google OAuth and approved checkout architecture are completed.                                                           |
+| `/subscribe`                                                      | Newsletter marketing surface                | Native free subscription page implemented with the managed endpoint and cookie-backed visitor state; legacy paid tiers remain deferred.        |
+| `/supplier-intake`                                                | External supplier workflow                  | Existing redirect covers the external RampRate workflow. Keep as a redirect until an approved managed-database intake replacement is designed. |
+| `/cheshire-grin`                                                  | Restricted report                           | Existing redirect protects the legacy report surface. Preserve the restriction until approved authentication is added.                         |
 
 ### Public Fallback Evidence
 
@@ -44,9 +44,27 @@ Direct public retrieval on 11 September 2026 found that `/built-on-manus`, `/con
 
 The remaining distinct live candidates are deliberately classified by integration risk. `/clock-keeper-part-2` is an open-ended name, email, and free-text collection flow, so its persistence and consent design must precede any port. `/fauxtony` is an AI answer-generation feature and requires a separately reviewed model, source-grounding, and misuse-safety implementation. `/shop` and legacy paid offers require an approved checkout provider and product/fulfillment configuration. These live-page observations do not justify copying their retired client-only implementations into the current release.
 
+All continuing comparison evidence in this audit is obtained from public live routes and the supplied `RRTONY/tonygreenberg` reference repository. No account-level platform controls are required for the route, visual, component, image, or interaction review.
+
+### Visual Pattern Check: Shop
+
+The public Shop page confirms the active visual system rather than introducing a new style direction: a near-black editorial hero with cream high-contrast serif display copy and gold accent words, followed by a warm parchment body and restrained border-defined product cards. The three product CTAs are sign-in-gated purchase actions, not static links, and the remaining tool cards are intentionally marked unavailable. This corroborates the existing charcoal/cream/gold Next.js design tokens while confirming that the transactional controls must remain deferred until authentication and checkout are deliberately designed.
+
+### Visual Pattern Check: Clock Keeper
+
+The public Clock Keeper page uses the same near-black, lightly textured hero; mono gold eyebrow; cream serif headline; and gold/outlined action-pair pattern already present in the active project. Below the hero, it converts into a parchment form surface with five selectable response modes, optional identity fields, and five long-form response fields. The visual system is reusable evidence, but the interaction is not a static page: its submission collects optional contact data together with sensitive free-form responses. A secure storage-retention, consent, and authenticated review model is required before this flow can be ported.
+
+### Shared Style-System Check
+
+The active Next.js global token layer already defines the observed brand gold (`#8B6914` and `#D4B96A`), near-black/cream theme pair (`#0A0A10` and `#F5F0E0`), serif heading font, and mono metadata font. This matches the public Shop and Clock Keeper visual evidence. Route-level work should therefore extend the existing tokens and shared layout rather than import reference CSS or create a competing design system.
+
 ## Image and Media Reconciliation Rules
 
 All reference media must be reconciled route by route before replacement. A source image is reused only when it is both available and permitted for the current page. Public images use `next/image`; internal navigation uses `next/link`; assets are allow-listed in `next.config.ts`. The active homepage’s Tony Greenberg API image source has been revalidated through the current `next/image` policy.
+
+The current source scan identifies 132 remote image URLs in the reference repository and 70 in the active Next.js source, with 65 exact URLs shared. The 67 reference-only URLs are not treated as automatic omissions: they include media for unported payment, restricted-report, authenticated, supplier, and legacy-only flows as well as assets from routes already represented with current live API sources. Each candidate must be reconciled against an active route and an approved public purpose before it is reused or rehosted.
+
+Reference-only image declarations are concentrated in the legacy blog data, assessment, peptide, PRI, Human OS, attention-theft, and restricted-report source areas. The active project already contains native public pages for the substantive assessment, peptide, PRI, Human OS, and attention-theft areas; residual asset candidates in those areas require visual comparison before replacement, while the restricted Cheshire/Report Spammer surfaces remain intentionally excluded.
 
 If a reference asset is unavailable, a matching replacement is created only after the page’s visual target, intended subject, licensing, and alt text are recorded. New assets are stored outside the project source tree and served through the approved managed asset path. No image is silently substituted with unrelated stock imagery.
 

@@ -78,3 +78,4 @@
 - [ ] Capture public-domain evidence that the active route set and managed-media markup match the latest Next.js standalone revision.
 - [ ] Continue page, style, image, and interaction parity work using only the public live site and `RRTONY/tonygreenberg` reference evidence; document platform-domain staleness separately without requesting account control.
 - [x] Replace the nine verified legacy root fallback URLs with tested canonical redirects to the existing Next.js homepage instead of creating duplicate content pages.
+- [x] Restore the verified public Human OS hero image with `next/image`, replacing the temporary gradient-only fallback while preserving existing accessibility and responsive contrast treatment.
