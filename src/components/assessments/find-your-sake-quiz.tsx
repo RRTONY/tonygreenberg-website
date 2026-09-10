@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import { Check } from "lucide-react";
 import { ThemedBackground } from "@/components/assessments/themed-background";
 import { AssessmentIntro } from "@/components/assessments/assessment-intro";
 import { EmailGate } from "@/components/assessments/email-gate";
@@ -978,7 +979,7 @@ export function FindYourSakeQuiz() {
                   key={p}
                   className="flex gap-3 text-[0.95rem] leading-relaxed text-[#F5F0E0]/80"
                 >
-                  <span className="shrink-0 text-brand-gold">◇</span>
+                  <Check aria-hidden="true" className="mt-0.5 size-3.5 shrink-0 text-brand-gold" />
                   <span>{p}</span>
                 </div>
               ))}

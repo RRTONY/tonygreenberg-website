@@ -1,5 +1,7 @@
 "use client";
 
+import { Check } from "lucide-react";
+
 // Ported from legacy client/src/components/AssessmentIntro.tsx — the
 // shared landing/onboarding screen used by every "Find Your X"
 // assessment (title, subtitle, description, stats row, "what you'll
@@ -95,9 +97,11 @@ export function AssessmentIntro({
           <ul className="flex list-none flex-col gap-2 p-0">
             {whatYouGet.map((item) => (
               <li key={item} className="relative pl-5 text-[0.95rem] text-[#4A3A2E]">
-                <span className="absolute left-0 font-semibold" style={{ color: accentColor }}>
-                  ◆
-                </span>
+                <Check
+                  aria-hidden="true"
+                  className="absolute top-1 left-0 size-3.5"
+                  style={{ color: accentColor }}
+                />
                 {item}
               </li>
             ))}
@@ -116,7 +120,7 @@ export function AssessmentIntro({
         </button>
 
         <p className="mt-6 font-mono text-[10px] tracking-[0.1em] text-[#9B8B7B]">
-          Results stored locally. No data shared. Ever.
+          Results saved with a secure return cookie. No data shared. Ever.
         </p>
       </div>
     </div>

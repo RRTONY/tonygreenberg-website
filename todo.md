@@ -90,3 +90,5 @@
 - [x] Replace the remaining BrewSoul disclosure, status, and decorative Unicode UI symbols with existing Lucide icons across the cities, decaf, health, chain, coffee-card, email-capture, and First Sip surfaces.
 - [x] Replace the remaining BrewSoul biodynamic-farms disclosure arrows with Lucide chevrons and extend the BrewSoul icon-policy regression coverage.
 - [x] Replace Find Your Me directory Unicode card and status symbols with existing Lucide components, preserving all current assessment destinations and status logic.
+- [x] Replace shared assessment-intro, Dharma Finder, and Find Your Sake decorative Unicode interface markers with existing Lucide icons and focused regression coverage.
+- [x] Correct shared Assessment Intro privacy copy to describe the existing server-managed cookie-backed assessment state rather than browser-local storage.

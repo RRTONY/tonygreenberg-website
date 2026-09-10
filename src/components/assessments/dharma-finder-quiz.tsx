@@ -3,6 +3,7 @@
 import { BackIcon, ForwardIcon } from "@/components/ui/inline-icons";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import { Check } from "lucide-react";
 import { ThemedBackground } from "@/components/assessments/themed-background";
 import { AssessmentIntro } from "@/components/assessments/assessment-intro";
 import { EmailGate } from "@/components/assessments/email-gate";
@@ -644,7 +645,7 @@ export function DharmaFinderQuiz() {
               key={v}
               className="border border-black/10 bg-white/50 px-5 py-3 text-[1.05rem] text-[#333]"
             >
-              <span className="mr-2 font-semibold text-brand-gold">◆</span>
+              <Check aria-hidden="true" className="mr-2 inline size-3.5 text-brand-gold" />
               {v}
             </div>
           ))}
