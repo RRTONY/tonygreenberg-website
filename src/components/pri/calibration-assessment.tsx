@@ -1,0 +1,365 @@
+"use client";
+
+import { BackIcon, ForwardIcon } from "@/components/ui/inline-icons";
+import { useCallback, useMemo, useState } from "react";
+import Link from "next/link";
+import { BarChart3, RefreshCw, ShieldCheck, Target, Sparkles } from "lucide-react";
+import { DIM_LABELS, DIM_ICONS, type DimKey } from "@/lib/content/pri-data";
+import efficacyData from "@/lib/content/pri-efficacy-data.json";
+
+const DIMS: DimKey[] = [
+  "medical",
+  "pharmacological",
+  "psychological",
+  "intention",
+  "setting",
+  "integration",
+];
+
+function generatePairs(): [DimKey, DimKey][] {
+  const pairs: [DimKey, DimKey][] = [];
+  for (let i = 0; i < DIMS.length; i++) {
+    for (let j = i + 1; j < DIMS.length; j++) {
+      pairs.push([DIMS[i], DIMS[j]]);
+    }
+  }
+  return pairs.sort(() => Math.random() - 0.5);
+}
+
+// Bradley-Terry model — same real math as legacy, unchanged.
+function computeCalibratedScores(
+  choices: { pair: [string, string]; chosen: string }[],
+): Record<DimKey, number> {
+  const wins: Record<string, number> = {};
+  const losses: Record<string, number> = {};
+  DIMS.forEach((d) => {
+    wins[d] = 0;
+    losses[d] = 0;
+  });
+
+  for (const c of choices) {
+    wins[c.chosen]++;
+    const loser = c.pair[0] === c.chosen ? c.pair[1] : c.pair[0];
+    losses[loser]++;
+  }
+
+  const strengths: Record<string, number> = {};
+  let total = 0;
+  DIMS.forEach((d) => {
+    const s = (wins[d] + 1) / (wins[d] + losses[d] + 2);
+    strengths[d] = s;
+    total += s;
+  });
+
+  const scores: Record<string, number> = {};
+  DIMS.forEach((d) => {
+    scores[d] = Math.round(((strengths[d] / total) * 100 * DIMS.length) / 1.0);
+  });
+
+  const maxScore = Math.max(...Object.values(scores));
+  if (maxScore > 0) {
+    DIMS.forEach((d) => {
+      scores[d] = Math.round((scores[d] / maxScore) * 100);
+    });
+  }
+
+  return scores as Record<DimKey, number>;
+}
+
+type Phase = "intro" | "pairwise" | "ranking" | "results";
+
+// Ported from legacy client/src/pages/pri/PriCalibration.tsx — the real
+// forced-rank psychometric calibration (all 15 pairwise dimension
+// comparisons via Bradley-Terry scoring, then a full drag-or-arrow
+// ranking), real methodology copy, and the real Monte Carlo validation
+// metrics (`lib/content/pri-efficacy-data.json`, copied verbatim), all
+// unchanged. Kept as one client island — a phase state machine drives the
+// whole flow, same pattern as the other PRI assessments.
+//
+// **Real backend gap, handled honestly**: legacy's "Contribute to
+// Research?" opt-in phase posted the calibration to `trpc.priCalibration.
+// submit` (no backend built for this migration), and the results view's
+// "Community Data" section read a live `trpc.priCalibration.stats` query
+// showing other users' aggregated scores. Neither has an honest
+// backend-free equivalent — a cross-user aggregate can't be faked locally,
+// and a "your data helps research" opt-in with nothing behind it would be
+// dishonest UI (the same call already made dropping the PRI results page's
+// inert research-pool checkbox). Both are dropped; the flow goes straight
+// from ranking to results, which shows only the real, locally-computed
+// calibrated scores and the real static validation metrics.
+export function CalibrationAssessment() {
+  const [phase, setPhase] = useState<Phase>("intro");
+  const [pairIndex, setPairIndex] = useState(0);
+  const [choices, setChoices] = useState<{ pair: [string, string]; chosen: string }[]>([]);
+  const [rankings, setRankings] = useState<DimKey[]>([...DIMS]);
+  const [draggedIdx, setDraggedIdx] = useState<number | null>(null);
+
+  const pairs = useMemo(() => generatePairs(), []);
+  const calibratedScores = useMemo(() => computeCalibratedScores(choices), [choices]);
+
+  const handlePairChoice = useCallback(
+    (chosen: DimKey) => {
+      const pair = pairs[pairIndex];
+      setChoices((prev) => [...prev, { pair, chosen }]);
+      if (pairIndex < pairs.length - 1) {
+        setPairIndex((prev) => prev + 1);
+      } else {
+        setPhase("ranking");
+      }
+    },
+    [pairIndex, pairs],
+  );
+
+  const handleDragStart = (idx: number) => setDraggedIdx(idx);
+  const handleDragOver = (e: React.DragEvent, idx: number) => {
+    e.preventDefault();
+    if (draggedIdx === null || draggedIdx === idx) return;
+    const newRankings = [...rankings];
+    const [dragged] = newRankings.splice(draggedIdx, 1);
+    newRankings.splice(idx, 0, dragged);
+    setRankings(newRankings);
+    setDraggedIdx(idx);
+  };
+  const handleDragEnd = () => setDraggedIdx(null);
+
+  const moveItem = (idx: number, direction: "up" | "down") => {
+    const newIdx = direction === "up" ? idx - 1 : idx + 1;
+    if (newIdx < 0 || newIdx >= rankings.length) return;
+    const newRankings = [...rankings];
+    [newRankings[idx], newRankings[newIdx]] = [newRankings[newIdx], newRankings[idx]];
+    setRankings(newRankings);
+  };
+
+  const reset = () => {
+    setPhase("intro");
+    setPairIndex(0);
+    setChoices([]);
+    setRankings([...DIMS]);
+  };
+
+  return (
+    <div className="min-h-screen bg-pri-ink font-body text-pri-cream">
+      <div className="mx-auto max-w-180 px-5 py-8">
+        <div className="mb-8 text-center">
+          <Link href="/psychedelic-readiness-index" className="text-[.8rem] text-pri-cream/40">
+            <BackIcon aria-hidden="true" /> Back to PRI
+          </Link>
+          <h1 className="my-3 bg-linear-to-br from-pri-purple to-pri-purple-light bg-clip-text font-heading text-[clamp(1.8rem,5vw,2.5rem)] text-transparent">
+            Deep Calibration
+          </h1>
+          <p className="mx-auto max-w-125 text-[.9rem] text-pri-cream/50">
+            Forced-rank psychometric validation for your Readiness Profile
+          </p>
+        </div>
+
+        {phase === "intro" && (
+          <div className="text-center">
+            <div className="mb-4 rounded-2xl border border-pri-cream/8 bg-pri-cream/4 p-6">
+              <h2 className="mb-4 font-heading text-xl text-pri-cream">Why Calibrate?</h2>
+              <p className="mb-5 text-[.88rem] leading-[1.7] text-pri-cream/60">
+                Standard Likert scales (1–10 sliders) suffer from{" "}
+                <strong className="text-pri-purple-light">acquiescence bias</strong> — people tend
+                to rate everything high. Forced-rank calibration eliminates this by making you
+                choose between dimensions, revealing your <em>true</em> readiness profile.
+              </p>
+              <div className="mb-6 grid grid-cols-2 gap-4 text-left">
+                <div className="rounded-2xl border border-pri-cream/8 bg-pri-cream/4 p-4">
+                  <BarChart3 className="mb-1 size-6 text-pri-purple-light" />
+                  <div className="mb-1 text-[.78rem] font-bold">+26.9% Accuracy</div>
+                  <div className="text-[.72rem] text-pri-cream/40">vs. standard Likert scoring</div>
+                </div>
+                <div className="rounded-2xl border border-pri-cream/8 bg-pri-cream/4 p-4">
+                  <RefreshCw className="mb-1 size-6 text-pri-purple-light" />
+                  <div className="mb-1 text-[.78rem] font-bold">0.609 Test-Retest</div>
+                  <div className="text-[.72rem] text-pri-cream/40">Reliability coefficient</div>
+                </div>
+                <div className="rounded-2xl border border-pri-cream/8 bg-pri-cream/4 p-4">
+                  <ShieldCheck className="mb-1 size-6 text-pri-purple-light" />
+                  <div className="mb-1 text-[.78rem] font-bold">38% Less Fakeable</div>
+                  <div className="text-[.72rem] text-pri-cream/40">Shift resistance vs. Likert</div>
+                </div>
+                <div className="rounded-2xl border border-pri-cream/8 bg-pri-cream/4 p-4">
+                  <Target className="mb-1 size-6 text-pri-purple-light" />
+                  <div className="mb-1 text-[.78rem] font-bold">Perfect Entropy</div>
+                  <div className="text-[.72rem] text-pri-cream/40">1.0 normalized distribution</div>
+                </div>
+              </div>
+              <p className="mb-6 text-[.8rem] text-pri-cream/40">
+                Takes ~3 minutes. 15 forced choices + 1 full ranking.
+              </p>
+              <button
+                onClick={() => setPhase("pairwise")}
+                className="w-full rounded-xl bg-pri-purple px-6 py-3 text-sm font-bold text-pri-cream"
+              >
+                Begin Calibration <ForwardIcon aria-hidden="true" />
+              </button>
+            </div>
+          </div>
+        )}
+
+        {phase === "pairwise" && (
+          <div>
+            <div className="mb-6 h-1 overflow-hidden rounded-full bg-pri-cream/10">
+              <div
+                className="h-full bg-linear-to-r from-pri-purple to-pri-purple-light transition-[width] duration-300"
+                style={{ width: `${((pairIndex + 1) / pairs.length) * 100}%` }}
+              />
+            </div>
+            <div className="mb-4 text-center">
+              <span className="text-xs tracking-[0.08em] text-pri-cream/40 uppercase">
+                Comparison {pairIndex + 1} of {pairs.length}
+              </span>
+            </div>
+            <div className="rounded-2xl border border-pri-cream/8 bg-pri-cream/4 p-6 text-center">
+              <p className="mb-6 text-[.9rem] text-pri-cream/60">
+                Which dimension are you{" "}
+                <strong className="text-pri-purple-light">more ready</strong> in right now?
+              </p>
+              <div className="grid grid-cols-2 gap-4">
+                {pairs[pairIndex].map((dim) => (
+                  <button
+                    key={dim}
+                    onClick={() => handlePairChoice(dim)}
+                    className="rounded-2xl border-2 border-pri-purple/30 bg-pri-cream/4 p-6 text-center transition-all hover:scale-102 hover:border-pri-purple"
+                  >
+                    <div className="mb-2 text-3xl">{DIM_ICONS[dim]}</div>
+                    <div className="text-[.85rem] font-bold">{DIM_LABELS[dim]}</div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {phase === "ranking" && (
+          <div>
+            <div className="mb-6 text-center">
+              <h2 className="mb-2 font-heading text-xl text-pri-cream">Rank All Dimensions</h2>
+              <p className="text-[.85rem] text-pri-cream/50">
+                Drag to reorder from <strong className="text-pri-purple-light">most ready</strong>{" "}
+                (top) to <strong className="text-pri-purple-light">least ready</strong> (bottom)
+              </p>
+            </div>
+            <div className="mb-6">
+              {rankings.map((dim, idx) => (
+                <div
+                  key={dim}
+                  draggable
+                  onDragStart={() => handleDragStart(idx)}
+                  onDragOver={(e) => handleDragOver(e, idx)}
+                  onDragEnd={handleDragEnd}
+                  className={`mb-4 flex cursor-grab items-center gap-4 rounded-2xl border p-4 ${draggedIdx === idx ? "border-pri-purple opacity-50" : "border-pri-cream/8"}`}
+                >
+                  <div className="w-7 text-center text-xl font-black text-pri-purple">
+                    {idx + 1}
+                  </div>
+                  <div className="text-2xl">{DIM_ICONS[dim]}</div>
+                  <div className="flex-1 text-[.9rem] font-bold">{DIM_LABELS[dim]}</div>
+                  <div className="flex flex-col gap-1">
+                    <button
+                      onClick={() => moveItem(idx, "up")}
+                      disabled={idx === 0}
+                      className={`text-base ${idx === 0 ? "text-pri-cream/15" : "text-pri-cream/50"}`}
+                    >
+                      ↑
+                    </button>
+                    <button
+                      onClick={() => moveItem(idx, "down")}
+                      disabled={idx === rankings.length - 1}
+                      className={`text-base ${idx === rankings.length - 1 ? "text-pri-cream/15" : "text-pri-cream/50"}`}
+                    >
+                      ↓
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <button
+              onClick={() => setPhase("results")}
+              className="w-full rounded-xl bg-pri-purple px-6 py-3 text-sm font-bold text-pri-cream"
+            >
+              See My Calibrated Profile <ForwardIcon aria-hidden="true" />
+            </button>
+          </div>
+        )}
+
+        {phase === "results" && (
+          <div>
+            <div className="mb-8 text-center">
+              <Sparkles className="mx-auto mb-2 size-9 text-pri-purple-light" />
+              <h2 className="mb-2 font-heading text-2xl text-pri-cream">Calibrated Profile</h2>
+              <p className="text-[.85rem] text-pri-cream/50">
+                Your forced-rank readiness scores, corrected for acquiescence bias
+              </p>
+            </div>
+
+            <div className="mb-4 rounded-2xl border border-pri-cream/8 bg-pri-cream/4 p-6">
+              <h3 className="mb-4 font-heading text-base text-pri-cream">Your Calibrated Scores</h3>
+              {rankings.map((dim, idx) => (
+                <div key={dim} className="mb-3 flex items-center gap-3">
+                  <div className="w-6 text-xs font-black text-pri-purple">#{idx + 1}</div>
+                  <div className="text-xl">{DIM_ICONS[dim]}</div>
+                  <div className="flex-1">
+                    <div className="mb-1 text-[.8rem] font-bold">{DIM_LABELS[dim]}</div>
+                    <div className="h-1.5 overflow-hidden rounded-full bg-pri-cream/8">
+                      <div
+                        className="h-full rounded-full bg-linear-to-r from-pri-purple to-pri-purple-light transition-[width] duration-500"
+                        style={{ width: `${calibratedScores[dim]}%` }}
+                      />
+                    </div>
+                  </div>
+                  <div className="w-9 text-right text-[.9rem] font-black text-pri-purple-light">
+                    {calibratedScores[dim]}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mb-4 rounded-2xl border border-pri-cream/8 bg-pri-cream/4 p-6">
+              <h3 className="mb-2 font-heading text-base text-pri-cream">Validation Metrics</h3>
+              <p className="mb-4 text-[.78rem] text-pri-cream/40">
+                Monte Carlo simulation: {efficacyData.simulation.n_respondents.toLocaleString()}{" "}
+                synthetic respondents
+              </p>
+              <div className="grid grid-cols-3 gap-3">
+                <div className="text-center">
+                  <div className="text-xl font-black text-pri-purple-light">
+                    {efficacyData.classification_accuracy.forced_rank}%
+                  </div>
+                  <div className="text-[.68rem] text-pri-cream/40">Classification Accuracy</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-xl font-black text-pri-purple-light">
+                    {efficacyData.test_retest_reliability.forced_rank}
+                  </div>
+                  <div className="text-[.68rem] text-pri-cream/40">Test-Retest r</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-xl font-black text-pri-purple-light">
+                    {efficacyData.entropy.forced_rank_normalized}
+                  </div>
+                  <div className="text-[.68rem] text-pri-cream/40">Entropy (norm)</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-6 flex flex-wrap justify-center gap-4">
+              <Link
+                href="/psychedelic-readiness-index"
+                className="rounded-xl bg-pri-purple px-6 py-3 text-sm font-bold text-pri-cream"
+              >
+                <BackIcon aria-hidden="true" /> Back to PRI
+              </Link>
+              <button
+                onClick={reset}
+                className="rounded-xl border border-pri-cream/20 px-6 py-3 text-sm font-bold text-pri-cream"
+              >
+                Retake Calibration
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,48 @@
+/** Cinematic hero images for each medicine modal — Japanese minimalism meets sacred geometry */
+export const MEDICINE_IMAGES: Record<string, string> = {
+  psilocybin:
+    "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_31_psilocybin_707bf66a.jpg",
+  ayahuasca:
+    "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_12_ayahuasca_d4d3386a.jpg",
+  mdma: "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_46_mdma_bf707c70.jpg",
+  ketamine:
+    "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_45_ketamine_262f6744.jpg",
+  lsd: "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_48_lsd_a785dcd6.jpg",
+  dmt: "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_30_dmt_da3785e1.jpg",
+  iboga:
+    "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/iboga-hero-bwiti-Yr6Po2Sv6ma2aBEtCGBpJG.webp",
+  ibogaine:
+    "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_7_ibogaine_4376d0d8.jpg",
+  mescaline:
+    "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_29_mescaline_86e14bfb.jpg",
+  kambo:
+    "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_37_kambo_140e8e64.jpg",
+  rapeh:
+    "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_44_rapeh_b665d27f.jpg",
+  sananga:
+    "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_49_sananga_e602d6cc.jpg",
+  microdose:
+    "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_38_microdose_c5c83f9b.jpg",
+  cannabis:
+    "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_4_cannabis_05061e58.jpg",
+  cacao:
+    "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_32_cacao_51ff525d.jpg",
+  amanita:
+    "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_47_amanita_4f26c20d.jpg",
+  huachuma:
+    "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_50_huachuma_0fe57ffb.jpg",
+  salvia:
+    "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_43_salvia_544180f0.jpg",
+  yopo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_52_yopo_8641463b.jpg",
+  lionsmane:
+    "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_18_lionsmane_82e5243f.jpg",
+  ibogamic:
+    "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_39_ibogamic_bed7ccde.jpg",
+  changa:
+    "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_23_changa_bf8305f2.jpg",
+  caapi:
+    "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_51_caapi_6bf8e23e.jpg",
+  soma: "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_54_soma_f973a3b5.jpg",
+  mapacho:
+    "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_53_mapacho_197af3b7.jpg",
+};

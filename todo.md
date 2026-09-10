@@ -1,0 +1,62 @@
+# Project TODO
+
+- [x] Replace the starter scaffold with the requested `RRTONY/tonygreenberg-website` repository while preserving its Git history and existing framework.
+- [x] Create and use a dedicated restoration branch based on the repository’s current `main` branch.
+- [x] Preserve the repository’s existing Next.js 16 App Router architecture; remove any temporary starter artifacts instead of converting frameworks or formats.
+- [x] Verify that the managed workspace and visible project tree contain only the requested Next.js repository, not the temporary Vite/React starter.
+- [x] Identify the intended working branch and document the repository’s coding, testing, and deployment conventions.
+- [x] Add narrowly scoped coding rules to the repository guidance where the audit identifies a repeated security, quality, or operational risk.
+- [x] Remove stale Sanity-specific contributor guidance and align all architecture, SEO, image, and adding-page rules with the managed-database Next.js implementation.
+- [x] Review the supplied coding and folder-structure reference; adopt compatible web-application rules without importing its unrelated React Native architecture.
+- [x] Enforce `next/image` for responsive images and `next/link` for internal navigation in new and repaired Next.js interface code.
+- [x] Require documented component-reuse decisions and merge-time quality checks for every pull request through branch protection.
+- [x] Remove unused code, imports, routes, package dependencies, scripts, and retired service artifacts after verifying they are unreferenced.
+- [x] Add and enforce a Next.js server-managed cookie rule for persistent session and returning-visitor state; audit and remove persistent `localStorage` use.
+- [x] Add and enforce the existing icon-package-first and no-emoji interface rule, using purposeful SVG assets only where no existing icon fits.
+- [x] Replace text arrows that function as interface controls, navigation indicators, or statuses with existing semantic icon components.
+- [x] Complete the remaining legacy-wide emoji and text-arrow replacement pass before saving the verified core release.
+- [x] Add an automated source-level test that blocks emoji and raw text-arrow glyphs in active Next.js controls.
+- [x] Audit remaining Unicode arrow and status glyphs outside interactive controls; replace user-facing indicators and document intentional editorial-prose exceptions.
+- [x] Extend automated symbol-policy coverage to non-interactive user-interface status and indicator glyphs.
+- [x] Add a supported automated test runner and tests for repaired functionality, including success and failure states.
+- [x] Add package scripts that standardize formatting checks, linting, type checking, testing, and production builds.
+- [x] Update the GitHub Actions workflow to fail continuous integration when formatting, linting, type checking, tests, or production builds fail.
+- [x] Compare the repository with the public Tony Greenberg site and inventory public routes, content, media, interactions, and discrepancies.
+- [x] Audit tracked files, runtime configuration, and client bundles for exposed credentials or unsafe secret handling.
+- [x] Remove or isolate any exposed configuration and require replacement credentials through managed environment settings only.
+- [x] Remove Sanity and Supabase from the target application architecture and dependency graph.
+- [ ] Define managed-database models and server-side access for the required editorial content, public forms, authentication, approval, and conversation flows.
+- [x] Migrate only the required repository-backed content and application data into the managed database without fabricating content or user data.
+- [x] Assess and repair Sanity configuration, content queries, preview behavior, and required data flows.
+- [x] Assess and repair Supabase configuration, database access, row-level security expectations, and required data flows.
+- [ ] Assess existing authentication and add secure Google sign-in only if it is part of the established application flow and credentials are provided securely.
+- [x] Keep Google OAuth unimplemented until after the user publishes the fully validated Next.js release-ready version.
+- [ ] Implement and validate managed-database Google OAuth only after the verified core release has been published.
+- [x] Validate and repair newsletter submission with accessible validation, success, and error states.
+- [ ] Restore or repair missing pages, media, links, responsiveness, accessibility, and visual fidelity to the live site.
+- [x] Add or update automated tests for repaired functionality and integration boundaries.
+- [x] Run type checks, automated tests, build checks, and browser validation for critical user journeys.
+- [ ] Save a final project version and deliver a clear implementation, validation, and credential-rotation summary.
+- [x] Prepare a validated release-ready version for user-controlled publishing without attempting deployment automatically.
+- [x] Push each verified completion batch to the dedicated GitHub restoration branch while keeping `main` unchanged.
+- [x] Run a repository-wide verification of touched interface code for native Next.js image/link usage and existing-component reuse; document intentional exceptions.
+- [x] Complete a comprehensive dead-code audit for unused routes, files, scripts, and dependencies; remove or document remaining required items.
+- [x] Document the shared-component reuse audit for touched UI files, including intentional exceptions where a new component was necessary.
+- [x] Perform and document a route-level audit of duplicate or unused Next.js pages and redirects before release.
+- [x] Create a final touched-file audit listing the final interface files checked for native Next.js image/link use and shared-component reuse, including all intentional exceptions.
+- [x] Audit every newly added user-interface component and interaction primitive in the release candidate, recording reuse or exception rationale.
+- [x] Require completed component-reuse and quality declarations in pull requests before merge.
+- [x] Configure GitHub `main` branch protection to require the review-declaration and quality-gates checks before merge.
+- [x] Document the GitHub Actions and branch-protection limitation: they enforce required declarations before merge, not an independent human reuse review before code is written.
+- [x] Inspect the production client build output for leaked environment values or unsafe configuration and document the secret-handling findings.
+- [x] Compare `RRTONY/tonygreenberg` with the active project for missing pages, components, styles, assets, and configuration; implement only verified gaps.
+- [ ] Diagnose and repair the production deployment failure caused by the deployment artifact uploader expecting `dist/public` from the current Next.js build.
+- [ ] Reconfigure deployment so the platform does not append a Vite-style `s5cmd` upload from `/usr/src/app/dist/public` after the successful Next.js build.
+- [ ] Re-run a deployment from a checkpoint that includes the standalone configuration and root Dockerfile; verify the log no longer contains `/usr/src/app/dist/public` or the stale `s5cmd` upload.
+- [ ] If a fresh deployment still injects the static upload, identify and correct the managed platform setting responsible for static frontend publishing, with documented evidence.
+- [ ] Protect deployment logs and rotate any temporary credentials exposed in failed-build output before the next production attempt.
+- [x] Add or update focused tests for every verified missing feature or deployment configuration repair.
+- [x] Re-run the complete quality suite, production deployment validation, and representative visual checks after repository parity changes.
+- [x] Port the verified self-contained `/medicine-sequencing` reference experience into the existing Next.js PRI feature area with native links, existing icons, and focused tests.
+- [x] Port the verified public `/ecosystem-map` reference experience using the existing cookie-backed Journey Tracker, current Next.js routes, and focused tests.
+- [x] Correct the visually detected Ecosystem Map phase-header style mapping and revalidate its dark editorial presentation.

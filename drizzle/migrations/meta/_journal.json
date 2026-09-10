@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1788982833082,
+      "tag": "0000_large_major_mapleleaf",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1788983560048,
+      "tag": "0001_melodic_hellion",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1788984041232,
+      "tag": "0002_aberrant_tyrannus",
+      "breakpoints": true
+    }
+  ]
+}
