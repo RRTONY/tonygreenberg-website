@@ -38,6 +38,12 @@ This inventory compares the public URL set exposed by the live [`tonygreenberg.c
 | `/supplier-intake`                                                | External supplier workflow                  | Existing redirect covers the external RampRate workflow. Keep as a redirect until an approved managed-database intake replacement is designed.                                                              |
 | `/cheshire-grin`                                                  | Restricted report                           | Existing redirect protects the legacy report surface. Preserve the restriction until approved authentication is added.                                                                                      |
 
+### Public Fallback Evidence
+
+Direct public retrieval on 11 September 2026 found that `/built-on-manus`, `/connect`, `/health`, `/library`, `/heroes`, `/impact`, `/projects`, `/quiz`, and `/seven-doors` all rendered the live homepage rather than unique route content. These are therefore legacy fallback URLs, not evidence for additional content ports. The active project should avoid duplicate pages and may use canonical redirects once their routing behavior is covered by tests.
+
+The remaining distinct live candidates are deliberately classified by integration risk. `/clock-keeper-part-2` is an open-ended name, email, and free-text collection flow, so its persistence and consent design must precede any port. `/fauxtony` is an AI answer-generation feature and requires a separately reviewed model, source-grounding, and misuse-safety implementation. `/shop` and legacy paid offers require an approved checkout provider and product/fulfillment configuration. These live-page observations do not justify copying their retired client-only implementations into the current release.
+
 ## Image and Media Reconciliation Rules
 
 All reference media must be reconciled route by route before replacement. A source image is reused only when it is both available and permitted for the current page. Public images use `next/image`; internal navigation uses `next/link`; assets are allow-listed in `next.config.ts`. The active homepage’s Tony Greenberg API image source has been revalidated through the current `next/image` policy.
@@ -62,7 +68,7 @@ The nine remaining active references to the retired Sanity project image host we
 | `/the-web`        | Hero                 | `/manus-storage/the-web-hero_06f8b491.webp`               |
 | `/walk-through`   | Tony portrait hero   | `/manus-storage/about-walkthrough-portrait_f97955e3.webp` |
 
-At the validation checkpoint, the public managed-storage URL returned an edge redirect followed by a `200 image/webp` response. The local Next.js development server does not proxy `/manus-storage/*`, which is expected to be handled by the managed platform edge. Separately, a post-checkpoint inspection of the configured public domain continued to emit the pre-checkpoint Sanity image markup despite a deployment-success notification. Therefore, the asset migration is source- and storage-verified, while final public deployment-media verification remains open in the deployment checklist until the served application revision advances.
+At the validation checkpoint, the public managed-storage URL returned an edge redirect followed by a `200 image/webp` response. The local Next.js development server does not proxy `/manus-storage/*`, which is expected to be handled by the managed platform edge. Separately, post-checkpoint inspections of the configured public domain continued to emit the pre-checkpoint Sanity image markup and returned the former custom 404 for the new `/subscribe` route, including after the legacy Netlify configuration was removed and the platform acknowledged a successful deployment. Therefore, the asset migration is source- and storage-verified, while final public deployment-media verification remains open in the deployment checklist until the served application revision advances.
 
 ## Implementation Priority
 

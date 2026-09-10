@@ -169,6 +169,18 @@ const nextConfig: NextConfig = {
       // redirects the internal-codename URL to it rather than shipping the
       // same content at two indexable addresses.
       { source: "/cheshire-grin", destination: "/alex-azzi", permanent: true },
+      // Public retrieval confirms each of these legacy sitemap routes
+      // renders the homepage rather than distinct content. Keep one
+      // canonical homepage URL without leaving visitors in a custom 404.
+      { source: "/built-on-manus", destination: "/", permanent: true },
+      { source: "/connect", destination: "/", permanent: true },
+      { source: "/health", destination: "/", permanent: true },
+      { source: "/library", destination: "/", permanent: true },
+      { source: "/heroes", destination: "/", permanent: true },
+      { source: "/impact", destination: "/", permanent: true },
+      { source: "/projects", destination: "/", permanent: true },
+      { source: "/quiz", destination: "/", permanent: true },
+      { source: "/seven-doors", destination: "/", permanent: true },
     ];
   },
   images: {
