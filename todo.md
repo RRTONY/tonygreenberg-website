@@ -129,3 +129,4 @@
 - [x] Convert the recovered retired-Sanity JPEG-byte assets to true WebP and reupload them at new immutable managed-storage keys, so public browsers can render the verified page imagery with a matching MIME type.
 - [x] Generate and document a source-level manifest of every reference-only image declaration, tying each asset to an active parity decision, a deliberately deferred integration, or confirmed obsolete legacy code.
 - [x] Add and validate a source-group disposition matrix for the reference-media manifest, explicitly associating every legacy image declaration with an active equivalent, safe candidate, deferred integration, or obsolete legacy workflow.
+- [x] Source-verify and harden the existing Legal Arsenal equivalent with primary-source links, neutral informational copy, existing components, and no reporting or personal-data collection flow.

@@ -2,18 +2,16 @@
 
 import { ForwardIcon } from "@/components/ui/inline-icons";
 import { useState } from "react";
-import { Copy, CheckCircle, Filter, Globe, Megaphone, Scale, FileText } from "lucide-react";
+import { Copy, CheckCircle, Filter, Globe, Megaphone, Scale } from "lucide-react";
 import { GlassCard } from "@/components/manifesto/manifesto-ui";
 import { LAWS, LETTER_TEMPLATE, type LawStatus } from "@/lib/content/attention-theft";
 
-// Ported from legacy client/src/pages/manifesto/AttentionTheft.tsx's Legal
-// Arsenal section — status filter, per-law expand/collapse, and a
-// copy-to-clipboard letter template. Real content/logic unchanged. No
-// backend dependency (this was always pure client-side in legacy).
+// The legacy Legal Arsenal's public filter, detail expansion, and copy-template
+// interactions are retained. Its claims are now limited to source-linked
+// regulator guidance; no reporting or personal-data collection flow is ported.
 const FILTERS: { label: string; value: LawStatus | "all" }[] = [
   { label: "All", value: "all" },
   { label: "Existing Law", value: "existing" },
-  { label: "Proposed", value: "proposed" },
   { label: "Take Action", value: "action" },
 ];
 
@@ -26,12 +24,6 @@ const STATUS_STYLES: Record<
     iconClass: "text-crusade-teal",
     label: "Existing Law",
     icon: Scale,
-  },
-  proposed: {
-    badgeClass: "bg-brand-gold/10 text-brand-gold border border-brand-gold/30",
-    iconClass: "text-brand-gold",
-    label: "Proposed",
-    icon: FileText,
   },
   action: {
     badgeClass: "bg-crusade-red/6 text-crusade-red border border-crusade-red/30",
@@ -129,6 +121,16 @@ export function LegalArsenal() {
                           className="mt-4 inline-flex items-center gap-2 rounded-xl bg-crusade-red px-5 py-3 text-sm font-bold text-white shadow-[0_0_20px_rgba(200,22,26,0.3)] transition-transform hover:-translate-y-0.5"
                         >
                           <Megaphone size={16} /> Take Action Now
+                        </a>
+                      )}
+                      {law.sourceUrl && (
+                        <a
+                          href={law.sourceUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-crusade-teal hover:underline"
+                        >
+                          View official guidance <ForwardIcon aria-hidden="true" />
                         </a>
                       )}
                     </div>

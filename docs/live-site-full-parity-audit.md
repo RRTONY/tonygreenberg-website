@@ -54,6 +54,10 @@ The public Shop page confirms the active visual system rather than introducing a
 
 The public Clock Keeper page uses the same near-black, lightly textured hero; mono gold eyebrow; cream serif headline; and gold/outlined action-pair pattern already present in the active project. Below the hero, it converts into a parchment form surface with five selectable response modes, optional identity fields, and five long-form response fields. Public retrieval on 11 September 2026 did not reveal an explicit consent, retention, or access-control statement alongside this collection. The visual system is reusable evidence, but the interaction is not a static page: its submission collects optional contact data together with sensitive free-form responses. A secure storage-retention, consent, and authenticated review model is required before this flow can be ported.
 
+### Legal Framework Reconciliation
+
+The legacy standalone Legal Database is represented by the active Attention Theft route’s shared Legal Arsenal rather than a duplicate public route. On 11 September 2026, its legal cards and copy template were revised to link to primary regulator guidance for CAN-SPAM, EU data protection, the CCPA, and CASL. Unsupported proposed-law names, fixed penalty assertions, and unsourced economic-loss rhetoric were removed. The retained filter, card-expansion, external-guidance, and copy-template interactions remain self-contained and do not submit reports or collect personal data. This is general educational information, not legal advice.[3][4][5][6]
+
 ### Shared Style-System Check
 
 The active Next.js global token layer already defines the observed brand gold (`#8B6914` and `#D4B96A`), near-black/cream theme pair (`#0A0A10` and `#F5F0E0`), serif heading font, and mono metadata font. This matches the public Shop and Clock Keeper visual evidence. Route-level work should therefore extend the existing tokens and shared layout rather than import reference CSS or create a competing design system.
@@ -120,3 +124,7 @@ On 11 September 2026, `/medicine-sequencing`, `/ecosystem-map`, `/skippy`, `/sub
 
 [1]: https://tonygreenberg.com/sitemap.xml "Tony Greenberg live sitemap"
 [2]: https://github.com/RRTONY/tonygreenberg "Tony Greenberg reference repository"
+[3]: https://www.ftc.gov/business-guidance/resources/can-spam-act-compliance-guide-business "FTC: CAN-SPAM Act compliance guide"
+[4]: https://commission.europa.eu/law/law-topic/data-protection_en "European Commission: Data protection"
+[5]: https://oag.ca.gov/privacy/ccpa "California Attorney General: CCPA"
+[6]: https://crtc.gc.ca/eng/internet/anti/reg.htm "CRTC: Canada's Anti-Spam Legislation requirements"

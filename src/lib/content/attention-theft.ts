@@ -175,13 +175,14 @@ export const WEAPONS = [
   },
 ];
 
-export type LawStatus = "existing" | "proposed" | "action";
+export type LawStatus = "existing" | "action";
 export const LAWS: {
   title: string;
   jurisdiction: string;
   status: LawStatus;
   summary: string;
   detail: string;
+  sourceUrl?: string;
   actionUrl?: string;
 }[] = [
   {
@@ -189,72 +190,60 @@ export const LAWS: {
     jurisdiction: "United States",
     status: "existing",
     summary:
-      "Requires opt-out mechanism, honest headers, physical address. Penalties up to $51,744 per violation.",
+      "Sets requirements for commercial email, including accurate headers, a postal address, and a way to opt out.",
     detail:
-      "The CAN-SPAM Act sets rules for commercial email but does NOT require prior consent (opt-in), making it one of the weakest anti-spam laws among developed nations.",
+      "The Federal Trade Commission explains that commercial email must use accurate routing information, avoid deceptive subject lines, identify advertising, include a valid postal address, and provide a clear opt-out mechanism. This summary is informational, not legal advice.",
+    sourceUrl:
+      "https://www.ftc.gov/business-guidance/resources/can-spam-act-compliance-guide-business",
   },
   {
     title: "GDPR (2018)",
     jurisdiction: "European Union",
     status: "existing",
-    summary: "Requires explicit prior consent. Fines up to €20M or 4% of global revenue.",
+    summary: "Establishes European data-protection rules and rights over personal data.",
     detail:
-      "Requires affirmative, unambiguous consent before sending marketing communications. The gold standard — and the model the U.S. should adopt.",
+      "The European Commission describes data protection as a fundamental right in EU law and provides information for individuals and organisations. Only the GDPR text itself creates legal rights and obligations; this page links to official guidance rather than offering legal advice.",
+    sourceUrl: "https://commission.europa.eu/law/law-topic/data-protection_en",
   },
   {
     title: "CCPA / CPRA (2020/2023)",
     jurisdiction: "California, USA",
     status: "existing",
     summary:
-      "Right to know, delete, and opt-out of data sales. Fines up to $7,500 per intentional violation.",
+      "California residents may have rights to know, delete, correct, limit, and opt out of sale or sharing of personal information.",
     detail:
-      "Gives consumers the right to know what data is collected, delete it, and opt out of its sale. Provides tools to cut off the data brokers who fuel spam.",
+      "California's Attorney General explains the CCPA and CPRA rights, their limits, and the businesses covered by the law. Applicability is fact-specific; use the official consumer guidance for current details.",
+    sourceUrl: "https://oag.ca.gov/privacy/ccpa",
   },
   {
     title: "CASL (2014)",
     jurisdiction: "Canada",
     status: "existing",
-    summary: "Requires express consent. Penalties up to $10M per violation.",
-    detail:
-      "One of the strictest in the world. Requires express consent (opt-in) for commercial electronic messages with severe penalties.",
-  },
-  {
-    title: "Attention Theft Prevention Act (Proposed)",
-    jurisdiction: "United States (Federal)",
-    status: "proposed",
     summary:
-      "Would classify unsolicited email as economic theft with damages based on recipient's hourly rate.",
+      "Sets rules for commercial electronic messages, including consent, identification, and unsubscribe requirements.",
     detail:
-      "Damages calculated based on professional hourly rate × 23-minute recovery time. At $200/hr, each spam email = $77 liability.",
-  },
-  {
-    title: "AI Transparency in Communications Act (Proposed)",
-    jurisdiction: "United States (Federal)",
-    status: "proposed",
-    summary:
-      "Would require AI-generated emails to be labeled, with criminal penalties for AI-powered spam at scale.",
-    detail:
-      "Sending 1,000+ AI-generated unsolicited emails per day would constitute a federal offense. AI providers bear joint liability.",
+      "The Canadian Radio-television and Telecommunications Commission describes CASL's commercial-message requirements, including prior consent, identification and contact information, and a working unsubscribe mechanism. This summary is informational, not legal advice.",
+    sourceUrl: "https://crtc.gc.ca/eng/internet/anti/reg.htm",
   },
   {
     title: "Contact Your Representatives",
     jurisdiction: "United States",
     status: "action",
     summary:
-      "Write to your congressional representatives demanding stronger anti-spam legislation.",
+      "Use the official U.S. Congressional directory to identify and contact your federal representatives.",
     detail:
-      "The CAN-SPAM Act is 20+ years old. It needs to be replaced with legislation that treats attention theft as the economic crime it is.",
+      "You may use the neutral template below as a starting point for your own message about commercial communications or privacy. Review any request for accuracy and adapt it to your own views.",
     actionUrl: "https://www.congress.gov/members/find-your-member",
   },
 ];
 
 export const LETTER_TEMPLATE = `Dear [Representative Name],
 
-I am writing to urge you to support stronger federal legislation addressing unsolicited commercial email and AI-powered spam. The CAN-SPAM Act of 2003 is woefully outdated and fails to protect American workers and businesses from what has become a nearly $1 trillion annual economic theft.
+I am writing to ask your office to consider strong, transparent rules for commercial communications and personal-data privacy.
 
-Research from UC Irvine shows each email interruption costs 23 minutes of recovery time. With AI enabling bad actors to send 10,000+ personalized spam messages per hour at zero cost, the asymmetry is catastrophic. The sender pays nothing. The recipient pays with their life.
+Clear sender identification, understandable opt-out choices, and meaningful privacy protections help people make informed decisions about the communications they receive.
 
-I urge you to support legislation that: (1) requires explicit opt-in consent for all commercial email, (2) mandates disclosure of AI-generated communications, (3) establishes meaningful per-violation penalties, and (4) creates a private right of action for recipients.
+I encourage your office to evaluate current law, regulator guidance, and constituent feedback when considering any future policy proposal.
 
 Respectfully,
 [Your Name]`;
