@@ -111,3 +111,4 @@
 - [x] Repair GitHub Actions package-manager setup so `pnpm` is installed and available before cache restore and the required quality command runs.
 - [x] Make App Router page and layout prop types available in a clean checkout so TypeScript does not depend on stale generated `.next` globals from a prior build.
 - [x] Add and validate an explicit CI-only database-free content mode so GitHub can run the production Next.js build without production credentials or managed-database access.
+- [x] Replace the confirmed SoulScore rendered disclosure down-arrow glyph with a semantic Lucide chevron and focused regression coverage.

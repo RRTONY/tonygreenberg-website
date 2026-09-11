@@ -7,6 +7,7 @@ import {
   Activity,
   AlertTriangle,
   BarChart3,
+  ChevronDown,
   CircleDot,
   Link2,
   Sparkles,
@@ -771,11 +772,10 @@ function SupplyChainTab({
                         {avg.toFixed(0)}
                       </div>
                     </div>
-                    <span
+                    <ChevronDown
+                      aria-hidden="true"
                       className={`text-[0.8rem] text-[#999] transition-transform ${isExpanded ? "rotate-180" : ""}`}
-                    >
-                      ▼
-                    </span>
+                    />
                   </div>
                 </div>
               </button>

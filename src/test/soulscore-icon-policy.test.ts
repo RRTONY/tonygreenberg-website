@@ -17,6 +17,7 @@ describe("SoulScore icon policy", () => {
     expect(component).toContain("const Icon = e.icon");
     expect(component).toContain("<AlertTriangle");
     expect(component).toContain("<Sparkles");
-    expect(component).not.toMatch(/[⚠✦]/u);
+    expect(component).toContain("<ChevronDown");
+    expect(component).not.toMatch(/[⚠✦▼]/u);
   });
 });
