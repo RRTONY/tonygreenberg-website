@@ -13,6 +13,7 @@ describe("GitHub Actions quality workflow", () => {
     expect(pnpmCacheIndex).toBeGreaterThan(-1);
     expect(pnpmSetupIndex).toBeLessThan(pnpmCacheIndex);
     expect(workflow).toContain("pnpm install --frozen-lockfile");
+    expect(workflow).toContain("TONY_CI_CONTENT_MODE: empty");
     expect(workflow).toContain("pnpm run quality");
   });
 });

@@ -37,4 +37,6 @@ jobs:
       - run: pnpm install --frozen-lockfile
 
       - name: Run required quality gates
+        env:
+          TONY_CI_CONTENT_MODE: empty
         run: pnpm run quality

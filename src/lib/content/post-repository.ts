@@ -151,29 +151,38 @@ function postQuery() {
     .innerJoin(contentCategories, eq(contentPosts.categoryId, contentCategories.id));
 }
 
+function usesCiEmptyContentMode() {
+  return process.env.TONY_CI_CONTENT_MODE === "empty";
+}
+
 export async function getAllArchivePosts(): Promise<ArchivePost[]> {
+  if (usesCiEmptyContentMode()) return [];
   const rows = await postQuery().orderBy(desc(contentPosts.publishedAt));
   return rows.map(toArchivePost);
 }
 
 export async function getPostBySlug(slug: string): Promise<PostDetail | null> {
+  if (usesCiEmptyContentMode()) return null;
   const rows = await postQuery().where(eq(contentPosts.slug, slug)).limit(1);
   return rows[0] ? toPostDetail(rows[0]) : null;
 }
 
 export async function getAllPostSlugs() {
+  if (usesCiEmptyContentMode()) return [];
   return getDb()
     .select({ slug: contentPosts.slug, updatedAt: contentPosts.updatedAt })
     .from(contentPosts);
 }
 
 export async function getPostsBySlugs(slugs: string[]): Promise<PostDetail[]> {
+  if (usesCiEmptyContentMode()) return [];
   if (!slugs.length) return [];
   const rows = await postQuery().where(inArray(contentPosts.slug, slugs));
   return rows.map(toPostDetail);
 }
 
 export async function getRelatedPosts(slug: string, categorySlug: string): Promise<PostDetail[]> {
+  if (usesCiEmptyContentMode()) return [];
   const rows = await postQuery()
     .where(and(eq(contentCategories.slug, categorySlug), ne(contentPosts.slug, slug)))
     .orderBy(desc(contentPosts.publishedAt))
@@ -182,6 +191,7 @@ export async function getRelatedPosts(slug: string, categorySlug: string): Promi
 }
 
 export async function getRecentPosts(slug: string): Promise<PostDetail[]> {
+  if (usesCiEmptyContentMode()) return [];
   const rows = await postQuery()
     .where(ne(contentPosts.slug, slug))
     .orderBy(desc(contentPosts.publishedAt))
@@ -190,6 +200,7 @@ export async function getRecentPosts(slug: string): Promise<PostDetail[]> {
 }
 
 export async function getCategoryBySlug(slug: string) {
+  if (usesCiEmptyContentMode()) return null;
   const rows = await getDb()
     .select({
       id: contentCategories.id,
@@ -203,10 +214,12 @@ export async function getCategoryBySlug(slug: string) {
 }
 
 export async function getAllCategorySlugs() {
+  if (usesCiEmptyContentMode()) return [];
   return getDb().select({ slug: contentCategories.slug }).from(contentCategories);
 }
 
 export async function getCategoriesWithPostCount() {
+  if (usesCiEmptyContentMode()) return [];
   const rows = await getDb()
     .select({
       id: contentCategories.id,
@@ -227,6 +240,7 @@ export async function getCategoriesWithPostCount() {
 }
 
 export async function getCategoryPosts(slug: string, page: number, pageSize: number) {
+  if (usesCiEmptyContentMode()) return { posts: [], total: 0 };
   const offset = Math.max(0, page - 1) * pageSize;
   const rows = await postQuery()
     .where(eq(contentCategories.slug, slug))
@@ -242,6 +256,7 @@ export async function getCategoryPosts(slug: string, page: number, pageSize: num
 }
 
 export async function searchContentPosts(query: string): Promise<ArchivePost[]> {
+  if (usesCiEmptyContentMode()) return [];
   const term = `%${query}%`;
   const rows = await postQuery()
     .where(
