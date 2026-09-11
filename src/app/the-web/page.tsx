@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/the-web" },
 };
 
-const HERO_IMAGE = "/manus-storage/the-web-hero_06f8b491.webp";
+const HERO_IMAGE = "/manus-storage/the-web-hero_39e97b3f.webp";
 
 const CLIENTS = [
   "Microsoft",

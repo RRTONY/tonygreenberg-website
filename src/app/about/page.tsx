@@ -18,8 +18,8 @@ export const metadata: Metadata = {
   alternates: { canonical: "/about" },
 };
 
-const HEADSHOT = "/manus-storage/about-walkthrough-portrait_f97955e3.webp";
-const HERO_IMAGE = "/manus-storage/the-letter-hero_f831d229.webp";
+const HEADSHOT = "/manus-storage/about-walkthrough-portrait_9c975c3f.webp";
+const HERO_IMAGE = "/manus-storage/the-letter-hero_6f76d90a.webp";
 
 const RECEIPTS = [
   { label: "Enterprise tech benchmarked", value: "$10B+" },

@@ -6,26 +6,26 @@ const RETIRED_SANITY_CDN = "cdn.sanity.io/images/a3q1cyqs";
 const ACTIVE_SOURCE_ROOTS = ["src/app", "src/components", "src/lib"];
 const RECOVERED_MEDIA_EXPECTATIONS = {
   "src/app/about/page.tsx": [
-    "/manus-storage/about-walkthrough-portrait_f97955e3.webp",
-    "/manus-storage/the-letter-hero_f831d229.webp",
+    "/manus-storage/about-walkthrough-portrait_9c975c3f.webp",
+    "/manus-storage/the-letter-hero_6f76d90a.webp",
     "unoptimized",
   ],
   "src/app/the-letter/page.tsx": [
-    "/manus-storage/the-letter-hero_f831d229.webp",
-    "/manus-storage/the-letter-feature-one_dd233ff1.webp",
-    "/manus-storage/the-letter-feature-two_4f6cea31.webp",
-    "/manus-storage/the-letter-feature-three_41e72f90.webp",
-    "/manus-storage/the-letter-feature-four_f14845b3.webp",
+    "/manus-storage/the-letter-hero_6f76d90a.webp",
+    "/manus-storage/the-letter-feature-one_638e12a9.webp",
+    "/manus-storage/the-letter-feature-two_4830a9d3.webp",
+    "/manus-storage/the-letter-feature-three_ff78fd8a.webp",
+    "/manus-storage/the-letter-feature-four_2dee4cb5.webp",
     "unoptimized",
   ],
-  "src/app/the-body/page.tsx": ["/manus-storage/the-body-hero_1ede8372.webp", "unoptimized"],
+  "src/app/the-body/page.tsx": ["/manus-storage/the-body-hero_6b1613eb.webp", "unoptimized"],
   "src/app/the-nightstand/page.tsx": [
-    "/manus-storage/the-nightstand-hero_ffcf4739.webp",
+    "/manus-storage/the-nightstand-hero_6e067b51.webp",
     "unoptimized",
   ],
-  "src/app/the-web/page.tsx": ["/manus-storage/the-web-hero_06f8b491.webp", "unoptimized"],
+  "src/app/the-web/page.tsx": ["/manus-storage/the-web-hero_39e97b3f.webp", "unoptimized"],
   "src/app/walk-through/page.tsx": [
-    "/manus-storage/about-walkthrough-portrait_f97955e3.webp",
+    "/manus-storage/about-walkthrough-portrait_9c975c3f.webp",
     "unoptimized",
   ],
   "src/components/marketing/four-doors.tsx": [

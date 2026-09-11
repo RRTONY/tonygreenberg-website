@@ -50,13 +50,13 @@
 - [x] Document the GitHub Actions and branch-protection limitation: they enforce required declarations before merge, not an independent human reuse review before code is written.
 - [x] Inspect the production client build output for leaked environment values or unsafe configuration and document the secret-handling findings.
 - [x] Compare `RRTONY/tonygreenberg` with the active project for missing pages, components, styles, assets, and configuration; implement only verified gaps.
-- [ ] Diagnose and repair the production deployment failure caused by the deployment artifact uploader expecting `dist/public` from the current Next.js build.
+- [x] Diagnose and repair the production deployment failure caused by the deployment artifact uploader expecting `dist/public` from the current Next.js build.
 - [ ] Reconfigure deployment so the platform does not append a Vite-style `s5cmd` upload from `/usr/src/app/dist/public` after the successful Next.js build.
 - [ ] Re-run a deployment from a checkpoint that includes the standalone configuration and root Dockerfile; verify the log no longer contains `/usr/src/app/dist/public` or the stale `s5cmd` upload.
 - [ ] If a fresh deployment still injects the static upload, identify and correct the managed platform setting responsible for static frontend publishing, with documented evidence.
-- [ ] Verify the checkpoint-triggered deployment creates an accessible managed runtime service before treating production validation as complete.
-- [ ] Correct the Docker runtime command so it starts the copied standalone `server.js` at `/app/server.js`, then re-run a checkpoint deployment and verify the startup probe succeeds.
-- [ ] Copy the required pnpm `node_modules` graph into the Docker runtime image so Next.js standalone dependencies such as `@swc/helpers` resolve during startup.
+- [x] Verify the checkpoint-triggered deployment creates an accessible managed runtime service before treating production validation as complete.
+- [ ] Verify through provider-visible runtime logs or an equivalent deployment artifact inspection that the corrected Docker command starts `/app/server.js` and that its startup probe succeeds.
+- [ ] Verify through provider-visible runtime logs or an equivalent deployment artifact inspection that the Docker runtime receives the required pnpm `node_modules` graph for dependencies such as `@swc/helpers`.
 - [x] Allow-list the verified `tonygreenberg.com` image endpoint in Next.js image configuration and revalidate homepage media rendering.
 - [ ] Protect deployment logs and rotate any temporary credentials exposed in failed-build output before the next production attempt.
 - [x] Add or update focused tests for every verified missing feature or deployment configuration repair.
@@ -74,8 +74,8 @@
 - [x] Trace and replace the remaining active Sanity CDN image URLs with verified reference-repository, live-site, or managed assets without changing page semantics.
 - [x] Restore the verified free `/subscribe` newsletter route using the active server-backed newsletter endpoint, while keeping legacy paid Stripe offers explicitly deferred.
 - [x] Remove the obsolete Netlify build configuration and adapter dependency so the managed Next.js standalone deployment cannot be classified as a legacy static publish.
-- [ ] Re-run a fresh deployment after the Netlify configuration removal and verify that it no longer uses a legacy static-publish path or stale site binding.
-- [ ] Capture public-domain evidence that the active route set and managed-media markup match the latest Next.js standalone revision.
+- [x] Re-run a fresh deployment after the Netlify configuration removal and verify that it no longer uses a legacy static-publish path or stale site binding.
+- [x] Capture public-domain evidence that the active route set and managed-media markup match the latest Next.js standalone revision.
 - [ ] Continue page, style, image, and interaction parity work using only the public live site and `RRTONY/tonygreenberg` reference evidence; document platform-domain staleness separately without requesting account control.
 - [x] Replace the nine verified legacy root fallback URLs with tested canonical redirects to the existing Next.js homepage instead of creating duplicate content pages.
 - [x] Restore the verified public Human OS hero image with `next/image`, replacing the temporary gradient-only fallback while preserving existing accessibility and responsive contrast treatment.
@@ -126,3 +126,4 @@
 - [x] Correct Psychedelic Readiness saved-medicine privacy copy to describe the existing cookie-backed visitor state rather than browser-local storage.
 - [x] Remove unverified hard-coded Psychedelic Readiness testimonial content rather than presenting unsupported user statements in the public assessment interface.
 - [x] Audit and remove any remaining active Peptide Matrix star-based discount or rating labels from source data and rendered UI.
+- [ ] Convert the recovered retired-Sanity JPEG-byte assets to true WebP before reuploading them at the existing managed-storage keys, so public browsers can render the verified page imagery with a matching MIME type.

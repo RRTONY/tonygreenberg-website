@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/the-body" },
 };
 
-const HERO_IMAGE = "/manus-storage/the-body-hero_1ede8372.webp";
+const HERO_IMAGE = "/manus-storage/the-body-hero_6b1613eb.webp";
 
 const SCORECARD = [
   {

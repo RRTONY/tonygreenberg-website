@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/the-nightstand" },
 };
 
-const HERO_IMAGE = "/manus-storage/the-nightstand-hero_ffcf4739.webp";
+const HERO_IMAGE = "/manus-storage/the-nightstand-hero_6e067b51.webp";
 
 const BOOKS = [
   {

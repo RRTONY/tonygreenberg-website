@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/walk-through" },
 };
 
-const HERO_IMAGE = "/manus-storage/about-walkthrough-portrait_f97955e3.webp";
+const HERO_IMAGE = "/manus-storage/about-walkthrough-portrait_9c975c3f.webp";
 
 type DoorEntity = { name: string; role: string; note?: string; url?: string };
 type Door = {

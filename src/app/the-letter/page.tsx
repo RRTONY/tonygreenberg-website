@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/the-letter" },
 };
 
-const HERO_IMAGE = "/manus-storage/the-letter-hero_f831d229.webp";
+const HERO_IMAGE = "/manus-storage/the-letter-hero_6f76d90a.webp";
 
 const THREE_PATHS = [
   {
@@ -114,7 +114,7 @@ const FOUR_DOORS: Door[] = [
     title: "Read",
     sub: "Essays on culture, capital & human systems",
     href: "/blog",
-    img: "/manus-storage/the-letter-feature-one_dd233ff1.webp",
+    img: "/manus-storage/the-letter-feature-one_638e12a9.webp",
     imgWidth: 1200,
     imgHeight: 1607,
     headline: "Twenty-five years of thinking, unfiltered",
@@ -131,7 +131,7 @@ const FOUR_DOORS: Door[] = [
     title: "Diagnose",
     sub: "Assessments that clarify who you are",
     href: "/find-my",
-    img: "/manus-storage/the-letter-feature-two_4f6cea31.webp",
+    img: "/manus-storage/the-letter-feature-two_4830a9d3.webp",
     imgWidth: 1200,
     imgHeight: 1607,
     headline: "Clarity is a competitive advantage",
@@ -148,7 +148,7 @@ const FOUR_DOORS: Door[] = [
     title: "Engage",
     sub: "Builders & investors in regenerative systems",
     href: "/ecosystem",
-    img: "/manus-storage/the-letter-feature-three_41e72f90.webp",
+    img: "/manus-storage/the-letter-feature-three_ff78fd8a.webp",
     imgWidth: 1200,
     imgHeight: 1607,
     headline: "The people building what comes after extraction",
@@ -165,7 +165,7 @@ const FOUR_DOORS: Door[] = [
     title: "Verify",
     sub: "COA checks, testing & vendor scoring",
     href: "/verify-your-coa",
-    img: "/manus-storage/the-letter-feature-four_f14845b3.webp",
+    img: "/manus-storage/the-letter-feature-four_2dee4cb5.webp",
     imgWidth: 1200,
     imgHeight: 1607,
     headline: "Trust, but verify. Actually, just verify.",

@@ -76,23 +76,27 @@ If a reference asset is unavailable, a matching replacement is created only afte
 
 ### Retired Sanity CDN Replacement Record
 
-The nine remaining active references to the retired Sanity project image host were each retrieved directly from their original immutable asset URL and uploaded without visual substitution to approved managed storage on 11 September 2026. The `.webp` filenames are retained for continuity with the source references, although file inspection identifies the recovered image bytes as JPEG. The application serves the managed paths with `next/image`; the regression test at `src/test/managed-media.test.ts` prevents the retired host from returning to active source.
+The nine remaining active references to the retired Sanity project image host were each retrieved directly from their original immutable asset URL and uploaded without visual substitution to approved managed storage on 11 September 2026. Initial uploads retained `.webp` filenames while containing JPEG bytes, which caused browser decoding failures when the storage edge correctly labelled them `image/webp`. Each image was deterministically converted to true WebP without cropping or semantic alteration, then reuploaded to the mapped paths below. The application serves the managed paths with `next/image`; the regression test at `src/test/managed-media.test.ts` prevents the retired host from returning to active source.
 
 | Active route      | Image role           | Managed storage path                                      |
 | ----------------- | -------------------- | --------------------------------------------------------- |
-| `/about`          | Tony portrait        | `/manus-storage/about-walkthrough-portrait_f97955e3.webp` |
-| `/about`          | Editorial hero       | `/manus-storage/the-letter-hero_f831d229.webp`            |
-| `/the-letter`     | Editorial hero       | `/manus-storage/the-letter-hero_f831d229.webp`            |
-| `/the-letter`     | Four Doors: Read     | `/manus-storage/the-letter-feature-one_dd233ff1.webp`     |
-| `/the-letter`     | Four Doors: Diagnose | `/manus-storage/the-letter-feature-two_4f6cea31.webp`     |
-| `/the-letter`     | Four Doors: Engage   | `/manus-storage/the-letter-feature-three_41e72f90.webp`   |
-| `/the-letter`     | Four Doors: Verify   | `/manus-storage/the-letter-feature-four_f14845b3.webp`    |
-| `/the-body`       | Hero                 | `/manus-storage/the-body-hero_1ede8372.webp`              |
-| `/the-nightstand` | Hero                 | `/manus-storage/the-nightstand-hero_ffcf4739.webp`        |
-| `/the-web`        | Hero                 | `/manus-storage/the-web-hero_06f8b491.webp`               |
-| `/walk-through`   | Tony portrait hero   | `/manus-storage/about-walkthrough-portrait_f97955e3.webp` |
+| `/about`          | Tony portrait        | `/manus-storage/about-walkthrough-portrait_9c975c3f.webp` |
+| `/about`          | Editorial hero       | `/manus-storage/the-letter-hero_6f76d90a.webp`            |
+| `/the-letter`     | Editorial hero       | `/manus-storage/the-letter-hero_6f76d90a.webp`            |
+| `/the-letter`     | Four Doors: Read     | `/manus-storage/the-letter-feature-one_638e12a9.webp`     |
+| `/the-letter`     | Four Doors: Diagnose | `/manus-storage/the-letter-feature-two_4830a9d3.webp`     |
+| `/the-letter`     | Four Doors: Engage   | `/manus-storage/the-letter-feature-three_ff78fd8a.webp`   |
+| `/the-letter`     | Four Doors: Verify   | `/manus-storage/the-letter-feature-four_2dee4cb5.webp`    |
+| `/the-body`       | Hero                 | `/manus-storage/the-body-hero_6b1613eb.webp`              |
+| `/the-nightstand` | Hero                 | `/manus-storage/the-nightstand-hero_6e067b51.webp`        |
+| `/the-web`        | Hero                 | `/manus-storage/the-web-hero_39e97b3f.webp`               |
+| `/walk-through`   | Tony portrait hero   | `/manus-storage/about-walkthrough-portrait_9c975c3f.webp` |
 
-At the validation checkpoint, the public managed-storage URL returned an edge redirect followed by a `200 image/webp` response. The local Next.js development server does not proxy `/manus-storage/*`, which is expected to be handled by the managed platform edge. Separately, post-checkpoint inspections of the configured public domain continued to emit the pre-checkpoint Sanity image markup and returned the former custom 404 for the new `/subscribe` route, including after the legacy Netlify configuration was removed and the platform acknowledged a successful deployment. Therefore, the asset migration is source- and storage-verified, while final public deployment-media verification remains open in the deployment checklist until the served application revision advances.
+At the validation checkpoint, the public managed-storage URL returned an edge redirect followed by a `200 image/webp` response. The local Next.js development server does not proxy `/manus-storage/*`, which is expected to be handled by the managed platform edge. Separately, early post-checkpoint inspections of the configured public domain emitted pre-checkpoint Sanity image markup and returned the former custom 404 for the new `/subscribe` route, including after the legacy Netlify configuration was removed and the platform acknowledged a successful deployment.
+
+Public verification on 11 September 2026 at 10:34 UTC then confirmed that the configured domain had advanced to the current application revision. `https://tonygreenweb-xsv9qbd3.manus.space/subscribe` returned `200` with `x-powered-by: Next.js` and the restored subscription-page signature. `https://tonygreenweb-xsv9qbd3.manus.space/the-letter` emitted the recovered `/manus-storage/the-letter-*` paths and contained zero references to `cdn.sanity.io/images/a3q1cyqs`. The managed production-log endpoint still reports that no Cloud Run service is available, so this audit records public runtime evidence rather than making an unsupported claim about the provider's internal container topology or static-upload mechanics.
+
+The public `/subscribe` page was also visually checked at the default desktop viewport. It rendered the current dark charcoal hero, cream-and-gold serif heading, parchment subscription panel, labelled email field, and free-newsletter disclosure rather than the former custom 404. This validates the restored route's public presentation and confirms that its live navigation and form surface use the current Next.js revision.
 
 ## Implementation Priority
 
