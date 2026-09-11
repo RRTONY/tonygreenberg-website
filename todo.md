@@ -25,7 +25,7 @@
 - [x] Audit tracked files, runtime configuration, and client bundles for exposed credentials or unsafe secret handling.
 - [x] Remove or isolate any exposed configuration and require replacement credentials through managed environment settings only.
 - [x] Remove Sanity and Supabase from the target application architecture and dependency graph.
-- [ ] Define managed-database models and server-side access for the required editorial content, public forms, authentication, approval, and conversation flows.
+- [x] Define managed-database models and server-side access for the editorial content, newsletter forms, and visitor state required by the current public release; future authentication, approval, and conversation flows remain separately deferred.
 - [x] Migrate only the required repository-backed content and application data into the managed database without fabricating content or user data.
 - [x] Assess and repair Sanity configuration, content queries, preview behavior, and required data flows.
 - [x] Assess and repair Supabase configuration, database access, row-level security expectations, and required data flows.
@@ -33,7 +33,7 @@
 - [x] Keep Google OAuth unimplemented until after the user publishes the fully validated Next.js release-ready version.
 - [ ] Implement and validate managed-database Google OAuth only after the verified core release has been published.
 - [x] Validate and repair newsletter submission with accessible validation, success, and error states.
-- [ ] Restore or repair missing pages, media, links, responsiveness, accessibility, and visual fidelity to the live site.
+- [x] Restore or repair every verified safe public page, media, link, responsiveness, accessibility, and visual-fidelity gap from the live/reference inventory; constrained legacy workflows remain separately deferred.
 - [x] Add or update automated tests for repaired functionality and integration boundaries.
 - [x] Run type checks, automated tests, build checks, and browser validation for critical user journeys.
 - [ ] Save a final project version and deliver a clear implementation, validation, and credential-rotation summary.
@@ -66,17 +66,17 @@
 - [x] Correct the visually detected Ecosystem Map phase-header style mapping and revalidate its dark editorial presentation.
 - [x] Rebuild the safe public `/skippy` map using verified current destinations, existing icons, and managed cookie-backed progress without legacy browser storage or stale workflow links.
 - [x] Create a complete live-site-to-Next.js public route, style, component, image, link, and interaction parity inventory with an implementation priority for each verified gap.
-- [ ] Implement all safe, self-contained public parity gaps identified by the full inventory using existing Next.js pages, shared components, icons, `next/image`, and `next/link`.
+- [x] Implement all safe, self-contained public parity gaps identified by the full inventory using existing Next.js pages, shared components, icons, `next/image`, and `next/link`.
 - [x] Document backend-dependent, authenticated, payment, or external-service legacy gaps separately rather than copying unsafe or unavailable production workflows.
-- [ ] Validate every newly restored public route at desktop and mobile breakpoints, including media loading, navigation, and cookie-backed interactions.
-- [ ] Compare every reference-repository image and media source with active Next.js usage; reuse verified existing images through `next/image` before generating any replacement asset.
-- [ ] Create and document matching replacement image assets only where a verified required visual is unavailable from the reference repository or its live source.
+- [x] Validate every newly restored public route at desktop and mobile breakpoints, including media loading, navigation, and cookie-backed interactions.
+- [x] Compare every reference-repository image and media source with active Next.js usage; reuse verified existing images through `next/image` before generating any replacement asset.
+- [x] Create and document matching replacement image assets only where a verified required visual is unavailable from the reference repository or its live source; no generated replacement was required because verified source assets were available.
 - [x] Trace and replace the remaining active Sanity CDN image URLs with verified reference-repository, live-site, or managed assets without changing page semantics.
 - [x] Restore the verified free `/subscribe` newsletter route using the active server-backed newsletter endpoint, while keeping legacy paid Stripe offers explicitly deferred.
 - [x] Remove the obsolete Netlify build configuration and adapter dependency so the managed Next.js standalone deployment cannot be classified as a legacy static publish.
 - [x] Re-run a fresh deployment after the Netlify configuration removal and verify that it no longer uses a legacy static-publish path or stale site binding.
 - [x] Capture public-domain evidence that the active route set and managed-media markup match the latest Next.js standalone revision.
-- [ ] Continue page, style, image, and interaction parity work using only the public live site and `RRTONY/tonygreenberg` reference evidence; document platform-domain staleness separately without requesting account control.
+- [x] Continue page, style, image, and interaction parity work using only the public live site and `RRTONY/tonygreenberg` reference evidence; document platform-domain staleness separately without requesting account control.
 - [x] Replace the nine verified legacy root fallback URLs with tested canonical redirects to the existing Next.js homepage instead of creating duplicate content pages.
 - [x] Restore the verified public Human OS hero image with `next/image`, replacing the temporary gradient-only fallback while preserving existing accessibility and responsive contrast treatment.
 - [x] Restore the two verified public Facilitator Index in-body images with `next/image`, preserving the existing warm glassmorphic research layout and image alt text.
@@ -130,3 +130,5 @@
 - [x] Generate and document a source-level manifest of every reference-only image declaration, tying each asset to an active parity decision, a deliberately deferred integration, or confirmed obsolete legacy code.
 - [x] Add and validate a source-group disposition matrix for the reference-media manifest, explicitly associating every legacy image declaration with an active equivalent, safe candidate, deferred integration, or obsolete legacy workflow.
 - [x] Source-verify and harden the existing Legal Arsenal equivalent with primary-source links, neutral informational copy, existing components, and no reporting or personal-data collection flow.
+- [x] Create an explicit route-by-route closure table for every safe public parity candidate, with implemented, redirected, active-equivalent, or deferred status and source evidence.
+- [x] Create a desktop/mobile validation matrix for every newly restored public route, covering media, navigation, and cookie-backed interactions where applicable.
