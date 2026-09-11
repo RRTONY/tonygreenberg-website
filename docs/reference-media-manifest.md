@@ -1,0 +1,187 @@
+# Reference Media Manifest
+
+Generated from the supplied `RRTONY/tonygreenberg` legacy source. This is an evidence inventory, not a directive to copy legacy code or reproduce restricted, payment, authenticated, supplier, or AI flows.
+
+- **Distinct reference image declarations:** 171
+- **Reference image occurrences:** 200
+- **Comparison rule:** Exact and basename matches are mechanical leads only. Route-purpose, licence, and public-safety review remain required before reuse.
+
+| Reference source file | Image declaration | Initial active-source comparison |
+| --- | --- | --- |
+| `pages/humanos/HumanosEcosystem.tsx` | `/api/img/alan-ginsberg_520032c0.png` | Reference-only; route decision required |
+| `pages/humanos/HumanosEcosystem.tsx` | `/api/img/alessa-berg-real_ebbf94ce.jpg` | Reference-only; route decision required |
+| `pages/humanos/HumanosEcosystem.tsx` | `/api/img/andrew-durgee_a049fd1d.png` | Reference-only; route decision required |
+| `pages/brewsoul/GuestShanitaNicholas.tsx` | `/api/img/brewsoul-orig_84eb4bc9.jpg` | Exact active-source match |
+| `pages/CheshireGrin.tsx` | `/api/img/cheshire-orig_9554dcb8.jpg` | Exact active-source match |
+| `pages/Manifesto.tsx` | `/api/img/clarisse-abelarde-artwork_88b73dd0.jpeg` | Reference-only; route decision required |
+| `pages/FindYourCoffee.tsx` | `/api/img/coffee-orig_a935f111.jpg` | Exact active-source match |
+| `pages/ConsciousnessScale.tsx` | `/api/img/consciousness-scale-hero-v2_085e0746.jpg` | Exact active-source match |
+| `pages/humanos/HumanosPhilosophy.tsx` | `/api/img/david-orban_c55c3bfe.jpg` | Reference-only; route decision required |
+| `pages/Home.tsx` | `/api/img/door01_634cd4d4.webp` | Exact active-source match |
+| `pages/Home.tsx` | `/api/img/door02_8abcc1e9.webp` | Exact active-source match |
+| `pages/Home.tsx` | `/api/img/door03_ac43a96c.webp` | Exact active-source match |
+| `pages/Home.tsx` | `/api/img/door04_f682151b.webp` | Exact active-source match |
+| `pages/pri/FacilitatorIndex.tsx` | `/api/img/facilitator-bands_93368783.jpg` | Exact active-source match |
+| `pages/pri/FacilitatorIndex.tsx` | `/api/img/facilitator-compass_fb5f9a0c.jpg` | Exact active-source match |
+| `pages/FindMyHub.tsx` | `/api/img/find-my-hero-cinematic-bright_88a55ce8.jpg` | Reference-only; route decision required |
+| `pages/FindYourMe.tsx` | `/api/img/findme-orig_c4cf916c.jpg` | Exact active-source match |
+| `pages/AkbarEssay.tsx` | `/api/img/gallery-1_562d2f35.jpg` | Reference-only; route decision required |
+| `pages/AkbarEssay.tsx` | `/api/img/gallery-2_77ece374.jpg` | Reference-only; route decision required |
+| `pages/AkbarEssay.tsx` | `/api/img/gallery-3_b430acde.jpg` | Reference-only; route decision required |
+| `pages/AkbarEssay.tsx` | `/api/img/gallery-4_9557b5a9.jpg` | Reference-only; route decision required |
+| `pages/AkbarEssay.tsx` | `/api/img/gallery-5_c09ba728.jpg` | Reference-only; route decision required |
+| `pages/AkbarEssay.tsx` | `/api/img/gallery-6_b0e3bcb0.jpg` | Reference-only; route decision required |
+| `pages/AkbarEssay.tsx` | `/api/img/gallery-7_51581339.jpg` | Reference-only; route decision required |
+| `pages/humanos/HumanosEcosystem.tsx` | `/api/img/gary-silverman_4bd3b7ee.jpg` | Reference-only; route decision required |
+| `pages/Home.tsx` | `/api/img/homepage-hero-original_d3e7447d.jpg` | Exact active-source match |
+| `pages/Manifesto.tsx` | `/api/img/humanos-hand-breakthrough_58c99957.jpeg` | Reference-only; route decision required |
+| `pages/humanos/HumanosHome.tsx` | `/api/img/humanos-hero-hand_73f45c74.jpg` | Exact active-source match |
+| `pages/AkbarEssay.tsx` | `/api/img/IMG_5339_128670c2.jpeg` | Reference-only; route decision required |
+| `pages/ImpactDashboard.tsx` | `/api/img/impact-earth-orig_3ffc1608.jpg` | Reference-only; route decision required |
+| `pages/ImpactDashboard.tsx` | `/api/img/impact-sacred-orig_7452295a.jpg` | Reference-only; route decision required |
+| `pages/humanos/HumanosLayout.tsx` | `/api/img/impact-soul-logo-official_d77d784c.png` | Reference-only; route decision required |
+| `pages/AkbarEssay.tsx` | `/api/img/insta-1_d8a297a3.jpg` | Reference-only; route decision required |
+| `pages/AkbarEssay.tsx` | `/api/img/insta-11_1e875a76.jpg` | Reference-only; route decision required |
+| `pages/AkbarEssay.tsx` | `/api/img/insta-2_093db618.jpg` | Reference-only; route decision required |
+| `pages/AkbarEssay.tsx` | `/api/img/insta-3_e06bb2f2.jpg` | Reference-only; route decision required |
+| `pages/AkbarEssay.tsx` | `/api/img/insta-4_d0a38891.jpg` | Reference-only; route decision required |
+| `pages/AkbarEssay.tsx` | `/api/img/insta-5_4e9d5dae.jpg` | Reference-only; route decision required |
+| `pages/AkbarEssay.tsx` | `/api/img/insta-6_ab214363.jpg` | Reference-only; route decision required |
+| `pages/AkbarEssay.tsx` | `/api/img/insta-7_07bde702.jpg` | Reference-only; route decision required |
+| `pages/AkbarEssay.tsx` | `/api/img/insta-9_4a8ec5c8.jpg` | Reference-only; route decision required |
+| `pages/humanos/HumanosEcosystem.tsx` | `/api/img/josh_kriger_profile_87b7bd1e.webp` | Reference-only; route decision required |
+| `pages/humanos/HumanosEcosystem.tsx` | `/api/img/matt-mckibbin_09cfd3d6.jpg` | Reference-only; route decision required |
+| `pages/Nightstand.tsx` | `/api/img/nightstand-orig_945b87c0.jpg` | Reference-only; route decision required |
+| `pages/humanos/HumanosEcosystem.tsx` | `/api/img/peta-milan-real_270c99c1.jpg` | Reference-only; route decision required |
+| `pages/humanos/HumanosEcosystem.tsx` | `/api/img/pico-velasquez_f36fd4a5.png` | Reference-only; route decision required |
+| `pages/AkbarEssay.tsx` | `/api/img/slider-1_909bebcb.jpg` | Reference-only; route decision required |
+| `pages/AkbarEssay.tsx` | `/api/img/slider-2_a9ef7e3a.jpg` | Reference-only; route decision required |
+| `pages/AkbarEssay.tsx` | `/api/img/slider-3_e2fd10ab.jpg` | Reference-only; route decision required |
+| `pages/AkbarEssay.tsx` | `/api/img/slider-4_c13bc7f2.jpg` | Reference-only; route decision required |
+| `pages/AkbarEssay.tsx` | `/api/img/slider-5_6d81e0c4.jpg` | Reference-only; route decision required |
+| `pages/humanos/HumanosEcosystem.tsx` | `/api/img/stuart-newton_9bfc85c4.png` | Reference-only; route decision required |
+| `pages/humanos/HumanosEcosystem.tsx` | `/api/img/ted-moskovitz_d0d40d28.jpg` | Reference-only; route decision required |
+| `pages/TheBody.tsx` | `/api/img/thebody-orig_0c05bc23.jpg` | Reference-only; route decision required |
+| `pages/TheWeb.tsx` | `/api/img/theweb-orig_81d9b34b.jpg` | Reference-only; route decision required |
+| `pages/Manifesto.tsx` | `/api/img/titans-collide-love_e2729180.jpeg` | Reference-only; route decision required |
+| `pages/WalkThrough.tsx` | `/api/img/tony-headshot_2d63de23.jpg` | Reference-only; route decision required |
+| `pages/Home.tsx` | `/api/img/when-healing-hero_20e20251.jpg?w=600&q=85` | Reference-only; route decision required |
+| `pages/humanos/HumanosEcosystem.tsx` | `/api/img/will-poole_1b8880dd.png` | Reference-only; route decision required |
+| `pages/CheshireGrin.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/cheshire-mask-4ofPFkHuEfCMEvFB7MzR4d.webp` | Reference-only; route decision required |
+| `pages/CheshireGrin.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/cheshire-puppet-8NTNwM7xtSbLcFDmxqeCjf.webp` | Reference-only; route decision required |
+| `pages/CheshireGrin.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/cheshire-vanish-Vtq5Covu2WVFSmHZdAUX4X.webp` | Exact active-source match |
+| `pages/CheshireGrin.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/cheshire-vault-69sjHYVpxTpkN5DTEThgcv.webp` | Exact active-source match |
+| `pages/humanos/HumanosPhilosophy.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/consciousness-scale-HjPE8waC75o6fHtrhXiBKu.webp` | Exact active-source match |
+| `pages/BlogPost.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/elixir-golden-rudraksha_f3662a8d.png` | Reference-only; route decision required |
+| `pages/BlogPost.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/elixir-meditation-hat_74c24d62.jpeg` | Reference-only; route decision required |
+| `pages/pri/FacilitatorIndex.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/facilitator-hero-v2-KJX7ZmJuuiqi4wVnYJoJYW.webp` | Exact active-source match |
+| `pages/pri/iboga-module.ts` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/iboga-alkaloid-comparison-dKuBTy9hCbrCVWcryVa2Qi.webp` | Exact active-source match |
+| `pages/pri/iboga-module.ts` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/iboga-clinical-setting-jHwatPUD9k6skVo5c88dVH.webp` | Exact active-source match |
+| `pages/pri/medicine-images.ts` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/iboga-hero-bwiti-Yr6Po2Sv6ma2aBEtCGBpJG.webp` | Exact active-source match |
+| `pages/pri/iboga-module.ts` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/iboga-hero-JoM8AmTyxi83oYTSuwPWTz.webp` | Exact active-source match |
+| `pages/pri/iboga-module.ts` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/iboga-pharmacology-receptors-QrrQQ9KaRpZgQRVWavYvsf.webp` | Exact active-source match |
+| `pages/ProtectingYourBusiness.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/klawiter-og-image-Ay33ChnmKwrEZ69NtktCJB.png` | Reference-only; route decision required |
+| `pages/ProtectingYourBusiness.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/kristi-klawiter-photo_99e64f14.jpeg` | Exact active-source match |
+| `pages/BlogPost.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/law-I-ph-96qHxZzqsJyjTZXj5stcZu.webp` | Reference-only; route decision required |
+| `pages/BlogPost.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/law-II-ph-2jkUnLxSGLdk48x9tipYeE.webp` | Reference-only; route decision required |
+| `pages/BlogPost.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/law-III-ph-VYrHcozwcm4KTftHgXTXt4.webp` | Reference-only; route decision required |
+| `pages/BlogPost.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/law-IV-ph-L6uGZv7jGQLkhG2MNPt2fB.webp` | Reference-only; route decision required |
+| `pages/BlogPost.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/law-V-ph-ZixWjtQpaZUdBNKBDvASPW.webp` | Reference-only; route decision required |
+| `pages/BlogPost.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/law-VI-ph-hbQMiuo6CeGLzaJhDPuHSA.webp` | Reference-only; route decision required |
+| `pages/manifesto/AttentionTheft.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/manifesto-glamour-blocker-jHEBDsmZ33rTwcjbakiiKi.webp` | Exact active-source match |
+| `pages/manifesto/AttentionTheft.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/manifesto-glamour-hero_d3ee8a5e.jpg` | Exact active-source match |
+| `pages/manifesto/AttentionTheft.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/manifesto-glamour-legal_e83b2084.jpg` | Exact active-source match |
+| `pages/manifesto/AttentionTheft.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/manifesto-glamour-report_7aea41eb.jpg` | Exact active-source match |
+| `pages/manifesto/AttentionTheft.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/manifesto-glamour-sacred-QNMeMG2mvDZqqvgSUsVrLM.webp` | Exact active-source match |
+| `pages/manifesto/AttentionTheft.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/manifesto-glamour-shame_68bf4b52.jpg` | Reference-only; route decision required |
+| `pages/manifesto/AttentionTheft.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/manifesto-glamour-weapons_82cdd78e.jpg` | Exact active-source match |
+| `pages/manifesto/BlockerFinder.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/manifesto-hero-blocker_477922f5.jpg` | Reference-only; route decision required |
+| `pages/manifesto/AttentionEconomics.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/manifesto-hero-economics_8ad65f9f.jpg` | Reference-only; route decision required |
+| `pages/manifesto/LegalDatabase.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/manifesto-hero-legal_e053c9f8.jpg` | Reference-only; route decision required |
+| `pages/manifesto/ReportSpammer.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/manifesto-hero-report_d6e3a1a1.jpg` | Reference-only; route decision required |
+| `pages/manifesto/TenWeapons.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/manifesto-hero-weapons_7f34787b.jpg` | Reference-only; route decision required |
+| `pages/pri/MescalineDeepDive.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/mesc_dimensions-9RVHkrAxpLwCZgHTJAW5G3.webp` | Exact active-source match |
+| `pages/pri/MescalineDeepDive.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/mesc_latuda-YgTpmPv22YnAyD4CQiGmzE.webp` | Exact active-source match |
+| `pages/pri/MescalineDeepDive.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/mesc_outcomes-bwmiTnjaYvWoVQcSh4mTTE.webp` | Exact active-source match |
+| `pages/pri/MescalineDeepDive.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/mesc_sources-aQ77qjP56eHB6vhUJNNXAo.webp` | Exact active-source match |
+| `pages/CheshireGrin.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/og-alex-azzi-mUffXWA2JbGUKwZdNGbJ3h.png` | Exact active-source match |
+| `pages/Assessments.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/og-assessments-AUxeFWUhMQsVqn5dNbzGoq.png` | Reference-only; route decision required |
+| `pages/Blog.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/og-homepage-iNW3EF7wNGKzB7HUYuj6tn.png` | Reference-only; route decision required |
+| `pages/PeptideWatch.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_0_4_MCkiwFGAzWiyKXzYmiwuBZ_1773617441126_na1fn_L2hvbWUvdWJ1bnR1LzEyX2ZyYXVkX3BhdHRlcm5z_d14f102c.jpg` | Reference-only; route decision required |
+| `pages/PeptideWatch.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_1_3_MIYsdI7jUuNQa0NltDUgjn_1773617441031_na1fn_L2hvbWUvdWJ1bnR1L3dhbGxfb2Zfc2hhbWU_b1520d85.jpg` | Reference-only; route decision required |
+| `pages/pri/PsychedelicReadinessIndex.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_10_7_izBDVpysTtokCeVbU0sNp6_1773615912434_na1fn_L2hvbWUvdWJ1bnR1L2Zvb3Rlcl9pbWFnZQ_2a2c6369.jpg` | Exact active-source match |
+| `pages/CheshireGrin.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_11_evidence_0eaef16e.jpg` | Reference-only; route decision required |
+| `pages/pri/medicine-images.ts` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_12_ayahuasca_d4d3386a.jpg` | Exact active-source match |
+| `pages/PeptideWatch.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_13_7_C1fQmXkqFMlvJ032C4qvEY_1773617444714_na1fn_L2hvbWUvdWJ1bnR1L3ZlbmRvcl9zY29yZWNhcmQ_6009c18d.jpg` | Reference-only; route decision required |
+| `pages/pri/PsychedelicReadinessIndex.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_14_1_Ay780tKhHUlRIDgLEPEyF6_1773615910924_na1fn_L2hvbWUvdWJ1bnR1L3BoYXJtYWNvcG9laWE_7a2f5a05.jpg` | Exact active-source match |
+| `pages/PeptideWatch.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_15_9_yJslhilC8rx2UAMMgYdWcm_1773617449214_na1fn_L2hvbWUvdWJ1bnR1L3NlY3Rpb25fOF9mb3VuZGF0aW9u_83362273.jpg` | Reference-only; route decision required |
+| `pages/PeptideWatch.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_16_11_ecMRcv6t898oag7yBTl2HK_1773617461058_na1fn_L2hvbWUvdWJ1bnR1L3NlY3Rpb24xMF9pbWFnZQ_df7cd3bd.jpg` | Reference-only; route decision required |
+| `pages/pri/medicine-images.ts` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_18_lionsmane_82e5243f.jpg` | Exact active-source match |
+| `pages/PeptideWatch.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_19_2_E8571TfuVcPpzA3l8sDtUG_1773617443569_na1fn_L2hvbWUvdWJ1bnR1L2VuZm9yY2VtZW50X3RpbWVsaW5l_1b5d7c73.jpg` | Reference-only; route decision required |
+| `pages/CheshireGrin.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_2_red_flags_535c6c20.jpg` | Exact active-source match |
+| `pages/CheshireGrin.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_21_healing_b400d66f.jpg` | Reference-only; route decision required |
+| `pages/PeptideWatch.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_22_6_9L4WV2g0hc1P2OWmepfvJd_1773617434549_na1fn_L2hvbWUvdWJ1bnR1L3NlY3Rpb25fNV9idXllcl90ZXN0_710c424a.jpg` | Reference-only; route decision required |
+| `pages/pri/medicine-images.ts` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_23_changa_bf8305f2.jpg` | Exact active-source match |
+| `pages/pri/PsychedelicReadinessIndex.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_24_3_CDtc8wRbaTczuIl5ODhL7E_1773615908910_na1fn_L2hvbWUvdWJ1bnR1L21lZGljYXRpb25faW50ZXJhY3Rpb25fZ3VpZGU_1fb2633f.jpg` | Exact active-source match |
+| `pages/PeptideWatch.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_26_10_jdNQ9z5VMCRzCSnTvLtYCx_1773617445869_na1fn_L2hvbWUvdWJ1bnR1L3doaXN0bGVibG93ZXJfaW1hZ2U_33b43bf0.jpg` | Reference-only; route decision required |
+| `pages/PeptideWatch.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_27_0_JXknTuGM5jXLADVhzi2311_1773617447237_na1fn_L2hvbWUvdWJ1bnR1L2hlcm9faW1hZ2U_37b1422a.jpg` | Reference-only; route decision required |
+| `pages/CheshireGrin.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_28_community_ae6f3045.jpg` | Reference-only; route decision required |
+| `pages/pri/medicine-images.ts` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_29_mescaline_86e14bfb.jpg` | Exact active-source match |
+| `pages/pri/PsychedelicReadinessIndex.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_3_4_WErEguPyxSRODIYK82xMyu_1773615891673_na1fn_L2hvbWUvdWJ1bnR1L2Fzc2Vzc21lbnRfaW1hZ2U_8a8c3b82.jpg` | Exact active-source match |
+| `pages/pri/medicine-images.ts` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_30_dmt_da3785e1.jpg` | Exact active-source match |
+| `pages/pri/medicine-images.ts` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_31_psilocybin_707bf66a.jpg` | Exact active-source match |
+| `pages/pri/medicine-images.ts` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_32_cacao_51ff525d.jpg` | Exact active-source match |
+| `pages/CheshireGrin.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_33_ledger_9aaf5507.jpg` | Exact active-source match |
+| `pages/CheshireGrin.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_34_playbook_390ed9a1.jpg` | Reference-only; route decision required |
+| `pages/PeptideWatch.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_35_8_fW9NqUzYD9g7z7SGoJBLLT_1773617447285_na1fn_L2hvbWUvdWJ1bnR1L2Zpbm5yaWNrX2FuYWx5dGljcw_9f3833bb.jpg` | Reference-only; route decision required |
+| `pages/pri/PsychedelicReadinessIndex.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_36_6_V2zHpGt6IKEgb2XpfKmsCJ_1773615895415_na1fn_L2hvbWUvdWJ1bnR1L2hlYWxpbmdfc2VxdWVuY2U_4c245fba.jpg` | Exact active-source match |
+| `pages/pri/medicine-images.ts` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_37_kambo_140e8e64.jpg` | Exact active-source match |
+| `pages/pri/medicine-images.ts` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_38_microdose_c5c83f9b.jpg` | Exact active-source match |
+| `pages/pri/medicine-images.ts` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_39_ibogamic_bed7ccde.jpg` | Exact active-source match |
+| `pages/pri/medicine-images.ts` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_4_cannabis_05061e58.jpg` | Exact active-source match |
+| `pages/PeptideWatch.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_41_1_v2WYYfU57IwN06VnYMczhd_1773617453105_na1fn_L2hvbWUvdWJ1bnR1L3RocmVlX21hcmtldHM_65067d88.jpg` | Reference-only; route decision required |
+| `pages/pri/PsychedelicReadinessIndex.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_42_2_cyf5h67593DZPHr3augAvg_1773615904853_na1fn_L2hvbWUvdWJ1bnR1L21hb2JfaW50ZXJhY3Rpb25fbWF0cml4_beb3e8b0.jpg` | Exact active-source match |
+| `pages/pri/medicine-images.ts` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_43_salvia_544180f0.jpg` | Exact active-source match |
+| `pages/pri/medicine-images.ts` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_44_rapeh_b665d27f.jpg` | Exact active-source match |
+| `pages/pri/medicine-images.ts` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_45_ketamine_262f6744.jpg` | Exact active-source match |
+| `pages/pri/medicine-images.ts` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_46_mdma_bf707c70.jpg` | Exact active-source match |
+| `pages/pri/medicine-images.ts` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_47_amanita_4f26c20d.jpg` | Exact active-source match |
+| `pages/pri/medicine-images.ts` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_48_lsd_a785dcd6.jpg` | Exact active-source match |
+| `pages/pri/medicine-images.ts` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_49_sananga_e602d6cc.jpg` | Exact active-source match |
+| `pages/CheshireGrin.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_5_hero_4a47a9b2.jpg` | Exact active-source match |
+| `pages/pri/medicine-images.ts` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_50_huachuma_0fe57ffb.jpg` | Exact active-source match |
+| `pages/pri/medicine-images.ts` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_51_caapi_6bf8e23e.jpg` | Exact active-source match |
+| `pages/pri/medicine-images.ts` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_52_yopo_8641463b.jpg` | Exact active-source match |
+| `pages/pri/medicine-images.ts` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_53_mapacho_197af3b7.jpg` | Exact active-source match |
+| `pages/pri/medicine-images.ts` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_54_soma_f973a3b5.jpg` | Exact active-source match |
+| `pages/CheshireGrin.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_6_protocol_076fabcb.jpg` | Reference-only; route decision required |
+| `pages/pri/MescalineDeepDive.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_64_mesc_b5ca252b.jpg` | Exact active-source match |
+| `pages/pri/iboga-module.ts` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_65_iboga-bwiti-tradition-esnMH7bF7eMi8hnHLy8nLm_d64f0e15.jpg` | Exact active-source match |
+| `pages/PeptideMatrix.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_66_peptide-hero-matrix-TUP48rggCiaJdBFdZh9eMF_3b80d0d9.jpg` | Reference-only; route decision required |
+| `pages/pri/MescalineDeepDive.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_67_mesc_pharma_d25171fc.jpg` | Exact active-source match |
+| `pages/CheshireGrin.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_68_vt-community-shield-YuYBCgBnyitK8FTYr8kzMK_c354b718.jpg` | Reference-only; route decision required |
+| `pages/pri/medicine-images.ts` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_7_ibogaine_4376d0d8.jpg` | Exact active-source match |
+| `pages/PeptideWatch.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_8_5_uzz3yDoGjZ1TsSejER4qZC_1773617435275_na1fn_L2hvbWUvdWJ1bnR1L3JvbGVfYmFzZWRfY2hlY2tsaXN0cw_c2d85b1a.jpg` | Reference-only; route decision required |
+| `pages/pri/PsychedelicReadinessIndex.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_9_5_VRn9xtScv1qYQMN2Aj1zNP_1773615893129_na1fn_L2hvbWUvdWJ1bnR1L2NyaXNpc19yZXNvdXJjZXNfbGlnaHRob3VzZQ_a3d95833.jpg` | Exact active-source match |
+| `pages/FindYourPeptide.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/peptide-hero-find-Pd2B4xq5sV9Fwq6fkoA8sC.webp` | Exact active-source match |
+| `pages/PeptideQuiz25.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/peptide-hero-quiz-7vdCSZEoxD7WaxFumSRhqx.webp` | Reference-only; route decision required |
+| `pages/PeptideHallOfShame.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/peptide-hero-shame-F3CU4ffRKBb77JgiCsFgmX.webp` | Reference-only; route decision required |
+| `pages/PeptideSupplyChain.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/peptide-hero-supply-PYCPqN9umsL4js9C6nUkYD.webp` | Reference-only; route decision required |
+| `pages/pri/MescalineDeepDive.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/pri-hero-mescaline-LZ6qL5rTNsm96kDqBfwRyg.webp` | Exact active-source match |
+| `pages/pri/PsychedelicReadinessIndex.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/pri-hero-v2-mSDTNiwzeoV4EwNs4reHC8.webp` | Exact active-source match |
+| `pages/pri/MescalineDeepDive.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/pri-section-pharmacology-8nrnRWUbqMfZ8EUM9utBPY.webp` | Exact active-source match |
+| `pages/humanos/HumanosHome.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/satisficer-vs-maximizer-8cWbpDMM6EHc2L6u3bi6xT.webp` | Exact active-source match |
+| `pages/manifesto/YouveBeenReported.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/spammer-anonymous-scary-9vZNAjnECt8CRtiBMujSmq.webp` | Reference-only; route decision required |
+| `pages/manifesto/YouveBeenReported.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/spammer-green-monster-MLyxteb3TKrPJBpTznhoc4.webp` | Reference-only; route decision required |
+| `pages/CheshireGrin.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/vt-evidence-vault-MHk8diSWnHLVCHAnSNDTzf.webp` | Reference-only; route decision required |
+| `pages/CheshireGrin.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/vt-principles-glass-RnR8hiqd9XHwnfeb9S4r7G.webp` | Exact active-source match |
+| `pages/CheshireGrin.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/vt-redemption-path-CfmvbHsPwfxVCCUMT8WkpS.webp` | Reference-only; route decision required |
+| `pages/CheshireGrin.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/vt-sunlight-protocol-htqUDx9BYR5LqsVmLjJkrD.webp` | Exact active-source match |
+| `pages/ImpactFuturism.tsx` | `https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/when-healing-hero-FEiKS3iCJcSfUDNrR6wwXm.webp` | Reference-only; route decision required |
+| `pages/ComponentShowcase.tsx` | `https://github.com/shadcn.png` | Reference-only; route decision required |
+
+## Decision Rules
+
+- Preserve verified public visuals through `next/image` and managed storage or explicitly allowed live sources.
+- Do not port images solely because they appear in legacy source. Restricted reports, payment, supplier, authenticated, and AI surfaces require separate approved implementations.
+- Treat any image with unclear source, licence, or public purpose as unresolved rather than generating a substitute automatically.

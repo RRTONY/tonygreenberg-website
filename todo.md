@@ -127,3 +127,4 @@
 - [x] Remove unverified hard-coded Psychedelic Readiness testimonial content rather than presenting unsupported user statements in the public assessment interface.
 - [x] Audit and remove any remaining active Peptide Matrix star-based discount or rating labels from source data and rendered UI.
 - [x] Convert the recovered retired-Sanity JPEG-byte assets to true WebP and reupload them at new immutable managed-storage keys, so public browsers can render the verified page imagery with a matching MIME type.
+- [x] Generate and document a source-level manifest of every reference-only image declaration, tying each asset to an active parity decision, a deliberately deferred integration, or confirmed obsolete legacy code.
