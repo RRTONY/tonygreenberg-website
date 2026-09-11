@@ -25,18 +25,18 @@ This inventory compares the public URL set exposed by the live [`tonygreenberg.c
 
 ## Remaining Sitemap Dispositions
 
-| Live path                                                         | Category                                    | Required handling                                                                                                                              |
-| ----------------------------------------------------------------- | ------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `/connect`                                                        | Verified homepage fallback                  | Permanent redirect to `/`; public retrieval shows no distinct route content.                                                                   |
-| `/health`, `/library`, `/heroes`, `/impact`, `/projects`, `/quiz` | Verified homepage fallbacks                 | Permanent redirects to `/`; public retrieval shows no distinct route content.                                                                  |
-| `/seven-doors`                                                    | Verified homepage fallback                  | Permanent redirect to `/`; public retrieval shows no distinct route content.                                                                   |
-| `/built-on-manus`                                                 | Verified homepage fallback                  | Permanent redirect to `/`; public retrieval shows no approved distinct product-attribution content.                                            |
-| `/clock-keeper-part-2`                                            | Potential self-contained legacy public page | Port only after its response flow, stored data, privacy policy, and backend requirement are reviewed.                                          |
-| `/fauxtony`                                                       | AI-assisted discovery                       | Requires a separate server-side AI integration, abuse protection, and content-scope review; do not copy a legacy client-side implementation.   |
-| `/shop`                                                           | Authenticated and payment-dependent         | Deferred until secure Google OAuth and approved checkout architecture are completed.                                                           |
-| `/subscribe`                                                      | Newsletter marketing surface                | Native free subscription page implemented with the managed endpoint and cookie-backed visitor state; legacy paid tiers remain deferred.        |
-| `/supplier-intake`                                                | External supplier workflow                  | Existing redirect covers the external RampRate workflow. Keep as a redirect until an approved managed-database intake replacement is designed. |
-| `/cheshire-grin`                                                  | Restricted report                           | Existing redirect protects the legacy report surface. Preserve the restriction until approved authentication is added.                         |
+| Live path                                                         | Category                              | Required handling                                                                                                                                                          |
+| ----------------------------------------------------------------- | ------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/connect`                                                        | Verified homepage fallback            | Permanent redirect to `/`; public retrieval shows no distinct route content.                                                                                               |
+| `/health`, `/library`, `/heroes`, `/impact`, `/projects`, `/quiz` | Verified homepage fallbacks           | Permanent redirects to `/`; public retrieval shows no distinct route content.                                                                                              |
+| `/seven-doors`                                                    | Verified homepage fallback            | Permanent redirect to `/`; public retrieval shows no distinct route content.                                                                                               |
+| `/built-on-manus`                                                 | Verified homepage fallback            | Permanent redirect to `/`; public retrieval shows no approved distinct product-attribution content.                                                                        |
+| `/clock-keeper-part-2`                                            | Consent-sensitive response collection | Public retrieval shows optional name/email fields and five long-form prompts. Port only after an explicit consent, retention, access-control, and managed-database review. |
+| `/fauxtony`                                                       | AI-assisted discovery                 | Requires a separate server-side AI integration, abuse protection, and content-scope review; do not copy a legacy client-side implementation.                               |
+| `/shop`                                                           | Authenticated and payment-dependent   | Deferred until secure Google OAuth and approved checkout architecture are completed.                                                                                       |
+| `/subscribe`                                                      | Newsletter marketing surface          | Native free subscription page implemented with the managed endpoint and cookie-backed visitor state; legacy paid tiers remain deferred.                                    |
+| `/supplier-intake`                                                | External supplier workflow            | Existing redirect covers the external RampRate workflow. Keep as a redirect until an approved managed-database intake replacement is designed.                             |
+| `/cheshire-grin`                                                  | Restricted report                     | Existing redirect protects the legacy report surface. Preserve the restriction until approved authentication is added.                                                     |
 
 ### Public Fallback Evidence
 
@@ -52,7 +52,7 @@ The public Shop page confirms the active visual system rather than introducing a
 
 ### Visual Pattern Check: Clock Keeper
 
-The public Clock Keeper page uses the same near-black, lightly textured hero; mono gold eyebrow; cream serif headline; and gold/outlined action-pair pattern already present in the active project. Below the hero, it converts into a parchment form surface with five selectable response modes, optional identity fields, and five long-form response fields. The visual system is reusable evidence, but the interaction is not a static page: its submission collects optional contact data together with sensitive free-form responses. A secure storage-retention, consent, and authenticated review model is required before this flow can be ported.
+The public Clock Keeper page uses the same near-black, lightly textured hero; mono gold eyebrow; cream serif headline; and gold/outlined action-pair pattern already present in the active project. Below the hero, it converts into a parchment form surface with five selectable response modes, optional identity fields, and five long-form response fields. Public retrieval on 11 September 2026 did not reveal an explicit consent, retention, or access-control statement alongside this collection. The visual system is reusable evidence, but the interaction is not a static page: its submission collects optional contact data together with sensitive free-form responses. A secure storage-retention, consent, and authenticated review model is required before this flow can be ported.
 
 ### Shared Style-System Check
 
@@ -62,7 +62,7 @@ The restored Human OS hero was visually rechecked at 1280px, 768px, and 375px wi
 
 ### Visual Pattern Check: Facilitator Index
 
-The active Facilitator Index already matches the reference page’s warm cream-to-amber-to-rose research surface, full-bleed amber/purple hero image, cream serif heading, gold mono eyebrow, and translucent watermark treatment. The reference additionally places a Twelve Bands diagram before Band 0 and a five-axis compass diagram after Band J. Both existing live image endpoints were verified as publicly available and are restored in the native component without introducing a new visual source. The full-index expansion requires a final in-browser verification before this item is marked complete.
+The active Facilitator Index already matches the reference page’s warm cream-to-amber-to-rose research surface, full-bleed amber/purple hero image, cream serif heading, gold mono eyebrow, and translucent watermark treatment. The reference additionally places a Twelve Bands diagram before Band 0 and a five-axis compass diagram after Band J. Both existing live image endpoints were verified as publicly available and are restored in the native component without introducing a new visual source. The full-index expansion, restored diagrams, and Lucide disclosure control were then checked at desktop and mobile breakpoints.
 
 ## Image and Media Reconciliation Rules
 

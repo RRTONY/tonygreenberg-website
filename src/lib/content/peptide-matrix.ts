@@ -215,7 +215,7 @@ export const DANGER_MECHANISMS = [
   },
   {
     title: "Financial Incentive",
-    stat: "5★ = discount",
+    stat: "Incentivized reviews",
     description:
       "Sellers encourage positive reviews with discounts. Negative reviews get disputed and removed. The review ecosystem is structurally compromised.",
     iconKey: "dollar",

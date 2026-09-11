@@ -125,3 +125,4 @@
 - [x] Remove unverified attributed Ketamine practitioner quotations from the public medicine modal unless a verified primary source and publication approval are recorded.
 - [x] Correct Psychedelic Readiness saved-medicine privacy copy to describe the existing cookie-backed visitor state rather than browser-local storage.
 - [x] Remove unverified hard-coded Psychedelic Readiness testimonial content rather than presenting unsupported user statements in the public assessment interface.
+- [x] Audit and remove any remaining active Peptide Matrix star-based discount or rating labels from source data and rendered UI.

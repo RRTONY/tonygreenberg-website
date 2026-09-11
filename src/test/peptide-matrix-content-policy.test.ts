@@ -12,6 +12,10 @@ describe("Peptide Matrix review-content policy", () => {
       path.join(process.cwd(), "src/components/marketing/peptide-matrix-explorer.tsx"),
       "utf8",
     );
+    const data = fs.readFileSync(
+      path.join(process.cwd(), "src/lib/content/peptide-matrix.ts"),
+      "utf8",
+    );
 
     expect(source).toContain("<TriangleAlert");
     expect(source).not.toMatch(/[★☆]/u);
@@ -24,5 +28,7 @@ describe("Peptide Matrix review-content policy", () => {
     expect(explorer).not.toMatch(/[★☆]/u);
     expect(explorer).not.toContain("${selected.reviews}★");
     expect(explorer).not.toContain("${entity.reviews}★");
+    expect(data).toContain("Incentivized reviews");
+    expect(data).not.toContain("5★ = discount");
   });
 });
