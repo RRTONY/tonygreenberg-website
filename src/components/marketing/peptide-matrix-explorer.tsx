@@ -322,9 +322,11 @@ export function PeptideMatrixExplorer() {
               <div className="mt-6 grid grid-cols-3 gap-4">
                 <div className="text-center">
                   <p className="font-heading text-2xl text-brand-gold">
-                    {selected.reviews > 0 ? `${selected.reviews}★` : "N/A"}
+                    {selected.reviewSources?.length ?? 0}
                   </p>
-                  <p className="font-mono text-[0.65rem] text-[#E8E4DC]/40 uppercase">Reviews</p>
+                  <p className="font-mono text-[0.65rem] text-[#E8E4DC]/40 uppercase">
+                    Source Lists
+                  </p>
                 </div>
                 <div className="text-center">
                   <p className={`font-heading text-2xl ${RISK_TEXT_CLASSES[selected.riskLevel]}`}>
@@ -372,7 +374,7 @@ export function PeptideMatrixExplorer() {
         <table className="w-full border-collapse text-sm">
           <thead>
             <tr className="border-b-2 border-foreground">
-              {["Entity", "Type", "Reviews", "Evidence", "Gap", "Quadrant", "Risk"].map((h) => (
+              {["Entity", "Type", "Sources", "Evidence", "Gap", "Quadrant", "Risk"].map((h) => (
                 <th
                   key={h}
                   className="px-2 py-3 text-left font-mono text-xs tracking-wide text-brand-gold uppercase"
@@ -393,9 +395,7 @@ export function PeptideMatrixExplorer() {
               >
                 <td className="px-2 py-2.5 font-medium text-foreground">{entity.name}</td>
                 <td className="px-2 py-2.5 text-muted-foreground capitalize">{entity.type}</td>
-                <td className="px-2 py-2.5 text-foreground">
-                  {entity.reviews > 0 ? `${entity.reviews}★` : "N/A"}
-                </td>
+                <td className="px-2 py-2.5 text-foreground">{entity.reviewSources?.length ?? 0}</td>
                 <td className="px-2 py-2.5 text-foreground">{entity.evidence}/100</td>
                 <td
                   className={`px-2 py-2.5 font-bold ${

@@ -79,7 +79,7 @@
 - [ ] Continue page, style, image, and interaction parity work using only the public live site and `RRTONY/tonygreenberg` reference evidence; document platform-domain staleness separately without requesting account control.
 - [x] Replace the nine verified legacy root fallback URLs with tested canonical redirects to the existing Next.js homepage instead of creating duplicate content pages.
 - [x] Restore the verified public Human OS hero image with `next/image`, replacing the temporary gradient-only fallback while preserving existing accessibility and responsive contrast treatment.
-- [ ] Restore the two verified public Facilitator Index in-body images with `next/image`, preserving the existing warm glassmorphic research layout and image alt text.
+- [x] Restore the two verified public Facilitator Index in-body images with `next/image`, preserving the existing warm glassmorphic research layout and image alt text.
 - [x] Remove unverified hard-coded Facilitator Index testimonial content rather than presenting unsupported customer statements in the public interface.
 - [x] Replace all active Facilitator Index Unicode symbol icons with semantically equivalent Lucide icons and enforce the rule with focused source-level tests.
 - [ ] Replace remaining confirmed Unicode symbols that function as active interface icons, status indicators, disclosure controls, or ratings with existing Lucide icons, preserving editorial prose and data semantics.
@@ -113,3 +113,5 @@
 - [x] Add and validate an explicit CI-only database-free content mode so GitHub can run the production Next.js build without production credentials or managed-database access.
 - [x] Replace the confirmed SoulScore rendered disclosure down-arrow glyph with a semantic Lucide chevron and focused regression coverage.
 - [x] Remove obsolete unrendered Unicode icon fields from BrewSoul city and directory content data after their visual renderers migrated to Lucide mappings.
+- [x] Audit and remove or replace any remaining Peptide Matrix Explorer star-based review display that lacks verified customer-review provenance.
+- [x] Remove the Peptide Matrix hero’s unsupported “5-Star Reviews” claim and replace it with evidence-neutral editorial wording.

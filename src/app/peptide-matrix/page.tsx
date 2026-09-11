@@ -24,7 +24,7 @@ import { PeptideMatrixMethodology } from "@/components/marketing/peptide-matrix-
 import { QUADRANTS, DANGER_MECHANISMS, CROSS_LINKS } from "@/lib/content/peptide-matrix";
 
 // Ported from legacy client/src/pages/PeptideMatrix.tsx. Real content,
-// unchanged — an interactive review-score-vs-evidence-score scatter plot
+// unchanged — an interactive public-signal-vs-evidence-score scatter plot
 // (canvas) mapping 8 real named entities (influencers, clinics, vendors,
 // doctors, a regulatory body) across 4 quadrants, plus a sortable entity
 // table, danger-zone psychology, evidence-scoring methodology, and the
@@ -34,9 +34,9 @@ import { QUADRANTS, DANGER_MECHANISMS, CROSS_LINKS } from "@/lib/content/peptide
 // host/failure as /peptide-hall-of-shame and /peptide-supply-chain —
 // dropped in favor of a CSS gradient.
 export const metadata: Metadata = {
-  title: "Peptide Evidence Matrix — Reviews vs. Scientific Evidence",
+  title: "Peptide Evidence Matrix — Public Signals and Scientific Evidence",
   description:
-    "Evidence-based ratings for peptide influencers, clinics, and vendors by review score vs. scientific evidence. Where 5-star reviews and FDA-approved efficacy diverge.",
+    "A public-source evidence matrix for peptide influencers, clinics, and vendors, separating consumer visibility from scientific evidence.",
   alternates: { canonical: "/peptide-matrix" },
 };
 
@@ -121,15 +121,15 @@ export default function PeptideMatrixPage() {
 
       <section className="bg-linear-to-b from-[#0A0A10] to-[#1a1a2e] px-6 py-16 text-center">
         <p className="mb-4 font-mono text-xs tracking-[0.25em] text-brand-gold uppercase">
-          The Review-Evidence Matrix · Peptide Truth System
+          The Public-Signal Evidence Matrix · Peptide Truth System
         </p>
         <h1 className="mx-auto mb-6 max-w-2xl font-heading text-4xl leading-tight font-black text-[#E8E4DC] sm:text-5xl">
-          5-Star Reviews <span className="text-[#C0392B]">≠</span> FDA-Approved Efficacy
+          Public Signals <span className="text-[#C0392B]">Are Not</span> Clinical Evidence
         </h1>
         <p className="mx-auto max-w-xl leading-relaxed text-[#E8E4DC]/60">
-          Patient satisfaction and scientific validation are different metrics. This matrix maps
-          where every major peptide entity falls — and reveals the gap between what people love and
-          what science supports.
+          Public attention and scientific validation are different metrics. This matrix maps where
+          major peptide entities fall and reveals the gap between public visibility and what science
+          supports.
         </p>
       </section>
 
