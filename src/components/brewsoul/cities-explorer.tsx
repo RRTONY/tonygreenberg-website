@@ -4,6 +4,18 @@ import { BackIcon, ForwardIcon } from "@/components/ui/inline-icons";
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import {
+  Award,
+  CircleDot,
+  Coffee,
+  Handshake,
+  Scale,
+  Search,
+  ShieldCheck,
+  Sparkles,
+  X,
+  type LucideIcon,
+} from "lucide-react";
+import {
   SCORING_DIMENSIONS,
   GRADE_SCALE,
   UNIVERSAL_CHAINS,
@@ -14,6 +26,16 @@ import {
   type Grade,
   type NationalStats,
 } from "@/lib/content/brewsoul-cities";
+
+const DIMENSION_ICONS: Record<string, LucideIcon> = {
+  beanQuality: Award,
+  preparation: Coffee,
+  valueQpr: Scale,
+  transparency: Search,
+  experience: Sparkles,
+  accessibility: Handshake,
+  health: ShieldCheck,
+};
 
 function GlassCard({
   children,
@@ -360,9 +382,10 @@ export function CitiesExplorer({
           >
             <button
               onClick={() => setShowMethodology(false)}
-              className="absolute top-4 right-4 text-2xl text-amber-200/50"
+              aria-label="Close scoring methodology"
+              className="absolute top-4 right-4 text-amber-200/50"
             >
-              ×
+              <X aria-hidden="true" className="size-5" />
             </button>
             <h2 className="mb-4 text-2xl font-bold text-amber-50">Scoring Methodology</h2>
             <p className="mb-6 text-sm leading-relaxed text-amber-200/60">
@@ -373,17 +396,21 @@ export function CitiesExplorer({
 
             <h3 className="mb-3 text-lg font-semibold text-amber-50">The 7 Dimensions</h3>
             <div className="mb-6 space-y-3">
-              {SCORING_DIMENSIONS.map((dim) => (
-                <div key={dim.key} className="flex items-center gap-3 rounded-lg bg-white/5 p-3">
-                  <span className="text-xl">{dim.icon}</span>
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium text-amber-50">{dim.label}</span>
-                      <span className="font-mono text-xs text-amber-400">{dim.max} pts</span>
+              {SCORING_DIMENSIONS.map((dim) => {
+                const Icon = DIMENSION_ICONS[dim.key] ?? CircleDot;
+
+                return (
+                  <div key={dim.key} className="flex items-center gap-3 rounded-lg bg-white/5 p-3">
+                    <Icon aria-hidden="true" className="size-5 text-amber-200" />
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm font-medium text-amber-50">{dim.label}</span>
+                        <span className="font-mono text-xs text-amber-400">{dim.max} pts</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             <h3 className="mb-3 text-lg font-semibold text-amber-50">Grade Scale</h3>
