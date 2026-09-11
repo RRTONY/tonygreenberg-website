@@ -82,7 +82,7 @@
 - [x] Restore the two verified public Facilitator Index in-body images with `next/image`, preserving the existing warm glassmorphic research layout and image alt text.
 - [x] Remove unverified hard-coded Facilitator Index testimonial content rather than presenting unsupported customer statements in the public interface.
 - [x] Replace all active Facilitator Index Unicode symbol icons with semantically equivalent Lucide icons and enforce the rule with focused source-level tests.
-- [ ] Replace remaining confirmed Unicode symbols that function as active interface icons, status indicators, disclosure controls, or ratings with existing Lucide icons, preserving editorial prose and data semantics.
+- [x] Replace remaining confirmed Unicode symbols that function as active interface icons, status indicators, disclosure controls, or ratings with existing Lucide icons, preserving editorial prose and data semantics.
 - [x] Replace Journey Dashboard category, status, view-toggle, and action symbols with existing Lucide icons and add focused regression coverage.
 - [x] Replace Assessments Hub and Grant Study Unicode icon data with Lucide icon components and verify the affected assessment cards remain accessible.
 - [x] Replace all Find My directory emoji and Unicode card icons with existing Lucide components, retaining every current assessment link and status label.

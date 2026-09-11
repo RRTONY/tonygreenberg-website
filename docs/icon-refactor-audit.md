@@ -20,4 +20,4 @@ The permanent `src/test/ui-symbols.test.ts` policy now rejects emoji and raw arr
 
 ## Remaining Review
 
-The remaining Unicode arrow characters are deliberately limited to internal string-processing delimiters or longer editorial prose, informational notation, research language, and quotations. The automated policy blocks future regressions in interactive controls and short rendered status or indicator labels. Further conversion must not rewrite those non-interface content uses merely because an arrow character appears in source text.
+The final active-source audit after the Facilitator, assessment, BrewSoul, PRI, public-link, Search modal, SoulScore, and Peptide Matrix batches confirms that remaining occurrences are limited to internal string-processing delimiters, longer editorial prose, informational notation, research language, comments, or test assertions. The automated policy blocks future regressions in interactive controls and short rendered status or indicator labels. Further conversion must not rewrite those non-interface content uses merely because an arrow character appears in source text.
