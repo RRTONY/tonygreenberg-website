@@ -16,6 +16,14 @@ describe("PRI medicine icon policy", () => {
       path.join(process.cwd(), "src/components/pri/medicine-icon.tsx"),
       "utf8",
     );
+    const medicineData = fs.readFileSync(
+      path.join(process.cwd(), "src/lib/content/pri-data.ts"),
+      "utf8",
+    );
+    const scoreData = fs.readFileSync(
+      path.join(process.cwd(), "src/lib/content/pri-shared.ts"),
+      "utf8",
+    );
 
     expect(readiness).toContain("<MedicineIcon medicineId={m.id}");
     expect(readiness).not.toMatch(/\{m\.icon\}|\$\{m\.icon\}|\{s\.icon\}|\$\{s\.icon\}/u);
@@ -23,5 +31,8 @@ describe("PRI medicine icon policy", () => {
     expect(modal).not.toContain("{medicine.icon}");
     expect(icon).toContain("MEDICINE_ICON_BY_ID");
     expect(icon).toContain("type LucideIcon");
+    expect(medicineData).not.toMatch(/^\s*icon:\s*/mu);
+    expect(scoreData).not.toContain("sequence: { icon:");
+    expect(scoreData).not.toMatch(/^\s*icon:\s*/mu);
   });
 });

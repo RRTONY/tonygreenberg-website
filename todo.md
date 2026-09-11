@@ -117,5 +117,7 @@
 - [x] Remove the Peptide Matrix hero’s unsupported “5-Star Reviews” claim and replace it with evidence-neutral editorial wording.
 - [x] Audit the Charity Scorecard star-marker presentation and replace any unsupported rating glyphs with sourced, text-accessible evidence language.
 - [x] Audit and replace confirmed rendered PRI medicine-reference icon glyphs with semantic Lucide components, preserving medical caution text and visible safety labels.
+- [x] Remove the obsolete raw emoji medicine-icon field from PRI data now that every active renderer uses the shared Lucide medicine icon mapping.
+- [x] Remove the obsolete raw emoji healing-sequence field from PRI score output now that public and printable sequence renderers use text-only names.
 - [x] Correct Psychedelic Readiness saved-medicine privacy copy to describe the existing cookie-backed visitor state rather than browser-local storage.
 - [x] Remove unverified hard-coded Psychedelic Readiness testimonial content rather than presenting unsupported user statements in the public assessment interface.

@@ -79,7 +79,7 @@ export function computeScores(answers: number[]): {
   overall: number;
   level: ReadinessLevel;
   topMatches: ScoredMedicine[];
-  sequence: { icon: string; name: string; time: string; why: string; cost: string }[];
+  sequence: { name: string; time: string; why: string; cost: string }[];
 } {
   const dims: Record<DimKey, number[]> = {
     medical: [],
@@ -124,28 +124,24 @@ export function computeScores(answers: number[]): {
     overall >= 75
       ? [
           {
-            icon: "\u{1F344}",
             name: "Psilocybin (Facilitated Ceremony)",
             time: "Now — within 3 months",
             why: "Your readiness supports deep ceremonial work. Begin here to calibrate the psychedelic space and build your integration practice before going further.",
             cost: "$400–$2,000",
           },
           {
-            icon: top.icon,
             name: top.name,
             time: "3–6 months after first session",
             why: "Your highest-alignment medicine. Come to it after integrating your first psilocybin experience with committed practice. Do not rush this one.",
             cost: top.pricing[1]?.amount || "$500–$3,000",
           },
           {
-            icon: "\u{1F33F}",
             name: "Ayahuasca (Multi-night retreat)",
             time: "6–18 months in",
             why: "The vine rewards those who have built an integration foundation. After two or more psilocybin sessions, you are ready for deeper ancestral work.",
             cost: "$2,000–$6,000",
           },
           {
-            icon: "\u{1F497}",
             name: "MDMA (Trauma-focused)",
             time: "Parallel track — any time",
             why: "If trauma is underneath your healing goals, MDMA runs as a parallel track. It reaches places other medicines cannot.",
@@ -155,28 +151,24 @@ export function computeScores(answers: number[]): {
       : overall >= 55
         ? [
             {
-              icon: "\u{1F9D8}",
               name: "Holotropic Breathwork",
               time: "Start now — no substances",
               why: "Build capacity to navigate altered states before medicine work. 3–6 sessions create the container and skills.",
               cost: "$100–$400",
             },
             {
-              icon: "\u{1F52C}",
               name: "Microdosing Protocol (30 days)",
               time: "Month 1–3",
               why: "Psilocybin microdosing with the Fadiman protocol and lion's mane stack builds neuroplasticity and helps you track your baseline safely.",
               cost: "$100–$300/mo",
             },
             {
-              icon: "\u{1F344}",
               name: "Psilocybin (Low dose, guided)",
               time: "Month 3–6",
               why: "Facilitated low-dose experience (1–2g) in trusted setting. Calibrates your nervous system for deeper work.",
               cost: "$400–$1,500",
             },
             {
-              icon: top.icon,
               name: top.name + " (Full dose)",
               time: "Month 6–12",
               why: "Your optimal medicine once the foundation is established. Meaningful potential here with proper preparation and real integration support.",
@@ -185,28 +177,24 @@ export function computeScores(answers: number[]): {
           ]
         : [
             {
-              icon: "\u{1F36B}",
               name: "Ceremonial Cacao + Intention",
               time: "Start immediately",
               why: "Build a heart relationship with plant medicines in the safest container available. This cultivates the receptivity that all deeper work requires.",
               cost: "$50–$200",
             },
             {
-              icon: "\u{1F9D8}",
               name: "Breathwork (Wim Hof / Holotropic)",
               time: "Month 1–3",
               why: "The most important preparation you can do is learning to ride altered states. Six or more sessions before any medicine work changes outcomes dramatically.",
               cost: "$50–$200",
             },
             {
-              icon: "\u{1F52C}",
               name: "Microdosing Psilocybin",
               time: "Month 2–4",
               why: "Sub-perceptual doses build your relationship with the medicine, improve your baseline, and prepare your nervous system. The best starting point in the whole spectrum.",
               cost: "$100–$300/mo",
             },
             {
-              icon: "\u{1F48A}",
               name: "Ketamine-Assisted Therapy",
               time: "If acute need — any time",
               why: "The only currently legal psychedelic-adjacent therapy in the US. Rapid relief with professional oversight. If there is an acute need, this is where to start.",

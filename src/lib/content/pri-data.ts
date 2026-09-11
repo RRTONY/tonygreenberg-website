@@ -11,7 +11,6 @@ export interface Medicine {
   id: string;
   name: string;
   latin: string;
-  icon: string;
   src: string;
   intensity: number;
   dims: Record<DimKey, number>;
@@ -277,7 +276,6 @@ export const MEDICINES: Medicine[] = [
     id: "psilocybin",
     name: "Psilocybin Mushrooms",
     latin: "Psilocybe cubensis & spp.",
-    icon: "\u{1F344}",
     src: "Fungal",
     intensity: 0.65,
     dims: {
@@ -309,7 +307,6 @@ export const MEDICINES: Medicine[] = [
     id: "ayahuasca",
     name: "Ayahuasca",
     latin: "Banisteriopsis caapi + Psychotria viridis",
-    icon: "\u{1F33F}",
     src: "Vine + Leaf",
     intensity: 0.9,
     dims: {
@@ -340,7 +337,6 @@ export const MEDICINES: Medicine[] = [
     id: "mdma",
     name: "MDMA Therapy",
     latin: "3,4-methylenedioxymethamphetamine",
-    icon: "\u{1F497}",
     src: "Synthetic empathogen",
     intensity: 0.55,
     dims: {
@@ -372,7 +368,6 @@ export const MEDICINES: Medicine[] = [
     id: "ketamine",
     name: "Ketamine",
     latin: "Esketamine / Racemic ketamine",
-    icon: "\u{1F48A}",
     src: "Synthetic (dissociative)",
     intensity: 0.5,
     dims: {
@@ -405,7 +400,6 @@ export const MEDICINES: Medicine[] = [
     id: "lsd",
     name: "LSD",
     latin: "Lysergic acid diethylamide",
-    icon: "\u{1F52E}",
     src: "Synthetic (ergot)",
     intensity: 0.8,
     dims: {
@@ -436,7 +430,6 @@ export const MEDICINES: Medicine[] = [
     id: "dmt",
     name: "DMT / 5-MeO-DMT",
     latin: "Dimethyltryptamine",
-    icon: "\u26A1",
     src: "Endogenous + plant",
     intensity: 1.0,
     dims: {
@@ -468,7 +461,6 @@ export const MEDICINES: Medicine[] = [
     id: "iboga",
     name: "Iboga (Whole Plant)",
     latin: "Tabernanthe iboga",
-    icon: "\u{1F333}",
     src: "Root bark",
     intensity: 0.95,
     dims: {
@@ -500,7 +492,6 @@ export const MEDICINES: Medicine[] = [
     id: "ibogaine",
     name: "Ibogaine (Isolated Alkaloid)",
     latin: "Ibogaine hydrochloride (HCl)",
-    icon: "\u{1F9EA}",
     src: "Isolated alkaloid from T. iboga or Voacanga africana",
     intensity: 0.92,
     dims: {
@@ -532,7 +523,6 @@ export const MEDICINES: Medicine[] = [
     id: "mescaline",
     name: "Peyote / Mescaline",
     latin: "Lophophora williamsii / Echinopsis pachanoi",
-    icon: "\u{1F335}",
     src: "Cactus",
     intensity: 0.75,
     dims: {
@@ -563,7 +553,6 @@ export const MEDICINES: Medicine[] = [
     id: "kambo",
     name: "Kambo",
     latin: "Phyllomedusa bicolor secretion",
-    icon: "\u{1F438}",
     src: "Amphibian peptide",
     intensity: 0.85,
     dims: {
@@ -593,7 +582,6 @@ export const MEDICINES: Medicine[] = [
     id: "rapeh",
     name: "Rapeh (Hape)",
     latin: "Nicotiana rustica + sacred admixtures",
-    icon: "\u{1F4A8}",
     src: "Sacred snuff",
     intensity: 0.3,
     dims: {
@@ -624,7 +612,6 @@ export const MEDICINES: Medicine[] = [
     id: "sananga",
     name: "Sananga Eye Drops",
     latin: "Tabernaemontana undulata",
-    icon: "\u{1F441}",
     src: "Root bark extract",
     intensity: 0.25,
     dims: {
@@ -654,7 +641,6 @@ export const MEDICINES: Medicine[] = [
     id: "microdose",
     name: "Microdosing Protocol",
     latin: "Sub-perceptual dosing systems",
-    icon: "\u{1F52C}",
     src: "Multiple medicines",
     intensity: 0.1,
     dims: {
@@ -685,7 +671,6 @@ export const MEDICINES: Medicine[] = [
     id: "cannabis",
     name: "Ceremonial Cannabis",
     latin: "Cannabis sativa / indica",
-    icon: "\u{1F33F}",
     src: "Plant",
     intensity: 0.3,
     dims: {
@@ -715,7 +700,6 @@ export const MEDICINES: Medicine[] = [
     id: "cacao",
     name: "Ceremonial Cacao",
     latin: "Theobroma cacao",
-    icon: "\u{1F36B}",
     src: "Sacred bean",
     intensity: 0.1,
     dims: {
@@ -745,7 +729,6 @@ export const MEDICINES: Medicine[] = [
     id: "amanita",
     name: "Amanita muscaria",
     latin: "Fly Agaric mushroom",
-    icon: "\u{1F342}",
     src: "Fungal (muscimol)",
     intensity: 0.55,
     dims: {
@@ -775,7 +758,6 @@ export const MEDICINES: Medicine[] = [
     id: "huachuma",
     name: "Huachuma (San Pedro)",
     latin: "Echinopsis pachanoi",
-    icon: "\u{1F3D4}",
     src: "Columnar cactus",
     intensity: 0.7,
     dims: {
@@ -804,7 +786,6 @@ export const MEDICINES: Medicine[] = [
     id: "salvia",
     name: "Salvia divinorum",
     latin: "Sage of the Diviners",
-    icon: "\u{1F343}",
     src: "Mint family plant",
     intensity: 0.88,
     dims: {
@@ -835,7 +816,6 @@ export const MEDICINES: Medicine[] = [
     id: "yopo",
     name: "Yopo / Vilca",
     latin: "Anadenanthera peregrina / colubrina",
-    icon: "\u{1F338}",
     src: "Seed snuff",
     intensity: 0.8,
     dims: {
@@ -864,7 +844,6 @@ export const MEDICINES: Medicine[] = [
     id: "lionsmane",
     name: "Lion's Mane Stack",
     latin: "Hericium erinaceus + Stamets protocol",
-    icon: "\u{1F9EC}",
     src: "Medicinal mushroom",
     intensity: 0.05,
     dims: {
@@ -892,7 +871,6 @@ export const MEDICINES: Medicine[] = [
     id: "ibogamic",
     name: "Iboga Microdose (Root Bark)",
     latin: "Tabernanthe iboga \u2014 sub-flood dose",
-    icon: "\u{1F331}",
     src: "Root bark (whole plant, low dose)",
     intensity: 0.35,
     dims: {
@@ -923,7 +901,6 @@ export const MEDICINES: Medicine[] = [
     id: "changa",
     name: "Changa (Smokeable Aya)",
     latin: "DMT + MAOI herb blend",
-    icon: "\u{1F30D}",
     src: "Herbal DMT blend",
     intensity: 0.75,
     dims: {
@@ -952,7 +929,6 @@ export const MEDICINES: Medicine[] = [
     id: "caapi",
     name: "Caapi Vine Alone",
     latin: "Banisteriopsis caapi \u2014 solo vine",
-    icon: "\u{1F33B}",
     src: "MAO-inhibiting vine",
     intensity: 0.35,
     dims: {
@@ -980,7 +956,6 @@ export const MEDICINES: Medicine[] = [
     id: "soma",
     name: "Vedic / Soma Preparations",
     latin: "Ephedra / Amanita / debated",
-    icon: "\u{1F319}",
     src: "Ancient Vedic",
     intensity: 0.4,
     dims: {
@@ -1008,7 +983,6 @@ export const MEDICINES: Medicine[] = [
     id: "mapacho",
     name: "Mapacho (Sacred Tobacco)",
     latin: "Nicotiana rustica",
-    icon: "\u{1F4AB}",
     src: "Jungle tobacco",
     intensity: 0.25,
     dims: {
@@ -1037,7 +1011,6 @@ export const MEDICINES: Medicine[] = [
     id: "kanna",
     name: "Kanna (Sceletium)",
     latin: "Sceletium tortuosum",
-    icon: "🌿",
     src: "South African succulent",
     intensity: 0.3,
     complexityLevel: "Entry",
@@ -1071,7 +1044,6 @@ export const MEDICINES: Medicine[] = [
     id: "blue_lotus",
     name: "Blue Lotus",
     latin: "Nymphaea caerulea",
-    icon: "🪷",
     src: "Egyptian water lily",
     intensity: 0.25,
     complexityLevel: "Entry",
@@ -1104,7 +1076,6 @@ export const MEDICINES: Medicine[] = [
     id: "kava_ceremonial",
     name: "Kava (Ceremonial Grade)",
     latin: "Piper methysticum — noble cultivars",
-    icon: "🥥",
     src: "Pacific root preparation",
     intensity: 0.3,
     complexityLevel: "Entry",
@@ -1138,7 +1109,6 @@ export const MEDICINES: Medicine[] = [
     id: "nitrous",
     name: "Nitrous Oxide",
     latin: "N₂O — laughing gas",
-    icon: "🎈",
     src: "Synthetic (inorganic gas)",
     intensity: 0.35,
     complexityLevel: "Beginner",
@@ -1172,7 +1142,6 @@ export const MEDICINES: Medicine[] = [
     id: "sassafras",
     name: "Sassafras / MDA",
     latin: "3,4-methylenedioxyamphetamine",
-    icon: "🌸",
     src: "Synthetic (safrole-derived)",
     intensity: 0.65,
     complexityLevel: "Intermediate",
@@ -1207,7 +1176,6 @@ export const MEDICINES: Medicine[] = [
     id: "2cb",
     name: "2C-B (Nexus)",
     latin: "4-bromo-2,5-dimethoxyphenethylamine",
-    icon: "💎",
     src: "Synthetic phenethylamine",
     intensity: 0.6,
     complexityLevel: "Intermediate",
@@ -1242,7 +1210,6 @@ export const MEDICINES: Medicine[] = [
     id: "psilocin",
     name: "Psilocin (Synthetic)",
     latin: "4-hydroxy-N,N-dimethyltryptamine",
-    icon: "🔬",
     src: "Synthetic tryptamine",
     intensity: 0.7,
     complexityLevel: "Advanced",
@@ -1277,7 +1244,6 @@ export const MEDICINES: Medicine[] = [
     id: "bpl003",
     name: "BPL-003 (Mebufotenin)",
     latin: "Intranasal 5-MeO-DMT — AtaiBeckley / Eli Lilly",
-    icon: "💉",
     src: "Pharmaceutical synthetic",
     intensity: 0.9,
     complexityLevel: "Clinical Only",
@@ -1311,7 +1277,6 @@ export const MEDICINES: Medicine[] = [
     id: "vls01",
     name: "VLS-01 (DMT Buccal Film)",
     latin: "N,N-DMT transmucosal film — AtaiBeckley / Eli Lilly",
-    icon: "📊",
     src: "Pharmaceutical synthetic",
     intensity: 0.75,
     complexityLevel: "Clinical Only",
@@ -1344,7 +1309,6 @@ export const MEDICINES: Medicine[] = [
     id: "mm120",
     name: "MM-120 (Lysergide)",
     latin: "LSD D-tartrate — MindMed",
-    icon: "🔭",
     src: "Pharmaceutical synthetic",
     intensity: 0.8,
     complexityLevel: "Clinical Only",
@@ -1377,7 +1341,6 @@ export const MEDICINES: Medicine[] = [
     id: "emp01",
     name: "EMP-01 (R-MDMA)",
     latin: "Single-enantiomer MDMA — AtaiBeckley / Eli Lilly",
-    icon: "💜",
     src: "Pharmaceutical synthetic",
     intensity: 0.6,
     complexityLevel: "Clinical Only",
@@ -1410,7 +1373,6 @@ export const MEDICINES: Medicine[] = [
     id: "mambe",
     name: "Mambe (Sacred Coca Preparation)",
     latin: "Erythroxylum coca / E. novogranatense",
-    icon: "🌿",
     src: "Amazonian / Andean, 14 alkaloids, coca leaf + plant ash",
     intensity: 0.15,
     complexityLevel: "Gentle Entry",
@@ -1445,7 +1407,6 @@ export const MEDICINES: Medicine[] = [
     id: "brugmansia",
     name: "Brugmansia (Angel's Trumpet)",
     latin: "Brugmansia suaveolens",
-    icon: "⚠️",
     src: "Solanaceae — anticholinergic",
     intensity: 0.95,
     complexityLevel: "Hard Stop",
@@ -1479,7 +1440,6 @@ export const MEDICINES: Medicine[] = [
     id: "datura",
     name: "Datura (Jimsonweed)",
     latin: "Datura stramonium / meteloides",
-    icon: "☠️",
     src: "Solanaceae — anticholinergic",
     intensity: 0.95,
     complexityLevel: "Hard Stop",
