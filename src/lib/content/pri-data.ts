@@ -18,7 +18,7 @@ export interface Medicine {
   therapeutic: string;
   tradition: string;
   readiness: string;
-  pricing: { amount: string; label: string }[];
+  pricing: { amount: string; label: string; isWarning?: boolean }[];
   providers: string;
   tags: string[];
   image?: string;
@@ -1428,12 +1428,12 @@ export const MEDICINES: Medicine[] = [
     readiness:
       "ABSOLUTE CONTRAINDICATION for self-directed use. If you are considering this, stop. Speak with a harm reduction specialist immediately.",
     pricing: [
-      { amount: "⚠️ WARNING", label: "Do not seek this out" },
+      { amount: "Warning", label: "Do not seek this out", isWarning: true },
       { amount: "Harm reduction", label: "DanceSafe: 1-800-226-7233" },
       { amount: "Crisis", label: "SAMHSA: 1-800-662-4357" },
     ],
     providers:
-      "⚠️ This entry exists to protect you. If someone is offering you Brugmansia, please contact DanceSafe or a harm reduction specialist before proceeding.",
+      "Safety warning: This entry exists to protect you. If someone is offering you Brugmansia, please contact DanceSafe or a harm reduction specialist before proceeding.",
     tags: ["intense", "ceremony"],
   },
   {
@@ -1461,12 +1461,12 @@ export const MEDICINES: Medicine[] = [
     readiness:
       "ABSOLUTE CONTRAINDICATION. The line between an active dose and a lethal dose is invisible.",
     pricing: [
-      { amount: "☠️ WARNING", label: "Do not seek this out" },
+      { amount: "Warning", label: "Do not seek this out", isWarning: true },
       { amount: "Harm reduction", label: "DanceSafe: 1-800-226-7233" },
       { amount: "Crisis", label: "Poison Control: 1-800-222-1222" },
     ],
     providers:
-      "☠️ This entry exists to protect you. If you have taken Datura or are considering it, call Poison Control (1-800-222-1222) or go to an emergency room immediately.",
+      "Safety warning: This entry exists to protect you. If you have taken Datura or are considering it, call Poison Control (1-800-222-1222) or go to an emergency room immediately.",
     tags: ["intense", "ceremony"],
   },
 ];

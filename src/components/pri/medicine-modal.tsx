@@ -154,7 +154,12 @@ export function MedicineModal({
               <div className="mt-2 grid grid-cols-[repeat(auto-fit,minmax(120px,1fr))] gap-px bg-pri-border">
                 {medicine.pricing.map((p) => (
                   <div key={p.label} className="bg-pri-cream p-3.5 text-center">
-                    <div className="font-heading text-base font-bold text-pri-ink">{p.amount}</div>
+                    <div
+                      className={`flex items-center justify-center gap-1 font-heading text-base font-bold ${p.isWarning ? "text-[#E65100]" : "text-pri-ink"}`}
+                    >
+                      {p.isWarning && <AlertTriangle aria-hidden="true" className="size-4" />}
+                      {p.amount}
+                    </div>
                     <div className="text-[.62rem] font-semibold tracking-[0.06em] text-pri-tan uppercase">
                       {p.label}
                     </div>
