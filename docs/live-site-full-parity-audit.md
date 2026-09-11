@@ -104,6 +104,10 @@ The initial public visual check of `/the-letter` exposed a separate managed-medi
 
 The reference About route labels the kintsugi-bowl hero as `homepage-hero-original_d3e7447d.jpg`. The recovered candidate file has different bytes from the Letter-hero recovery because it is already encoded as WebP, but visual inspection confirms both depict the same kintsugi bowl at the rain-streaked sunset window. The active About route therefore correctly reuses the verified shared image rather than adding a visually duplicate asset.
 
+### Consolidated Responsive Route Check
+
+On 11 September 2026, `/medicine-sequencing`, `/ecosystem-map`, `/skippy`, `/subscribe`, `/the-letter`, and `/about` were checked at 1280 × 720 and 375 × 812. The sequencer retained its clear grouped-record hierarchy; the Ecosystem Map and Skippy Map retained their dark/cream editorial structure and readable destination cards; and the Subscribe page retained its labelled free-newsletter form and deferred-payment notice. The local preview intentionally cannot resolve `/manus-storage/*` directly, so its Letter and About recovered-media areas appear as neutral fallback surfaces in local captures. The deployed Letter DOM independently confirms the current true-WebP asset loads with expected dimensions and visible styling. Public media presentation is therefore corroborated separately from local route-layout validation.
+
 ## Implementation Priority
 
 1. Complete route-level image, content, link, and responsive comparison for active high-traffic public pages.
