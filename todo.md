@@ -119,5 +119,7 @@
 - [x] Audit and replace confirmed rendered PRI medicine-reference icon glyphs with semantic Lucide components, preserving medical caution text and visible safety labels.
 - [x] Remove the obsolete raw emoji medicine-icon field from PRI data now that every active renderer uses the shared Lucide medicine icon mapping.
 - [x] Remove the obsolete raw emoji healing-sequence field from PRI score output now that public and printable sequence renderers use text-only names.
+- [x] Audit and replace confirmed rendered BrewSoul sensory-profile emoji markers with semantic Lucide icons, preserving flavor labels and filter behavior.
+- [x] Remove the confirmed unreferenced BrewSoul sensory-profile data export after verifying no active route or component consumes it, preventing inactive emoji data from remaining as dead code.
 - [x] Correct Psychedelic Readiness saved-medicine privacy copy to describe the existing cookie-backed visitor state rather than browser-local storage.
 - [x] Remove unverified hard-coded Psychedelic Readiness testimonial content rather than presenting unsupported user statements in the public assessment interface.
