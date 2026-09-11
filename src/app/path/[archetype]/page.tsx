@@ -43,7 +43,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({
   params,
-}: PageProps<"/path/[archetype]">): Promise<Metadata> {
+}: AppPageProps<"/path/[archetype]">): Promise<Metadata> {
   const { archetype } = await params;
   const arch = ARCHETYPES[archetype as ArchetypeKey];
   if (!arch) return {};
@@ -55,7 +55,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function PathPage({ params }: PageProps<"/path/[archetype]">) {
+export default async function PathPage({ params }: AppPageProps<"/path/[archetype]">) {
   const { archetype } = await params;
   const key = archetype as ArchetypeKey;
   const arch = ARCHETYPES[key];

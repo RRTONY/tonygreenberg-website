@@ -100,7 +100,9 @@ function Divider({
   );
 }
 
-export default async function AttentionTheftPage({ searchParams }: PageProps<"/attention-theft">) {
+export default async function AttentionTheftPage({
+  searchParams,
+}: AppPageProps<"/attention-theft">) {
   const params = await searchParams;
   const offenderRaw = params.offender;
   const offender = Array.isArray(offenderRaw) ? offenderRaw[0] : offenderRaw;

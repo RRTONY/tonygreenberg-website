@@ -21,7 +21,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({
   params,
-}: PageProps<"/brewsoul/cities/[slug]">): Promise<Metadata> {
+}: AppPageProps<"/brewsoul/cities/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const city = getCityBySlug(slug);
   if (!city) return {};
@@ -34,7 +34,7 @@ export async function generateMetadata({
 
 export default async function BrewSoulCityDetailPage({
   params,
-}: PageProps<"/brewsoul/cities/[slug]">) {
+}: AppPageProps<"/brewsoul/cities/[slug]">) {
   const { slug } = await params;
   const city = getCityBySlug(slug);
   if (!city) notFound();

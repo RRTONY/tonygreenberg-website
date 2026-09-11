@@ -31,7 +31,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({
   params,
-}: PageProps<"/brewsoul/coffee/[id]">): Promise<Metadata> {
+}: AppPageProps<"/brewsoul/coffee/[id]">): Promise<Metadata> {
   const { id } = await params;
   const coffee = BREWSOUL_COFFEES.find((c) => c.id === id);
   if (!coffee) return {};
@@ -60,7 +60,7 @@ function FlavorBar({ label, value, max = 10 }: { label: string; value: number; m
 
 export default async function BrewSoulCoffeeDetailPage({
   params,
-}: PageProps<"/brewsoul/coffee/[id]">) {
+}: AppPageProps<"/brewsoul/coffee/[id]">) {
   const { id } = await params;
   const coffee = BREWSOUL_COFFEES.find((c) => c.id === id);
   if (!coffee) notFound();

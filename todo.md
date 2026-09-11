@@ -109,3 +109,4 @@
 - [x] Remove any unsupported hard-coded Peptide Matrix review or rating presentation identified in the active public interface and add regression coverage.
 - [x] Replace BrewSoul city-explorer rendered dimension emoji and modal close glyph with semantic Lucide components and focused regression coverage.
 - [ ] Repair GitHub Actions package-manager setup so `pnpm` is installed and available before cache restore and the required quality command runs.
+- [x] Make App Router page and layout prop types available in a clean checkout so TypeScript does not depend on stale generated `.next` globals from a prior build.

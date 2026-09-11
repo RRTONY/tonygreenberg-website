@@ -22,7 +22,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
   searchParams,
-}: PageProps<"/blog/category/[slug]">): Promise<Metadata> {
+}: AppPageProps<"/blog/category/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const search = await searchParams;
   const page = Number(search?.page) || 1;
@@ -40,7 +40,7 @@ export async function generateMetadata({
 export default async function CategoryPage({
   params,
   searchParams,
-}: PageProps<"/blog/category/[slug]">) {
+}: AppPageProps<"/blog/category/[slug]">) {
   const { slug } = await params;
   const search = await searchParams;
   const page = Number(search?.page) || 1;

@@ -29,7 +29,9 @@ export async function generateStaticParams() {
   return posts.map((p) => ({ slug: p.slug }));
 }
 
-export async function generateMetadata({ params }: PageProps<"/blog/[slug]">): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: AppPageProps<"/blog/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPost(slug);
   if (!post) return {};
@@ -60,7 +62,7 @@ export async function generateMetadata({ params }: PageProps<"/blog/[slug]">): P
   };
 }
 
-export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">) {
+export default async function BlogPostPage({ params }: AppPageProps<"/blog/[slug]">) {
   const { slug } = await params;
   const post = await getPost(slug);
   if (!post) notFound();

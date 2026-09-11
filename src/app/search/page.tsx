@@ -27,7 +27,7 @@ type SearchResult = {
   category?: { title: string; slug: { current: string } };
 };
 
-export default async function SearchPage({ searchParams }: PageProps<"/search">) {
+export default async function SearchPage({ searchParams }: AppPageProps<"/search">) {
   const params = await searchParams;
   const q = typeof params?.q === "string" ? params.q.trim() : "";
 

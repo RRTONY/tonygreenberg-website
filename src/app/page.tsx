@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Home({ searchParams }: PageProps<"/">) {
+export default async function Home({ searchParams }: AppPageProps<"/">) {
   const params = await searchParams;
   const theme = typeof params?.theme === "string" ? params.theme : undefined;
 

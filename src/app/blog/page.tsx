@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/blog" },
 };
 
-export default async function BlogPage({ searchParams }: PageProps<"/blog">) {
+export default async function BlogPage({ searchParams }: AppPageProps<"/blog">) {
   const params = await searchParams;
   const theme = typeof params?.theme === "string" ? params.theme : undefined;
 

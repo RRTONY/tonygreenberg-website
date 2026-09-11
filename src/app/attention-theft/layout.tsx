@@ -5,7 +5,7 @@ import { ManifestoFooter } from "@/components/manifesto/manifesto-footer";
 // standalone shell for the Attention Theft mega-page, same "self-contained
 // sub-site" pattern as `app/brewsoul/layout.tsx`. Main-site chrome is
 // suppressed for this path in `components/site-chrome.tsx`.
-export default function AttentionTheftLayout({ children }: LayoutProps<"/attention-theft">) {
+export default function AttentionTheftLayout({ children }: AppLayoutProps<"/attention-theft">) {
   return (
     <div className="min-h-screen bg-background text-crusade-ink">
       <ManifestoNav />

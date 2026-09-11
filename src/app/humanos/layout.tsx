@@ -7,7 +7,7 @@ import { HumanosFooter } from "@/components/humanos/humanos-footer";
 // suppressed by SiteChrome" pattern as /brewsoul, /kava, and
 // /attention-theft — see this migration's report for the SiteChrome
 // prefix that still needs adding.
-export default function HumanosRootLayout({ children }: LayoutProps<"/humanos">) {
+export default function HumanosRootLayout({ children }: AppLayoutProps<"/humanos">) {
   return (
     <div className="min-h-screen bg-neutral-50 text-neutral-900">
       <HumanosNav />

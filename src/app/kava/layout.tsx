@@ -4,7 +4,7 @@ import { KavaNav, KavaFooter } from "@/components/kava/kava-nav";
 // shell for every /kava/* route. The main site's SiteHeader/SiteFooter
 // are suppressed for this subtree by SiteChrome in the root layout, same
 // pattern as /brewsoul and /attention-theft.
-export default function KavaRootLayout({ children }: LayoutProps<"/kava">) {
+export default function KavaRootLayout({ children }: AppLayoutProps<"/kava">) {
   return (
     <div className="min-h-screen bg-kava-sand text-kava-ink">
       <KavaNav />

@@ -6,7 +6,7 @@ import { CategoryBadge } from "@/components/brewsoul/category-badge";
 // SiteFooter are suppressed for this subtree by SiteChrome in the root
 // layout; this is BrewSoul's own nav/footer instead, matching legacy's
 // standalone sub-site treatment.
-export default function BrewSoulRootLayout({ children }: LayoutProps<"/brewsoul">) {
+export default function BrewSoulRootLayout({ children }: AppLayoutProps<"/brewsoul">) {
   return (
     <div className="min-h-screen bg-[#FAFAF7] text-[#2C1810]">
       <BrewSoulNav />

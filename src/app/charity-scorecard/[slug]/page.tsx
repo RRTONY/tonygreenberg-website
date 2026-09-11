@@ -32,7 +32,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({
   params,
-}: PageProps<"/charity-scorecard/[slug]">): Promise<Metadata> {
+}: AppPageProps<"/charity-scorecard/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const charity = CHARITIES.find((c) => c.slug === slug);
   if (!charity) return {};
@@ -45,7 +45,7 @@ export async function generateMetadata({
 
 export default async function CharityProfilePage({
   params,
-}: PageProps<"/charity-scorecard/[slug]">) {
+}: AppPageProps<"/charity-scorecard/[slug]">) {
   const { slug } = await params;
   const charity = CHARITIES.find((c) => c.slug === slug);
   if (!charity) notFound();
