@@ -108,3 +108,4 @@
 - [x] Replace the Search modal raw keyboard navigation arrows with existing Lucide icons and focused regression coverage.
 - [x] Remove any unsupported hard-coded Peptide Matrix review or rating presentation identified in the active public interface and add regression coverage.
 - [x] Replace BrewSoul city-explorer rendered dimension emoji and modal close glyph with semantic Lucide components and focused regression coverage.
+- [ ] Repair GitHub Actions package-manager setup so `pnpm` is installed and available before cache restore and the required quality command runs.
