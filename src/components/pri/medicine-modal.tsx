@@ -10,6 +10,7 @@ import { MEDICINE_IMAGES } from "@/lib/content/pri-medicine-images";
 import { TAG_CLASS, DEFAULT_TAG_CLASS } from "@/lib/content/pri-shared";
 import { SafetySection } from "@/components/pri/safety-section";
 import { CorrectionForm } from "@/components/pri/correction-form";
+import { MedicineIcon } from "@/components/pri/medicine-icon";
 
 const TABS = [
   { key: "info" as const, label: "Overview" },
@@ -76,7 +77,7 @@ export function MedicineModal({
         )}
 
         <div className={`relative ${heroImage ? "-mt-8 px-8" : "px-8 pt-8"}`}>
-          <div className="mb-2 text-4xl">{medicine.icon}</div>
+          <MedicineIcon medicineId={medicine.id} className="mb-2 size-9 text-pri-purple" />
           <div className="font-heading text-[clamp(1.4rem,4vw,1.8rem)] text-pri-ink">
             {medicine.name}
           </div>

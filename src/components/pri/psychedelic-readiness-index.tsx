@@ -29,6 +29,7 @@ import {
 } from "@/lib/content/pri-shared";
 import { DisclaimerGate } from "@/components/pri/disclaimer-gate";
 import { MedicineModal } from "@/components/pri/medicine-modal";
+import { MedicineIcon } from "@/components/pri/medicine-icon";
 import { PriShareBar } from "@/components/pri/share-bar";
 import { CinematicBand } from "@/components/pri/cinematic-band";
 import { readVisitorState, writeVisitorState } from "@/lib/visitor-state-client";
@@ -212,13 +213,13 @@ export function PsychedelicReadinessIndex() {
       .map((m, i) => {
         const barColor =
           m.matchScore >= 80 ? "#2E7D32" : m.matchScore >= 60 ? "#9333EA" : "#6B21A8";
-        return `<tr><td style="padding:10px 14px;border-bottom:1px solid #E8E0D6;font-weight:800;color:#6B21A8;width:8%">#${i + 1}</td><td style="padding:10px 14px;border-bottom:1px solid #E8E0D6;font-weight:700;width:32%">${m.icon} ${m.name}</td><td style="padding:10px 14px;border-bottom:1px solid #E8E0D6;width:40%"><div style="background:#F0EBE3;height:8px;border-radius:4px;overflow:hidden"><div style="height:100%;width:${m.matchScore}%;background:${barColor};border-radius:4px"></div></div></td><td style="padding:10px 14px;border-bottom:1px solid #E8E0D6;text-align:center;font-weight:800;width:20%">${m.matchScore}%</td></tr>`;
+        return `<tr><td style="padding:10px 14px;border-bottom:1px solid #E8E0D6;font-weight:800;color:#6B21A8;width:8%">#${i + 1}</td><td style="padding:10px 14px;border-bottom:1px solid #E8E0D6;font-weight:700;width:32%">${m.name}</td><td style="padding:10px 14px;border-bottom:1px solid #E8E0D6;width:40%"><div style="background:#F0EBE3;height:8px;border-radius:4px;overflow:hidden"><div style="height:100%;width:${m.matchScore}%;background:${barColor};border-radius:4px"></div></div></td><td style="padding:10px 14px;border-bottom:1px solid #E8E0D6;text-align:center;font-weight:800;width:20%">${m.matchScore}%</td></tr>`;
       })
       .join("");
     const seqRows = results.sequence
       .map(
         (s, i) =>
-          `<tr><td style="padding:12px 14px;border-bottom:1px solid #E8E0D6"><div style="display:flex;align-items:center;gap:8px"><span style="background:#6B21A8;color:#fff;width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;font-size:.7rem;font-weight:900;flex-shrink:0">${i + 1}</span><strong>${s.icon} ${s.name}</strong></div><div style="font-size:.82rem;color:#7A6A5A;margin-top:4px;padding-left:32px">${s.why}</div></td><td style="padding:12px 14px;border-bottom:1px solid #E8E0D6;font-size:.85rem;color:#4A3F35;white-space:nowrap;vertical-align:top">${s.time}</td><td style="padding:12px 14px;border-bottom:1px solid #E8E0D6;font-weight:700;white-space:nowrap;vertical-align:top">${s.cost}</td></tr>`,
+          `<tr><td style="padding:12px 14px;border-bottom:1px solid #E8E0D6"><div style="display:flex;align-items:center;gap:8px"><span style="background:#6B21A8;color:#fff;width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;font-size:.7rem;font-weight:900;flex-shrink:0">${i + 1}</span><strong>${s.name}</strong></div><div style="font-size:.82rem;color:#7A6A5A;margin-top:4px;padding-left:32px">${s.why}</div></td><td style="padding:12px 14px;border-bottom:1px solid #E8E0D6;font-size:.85rem;color:#4A3F35;white-space:nowrap;vertical-align:top">${s.time}</td><td style="padding:12px 14px;border-bottom:1px solid #E8E0D6;font-weight:700;white-space:nowrap;vertical-align:top">${s.cost}</td></tr>`,
       )
       .join("");
     const savedSection =
@@ -227,7 +228,7 @@ export function PsychedelicReadinessIndex() {
             .map((id) => {
               const m = MEDICINES.find((med) => med.id === id);
               return m
-                ? `<div style="background:#F8F5F0;border:1px solid #E8E0D6;padding:10px 14px;display:flex;align-items:center;gap:8px"><span style="font-size:1.3rem">${m.icon}</span><div><div style="font-weight:700;font-size:.9rem">${m.name}</div><div style="font-size:.75rem;color:#7A6A5A;text-transform:uppercase;letter-spacing:.04em">${m.src}</div></div></div>`
+                ? `<div style="background:#F8F5F0;border:1px solid #E8E0D6;padding:10px 14px"><div><div style="font-weight:700;font-size:.9rem">${m.name}</div><div style="font-size:.75rem;color:#7A6A5A;text-transform:uppercase;letter-spacing:.04em">${m.src}</div></div></div>`
                 : "";
             })
             .join("")}</div>`
@@ -573,7 +574,7 @@ export function PsychedelicReadinessIndex() {
                   </div>
                 )}
                 <div className="px-4 pt-3 pb-5">
-                  <div className="mb-2 text-[1.6rem]">{m.icon}</div>
+                  <MedicineIcon medicineId={m.id} className="mb-2 size-6 text-pri-purple" />
                   <div className="mb-1.5 h-0.75 bg-pri-border">
                     <div
                       className={`h-full ${m.intensity > 0.8 ? "bg-[#C62828]" : m.intensity > 0.5 ? "bg-[#E65100]" : "bg-[#6B8F71]"}`}
@@ -653,7 +654,7 @@ export function PsychedelicReadinessIndex() {
                     )}
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-1.5">
-                        <span className="text-xl">{m.icon}</span>
+                        <MedicineIcon medicineId={m.id} className="size-5 text-pri-purple" />
                         <span className="font-heading text-sm font-bold text-pri-ink">
                           {m.name}
                         </span>
@@ -730,7 +731,7 @@ export function PsychedelicReadinessIndex() {
                         <div className="absolute inset-0 bg-linear-to-b from-transparent from-40% to-pri-ink" />
                       </div>
                     )}
-                    <div className="mb-1 text-[1.8rem]">{m.icon}</div>
+                    <MedicineIcon medicineId={m.id} className="mb-1 size-7 text-pri-purple" />
                     <div className="mb-0.5 font-heading text-sm text-pri-cream">{m.name}</div>
                     <div className="mb-4 text-[.75rem] font-semibold tracking-[0.05em] text-pri-cream/40 uppercase">
                       {m.src}
@@ -1378,7 +1379,7 @@ export function PsychedelicReadinessIndex() {
                     <div className="absolute top-2 left-2 text-xs font-extrabold tracking-[0.1em] text-pri-purple">
                       #{i + 1}
                     </div>
-                    <div className="mb-1.5 text-[1.8rem]">{m.icon}</div>
+                    <MedicineIcon medicineId={m.id} className="mb-1.5 size-7 text-pri-purple" />
                     <div className="mb-1.5 font-heading text-[clamp(.82rem,2vw,1rem)] leading-[1.3] font-bold text-pri-cream">
                       {m.name}
                     </div>
@@ -1419,7 +1420,7 @@ export function PsychedelicReadinessIndex() {
                   </div>
                   <div className="min-w-50 flex-1">
                     <div className="mb-0.5 font-heading text-[clamp(.95rem,2.5vw,1.1rem)] font-bold text-pri-cream">
-                      {s.icon} {s.name}
+                      {s.name}
                     </div>
                     <div className="mb-1.5 text-[.7rem] font-bold tracking-[0.08em] text-pri-purple uppercase">
                       {s.time}
