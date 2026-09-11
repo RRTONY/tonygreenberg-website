@@ -206,37 +206,6 @@ export function MedicineModal({
                   </Link>
                 </div>
               )}
-              {medicine.id === "ketamine" && (
-                <div className="mt-6 bg-pri-ink p-6">
-                  <div className="mb-2 text-xs font-extrabold tracking-[0.1em] text-pri-purple-light uppercase">
-                    Practitioner Perspective ... Dr. Beverly Reader, MD
-                  </div>
-                  <div className="mb-4 space-y-3 border-l-3 border-pri-purple pl-4">
-                    <p className="m-0 text-[.85rem] leading-[1.7] text-pri-cream/80 italic">
-                      &ldquo;Ketamine softens the protective walls we&rsquo;ve built over a
-                      lifetime. In that window, IFS allows us to meet the wounded parts of ourselves
-                      with compassion rather than fear ... and that&rsquo;s where real healing
-                      begins.&rdquo;
-                    </p>
-                    <p className="m-0 text-[.85rem] leading-[1.7] text-pri-cream/80 italic">
-                      &ldquo;There is nothing pathologic about protective parts. They developed in
-                      response to life experience. Our work is not to eliminate them but to release
-                      the burdens they carry.&rdquo;
-                    </p>
-                    <p className="m-0 text-[.85rem] leading-[1.7] text-pri-cream/80 italic">
-                      &ldquo;The neuroplasticity window after ketamine is not just a clinical
-                      concept ... it&rsquo;s a lived experience. Patients describe feeling like the
-                      grooves of old patterns have been smoothed, and for the first time they can
-                      choose a different path.&rdquo;
-                    </p>
-                  </div>
-                  <div className="text-[.72rem] text-pri-cream/45">
-                    Dr. Beverly Reader, MD ... IFS + Ketamine-Assisted Psychotherapy ... Los Angeles
-                    ... 424-532-1552
-                  </div>
-                </div>
-              )}
-
               <div className="mt-6 border-l-4 border-[#E65100] bg-[#FFF3E0] p-4">
                 <div className="mb-1 flex items-center gap-1.5 text-xs font-extrabold tracking-[0.06em] text-[#E65100] uppercase">
                   <AlertTriangle className="size-3.5" />

@@ -121,5 +121,7 @@
 - [x] Remove the obsolete raw emoji healing-sequence field from PRI score output now that public and printable sequence renderers use text-only names.
 - [x] Audit and replace confirmed rendered BrewSoul sensory-profile emoji markers with semantic Lucide icons, preserving flavor labels and filter behavior.
 - [x] Remove the confirmed unreferenced BrewSoul sensory-profile data export after verifying no active route or component consumes it, preventing inactive emoji data from remaining as dead code.
+- [ ] Replace raw PRI toxic-medicine warning emoji markers with semantic Lucide warning status rendering, preserving the existing safety statements and emergency guidance.
+- [x] Remove unverified attributed Ketamine practitioner quotations from the public medicine modal unless a verified primary source and publication approval are recorded.
 - [x] Correct Psychedelic Readiness saved-medicine privacy copy to describe the existing cookie-backed visitor state rather than browser-local storage.
 - [x] Remove unverified hard-coded Psychedelic Readiness testimonial content rather than presenting unsupported user statements in the public assessment interface.
