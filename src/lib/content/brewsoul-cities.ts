@@ -127,13 +127,13 @@ export function gradeFromScore(score: number): Grade {
 }
 
 export const SCORING_DIMENSIONS = [
-  { key: "beanQuality", label: "Bean Quality", max: 25, icon: "🫘" },
-  { key: "preparation", label: "Preparation", max: 20, icon: "☕" },
-  { key: "valueQpr", label: "Value / QPR", max: 15, icon: "💰" },
-  { key: "transparency", label: "Transparency", max: 15, icon: "🔍" },
-  { key: "experience", label: "Experience", max: 10, icon: "✨" },
-  { key: "accessibility", label: "Accessibility", max: 10, icon: "🤝" },
-  { key: "health", label: "Mold & Health", max: 5, icon: "🛡️" },
+  { key: "beanQuality", label: "Bean Quality", max: 25 },
+  { key: "preparation", label: "Preparation", max: 20 },
+  { key: "valueQpr", label: "Value / QPR", max: 15 },
+  { key: "transparency", label: "Transparency", max: 15 },
+  { key: "experience", label: "Experience", max: 10 },
+  { key: "accessibility", label: "Accessibility", max: 10 },
+  { key: "health", label: "Mold & Health", max: 5 },
 ] as const;
 
 export const GRADE_SCALE = [

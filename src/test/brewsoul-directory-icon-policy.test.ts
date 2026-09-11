@@ -17,9 +17,11 @@ describe("BrewSoul directory icon policy", () => {
 
     for (const category of BREWSOUL_CATEGORIES) {
       expect(component).toContain(`"${category.title}":`);
+      expect(category).not.toHaveProperty("emoji");
 
       for (const page of category.pages) {
         expect(component).toContain(`"${page.path}":`);
+        expect(page).not.toHaveProperty("icon");
       }
     }
   });
