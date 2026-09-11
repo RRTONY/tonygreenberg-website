@@ -79,45 +79,6 @@ function persistPriState(next: PriVisitorState) {
 
 type AppState = "philosophy" | "intro" | "quiz" | "pathway" | "results";
 
-const TESTIMONIALS = [
-  {
-    quote:
-      "I'd been planning a ceremony for two years. The PRI told me I wasn't ready ... specifically why. I was annoyed. Then I did the prep work it pointed to. Six months later I went in and it was completely different. The score was right.",
-    name: "M.T.",
-    context: "Brooklyn, NY · Psilocybin",
-  },
-  {
-    quote:
-      "The medication interaction section stopped me cold. I'd been on an SSRI for four years and had no idea what that meant for ayahuasca. My doctor didn't know either. I'm glad I read it before I booked the retreat.",
-    name: "R.K.",
-    context: "Austin, TX · Ayahuasca",
-  },
-  {
-    quote:
-      "I scored 'Not Yet ... And That's Honest.' That phrase hit harder than anything else on the page. I printed the results and brought them to my therapist. We worked through every yellow flag over the next four months.",
-    name: "S.W.",
-    context: "London, UK · MDMA Therapy",
-  },
-  {
-    quote:
-      "I've done this work for fifteen years. I still use the PRI with every new client before we talk about medicine. It gives us a shared language for the conversation that used to take three sessions to get to.",
-    name: "J.A.",
-    context: "Integration Therapist · Portland, OR",
-  },
-  {
-    quote:
-      "The ketamine section is the most honest thing I've read about KAP. I'd been to two providers who never mentioned half of what's in there. I switched providers after reading it.",
-    name: "D.F.",
-    context: "San Francisco, CA · Ketamine",
-  },
-  {
-    quote:
-      "I scored 87 and felt proud of myself for about five minutes. Then I read the description ... 'Don't skip the facilitation.' That line kept me from going alone. Good call.",
-    name: "C.M.",
-    context: "Amsterdam · 5-MeO-DMT",
-  },
-];
-
 const PHILOSOPHY_PARAGRAPHS = [
   {
     text: "The diode of perception tethering movement to bone accelerates the other fundamental processes of life.",
@@ -144,7 +105,7 @@ const PHILOSOPHY_PARAGRAPHS = [
 // Ported from legacy client/src/pages/pri/PsychedelicReadinessIndex.tsx —
 // the real 39-medicine pharmacopoeia, real 50+ question / 6-domain
 // assessment, real MAO-B interaction matrix, real medication interaction
-// guide, real compare/save/PDF-export tooling, and real testimonials, all
+// guide, real compare/save/PDF-export tooling, all
 // unchanged and verbatim. Kept as a single client island since one state
 // machine (`state`) drives which section renders — same call already made
 // for other large multi-step assessments this migration.
@@ -153,9 +114,8 @@ const PHILOSOPHY_PARAGRAPHS = [
 // consistent with the rest of this migration:
 // - `trpc.pri.submitConsent` / `trpc.pri.submitCorrection` /
 //   `trpc.assessments.submit` (three backend mutations never built) are all
-//   dropped. Consent is still recorded locally via `sessionStorage`
-//   (matching legacy's own actual gating behavior — the mutation's failure
-//   was already silently ignored in legacy). The correction form and
+//   dropped. Consent and saved medicines use the managed, cookie-backed
+//   visitor-state service. The correction form and
 //   referral form use real `mailto:` fallbacks instead (see
 //   `correction-form.tsx` and this file's referral card) rather than
 //   reproducing a submit call with nothing behind it — legacy's correction
@@ -717,8 +677,8 @@ export function PsychedelicReadinessIndex() {
               })}
             </div>
             <div className="mt-4 text-[.78rem] text-pri-tan">
-              Your saved medicines are stored locally in your browser. They will persist across
-              visits but are not synced across devices.
+              Your saved medicines use a secure, server-managed visitor state for this browser. They
+              persist across visits but are not synced across devices.
             </div>
           </div>
         </div>
@@ -1593,35 +1553,6 @@ export function PsychedelicReadinessIndex() {
       <section className="border-t border-pri-purple/15 bg-pri-purple/6 px-5 py-8">
         <div className="mx-auto max-w-160">
           <PriShareBar />
-        </div>
-      </section>
-
-      {/* ── TESTIMONIALS ── */}
-      <section className="border-t border-pri-purple/12 bg-[#0A0F1E]/60 px-5 py-16">
-        <div className="mx-auto max-w-180">
-          <div className="mb-10 text-center text-[.68rem] font-bold tracking-[0.2em] text-pri-cream/35 uppercase">
-            From people who took it
-          </div>
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-6">
-            {TESTIMONIALS.map((t) => (
-              <div
-                key={t.name + t.context}
-                className="flex flex-col gap-4 rounded-lg border border-pri-cream/7 bg-pri-cream/3 p-6"
-              >
-                <p className="m-0 font-heading text-[clamp(.88rem,2.2vw,.95rem)] leading-[1.75] text-pri-cream/72 italic">
-                  &ldquo;{t.quote}&rdquo;
-                </p>
-                <div className="border-t border-pri-cream/8 pt-3">
-                  <div className="text-[.78rem] font-bold tracking-[0.04em] text-pri-purple-light">
-                    {t.name}
-                  </div>
-                  <div className="mt-0.5 text-[.72rem] tracking-[0.03em] text-pri-cream/35">
-                    {t.context}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
