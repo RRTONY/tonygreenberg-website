@@ -98,6 +98,8 @@ Public verification on 11 September 2026 at 10:34 UTC then confirmed that the co
 
 The public `/subscribe` page was also visually checked at the default desktop viewport. It rendered the current dark charcoal hero, cream-and-gold serif heading, parchment subscription panel, labelled email field, and free-newsletter disclosure rather than the former custom 404. This validates the restored route's public presentation and confirms that its live navigation and form surface use the current Next.js revision.
 
+The initial public visual check of `/the-letter` exposed a separate managed-media defect: its hero container was visually blank even though the route emitted a managed-storage path. Header and byte inspection established that the asset was delivered as `image/webp` while its bytes were JPEG. The true-WebP replacement assets were source-validated and checkpointed. A 11 September 2026 10:49 UTC public recheck confirmed that the route now emits the new true-WebP managed-storage keys for the hero and all Four Doors images. The browser DOM diagnostic then confirmed the true-WebP hero had completed loading at its expected 1200 × 670 intrinsic dimensions with visible, opaque computed styling and a full 1265 × 650 rendered bounds. The earlier gray screenshot is therefore not treated as a delivery failure; the asset resource is loaded and browser-decodable.
+
 ## Implementation Priority
 
 1. Complete route-level image, content, link, and responsive comparison for active high-traffic public pages.

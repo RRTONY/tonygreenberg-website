@@ -126,4 +126,4 @@
 - [x] Correct Psychedelic Readiness saved-medicine privacy copy to describe the existing cookie-backed visitor state rather than browser-local storage.
 - [x] Remove unverified hard-coded Psychedelic Readiness testimonial content rather than presenting unsupported user statements in the public assessment interface.
 - [x] Audit and remove any remaining active Peptide Matrix star-based discount or rating labels from source data and rendered UI.
-- [ ] Convert the recovered retired-Sanity JPEG-byte assets to true WebP before reuploading them at the existing managed-storage keys, so public browsers can render the verified page imagery with a matching MIME type.
+- [x] Convert the recovered retired-Sanity JPEG-byte assets to true WebP and reupload them at new immutable managed-storage keys, so public browsers can render the verified page imagery with a matching MIME type.
