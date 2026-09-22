@@ -132,3 +132,4 @@
 - [x] Source-verify and harden the existing Legal Arsenal equivalent with primary-source links, neutral informational copy, existing components, and no reporting or personal-data collection flow.
 - [x] Create an explicit route-by-route closure table for every safe public parity candidate, with implemented, redirected, active-equivalent, or deferred status and source evidence.
 - [x] Create a desktop/mobile validation matrix for every newly restored public route, covering media, navigation, and cookie-backed interactions where applicable.
+- [x] Reframe the Impact Dashboard as a clearly labeled 30-day target representation and pro-forma model, remove unsupported live-performance claims, add the proposed unaffiliated REX Light Center concept, and repair contrast before verification.
