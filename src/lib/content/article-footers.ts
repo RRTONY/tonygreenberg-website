@@ -109,7 +109,7 @@ export const ARTICLE_FOOTERS: Record<string, ArticleFooterEntry> = {
       },
       {
         slug: "gratitude-in-action",
-        title: "Gratitude in Action: A Best Follow-Up to a Decade of Change",
+        title: "Gratitude in Action: A 2023 Field Note, Revisited",
         reason:
           "This article provides a practical framework for channeling self-discovery into service, which is the ultimate trajectory suggested by 'The Molecule as Mirror'.",
       },
@@ -568,7 +568,7 @@ export const ARTICLE_FOOTERS: Record<string, ArticleFooterEntry> = {
       },
       {
         slug: "gratitude-in-action",
-        title: "Gratitude in Action: A Best Follow-Up to a Decade of Change",
+        title: "Gratitude in Action: A 2023 Field Note, Revisited",
         reason:
           "It provides a practical framework for translating purpose into tangible, impactful actions, moving from intention to execution in the social impact space.",
       },
@@ -636,7 +636,7 @@ export const ARTICLE_FOOTERS: Record<string, ArticleFooterEntry> = {
       },
       {
         slug: "gratitude-in-action",
-        title: "Gratitude in Action: A Best Follow-Up to a Decade of Change",
+        title: "Gratitude in Action: A 2023 Field Note, Revisited",
         reason:
           "This piece connects the idea of impact with personal values and action, offering a philosophical complement to the practical, technology-driven approach of 'Energy as Impact'.",
       },
@@ -700,7 +700,7 @@ export const ARTICLE_FOOTERS: Record<string, ArticleFooterEntry> = {
     related: [
       {
         slug: "gratitude-in-action",
-        title: "Gratitude in Action: A Best Follow-Up to a Decade of Change",
+        title: "Gratitude in Action: A 2023 Field Note, Revisited",
         reason:
           "This article connects the concept of 'impact' to a personal and actionable level, aligning with the mission-driven theme of the original article.",
       },
@@ -802,7 +802,7 @@ export const ARTICLE_FOOTERS: Record<string, ArticleFooterEntry> = {
     related: [
       {
         slug: "gratitude-in-action",
-        title: "Gratitude in Action: A Best Follow-Up to a Decade of Change",
+        title: "Gratitude in Action: A 2023 Field Note, Revisited",
         reason:
           "This article connects by exploring how gratitude can be a driving force for systemic change and social impact, echoing the call for accountability in the psychedelics industry.",
       },
@@ -1850,7 +1850,7 @@ export const ARTICLE_FOOTERS: Record<string, ArticleFooterEntry> = {
     related: [
       {
         slug: "gratitude-in-action",
-        title: "Gratitude in Action: A Best Follow-Up to a Decade of Change",
+        title: "Gratitude in Action: A 2023 Field Note, Revisited",
         reason:
           "This article directly expands on the theme of moving from passive gratitude to active, impactful reciprocity and systemic change.",
       },
@@ -1958,7 +1958,7 @@ export const ARTICLE_FOOTERS: Record<string, ArticleFooterEntry> = {
       },
       {
         slug: "gratitude-in-action",
-        title: "Gratitude in Action: A Best Follow-Up to a Decade of Change",
+        title: "Gratitude in Action: A 2023 Field Note, Revisited",
         reason:
           "This article provides a practical framework for implementing impact-oriented initiatives, which a Chief Impact Officer would champion.",
       },

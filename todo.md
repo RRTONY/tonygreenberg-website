@@ -133,3 +133,4 @@
 - [x] Create an explicit route-by-route closure table for every safe public parity candidate, with implemented, redirected, active-equivalent, or deferred status and source evidence.
 - [x] Create a desktop/mobile validation matrix for every newly restored public route, covering media, navigation, and cookie-backed interactions where applicable.
 - [x] Reframe the Impact Dashboard as a clearly labeled 30-day target representation and pro-forma model, remove unsupported live-performance claims, add the proposed unaffiliated REX Light Center concept, and repair contrast before verification.
+- [x] Revise the managed Gratitude in Action editorial record before promotion: retain its 2023 publication date, restore the verified 2014 cross-link, improve heading and checklist hierarchy, remove unsupported partner-impact metrics, and clarify ImpactSoul's distinct role.

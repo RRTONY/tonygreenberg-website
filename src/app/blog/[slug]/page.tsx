@@ -66,6 +66,7 @@ export default async function BlogPostPage({ params }: AppPageProps<"/blog/[slug
   const { slug } = await params;
   const post = await getPost(slug);
   if (!post) notFound();
+  const isGratitudeInAction = post.slug.current === "gratitude-in-action";
 
   type RelatedPost = NonNullable<Awaited<ReturnType<typeof getPost>>>;
   const curatedPath = READING_PATHS[post.slug.current];
@@ -103,7 +104,9 @@ export default async function BlogPostPage({ params }: AppPageProps<"/blog/[slug
   });
 
   return (
-    <article className="mx-auto max-w-3xl px-4 py-10">
+    <article
+      className={`mx-auto px-4 py-10 ${isGratitudeInAction ? "max-w-4xl sm:py-14" : "max-w-3xl"}`}
+    >
       <TrackLastBlogVisit slug={post.slug.current} title={post.title} />
       <script
         type="application/ld+json"
@@ -118,7 +121,11 @@ export default async function BlogPostPage({ params }: AppPageProps<"/blog/[slug
             {post.category.title}
           </Link>
         )}
-        <h1 className="mt-2 font-heading text-3xl font-bold leading-tight text-foreground sm:text-4xl">
+        <h1
+          className={`mt-2 font-heading font-bold leading-tight text-foreground ${
+            isGratitudeInAction ? "text-4xl sm:text-5xl" : "text-3xl sm:text-4xl"
+          }`}
+        >
           {post.title}
         </h1>
         {post.subtitle && <p className="mt-3 text-lg text-muted-foreground">{post.subtitle}</p>}
@@ -159,7 +166,13 @@ export default async function BlogPostPage({ params }: AppPageProps<"/blog/[slug
       {/* portable-text.tsx hand-styles every block/mark directly (no
           @tailwindcss/typography dependency) — .article-body only exists
           to scope the drop-cap selector in globals.css. */}
-      <div className="article-body text-foreground">
+      <div
+        className={`article-body text-foreground ${
+          isGratitudeInAction
+            ? "text-[1.0625rem] leading-8 sm:text-lg [&_h3]:mt-14 [&_h3]:border-t [&_h3]:border-brand-gold/30 [&_h3]:pt-8 [&_h3]:text-3xl sm:[&_h3]:text-4xl [&_ol]:ml-0 [&_ol]:list-none [&_ol]:space-y-4 [&_ol]:rounded-2xl [&_ol]:border [&_ol]:border-brand-gold/25 [&_ol]:bg-muted/45 [&_ol]:p-5 sm:[&_ol]:p-7 [&_ol_li]:border-b [&_ol_li]:border-brand-gold/20 [&_ol_li]:pb-4 [&_ol_li:last-child]:border-b-0 [&_ol_li:last-child]:pb-0 [&_strong]:text-foreground"
+            : ""
+        }`}
+      >
         <PortableText value={autoLinkBody(post.body)} components={portableTextComponents} />
       </div>
 
