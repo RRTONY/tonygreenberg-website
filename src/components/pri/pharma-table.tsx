@@ -42,7 +42,7 @@ export function PharmaTable() {
                       r.evidence.startsWith("Strong")
                         ? "border-[#6B8F71]/30 bg-[#6B8F71]/15 text-[#3D6B44]"
                         : r.evidence.startsWith("Moderate")
-                          ? "border-[#C8A64C]/30 bg-[#C8A64C]/15 text-[#8B6914]"
+                          ? "border-[#C8A64C]/30 bg-[#C8A64C]/15 text-[#836311]"
                           : "border-pri-purple/20 bg-pri-purple/10 text-pri-purple"
                     }`}
                   >

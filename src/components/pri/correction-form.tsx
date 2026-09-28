@@ -78,8 +78,8 @@ export function CorrectionForm({ medicine, onClose }: { medicine: MedicineWithSa
       </p>
 
       <div className="mb-4">
-        <label className="mb-1.5 block text-xs font-bold tracking-[0.08em] text-pri-tan uppercase">Which Section?</label>
-        <select value={fieldName} onChange={(e) => setFieldName(e.target.value)} className={`${inputClass} cursor-pointer`}>
+        <label htmlFor="correction-section" className="mb-1.5 block text-xs font-bold tracking-[0.08em] text-pri-tan uppercase">Which Section?</label>
+        <select id="correction-section" value={fieldName} onChange={(e) => setFieldName(e.target.value)} className={`${inputClass} cursor-pointer`}>
           {FIELD_OPTIONS.map((o) => (
             <option key={o.value} value={o.value}>
               {o.label}

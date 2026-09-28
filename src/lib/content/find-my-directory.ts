@@ -80,7 +80,7 @@ export const CATEGORIES: FindMyCategory[] = [
       { title: "Find My Diet", tagline: fromEcosystem("/find-your-diet").tagline, href: "/find-your-diet", icon: "🥗", color: "#7BC9A4", status: fromEcosystem("/find-your-diet").status },
       { title: "Find My Movement", tagline: fromEcosystem("/find-your-movement").tagline, href: "/find-your-movement", icon: "🏃", color: "#4682B4", status: fromEcosystem("/find-your-movement").status },
       { title: "Find My Sleep", tagline: fromEcosystem("/find-your-sleep").tagline, href: "/find-your-sleep", icon: "🌙", color: "#6A5ACD", status: fromEcosystem("/find-your-sleep").status },
-      { title: "Find My Coffee", tagline: fromEcosystem("/find-your-coffee").tagline, href: "/find-your-coffee", icon: "☕", color: "#8B6914", status: fromEcosystem("/find-your-coffee").status },
+      { title: "Find My Coffee", tagline: fromEcosystem("/find-your-coffee").tagline, href: "/find-your-coffee", icon: "☕", color: "#836311", status: fromEcosystem("/find-your-coffee").status },
       { title: "BrewSoul Intelligence", tagline: "100+ coffees ranked · 100 chains scored · Identity-matched", href: "/brewsoul", icon: "☕", color: "#6F4E37", status: "live" },
       { title: "Find My Kitchen", tagline: fromEcosystem("/find-your-kitchen").tagline, href: "/find-your-kitchen", icon: "🍳", color: "#D4A76A", status: fromEcosystem("/find-your-kitchen").status },
       { title: "Find My Sake", tagline: fromEcosystem("/find-your-sake").tagline, href: "/find-your-sake", icon: "🍶", color: "#B8860B", status: fromEcosystem("/find-your-sake").status },

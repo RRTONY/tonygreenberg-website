@@ -47,7 +47,7 @@ export async function GemSparkStrip() {
                     {post.title}
                   </div>
                   {subtitle && (
-                    <div className="truncate font-mono text-xs tracking-wide text-[#8B6914] uppercase">
+                    <div className="truncate font-mono text-xs tracking-wide text-[#836311] uppercase">
                       {subtitle}
                     </div>
                   )}

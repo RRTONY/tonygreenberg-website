@@ -186,7 +186,7 @@ export default function FirstSipPage() {
           <p className="mb-5 text-[1.05rem] leading-loose">
             And still, most consumers know only the poetry on the label — never the arithmetic behind the price. If
             you want to see that arithmetic laid bare, the{" "}
-            <Link href="/brewsoul/economics" className="font-semibold text-[#8B6914] underline underline-offset-3">
+            <Link href="/brewsoul/economics" className="font-semibold text-[#836311] underline underline-offset-3">
               Coffee Economics
             </Link>{" "}
             tool on this site breaks down exactly where your dollar goes — farmgate to shelf — for every brand
@@ -248,7 +248,7 @@ export default function FirstSipPage() {
           </p>
           <p className="mb-10 text-[1.05rem] leading-loose">
             This is where the{" "}
-            <Link href="/brewsoul/compare" className="font-semibold text-[#8B6914] underline underline-offset-3">
+            <Link href="/brewsoul/compare" className="font-semibold text-[#836311] underline underline-offset-3">
               Compare Coffees
             </Link>{" "}
             tool earns its place. It puts brands side by side not on flavor poetry, but on sourcing transparency,
@@ -282,14 +282,14 @@ export default function FirstSipPage() {
           </p>
           <p className="mb-10 text-[1.05rem] leading-loose">
             That&apos;s what the{" "}
-            <Link href="/brewsoul/health" className="font-semibold text-[#8B6914] underline underline-offset-3">
+            <Link href="/brewsoul/health" className="font-semibold text-[#836311] underline underline-offset-3">
               Coffee &amp; Health
             </Link>{" "}
             section is built for — peer-reviewed research on caffeine metabolism, cortisol impact, sleep disruption,
             and real contaminant risks, organized so you can decide based on your biology, not someone&apos;s
             branding budget. And if you want a personalized read on how coffee interacts with your body and habits,
             the{" "}
-            <Link href="/brewsoul/prescription" className="font-semibold text-[#8B6914] underline underline-offset-3">
+            <Link href="/brewsoul/prescription" className="font-semibold text-[#836311] underline underline-offset-3">
               Coffee Prescription
             </Link>{" "}
             tool will walk you through it.
@@ -350,7 +350,7 @@ export default function FirstSipPage() {
             If coffee supports you, use it intentionally. If it disrupts your sleep or nervous system, respect that
             too. And if you want to understand how what you eat alongside coffee changes the experience entirely —
             absorption, acidity, nutrient interaction — the{" "}
-            <Link href="/brewsoul/pairings" className="font-semibold text-[#8B6914] underline underline-offset-3">
+            <Link href="/brewsoul/pairings" className="font-semibold text-[#836311] underline underline-offset-3">
               Coffee Pairings
             </Link>{" "}
             guide is where food meets pharmacology.
@@ -396,7 +396,7 @@ export default function FirstSipPage() {
                 </div>
                 <h3 className="mb-2 font-heading text-lg font-bold text-[#2C1810]">{tool.title}</h3>
                 <p className="mb-4 text-sm leading-relaxed text-[#6B5B4F]">{tool.desc}</p>
-                <div className="font-mono text-[0.72rem] font-semibold text-[#8B6914]">{tool.cta} →</div>
+                <div className="font-mono text-[0.72rem] font-semibold text-[#836311]">{tool.cta} →</div>
               </Link>
             ))}
           </div>

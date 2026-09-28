@@ -25,7 +25,7 @@ export const FEATURED_THEMES: Theme[] = [
   {
     key: "Business & Capital",
     icon: Wallet,
-    color: "#8B6914",
+    color: "#836311",
     description: "Enterprise, sourcing, payments, and the machinery of money",
   },
   {

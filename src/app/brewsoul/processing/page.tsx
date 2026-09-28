@@ -30,7 +30,7 @@ export default function BrewSoulProcessingPage() {
             <div className="mt-2 font-mono text-[0.68rem] text-[#999]">
               Complexity: {pm.complexity}/10 · Category: {pm.category}
             </div>
-            {pm.controversy && <p className="mt-2 text-[0.82rem] text-[#8B6914] italic">{pm.controversy}</p>}
+            {pm.controversy && <p className="mt-2 text-[0.82rem] text-[#836311] italic">{pm.controversy}</p>}
           </div>
         ))}
       </div>

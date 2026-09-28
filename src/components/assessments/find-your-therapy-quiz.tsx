@@ -30,7 +30,7 @@ import { JourneyTracker, useJourneyProgress } from "@/components/assessments/jou
 // internal routes (and corrected Religion's stale "15 Questions" badge to
 // the real 20). **Real accent-color inconsistency fixed**: legacy passed
 // `accentColor="#7B1FA2"` (purple) only to the landing `AssessmentIntro`
-// call, then hardcoded brand-gold (`#8B6914`/`#D4B96A`) throughout the
+// call, then hardcoded brand-gold (`#836311`/`#D4B96A`) throughout the
 // entire results screen instead — every other assessment in this
 // migration threads one `ACCENT` constant through the intro, radar chart,
 // and result actions consistently, so this port does too. The "Also Worth

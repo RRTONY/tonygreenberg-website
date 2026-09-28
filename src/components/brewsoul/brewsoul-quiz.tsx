@@ -115,7 +115,7 @@ function OptionCard({ text, onClick }: { text: string; onClick: () => void }) {
   return (
     <button
       onClick={onClick}
-      className="flex items-center gap-3 rounded-2xl border border-[#8B6914]/15 bg-white/60 px-5 py-3.5 text-left backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:border-[#8B6914]/50 hover:bg-white/85 hover:shadow-lg"
+      className="flex items-center gap-3 rounded-2xl border border-[#836311]/15 bg-white/60 px-5 py-3.5 text-left backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:border-[#836311]/50 hover:bg-white/85 hover:shadow-lg"
     >
       <span className="font-sans text-sm text-[#2A2A2A]">{text}</span>
     </button>
@@ -158,13 +158,13 @@ export function BrewSoulQuiz() {
   if (done) {
     return (
       <div className="relative min-h-screen overflow-hidden bg-linear-to-b from-[#FAFAF7] via-[#F0E8D8] to-[#F5F0E6]">
-        <div className="fixed inset-x-0 top-0 z-100 h-1 bg-[#8B6914]/8">
-          <div className="h-full w-full bg-linear-to-r from-[#C5A23C] to-[#8B6914] shadow-[0_0_12px_rgba(197,162,60,0.4)]" />
+        <div className="fixed inset-x-0 top-0 z-100 h-1 bg-[#836311]/8">
+          <div className="h-full w-full bg-linear-to-r from-[#C5A23C] to-[#836311] shadow-[0_0_12px_rgba(197,162,60,0.4)]" />
         </div>
 
         <div className="relative z-10 flex min-h-screen flex-col items-center px-6 pt-24 pb-12 text-center">
           <div className="w-full max-w-2xl">
-            <div className="mb-3 font-mono text-[0.68rem] tracking-[0.3em] text-[#8B6914] uppercase">
+            <div className="mb-3 font-mono text-[0.68rem] tracking-[0.3em] text-[#836311] uppercase">
               Your Palate Matches
             </div>
             <h1 className="mb-2 font-heading text-3xl font-bold text-[#1A1A1A] sm:text-4xl">We Found Your Coffees</h1>
@@ -179,11 +179,11 @@ export function BrewSoulQuiz() {
                   key={coffee.id}
                   href={`/brewsoul/coffee/${coffee.id}`}
                   className={`flex items-center gap-4 rounded-2xl border bg-white/60 px-5 py-4 text-left backdrop-blur-xl transition-all hover:-translate-y-0.5 hover:bg-white/85 hover:shadow-lg ${
-                    i === 0 ? "border-2 border-[#8B6914]/40" : "border-[#8B6914]/15"
+                    i === 0 ? "border-2 border-[#836311]/40" : "border-[#836311]/15"
                   }`}
                 >
                   <div
-                    className={`w-10 text-center font-heading text-2xl font-bold ${i === 0 ? "text-[#8B6914]" : "text-[#8B6914]/40"}`}
+                    className={`w-10 text-center font-heading text-2xl font-bold ${i === 0 ? "text-[#836311]" : "text-[#836311]/40"}`}
                   >
                     {i + 1}
                   </div>
@@ -210,13 +210,13 @@ export function BrewSoulQuiz() {
                   setStep(0);
                   setAnswers({});
                 }}
-                className="rounded-md bg-linear-to-br from-[#C5A23C] to-[#8B6914] px-8 py-3.5 font-mono text-xs font-bold tracking-wide text-[#FAFAF7] uppercase shadow-[0_6px_24px_rgba(139,105,20,0.35)]"
+                className="rounded-md bg-linear-to-br from-[#C5A23C] to-[#836311] px-8 py-3.5 font-mono text-xs font-bold tracking-wide text-[#FAFAF7] uppercase shadow-[0_6px_24px_rgba(139,105,20,0.35)]"
               >
                 Retake Quiz →
               </button>
               <Link
                 href="/brewsoul/browse"
-                className="rounded-md border-[1.5px] border-[#8B6914]/30 bg-white/70 px-8 py-3.5 font-mono text-xs font-bold tracking-wide text-[#8B6914] uppercase backdrop-blur-md"
+                className="rounded-md border-[1.5px] border-[#836311]/30 bg-white/70 px-8 py-3.5 font-mono text-xs font-bold tracking-wide text-[#836311] uppercase backdrop-blur-md"
               >
                 Browse All Coffees
               </Link>
@@ -232,9 +232,9 @@ export function BrewSoulQuiz() {
   const cur = QUESTIONS[step];
   return (
     <div className="relative min-h-screen overflow-hidden bg-linear-to-b from-[#FAFAF7] via-[#F0E8D8] to-[#F5F0E6]">
-      <div className="fixed inset-x-0 top-0 z-100 h-1 bg-[#8B6914]/8">
+      <div className="fixed inset-x-0 top-0 z-100 h-1 bg-[#836311]/8">
         <div
-          className="h-full bg-linear-to-r from-[#C5A23C] to-[#8B6914] shadow-[0_0_12px_rgba(197,162,60,0.4)] transition-[width] duration-500"
+          className="h-full bg-linear-to-r from-[#C5A23C] to-[#836311] shadow-[0_0_12px_rgba(197,162,60,0.4)] transition-[width] duration-500"
           style={{ width: `${progress}%` }}
         />
       </div>
@@ -242,13 +242,13 @@ export function BrewSoulQuiz() {
       <div className="relative z-10 flex min-h-screen flex-col">
         {step === 0 && (
           <div className="mx-auto max-w-2xl px-6 pt-24 pb-6 text-center">
-            <div className="mb-5 font-mono text-[0.65rem] tracking-[0.35em] text-[#8B6914] uppercase">
+            <div className="mb-5 font-mono text-[0.65rem] tracking-[0.35em] text-[#836311] uppercase">
               Taste Profile Builder
             </div>
             <h1 className="mb-5 font-heading text-2xl font-bold text-[#1A1A1A] sm:text-3xl">
               Seven questions.
               <br />
-              <span className="text-[#8B6914]">Your perfect cup, decoded.</span>
+              <span className="text-[#836311]">Your perfect cup, decoded.</span>
             </h1>
             <p className="mx-auto max-w-md rounded-xl bg-[#FAFAF7]/70 p-5 text-sm leading-loose text-[#4A4A4A] backdrop-blur-md">
               We&apos;ll map your palate across acidity, body, sweetness, complexity, and fruit preference — then
@@ -262,7 +262,7 @@ export function BrewSoulQuiz() {
           style={{ opacity: fadeIn ? 1 : 0 }}
         >
           <div className="w-full max-w-xl text-center">
-            <div className="mb-6 font-mono text-[0.62rem] tracking-[0.25em] text-[#8B6914]/50 uppercase">
+            <div className="mb-6 font-mono text-[0.62rem] tracking-[0.25em] text-[#836311]/50 uppercase">
               {step + 1} / {QUESTIONS.length}
             </div>
 

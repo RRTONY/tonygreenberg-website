@@ -101,7 +101,7 @@ function CompassRadar({ scores }: { scores: number[] }) {
               className="h-full rounded-full"
               style={{
                 width: `${(scores[i] / max) * 100}%`,
-                background: scores[i] >= 9 ? "#D4B96A" : scores[i] >= 7 ? "#8B6914" : "#A0A0A0",
+                background: scores[i] >= 9 ? "#D4B96A" : scores[i] >= 7 ? "#836311" : "#A0A0A0",
               }}
             />
           </div>

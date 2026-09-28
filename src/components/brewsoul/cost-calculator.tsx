@@ -16,7 +16,7 @@ export function CostCalculator() {
       <div className="mb-3 font-mono text-[11px] tracking-[0.2em] text-[#6b5a4e]/80 uppercase">Annual Cost Calculator</div>
       <div className="mb-5 flex flex-wrap items-center gap-4">
         <span className="text-[15px] text-[#2d1810]">I drink</span>
-        <input type="range" min={1} max={6} value={cups} onChange={(e) => setCups(+e.target.value)} className="w-30 accent-[#c4873b]" />
+        <input type="range" aria-label="Cups of coffee per day" min={1} max={6} value={cups} onChange={(e) => setCups(+e.target.value)} className="w-30 accent-[#c4873b]" />
         <span className="font-heading text-2xl font-bold text-[#c4873b]">{cups}</span>
         <span className="text-[15px] text-[#2d1810]">cups per day</span>
       </div>

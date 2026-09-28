@@ -23,7 +23,15 @@ export function PostCard({ post }: { post: PostCardData }) {
 
   return (
     <article className="group flex flex-col overflow-hidden rounded-lg border border-border bg-card transition-shadow hover:shadow-lg">
-      <Link href={`/blog/${post.slug.current}`} className="relative block aspect-video bg-muted">
+      {/* Same destination as the title link below, so it's skipped by keyboard
+          and screen readers instead of being a second, unnamed link (axe
+          link-name, on posts with no hero image). */}
+      <Link
+        href={`/blog/${post.slug.current}`}
+        aria-hidden="true"
+        tabIndex={-1}
+        className="relative block aspect-video bg-muted"
+      >
         {post.heroImage ? (
           <Image
             src={urlFor(post.heroImage).width(800).height(450).url()}

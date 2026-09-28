@@ -71,11 +71,8 @@ const INSTRUMENTS = [
 export default function ThePhilosophyPage() {
   return (
     <div className="min-h-screen bg-linear-to-br from-[#0A0C14] via-[#0F0A1A] to-[#0D1008] pb-24 font-heading text-[#F4F0E8]">
-      <div className="relative border-b border-[#c9a84c]/12 px-6 py-24 text-center">
-        <div
-          className="pointer-events-none absolute top-0 left-1/2 h-75 w-150 -translate-x-1/2"
-          style={{ background: "radial-gradient(ellipse at center, rgba(107,33,168,0.18) 0%, transparent 70%)" }}
-        />
+      <div className="relative overflow-hidden border-b border-[#c9a84c]/12 px-6 py-24 text-center">
+        <div className="pointer-events-none absolute top-0 left-1/2 h-75 w-150 -translate-x-1/2 bg-[radial-gradient(ellipse_at_center,rgba(107,33,168,0.18)_0%,transparent_70%)]" />
         <p className="mb-6 font-mono text-[0.6rem] tracking-[0.3em] text-[#c9a84c] uppercase">
           Tony Greenberg
         </p>

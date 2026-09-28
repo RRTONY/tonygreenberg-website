@@ -77,7 +77,7 @@ import { MIRROR_ARTICLES, MIRROR_DIMENSIONS, MIRROR_QUESTIONS, type MirrorDimens
 // since legacy was written); a slug with no resolved title is silently
 // skipped, the same way legacy's own `blogData.find()` skipped slugs missing
 // from its local `blogData.json`.
-const ACCENT = "#8B6914";
+const ACCENT = "#836311";
 const SHARE_URL = "https://tonygreenberg.com/the-mirror";
 
 const SATELLITE_SITES: { name: string; url: string; dimension: MirrorDimensionId; desc: string }[] = [

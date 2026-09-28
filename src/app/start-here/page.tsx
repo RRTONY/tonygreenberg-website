@@ -26,13 +26,13 @@ const ESSAYS: Essay[] = [
 
 const TAG_COLORS: Record<string, string> = {
   "THE RECKONING": "#9B2335",
-  "THE LESSON": "#8B6914",
+  "THE LESSON": "#836311",
   "THE SYSTEMS MAP": "#4682B4",
 };
 
 function EssayCard({ essay, index }: { essay: Essay; index: number }) {
   const isEven = index % 2 === 0;
-  const tagColor = TAG_COLORS[essay.tag] ?? "#8B6914";
+  const tagColor = TAG_COLORS[essay.tag] ?? "#836311";
 
   const numberPanel = (
     <div

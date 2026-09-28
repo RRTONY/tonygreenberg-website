@@ -36,7 +36,7 @@ export function RoastersExplorer({ roasters }: { roasters: ProducerEntry[] }) {
           onChange={(e) => setSearch(e.target.value)}
           className="min-w-50 flex-1 rounded-lg border border-[#6F4E37]/15 bg-[#6F4E37]/2 px-4 py-3 text-sm"
         />
-        <select value={tier} onChange={(e) => setTier(e.target.value)} className="rounded-lg border border-[#6F4E37]/15 bg-white px-4 py-3 font-mono text-[0.78rem]">
+        <select aria-label="Filter by tier" value={tier} onChange={(e) => setTier(e.target.value)} className="rounded-lg border border-[#6F4E37]/15 bg-white px-4 py-3 font-mono text-[0.78rem]">
           <option value="all">All Tiers</option>
           <option value="legendary">Grade A</option>
           <option value="exceptional">Grade B</option>

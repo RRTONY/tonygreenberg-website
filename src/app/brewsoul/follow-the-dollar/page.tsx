@@ -43,7 +43,7 @@ export default function BrewSoulFollowTheDollarPage() {
                   <span className="w-18 shrink-0 text-right font-mono text-[0.68rem] text-[#6B5B4F]">{seg.label}</span>
                   <div className="h-5 flex-1 overflow-hidden rounded-sm bg-[#6F4E37]/4">
                     <div
-                      className={`h-full rounded-sm ${seg.label === "Farmer" ? farmerBarClass : "bg-linear-to-r from-[#8B6914] to-[#A68B3C]"}`}
+                      className={`h-full rounded-sm ${seg.label === "Farmer" ? farmerBarClass : "bg-linear-to-r from-[#836311] to-[#A68B3C]"}`}
                       style={{ width: `${seg.pct}%` }}
                     />
                   </div>

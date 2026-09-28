@@ -55,7 +55,7 @@ const INITIAL_SCORES: Record<Dimension, number> = {
   "Caffeine Sensitivity": 0,
   "Flavor Complexity": 0,
 };
-const ACCENT = "#8B6914";
+const ACCENT = "#836311";
 const HERO_IMG =
   "https://cdn.sanity.io/images/a3q1cyqs/production/b520b4a24df082c097b000517b0ee74a95501fed-1200x2150.webp";
 
@@ -330,7 +330,7 @@ export function FindYourCoffeeQuiz() {
           <button
             type="button"
             onClick={() => setPhase("questions")}
-            className="min-h-11 rounded-sm bg-linear-135 from-[#D4B96A] to-[#8B6914] px-15 py-4.5 font-mono text-sm tracking-[0.2em] text-[#0A0A10] uppercase shadow-[0_4px_30px_rgba(212,185,106,0.3)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_40px_rgba(212,185,106,0.5)]"
+            className="min-h-11 rounded-sm bg-linear-135 from-[#D4B96A] to-[#836311] px-15 py-4.5 font-mono text-sm tracking-[0.2em] text-[#0A0A10] uppercase shadow-[0_4px_30px_rgba(212,185,106,0.3)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_40px_rgba(212,185,106,0.5)]"
           >
             Begin the Ritual
           </button>

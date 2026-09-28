@@ -98,7 +98,7 @@ const CLIENTS: Client[] = [
 
 const HAWKINS_LEVELS = [
   { label: "Courage", range: "200-249", color: "#C75B12", desc: "Taking action despite uncertainty" },
-  { label: "Neutrality", range: "250-299", color: "#8B6914", desc: "Flexible, pragmatic, adaptable" },
+  { label: "Neutrality", range: "250-299", color: "#836311", desc: "Flexible, pragmatic, adaptable" },
   { label: "Willingness", range: "300-349", color: "#1565C0", desc: "Open, optimistic, growth-oriented" },
   { label: "Acceptance", range: "350-399", color: "#2E7D32", desc: "Transformative, purpose-driven" },
   { label: "Enlightened", range: "400+", color: "#7B2D8E", desc: "Visionary, regenerative, transcendent" },

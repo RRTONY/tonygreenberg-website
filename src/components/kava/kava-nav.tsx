@@ -96,7 +96,7 @@ export function KavaFooter() {
   return (
     <footer className="border-t border-kava-sand-muted px-5 py-8 text-center">
       <p className="mb-1 font-heading text-sm font-medium text-kava-saffron">PRI Kava Framework v2.0</p>
-      <p className="text-xs text-kava-ink opacity-50">
+      <p className="text-xs text-kava-ink/75">
         For facilitator training and research use. Not medical advice.
         <br />
         Consult a licensed medical professional before making any changes to medications or health protocols.

@@ -472,8 +472,8 @@ export default function IbogaIbogainePage() {
                 <tr key={r.dimension} className={i % 2 ? "bg-pri-parchment" : ""}>
                   <td className={`${tdClass} w-10 text-center text-2xl`}>{r.icon}</td>
                   <td className={`${tdClass} font-bold whitespace-nowrap`}>{r.dimension}</td>
-                  <td className={`${tdClass} font-bold ${r.ibogaThreshold.includes("Critical") ? "text-[#581C87]" : "text-[#8B6914]"}`}>{r.ibogaThreshold}</td>
-                  <td className={`${tdClass} font-bold ${r.ibogaineThreshold.includes("Critical") ? "text-[#581C87]" : "text-[#8B6914]"}`}>{r.ibogaineThreshold}</td>
+                  <td className={`${tdClass} font-bold ${r.ibogaThreshold.includes("Critical") ? "text-[#581C87]" : "text-[#836311]"}`}>{r.ibogaThreshold}</td>
+                  <td className={`${tdClass} font-bold ${r.ibogaineThreshold.includes("Critical") ? "text-[#581C87]" : "text-[#836311]"}`}>{r.ibogaineThreshold}</td>
                   <td className={tdClass}>{r.keyNote}</td>
                 </tr>
               ))}
@@ -569,7 +569,7 @@ export default function IbogaIbogainePage() {
               {UPDATED_RESEARCH.map((r, i) => (
                 <tr key={r.condition} className={i % 2 ? "bg-pri-parchment" : ""}>
                   <td className={`${tdClass} font-semibold`}>{r.condition}</td>
-                  <td className={`${tdClass} font-mono font-extrabold text-[#8B6914]`}>{r.result}</td>
+                  <td className={`${tdClass} font-mono font-extrabold text-[#836311]`}>{r.result}</td>
                   <td className={`${tdClass} text-[.85rem] opacity-75`}>{r.source}</td>
                 </tr>
               ))}
@@ -690,7 +690,7 @@ export default function IbogaIbogainePage() {
                 <p className="m-0 text-[.9rem] text-[#6B5A4E]">
                   {f.location}
                   {f.focus && ` | ${f.focus}`} |{" "}
-                  <a href={f.url} target="_blank" rel="noopener noreferrer" className="text-[#8B6914]">
+                  <a href={f.url} target="_blank" rel="noopener noreferrer" className="text-[#836311]">
                     {f.url.replace("https://", "")}
                   </a>{" "}
                   | {f.pricing}
@@ -727,7 +727,7 @@ export default function IbogaIbogainePage() {
                   <td className={tdClass}>{r.location}</td>
                   <td className={tdClass}>{r.focus}</td>
                   <td className={tdClass}>
-                    <a href={r.url} target="_blank" rel="noopener noreferrer" className="text-[#8B6914]">
+                    <a href={r.url} target="_blank" rel="noopener noreferrer" className="text-[#836311]">
                       {r.url.replace("https://", "")}
                     </a>
                   </td>
@@ -766,7 +766,7 @@ export default function IbogaIbogainePage() {
                 <tr key={r.name} className={i % 2 ? "bg-pri-parchment" : ""}>
                   <td className={`${tdClass} font-bold`}>{r.name}</td>
                   <td className={tdClass}>{r.loc}</td>
-                  <td className={`${tdClass} ${r.travel.includes("3") ? "text-[#E65100]" : r.travel.includes("2") ? "text-[#8B6914]" : ""}`}>{r.travel}</td>
+                  <td className={`${tdClass} ${r.travel.includes("3") ? "text-[#E65100]" : r.travel.includes("2") ? "text-[#836311]" : ""}`}>{r.travel}</td>
                   <td className={tdClass}>{r.vet}</td>
                   <td className={tdClass}>{r.nagoya}</td>
                   <td className={`${tdClass} font-mono`}>{r.price}</td>

@@ -75,7 +75,7 @@ export function BrewSoulNav() {
       >
         <Link href="/brewsoul" className="flex items-center gap-2">
           <span className="font-heading text-[1.15rem] font-bold text-[#6F4E37]">BrewSoul</span>
-          <span className="font-mono text-[0.6rem] tracking-widest text-[#C5A23C] uppercase opacity-80">
+          <span className="font-mono text-[0.6rem] tracking-widest text-[#86691c] uppercase">
             Coffee Intelligence
           </span>
         </Link>
@@ -92,13 +92,13 @@ export function BrewSoulNav() {
               {s.label}
             </Link>
           ))}
-          <button onClick={() => setMenuOpen(!menuOpen)} className="px-2.5 py-1.5 font-mono text-[0.72rem] text-[#C5A23C]">
+          <button onClick={() => setMenuOpen(!menuOpen)} className="px-2.5 py-1.5 font-mono text-[0.72rem] text-[#86691c]">
             More +
           </button>
         </div>
 
         <div className="flex items-center gap-3">
-          <Link href="/" className="hidden items-center gap-1 font-mono text-[0.6rem] tracking-wide text-[#999] uppercase opacity-70 lg:flex">
+          <Link href="/" className="hidden items-center gap-1 font-mono text-[0.6rem] tracking-wide text-[#6b6b6b] uppercase lg:flex">
             Part of Find Your Me
           </Link>
           <button onClick={() => setMenuOpen(!menuOpen)} className="p-2 text-xl text-[#6F4E37] md:hidden">
@@ -143,7 +143,7 @@ export function BrewSoulFooter() {
   return (
     <footer className="border-t border-[#6F4E37]/10 bg-[#F5F0E6] px-6 py-12 pb-8 text-center">
       <div className="mb-2 font-heading text-[1.1rem] text-[#6F4E37]">BrewSoul — The Coffee Intelligence Engine</div>
-      <div className="mb-6 font-mono text-[0.68rem] tracking-[0.15em] text-[#999] uppercase">Every Cup Is a Vote</div>
+      <div className="mb-6 font-mono text-[0.68rem] tracking-[0.15em] text-[#6b6b6b] uppercase">Every Cup Is a Vote</div>
       <Link
         href="/brewsoul/directory"
         className="mb-5 inline-block rounded-md border border-[#6F4E37]/20 bg-[#6F4E37]/4 px-6 py-2.5 font-mono text-[0.72rem] tracking-wide text-[#6F4E37] uppercase"
@@ -157,7 +157,7 @@ export function BrewSoulFooter() {
           </a>
         ))}
       </div>
-      <div className="font-mono text-[0.62rem] tracking-wide text-[#BBB]">
+      <div className="font-mono text-[0.62rem] tracking-wide text-[#6b6b6b]">
         Original content. No copying from Cup of Excellence/ACE/third parties. All prices USD.
       </div>
     </footer>

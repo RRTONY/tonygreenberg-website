@@ -257,8 +257,12 @@
 
 :root {
   /* Brand constants — same value in both themes (legacy Layout.tsx used
-     these as theme-independent hover/active colors, not derived tokens). */
-  --brand-gold: #8b6914;
+     these as theme-independent hover/active colors, not derived tokens).
+     Gold is #836311, a hair darker than legacy's #8b6914: legacy's value was
+     4.3–4.4:1 on the cream backgrounds, just under WCAG AA's 4.5:1 for the
+     small mono labels it's used for everywhere (2026-09-29 axe audit). On
+     the near-black sections use brand-gold-light instead. */
+  --brand-gold: #836311;
   --brand-gold-light: #d4b96a;
 
   /* /attention-theft's own "crusade" accent palette — a deliberate one-off
@@ -314,7 +318,7 @@
   --card-foreground: #111111;
   --popover: #ffffff;
   --popover-foreground: #111111;
-  --primary: #8b6914;
+  --primary: #836311;
   --primary-foreground: #fafaf7;
   --secondary: #f0ece0;
   --secondary-foreground: #111111;
@@ -325,7 +329,7 @@
   --destructive: oklch(0.577 0.245 27.325);
   --border: rgba(74, 29, 107, 0.15);
   --input: rgba(74, 29, 107, 0.15);
-  --ring: #8b6914;
+  --ring: #836311;
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
@@ -355,7 +359,7 @@
   --secondary-foreground: #f5f0e0;
   --muted: #111118;
   --muted-foreground: #bbbbbb;
-  --accent: #8b6914;
+  --accent: #836311;
   --accent-foreground: #f5f0e0;
   --destructive: oklch(0.704 0.191 22.216);
   --border: rgba(74, 29, 107, 0.15);

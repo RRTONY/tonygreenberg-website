@@ -11,16 +11,21 @@ export interface NextStep {
   description: string;
 }
 
+// One column on phones (three forced columns overflowed a 375px screen),
+// then up to three. Full literal class strings, per the house rule.
+const GRID_COLS: Record<number, string> = {
+  1: "mx-auto mt-4 grid max-w-200 grid-cols-1 gap-4",
+  2: "mx-auto mt-4 grid max-w-200 grid-cols-1 gap-4 sm:grid-cols-2",
+  3: "mx-auto mt-4 grid max-w-200 grid-cols-1 gap-4 sm:grid-cols-3",
+};
+
 export function NextSteps({ steps, title = "Continue Your Journey" }: { steps: NextStep[]; title?: string }) {
   return (
     <div className="mt-12 border-t border-[#6F4E37]/10 pt-10">
       <div className="mb-2 text-center font-mono text-[0.68rem] tracking-[0.2em] text-[#C5A23C] uppercase">
         {title}
       </div>
-      <div
-        className="mx-auto mt-4 grid max-w-[800px] gap-4"
-        style={{ gridTemplateColumns: `repeat(${Math.min(steps.length, 3)}, 1fr)` }}
-      >
+      <div className={GRID_COLS[Math.min(steps.length, 3)] ?? GRID_COLS[3]}>
         {steps.map((step) => (
           <Link
             key={step.path}

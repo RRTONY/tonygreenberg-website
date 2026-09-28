@@ -11,20 +11,20 @@ export function HumanosFooter() {
   return (
     <footer className="border-t border-white/10 bg-neutral-950 px-6 py-12 text-white">
       <div className="mx-auto max-w-4xl">
-        <p className="mb-4 font-mono text-[0.7rem] tracking-[0.15em] text-white/30 uppercase">
+        <p className="mb-4 font-mono text-[0.7rem] tracking-[0.15em] text-white/60 uppercase">
           Human Operating System
         </p>
         <p className="max-w-md text-sm leading-relaxed text-white/50">
           The machine is perfect. Be the glitch. A framework for agency in the age of algorithmic
           control.
         </p>
-        <p className="mt-2 text-xs text-white/20">
+        <p className="mt-2 text-xs text-white/55">
           Supported by{" "}
           <a
             href="https://impactsoul.com"
             target="_blank"
             rel="noopener"
-            className="text-white/35 hover:text-white/60"
+            className="text-white/75 underline underline-offset-2 hover:text-white"
           >
             ImpactSoul
           </a>
@@ -32,7 +32,7 @@ export function HumanosFooter() {
 
         <div className="mt-8 flex flex-wrap gap-8 border-t border-white/5 pt-6">
           <div>
-            <p className="mb-2 font-mono text-[0.65rem] tracking-[0.12em] text-white/30 uppercase">
+            <p className="mb-2 font-mono text-[0.65rem] tracking-[0.12em] text-white/60 uppercase">
               System
             </p>
             <Link href="/humanos/philosophy" className="mb-1 block text-sm text-white/50 hover:text-white/80">
@@ -52,7 +52,7 @@ export function HumanosFooter() {
             </Link>
           </div>
           <div>
-            <p className="mb-2 font-mono text-[0.65rem] tracking-[0.12em] text-white/30 uppercase">
+            <p className="mb-2 font-mono text-[0.65rem] tracking-[0.12em] text-white/60 uppercase">
               Connect
             </p>
             <Link href="/invest" className="mb-1 block text-sm text-white/50 hover:text-white/80">

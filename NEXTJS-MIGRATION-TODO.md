@@ -52,7 +52,7 @@ since 2026-09-28 is still uncommitted on `main` in the working copy.
 7. Publish the 17 blog drafts in Studio after a look: 4 with restored in-body images (Clarisse Abelarde, You Are the Moat, FRQNCY, Energy Is Money) and 14 with link/cleanup fixes (Energy Is Money has both).
 8. Three dead links with no obvious target: `/framework`'s "Ask FauxTony" button (FauxTony was cancelled; suggest pointing it at `/engage` or removing it), the Dr. Lee case-file link in `when-healing-becomes-extraction` (no such essay), and the Clock Keeper Part II link (page deferred).
 
-**Next up (no decision needed):** mobile and accessibility pass; style check of the remaining
+**Next up (no decision needed):** finish the page-by-page contrast fixes; style check of the remaining
 pages against the **live** site (the legacy folder is older than live); re-run the link check once
 the blog drafts are published.
 
@@ -415,8 +415,8 @@ Every image below needs to exist as a real asset uploaded to Sanity (or explicit
 
 ## Phase 14 — QA & Launch
 
-- [ ] Mobile responsive pass on every ported section
-- [ ] Accessibility pass (WCAG AA contrast, 44px touch targets, keyboard nav) — same bar as legacy `QA_MASTER_PROMPT.md`
+- [ ] Mobile responsive pass on every ported section. **2026-09-29:** no page scrolls sideways at 375px any more (114 pages checked in Chrome: every unique page plus 3 of each templated set like blog posts and coffees). Fixed: BrewSoul `NextSteps` forced 3 columns (and used an inline `style`), charity-scorecard tab row, `/brewsoul/browse` filter dropdowns, `/the-philosophy` hero glow. Still to check by hand: 44px tap targets and Safari iOS.
+- [ ] Accessibility pass (WCAG AA contrast, 44px touch targets, keyboard nav) — same bar as legacy `QA_MASTER_PROMPT.md`. **2026-09-29 axe-core pass** (WCAG 2.1 AA, same 114 pages, production build): all unlabeled dropdowns/inputs and unnamed links fixed; contrast down from 1,453 failing items on 106 pages to 1,038 on 70 (43 pages fully clean). Shared fixes: brand gold `#8b6914` → `#836311` site-wide (was 4.3:1 on cream, AA needs 4.5), header "⌘K"/social icons, BrewSoul nav and footer, HumanOS footer, Kava footer, assessment intro footnote, post-card image links. **Left:** page-specific palettes (~40 color pairs, mostly BrewSoul/Kava/PRI/HumanOS/`/find-your-me`/`/thesis-threads`), gold text on the near-black sections (use `brand-gold-light` there), and 18 links inside text marked only by color (need an underline).
 - [ ] No dead-end pages (every page links to 2+ others) — same bar as legacy `MASTER_QUALITY_PROMPT.md`
 - [ ] Cross-browser check (Safari iOS in particular, per legacy performance notes)
 - [ ] Remove `noindex` only when sign-off is given — do not launch indexable by accident

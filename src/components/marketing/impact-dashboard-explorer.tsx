@@ -161,7 +161,7 @@ export function ImpactDashboardExplorer() {
           <p className="mb-4 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">Aggregate Impact Metrics</p>
           <div className="mb-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { label: "Total Token Holders", value: `${AGGREGATE.totalTokenHolders.toLocaleString()}+`, sub: "Across 4 ecosystems", color: "#8B6914" },
+              { label: "Total Token Holders", value: `${AGGREGATE.totalTokenHolders.toLocaleString()}+`, sub: "Across 4 ecosystems", color: "#836311" },
               { label: "Impact Capital Deployed", value: AGGREGATE.totalImpactDeployed, sub: "Direct regenerative funding", color: "#27AE60" },
               { label: "Projects Funded", value: AGGREGATE.totalProjectsFunded.toString(), sub: "Ocean, education, digital, mental health", color: "#0077B6" },
               { label: "Community Members", value: `${AGGREGATE.totalCommunityMembers.toLocaleString()}+`, sub: "Active participants worldwide", color: "#6C5CE7" },
@@ -460,7 +460,7 @@ export function ImpactDashboardExplorer() {
 
           <div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
             {[
-              { label: "Charities Scored", value: CHARITY_SUMMARY.totalCharities.toString(), color: "#8B6914", Icon: BarChart3 },
+              { label: "Charities Scored", value: CHARITY_SUMMARY.totalCharities.toString(), color: "#836311", Icon: BarChart3 },
               { label: "Avg Composite Score", value: CHARITY_SUMMARY.avgScore.toString(), color: "#27AE60", Icon: TrendingUp },
               { label: "Evaluators Unified", value: CHARITY_SUMMARY.evaluatorsUnified.toString(), color: "#3498DB", Icon: Link2 },
               { label: "Scoring Dimensions", value: CHARITY_SUMMARY.dimensions.toString(), color: "#9B59B6", Icon: Target },

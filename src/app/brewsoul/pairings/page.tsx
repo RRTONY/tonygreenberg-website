@@ -76,7 +76,7 @@ export default function BrewSoulPairingsPage() {
               {f.coffeeIds.map((cid, i) => {
                 const coffee = BREWSOUL_COFFEES.find((c) => c.id === cid);
                 return coffee ? (
-                  <Link key={cid} href={`/brewsoul/coffee/${cid}`} className="rounded-full bg-[#C5A23C]/8 px-3 py-1.5 font-mono text-[0.72rem] text-[#8B6914]">
+                  <Link key={cid} href={`/brewsoul/coffee/${cid}`} className="rounded-full bg-[#C5A23C]/8 px-3 py-1.5 font-mono text-[0.72rem] text-[#836311]">
                     {i + 1}. {coffee.name}
                   </Link>
                 ) : (

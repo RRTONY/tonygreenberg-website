@@ -23,7 +23,7 @@ function qprColorClass(qpr: number) {
 
 export function CoffeeCard({ coffee, scores }: { coffee: CatalogItem; scores: CoffeeCardScores }) {
   return (
-    <div className="rounded-2xl border border-[#8B6914]/15 bg-white/60 p-5 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-[#8B6914]/50 hover:bg-white/90 hover:shadow-lg">
+    <div className="rounded-2xl border border-[#836311]/15 bg-white/60 p-5 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-[#836311]/50 hover:bg-white/90 hover:shadow-lg">
       <div className="mb-2 flex items-start justify-between gap-2">
         <div>
           <div className="font-heading text-base font-bold text-[#2C1810]">{coffee.name}</div>
@@ -37,7 +37,7 @@ export function CoffeeCard({ coffee, scores }: { coffee: CatalogItem; scores: Co
       <div className="mb-3 text-sm text-[#999] italic">{coffee.tastingNotes?.join(", ") || "Complex, nuanced"}</div>
       <div className="flex items-center justify-between">
         <div className="flex flex-wrap gap-1.5">
-          <span className="rounded-full bg-[#8B6914]/8 px-2 py-0.5 font-mono text-[0.65rem] text-[#6F4E37]">
+          <span className="rounded-full bg-[#836311]/8 px-2 py-0.5 font-mono text-[0.65rem] text-[#6F4E37]">
             {tierEmoji(computeTier(coffee.cuppingScore || 0))} {coffee.cuppingScore}
           </span>
           {coffee.moldTestStatus === "verified" && (

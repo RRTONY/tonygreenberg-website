@@ -321,7 +321,7 @@ export const WOUND_CARDS: WoundCard[] = [
     wound: "I don't know what I'm building anymore",
     subtext: "Purpose that went missing somewhere around 35",
     icon: "✶",
-    color: "#8B6914",
+    color: "#836311",
     links: [
       { label: "Find Your Purpose", path: "/dharma-finder", type: "assessment" },
       { label: "Find Your Blueprint", path: "/living-declaration", type: "tool" },
@@ -414,7 +414,7 @@ export const DIRECTORY: DirectorySection[] = [
   {
     category: "Know Thyself",
     subtitle: "The mirrors that don't lie",
-    color: "#8B6914",
+    color: "#836311",
     items: [
       { name: "Find My", hook: "5 questions. Zero right answers. One reckoning.", status: "live", url: "/find-my" },
       { name: "Find Your Purpose", hook: "What you can't stop doing — even when nobody's paying.", status: "live", url: "/dharma-finder" },

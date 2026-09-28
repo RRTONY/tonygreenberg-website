@@ -284,7 +284,7 @@ function getInsight(score: number): string {
   return "You are accessing states of Peace and beyond — where the question of purpose becomes irrelevant because you are the answer. Where doing arises from being. Where the self that was asking the questions has become transparent to something larger. This is rare territory. The only instruction from here is to keep going — and to help others find their way to the threshold.";
 }
 
-const ACCENT = "#8B6914";
+const ACCENT = "#836311";
 
 type Phase = "quiz" | "results";
 
@@ -414,7 +414,7 @@ export function ConsciousnessScaleQuiz() {
               : "relative z-1 mx-auto flex w-full max-w-2xl flex-1 flex-col justify-center px-6 pt-28 pb-12"
           }
         >
-          <p className="mb-6 font-mono text-[0.65rem] tracking-[0.2em] text-[#8B7B6B] uppercase">
+          <p className="mb-6 font-mono text-[0.65rem] tracking-[0.2em] text-[#736455] uppercase">
             Question {currentQuestion + 1} of {QUESTIONS.length}
           </p>
           <h3 className="mb-8 font-heading text-[clamp(1.2rem,2.2vw,1.6rem)] leading-[1.5] font-normal">{currentQ.text}</h3>
@@ -457,7 +457,7 @@ export function ConsciousnessScaleQuiz() {
         </div>
 
         <div className="border-t border-brand-gold/10 px-6 py-6 text-center">
-          <p className="font-mono text-[0.65rem] tracking-[0.1em] text-[#9B8B7B]">
+          <p className="font-mono text-[0.65rem] tracking-[0.1em] text-[#736455]">
             Based on David R. Hawkins&apos; <em>Power vs. Force</em> (1995) · Curated by Tony Greenberg
           </p>
         </div>
@@ -490,7 +490,7 @@ export function ConsciousnessScaleQuiz() {
       </div>
 
       <section className="mx-auto max-w-3xl px-6 py-10">
-        <div className="mb-2 flex justify-between font-mono text-[0.6rem] text-[#8B7B6B]">
+        <div className="mb-2 flex justify-between font-mono text-[0.6rem] text-[#736455]">
           <span>20</span>
           <span className="font-semibold text-brand-gold">You: {totalScore}</span>
           <span>700+</span>
@@ -501,7 +501,7 @@ export function ConsciousnessScaleQuiz() {
             style={{ left: `${scalePercent}%` }}
           />
         </div>
-        <div className="mt-1.5 flex justify-between font-mono text-[0.55rem] text-[#9B8B7B]">
+        <div className="mt-1.5 flex justify-between font-mono text-[0.55rem] text-[#736455]">
           <span>Shame</span>
           <span>Courage 200</span>
           <span>Love 500</span>
@@ -617,7 +617,7 @@ export function ConsciousnessScaleQuiz() {
       </section>
 
       <footer className="border-t border-brand-gold/8 px-6 py-8 text-center">
-        <p className="font-mono text-[0.65rem] tracking-[0.1em] text-[#8B7B6B]">
+        <p className="font-mono text-[0.65rem] tracking-[0.1em] text-[#736455]">
           Based on David R. Hawkins&apos; <em>Power vs. Force</em> (1995) · Curated by Tony Greenberg
         </p>
       </footer>

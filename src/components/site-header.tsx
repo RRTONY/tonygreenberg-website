@@ -52,7 +52,7 @@ function AskTonyButton({ onClick }: { onClick: () => void }) {
         T
       </span>
       <span className="font-mono text-[0.8rem] tracking-[0.06em]">Ask Tony</span>
-      <kbd className="ml-0.5 rounded-[5px] border border-[#ccc] px-1.5 py-px font-mono text-[0.65rem] text-[#aaa] dark:border-[#444] dark:text-[#666]">
+      <kbd className="ml-0.5 rounded-[5px] border border-[#bbb] px-1.5 py-px font-mono text-[0.65rem] text-[#6b6b6b] dark:border-[#555] dark:text-[#9a9a9a]">
         ⌘K
       </kbd>
     </button>
@@ -204,7 +204,7 @@ export function SiteHeader() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={s.label}
-                className="text-[#999] transition-colors hover:text-brand-gold-light dark:text-[#aaa]"
+                className="text-[#6b6b6b] transition-colors hover:text-brand-gold dark:text-[#aaa] dark:hover:text-brand-gold-light"
               >
                 {Icon && <Icon className="size-3.5" />}
               </a>

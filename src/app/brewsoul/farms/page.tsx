@@ -55,7 +55,7 @@ export default function BrewSoulFarmsPage() {
               {f.certifications.length > 0 && (
                 <div className="mt-2 flex flex-wrap gap-1.5">
                   {f.certifications.map((c) => (
-                    <span key={c} className="rounded-full bg-[#C5A23C]/6 px-2 py-0.5 font-mono text-[0.6rem] text-[#8B6914]">
+                    <span key={c} className="rounded-full bg-[#C5A23C]/6 px-2 py-0.5 font-mono text-[0.6rem] text-[#836311]">
                       {c}
                     </span>
                   ))}

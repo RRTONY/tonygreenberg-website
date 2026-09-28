@@ -198,7 +198,13 @@ export function JourneyBar() {
           const isCurrent = currentStep?.id === step.id;
           const isVisited = mounted && !!localStorage.getItem(`brewsoul-visited-${step.id}`);
           return (
-            <Link key={step.id} href={step.path} className="flex items-center gap-1">
+            <Link
+              key={step.id}
+              href={step.path}
+              aria-label={step.label}
+              aria-current={isCurrent ? "step" : undefined}
+              className="flex items-center gap-1"
+            >
               <div
                 className={`h-2 rounded-full transition-all ${
                   isCurrent

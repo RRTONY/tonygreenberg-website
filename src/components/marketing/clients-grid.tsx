@@ -44,7 +44,7 @@ function hawkinsLevel(score: number): { label: string; color: string } {
   if (score >= 400) return { label: "Enlightened", color: "#7B2D8E" };
   if (score >= 350) return { label: "Acceptance", color: "#2E7D32" };
   if (score >= 300) return { label: "Willingness", color: "#1565C0" };
-  if (score >= 250) return { label: "Neutrality", color: "#8B6914" };
+  if (score >= 250) return { label: "Neutrality", color: "#836311" };
   return { label: "Courage", color: "#C75B12" };
 }
 

@@ -52,6 +52,7 @@ export function BlendBuilderExplorer({ coffees }: { coffees: CatalogItem[] }) {
       />
 
       <select
+        aria-label="Add a coffee to the blend"
         onChange={(e) => {
           addPart(e.target.value);
           e.target.value = "";

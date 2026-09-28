@@ -49,7 +49,7 @@ export function SubmitForm() {
             type="button"
             onClick={() => setForm({ ...form, type: t })}
             className={`rounded-lg px-5 py-2 font-mono text-[0.78rem] ${
-              form.type === t ? "border-2 border-[#C5A23C] bg-[#C5A23C]/8 text-[#8B6914]" : "border border-[#6F4E37]/15 bg-white text-[#6B5B4F]"
+              form.type === t ? "border-2 border-[#C5A23C] bg-[#C5A23C]/8 text-[#836311]" : "border border-[#6F4E37]/15 bg-white text-[#6B5B4F]"
             }`}
           >
             {t === "submit" ? "Submit a Coffee" : "Appeal a Score"}

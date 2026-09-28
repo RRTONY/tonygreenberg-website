@@ -276,7 +276,7 @@ export const ROLE_CHECKLISTS: RoleChecklist[] = [
   {
     role: "Researcher",
     iconKey: "flask",
-    color: "#8B6914",
+    color: "#836311",
     description: "You use peptides in laboratory research, clinical trials, or academic studies.",
     items: [
       "Source only from vendors with documented cGMP manufacturing and full analytical packages",

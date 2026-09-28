@@ -24,7 +24,7 @@ function RarityDots({ score }: { score: number }) {
   return (
     <div className="flex items-center gap-[3px]">
       {Array.from({ length: 10 }).map((_, i) => (
-        <div key={i} className={`size-2 rounded-full ${i < score ? "bg-[#8B6914]" : "bg-[#8B6914]/15"}`} />
+        <div key={i} className={`size-2 rounded-full ${i < score ? "bg-[#836311]" : "bg-[#836311]/15"}`} />
       ))}
       <span className="ml-1.5 font-mono text-[11px] text-[#6b5a4e]">{score}/10</span>
     </div>
@@ -35,7 +35,7 @@ function TastingPills({ notes }: { notes: string[] }) {
   return (
     <div className="mt-2 flex flex-wrap gap-1.5">
       {notes.map((note) => (
-        <span key={note} className="rounded-full border border-[#8B6914]/20 bg-[#8B6914]/8 px-2.5 py-1 font-mono text-[10px] tracking-wide text-[#8B6914] uppercase">
+        <span key={note} className="rounded-full border border-[#836311]/20 bg-[#836311]/8 px-2.5 py-1 font-mono text-[10px] tracking-wide text-[#836311] uppercase">
           {note}
         </span>
       ))}
@@ -45,13 +45,13 @@ function TastingPills({ notes }: { notes: string[] }) {
 
 function CoffeeCard({ coffee }: { coffee: EsotericCoffee }) {
   return (
-    <div className="mb-5 rounded-xl border border-[#8B6914]/12 bg-white p-7 transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(139,105,20,0.12)]">
+    <div className="mb-5 rounded-xl border border-[#836311]/12 bg-white p-7 transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(139,105,20,0.12)]">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <h3 className="font-heading text-[clamp(22px,3vw,30px)] leading-[1.2] font-bold text-[#0A0A10]">{coffee.name}</h3>
           {coffee.origin && <span className="font-mono text-[11px] tracking-[0.1em] text-[#6b5a4e] uppercase">{coffee.origin}</span>}
         </div>
-        <div className="font-mono text-lg font-bold whitespace-nowrap text-[#8B6914]">{coffee.typicalCost}</div>
+        <div className="font-mono text-lg font-bold whitespace-nowrap text-[#836311]">{coffee.typicalCost}</div>
       </div>
 
       <p className="my-3.5 text-base leading-relaxed text-[#2d1810] italic">{coffee.whyItMatters}</p>
@@ -73,7 +73,7 @@ function CoffeeCard({ coffee }: { coffee: EsotericCoffee }) {
                 href={src.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 rounded-lg bg-[#0A0A10] px-3.5 py-1.5 font-mono text-[11px] text-[#D4B96A] hover:bg-[#8B6914] hover:text-white"
+                className="inline-flex items-center gap-1 rounded-lg bg-[#0A0A10] px-3.5 py-1.5 font-mono text-[11px] text-[#D4B96A] hover:bg-[#836311] hover:text-white"
               >
                 {src.name} {src.note ? `(${src.note})` : ""} →
               </a>
@@ -87,7 +87,7 @@ function CoffeeCard({ coffee }: { coffee: EsotericCoffee }) {
           <span className="mb-1.5 block font-mono text-[10px] tracking-[0.1em] text-[#6b5a4e] uppercase">Additional Sources</span>
           <div className="flex flex-wrap gap-1.5">
             {coffee.additionalSources.map((src) => (
-              <a key={src.url} href={src.url} target="_blank" rel="noopener noreferrer" className="font-mono text-[10px] text-[#8B6914] underline underline-offset-3">
+              <a key={src.url} href={src.url} target="_blank" rel="noopener noreferrer" className="font-mono text-[10px] text-[#836311] underline underline-offset-3">
                 {src.name}
               </a>
             ))}
@@ -110,7 +110,7 @@ export default function BrewSoulEsotericPage() {
       <section className="mx-auto max-w-225 px-5 pt-[clamp(60px,10vw,120px)] pb-15 text-center">
         <div className="mb-3 font-mono text-[11px] tracking-[0.3em] text-[#6b5a4e] uppercase opacity-80">BrewSoul Intelligence</div>
         <h1 className="mb-4 font-heading text-[clamp(32px,5vw,56px)] leading-[1.1] font-bold text-[#0A0A10]">Esoteric Coffee Index</h1>
-        <p className="mb-6 font-heading text-[clamp(18px,2.5vw,24px)] text-[#8B6914] italic">Where To Actually Buy The Legendary Coffees</p>
+        <p className="mb-6 font-heading text-[clamp(18px,2.5vw,24px)] text-[#836311] italic">Where To Actually Buy The Legendary Coffees</p>
         <p className="mx-auto max-w-150 text-base leading-relaxed text-[#6b5a4e]">
           Most coffee drinkers never encounter these. Not because they&apos;re hidden — but because nobody tells you where to find them. Until now.
         </p>
@@ -118,7 +118,7 @@ export default function BrewSoulEsotericPage() {
       </section>
 
       <section className="mx-auto max-w-215 px-5 pb-15">
-        <div className="mb-8 border-b-2 border-[#8B6914] pb-3">
+        <div className="mb-8 border-b-2 border-[#836311] pb-3">
           <div className="mb-3 font-mono text-[11px] tracking-[0.3em] text-[#6b5a4e] uppercase opacity-80">Tier 1</div>
           <h2 className="font-heading text-[clamp(26px,4vw,40px)] leading-[1.15] font-bold text-[#0A0A10]">The Holy Grail Coffees</h2>
           <p className="mt-2 text-sm text-[#6b5a4e]">Rarity 9–10. Genetic unicorns. The coffees that changed what coffee means.</p>
@@ -160,7 +160,7 @@ export default function BrewSoulEsotericPage() {
         <div className="overflow-x-auto">
           <table className="w-full border-collapse text-sm">
             <thead>
-              <tr className="border-b-2 border-[#8B6914]">
+              <tr className="border-b-2 border-[#836311]">
                 <th className="p-4 text-left font-mono text-[10px] tracking-[0.1em] text-[#6b5a4e] uppercase">Coffee</th>
                 <th className="p-3 text-center font-mono text-[10px] tracking-wide text-[#6b5a4e] uppercase">Taste Shock</th>
                 <th className="p-3 text-center font-mono text-[10px] tracking-wide text-[#6b5a4e] uppercase">Rarity</th>
@@ -170,12 +170,12 @@ export default function BrewSoulEsotericPage() {
             </thead>
             <tbody>
               {EXPLORER_SCORES.map((row, i) => (
-                <tr key={row.coffee} className={`border-b border-black/6 ${i % 2 === 1 ? "bg-[#8B6914]/2" : ""}`}>
+                <tr key={row.coffee} className={`border-b border-black/6 ${i % 2 === 1 ? "bg-[#836311]/2" : ""}`}>
                   <td className="p-3 pl-4 font-semibold text-[#0A0A10]">{row.coffee}</td>
-                  <td className={`p-3 text-center ${row.tasteShock >= 9 ? "font-bold text-[#8B6914]" : "text-[#2d1810]"}`}>{row.tasteShock}</td>
-                  <td className={`p-3 text-center ${row.rarity >= 9 ? "font-bold text-[#8B6914]" : "text-[#2d1810]"}`}>{row.rarity}</td>
-                  <td className={`p-3 text-center ${row.story >= 9 ? "font-bold text-[#8B6914]" : "text-[#2d1810]"}`}>{row.story}</td>
-                  <td className={`p-3 text-center ${row.worthBuying >= 9 ? "font-bold text-[#8B6914]" : "text-[#2d1810]"}`}>{row.worthBuying}</td>
+                  <td className={`p-3 text-center ${row.tasteShock >= 9 ? "font-bold text-[#836311]" : "text-[#2d1810]"}`}>{row.tasteShock}</td>
+                  <td className={`p-3 text-center ${row.rarity >= 9 ? "font-bold text-[#836311]" : "text-[#2d1810]"}`}>{row.rarity}</td>
+                  <td className={`p-3 text-center ${row.story >= 9 ? "font-bold text-[#836311]" : "text-[#2d1810]"}`}>{row.story}</td>
+                  <td className={`p-3 text-center ${row.worthBuying >= 9 ? "font-bold text-[#836311]" : "text-[#2d1810]"}`}>{row.worthBuying}</td>
                 </tr>
               ))}
             </tbody>
@@ -184,7 +184,7 @@ export default function BrewSoulEsotericPage() {
       </section>
 
       <section className="mx-auto max-w-215 px-5 pb-20">
-        <div className="my-10 border-l-4 border-[#8B6914] pl-7">
+        <div className="my-10 border-l-4 border-[#836311] pl-7">
           {FINAL_OBSERVATION.split("\n").map((line, i) => (
             <p key={line} className={`mb-2 font-heading leading-relaxed text-[#0A0A10] italic ${i === 0 ? "text-xl" : "text-[17px]"}`}>
               {line}

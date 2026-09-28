@@ -30,7 +30,7 @@ export const ASSESSMENTS: AssessmentPreview[] = [
       "Twenty-five questions distilled from Schmachtenberger's Dharma Inquiry — a framework for discovering your unique purpose, the intersection of your gifts and the world's needs. Not what you should do. What you can't not do.",
     time: "15–20 min",
     icon: "◎",
-    accent: "#8B6914",
+    accent: "#836311",
   },
   {
     slug: "consciousness-scale",

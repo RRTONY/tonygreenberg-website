@@ -45,7 +45,7 @@ export function FirstSipEmailCapture() {
       <button
         type="submit"
         disabled={submitted || !email}
-        className={`rounded-md px-5 py-2.5 font-mono text-xs tracking-wide text-white ${submitted ? "bg-[#2D5A27]" : "bg-[#8B6914]"}`}
+        className={`rounded-md px-5 py-2.5 font-mono text-xs tracking-wide text-white ${submitted ? "bg-[#2D5A27]" : "bg-[#836311]"}`}
       >
         {submitted ? (viaMailto ? "Sent ✓" : "Subscribed ✓") : "Subscribe"}
       </button>

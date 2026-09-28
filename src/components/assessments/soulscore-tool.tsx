@@ -215,7 +215,7 @@ export function SoulScoreTool() {
 
           <button
             onClick={() => setPhase("tool")}
-            className="rounded-lg bg-linear-to-br from-[#8B6914] to-[#D4B96A] px-14 py-4 font-mono text-sm font-bold tracking-[0.2em] text-[#FAFAF7] uppercase shadow-[0_4px_20px_rgba(139,105,20,0.3)] transition-transform hover:-translate-y-0.5"
+            className="rounded-lg bg-linear-to-br from-[#836311] to-[#D4B96A] px-14 py-4 font-mono text-sm font-bold tracking-[0.2em] text-[#FAFAF7] uppercase shadow-[0_4px_20px_rgba(139,105,20,0.3)] transition-transform hover:-translate-y-0.5"
           >
             Launch SoulScore →
           </button>

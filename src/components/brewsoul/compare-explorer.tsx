@@ -35,6 +35,7 @@ export function CompareExplorer({ coffees }: { coffees: CatalogItem[] }) {
   return (
     <>
       <select
+        aria-label="Add a coffee to compare"
         onChange={(e) => {
           addCoffee(e.target.value);
           e.target.value = "";
@@ -57,7 +58,7 @@ export function CompareExplorer({ coffees }: { coffees: CatalogItem[] }) {
           <button
             key={c.id}
             onClick={() => removeCoffee(c.id)}
-            className="rounded-full bg-[#C5A23C]/10 px-3 py-1.5 font-mono text-[0.72rem] text-[#8B6914]"
+            className="rounded-full bg-[#C5A23C]/10 px-3 py-1.5 font-mono text-[0.72rem] text-[#836311]"
           >
             {c.name} ✕
           </button>

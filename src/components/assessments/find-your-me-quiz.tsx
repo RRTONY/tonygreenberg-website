@@ -43,7 +43,7 @@ import {
 // share row (both the mid-assessment-style "10 shares" counter and its
 // cute "You're a Tribe Weaver already" copy) is genuinely backend-free and
 // ported as a real feature.
-const ACCENT = "#8B6914";
+const ACCENT = "#836311";
 
 function GlassPanel({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return <div className={`rounded-2xl border border-brand-gold-light/12 bg-[#0A0A10]/60 backdrop-blur-xl ${className}`}>{children}</div>;

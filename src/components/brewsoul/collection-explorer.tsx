@@ -98,6 +98,7 @@ export function CollectionExplorer({ coffees }: { coffees: CatalogItem[] }) {
       <div className="mt-10">
         <h2 className="mb-3 font-heading text-xl font-bold text-[#2C1810]">Quick Add</h2>
         <select
+          aria-label="Quick add a coffee to your collection"
           onChange={(e) => {
             toggle(e.target.value);
             e.target.value = "";

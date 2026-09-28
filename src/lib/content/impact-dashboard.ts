@@ -53,7 +53,7 @@ export const TOKEN_ECOSYSTEMS: TokenEcosystem[] = [
     mission: "Tokenizing paleontological discoveries. A dinosaur skeleton funds schools in rural India. Fossil preservation meets regenerative education.",
     partnerNGO: "Paleontological Research Foundation",
     iconicAsset: "Authenticated T-Rex Skeleton Fragment",
-    color: "#8B6914",
+    color: "#836311",
     iconKey: "bone",
     metrics: { tokenHolders: 1923, impactDeployed: "$840K", projectsFunded: 9, communityMembers: 5210, impactMultiplier: "2.8x" },
     milestones: [
@@ -146,7 +146,7 @@ export interface DimensionSummary {
 }
 
 export const DIMENSION_SUMMARY: DimensionSummary[] = [
-  { label: "Consciousness", shortLabel: "CONSC", iconKey: "circle-dot", color: "#8B6914", avgScore: 518, weight: 12 },
+  { label: "Consciousness", shortLabel: "CONSC", iconKey: "circle-dot", color: "#836311", avgScore: 518, weight: 12 },
   { label: "Carbon & Climate", shortLabel: "CARBN", iconKey: "globe", color: "#2a9d8f", avgScore: 62, weight: 10 },
   { label: "Labor Justice", shortLabel: "LABOR", iconKey: "scale", color: "#e63946", avgScore: 68, weight: 10 },
   { label: "Supply Chain", shortLabel: "SUPLC", iconKey: "link", color: "#588157", avgScore: 55, weight: 10 },
@@ -174,7 +174,7 @@ export const CHARITY_SUMMARY = {
 export const CHARITY_SCORE_DIMENSIONS = [
   { label: "Verified Impact Outcomes", weight: 25, color: "#27AE60" },
   { label: "Transparency & Disclosure", weight: 20, color: "#3498DB" },
-  { label: "Dollar Efficiency", weight: 15, color: "#8B6914" },
+  { label: "Dollar Efficiency", weight: 15, color: "#836311" },
   { label: "Evidence Quality & Rigor", weight: 15, color: "#9B59B6" },
   { label: "Cloak-vs-Clear Score", weight: 10, color: "#E67E22" },
   { label: "Beneficiary Voice & Feedback", weight: 10, color: "#E17055" },
@@ -193,7 +193,7 @@ export const CONSCIOUSNESS_ZONES = [
   { zone: "SHAME", range: "20-100", color: "#e63946", desc: "Force-based. Extractive. Destructive." },
   { zone: "FORCE", range: "100-200", color: "#e17055", desc: "Survival mode. Fear-driven decisions." },
   { zone: "POWER", range: "200-500", color: "#2a9d8f", desc: "Integrity threshold. Courage to truth." },
-  { zone: "LOVE", range: "500+", color: "#8B6914", desc: "Love-driven. Regenerative. Enlightened." },
+  { zone: "LOVE", range: "500+", color: "#836311", desc: "Love-driven. Regenerative. Enlightened." },
 ];
 
 export const BENCHMARK_COMPARISON = [

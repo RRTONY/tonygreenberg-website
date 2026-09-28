@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 const TOPICS = [
-  { number: "01", title: "Trust is infrastructure", copy: "Every market, platform, and relationship is a trust system in disguise. Tony follows the seams where that system breaks, then asks the useful question: what would make it worthy of the people inside it?", color: "#8B6914" },
+  { number: "01", title: "Trust is infrastructure", copy: "Every market, platform, and relationship is a trust system in disguise. Tony follows the seams where that system breaks, then asks the useful question: what would make it worthy of the people inside it?", color: "#836311" },
   { number: "02", title: "Capital has a job to do", copy: "Capital is not neutral. It can make extraction more efficient or make repair possible. This is a conversation about what happens when the people moving money decide to care where it lands.", color: "#4A1D5E" },
   { number: "03", title: "The human operating system", copy: "Technology keeps accelerating. The nervous system running the technology has not received the same upgrade. Tony connects attention, incentives, identity, and the daily choices that decide whether a system helps or hollows us out.", color: "#276B6B" },
   { number: "04", title: "What comes after the broken thing", copy: "The point is not to complain more elegantly. The point is to name the hidden mechanism, build a better one, and leave the room with somewhere specific to begin.", color: "#A86616" },

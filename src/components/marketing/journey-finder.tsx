@@ -121,7 +121,7 @@ const JOURNEYS: Record<string, JourneyResult> = {
     subtitle: "For builders who need the objective lever",
     description: "You run things. You build things. You've been burned by bad vendors and worse advice. You need someone who's sat across from Microsoft, Disney, and Goldman Sachs for 25 years. This path is the business case.",
     icon: Hexagon,
-    accent: "#8B6914",
+    accent: "#836311",
     articles: [
       { slug: "customer-service-key-to-business-success", title: "Customer Service: The Key to Business Success", why: "The most-read business piece on the site — because everyone's been on the wrong end of bad service" },
       { slug: "davos-2022-world-economic-forum-here-we-come", title: "Davos 2022 — World Economic Forum", why: "What actually happens when the world's operators gather in one room" },

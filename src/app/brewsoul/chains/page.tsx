@@ -42,7 +42,7 @@ export default function BrewSoulChainsPage() {
       </div>
 
       <div className="mb-8 rounded-lg border border-[#C5A23C]/15 bg-[#C5A23C]/6 p-5">
-        <div className="mb-1.5 font-mono text-[0.65rem] tracking-[0.15em] text-[#8B6914] uppercase">Scoring Methodology</div>
+        <div className="mb-1.5 font-mono text-[0.65rem] tracking-[0.15em] text-[#836311] uppercase">Scoring Methodology</div>
         <p className="text-[0.82rem] leading-relaxed text-[#6B5B4F]">
           Each dimension is scored 1–10 by aggregating Google reviews (4M+), Yelp reviews (2M+), SCA judge evaluations, specialty press ratings (Sprudge,
           Daily Coffee News, Barista Magazine), B Corp certifications, direct trade audit reports, and blind cupping panels. The weighted composite

@@ -129,10 +129,10 @@ export function ReportSpammerForm() {
             {errors.senderEmail && <p className="mt-1 text-[0.8rem] text-crusade-red">{errors.senderEmail}</p>}
           </div>
           <div>
-            <label className="mb-1.5 block text-sm font-bold text-crusade-ink">
+            <label htmlFor="spam-type" className="mb-1.5 block text-sm font-bold text-crusade-ink">
               Type of Spam <span className="text-crusade-red">*</span>
             </label>
-            <select value={form.spamType} onChange={(e) => setForm({ ...form, spamType: e.target.value })} className={inputClass}>
+            <select id="spam-type" value={form.spamType} onChange={(e) => setForm({ ...form, spamType: e.target.value })} className={inputClass}>
               <option value="">Select type...</option>
               {SPAM_TYPES.map((t) => (
                 <option key={t.value} value={t.value}>
@@ -143,10 +143,10 @@ export function ReportSpammerForm() {
             {errors.spamType && <p className="mt-1 text-[0.8rem] text-crusade-red">{errors.spamType}</p>}
           </div>
           <div>
-            <label className="mb-1.5 block text-sm font-bold text-crusade-ink">
+            <label htmlFor="spam-frequency" className="mb-1.5 block text-sm font-bold text-crusade-ink">
               How Often? <span className="text-crusade-red">*</span>
             </label>
-            <select value={form.frequency} onChange={(e) => setForm({ ...form, frequency: e.target.value })} className={inputClass}>
+            <select id="spam-frequency" value={form.frequency} onChange={(e) => setForm({ ...form, frequency: e.target.value })} className={inputClass}>
               <option value="">Select frequency...</option>
               {FREQUENCIES.map((f) => (
                 <option key={f.value} value={f.value}>

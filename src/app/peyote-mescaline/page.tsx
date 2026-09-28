@@ -359,7 +359,7 @@ export default function PeyoteMescalinePage() {
                     <td className={tdClass}>
                       <span
                         className={`border px-1.5 py-0.5 text-xs font-bold ${
-                          m.evidence.startsWith("Strong") ? "border-[#6B8F71]/30 bg-[#6B8F71]/15 text-[#3D6B44]" : "border-[#C9A84C]/30 bg-[#C9A84C]/15 text-[#8B6914]"
+                          m.evidence.startsWith("Strong") ? "border-[#6B8F71]/30 bg-[#6B8F71]/15 text-[#3D6B44]" : "border-[#C9A84C]/30 bg-[#C9A84C]/15 text-[#836311]"
                         }`}
                       >
                         {m.evidence}

@@ -239,7 +239,7 @@ export default async function BrewSoulCoffeeDetailPage({ params }: PageProps<"/b
                   rel="noopener noreferrer"
                   className={
                     i === 0
-                      ? "rounded-md bg-linear-to-br from-[#6F4E37] to-[#8B6914] px-6 py-3 font-mono text-xs tracking-wide text-[#FAFAF7] uppercase"
+                      ? "rounded-md bg-linear-to-br from-[#6F4E37] to-[#836311] px-6 py-3 font-mono text-xs tracking-wide text-[#FAFAF7] uppercase"
                       : "rounded-md border border-[#6F4E37]/20 px-6 py-3 font-mono text-xs tracking-wide text-[#6F4E37] uppercase"
                   }
                 >

@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import type { ChainEntry } from "@/lib/intelligence-engine/types";
 
 const TIER_TAG_CLASS: Record<ChainEntry["tier"], string> = {
-  S: "bg-[#C5A23C]/12 text-[#8B6914]",
+  S: "bg-[#C5A23C]/12 text-[#836311]",
   A: "bg-[#4A7C59]/10 text-[#4A7C59]",
   B: "bg-[#6F4E37]/8 text-[#6F4E37]",
   C: "bg-[#999]/10 text-[#666]",
@@ -12,7 +12,7 @@ const TIER_TAG_CLASS: Record<ChainEntry["tier"], string> = {
   F: "bg-[#8B2500]/12 text-[#8B2500]",
 };
 const TIER_BORDER_CLASS: Record<ChainEntry["tier"], string> = {
-  S: "border-l-[#8B6914]",
+  S: "border-l-[#836311]",
   A: "border-l-[#4A7C59]",
   B: "border-l-[#6F4E37]",
   C: "border-l-[#666]",
@@ -20,7 +20,7 @@ const TIER_BORDER_CLASS: Record<ChainEntry["tier"], string> = {
   F: "border-l-[#8B2500]",
 };
 const TIER_TEXT_CLASS: Record<ChainEntry["tier"], string> = {
-  S: "text-[#8B6914]",
+  S: "text-[#836311]",
   A: "text-[#4A7C59]",
   B: "text-[#6F4E37]",
   C: "text-[#666]",
@@ -28,7 +28,7 @@ const TIER_TEXT_CLASS: Record<ChainEntry["tier"], string> = {
   F: "text-[#8B2500]",
 };
 const TIER_FILTER_ACTIVE_CLASS: Record<ChainEntry["tier"], string> = {
-  S: "border-2 border-[#8B6914] bg-[#C5A23C]/12 text-[#8B6914]",
+  S: "border-2 border-[#836311] bg-[#C5A23C]/12 text-[#836311]",
   A: "border-2 border-[#4A7C59] bg-[#4A7C59]/10 text-[#4A7C59]",
   B: "border-2 border-[#6F4E37] bg-[#6F4E37]/8 text-[#6F4E37]",
   C: "border-2 border-[#666] bg-[#999]/10 text-[#666]",
