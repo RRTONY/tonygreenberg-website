@@ -536,6 +536,6 @@ export const COMPASS_VALIDITY_NOTICE =
 
 export const COMPASS_REQUIRED_READING = [
   { text: "Iboga / Ibogaine — The Full Paradox", url: "https://tonygreenberg.com/iboga-ibogaine", desc: "The complete architecture" },
-  { text: "Psychedelics Could Become Extractive Capitalism", url: "https://tonygreenberg.com/psychedelics-could-become-extractive-capitalism/", desc: "The Nagoya question" },
+  { text: "Psychedelics Could Become Extractive Capitalism", url: "/blog/psychedelics-could-become-extractive-capitalism", desc: "The Nagoya question" },
   { text: "The Molecule as Mirror", url: "https://tonygreenberg.com/blog/the-molecule-as-mirror-from-substance-to-service", desc: "The reframe before the journey" },
 ];

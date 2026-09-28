@@ -23,13 +23,25 @@ import { JourneyBar } from "@/components/brewsoul/journey-bar";
 // `useParams` lookup — this repo's convention for a bounded dynamic
 // route (same pattern as `/blog/[slug]` and `/charity-scorecard/[slug]`).
 // Legacy's inline-styled bars/cards ported as Tailwind utilities.
+// Next passes the segment still percent-encoded, so an id with a non-ASCII
+// character ("…-tarrazú") arrived as "…-tarraz%C3%BA" and 404'd. Decode
+// before looking it up.
+function findCoffee(rawId: string) {
+  let id = rawId;
+  try {
+    id = decodeURIComponent(rawId);
+  } catch {
+    // malformed escape: fall through with the raw value, which simply won't match
+  }
+  return BREWSOUL_COFFEES.find((c) => c.id === id);
+}
+
 export async function generateStaticParams() {
   return BREWSOUL_COFFEES.map((c) => ({ id: c.id }));
 }
 
 export async function generateMetadata({ params }: PageProps<"/brewsoul/coffee/[id]">): Promise<Metadata> {
-  const { id } = await params;
-  const coffee = BREWSOUL_COFFEES.find((c) => c.id === id);
+  const coffee = findCoffee((await params).id);
   if (!coffee) return {};
   return {
     title: `${coffee.name} — BrewSoul`,
@@ -55,8 +67,7 @@ function FlavorBar({ label, value, max = 10 }: { label: string; value: number; m
 }
 
 export default async function BrewSoulCoffeeDetailPage({ params }: PageProps<"/brewsoul/coffee/[id]">) {
-  const { id } = await params;
-  const coffee = BREWSOUL_COFFEES.find((c) => c.id === id);
+  const coffee = findCoffee((await params).id);
   if (!coffee) notFound();
 
   const scores = {

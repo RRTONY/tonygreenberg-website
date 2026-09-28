@@ -11,12 +11,10 @@ import { DIAGNOSTIC_HREF } from "@/lib/content/humanos-content";
 // Maximizer-vs-Satisficer section copy, the "What You'll Discover" list,
 // and the 4 "Explore the System" cards are all ported verbatim.
 //
-// Two things dropped, both deliberate:
-// 1. The hero's `/api/img/humanos-hero-hand_73f45c74.jpg` background photo
-//    — Manus-hosted, never referenced per CONTRIBUTING.md rule 12.
-//    Replaced with a CSS gradient (`bg-linear-to-br` + a radial glow),
-//    same "no substitute image fabricated" call made on /living-declaration.
-// 2. The "Diagnostics Completed" counter (hardcoded start of 264,
+// The hero's background photo (`humanos-hero-hand`, on the Manus
+// `/api/img/` host) was rescued into Sanity on 2026-09-28
+// (docs/ai/manus-media-rescue.md) and is back, with legacy's alt text and
+// bottom gradient. One thing dropped, deliberately: the "Diagnostics Completed" counter (hardcoded start of 264,
 //    incrementing by a random amount every 25–60s) and its "Someone just
 //    discovered they're a Maximizer" toast — both entirely fabricated
 //    client-side `Math.random()` activity with no real data behind them.
@@ -49,12 +47,23 @@ const EXPLORE_CARDS = [
   { title: "Path to Here", desc: "From the 2010 H+ Summit to today — the architect's journey.", href: "/humanos/path-to-here" },
 ];
 
+const HERO_IMG =
+  "https://cdn.sanity.io/images/a3q1cyqs/production/71fd25c09d03114e8c6a59aa38fd4d4dede6c7ea-1200x669.webp";
+
 export default function HumanosHome() {
   return (
     <>
       {/* HERO */}
-      <section className="relative flex min-h-[85vh] items-end overflow-hidden bg-linear-to-br from-neutral-950 via-violet-950 to-neutral-950">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(124,58,237,0.25),transparent_55%)]" />
+      <section className="relative flex min-h-[85vh] items-end overflow-hidden bg-neutral-950">
+        <Image
+          src={HERO_IMG}
+          alt="Hand breaking through glass with golden flowers"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-top"
+        />
+        <div className="absolute inset-0 bg-linear-to-b from-[#0A0A10]/20 via-transparent via-30% to-[#0A0A10]/75" />
         <div className="relative z-10 max-w-2xl px-6 pb-16">
           <p className="mb-5 inline-flex items-center gap-2 rounded-md bg-black/40 px-4 py-2 font-mono text-sm tracking-[0.2em] text-white/80 uppercase">
             <span className="inline-block size-2.5 rounded-full bg-emerald-400" />

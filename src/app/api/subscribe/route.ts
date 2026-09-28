@@ -33,6 +33,15 @@ export async function POST(request: NextRequest) {
   const source = body.source?.trim() || "footer";
   const firstName = body.firstName?.trim();
 
+  // Length caps (RFC 5321's 320-char address limit) so an oversized body
+  // can't be forwarded to Kit or balloon into a huge tag name.
+  if (email && email.length > 320) {
+    return NextResponse.json({ success: false, message: "A valid email is required" }, { status: 400 });
+  }
+  if (source.length > 191 || (firstName && firstName.length > 191)) {
+    return NextResponse.json({ success: false, message: "Invalid source or name" }, { status: 400 });
+  }
+
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return NextResponse.json({ success: false, message: "A valid email is required" }, { status: 400 });
   }

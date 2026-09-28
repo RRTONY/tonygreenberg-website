@@ -485,7 +485,7 @@ export function FindYourReligionQuiz() {
           {[
             { name: "Find Your Spirit", desc: "35 questions mapping your spiritual landscape across 10 dimensions", href: "/find-your-spirit" },
             { name: "Find Your Therapy", desc: "25 questions matching you to your ideal therapeutic modality", href: "/find-your-therapy" },
-            { name: "Find Your Purpose", desc: "The Dharma Finder — 25 questions revealing the work you were built for", href: "/assessments/dharma-finder" },
+            { name: "Find Your Purpose", desc: "The Dharma Finder — 25 questions revealing the work you were built for", href: "/dharma-finder" },
             { name: "Ecosystem Map", desc: "See all experiences and track your journey progress", href: "/ecosystem-map" },
           ].map((next) => (
             <Link key={next.name} href={next.href} className="block rounded-lg border border-black/6 bg-white/40 p-5">

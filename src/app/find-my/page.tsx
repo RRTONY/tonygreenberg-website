@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ThemedBackground } from "@/components/assessments/themed-background";
 import { JourneyTracker } from "@/components/assessments/journey-tracker";
@@ -12,10 +13,11 @@ import { CATEGORIES, FEATURED, FIND_MY_COMING, FIND_MY_LIVE, FIND_MY_TOTAL, type
 // port note on real content/status corrections. Structural changes made
 // here on top of that data fix:
 //
-// Legacy's hero used a dead Manus image (`/api/img/findme-orig_c4cf916c.jpg`,
-// banned per this repo's zero-Manus rule) — dropped for the plain
-// `ThemedBackground` (theme="ecosystem") this page renders behind
-// everything anyway, same call already made on `/find-your-me`.
+// Legacy's 200px hero banner photo (`findme-orig`, on the Manus `/api/img/`
+// host) was rescued into Sanity on 2026-09-28
+// (docs/ai/manus-media-rescue.md) and is back, with the avatar overlapping
+// its bottom edge as in legacy, over the `ThemedBackground`
+// (theme="ecosystem") this page renders behind everything.
 // `AssessmentProgressBar` (a legacy component never ported to this repo)
 // is replaced with the real `JourneyTracker` (compact) — same universal
 // per-browser progress data, already used everywhere else in this
@@ -87,12 +89,20 @@ function LinkCard({ item }: { item: FindMyLink }) {
   );
 }
 
+const HERO_IMG =
+  "https://cdn.sanity.io/images/a3q1cyqs/production/39e00f37d376aa6c2e7e29c14f4e233c80727d81-1200x670.webp";
+
 export default function FindMyPage() {
   return (
     <div className="relative z-1 min-h-screen">
       <ThemedBackground theme="ecosystem" />
 
-      <div className="relative z-1 mx-auto max-w-135 px-6 pt-[clamp(6rem,10vw,8rem)] pb-24 text-center">
+      <div className="relative z-1 h-50 overflow-hidden">
+        <Image src={HERO_IMG} alt="" fill priority sizes="100vw" className="object-cover object-[center_30%] brightness-40 saturate-120" />
+        <div aria-hidden="true" className="absolute inset-0 bg-linear-to-b from-[#0A0A10]/30 to-[#0A0A10]/70" />
+      </div>
+
+      <div className="relative z-10 mx-auto -mt-15 max-w-135 px-6 pb-24 text-center">
         <div className="mx-auto flex size-25 items-center justify-center rounded-full border-4 border-background bg-linear-to-br from-brand-gold to-brand-gold-light shadow-lg">
           <span className="font-heading text-4xl font-bold text-white">T</span>
         </div>

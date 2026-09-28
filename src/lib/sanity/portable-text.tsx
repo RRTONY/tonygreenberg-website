@@ -14,6 +14,12 @@ export const portableTextComponents: PortableTextComponents = {
     image: ({ value }) => {
       if (!value?.asset?._ref) return null;
       const { width, height } = dimsFromRef(value.asset._ref);
+      // Matches legacy BlogPost.tsx's in-body images: capped at 620px tall
+      // (tall phone screenshots would otherwise run ~1700px), and the alt
+      // text doubles as the caption when there's no separate one. Legacy
+      // cropped tall images with object-cover; contain keeps the whole
+      // screenshot readable instead.
+      const caption = value.caption || value.alt;
       return (
         <figure className="my-8">
           <Image
@@ -22,11 +28,11 @@ export const portableTextComponents: PortableTextComponents = {
             width={width}
             height={height}
             sizes="(max-width: 768px) 100vw, 800px"
-            className="rounded-lg w-full h-auto"
+            className="mx-auto h-auto max-h-155 w-auto max-w-full rounded-lg object-contain shadow-[0_4px_30px_rgba(0,0,0,0.08)]"
           />
-          {value.caption && (
-            <figcaption className="mt-2 text-sm text-muted-foreground text-center">
-              {value.caption}
+          {caption && (
+            <figcaption className="mt-4 text-center text-xs leading-normal tracking-[0.02em] text-muted-foreground italic">
+              {caption}
             </figcaption>
           )}
         </figure>

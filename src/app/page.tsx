@@ -3,13 +3,14 @@ import { sanityFetch } from "@/lib/sanity/client";
 import { allPostsForArchiveQuery } from "@/lib/sanity/queries";
 import { HomeHero } from "@/components/marketing/home-hero";
 import { FourDoors } from "@/components/marketing/four-doors";
+import { BrewSoulHomeSection } from "@/components/marketing/brewsoul-home-section";
 import { HOME_DOORS } from "@/lib/content/home-doors";
 import { EditorPicksSection } from "@/components/marketing/editor-picks-section";
 import { GemSparkStrip } from "@/components/marketing/gem-spark-strip";
 import { CoreThemes } from "@/components/marketing/core-themes";
 import { EcosystemCTA } from "@/components/marketing/ecosystem-cta";
 import { HomeArchive } from "@/components/blog/home-archive";
-import { PostCard } from "@/components/blog/post-card";
+import { RecentUpdates } from "@/components/marketing/recent-updates";
 import { NewsletterPopup } from "@/components/marketing/newsletter-popup";
 import { ReturningVisitorHero } from "@/components/marketing/returning-visitor-hero";
 import Link from "next/link";
@@ -53,7 +54,6 @@ export default async function Home({ searchParams }: PageProps<"/">) {
   const theme = typeof params?.theme === "string" ? params.theme : undefined;
 
   const posts = await sanityFetch<Post[]>({ query: allPostsForArchiveQuery, tags: ["post"] });
-  const latest = posts.slice(0, 2);
 
   return (
     <div>
@@ -99,35 +99,16 @@ export default async function Home({ searchParams }: PageProps<"/">) {
 
       <GemSparkStrip />
 
-      <section className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
-        <div className="mb-5">
-          <h2 className="font-heading text-3xl font-bold text-foreground">Latest Thinking</h2>
-          <p className="text-muted-foreground">The most recent dispatches</p>
-          <div className="mt-2 h-0.75 w-10 bg-brand-gold" />
-        </div>
-        <div className="grid gap-5 sm:grid-cols-2">
-          {latest.map((post) => (
-            <PostCard
-              key={post._id}
-              post={{
-                ...post,
-                slug: { current: post.slug },
-                category: post.category
-                  ? { title: post.category.title, slug: { current: post.category.slug } }
-                  : undefined,
-              }}
-            />
-          ))}
-        </div>
-        <div className="py-6 text-center">
-          <a
-            href="#essays-archive"
-            className="border-b border-brand-gold/30 pb-0.5 font-mono text-sm tracking-wide text-brand-gold uppercase"
-          >
-            View All {posts.length} Essays →
-          </a>
-        </div>
-      </section>
+      <RecentUpdates
+        posts={posts.map(({ _id, title, slug, publishedAt, excerpt, category }) => ({
+          _id,
+          title,
+          slug,
+          publishedAt,
+          excerpt,
+          category,
+        }))}
+      />
 
       <div className="border-y border-brand-gold/10 px-4 py-6 text-center sm:px-6">
         <p className="mx-auto max-w-lg text-sm text-muted-foreground italic">
@@ -137,6 +118,8 @@ export default async function Home({ searchParams }: PageProps<"/">) {
       </div>
 
       <CoreThemes />
+
+      <BrewSoulHomeSection />
 
       <EcosystemCTA essayCount={posts.length} />
 

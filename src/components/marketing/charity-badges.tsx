@@ -153,7 +153,9 @@ export function evaluatorBadges(charity: {
   if (charity.cnStars) {
     badges.push({
       label: "CN",
-      value: `${charity.cnStars}★`,
+      // Charity Navigator rates out of 4 — "3 / 4" reads correctly to screen
+      // readers and sighted visitors alike, unlike a lone "3★".
+      value: `${charity.cnStars} / 4`,
       cls: charity.cnStars >= 4 ? "bg-emerald-100 text-emerald-800" : "bg-amber-100 text-amber-800",
     });
   }

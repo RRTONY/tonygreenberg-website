@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { EyebrowLabel } from "@/components/marketing/eyebrow-label";
 
@@ -8,11 +9,11 @@ import { EyebrowLabel } from "@/components/marketing/eyebrow-label";
 // principles, the six numbered practices, and the "Ecosystem Map" section
 // ported in full.
 //
-// Not ported: the hero background photo and the "hand breakthrough" image
-// — both on the now-fully-dead Manus `/api/img/` host, unrecoverable (see
-// NEXTJS-MIGRATION-TODO.md Phase 13); replaced with a CSS gradient instead
-// of fabricating a substitute. Clarisse Abelarde's artwork image is gone
-// the same way — kept the real text crediting her, dropped the photo. The
+// The hero background photo, the "hand breakthrough" image and Clarisse
+// Abelarde's artwork were on the Manus `/api/img/` host; all three were
+// rescued into Sanity on 2026-09-28 (docs/ai/manus-media-rescue.md) and are
+// back in legacy's positions with legacy's alt text. The artwork caption
+// drops legacy's link to Clarisse's Manus-hosted site (zero-Manus rule). The
 // "Ecosystem Map" grid originally linked out to 6 other Manus-hosted
 // micro-sites (Gem Spark, Regenerative Protocol, SoulSmoke, LiquidSun,
 // Sacred Waters, Intimacy Assessment) plus a "Vancefolio" site — all
@@ -152,17 +153,27 @@ function PullQuote({ quote, attribution }: { quote: string; attribution: string 
   );
 }
 
+const IMG_BASE = "https://cdn.sanity.io/images/a3q1cyqs/production/";
+const HERO_IMG = `${IMG_BASE}72768f467b1504fe9d4870dea2f907d4bf3bf204-1200x669.webp`;
+const HAND_IMG = `${IMG_BASE}71fd25c09d03114e8c6a59aa38fd4d4dede6c7ea-1200x669.webp`;
+const CLARISSE_ART_IMG = `${IMG_BASE}d8e3526e3f1115dbeaf0b0e85435c5ce0614bb86-817x800.webp`;
+
 export default function LivingDeclarationPage() {
   return (
     <div>
-      <div className="bg-linear-to-b from-background to-secondary px-6 py-24 text-center sm:px-10 dark:from-[#0A0A10] dark:to-background">
-        <p className="mb-5 font-mono text-xs tracking-[0.3em] text-brand-gold uppercase">
+      <div className="relative isolate overflow-hidden bg-[#0A0A10] px-6 py-28 text-center sm:px-10 sm:py-36">
+        <Image src={HERO_IMG} alt="" fill priority sizes="100vw" className="-z-20 object-cover brightness-35 saturate-80" />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,rgba(139,105,20,0.15)_0%,transparent_70%)]"
+        />
+        <p className="mb-5 font-mono text-xs tracking-[0.3em] text-brand-gold-light uppercase">
           A Living Declaration
         </p>
-        <h1 className="mx-auto mb-6 max-w-2xl font-heading text-4xl leading-tight font-normal text-foreground sm:text-5xl">
-          The Measurement <span className="text-brand-gold">of Becoming</span>
+        <h1 className="mx-auto mb-6 max-w-2xl font-heading text-4xl leading-tight font-normal text-[#F5F0E8] sm:text-5xl">
+          The Measurement <span className="text-brand-gold-light">of Becoming</span>
         </h1>
-        <p className="mx-auto max-w-xl text-lg text-foreground/70">
+        <p className="mx-auto max-w-xl text-lg text-[#F5F0E8]/75">
           We&apos;re going to measure how fast people can become their best self — and connect
           them to the biochemistry, the community, and the accountability infrastructure that
           makes it possible. The most abundant life. The lowest carbon footprint. A better
@@ -247,6 +258,15 @@ export default function LivingDeclarationPage() {
             Read the Original &quot;Boiling the Human&quot; Essay →
           </Link>
         </div>
+
+        <Image
+          src={HAND_IMG}
+          alt="A hand breaking through the algorithmic grid — organic energy and golden flowers bursting through the machine"
+          width={1200}
+          height={669}
+          sizes="(max-width: 768px) 100vw, 672px"
+          className="my-12 h-auto w-full rounded-sm opacity-90"
+        />
 
         <EyebrowLabel>The World Waking Up</EyebrowLabel>
         <h2 className="mb-6 font-heading text-xl font-bold text-foreground sm:text-2xl">
@@ -457,6 +477,19 @@ export default function LivingDeclarationPage() {
           my partner and glorious artist Clarisse Abelarde, whose work has been a constant
           inspiration to my creativity and my love for humankind.
         </p>
+        <figure className="my-10">
+          <Image
+            src={CLARISSE_ART_IMG}
+            alt="Artwork by Clarisse Abelarde — mixed media collage portrait"
+            width={817}
+            height={800}
+            sizes="(max-width: 640px) 100vw, 520px"
+            className="h-auto w-full max-w-130 rounded-md shadow-[0_8px_32px_rgba(0,0,0,0.15)]"
+          />
+          <figcaption className="mt-3 font-mono text-[0.72rem] tracking-[0.12em] text-brand-gold uppercase">
+            Artwork by Clarisse Abelarde
+          </figcaption>
+        </figure>
         <p>
           Every advisor who joined this journey, every skeptic who challenged my assumptions,
           every visionary who saw what I couldn&apos;t yet articulate — they each added a piece

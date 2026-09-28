@@ -153,7 +153,7 @@ export const ARCHETYPES: MeArchetype[] = [
       { name: "Find Your Water", url: "https://aqwaterqpr-wvzsc3ph.manus.space", why: "The element that teaches you to flow, not force." },
     ],
     deeperAssessments: [
-      { label: "Find Your Score", path: "/assessments/grant-study", why: "85 years of Harvard data says relationships predict everything. Let's see yours." },
+      { label: "Find Your Score", path: "/grant-study", why: "85 years of Harvard data says relationships predict everything. Let's see yours." },
       { label: "Find Your Mirror", path: "/the-mirror", why: "6 dimensions. 18 questions. A radar chart that doesn't care about your feelings." },
     ],
     nextStep: { label: "Find Your Partner", path: "https://intimacyassess-tcir3hon.manus.space" },
@@ -177,7 +177,7 @@ export const ARCHETYPES: MeArchetype[] = [
       { name: "Find Your Capital", url: "https://portfoliofamilyoffice.manus.space", why: "How aligned money actually moves." },
     ],
     deeperAssessments: [
-      { label: "Find Your Purpose", path: "/assessments/dharma-finder", why: "25 questions stolen from Schmachtenberger. Not what you should do — what you can't stop doing." },
+      { label: "Find Your Purpose", path: "/dharma-finder", why: "25 questions stolen from Schmachtenberger. Not what you should do — what you can't stop doing." },
       { label: "Find Your Mirror", path: "/the-mirror", why: "6 dimensions. 18 questions. Systems thinkers love data about themselves." },
     ],
     nextStep: { label: "Find Your Blueprint", path: "/living-declaration" },
@@ -202,7 +202,7 @@ export const ARCHETYPES: MeArchetype[] = [
       { name: "Find Your Mezcal", url: "https://mezcalagave-ahru9fq8.manus.space", why: "The sacred in the everyday ritual." },
     ],
     deeperAssessments: [
-      { label: "Find Your Level", path: "/assessments/consciousness-scale", why: "Hawkins calibrated 17 levels from Shame to Enlightenment. Your body already knows which one." },
+      { label: "Find Your Level", path: "/consciousness-scale", why: "Hawkins calibrated 17 levels from Shame to Enlightenment. Your body already knows which one." },
       { label: "Find Your Mirror", path: "/the-mirror", why: "6 dimensions including the body you've been negotiating with. Time to listen." },
     ],
     nextStep: { label: "Find Your Chemistry", path: "https://regenhealth-4nns6jnd.manus.space" },
@@ -222,13 +222,13 @@ export const ARCHETYPES: MeArchetype[] = [
       "the-great-rewiring-how-to-build-systems-that-dont-extract",
     ],
     sites: [
-      { name: "Find Your Evidence", url: "/homeaglow-the-anatomy-of-a-consumer-fraud", why: "What happens when someone actually follows the receipts." },
+      { name: "Find Your Evidence", url: "https://homeaglowexposed.com", why: "What happens when someone actually follows the receipts." },
       { name: "Find Your Blueprint", url: "/living-declaration", why: "Truth as operating system." },
       { name: "Find Your Team", url: "/flow-circuit", why: "The neuroscience of team dynamics." },
     ],
     deeperAssessments: [
-      { label: "Find Your Purpose", path: "/assessments/dharma-finder", why: "Truth without purpose is just complaining. 25 questions to find what yours is for." },
-      { label: "Find Your Level", path: "/assessments/consciousness-scale", why: "Hawkins says truth-telling starts at 200. Where do you actually calibrate?" },
+      { label: "Find Your Purpose", path: "/dharma-finder", why: "Truth without purpose is just complaining. 25 questions to find what yours is for." },
+      { label: "Find Your Level", path: "/consciousness-scale", why: "Hawkins says truth-telling starts at 200. Where do you actually calibrate?" },
     ],
     nextStep: { label: "Find Your Living Declaration", path: "/living-declaration" },
     shareText: "Confirmed: I'm a Truth Speaker — allergic to bullshit with clinical precision. 5 questions stripped the paint off. Dare you:",
@@ -251,7 +251,7 @@ export const ARCHETYPES: MeArchetype[] = [
       { name: "Find Your Capital", url: "https://portfoliofamilyoffice.manus.space", why: "Aligned capital builds aligned communities." },
     ],
     deeperAssessments: [
-      { label: "Find Your Score", path: "/assessments/grant-study", why: "You build tribes. But how deep are the ones you're already in? Harvard wants to know." },
+      { label: "Find Your Score", path: "/grant-study", why: "You build tribes. But how deep are the ones you're already in? Harvard wants to know." },
       { label: "Find Your Mirror", path: "/the-mirror", why: "Before you weave others together, see the full picture of where you stand." },
     ],
     nextStep: { label: "Find Your Tribe", path: "/community" },
@@ -276,7 +276,7 @@ export const ARCHETYPES: MeArchetype[] = [
       { name: "Find Your Chemistry", url: "https://regenhealth-4nns6jnd.manus.space", why: "Optimize the vessel for the signal." },
     ],
     deeperAssessments: [
-      { label: "Find Your Level", path: "/assessments/consciousness-scale", why: "17 levels. Shame to Enlightenment. You've glimpsed the edge — now get coordinates." },
+      { label: "Find Your Level", path: "/consciousness-scale", why: "17 levels. Shame to Enlightenment. You've glimpsed the edge — now get coordinates." },
       { label: "Find Your Mirror", path: "/the-mirror", why: "Consciousness without self-knowledge is just tripping. 6 dimensions of ground truth." },
     ],
     nextStep: { label: "Find Your Mirror", path: "/the-mirror" },
@@ -313,7 +313,7 @@ export const WOUND_CARDS: WoundCard[] = [
     color: "#C97B7B",
     links: [
       { label: "Find Your Partner", path: "https://intimacyassess-tcir3hon.manus.space", type: "assessment" },
-      { label: "Find Your Score", path: "/assessments/grant-study", type: "assessment" },
+      { label: "Find Your Score", path: "/grant-study", type: "assessment" },
       { label: "Find Your Mirror", path: "/the-mirror", type: "assessment" },
     ],
   },
@@ -323,7 +323,7 @@ export const WOUND_CARDS: WoundCard[] = [
     icon: "✶",
     color: "#8B6914",
     links: [
-      { label: "Find Your Purpose", path: "/assessments/dharma-finder", type: "assessment" },
+      { label: "Find Your Purpose", path: "/dharma-finder", type: "assessment" },
       { label: "Find Your Blueprint", path: "/living-declaration", type: "tool" },
       { label: "Find Your Index", path: "/search", type: "reading" },
     ],
@@ -345,9 +345,9 @@ export const WOUND_CARDS: WoundCard[] = [
     icon: "⚡",
     color: "#E8C97B",
     links: [
-      { label: "Find Your Purpose", path: "/assessments/dharma-finder", type: "assessment" },
-      { label: "Find Your Level", path: "/assessments/consciousness-scale", type: "assessment" },
-      { label: "Find Your Evidence", path: "/homeaglow-the-anatomy-of-a-consumer-fraud", type: "reading" },
+      { label: "Find Your Purpose", path: "/dharma-finder", type: "assessment" },
+      { label: "Find Your Level", path: "/consciousness-scale", type: "assessment" },
+      { label: "Find Your Evidence", path: "https://homeaglowexposed.com", type: "reading" },
     ],
   },
   {
@@ -356,7 +356,7 @@ export const WOUND_CARDS: WoundCard[] = [
     icon: "◦",
     color: "#9B8EC9",
     links: [
-      { label: "Find Your Score", path: "/assessments/grant-study", type: "assessment" },
+      { label: "Find Your Score", path: "/grant-study", type: "assessment" },
       { label: "Find Your Tribe", path: "/community", type: "community" },
       { label: "Find Your Partner", path: "https://intimacyassess-tcir3hon.manus.space", type: "assessment" },
     ],
@@ -367,7 +367,7 @@ export const WOUND_CARDS: WoundCard[] = [
     icon: "☉",
     color: "#7BA8C9",
     links: [
-      { label: "Find Your Level", path: "/assessments/consciousness-scale", type: "assessment" },
+      { label: "Find Your Level", path: "/consciousness-scale", type: "assessment" },
       { label: "Find Your Mirror", path: "/the-mirror", type: "assessment" },
       { label: "Find Your Team", path: "/flow-circuit", type: "tool" },
     ],
@@ -391,7 +391,7 @@ export const WOUND_CARDS: WoundCard[] = [
     links: [
       { label: "Find Your Capital", path: "https://portfoliofamilyoffice.manus.space", type: "tool" },
       { label: "Find Your Blueprint", path: "/living-declaration", type: "tool" },
-      { label: "Find Your Purpose", path: "/assessments/dharma-finder", type: "assessment" },
+      { label: "Find Your Purpose", path: "/dharma-finder", type: "assessment" },
     ],
   },
 ];

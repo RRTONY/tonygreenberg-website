@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ImpactDashboardExplorer } from "@/components/marketing/impact-dashboard-explorer";
 import { AGGREGATE } from "@/lib/content/impact-dashboard";
@@ -6,8 +7,12 @@ import { AGGREGATE } from "@/lib/content/impact-dashboard";
 // Ported from legacy client/src/pages/ImpactDashboard.tsx ("The Scoreboard
 // Nobody Built"). Real content, unchanged, across all 6 tabs — see
 // impact-dashboard-explorer.tsx for what changed (dropped canvas/parallax
-// decoration, dropped the banned /api/img/ hero images, "coming soon" for
-// the not-yet-built SoulScore engine link).
+// decoration, "coming soon" for the not-yet-built SoulScore engine link).
+// The hero's earth photo was on the Manus /api/img/ host and was rescued
+// into Sanity on 2026-09-28 (docs/ai/manus-media-rescue.md); it's back
+// behind the hero, static (legacy's JS scroll parallax dropped), with
+// legacy's cream fade at the bottom. Legacy also defined a second
+// "impact-sacred" image it never rendered, so that one stays unused.
 export const metadata: Metadata = {
   title: "Impact Measurement Dashboard — ImpactSoul",
   description:
@@ -15,10 +20,29 @@ export const metadata: Metadata = {
   alternates: { canonical: "/impact-dashboard" },
 };
 
+const HERO_EARTH =
+  "https://cdn.sanity.io/images/a3q1cyqs/production/f4486dd40fde9f43e018499f1802fe37b5332fff-1024x1024.webp";
+
 export default function ImpactDashboardPage() {
   return (
     <div>
-      <section className="bg-linear-to-b from-background to-secondary px-6 py-20 text-center sm:px-10">
+      <section className="relative isolate flex min-h-[70vh] flex-col items-center justify-center overflow-hidden px-6 py-20 text-center sm:px-10">
+        <Image
+          src={HERO_EARTH}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="-z-20 object-cover object-[center_30%] brightness-85 saturate-120"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute inset-x-0 bottom-0 -z-10 h-[65%] bg-linear-to-t from-background via-background/80 via-40% to-transparent"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,transparent_40%,color-mix(in_oklab,var(--background)_35%,transparent)_100%)]"
+        />
         <p className="mb-4 font-mono text-xs tracking-[0.35em] text-brand-gold uppercase">
           ImpactSoul — Certified B Corp
         </p>
@@ -32,7 +56,7 @@ export default function ImpactDashboardPage() {
         </p>
       </section>
 
-      <section className="mx-auto -mt-8 max-w-3xl px-6 sm:px-10">
+      <section className="relative z-10 mx-auto -mt-8 max-w-3xl px-6 sm:px-10">
         <div className="rounded-2xl border border-brand-gold/15 bg-card p-7">
           <p className="mb-3 leading-relaxed text-foreground/80">
             <strong className="text-brand-gold">What you&apos;re looking at:</strong> A unified

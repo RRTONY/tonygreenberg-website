@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { FACILITATOR_BANDS } from "@/lib/content/facilitator-index-data";
+import { FACILITATOR_BANDS, FACILITATOR_BANDS_IMAGE, FACILITATOR_COMPASS_IMAGE } from "@/lib/content/facilitator-index-data";
 import { QuickIntake } from "@/components/facilitator/quick-intake";
 import { SubmissionForm } from "@/components/facilitator/submission-form";
 import { PrintQuestionsButton } from "@/components/facilitator/print-questions-button";
@@ -179,6 +180,15 @@ export function FacilitatorIndexContent() {
             </p>
           </div>
 
+          <Image
+            src={FACILITATOR_BANDS_IMAGE}
+            alt="Twelve etched glass panes of decreasing size, one for each band of the instrument"
+            width={1200}
+            height={805}
+            sizes="(min-width: 768px) 720px, 100vw"
+            className="my-8 h-auto w-full rounded-lg"
+          />
+
           {/* All 12 bands */}
           {FACILITATOR_BANDS.map((band) => (
             <div key={band.id}>
@@ -230,6 +240,17 @@ export function FacilitatorIndexContent() {
                   {item.text}
                 </Item>
               ))}
+
+              {band.id === "band-j" && (
+                <Image
+                  src={FACILITATOR_COMPASS_IMAGE}
+                  alt="The five-axis map: a crystal star etched with geometry, casting five colored beams"
+                  width={1200}
+                  height={1200}
+                  sizes="(min-width: 768px) 720px, 100vw"
+                  className="mt-8 h-auto w-full rounded-lg"
+                />
+              )}
 
               <hr className="my-8 border-facilitator-amber-deep/15" />
             </div>

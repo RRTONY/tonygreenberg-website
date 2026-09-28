@@ -78,7 +78,6 @@ export const navCategories: { title: string; items: (NavLink & { foundation?: st
       { href: "/brewsoul", label: "BrewSoul (Coffee)" },
       { href: "/kava", label: "Kava Encyclopedia" },
       { href: "/journeys", label: "Journeys" },
-      { href: "/fauxtony", label: "FauxTony" },
     ],
   },
   {
@@ -98,10 +97,10 @@ export const findYourMeGroups: { category: string; items: (NavLink & { badge?: s
     items: [
       { href: "/find-my", label: "Find My", badge: "Start" },
       { href: "/self-portrait", label: "Self-Portrait" },
-      { href: "/assessments/dharma-finder", label: "Find Your Purpose" },
+      { href: "/dharma-finder", label: "Find Your Purpose" },
       { href: "/the-mirror", label: "Find Your Mirror" },
-      { href: "/assessments/consciousness-scale", label: "Find Your Level" },
-      { href: "/assessments/grant-study", label: "Find Your Score" },
+      { href: "/consciousness-scale", label: "Find Your Level" },
+      { href: "/grant-study", label: "Find Your Score" },
       { href: "/find-your-spirit", label: "Find Your Spirit" },
     ],
   },

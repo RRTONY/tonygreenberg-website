@@ -1,21 +1,25 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Cpu, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { HUMANOS_NAV_ITEMS } from "@/lib/content/humanos-content";
 
 // Ported from legacy client/src/pages/humanos/HumanosLayout.tsx's nav.
-// Real nav items/labels unchanged. Legacy's logo was an `/api/img/`
-// Manus-hosted image (CONTRIBUTING.md rule 12 — never referenced); dropped
-// for a text/icon wordmark instead, same treatment KavaNav gives its own
-// logo. "Space Grotesk"/"Special Elite" (loaded only for this legacy
+// Real nav items/labels unchanged. Legacy's 36px logo image (on the Manus
+// `/api/img/` host) was rescued into Sanity on 2026-09-28
+// (docs/ai/manus-media-rescue.md) and is back, next to the "Human OS"
+// wordmark kept from the earlier port. "Space Grotesk"/"Special Elite" (loaded only for this legacy
 // subsystem) dropped for `font-heading`/`font-mono`, already loaded
 // site-wide — same call already made on /kava and /attention-theft. Uses
 // the render-time `prevPathname` comparison (not a `useEffect`) to close
 // the mobile menu on navigation, per CONTRIBUTING.md's state-during-render
 // rule.
+const LOGO_IMG =
+  "https://cdn.sanity.io/images/a3q1cyqs/production/24a1aacc08b3bfe6d63bea14392de32d139164d4-800x450.webp";
+
 export function HumanosNav() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -30,7 +34,7 @@ export function HumanosNav() {
     <header className="sticky top-0 z-50 border-b border-white/10 bg-neutral-950/95 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
         <Link href="/humanos" className="flex items-center gap-2 text-white">
-          <Cpu size={22} className="text-violet-400" />
+          <Image src={LOGO_IMG} alt="" width={36} height={36} className="size-9 rounded-md object-cover" />
           <span className="font-heading text-base font-bold tracking-wide">Human OS</span>
         </Link>
 

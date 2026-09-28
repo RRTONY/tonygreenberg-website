@@ -6,8 +6,8 @@ import { MENTOR, ADVISORS, PARTNERS, CLIENTS } from "@/lib/content/humanos-conte
 // Ported from legacy client/src/pages/humanos/HumanosEcosystem.tsx. Real
 // roster verbatim: the mentor (David Orban), all 8 ImpactSoul advisors,
 // all 3 partners, and all 29 client names. Every person photo was a
-// Manus-hosted `/api/img/` path (CONTRIBUTING.md rule 12) — dropped for
-// the shared `PersonCard` initials-avatar treatment (component read once,
+// Manus `/api/img/` path, rescued into Sanity 2026-09-28 and shown in
+// the shared `PersonCard` (component read once,
 // used for all 12 people here plus the mentor on /humanos/philosophy).
 export const metadata: Metadata = {
   title: "HumanOS Ecosystem",

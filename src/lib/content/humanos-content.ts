@@ -4,12 +4,10 @@
 // (playbooks/daily practices/reading list), the connect channels, and the
 // "Path to Here" timeline. All copy is verbatim from the legacy source.
 //
-// Every legacy person photo lived at `/api/img/<name>_<hash>.png` — a
-// Manus-hosted path that this app must never reference (CONTRIBUTING.md
-// rule 12). Those fields are dropped entirely rather than proxied; person
-// cards render an initials avatar instead (see components/humanos/
-// person-card.tsx), same "drop the unrecoverable photo, keep the real
-// text" call already made on /living-declaration.
+// Every legacy person photo lived at `/api/img/<name>_<hash>.png` on the
+// Manus host. All 12 were rescued into Sanity on 2026-09-28
+// (docs/ai/manus-media-rescue.md), so each person carries its Sanity URL
+// as `img`; person-card.tsx falls back to initials if one is ever missing.
 
 export const HUMANOS_NAV_ITEMS = [
   { label: "Philosophy", href: "/humanos/philosophy" },
@@ -18,10 +16,11 @@ export const HUMANOS_NAV_ITEMS = [
   { label: "Connect", href: "/humanos/connect" },
 ] as const;
 
-export type PersonData = { name: string; role: string; org: string; quote: string };
+export type PersonData = { name: string; role: string; org: string; quote: string; img?: string };
 
 export const MENTOR: PersonData = {
   name: "David Orban",
+  img: "https://cdn.sanity.io/images/a3q1cyqs/production/24300d8281c4d66191152115a3ad41326e28d145-1200x1200.webp",
   role: "Faculty & Advisor",
   org: "Singularity University | Transhumanism Pioneer",
   quote:
@@ -29,20 +28,20 @@ export const MENTOR: PersonData = {
 };
 
 export const ADVISORS: PersonData[] = [
-  { name: "Will Poole", role: "Co-Founder", org: "Capria Ventures (Former Microsoft Windows Leader)", quote: "Creating an impact economy powered by community, not billionaires — enough waiting, time to act." },
-  { name: "Gary Silverman", role: "Partner", org: "White & Case LLP", quote: "Guiding blockchain's first use cases toward positive change — blazing the trail others will follow." },
-  { name: "Alessa Berg", role: "Founder", org: "Top Tier Impact, ESG360", quote: "Aligning ecology, community, and capital to build an economy that restores, not extracts." },
-  { name: "Andrew Durgee", role: "CEO", org: "Republic Crypto", quote: "Moving blockchain past speculation into regeneration — building sustainable value for a sustainable world." },
-  { name: "Pico Velasquez", role: "Co-Founder and CEO", org: "Artha Ventures", quote: "Rallying mass impact movements to fund sustainable change — ready to better the world together." },
-  { name: "Stuart Newton", role: "Co-Founder", org: "Abundant Village", quote: "Democratizing impact — you don't need billions to create meaningful change with your work." },
-  { name: "Alan Ginsberg", role: "Co-Founder", org: "Ginsberg Development", quote: "Tokenizing real-world assets to unlock illiquid value and shared ownership as impact's economic engine." },
-  { name: "Peta Milan", role: "CEO", org: "JET Regeneration Group", quote: "Igniting community-driven regenerative projects that elevate all life — shifting the needle on systemic impact." },
+  { name: "Will Poole", img: "https://cdn.sanity.io/images/a3q1cyqs/production/0925d5887bb55462ec8223719edc59e20708981d-940x940.webp", role: "Co-Founder", org: "Capria Ventures (Former Microsoft Windows Leader)", quote: "Creating an impact economy powered by community, not billionaires — enough waiting, time to act." },
+  { name: "Gary Silverman", img: "https://cdn.sanity.io/images/a3q1cyqs/production/bba52d80808d00b24634381bf531a233b00309b8-640x640.webp", role: "Partner", org: "White & Case LLP", quote: "Guiding blockchain's first use cases toward positive change — blazing the trail others will follow." },
+  { name: "Alessa Berg", img: "https://cdn.sanity.io/images/a3q1cyqs/production/287d7fe565b4c1ce70443fa729614fce10068ae7-627x627.webp", role: "Founder", org: "Top Tier Impact, ESG360", quote: "Aligning ecology, community, and capital to build an economy that restores, not extracts." },
+  { name: "Andrew Durgee", img: "https://cdn.sanity.io/images/a3q1cyqs/production/6f0c6ab572e8ec9adbadab304e31d154770cb2e3-1200x1200.webp", role: "CEO", org: "Republic Crypto", quote: "Moving blockchain past speculation into regeneration — building sustainable value for a sustainable world." },
+  { name: "Pico Velasquez", img: "https://cdn.sanity.io/images/a3q1cyqs/production/ccd5a22d3c0f66c2e26dc6255fdb49b2db2b9059-1080x1080.webp", role: "Co-Founder and CEO", org: "Artha Ventures", quote: "Rallying mass impact movements to fund sustainable change — ready to better the world together." },
+  { name: "Stuart Newton", img: "https://cdn.sanity.io/images/a3q1cyqs/production/ec7218016432c62b55e00c2f2087646c675589e5-1200x1200.webp", role: "Co-Founder", org: "Abundant Village", quote: "Democratizing impact — you don't need billions to create meaningful change with your work." },
+  { name: "Alan Ginsberg", img: "https://cdn.sanity.io/images/a3q1cyqs/production/0212d0d73aee2d3dbae9fe417d85155eff5c8c20-1200x1200.webp", role: "Co-Founder", org: "Ginsberg Development", quote: "Tokenizing real-world assets to unlock illiquid value and shared ownership as impact's economic engine." },
+  { name: "Peta Milan", img: "https://cdn.sanity.io/images/a3q1cyqs/production/7179999c1fcaa29e19cff481de3aa10b156137ed-600x450.webp", role: "CEO", org: "JET Regeneration Group", quote: "Igniting community-driven regenerative projects that elevate all life — shifting the needle on systemic impact." },
 ];
 
 export const PARTNERS: PersonData[] = [
-  { name: "Matt McKibbin", role: "Founder and Chief Decentralization Officer", org: "DecentraNet", quote: "Decentralization is about more than just technology; it's about shifting power back to the edges. ImpactSoul is building the infrastructure for a world where value flows freely to where it's needed most." },
-  { name: "Ted Moskovitz", role: "Founder", org: "DecentraNet", quote: "We are rewriting the social contract. ImpactSoul represents a practical, scalable way to align economic incentives with human flourishing." },
-  { name: "Josh Kriger", role: "Co-Founder & Co-Host", org: "Edge of NFT / Edge of Company", quote: "Our primary goal is to support, nourish, and co-create this ecosystem. ImpactSoul aligns perfectly with the mission to use Web3 for genuine social impact and human flourishing." },
+  { name: "Matt McKibbin", img: "https://cdn.sanity.io/images/a3q1cyqs/production/9c6280409236e7654fa1f05a2a72f2abdadb9eac-600x600.webp", role: "Founder and Chief Decentralization Officer", org: "DecentraNet", quote: "Decentralization is about more than just technology; it's about shifting power back to the edges. ImpactSoul is building the infrastructure for a world where value flows freely to where it's needed most." },
+  { name: "Ted Moskovitz", img: "https://cdn.sanity.io/images/a3q1cyqs/production/ee7cc004814450bfb187d6aff58ad2c6b662ad34-200x200.webp", role: "Founder", org: "DecentraNet", quote: "We are rewriting the social contract. ImpactSoul represents a practical, scalable way to align economic incentives with human flourishing." },
+  { name: "Josh Kriger", img: "https://cdn.sanity.io/images/a3q1cyqs/production/b02e7444bc3c6121ba260105f756e5136b54a64a-200x200.webp", role: "Co-Founder & Co-Host", org: "Edge of NFT / Edge of Company", quote: "Our primary goal is to support, nourish, and co-create this ecosystem. ImpactSoul aligns perfectly with the mission to use Web3 for genuine social impact and human flourishing." },
 ];
 
 export const CLIENTS: string[] = [
@@ -68,7 +67,7 @@ export const PLAYBOOKS = [
   { num: "01", title: "The Attention Audit", desc: "A 7-day protocol for mapping exactly where your cognitive bandwidth goes — and reclaiming it. Track every notification, every scroll, every context switch. The data will shock you.", link: "/attention-theft" },
   { num: "02", title: "The Satisficer Protocol", desc: "A decision-making framework for defining 'enough' before you start searching. Eliminates analysis paralysis and the grass-is-greener syndrome.", link: DIAGNOSTIC_HREF },
   { num: "03", title: "The Digital Sabbath", desc: "A weekly practice of intentional disconnection. Not a detox — a recalibration. 24 hours of analog living to reset your baseline.", link: null },
-  { num: "04", title: "The Consciousness Scale", desc: "Map your organization's operating system from survival mode to generative leadership. Based on 25 years of enterprise advisory.", link: "/assessments/consciousness-scale" },
+  { num: "04", title: "The Consciousness Scale", desc: "Map your organization's operating system from survival mode to generative leadership. Based on 25 years of enterprise advisory.", link: "/consciousness-scale" },
 ] as const;
 
 export const DAILY_PRACTICES = [

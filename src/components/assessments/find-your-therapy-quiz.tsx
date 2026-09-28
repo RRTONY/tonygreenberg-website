@@ -317,8 +317,8 @@ const JOURNEY_CONTINUES = [
   { name: "Find Your Spirit", hook: "Map your beliefs across 10 dimensions and 6 traditions.", url: "/find-your-spirit", badge: "35 Questions" },
   { name: "Find Your Religion", hook: "8 real spiritual/philosophical archetypes, mapped.", url: "/find-your-religion", badge: "20 Questions" },
   { name: "Find My", hook: "5 questions that reveal which dimension of life is pulling you hardest.", url: "/find-my", badge: "5 Questions" },
-  { name: "Find Your Purpose", hook: "The Dharma Finder — what you can't stop doing, even when nobody's paying.", url: "/assessments/dharma-finder", badge: "25 Questions" },
-  { name: "Find Your Level", hook: "Where you sit on the consciousness scale.", url: "/assessments/consciousness-scale", badge: "25 Questions" },
+  { name: "Find Your Purpose", hook: "The Dharma Finder — what you can't stop doing, even when nobody's paying.", url: "/dharma-finder", badge: "25 Questions" },
+  { name: "Find Your Level", hook: "Where you sit on the consciousness scale.", url: "/consciousness-scale", badge: "25 Questions" },
   { name: "Find Your Mirror", hook: "A radar chart that doesn't care about your feelings.", url: "/the-mirror", badge: "18 Questions" },
 ];
 

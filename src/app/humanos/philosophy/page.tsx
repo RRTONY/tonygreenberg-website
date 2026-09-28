@@ -9,8 +9,8 @@ import { MENTOR } from "@/lib/content/humanos-content";
 // copy verbatim: "Boiling the Human", the David Orban pull-quote, "The
 // Maximizer Trap" (4 real symptom chips), "The Conscious Satisficer" (4
 // real unlocks + the Consciousness Scale image), and "The Shift"'s
-// FROM -> TO table. David Orban's `/api/img/` headshot is dropped for the
-// shared `PersonCard` initials-avatar treatment (see
+// FROM -> TO table. David Orban's headshot (rescued from Manus into Sanity,
+// 2026-09-28) renders through the shared `PersonCard` (see
 // components/humanos/person-card.tsx) instead of an inline layout —
 // consolidated into that shared component since Ecosystem needs the same
 // treatment for 12 more people.

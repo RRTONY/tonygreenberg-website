@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import type { PersonData } from "@/lib/content/humanos-content";
 
@@ -11,11 +12,10 @@ function initials(name: string) {
     .toUpperCase();
 }
 
-// Legacy rendered a real headshot per person, all hosted at Manus'
-// `/api/img/` path (CONTRIBUTING.md rule 12 — never referenced by this
-// app). Rather than ship broken `<img>` tags, every person renders a
-// shadcn `Avatar` initials fallback instead — same "drop the unrecoverable
-// photo, keep the real bio text" call made on /living-declaration.
+// Legacy rendered a real 56px round headshot per person from Manus'
+// `/api/img/` path; those were rescued into Sanity (see humanos-content.ts)
+// and render here through next/image inside the shadcn `Avatar` shell. A
+// person without `img` keeps the initials fallback.
 export function PersonCard({
   person,
   accent = "violet",
@@ -30,8 +30,12 @@ export function PersonCard({
   return (
     <div className="flex flex-col gap-4 rounded-lg border border-neutral-200 bg-white p-7 shadow-sm">
       <div className="flex items-center gap-4">
-        <Avatar size="lg" className={`border-2 ${accentBorder}`}>
-          <AvatarFallback className={accentBg}>{initials(person.name)}</AvatarFallback>
+        <Avatar size="lg" className={`size-14 overflow-hidden border-2 ${accentBorder}`}>
+          {person.img ? (
+            <Image src={person.img} alt={person.name} fill sizes="56px" className="rounded-full object-cover" />
+          ) : (
+            <AvatarFallback className={accentBg}>{initials(person.name)}</AvatarFallback>
+          )}
         </Avatar>
         <div>
           <p className="font-heading text-base font-semibold text-neutral-900">{person.name}</p>

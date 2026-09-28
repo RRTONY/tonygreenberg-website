@@ -799,9 +799,9 @@ export default function IbogaIbogainePage() {
           This is the core of ImpactSoul&apos;s thesis: regenerative capital heals. Extractive capital destroys. Ibogaine is the most literal test of that
           proposition I have encountered.
         </p>
-        <a href="https://tonygreenberg.com/psychedelics-could-become-extractive-capitalism/" className="inline-flex rounded-md bg-[#D4B96A] px-8 py-3 font-bold text-pri-ink">
+        <Link href="/blog/psychedelics-could-become-extractive-capitalism" className="inline-flex rounded-md bg-[#D4B96A] px-8 py-3 font-bold text-pri-ink">
           Read the Full Argument →
-        </a>
+        </Link>
       </PriSection>
 
       {/* ── US LEGAL STATUS ── */}

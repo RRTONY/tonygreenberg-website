@@ -2,6 +2,7 @@
 
 import { useCallback, useMemo, useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ThemedBackground } from "@/components/assessments/themed-background";
 import { AssessmentRadarChart } from "@/components/assessments/radar-chart";
 import { AssessmentResultActions } from "@/components/assessments/result-actions";
@@ -24,10 +25,11 @@ import {
 // `lib/content/find-your-me.ts` for the full port-note on real content
 // changes (directory live/coming correction, Peptide/Sexuality additions,
 // wound-card hover→always-visible accessibility fix). This file covers
-// the remaining structural changes: legacy's hero used a dead Manus image
-// (`/api/img/findme-orig_c4cf916c.jpg`) — dropped for the plain
-// `ThemedBackground` (theme="selfportrait") this page already rendered
-// behind everything anyway, so nothing but a broken photo is lost.
+// the remaining structural changes: legacy's full-height hero photo
+// (`findme-orig`, on the Manus `/api/img/` host) was rescued into Sanity on
+// 2026-09-28 (docs/ai/manus-media-rescue.md) and is back behind the title,
+// static (legacy's 30s CSS slow-zoom dropped). Legacy's "← TonyG" link in
+// the hero corner is dropped because the site header is already there.
 // `trpc.assessments.submit` (the results-save mutation), `sessionId`
 // generation that only fed it, and the `mirrorData`-based article-title
 // lookup (whose own ternary computed the identical string on both
@@ -48,6 +50,9 @@ function GlassPanel({ children, className = "" }: { children: React.ReactNode; c
 }
 
 const TYPE_ICON: Record<string, string> = { assessment: "◇", tool: "○", community: "◦", reading: "▹" };
+
+const HERO_IMG =
+  "https://cdn.sanity.io/images/a3q1cyqs/production/39e00f37d376aa6c2e7e29c14f4e233c80727d81-1200x670.webp";
 
 export function FindYourMeQuiz({ articleTitles }: { articleTitles: Record<string, string> }) {
   const [phase, setPhase] = useState<"landing" | "assessment" | "results">("landing");
@@ -159,15 +164,20 @@ export function FindYourMeQuiz({ articleTitles }: { articleTitles: Record<string
       <div className="relative z-1 min-h-screen font-sans text-[#2C1810]">
         <ThemedBackground theme="selfportrait" />
 
-        <div className="relative z-1 flex min-h-[70vh] flex-col items-center justify-center px-6 py-24 text-center">
-          <div className="mb-8 font-mono text-[0.7rem] tracking-[0.3em] text-brand-gold/70 uppercase">Five Questions. No Escape Hatch.</div>
-          <h1 className="mb-2 font-heading text-[clamp(2.8rem,8vw,5.5rem)] leading-[1.1] font-normal">
-            Find Y<span className="text-brand-gold">our</span> <span className="text-brand-gold italic">Me</span>
+        <div className="relative isolate z-1 flex min-h-screen flex-col items-center justify-center overflow-hidden bg-[#0A0A10] px-6 py-24 text-center text-[#E8E4DC]">
+          <Image src={HERO_IMG} alt="" fill priority sizes="100vw" className="-z-20 object-cover object-[center_40%] brightness-55 saturate-120" />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 -z-10 bg-linear-to-b from-[#0A0A10]/40 via-[#0A0A10]/20 via-40% to-[#0A0A10]/95"
+          />
+          <div className="mb-8 font-mono text-[0.7rem] tracking-[0.3em] text-[#D4B96A]/80 uppercase">Five Questions. No Escape Hatch.</div>
+          <h1 className="mb-2 font-heading text-[clamp(2.8rem,8vw,5.5rem)] leading-[1.1] font-normal text-shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
+            Find Y<span className="text-brand-gold-light">our</span> <span className="text-brand-gold-light italic">Me</span>
           </h1>
-          <h2 className="mb-8 font-heading text-[clamp(1.5rem,4vw,2.8rem)] leading-[1.2] font-normal text-[#5C4A3A]">
-            to Find Y<span className="text-brand-gold">our</span> <span className="text-brand-gold italic">We</span>
+          <h2 className="mb-8 font-heading text-[clamp(1.5rem,4vw,2.8rem)] leading-[1.2] font-normal text-[#E8E4DC]/70 text-shadow-[0_2px_20px_rgba(0,0,0,0.4)]">
+            to Find Y<span className="text-brand-gold-light">our</span> <span className="text-brand-gold-light italic">We</span>
           </h2>
-          <div className="font-mono text-[0.65rem] tracking-[0.2em] text-brand-gold/50">SCROLL TO BEGIN ↓</div>
+          <div className="mt-12 font-mono text-[0.65rem] tracking-[0.2em] text-[#D4B96A]/50">SCROLL TO BEGIN ↓</div>
         </div>
 
         <div className="relative z-1 mx-auto max-w-3xl px-6 pb-24">

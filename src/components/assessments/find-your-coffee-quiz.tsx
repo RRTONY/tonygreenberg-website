@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { ThemedBackground } from "@/components/assessments/themed-background";
-import { AssessmentIntro } from "@/components/assessments/assessment-intro";
+import Image from "next/image";
 import { EmailGate } from "@/components/assessments/email-gate";
 import { WhatsNext } from "@/components/assessments/whats-next";
 import { AssessmentRadarChart } from "@/components/assessments/radar-chart";
@@ -20,12 +20,14 @@ import { JourneyTracker, useJourneyProgress } from "@/components/assessments/jou
 // `ThemedBackground`/`AssessmentIntro` component system the rest of
 // Phase 9 is built on — it hand-rolled its own full-bleed hero-image +
 // dark-overlay page shell — so it needed more normalization than most:
-// **the hero image was `/api/img/coffee-orig_a935f111.jpg`, a dead Manus
-// asset** (confirmed 404, same as every other `/api/img/` reference found
-// during this migration) — dropped for the standard `ThemedBackground`
-// light theme every sibling assessment uses (a new "coffee" warm-cream
-// entry added to `themed-background.tsx`), rather than reproducing a
-// broken background. `CoffeeParticles` (canvas bean particle field),
+// **the landing hero photo (`coffee-orig`, the kintsugi cup) was on the
+// Manus `/api/img/` host; rescued into Sanity 2026-09-28
+// (docs/ai/manus-media-rescue.md)**, so the landing screen is legacy's own
+// dark full-bleed photo hero again, with legacy's exact copy (an earlier
+// pass had swapped it for the shared light `AssessmentIntro` plus a
+// description and "what you get" list that weren't in legacy). The
+// question/result screens keep the shared `ThemedBackground` "coffee"
+// theme. `CoffeeParticles` (canvas bean particle field),
 // `SteamEffect` (floating steam-wisp divs), and `SacredGeometry` (SVG
 // overlay) all dropped — same decoration-not-worth-the-JS-cost call made
 // repeatedly elsewhere. **Real bug fixed**: legacy read `window.innerWidth`
@@ -54,6 +56,8 @@ const INITIAL_SCORES: Record<Dimension, number> = {
   "Flavor Complexity": 0,
 };
 const ACCENT = "#8B6914";
+const HERO_IMG =
+  "https://cdn.sanity.io/images/a3q1cyqs/production/b520b4a24df082c097b000517b0ee74a95501fed-1200x2150.webp";
 
 const QUESTIONS: { text: string; options: { text: string; scores: Partial<Record<Dimension, number>> }[] }[] = [
   { text: "When you think of your ideal coffee, what first comes to mind?", options: [
@@ -293,22 +297,45 @@ export function FindYourCoffeeQuiz() {
 
   if (phase === "landing") {
     return (
-      <div className="relative z-1 min-h-screen font-sans text-[#2C1810]">
-        <ThemedBackground theme="coffee" />
-        <AssessmentIntro
-          title="Find Your Coffee"
-          subtitle="Every cup is a conversation between the bean and the drinker."
-          description="From single-origin purity to espresso precision to the communal ritual of the cezve — this assessment maps your roast preference, brewing ritual, and flavor instincts to find the coffee philosophy that's really yours."
-          stats={{ questions: QUESTIONS.length, dimensions: DIMENSIONS.length, minutes: 5 }}
-          whatYouGet={[
-            "Your coffee archetype (one of six)",
-            "A dimensional map of your brewing and flavor preferences",
-            "Five real, named coffee recommendations matched to your profile",
-            "Understanding of why you drink coffee the way you do",
-          ]}
-          accentColor={ACCENT}
-          onBegin={() => setPhase("questions")}
+      <div className="relative isolate flex min-h-screen flex-col items-center justify-center overflow-hidden px-8 text-center font-sans">
+        <Image src={HERO_IMG} alt="" fill priority sizes="100vw" className="-z-20 object-cover object-[center_40%]" />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 -z-10 bg-linear-to-b from-[#0A0A10]/50 via-[#0A0A10]/30 via-40% to-[#0A0A10]/70"
         />
+        <div className="max-w-150">
+          <p className="mb-4 font-mono text-[11px] tracking-[0.3em] text-[#C4A882]/80 uppercase">A Tony Greenberg Assessment</p>
+          <h1 className="mb-6 font-heading text-[clamp(3rem,8vw,5rem)] leading-[1.05] font-normal text-[#FAFAF7] text-shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
+            Find Your
+            <br />
+            <span className="text-[#D4B96A] italic">Coffee</span>
+          </h1>
+          <p className="mb-10 text-[clamp(1rem,2.5vw,1.25rem)] leading-relaxed text-[#E8E4DC]/90 italic text-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
+            Every cup is a conversation between
+            <br />
+            the bean and the drinker.
+          </p>
+          <div className="mb-10 flex justify-center gap-[clamp(1.5rem,4vw,3rem)]">
+            {[
+              { num: QUESTIONS.length, label: "Questions" },
+              { num: DIMENSIONS.length, label: "Dimensions" },
+              { num: "~5", label: "Minutes" },
+            ].map((stat) => (
+              <div key={stat.label}>
+                <div className="font-heading text-[2rem] leading-none text-[#D4B96A]">{stat.num}</div>
+                <div className="mt-1 font-mono text-[11px] tracking-[0.15em] text-[#C4A882] uppercase">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+          <button
+            type="button"
+            onClick={() => setPhase("questions")}
+            className="min-h-11 rounded-sm bg-linear-135 from-[#D4B96A] to-[#8B6914] px-15 py-4.5 font-mono text-sm tracking-[0.2em] text-[#0A0A10] uppercase shadow-[0_4px_30px_rgba(212,185,106,0.3)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_40px_rgba(212,185,106,0.5)]"
+          >
+            Begin the Ritual
+          </button>
+          <p className="mt-12 animate-pulse font-mono text-[10px] tracking-[0.2em] text-[#C4A882]/60">DISCOVER YOUR ARCHETYPE</p>
+        </div>
       </div>
     );
   }
