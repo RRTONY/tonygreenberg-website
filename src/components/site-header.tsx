@@ -46,13 +46,13 @@ function AskTonyButton({ onClick }: { onClick: () => void }) {
       type="button"
       onClick={onClick}
       aria-label="Ask Tony — search the site"
-      className="flex min-w-42.5 items-center gap-2.5 rounded-xl border-[1.5px] border-[#4A1D6B]/15 bg-[#4A1D6B]/6 px-4.5 py-2 text-brand-gold transition-all duration-250 hover:scale-[1.02] hover:border-[#4A1D6B]/25 hover:bg-[#4A1D6B]/10 dark:border-[#7B3FA0]/25 dark:bg-[#7B3FA0]/12 dark:text-brand-gold-light dark:hover:border-[#7B3FA0]/40 dark:hover:bg-[#7B3FA0]/18"
+      className="flex min-w-42.5 items-center gap-2.5 rounded-xl border-[1.5px] border-[#4A1D6B]/15 bg-[#4A1D6B]/6 px-4.5 py-2 text-[#7A5C10] transition-all duration-250 hover:scale-[1.02] hover:border-[#4A1D6B]/25 hover:bg-[#4A1D6B]/10 dark:border-[#7B3FA0]/25 dark:bg-[#7B3FA0]/12 dark:text-brand-gold-light dark:hover:border-[#7B3FA0]/40 dark:hover:bg-[#7B3FA0]/18"
     >
       <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-linear-135 from-brand-gold to-brand-gold-light font-heading text-[0.85rem] font-bold text-[#0A0A10]">
         T
       </span>
       <span className="font-mono text-[0.8rem] tracking-[0.06em]">Ask Tony</span>
-      <kbd className="ml-0.5 rounded-[5px] border border-[#bbb] px-1.5 py-px font-mono text-[0.65rem] text-[#6b6b6b] dark:border-[#555] dark:text-[#9a9a9a]">
+      <kbd className="ml-0.5 rounded-[5px] border border-[#bbb] px-1.5 py-px font-mono text-[0.65rem] text-[#5c5c5c] dark:border-[#555] dark:text-[#9a9a9a]">
         ⌘K
       </kbd>
     </button>
@@ -78,7 +78,7 @@ function NavItemLink({
       onClick={onNavigate}
       className={`block font-mono uppercase tracking-wide transition-colors hover:text-brand-gold ${
         compact ? "text-[0.68rem] py-1" : "text-xs py-1.5"
-      } ${active ? "text-brand-gold-light" : "text-muted-foreground"}`}
+      } ${active ? "text-brand-gold dark:text-brand-gold-light" : "text-muted-foreground"}`}
     >
       {label}
     </Link>
@@ -107,7 +107,7 @@ export function SiteHeader() {
         near-black) with blur + saturate, and a faint purple hairline. */}
     <header className="sticky top-0 z-50 border-b border-[#4A1D6B]/15 bg-[#FAFAF7]/88 backdrop-blur-xl backdrop-saturate-180 dark:bg-[#0A0A10]/88">
       <div className="flex min-h-14 items-center justify-between gap-2 px-4 py-2.5">
-        <Link href="/" className="flex flex-shrink-0 items-center gap-2">
+        <Link href="/" className="flex min-h-11 flex-shrink-0 items-center gap-2">
           <span className="font-heading text-[1.15rem] font-bold whitespace-nowrap text-[#111] dark:text-[#F5F0E0]">
             Tony<span className="text-brand-gold">G</span>
           </span>
@@ -151,7 +151,7 @@ export function SiteHeader() {
                   <Link
                     href={link.href}
                     className={`inline-flex h-8 items-center px-2 font-mono text-[0.78rem] font-semibold tracking-[0.05em] whitespace-nowrap uppercase transition-colors hover:text-brand-gold ${
-                      isActive(link.href) ? "text-brand-gold-light" : "text-[#555] dark:text-[#bbb]"
+                      isActive(link.href) ? "text-brand-gold dark:text-brand-gold-light" : "text-[#555] dark:text-[#bbb]"
                     }`}
                   >
                     {link.label}
@@ -215,13 +215,13 @@ export function SiteHeader() {
 
         {/* Mobile menu */}
         <div className="flex items-center gap-1 xl:hidden">
-          <Button variant="ghost" size="icon" aria-label="Search" onClick={() => setSearchOpen(true)}>
+          <Button variant="ghost" size="icon" className="size-11" aria-label="Search" onClick={() => setSearchOpen(true)}>
             <Search className="size-5" />
           </Button>
           <ThemeToggle />
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" aria-label="Open menu">
+              <Button variant="ghost" size="icon" className="size-11" aria-label="Open menu">
                 <Menu className="size-5" />
               </Button>
             </SheetTrigger>

@@ -643,7 +643,7 @@ export default function TheOpenDoorPage() {
       </div>
 
       <div className="border-t border-border py-6 text-center">
-        <Link href="/pick-up-the-phone" className="font-mono text-sm tracking-wide text-brand-gold">
+        <Link href="/pick-up-the-phone" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
           Continue to Pick Up the Phone →
         </Link>
       </div>

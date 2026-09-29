@@ -82,7 +82,7 @@ export default function ShanitaNicholasPage() {
             Journalistic interrogation of industry systems. Each month: a different thought leader examining what regeneration actually requires. Coffee.
             Sake. Mezcal. Tequila. Same format. Same rigor. Zero marketing.
           </p>
-          <p className="font-mono text-[11px] text-[#999]">All sources verified &amp; linked. All pricing in USD.</p>
+          <p className="font-mono text-[11px] text-[#707070]">All sources verified &amp; linked. All pricing in USD.</p>
         </div>
       </section>
 

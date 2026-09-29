@@ -46,7 +46,7 @@ import {
 const ACCENT = "#836311";
 
 function GlassPanel({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  return <div className={`rounded-2xl border border-brand-gold-light/12 bg-[#0A0A10]/60 backdrop-blur-xl ${className}`}>{children}</div>;
+  return <div className={`rounded-2xl border border-brand-gold-light/12 bg-[#0A0A10]/90 backdrop-blur-xl ${className}`}>{children}</div>;
 }
 
 const TYPE_ICON: Record<string, string> = { assessment: "◇", tool: "○", community: "◦", reading: "▹" };
@@ -191,14 +191,14 @@ export function FindYourMeQuiz({ articleTitles }: { articleTitles: Record<string
 
           <div className="mb-16 grid gap-6">
             <GlassPanel className="border-l-2 border-l-brand-gold-light/30 p-10">
-              <h3 className="mb-4 font-mono text-[0.7rem] tracking-[0.25em] text-brand-gold-light/60 uppercase">What This Is</h3>
+              <h3 className="mb-4 font-mono text-[0.7rem] tracking-[0.25em] text-brand-gold-light uppercase">What This Is</h3>
               <p className="text-[1.1rem] leading-[1.8] text-[#F5F0E0]/80">
                 Five questions that don&apos;t have right answers — only honest ones. Each answer tilts a mirror. By the end, you&apos;ll see which dimension of
                 life is pulling you hardest right now: purpose, relationships, body, truth, consciousness, or tribe. Not a personality quiz. A reckoning.
               </p>
             </GlassPanel>
             <GlassPanel className="border-l-2 border-l-brand-gold-light/30 p-10">
-              <h3 className="mb-4 font-mono text-[0.7rem] tracking-[0.25em] text-brand-gold-light/60 uppercase">What Happens Next</h3>
+              <h3 className="mb-4 font-mono text-[0.7rem] tracking-[0.25em] text-brand-gold-light uppercase">What Happens Next</h3>
               <p className="text-[1.1rem] leading-[1.8] text-[#F5F0E0]/80">
                 Your archetype unlocks a map: essays that read like the conversation you&apos;ve been waiting to have, assessments that go deeper than you
                 expected, tools that actually work, and a community of people who think like you do at 2am. Every minute you spend here shifts something. The
@@ -206,11 +206,11 @@ export function FindYourMeQuiz({ articleTitles }: { articleTitles: Record<string
               </p>
             </GlassPanel>
             <GlassPanel className="border-l-2 border-l-brand-gold-light/30 p-10">
-              <h3 className="mb-4 font-mono text-[0.7rem] tracking-[0.25em] text-brand-gold-light/60 uppercase">Why It Matters</h3>
+              <h3 className="mb-4 font-mono text-[0.7rem] tracking-[0.25em] text-brand-gold-light uppercase">Why It Matters</h3>
               <p className="text-[1.1rem] leading-[1.8] text-[#F5F0E0]/80">
                 You can&apos;t be of service to the world until you know what you&apos;re serving from. Self-knowledge isn&apos;t selfish — it&apos;s
-                prerequisite. Find your <em className="text-brand-gold not-italic">me</em> and you find the <em className="text-brand-gold not-italic">our</em>{" "}
-                that was hiding inside <em className="text-brand-gold not-italic">your</em> all along. Then you find your people. Then you change the world
+                prerequisite. Find your <em className="text-brand-gold-light not-italic">me</em> and you find the <em className="text-brand-gold-light not-italic">our</em>{" "}
+                that was hiding inside <em className="text-brand-gold-light not-italic">your</em> all along. Then you find your people. Then you change the world
                 around you. That&apos;s the sequence. That&apos;s the only sequence.
               </p>
             </GlassPanel>
@@ -225,30 +225,30 @@ export function FindYourMeQuiz({ articleTitles }: { articleTitles: Record<string
             ].map((stat) => (
               <div key={stat.label}>
                 <div className="font-heading text-4xl text-brand-gold">{stat.num}</div>
-                <div className="mt-1 font-mono text-[0.65rem] tracking-[0.2em] text-brand-gold/50 uppercase">{stat.label}</div>
+                <div className="mt-1 font-mono text-[0.65rem] tracking-[0.2em] text-brand-gold uppercase">{stat.label}</div>
               </div>
             ))}
           </div>
 
           <div className="mb-20">
             <div className="mb-12 text-center">
-              <div className="mb-3 font-mono text-[0.65rem] tracking-[0.3em] text-brand-gold/50 uppercase">Or Skip the Quiz</div>
+              <div className="mb-3 font-mono text-[0.65rem] tracking-[0.3em] text-brand-gold uppercase">Or Skip the Quiz</div>
               <h2 className="mb-3 font-heading text-[clamp(1.8rem,4vw,2.8rem)] leading-[1.3] font-normal">
                 What Are You <span className="text-brand-gold italic">Healing</span> From?
               </h2>
-              <p className="mx-auto max-w-125 text-base text-[#2C1810]/50">Pick the wound. We&apos;ll hand you the map.</p>
+              <p className="mx-auto max-w-125 text-base text-[#2C1810]/75">Pick the wound. We&apos;ll hand you the map.</p>
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2">
               {WOUND_CARDS.map((item) => (
-                <div key={item.wound} className="rounded-2xl border border-brand-gold-light/12 bg-[#0A0A10]/60 p-6 backdrop-blur-xl" style={{ borderLeft: `2px solid ${item.color}` }}>
+                <div key={item.wound} className="rounded-2xl border border-brand-gold-light/12 bg-[#0A0A10]/90 p-6 backdrop-blur-xl" style={{ borderLeft: `2px solid ${item.color}` }}>
                   <div className="flex items-start gap-4">
                     <span className="mt-0.5 shrink-0 text-2xl" style={{ color: item.color }}>
                       {item.icon}
                     </span>
                     <div>
                       <div className="mb-1 text-base font-semibold text-[#F5F0E0]/90">{item.wound}</div>
-                      <div className="text-sm leading-relaxed text-[#F5F0E0]/45">{item.subtext}</div>
+                      <div className="text-sm leading-relaxed text-[#F5F0E0]/70">{item.subtext}</div>
                     </div>
                   </div>
                   <div className="mt-4 flex flex-col gap-2 pl-10">
@@ -268,7 +268,7 @@ export function FindYourMeQuiz({ articleTitles }: { articleTitles: Record<string
                     {WOUND_TO_CATEGORY[item.wound] && (
                       <button
                         onClick={() => scrollToCategory(WOUND_TO_CATEGORY[item.wound])}
-                        className="mt-1 flex items-center gap-2 py-1 font-mono text-[0.7rem] tracking-[0.1em] text-brand-gold-light/50 transition-colors hover:text-brand-gold-light"
+                        className="mt-1 flex items-center gap-2 py-1 font-mono text-[0.7rem] tracking-[0.1em] text-brand-gold-light/80 transition-colors hover:text-brand-gold-light"
                       >
                         <span className="text-[0.6rem]">▼</span>
                         Browse {WOUND_TO_CATEGORY[item.wound]} ↓
@@ -286,11 +286,11 @@ export function FindYourMeQuiz({ articleTitles }: { articleTitles: Record<string
 
           <div className="mb-20">
             <div className="mb-8 text-center">
-              <div className="mb-3 font-mono text-[0.65rem] tracking-[0.3em] text-brand-gold/50 uppercase">The Full Ecosystem</div>
+              <div className="mb-3 font-mono text-[0.65rem] tracking-[0.3em] text-brand-gold uppercase">The Full Ecosystem</div>
               <h2 className="mb-3 font-heading text-[clamp(1.8rem,4vw,2.8rem)] leading-[1.3] font-normal">
                 Every <span className="text-brand-gold italic underline decoration-brand-gold-light/40 underline-offset-4">Your</span> ___
               </h2>
-              <p className="mx-auto max-w-135 text-base text-[#2C1810]/50">
+              <p className="mx-auto max-w-135 text-base text-[#2C1810]/75">
                 {DIRECTORY_TOTAL} doorways to self-knowledge. Some are live. Some are coming. All of them are you.
               </p>
 
@@ -300,7 +300,7 @@ export function FindYourMeQuiz({ articleTitles }: { articleTitles: Record<string
                     key={f}
                     onClick={() => setDirectoryFilter(f)}
                     className={`rounded-full border px-5 py-1.5 font-mono text-[0.65rem] tracking-[0.15em] uppercase transition-colors ${
-                      directoryFilter === f ? "border-brand-gold-light/40 bg-brand-gold-light/15 text-brand-gold" : "border-brand-gold-light/10 bg-[#0A0A10]/30 text-brand-gold/50"
+                      directoryFilter === f ? "border-brand-gold-light/40 bg-brand-gold-light/15 text-brand-gold" : "border-brand-gold-light/10 bg-[#0A0A10]/90 text-brand-gold-light/80"
                     }`}
                   >
                     {f === "all" ? "All" : f === "live" ? "● Live" : "○ Coming"}
@@ -331,7 +331,7 @@ export function FindYourMeQuiz({ articleTitles }: { articleTitles: Record<string
                   <h3 className="font-heading text-xl font-normal" style={{ color: section.color }}>
                     {section.category}
                   </h3>
-                  <span className="text-sm text-[#2C1810]/35 italic">{section.subtitle}</span>
+                  <span className="text-sm text-[#2C1810]/70 italic">{section.subtitle}</span>
                 </div>
                 <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                   {section.items.map((item) => {
@@ -340,21 +340,21 @@ export function FindYourMeQuiz({ articleTitles }: { articleTitles: Record<string
                       <div
                         className={`rounded-xl border p-5 backdrop-blur-xl transition-all ${
                           isLive
-                            ? "border-brand-gold-light/12 bg-[#0A0A10]/60 hover:-translate-x-0 hover:border-brand-gold-light/30"
-                            : "cursor-default border-brand-gold-light/6 bg-[#0A0A10]/30 opacity-55"
+                            ? "border-brand-gold-light/12 bg-[#0A0A10]/90 hover:-translate-x-0 hover:border-brand-gold-light/30"
+                            : "cursor-default border-brand-gold-light/6 bg-[#0A0A10]/90"
                         }`}
                       >
                         <div className="mb-1.5 flex items-start justify-between gap-2">
-                          <span className={`font-heading text-[0.95rem] ${isLive ? "text-brand-gold-light" : "text-brand-gold-light/50"}`}>{item.name}</span>
+                          <span className={`font-heading text-[0.95rem] ${isLive ? "text-brand-gold-light" : "text-brand-gold-light/80"}`}>{item.name}</span>
                           <span
                             className={`shrink-0 rounded-sm border px-1.5 py-0.5 font-mono text-[0.55rem] tracking-[0.1em] uppercase ${
-                              isLive ? "border-[#7BC9A4]/20 text-[#7BC9A4]/70" : "border-brand-gold-light/10 text-brand-gold-light/30"
+                              isLive ? "border-[#7BC9A4]/20 text-[#7BC9A4]" : "border-brand-gold-light/10 text-brand-gold-light/75"
                             }`}
                           >
                             {isLive ? "Live" : "Coming"}
                           </span>
                         </div>
-                        <p className="m-0 text-[0.82rem] leading-relaxed text-[#F5F0E0]/40">{item.hook}</p>
+                        <p className="m-0 text-[0.82rem] leading-relaxed text-[#F5F0E0]/70">{item.hook}</p>
                       </div>
                     );
                     if (!isLive) return <div key={item.name}>{card}</div>;
@@ -384,23 +384,23 @@ export function FindYourMeQuiz({ articleTitles }: { articleTitles: Record<string
               ].map((s) => (
                 <div key={s.label}>
                   <div className="font-heading text-[1.8rem] text-brand-gold">{s.num}</div>
-                  <div className="mt-1 font-mono text-[0.6rem] tracking-[0.15em] text-brand-gold/40 uppercase">{s.label}</div>
+                  <div className="mt-1 font-mono text-[0.6rem] tracking-[0.15em] text-brand-gold uppercase">{s.label}</div>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="mb-8 text-center font-mono text-[0.65rem] tracking-[0.3em] text-brand-gold/30 uppercase">─── or let the mirror decide ───</div>
+          <div className="mb-8 text-center font-mono text-[0.65rem] tracking-[0.3em] text-brand-gold uppercase">─── or let the mirror decide ───</div>
 
           <div className="text-center">
             <button
               onClick={() => setPhase("assessment")}
-              className="inline-block animate-pulse rounded-2xl border border-brand-gold-light/12 bg-[#0A0A10]/60 px-14 py-5 font-mono text-[0.9rem] tracking-[0.25em] text-brand-gold uppercase backdrop-blur-xl"
+              className="inline-block animate-pulse rounded-2xl border border-brand-gold-light/12 bg-[#0A0A10]/90 px-14 py-5 font-mono text-[0.9rem] tracking-[0.25em] text-brand-gold-light uppercase backdrop-blur-xl"
             >
               Show Me What I Already Know →
             </button>
-            <p className="mt-6 text-[0.9rem] text-[#2C1810]/40 italic">Takes 3 minutes. Stays with you longer.</p>
-            <p className="mt-12 font-mono text-[0.6rem] tracking-[0.15em] text-brand-gold-light/20 uppercase">Zero Algorithm · All Nerve · One Ecosystem</p>
+            <p className="mt-6 text-[0.9rem] text-[#2C1810]/70 italic">Takes 3 minutes. Stays with you longer.</p>
+            <p className="mt-12 font-mono text-[0.6rem] tracking-[0.15em] text-brand-gold uppercase">Zero Algorithm · All Nerve · One Ecosystem</p>
           </div>
         </div>
       </div>

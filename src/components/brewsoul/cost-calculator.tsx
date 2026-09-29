@@ -13,7 +13,7 @@ export function CostCalculator() {
 
   return (
     <div className="my-7 rounded-lg border border-[#5d3a28]/10 bg-[#ede4d0] p-7">
-      <div className="mb-3 font-mono text-[11px] tracking-[0.2em] text-[#6b5a4e]/80 uppercase">Annual Cost Calculator</div>
+      <div className="mb-3 font-mono text-[11px] tracking-[0.2em] text-[#6b5a4e] uppercase">Annual Cost Calculator</div>
       <div className="mb-5 flex flex-wrap items-center gap-4">
         <span className="text-[15px] text-[#2d1810]">I drink</span>
         <input type="range" aria-label="Cups of coffee per day" min={1} max={6} value={cups} onChange={(e) => setCups(+e.target.value)} className="w-30 accent-[#c4873b]" />

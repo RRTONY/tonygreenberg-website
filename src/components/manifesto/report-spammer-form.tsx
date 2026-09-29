@@ -36,7 +36,7 @@ const FREQUENCIES = [
 type FormData = { companyName: string; senderEmail: string; spamType: string; frequency: string; description: string; yourEmail: string };
 const INITIAL: FormData = { companyName: "", senderEmail: "", spamType: "", frequency: "", description: "", yourEmail: "" };
 
-const inputClass = "w-full rounded-xl border border-black/10 bg-white/60 px-4 py-3.5 text-base text-crusade-ink outline-none";
+const inputClass = "w-full rounded-xl border border-black/10 bg-white/60 px-4 py-3.5 text-base text-crusade-ink outline-none focus:border-crusade-red/50 focus:ring-2 focus:ring-crusade-red/20";
 
 export function ReportSpammerForm() {
   const [form, setForm] = useState<FormData>(INITIAL);
@@ -171,7 +171,7 @@ export function ReportSpammerForm() {
           </div>
           <div>
             <label className="mb-1.5 block text-sm font-bold text-crusade-ink">
-              Your Email <span className="text-xs font-normal opacity-40">(optional)</span>
+              Your Email <span className="text-xs font-normal opacity-70">(optional)</span>
             </label>
             <input
               type="email"

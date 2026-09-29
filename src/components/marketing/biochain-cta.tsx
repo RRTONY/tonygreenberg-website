@@ -31,7 +31,7 @@ export function BioChainCTA({
             href="https://ramprate.com/biochain/supplier-intake"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-sm bg-[#2C1810] px-6 py-3 font-mono text-xs tracking-wide text-[#F5F0E8] uppercase"
+            className="inline-flex items-center rounded-sm bg-[#2C1810] px-6 py-3 font-mono text-xs tracking-wide text-[#F5F0E8] uppercase min-h-11 md:min-h-6"
           >
             Supplier Application →
           </a>
@@ -50,7 +50,7 @@ export function BioChainCTA({
           href="https://ramprate.com/biochain"
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-sm px-6 py-3 font-mono text-xs tracking-wide text-[#8B5A2B] uppercase"
+          className="inline-flex items-center rounded-sm px-6 py-3 font-mono text-xs tracking-wide text-[#8B5A2B] uppercase min-h-11 md:min-h-6"
         >
           BioChain Overview ↗
         </a>

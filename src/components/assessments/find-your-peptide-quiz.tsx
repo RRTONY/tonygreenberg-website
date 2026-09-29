@@ -47,7 +47,7 @@ const AXES: Record<Axis, { label: string; icon: string }> = {
   longevity: { label: "Longevity & Cellular", icon: "🧬" },
 };
 const AXIS_KEYS = Object.keys(AXES) as Axis[];
-const ACCENT = "#00838F";
+const ACCENT = "#007A85";
 
 interface Choice {
   text: string;

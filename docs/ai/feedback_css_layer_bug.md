@@ -11,6 +11,10 @@ layers, and per the CSS spec unlayered rules beat all layered ones.
 `@layer base`. The only unlayered rule is the deliberate class-based drop cap
 (`.article-body > p:first-of-type::first-letter`).
 
+**2026-09-30:** added one deliberate override inside `@layer utilities` (not unlayered): phone-width
+form fields with a small text class get 16px so iPhone Safari doesn't zoom on tap. It wins over
+`.text-sm` by specificity within the layer, not by being unlayered.
+
 **How to apply:** any new global *element* selector (`a`, `h1`, `body`, `*`) goes inside
 `@layer base { }`. If a Tailwind class silently "does nothing", look for an unlayered rule winning
 the cascade before assuming the class wasn't generated.

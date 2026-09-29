@@ -54,7 +54,7 @@ export function PostCard({ post }: { post: PostCardData }) {
         {post.category && (
           <Link
             href={`/blog/category/${post.category.slug.current}`}
-            className="mb-2 font-mono text-[0.68rem] uppercase tracking-wide text-brand-gold hover:text-brand-gold-light"
+            className="inline-flex items-center mb-2 font-mono text-[0.68rem] uppercase tracking-wide text-brand-gold hover:text-brand-gold-light min-h-11 md:min-h-6"
           >
             {post.category.title}
           </Link>

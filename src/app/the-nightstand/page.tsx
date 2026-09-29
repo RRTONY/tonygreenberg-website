@@ -98,7 +98,7 @@ export default function TheNightstandPage() {
         </div>
 
         <div className="border-t border-border py-6 text-center">
-          <Link href="/the-web" className="font-mono text-sm tracking-wide text-brand-gold">
+          <Link href="/the-web" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
             Continue to The Web →
           </Link>
         </div>

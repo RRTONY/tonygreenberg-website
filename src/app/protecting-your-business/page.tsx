@@ -350,7 +350,7 @@ export default function ProtectingYourBusinessPage() {
       <div className="mx-auto max-w-2xl px-6 pb-6 sm:px-10">
         <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 border-y border-border py-4 text-center">
           {TOC.map((item) => (
-            <a key={item.id} href={`#${item.id}`} className="font-mono text-xs text-brand-gold">
+            <a key={item.id} href={`#${item.id}`} className="inline-flex items-center font-mono text-xs text-brand-gold min-h-11 md:min-h-6">
               {item.label}
             </a>
           ))}
@@ -793,7 +793,7 @@ export default function ProtectingYourBusinessPage() {
       </div>
 
       <div className="border-t border-border py-6 text-center">
-        <Link href="/" className="font-mono text-sm tracking-wide text-brand-gold">
+        <Link href="/" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
           ← Back to the Essays
         </Link>
       </div>

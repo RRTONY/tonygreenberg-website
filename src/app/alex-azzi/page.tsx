@@ -327,7 +327,7 @@ export default function AlexAzziPage() {
       <div className="mx-auto max-w-2xl px-6 pb-6 sm:px-10">
         <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 border-y border-border py-4 text-center">
           {TOC.map((item) => (
-            <a key={item.id} href={`#${item.id}`} className="font-mono text-xs text-brand-gold">
+            <a key={item.id} href={`#${item.id}`} className="inline-flex items-center font-mono text-xs text-brand-gold min-h-11 md:min-h-6">
               {item.label}
             </a>
           ))}
@@ -698,7 +698,7 @@ export default function AlexAzziPage() {
                 ))}
               </div>
               {"blogLink" in cat && cat.blogLink && (
-                <Link href={cat.blogLink.href} className="mt-4 inline-block text-sm text-brand-gold underline">
+                <Link href={cat.blogLink.href} className="inline-flex items-center mt-4 text-sm text-brand-gold underline min-h-11 md:min-h-6">
                   {cat.blogLink.text}
                 </Link>
               )}
@@ -723,7 +723,7 @@ export default function AlexAzziPage() {
           <div className="grid gap-3 sm:grid-cols-2">
             {QUESTIONS_10.map((q, i) => (
               <div key={q} className="flex gap-3 rounded-md border-l-4 border-l-red-800 bg-card p-4">
-                <span className="shrink-0 font-heading text-lg font-black text-red-800/50">
+                <span className="shrink-0 font-heading text-lg font-black text-red-800/80">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <span className="text-sm text-foreground/80">{q}</span>
@@ -871,7 +871,7 @@ export default function AlexAzziPage() {
             Published {SUBJECT.datePublished}
             <br />
             Author: Tony Greenberg &middot;{" "}
-            <a href="https://ramprate.com" target="_blank" rel="noopener noreferrer" className="text-brand-gold">
+            <a href="https://ramprate.com" target="_blank" rel="noopener noreferrer" className="text-brand-gold underline underline-offset-2">
               RampRate.com
             </a>
           </div>
@@ -889,7 +889,7 @@ export default function AlexAzziPage() {
       </div>
 
       <div className="border-t border-border py-6 text-center">
-        <Link href="/" className="font-mono text-sm tracking-wide text-brand-gold">
+        <Link href="/" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
           ← Back to the Essays
         </Link>
       </div>

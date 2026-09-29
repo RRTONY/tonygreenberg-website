@@ -293,7 +293,7 @@ export function BrewSoulQuiz() {
               ← Back
             </button>
           )}
-          <Link href="/brewsoul/browse" className="font-mono text-[0.65rem] tracking-wide text-[#5A4A20]/25">
+          <Link href="/brewsoul/browse" className="inline-flex items-center font-mono text-[0.65rem] tracking-wide text-[#5A4A20]/25 min-h-11 md:min-h-6">
             Skip — browse all coffees →
           </Link>
         </div>

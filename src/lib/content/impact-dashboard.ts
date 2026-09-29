@@ -91,7 +91,7 @@ export const TOKEN_ECOSYSTEMS: TokenEcosystem[] = [
     mission: "Tokenizing access to consciousness. Funding psychedelic-assisted therapy, traditional healing, and mental health infrastructure for communities that can't afford it.",
     partnerNGO: "Consciousness Access Initiative",
     iconicAsset: "Therapeutic Retreat Center Network",
-    color: "#E17055",
+    color: "#CF4525",
     iconKey: "brain",
     metrics: { tokenHolders: 2234, impactDeployed: "$980K", projectsFunded: 12, communityMembers: 6840, impactMultiplier: "3.1x" },
     milestones: [

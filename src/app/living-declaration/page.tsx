@@ -674,7 +674,7 @@ export default function LivingDeclarationPage() {
       </div>
 
       <div className="border-t border-border py-6 text-center">
-        <Link href="/community" className="font-mono text-sm tracking-wide text-brand-gold">
+        <Link href="/community" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
           Continue to The Community →
         </Link>
       </div>

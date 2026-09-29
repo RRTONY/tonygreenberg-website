@@ -57,7 +57,7 @@ function LinkCard({ item }: { item: FindMyLink }) {
   const card = (
     <div
       className={`flex w-full max-w-120 items-center gap-4 rounded-full border border-l-[3px] bg-background/85 px-6 py-4 backdrop-blur-sm transition-all ${
-        isLive ? "border-border shadow-sm hover:-translate-y-0.5 hover:shadow-md" : "cursor-default border-border/50 opacity-60"
+        isLive ? "border-border shadow-sm hover:-translate-y-0.5 hover:shadow-md" : "cursor-default border-border/50 opacity-85"
       }`}
       style={{ borderLeftColor: item.color }}
     >
@@ -177,7 +177,7 @@ export default function FindMyPage() {
       <section className="relative z-1 mx-auto mt-12 max-w-130 px-6 pb-4 text-center">
         <p className="mb-3 text-[0.9rem] text-muted-foreground">Connect with Tony</p>
         <div className="flex flex-wrap items-center justify-center gap-6">
-          <Link href="/pick-up-the-phone" className="font-mono text-[0.72rem] tracking-[0.1em] text-brand-gold">
+          <Link href="/pick-up-the-phone" className="inline-flex items-center font-mono text-[0.72rem] tracking-[0.1em] text-brand-gold min-h-11 md:min-h-6">
             📞 Pick Up the Phone
           </Link>
           <span className="inline-flex items-center gap-2 font-mono text-[0.72rem] tracking-[0.1em] text-muted-foreground">
@@ -188,7 +188,7 @@ export default function FindMyPage() {
       </section>
 
       <section className="relative z-1 px-6 pb-16 text-center">
-        <p className="font-mono text-[0.65rem] tracking-[0.08em] text-muted-foreground/70">
+        <p className="font-mono text-[0.65rem] tracking-[0.08em] text-muted-foreground">
           All assessments are free · Your data is never sold · Results delivered immediately · {FIND_MY_LIVE} live now, {FIND_MY_COMING} coming soon
         </p>
       </section>

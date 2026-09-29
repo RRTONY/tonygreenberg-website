@@ -16,6 +16,7 @@ import { urlFor } from "@/lib/sanity/image";
 import { PortableText, portableTextComponents } from "@/lib/sanity/portable-text";
 import { autoLinkBody } from "@/lib/sanity/auto-link-body";
 import { PostCard } from "@/components/blog/post-card";
+import { AiSummaryLinks, SITE_URL } from "@/components/ai-summary-links";
 import { ArticleFooter } from "@/components/blog/article-footer";
 import { BlogShareBar } from "@/components/blog/blog-share-bar";
 import { TrackLastBlogVisit } from "@/components/blog/track-last-blog-visit";
@@ -151,7 +152,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
         {post.category && (
           <Link
             href={`/blog/category/${post.category.slug.current}`}
-            className="font-mono text-xs uppercase tracking-wide text-brand-gold hover:text-brand-gold-light"
+            className="inline-flex items-center font-mono text-xs uppercase tracking-wide text-brand-gold hover:text-brand-gold-light min-h-11 md:min-h-6"
           >
             {post.category.title}
           </Link>
@@ -238,6 +239,12 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
       )}
 
       <ArticleFooter slug={post.slug.current} />
+
+      <AiSummaryLinks
+        className="mt-14 border-t border-border pt-10"
+        heading="Request an AI summary of this essay"
+        prompt={`Please read and summarize this essay by Tony Greenberg: ${SITE_URL}/blog/${post.slug.current}`}
+      />
     </article>
   );
 }

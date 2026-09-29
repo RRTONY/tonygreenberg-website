@@ -33,7 +33,7 @@ export function HumanosNav() {
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-neutral-950/95 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
-        <Link href="/humanos" className="flex items-center gap-2 text-white">
+        <Link href="/humanos" className="flex min-h-11 items-center gap-2 text-white">
           <Image src={LOGO_IMG} alt="" width={36} height={36} className="size-9 rounded-md object-cover" />
           <span className="font-heading text-base font-bold tracking-wide">Human OS</span>
         </Link>
@@ -60,7 +60,7 @@ export function HumanosNav() {
 
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="flex size-10 items-center justify-center rounded-lg bg-violet-600 text-white lg:hidden"
+          className="flex size-11 items-center justify-center rounded-lg bg-violet-600 text-white lg:hidden"
           aria-label="Toggle navigation"
           aria-expanded={menuOpen}
         >

@@ -50,6 +50,6 @@ export const ASSESSMENTS: AssessmentPreview[] = [
       "The longest study of human happiness ever conducted. Five factors predict lifelong wellbeing: relationships, adaptive coping, generativity, career satisfaction, and physical vitality. This assessment maps where you stand on each.",
     time: "15–20 min",
     icon: "♡",
-    accent: "#2E8B57",
+    accent: "#287A4C",
   },
 ];

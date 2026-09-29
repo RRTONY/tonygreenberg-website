@@ -27,7 +27,7 @@ const ESSAYS: Essay[] = [
 const TAG_COLORS: Record<string, string> = {
   "THE RECKONING": "#9B2335",
   "THE LESSON": "#836311",
-  "THE SYSTEMS MAP": "#4682B4",
+  "THE SYSTEMS MAP": "#3C6F9A",
 };
 
 function EssayCard({ essay, index }: { essay: Essay; index: number }) {
@@ -120,13 +120,13 @@ export default function StartHerePage() {
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               href="/"
-              className="rounded-sm bg-brand-gold-light px-7 py-3 font-mono text-xs tracking-wide text-background uppercase"
+              className="inline-flex items-center rounded-sm bg-brand-gold-light px-7 py-3 font-mono text-xs tracking-wide text-[#0A0A10] uppercase min-h-11 md:min-h-6"
             >
               Explore All Essays →
             </Link>
             <Link
               href="/ecosystem"
-              className="rounded-sm border border-white/20 px-7 py-3 font-mono text-xs tracking-wide text-white/70 uppercase"
+              className="inline-flex items-center rounded-sm border border-white/20 px-7 py-3 font-mono text-xs tracking-wide text-white/70 uppercase min-h-11 md:min-h-6"
             >
               Join the Ecosystem →
             </Link>

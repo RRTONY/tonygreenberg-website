@@ -42,7 +42,7 @@ export function PharmaTable() {
                       r.evidence.startsWith("Strong")
                         ? "border-[#6B8F71]/30 bg-[#6B8F71]/15 text-[#3D6B44]"
                         : r.evidence.startsWith("Moderate")
-                          ? "border-[#C8A64C]/30 bg-[#C8A64C]/15 text-[#836311]"
+                          ? "border-[#C8A64C]/30 bg-[#C8A64C]/15 text-[#7A5C10]"
                           : "border-pri-purple/20 bg-pri-purple/10 text-pri-purple"
                     }`}
                   >
@@ -56,7 +56,7 @@ export function PharmaTable() {
       </div>
       {!expanded && PHARMA_ALTERNATIVES.length > 8 && (
         <div className="mt-4 text-center">
-          <button onClick={() => setExpanded(true)} className="border-[1.5px] border-pri-ink px-6 py-2.5 text-[.78rem] font-bold text-pri-ink">
+          <button onClick={() => setExpanded(true)} className="inline-flex items-center border-[1.5px] border-pri-ink px-6 py-2.5 text-[.78rem] font-bold text-pri-ink min-h-11 md:min-h-6">
             Show All {PHARMA_ALTERNATIVES.length} Medications ↓
           </button>
         </div>

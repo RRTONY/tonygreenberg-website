@@ -1,12 +1,30 @@
 import Image from "next/image";
 import Link from "next/link";
-import { PortableText, type PortableTextComponents } from "@portabletext/react";
+import { PortableText, type PortableTextBlock, type PortableTextComponents } from "@portabletext/react";
 import { urlFor } from "./image";
 
 function dimsFromRef(ref: string): { width: number; height: number } {
   const match = ref?.match(/-(\d+)x(\d+)-/);
   if (match) return { width: Number(match[1]), height: Number(match[2]) };
   return { width: 1200, height: 800 };
+}
+
+// The essay drop cap (globals.css) goes on the first real paragraph. These
+// are flagged and skipped, so the drop cap moves to the next paragraph: one
+// opening with a link ("← Back to the main article") or a symbol (a giant gold
+// arrow), an all-bold label or all-italic caption line, or a short line like
+// the byline "By Tony Greenberg, Social Impact Instigator" (a drop cap needs a
+// few lines to sit in).
+function opensWithoutLetter(block: PortableTextBlock) {
+  const spans = (block.children ?? []) as { text?: string; marks?: string[] }[];
+  const first = spans[0];
+  if (!first?.text) return false;
+  const linkKeys = new Set((block.markDefs ?? []).filter((d) => d._type === "link").map((d) => d._key));
+  if (first.marks?.some((m) => linkKeys.has(m))) return true;
+  const allMarked = (mark: string) => spans.every((c) => !c.text?.trim() || c.marks?.includes(mark));
+  if (allMarked("strong") || allMarked("em")) return true;
+  if (spans.map((c) => c.text ?? "").join("").trim().length < 80) return true;
+  return !/^[\p{L}\p{N}"'“‘]/u.test(first.text.trimStart());
 }
 
 export const portableTextComponents: PortableTextComponents = {
@@ -43,7 +61,11 @@ export const portableTextComponents: PortableTextComponents = {
     h2: ({ children }) => <h2 className="mt-10 mb-4 font-heading text-2xl font-bold">{children}</h2>,
     h3: ({ children }) => <h3 className="mt-8 mb-3 font-heading text-xl font-bold">{children}</h3>,
     h4: ({ children }) => <h4 className="mt-6 mb-2 font-heading text-lg font-semibold">{children}</h4>,
-    normal: ({ children }) => <p className="mb-5 leading-relaxed">{children}</p>,
+    normal: ({ children, value }) => (
+      <p className="mb-5 leading-relaxed" data-no-drop-cap={opensWithoutLetter(value) || undefined}>
+        {children}
+      </p>
+    ),
     blockquote: ({ children }) => (
       <blockquote className="my-6 border-l-4 border-primary/40 pl-5 italic text-muted-foreground">
         {children}

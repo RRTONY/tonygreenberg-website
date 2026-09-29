@@ -131,7 +131,7 @@ export function CalibrationAssessment() {
     <div className="min-h-screen bg-pri-ink font-body text-pri-cream">
       <div className="mx-auto max-w-180 px-5 py-8">
         <div className="mb-8 text-center">
-          <Link href="/psychedelic-readiness-index" className="text-[.8rem] text-pri-cream/40">
+          <Link href="/psychedelic-readiness-index" className="text-[.8rem] text-pri-cream/60">
             ← Back to PRI
           </Link>
           <h1 className="my-3 bg-linear-to-br from-pri-purple to-pri-purple-light bg-clip-text font-heading text-[clamp(1.8rem,5vw,2.5rem)] text-transparent">Deep Calibration</h1>
@@ -151,25 +151,25 @@ export function CalibrationAssessment() {
                 <div className="rounded-2xl border border-pri-cream/8 bg-pri-cream/4 p-4">
                   <BarChart3 className="mb-1 size-6 text-pri-purple-light" />
                   <div className="mb-1 text-[.78rem] font-bold">+26.9% Accuracy</div>
-                  <div className="text-[.72rem] text-pri-cream/40">vs. standard Likert scoring</div>
+                  <div className="text-[.72rem] text-pri-cream/60">vs. standard Likert scoring</div>
                 </div>
                 <div className="rounded-2xl border border-pri-cream/8 bg-pri-cream/4 p-4">
                   <RefreshCw className="mb-1 size-6 text-pri-purple-light" />
                   <div className="mb-1 text-[.78rem] font-bold">0.609 Test-Retest</div>
-                  <div className="text-[.72rem] text-pri-cream/40">Reliability coefficient</div>
+                  <div className="text-[.72rem] text-pri-cream/60">Reliability coefficient</div>
                 </div>
                 <div className="rounded-2xl border border-pri-cream/8 bg-pri-cream/4 p-4">
                   <ShieldCheck className="mb-1 size-6 text-pri-purple-light" />
                   <div className="mb-1 text-[.78rem] font-bold">38% Less Fakeable</div>
-                  <div className="text-[.72rem] text-pri-cream/40">Shift resistance vs. Likert</div>
+                  <div className="text-[.72rem] text-pri-cream/60">Shift resistance vs. Likert</div>
                 </div>
                 <div className="rounded-2xl border border-pri-cream/8 bg-pri-cream/4 p-4">
                   <Target className="mb-1 size-6 text-pri-purple-light" />
                   <div className="mb-1 text-[.78rem] font-bold">Perfect Entropy</div>
-                  <div className="text-[.72rem] text-pri-cream/40">1.0 normalized distribution</div>
+                  <div className="text-[.72rem] text-pri-cream/60">1.0 normalized distribution</div>
                 </div>
               </div>
-              <p className="mb-6 text-[.8rem] text-pri-cream/40">Takes ~3 minutes. 15 forced choices + 1 full ranking.</p>
+              <p className="mb-6 text-[.8rem] text-pri-cream/60">Takes ~3 minutes. 15 forced choices + 1 full ranking.</p>
               <button onClick={() => setPhase("pairwise")} className="w-full rounded-xl bg-pri-purple px-6 py-3 text-sm font-bold text-pri-cream">
                 Begin Calibration →
               </button>
@@ -183,7 +183,7 @@ export function CalibrationAssessment() {
               <div className="h-full bg-linear-to-r from-pri-purple to-pri-purple-light transition-[width] duration-300" style={{ width: `${((pairIndex + 1) / pairs.length) * 100}%` }} />
             </div>
             <div className="mb-4 text-center">
-              <span className="text-xs tracking-[0.08em] text-pri-cream/40 uppercase">
+              <span className="text-xs tracking-[0.08em] text-pri-cream/60 uppercase">
                 Comparison {pairIndex + 1} of {pairs.length}
               </span>
             </div>
@@ -268,19 +268,19 @@ export function CalibrationAssessment() {
 
             <div className="mb-4 rounded-2xl border border-pri-cream/8 bg-pri-cream/4 p-6">
               <h3 className="mb-2 font-heading text-base text-pri-cream">Validation Metrics</h3>
-              <p className="mb-4 text-[.78rem] text-pri-cream/40">Monte Carlo simulation: {efficacyData.simulation.n_respondents.toLocaleString()} synthetic respondents</p>
+              <p className="mb-4 text-[.78rem] text-pri-cream/60">Monte Carlo simulation: {efficacyData.simulation.n_respondents.toLocaleString()} synthetic respondents</p>
               <div className="grid grid-cols-3 gap-3">
                 <div className="text-center">
                   <div className="text-xl font-black text-pri-purple-light">{efficacyData.classification_accuracy.forced_rank}%</div>
-                  <div className="text-[.68rem] text-pri-cream/40">Classification Accuracy</div>
+                  <div className="text-[.68rem] text-pri-cream/60">Classification Accuracy</div>
                 </div>
                 <div className="text-center">
                   <div className="text-xl font-black text-pri-purple-light">{efficacyData.test_retest_reliability.forced_rank}</div>
-                  <div className="text-[.68rem] text-pri-cream/40">Test-Retest r</div>
+                  <div className="text-[.68rem] text-pri-cream/60">Test-Retest r</div>
                 </div>
                 <div className="text-center">
                   <div className="text-xl font-black text-pri-purple-light">{efficacyData.entropy.forced_rank_normalized}</div>
-                  <div className="text-[.68rem] text-pri-cream/40">Entropy (norm)</div>
+                  <div className="text-[.68rem] text-pri-cream/60">Entropy (norm)</div>
                 </div>
               </div>
             </div>

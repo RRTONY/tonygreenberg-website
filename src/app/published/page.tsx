@@ -83,9 +83,9 @@ const CATEGORY_CLASSES: Record<
   tech: { text: "text-[#2563eb]", dot: "bg-[#2563eb]", sectionBorder: "border-[#2563eb]/20", cardBorder: "border-l-[#2563eb]/30", cardBorderHover: "hover:border-l-[#2563eb]" },
   trust: { text: "text-brand-gold", dot: "bg-brand-gold", sectionBorder: "border-brand-gold/20", cardBorder: "border-l-brand-gold/30", cardBorderHover: "hover:border-l-brand-gold" },
   culture: { text: "text-[#7c3aed]", dot: "bg-[#7c3aed]", sectionBorder: "border-[#7c3aed]/20", cardBorder: "border-l-[#7c3aed]/30", cardBorderHover: "hover:border-l-[#7c3aed]" },
-  blockchain: { text: "text-[#059669]", dot: "bg-[#059669]", sectionBorder: "border-[#059669]/20", cardBorder: "border-l-[#059669]/30", cardBorderHover: "hover:border-l-[#059669]" },
+  blockchain: { text: "text-[#047D58]", dot: "bg-[#059669]", sectionBorder: "border-[#059669]/20", cardBorder: "border-l-[#059669]/30", cardBorderHover: "hover:border-l-[#059669]" },
   media: { text: "text-[#dc2626]", dot: "bg-[#dc2626]", sectionBorder: "border-[#dc2626]/20", cardBorder: "border-l-[#dc2626]/30", cardBorderHover: "hover:border-l-[#dc2626]" },
-  impact: { text: "text-[#0891b2]", dot: "bg-[#0891b2]", sectionBorder: "border-[#0891b2]/20", cardBorder: "border-l-[#0891b2]/30", cardBorderHover: "hover:border-l-[#0891b2]" },
+  impact: { text: "text-[#077995]", dot: "bg-[#0891b2]", sectionBorder: "border-[#0891b2]/20", cardBorder: "border-l-[#0891b2]/30", cardBorderHover: "hover:border-l-[#0891b2]" },
 };
 
 const SPEAKING = [
@@ -99,7 +99,7 @@ export default function PublishedPage() {
 
   return (
     <div className="mx-auto max-w-4xl px-6 py-10">
-      <Link href="/" className="font-mono text-xs tracking-wide text-brand-gold uppercase">
+      <Link href="/" className="inline-flex items-center font-mono text-xs tracking-wide text-brand-gold uppercase min-h-11 md:min-h-6">
         ← Back to the Broadsheet
       </Link>
 
@@ -197,7 +197,7 @@ export default function PublishedPage() {
         </p>
         <Link
           href="/"
-          className="border-b border-brand-gold/30 font-mono text-sm tracking-wide text-brand-gold uppercase"
+          className="border-b border-brand-gold-light/30 font-mono text-sm tracking-wide text-brand-gold-light uppercase"
         >
           Enter the Broadsheet →
         </Link>

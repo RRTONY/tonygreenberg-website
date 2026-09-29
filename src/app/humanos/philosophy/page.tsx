@@ -101,7 +101,7 @@ export default function HumanosPhilosophy() {
 
       {/* THE CONSCIOUS SATISFICER */}
       <section className="mx-auto max-w-3xl px-6 py-16">
-        <EyebrowLabel className="mb-3 font-mono text-xs tracking-[0.2em] text-emerald-600 uppercase">
+        <EyebrowLabel className="mb-3 font-mono text-xs tracking-[0.2em] text-emerald-700 uppercase">
           The Conscious Satisficer
         </EyebrowLabel>
         <h2 className="mb-6 font-heading text-3xl leading-tight font-bold text-neutral-900 sm:text-4xl">
@@ -159,12 +159,12 @@ export default function HumanosPhilosophy() {
                 className="grid grid-cols-[1fr_auto_1fr] items-center gap-4 rounded-lg border border-neutral-200 bg-white p-5 shadow-sm"
               >
                 <div>
-                  <p className="mb-1 font-mono text-[0.6rem] tracking-[0.1em] text-red-500/70 uppercase">From</p>
+                  <p className="mb-1 font-mono text-[0.6rem] tracking-[0.1em] text-red-700 uppercase">From</p>
                   <p className="m-0 text-base text-neutral-600">{row.from}</p>
                 </div>
                 <span className="text-lg font-bold text-violet-600">&rarr;</span>
                 <div>
-                  <p className="mb-1 font-mono text-[0.6rem] tracking-[0.1em] text-emerald-600/70 uppercase">To</p>
+                  <p className="mb-1 font-mono text-[0.6rem] tracking-[0.1em] text-emerald-700 uppercase">To</p>
                   <p className="m-0 text-base font-semibold text-neutral-900">{row.to}</p>
                 </div>
               </div>

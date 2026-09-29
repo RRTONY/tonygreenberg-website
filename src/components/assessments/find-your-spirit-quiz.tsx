@@ -45,7 +45,7 @@ const DIMENSION_LABELS: Record<Dimension, string> = {
   trajectory: "Future Path",
 };
 const DIMENSIONS = Object.keys(DIMENSION_LABELS) as Dimension[];
-const ACCENT = "#00838F";
+const ACCENT = "#007A85";
 
 interface Choice {
   text: string;

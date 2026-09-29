@@ -104,11 +104,11 @@ export function computeScores(answers: number[]): {
 // Precomposed literal classes for the 5 known tags — small enumerable set,
 // same Tailwind static-scanner rule enforced throughout this migration.
 export const TAG_CLASS: Record<string, string> = {
-  ceremony: "border-[#C9A84C] text-[#C9A84C]",
+  ceremony: "border-[#C9A84C] text-[#7A6425]",
   clinical: "border-[#2A7A7A] text-[#2A7A7A]",
-  micro: "border-[#6B8F71] text-[#6B8F71]",
+  micro: "border-[#6B8F71] text-[#5A785F]",
   intense: "border-pri-purple text-pri-purple",
-  gentle: "border-[#6B8F71] text-[#6B8F71]",
+  gentle: "border-[#6B8F71] text-[#5A785F]",
 };
 
 export const DEFAULT_TAG_CLASS = "border-pri-border text-pri-tan";

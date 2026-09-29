@@ -22,7 +22,7 @@ export type Clinic = {
 
 function ScoreBadge({ score }: { score: number }) {
   const color =
-    score <= 20 ? "bg-[#2E8B57]" : score <= 50 ? "bg-[#D4B96A]" : score <= 80 ? "bg-[#CD853F]" : "bg-[#B22222]";
+    score <= 20 ? "bg-[#2B8352]" : score <= 50 ? "bg-[#8C7328]" : score <= 80 ? "bg-[#A4672B]" : "bg-[#B22222]";
   const label = score <= 20 ? "Excellent" : score <= 50 ? "Adequate" : score <= 80 ? "Poor" : "Failing";
   return (
     <span className={`inline-block rounded px-2 py-0.5 font-mono text-xs font-bold tracking-wide text-white ${color}`}>

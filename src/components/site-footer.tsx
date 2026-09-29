@@ -1,4 +1,5 @@
 import { FaLinkedin, FaXTwitter } from "react-icons/fa6";
+import { AiSummaryLinks, SITE_URL } from "@/components/ai-summary-links";
 
 // Real footer content ported from legacy client/src/components/Layout.tsx.
 export function SiteFooter() {
@@ -28,12 +29,12 @@ export function SiteFooter() {
         </a>
       </p>
 
-      <div className="mt-6 flex justify-center gap-4">
+      <div className="mt-6 flex justify-center gap-2">
         <a
           href="https://x.com/ThinkTony"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-brand-gold transition-transform hover:scale-105"
+          className="flex size-11 items-center justify-center text-brand-gold transition-transform hover:scale-105"
           aria-label="X"
         >
           <FaXTwitter size={20} />
@@ -42,7 +43,7 @@ export function SiteFooter() {
           href="https://linkedin.com/in/tonygreenberg"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-brand-gold transition-transform hover:scale-105"
+          className="flex size-11 items-center justify-center text-brand-gold transition-transform hover:scale-105"
           aria-label="LinkedIn"
         >
           <FaLinkedin size={20} />
@@ -54,7 +55,7 @@ export function SiteFooter() {
           href="https://linktr.ee/TonyG2"
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-full bg-linear-to-br from-brand-gold to-[#6B3D99] px-6 py-3 font-mono text-xs uppercase tracking-wide text-white transition-transform hover:scale-105"
+          className="inline-flex min-h-11 items-center rounded-full bg-linear-to-br from-brand-gold to-[#6B3D99] px-6 py-3 font-mono text-xs uppercase tracking-wide text-white transition-transform hover:scale-105"
         >
           Book Time with Me
         </a>
@@ -62,7 +63,7 @@ export function SiteFooter() {
           href="https://impactsoul.is"
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-full border border-brand-gold px-6 py-3 font-mono text-xs uppercase tracking-wide text-brand-gold transition-transform hover:scale-105"
+          className="inline-flex min-h-11 items-center rounded-full border border-brand-gold px-6 py-3 font-mono text-xs uppercase tracking-wide text-brand-gold transition-transform hover:scale-105"
         >
           Explore ImpactSoul
         </a>
@@ -70,13 +71,19 @@ export function SiteFooter() {
           href="https://ramprate.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-full border border-brand-gold px-6 py-3 font-mono text-xs uppercase tracking-wide text-brand-gold transition-transform hover:scale-105"
+          className="inline-flex min-h-11 items-center rounded-full border border-brand-gold px-6 py-3 font-mono text-xs uppercase tracking-wide text-brand-gold transition-transform hover:scale-105"
         >
           RampRate
         </a>
       </div>
 
-      <p className="mt-6 text-sm text-muted-foreground">
+      <AiSummaryLinks
+        className="mt-10"
+        heading="Request an AI summary of Tony Greenberg"
+        prompt={`Please summarize who Tony Greenberg is and what he writes about, using ${SITE_URL}/`}
+      />
+
+      <p className="mt-10 text-sm text-muted-foreground">
         CEO,{" "}
         <a href="https://ramprate.com" target="_blank" rel="noopener noreferrer" className="text-brand-gold">
           RampRate

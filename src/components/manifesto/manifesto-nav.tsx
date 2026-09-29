@@ -51,12 +51,12 @@ export function ManifestoNav() {
       className={`sticky top-0 z-50 border-b border-crusade-red/10 bg-background/90 backdrop-blur-xl transition-shadow duration-300 ${scrolled ? "shadow-[0_2px_20px_rgba(0,0,0,0.06)]" : ""}`}
     >
       <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-5">
-        <Link href="/" className="flex items-center gap-1.5 text-sm font-medium text-crusade-muted/70 hover:text-crusade-muted">
+        <Link href="/" aria-label="Back to TonyGreenberg.com" className="flex items-center gap-1.5 text-sm font-medium text-crusade-muted hover:text-crusade-ink min-h-11 md:min-h-6">
           <ChevronLeft size={16} />
           <span className="hidden sm:inline">TonyG</span>
         </Link>
 
-        <Link href="/attention-theft" className="group flex items-center gap-2">
+        <Link href="/attention-theft" className="group flex items-center gap-2 min-h-11 md:min-h-6">
           <Flame size={22} className="text-crusade-red transition-transform group-hover:scale-110" />
           <span className="font-heading text-base font-bold tracking-[0.15em] text-crusade-ink uppercase">
             The Crusade
@@ -65,7 +65,7 @@ export function ManifestoNav() {
 
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="rounded-md p-2 text-crusade-ink"
+          className="inline-flex items-center rounded-md p-2 text-crusade-ink min-h-11 md:min-h-6"
           aria-label="Toggle navigation"
         >
           {menuOpen ? <X size={20} /> : <Menu size={20} />}

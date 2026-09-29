@@ -12,11 +12,11 @@ export function PeptideWatchScorecard() {
       <div className="mb-8 grid gap-3 sm:grid-cols-2">
         {SCORECARD_CATEGORIES.map((cat) => (
           <div key={cat.letter} className="flex items-start gap-3 rounded-md border border-brand-gold/20 bg-card p-4">
-            <span className="flex size-8 shrink-0 items-center justify-center rounded bg-[#0A0A10] font-heading text-sm font-bold text-brand-gold">
+            <span className="flex size-8 shrink-0 items-center justify-center rounded bg-[#0A0A10] font-heading text-sm font-bold text-brand-gold-light">
               {cat.letter}
             </span>
             <div className="min-w-0 flex-1">
-              <h4 className="mb-1 text-sm font-bold text-foreground">{cat.name}</h4>
+              <h3 className="mb-1 text-sm font-bold text-foreground">{cat.name}</h3>
               <p className="text-xs leading-relaxed text-muted-foreground">{cat.desc}</p>
               <div className="mt-2 flex gap-1">
                 {[0, 1, 2, 3, 4, 5].map((n) => (

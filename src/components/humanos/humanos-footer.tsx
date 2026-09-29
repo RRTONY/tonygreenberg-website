@@ -6,7 +6,10 @@ import Link from "next/link";
 // existed anywhere in legacy's own router (only `/invest` — "Invest in
 // the Thesis" — does, and is already ported to this app); corrected to
 // `/invest`. The copyright line's legacy range ("2000–2026") is kept as
-// literal ported copy.
+// literal ported copy. The "← TonyGreenberg.com" link is new (2026-09-30):
+// legacy's HumanOS layout had no way back to the main site, which its own
+// MASTER_QUALITY_PROMPT.md forbids; same idea as the Kava sub-site's
+// "← TonyG" link in kava-nav.tsx.
 export function HumanosFooter() {
   return (
     <footer className="border-t border-white/10 bg-neutral-950 px-6 py-12 text-white">
@@ -35,19 +38,19 @@ export function HumanosFooter() {
             <p className="mb-2 font-mono text-[0.65rem] tracking-[0.12em] text-white/60 uppercase">
               System
             </p>
-            <Link href="/humanos/philosophy" className="mb-1 block text-sm text-white/50 hover:text-white/80">
+            <Link href="/humanos/philosophy" className="flex min-h-11 md:min-h-6 items-center text-sm text-white/50 hover:text-white/80">
               The Philosophy
             </Link>
-            <Link href="/humanos/ecosystem" className="mb-1 block text-sm text-white/50 hover:text-white/80">
+            <Link href="/humanos/ecosystem" className="flex min-h-11 md:min-h-6 items-center text-sm text-white/50 hover:text-white/80">
               The Ecosystem
             </Link>
-            <Link href="/humanos/resources" className="mb-1 block text-sm text-white/50 hover:text-white/80">
+            <Link href="/humanos/resources" className="flex min-h-11 md:min-h-6 items-center text-sm text-white/50 hover:text-white/80">
               Resources
             </Link>
-            <Link href="/living-declaration" className="mb-1 block text-sm text-white/50 hover:text-white/80">
+            <Link href="/living-declaration" className="flex min-h-11 md:min-h-6 items-center text-sm text-white/50 hover:text-white/80">
               Living Declaration
             </Link>
-            <Link href="/humanos/path-to-here" className="mb-1 block text-sm text-white/50 hover:text-white/80">
+            <Link href="/humanos/path-to-here" className="flex min-h-11 md:min-h-6 items-center text-sm text-white/50 hover:text-white/80">
               Path to Here
             </Link>
           </div>
@@ -55,24 +58,27 @@ export function HumanosFooter() {
             <p className="mb-2 font-mono text-[0.65rem] tracking-[0.12em] text-white/60 uppercase">
               Connect
             </p>
-            <Link href="/invest" className="mb-1 block text-sm text-white/50 hover:text-white/80">
+            <Link href="/invest" className="flex min-h-11 md:min-h-6 items-center text-sm text-white/50 hover:text-white/80">
               Investment Portfolio
             </Link>
             <a
               href="https://www.linkedin.com/in/tonygreenberg"
               target="_blank"
               rel="noopener"
-              className="mb-1 block text-sm text-white/50 hover:text-white/80"
+              className="flex min-h-11 md:min-h-6 items-center text-sm text-white/50 hover:text-white/80"
             >
               LinkedIn
             </a>
-            <Link href="/humanos/connect" className="mb-1 block text-sm text-white/50 hover:text-white/80">
+            <Link href="/humanos/connect" className="flex min-h-11 md:min-h-6 items-center text-sm text-white/50 hover:text-white/80">
               Contact
             </Link>
           </div>
         </div>
 
-        <p className="mt-8 text-[0.65rem] text-white/15">
+        <Link href="/" className="mt-8 inline-flex min-h-11 items-center text-sm text-white/75 hover:text-white md:min-h-6">
+          &larr; TonyGreenberg.com
+        </Link>
+        <p className="mt-4 text-[0.65rem] text-white/50">
           &copy; 2000&ndash;2026 ImpactSoul and RampRate. All Rights Reserved. Architected by Tony
           Greenberg.
         </p>

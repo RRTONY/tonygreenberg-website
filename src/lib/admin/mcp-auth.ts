@@ -1,12 +1,14 @@
 import { timingSafeEqual } from "crypto";
 
-// MCP clients (Claude Code, Claude Desktop, the Claude.ai org connector) are
-// apps, not a browser session, so auth here is a personal bearer token.
-// Ported from ramprate-ui's mcp-auth.ts minus its OAuth sign-in (email +
-// password flow) — this server is token-only for now.
+// MCP clients (Claude Code, Claude Desktop, Claude.ai, ChatGPT) are apps, not
+// a browser session, so auth here is a bearer token: either an OAuth access
+// token from signing in on /oauth/authorize (see mcp-oauth.ts), or a personal
+// token from this list. Ported from ramprate-ui's mcp-auth.ts.
 //
 // MCP_ADMIN_USERS is a JSON array, one entry per person:
-//   [{"name":"Jane Doe","email":"jane@example.com","role":"write","token":"<openssl rand -hex 32>"}]
+//   [{"name":"Jane Doe","email":"jane@example.com","role":"write","token":"<optional, openssl rand -hex 32>"}]
+// An email lets the person sign in on the /oauth/authorize page. A token is
+// optional, for apps that can only send a fixed header (e.g. Claude Code).
 // Roles: "read" (look only), "edit" (make pending changes, but not publish),
 // "write" (everything). "admin" is accepted as "write". Only people on this
 // list can use the server; removing someone is one env var edit + redeploy.
@@ -20,7 +22,7 @@ export interface McpUser {
 }
 
 interface McpUserEntry extends McpUser {
-  token: string;
+  token: string; // "" when the person signs in by email only
 }
 
 // Personal tokens must be long random secrets, not something guessable.
@@ -52,9 +54,10 @@ export function parseMcpUsers(raw: string | undefined): McpUserEntry[] {
     const token = typeof e?.token === "string" ? e.token.trim() : "";
     const name = typeof e?.name === "string" ? e.name.trim() : "";
     const email = typeof e?.email === "string" ? e.email.trim() : "";
-    if (!name || !role || token.length < MIN_TOKEN_LENGTH) {
+    const tokenOk = token === "" || token.length >= MIN_TOKEN_LENGTH;
+    if (!name || !role || !tokenOk || (!token && !email)) {
       console.error(
-        `MCP_ADMIN_USERS entry ${i} skipped: needs name, a role of read/edit/write, and a token of at least ${MIN_TOKEN_LENGTH} characters`,
+        `MCP_ADMIN_USERS entry ${i} skipped: needs name, a role of read/edit/write, and an email or a token of at least ${MIN_TOKEN_LENGTH} characters`,
       );
       return;
     }
@@ -83,9 +86,18 @@ export function authenticateMcpToken(candidate: string | null | undefined): McpU
   // position in the list matched.
   let match: McpUserEntry | null = null;
   for (const user of users) {
-    if (tokensMatch(token, user.token) && !match) match = user;
+    if (user.token && tokensMatch(token, user.token) && !match) match = user;
   }
   return match ? { name: match.name, email: match.email, role: match.role } : null;
+}
+
+// Sign-in (OAuth) users are identified by email; their name and role are
+// looked up here again on every request, so removing someone cuts them off.
+export function findMcpUserByEmail(email: string): McpUser | null {
+  const wanted = email.trim().toLowerCase();
+  if (!wanted) return null;
+  const user = parseMcpUsers(process.env.MCP_ADMIN_USERS).find((u) => u.email.toLowerCase() === wanted);
+  return user ? { name: user.name, email: user.email, role: user.role } : null;
 }
 
 export function bearerFromRequest(req: Request): string {

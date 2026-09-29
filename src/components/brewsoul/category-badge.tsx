@@ -9,11 +9,11 @@ import { PAGE_CATEGORY_MAP } from "@/lib/content/brewsoul-directory";
 // precomposed rather than built from the raw hex + inline style so
 // Tailwind's scanner actually sees the class.
 const BADGE_CLASS: Record<string, string> = {
-  "Start Here": "bg-[#C5A23C]",
-  "The Intelligence Engine": "bg-[#3B82F6]",
-  "Deep Research": "bg-[#8B5CF6]",
-  "Reference Library": "bg-[#10B981]",
-  "Tools & Discovery": "bg-[#F97316]",
+  "Start Here": "bg-[#8A712A]",
+  "The Intelligence Engine": "bg-[#2563EB]",
+  "Deep Research": "bg-[#7C3AED]",
+  "Reference Library": "bg-[#047857]",
+  "Tools & Discovery": "bg-[#C2410C]",
   "Guest Series": "bg-[#8B4513]",
 };
 

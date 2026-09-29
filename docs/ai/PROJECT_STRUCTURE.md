@@ -41,6 +41,7 @@ how to handle a request is in [`TASK_GUIDE.md`](TASK_GUIDE.md). Last checked 202
 | --- | --- |
 | Header / nav | `src/components/site-header.tsx`, menu data in `src/components/site-nav-data.ts` |
 | Footer | `src/components/site-footer.tsx` |
+| "Request an AI summary" logo tiles (blog posts + footer; also the share bar's Ask AI menu) | `src/components/ai-summary-links.tsx`: always links the production domain |
 | Page chrome wrapper | `src/components/site-chrome.tsx` |
 | Search | `src/components/search-modal.tsx`, `src/lib/search-engine.ts`, `src/app/api/search/` |
 | JSON-LD | `src/lib/structured-data.ts` |
@@ -55,6 +56,7 @@ how to handle a request is in [`TASK_GUIDE.md`](TASK_GUIDE.md). Last checked 202
 | `search/` | Site search |
 | `revalidate/` | Sanity webhook → tag revalidation |
 | `mcp/`, `mcp/[token]/` | The MCP server for AI tools (below) |
+| `oauth/{register,authorize,token}/` | The MCP server's sign-in (OAuth) endpoints; the sign-in page itself is `src/app/oauth/authorize/`, the metadata `src/app/.well-known/` |
 
 ## MCP server (`src/lib/admin/`)
 

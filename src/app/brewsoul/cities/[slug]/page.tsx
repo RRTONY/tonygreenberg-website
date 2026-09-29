@@ -43,7 +43,7 @@ export default async function BrewSoulCityDetailPage({ params }: PageProps<"/bre
         <div className="absolute inset-0 bg-linear-to-t from-[#0a0806] via-[#0a0806]/60 to-transparent" />
 
         <div className="relative z-1 mx-auto w-full max-w-6xl px-6 pb-8">
-          <Link href="/brewsoul/cities" className="mb-4 inline-block text-sm text-amber-400/60 hover:text-amber-400">
+          <Link href="/brewsoul/cities" className="inline-flex items-center mb-4 text-sm text-amber-400/60 hover:text-amber-400 min-h-11 md:min-h-6">
             ← All Cities
           </Link>
           <div className="flex items-end justify-between gap-4">
@@ -126,13 +126,13 @@ export default async function BrewSoulCityDetailPage({ params }: PageProps<"/bre
 
       <section className="border-t border-white/5 px-6 py-8">
         <div className="mx-auto flex max-w-6xl flex-wrap justify-center gap-3">
-          <Link href="/brewsoul/cities" className="rounded-lg border border-amber-500/30 px-4 py-2 text-sm text-amber-400">
+          <Link href="/brewsoul/cities" className="inline-flex items-center rounded-lg border border-amber-500/30 px-4 py-2 text-sm text-amber-400 min-h-11 md:min-h-6">
             ← All Cities
           </Link>
-          <Link href="/brewsoul/browse" className="rounded-lg border border-amber-500/30 px-4 py-2 text-sm text-amber-400">
+          <Link href="/brewsoul/browse" className="inline-flex items-center rounded-lg border border-amber-500/30 px-4 py-2 text-sm text-amber-400 min-h-11 md:min-h-6">
             Browse Catalog
           </Link>
-          <Link href="/brewsoul/home" className="rounded-lg border border-amber-500/30 px-4 py-2 text-sm text-amber-400">
+          <Link href="/brewsoul/home" className="inline-flex items-center rounded-lg border border-amber-500/30 px-4 py-2 text-sm text-amber-400 min-h-11 md:min-h-6">
             BrewSoul Home
           </Link>
         </div>

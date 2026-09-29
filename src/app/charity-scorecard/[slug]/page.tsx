@@ -48,7 +48,7 @@ export default async function CharityProfilePage({ params }: PageProps<"/charity
         <div className="mx-auto max-w-5xl px-4">
           <Link
             href="/charity-scorecard"
-            className="mb-6 flex items-center gap-1.5 text-sm text-[#E8E4DC]/60 transition-colors hover:text-brand-gold"
+            className="mb-6 flex items-center gap-1.5 text-sm text-[#E8E4DC]/60 transition-colors hover:text-brand-gold min-h-11 md:min-h-6"
           >
             <ArrowLeft className="size-4" /> Back to Index
           </Link>

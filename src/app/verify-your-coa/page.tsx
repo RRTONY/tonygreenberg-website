@@ -37,7 +37,7 @@ export default function VerifyYourCoaPage() {
 
       <section className="bg-[#0A0A10] px-6 py-20 text-white">
         <div className="mx-auto max-w-3xl">
-          <p className="mb-5 font-mono text-xs tracking-[0.25em] text-[#C84B2A] uppercase">
+          <p className="mb-5 font-mono text-xs tracking-[0.25em] text-[#D3512E] uppercase">
             COA Verification Guide
           </p>
           <h1 className="mb-5 font-heading text-4xl leading-tight font-bold sm:text-5xl">
@@ -117,16 +117,16 @@ export default function VerifyYourCoaPage() {
 
       <section className="bg-secondary px-6 py-12">
         <div className="mx-auto flex max-w-3xl flex-wrap justify-center gap-4">
-          <Link href="/rip-peptide-sciences" className="rounded-md border border-border bg-card px-5 py-2 text-sm font-medium">
+          <Link href="/rip-peptide-sciences" className="inline-flex items-center rounded-md border border-border bg-card px-5 py-2 text-sm font-medium min-h-11 md:min-h-6">
             ← RIP Peptide Sciences
           </Link>
-          <Link href="/whats-legal" className="rounded-md border border-border bg-card px-5 py-2 text-sm font-medium">
+          <Link href="/whats-legal" className="inline-flex items-center rounded-md border border-border bg-card px-5 py-2 text-sm font-medium min-h-11 md:min-h-6">
             What&apos;s Legal
           </Link>
-          <Link href="/price-tracker" className="rounded-md border border-border bg-card px-5 py-2 text-sm font-medium">
+          <Link href="/price-tracker" className="inline-flex items-center rounded-md border border-border bg-card px-5 py-2 text-sm font-medium min-h-11 md:min-h-6">
             Price Tracker →
           </Link>
-          <Link href="/test-your-peptides" className="rounded-md border border-border bg-card px-5 py-2 text-sm font-medium">
+          <Link href="/test-your-peptides" className="inline-flex items-center rounded-md border border-border bg-card px-5 py-2 text-sm font-medium min-h-11 md:min-h-6">
             Test Your Peptides →
           </Link>
         </div>

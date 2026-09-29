@@ -66,7 +66,7 @@ export default function PickUpThePhonePage() {
         </p>
         <Link
           href="/engage"
-          className="inline-block rounded-sm bg-brand-gold-light px-8 py-3 font-mono text-sm tracking-wide text-background uppercase"
+          className="inline-block rounded-sm bg-brand-gold-light px-8 py-3 font-mono text-sm tracking-wide text-[#0A0A10] uppercase"
         >
           Enter The Gate →
         </Link>

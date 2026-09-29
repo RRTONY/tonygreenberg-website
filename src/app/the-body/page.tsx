@@ -137,7 +137,7 @@ export default function TheBodyPage() {
         </div>
 
         <div className="border-t border-border py-6 text-center">
-          <Link href="/the-nightstand" className="font-mono text-sm tracking-wide text-brand-gold">
+          <Link href="/the-nightstand" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
             Continue to The Nightstand →
           </Link>
         </div>

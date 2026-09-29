@@ -23,7 +23,7 @@ export function PersonCard({
   person: PersonData;
   accent?: "violet" | "emerald";
 }) {
-  const accentText = accent === "violet" ? "text-violet-600" : "text-emerald-600";
+  const accentText = accent === "violet" ? "text-violet-700" : "text-emerald-700";
   const accentBorder = accent === "violet" ? "border-violet-600/40" : "border-emerald-600/40";
   const accentBg = accent === "violet" ? "bg-violet-100 text-violet-700" : "bg-emerald-100 text-emerald-700";
 

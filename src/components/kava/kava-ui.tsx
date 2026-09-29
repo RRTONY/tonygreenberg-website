@@ -44,10 +44,10 @@ export function KavaCard({
 }
 
 const BADGE_CLASS: Record<string, string> = {
-  saffron: "bg-kava-saffron/12 text-kava-saffron",
-  cobalt: "bg-kava-cobalt/12 text-kava-cobalt",
+  saffron: "bg-kava-saffron/8 text-[#7A461A]",
+  cobalt: "bg-kava-cobalt/8 text-kava-cobalt",
   terracotta: "bg-kava-terracotta/12 text-kava-terracotta",
-  green: "bg-[#16a34a]/12 text-[#16a34a]",
+  green: "bg-[#16a34a]/12 text-[#15803D]",
   red: "bg-[#dc2626]/12 text-[#dc2626]",
   amber: "bg-[#d97706]/12 text-[#d97706]",
   purple: "bg-[#7c3aed]/12 text-[#7c3aed]",

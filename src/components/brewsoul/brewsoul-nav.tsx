@@ -73,7 +73,7 @@ export function BrewSoulNav() {
           scrolled ? "border-b border-[#6F4E37]/10 bg-[#FAFAF7]/95" : "border-b border-transparent bg-[#FAFAF7]/80"
         }`}
       >
-        <Link href="/brewsoul" className="flex items-center gap-2">
+        <Link href="/brewsoul" className="flex min-h-11 items-center gap-2">
           <span className="font-heading text-[1.15rem] font-bold text-[#6F4E37]">BrewSoul</span>
           <span className="font-mono text-[0.6rem] tracking-widest text-[#86691c] uppercase">
             Coffee Intelligence
@@ -101,7 +101,7 @@ export function BrewSoulNav() {
           <Link href="/" className="hidden items-center gap-1 font-mono text-[0.6rem] tracking-wide text-[#6b6b6b] uppercase lg:flex">
             Part of Find Your Me
           </Link>
-          <button onClick={() => setMenuOpen(!menuOpen)} className="p-2 text-xl text-[#6F4E37] md:hidden">
+          <button onClick={() => setMenuOpen(!menuOpen)} className="flex size-11 items-center justify-center text-xl text-[#6F4E37] md:hidden">
             {menuOpen ? "✕" : "☰"}
           </button>
         </div>
@@ -146,13 +146,13 @@ export function BrewSoulFooter() {
       <div className="mb-6 font-mono text-[0.68rem] tracking-[0.15em] text-[#6b6b6b] uppercase">Every Cup Is a Vote</div>
       <Link
         href="/brewsoul/directory"
-        className="mb-5 inline-block rounded-md border border-[#6F4E37]/20 bg-[#6F4E37]/4 px-6 py-2.5 font-mono text-[0.72rem] tracking-wide text-[#6F4E37] uppercase"
+        className="mb-5 inline-flex min-h-11 items-center rounded-md border border-[#6F4E37]/20 bg-[#6F4E37]/4 px-6 py-2.5 font-mono text-[0.72rem] tracking-wide text-[#6F4E37] uppercase"
       >
         📋 See All {BREWSOUL_TOTAL_PAGES} Pages
       </Link>
-      <div className="mb-6 flex flex-wrap justify-center gap-6">
+      <div className="mb-6 flex flex-wrap justify-center gap-x-6 gap-y-1">
         {BREWSOUL_ECOSYSTEM.map((e) => (
-          <a key={e.url} href={e.url} className="font-mono text-[0.7rem] tracking-wide text-[#6F4E37] uppercase">
+          <a key={e.url} href={e.url} className="inline-flex min-h-11 md:min-h-6 items-center font-mono text-[0.7rem] tracking-wide text-[#6F4E37] uppercase">
             {e.label}
           </a>
         ))}

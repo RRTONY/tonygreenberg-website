@@ -206,7 +206,7 @@ export default function IntelPage() {
           </p>
         </div>
         <div className="border-l-2 border-[#4682B4] bg-[#4682B4]/5 p-5">
-          <p className="mb-1.5 font-mono text-xs tracking-wide text-[#4682B4] uppercase">
+          <p className="mb-1.5 font-mono text-xs tracking-wide text-[#3C6F9A] uppercase">
             Impact Rate of Return (iRR)
           </p>
           <p className="text-sm text-muted-foreground">
@@ -215,7 +215,7 @@ export default function IntelPage() {
           </p>
         </div>
         <div className="border-l-2 border-[#6B8E23] bg-[#6B8E23]/5 p-5">
-          <p className="mb-1.5 font-mono text-xs tracking-wide text-[#6B8E23] uppercase">
+          <p className="mb-1.5 font-mono text-xs tracking-wide text-[#59751D] uppercase">
             Hawkins Consciousness Score
           </p>
           <p className="text-sm text-muted-foreground">
@@ -246,7 +246,7 @@ export default function IntelPage() {
       </div>
 
       <div className="border-t border-border py-6 text-center">
-        <Link href="/blog" className="font-mono text-sm tracking-wide text-brand-gold">
+        <Link href="/blog" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
           Read the Blog →
         </Link>
       </div>

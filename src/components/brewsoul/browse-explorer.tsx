@@ -167,7 +167,7 @@ export function BrowseExplorer() {
                 </option>
               ))}
             </select>
-            <label className="flex items-center gap-1.5 rounded-lg border border-[#4A7C59]/12 bg-[#4A7C59]/6 px-3 py-2 font-mono text-xs text-[#4A7C59]">
+            <label className="flex items-center gap-1.5 rounded-lg border border-[#4A7C59]/12 bg-[#4A7C59]/6 px-3 py-2 font-mono text-xs text-[#436F50]">
               <input
                 type="checkbox"
                 checked={moldOnly}

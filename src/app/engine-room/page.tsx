@@ -139,7 +139,7 @@ export default function EngineRoomPage() {
       </div>
 
       <div className="border-t border-border py-6 text-center">
-        <Link href="/under-nda" className="font-mono text-sm tracking-wide text-brand-gold">
+        <Link href="/under-nda" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
           Continue to Under NDA →
         </Link>
       </div>

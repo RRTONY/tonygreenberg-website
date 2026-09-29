@@ -26,7 +26,7 @@ const TIMELINE = [
 const REASONS = [
   { title: "Regulatory Pressure", likelihood: "High", color: "bg-red-600", description: "The FDA enforcement wave was accelerating. The \"research only\" label that protected vendors for a decade was being called a loophole, not a legal distinction. $7.4M/month makes you a visible target." },
   { title: "Pharma Litigation", likelihood: "High", color: "bg-red-600", description: "Selling research-grade semaglutide and tirzepatide — molecules patented and controlled by Eli Lilly and Novo Nordisk — puts you directly in the crosshairs of companies with unlimited legal budgets." },
-  { title: "Payment Processing Collapse", likelihood: "Medium", color: "bg-amber-500", description: "Peptide vendors are classified high-risk by payment processors. When a merchant account is terminated, a $7M/month business can lose its ability to process cards overnight. No payments = no business, regardless of everything else." },
+  { title: "Payment Processing Collapse", likelihood: "Medium", color: "bg-amber-700", description: "Peptide vendors are classified high-risk by payment processors. When a merchant account is terminated, a $7M/month business can lose its ability to process cards overnight. No payments = no business, regardless of everything else." },
 ];
 
 const VENDORS: Vendor[] = [
@@ -46,7 +46,7 @@ export default function RipPeptideSciencesPage() {
     <div>
       <section className="bg-[#0A0A10] px-6 py-20 text-white">
         <div className="mx-auto max-w-3xl">
-          <p className="mb-5 font-mono text-xs tracking-[0.25em] text-[#C84B2A] uppercase">
+          <p className="mb-5 font-mono text-xs tracking-[0.25em] text-[#D3512E] uppercase">
             March 6, 2026 · 2:00 PM Eastern · Gone
           </p>
           <h1 className="mb-5 font-heading text-4xl leading-tight font-bold sm:text-5xl">
@@ -70,7 +70,7 @@ export default function RipPeptideSciencesPage() {
             {TIMELINE.map((entry) => (
               <div key={entry.date} className="relative mb-8 ml-8">
                 <div className="absolute -left-[2.6rem] top-1 size-4 rounded-full border-4 border-background bg-[#C84B2A]" />
-                <p className="mb-1 font-mono text-xs tracking-wide text-[#C84B2A] uppercase">
+                <p className="mb-1 font-mono text-xs tracking-wide text-[#BD4628] uppercase">
                   {entry.date}
                 </p>
                 <h3 className="mb-1 text-lg font-bold text-foreground">{entry.headline}</h3>
@@ -147,7 +147,7 @@ export default function RipPeptideSciencesPage() {
             7 Vendors. Scored Without Bias. Or Paid Placements.
           </h2>
           <p className="mb-1 text-muted-foreground">(Yes, this is unusual. We know.)</p>
-          <p className="mb-8 font-mono text-xs tracking-wide text-muted-foreground/70 uppercase">
+          <p className="mb-8 font-mono text-xs tracking-wide text-muted-foreground uppercase">
             Research vendor market, May 2026
           </p>
 
@@ -184,19 +184,19 @@ export default function RipPeptideSciencesPage() {
 
       <section className="bg-secondary px-6 py-12">
         <div className="mx-auto flex max-w-3xl flex-wrap justify-center gap-4">
-          <Link href="/whats-legal" className="rounded-md border border-border bg-card px-5 py-2 text-sm font-medium">
+          <Link href="/whats-legal" className="inline-flex items-center rounded-md border border-border bg-card px-5 py-2 text-sm font-medium min-h-11 md:min-h-6">
             What&apos;s Legal →
           </Link>
-          <Link href="/verify-your-coa" className="rounded-md border border-border bg-card px-5 py-2 text-sm font-medium">
+          <Link href="/verify-your-coa" className="inline-flex items-center rounded-md border border-border bg-card px-5 py-2 text-sm font-medium min-h-11 md:min-h-6">
             Verify Your COA →
           </Link>
-          <Link href="/price-tracker" className="rounded-md border border-border bg-card px-5 py-2 text-sm font-medium">
+          <Link href="/price-tracker" className="inline-flex items-center rounded-md border border-border bg-card px-5 py-2 text-sm font-medium min-h-11 md:min-h-6">
             Price Tracker →
           </Link>
-          <Link href="/test-your-peptides" className="rounded-md border border-border bg-card px-5 py-2 text-sm font-medium">
+          <Link href="/test-your-peptides" className="inline-flex items-center rounded-md border border-border bg-card px-5 py-2 text-sm font-medium min-h-11 md:min-h-6">
             Test Your Peptides →
           </Link>
-          <Link href="/peptide-watch" className="rounded-md border border-border bg-card px-5 py-2 text-sm font-medium">
+          <Link href="/peptide-watch" className="inline-flex items-center rounded-md border border-border bg-card px-5 py-2 text-sm font-medium min-h-11 md:min-h-6">
             ← Back to Peptide Watch
           </Link>
         </div>

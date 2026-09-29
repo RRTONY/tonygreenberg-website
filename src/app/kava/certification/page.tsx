@@ -53,7 +53,7 @@ const TIERS = [
     scope: "All Level 2 + community harm reduction programs; Hawaii ICE crisis context work; train and certify Level 1 and 2 practitioners; contribute to PRI research.",
     borderClass: "border-kava-terracotta",
     bgClass: "bg-kava-terracotta/8",
-    textClass: "text-kava-terracotta",
+    textClass: "text-[#A63E22]",
   },
 ];
 
@@ -153,13 +153,13 @@ export default function KavaCertificationPage() {
         <div className="text-center">
           <p className="mb-3 text-sm font-medium text-kava-ink/60">Explore the full Kava Encyclopedia</p>
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <Link href="/kava" className="rounded-lg bg-kava-saffron px-4 py-2 text-sm font-semibold text-white">
+            <Link href="/kava" className="inline-flex items-center rounded-lg bg-kava-saffron px-4 py-2 text-sm font-semibold text-white min-h-11 md:min-h-6">
               Kava Home
             </Link>
-            <Link href="/kava/assessment" className="rounded-lg border border-kava-sand-muted bg-white px-4 py-2 text-sm font-semibold text-kava-ink">
+            <Link href="/kava/assessment" className="inline-flex items-center rounded-lg border border-kava-sand-muted bg-white px-4 py-2 text-sm font-semibold text-kava-ink min-h-11 md:min-h-6">
               Take Assessment
             </Link>
-            <Link href="/kava/interactions" className="rounded-lg border border-kava-sand-muted bg-white px-4 py-2 text-sm font-semibold text-kava-ink">
+            <Link href="/kava/interactions" className="inline-flex items-center rounded-lg border border-kava-sand-muted bg-white px-4 py-2 text-sm font-semibold text-kava-ink min-h-11 md:min-h-6">
               Drug Interactions
             </Link>
           </div>

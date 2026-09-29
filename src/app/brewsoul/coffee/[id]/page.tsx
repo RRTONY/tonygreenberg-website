@@ -87,12 +87,12 @@ export default async function BrewSoulCoffeeDetailPage({ params }: PageProps<"/b
     <div>
       <div className="mx-auto max-w-3xl px-6 py-12">
         {/* Breadcrumb */}
-        <div className="mb-8 font-mono text-xs text-[#999]">
-          <Link href="/brewsoul" className="text-[#6F4E37]">
+        <div className="mb-8 font-mono text-xs text-[#6E6E6E]">
+          <Link href="/brewsoul" className="text-[#6F4E37] underline underline-offset-2">
             BrewSoul
           </Link>{" "}
           →{" "}
-          <Link href="/brewsoul/browse" className="text-[#6F4E37]">
+          <Link href="/brewsoul/browse" className="text-[#6F4E37] underline underline-offset-2">
             Browse
           </Link>{" "}
           → {coffee.name}
@@ -101,7 +101,7 @@ export default async function BrewSoulCoffeeDetailPage({ params }: PageProps<"/b
         {/* Header */}
         <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
           <div>
-            <div className="mb-1 font-mono text-xs tracking-[0.2em] text-[#C5A23C] uppercase">
+            <div className="mb-1 font-mono text-xs tracking-[0.2em] text-[#806823] uppercase">
               {tierEmoji(scores.tier)} Tier {scores.tier}
             </div>
             <h1 className="mb-1.5 font-heading text-2xl font-bold text-[#2C1810] sm:text-3xl">{coffee.name}</h1>
@@ -109,11 +109,11 @@ export default async function BrewSoulCoffeeDetailPage({ params }: PageProps<"/b
           </div>
           <div className="text-right">
             <div
-              className={`font-mono text-3xl font-bold ${scores.qpr >= 80 ? "text-[#4A7C59]" : scores.qpr >= 60 ? "text-[#C5A23C]" : "text-[#8B2500]"}`}
+              className={`font-mono text-3xl font-bold ${scores.qpr >= 80 ? "text-[#436F50]" : scores.qpr >= 60 ? "text-[#806823]" : "text-[#8B2500]"}`}
             >
               QPR {scores.qpr}
             </div>
-            <div className="font-mono text-xs text-[#999]">
+            <div className="font-mono text-xs text-[#6E6E6E]">
               ${coffee.priceUsd} / {coffee.unitGrams}g (${pricePerGram}/g)
             </div>
           </div>
@@ -130,7 +130,7 @@ export default async function BrewSoulCoffeeDetailPage({ params }: PageProps<"/b
             { label: "Altitude", value: coffee.altitude ? `${coffee.altitude}m` : "—" },
           ].map((s) => (
             <div key={s.label} className="rounded-lg bg-[#6F4E37]/3 p-3">
-              <div className="mb-1 font-mono text-[0.62rem] tracking-[0.15em] text-[#999] uppercase">{s.label}</div>
+              <div className="mb-1 font-mono text-[0.62rem] tracking-[0.15em] text-[#6E6E6E] uppercase">{s.label}</div>
               <div className="text-sm text-[#2C1810]">{s.value}</div>
             </div>
           ))}
@@ -161,15 +161,15 @@ export default async function BrewSoulCoffeeDetailPage({ params }: PageProps<"/b
           <h2 className="mb-4 font-heading text-xl font-bold text-[#2C1810]">Intelligence Scores</h2>
           <div className="grid gap-3 [grid-template-columns:repeat(auto-fit,minmax(160px,1fr))]">
             {[
-              { label: "QPR", value: scores.qpr, desc: "Quality-to-Price Ratio", color: scores.qpr >= 80 ? "text-[#4A7C59]" : scores.qpr >= 60 ? "text-[#C5A23C]" : "text-[#8B2500]" },
-              { label: "Availability", value: scores.availability, desc: "How easy to get", color: scores.availability >= 70 ? "text-[#4A7C59]" : "text-[#C5A23C]" },
+              { label: "QPR", value: scores.qpr, desc: "Quality-to-Price Ratio", color: scores.qpr >= 80 ? "text-[#436F50]" : scores.qpr >= 60 ? "text-[#806823]" : "text-[#8B2500]" },
+              { label: "Availability", value: scores.availability, desc: "How easy to get", color: scores.availability >= 70 ? "text-[#436F50]" : "text-[#806823]" },
               { label: "Scarcity", value: scores.scarcity, desc: "Rarity & exclusivity", color: scores.scarcity >= 70 ? "text-[#8B4585]" : "text-[#6B5B4F]" },
-              { label: "Wow Factor", value: scores.wow, desc: "Uniqueness & interest", color: scores.wow >= 70 ? "text-[#C5A23C]" : "text-[#6B5B4F]" },
+              { label: "Wow Factor", value: scores.wow, desc: "Uniqueness & interest", color: scores.wow >= 70 ? "text-[#806823]" : "text-[#6B5B4F]" },
             ].map((s) => (
               <div key={s.label} className="rounded-lg border border-[#6F4E37]/8 bg-white p-4">
                 <div className={`font-mono text-2xl font-bold ${s.color}`}>{s.value}</div>
                 <div className="mb-0.5 font-mono text-xs font-semibold text-[#2C1810]">{s.label}</div>
-                <div className="text-[0.75rem] text-[#999]">{s.desc}</div>
+                <div className="text-[0.75rem] text-[#6E6E6E]">{s.desc}</div>
               </div>
             ))}
           </div>
@@ -180,7 +180,7 @@ export default async function BrewSoulCoffeeDetailPage({ params }: PageProps<"/b
           <h2 className="mb-4 font-heading text-xl font-bold text-[#2C1810]">Transparency &amp; Ethics</h2>
           <div className="grid gap-3 [grid-template-columns:repeat(auto-fit,minmax(200px,1fr))]">
             <div className="rounded-lg bg-[#6F4E37]/3 p-4">
-              <div className="mb-1 font-mono text-[0.62rem] tracking-[0.15em] text-[#999] uppercase">
+              <div className="mb-1 font-mono text-[0.62rem] tracking-[0.15em] text-[#6E6E6E] uppercase">
                 Transparency Grade
               </div>
               <div className="font-mono text-2xl font-bold" style={{ color: gradeColor(coffee.producerTransparencyGrade) }}>
@@ -189,10 +189,10 @@ export default async function BrewSoulCoffeeDetailPage({ params }: PageProps<"/b
             </div>
             {coffee.farmerSharePct != null && (
               <div className="rounded-lg bg-[#6F4E37]/3 p-4">
-                <div className="mb-1 font-mono text-[0.62rem] tracking-[0.15em] text-[#999] uppercase">
+                <div className="mb-1 font-mono text-[0.62rem] tracking-[0.15em] text-[#6E6E6E] uppercase">
                   Farmer Share
                 </div>
-                <div className={`font-mono text-2xl font-bold ${coffee.farmerSharePct >= 30 ? "text-[#4A7C59]" : "text-[#C5A23C]"}`}>
+                <div className={`font-mono text-2xl font-bold ${coffee.farmerSharePct >= 30 ? "text-[#436F50]" : "text-[#806823]"}`}>
                   {coffee.farmerSharePct}%
                 </div>
                 {coffee.farmerShareUsd != null && (
@@ -202,16 +202,16 @@ export default async function BrewSoulCoffeeDetailPage({ params }: PageProps<"/b
             )}
             {coffee.cMarketPremiumPct != null && (
               <div className="rounded-lg bg-[#6F4E37]/3 p-4">
-                <div className="mb-1 font-mono text-[0.62rem] tracking-[0.15em] text-[#999] uppercase">
+                <div className="mb-1 font-mono text-[0.62rem] tracking-[0.15em] text-[#6E6E6E] uppercase">
                   C-Market Premium
                 </div>
-                <div className="font-mono text-2xl font-bold text-[#4A7C59]">+{coffee.cMarketPremiumPct}%</div>
+                <div className="font-mono text-2xl font-bold text-[#436F50]">+{coffee.cMarketPremiumPct}%</div>
               </div>
             )}
             <div className="rounded-lg bg-[#6F4E37]/3 p-4">
-              <div className="mb-1 font-mono text-[0.62rem] tracking-[0.15em] text-[#999] uppercase">Mold Test</div>
+              <div className="mb-1 font-mono text-[0.62rem] tracking-[0.15em] text-[#6E6E6E] uppercase">Mold Test</div>
               <div
-                className={`font-mono text-sm font-bold ${coffee.moldTestStatus === "verified" ? "text-[#4A7C59]" : coffee.moldTestStatus === "claims" ? "text-[#C5A23C]" : "text-[#999]"}`}
+                className={`font-mono text-sm font-bold ${coffee.moldTestStatus === "verified" ? "text-[#436F50]" : coffee.moldTestStatus === "claims" ? "text-[#806823]" : "text-[#6E6E6E]"}`}
               >
                 {coffee.moldTestStatus === "verified"
                   ? "✓ Verified Clean"
@@ -221,7 +221,7 @@ export default async function BrewSoulCoffeeDetailPage({ params }: PageProps<"/b
                       ? "✗ Failed"
                       : "Untested"}
               </div>
-              {coffee.moldTestSource && <div className="font-mono text-xs text-[#999]">{coffee.moldTestSource}</div>}
+              {coffee.moldTestSource && <div className="font-mono text-xs text-[#6E6E6E]">{coffee.moldTestSource}</div>}
             </div>
           </div>
         </div>
@@ -247,7 +247,7 @@ export default async function BrewSoulCoffeeDetailPage({ params }: PageProps<"/b
                 </a>
               ))}
             </div>
-            <p className="mt-2 font-mono text-[0.65rem] text-[#BBB]">
+            <p className="mt-2 font-mono text-[0.65rem] text-[#6E6E6E]">
               We don&apos;t take affiliate commissions. These are editorial picks.
             </p>
           </div>
@@ -292,15 +292,15 @@ export default async function BrewSoulCoffeeDetailPage({ params }: PageProps<"/b
 
         {/* Journey CTAs */}
         <div className="mt-10 flex flex-wrap items-center gap-4 border-t border-[#6F4E37]/8 pt-8">
-          <Link href="/brewsoul/browse" className="font-mono text-xs text-[#6F4E37]">
+          <Link href="/brewsoul/browse" className="inline-flex items-center font-mono text-xs text-[#6F4E37] min-h-11 md:min-h-6">
             ← Back to catalog
           </Link>
           <span className="text-[#6F4E37]/20">·</span>
-          <Link href="/brewsoul/quiz" className="font-mono text-xs text-[#C5A23C]">
+          <Link href="/brewsoul/quiz" className="inline-flex items-center font-mono text-xs text-[#806823] min-h-11 md:min-h-6">
             Take the Taste Quiz →
           </Link>
           <span className="text-[#6F4E37]/20">·</span>
-          <Link href="/brewsoul/compare" className="font-mono text-xs text-[#C5A23C]">
+          <Link href="/brewsoul/compare" className="inline-flex items-center font-mono text-xs text-[#806823] min-h-11 md:min-h-6">
             Compare Coffees →
           </Link>
         </div>

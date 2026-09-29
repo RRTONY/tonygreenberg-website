@@ -203,7 +203,8 @@ export function JourneyBar() {
               href={step.path}
               aria-label={step.label}
               aria-current={isCurrent ? "step" : undefined}
-              className="flex items-center gap-1"
+              // 24px hit area around the 8px dot (WCAG 2.2 target size)
+              className="flex min-h-6 min-w-6 items-center justify-center gap-1"
             >
               <div
                 className={`h-2 rounded-full transition-all ${
@@ -223,7 +224,7 @@ export function JourneyBar() {
       </div>
 
       <div className="flex flex-wrap items-center justify-center gap-2">
-        <span className="font-mono text-[0.58rem] tracking-wide text-white/40 uppercase">Next →</span>
+        <span className="font-mono text-[0.58rem] tracking-wide text-white/60 uppercase">Next →</span>
         {suggestions.map((s) => (
           <Link
             key={s.path}
@@ -231,7 +232,7 @@ export function JourneyBar() {
             className="flex items-center gap-1.5 rounded-full border border-[#C5A23C]/20 bg-[#C5A23C]/12 px-3 py-1.5 transition-colors hover:border-[#C5A23C]/40 hover:bg-[#C5A23C]/25"
           >
             <span className="text-[0.78rem] font-semibold text-[#F5F0E6]">{s.label}</span>
-            <span className="font-mono text-[0.58rem] text-[#D4B96A]/70">{s.why}</span>
+            <span className="font-mono text-[0.58rem] text-[#D4B96A]">{s.why}</span>
           </Link>
         ))}
       </div>

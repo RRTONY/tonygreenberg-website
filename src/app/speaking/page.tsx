@@ -32,7 +32,7 @@ export default function SpeakingPage() {
     <div>
       <section className="bg-[#0A0A10] px-6 py-20 text-[#F5F0E0] sm:px-10">
         <div className="mx-auto max-w-4xl">
-          <Link href="/about" className="font-mono text-xs tracking-wide text-brand-gold-light uppercase">
+          <Link href="/about" className="inline-flex items-center font-mono text-xs tracking-wide text-brand-gold-light uppercase min-h-11 md:min-h-6">
             ← The Story
           </Link>
           <p className="mt-9 mb-3 font-mono text-xs tracking-[0.2em] text-brand-gold-light uppercase">
@@ -127,7 +127,7 @@ export default function SpeakingPage() {
         </p>
         <a
           href="mailto:tony@tonygreenberg.com?subject=Speaking%20Invitation"
-          className="inline-flex min-h-11 items-center justify-center rounded-sm bg-brand-gold-light px-5 font-mono text-xs tracking-wide text-background uppercase"
+          className="inline-flex min-h-11 items-center justify-center rounded-sm bg-brand-gold-light px-5 font-mono text-xs tracking-wide text-[#0A0A10] uppercase"
         >
           Start a conversation →
         </a>

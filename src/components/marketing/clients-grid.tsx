@@ -9,13 +9,13 @@ export type Client = { name: string; industry: string; hawkins: number; tier: 1 
 // accent colors on /recent-creations. Not a small fixed set that's worth
 // precomposing as literal Tailwind classes.
 const INDUSTRY_COLORS: Record<string, string> = {
-  Technology: "#1565C0", Finance: "#2E7D32", Entertainment: "#7B2D8E", Media: "#C75B12",
-  Telecom: "#00838F", Consulting: "#4527A0", "E-Commerce": "#AD1457", Consumer: "#E65100",
-  Fintech: "#00695C", Travel: "#0277BD", Retail: "#BF360C", Conglomerate: "#880E4F",
+  Technology: "#1565C0", Finance: "#2B762F", Entertainment: "#7B2D8E", Media: "#AB4E0F",
+  Telecom: "#007580", Consulting: "#4527A0", "E-Commerce": "#AD1457", Consumer: "#B84100",
+  Fintech: "#00695C", Travel: "#026DAE", Retail: "#BF360C", Conglomerate: "#880E4F",
   Insurance: "#33691E", Gaming: "#6A1B9A", Logistics: "#4E342E", "Real Estate": "#37474F",
   Nonprofit: "#1B5E20", Education: "#0D47A1", Cybersecurity: "#B71C1C", Web3: "#4A148C",
-  "Impact Finance": "#1B5E20", "Impact Investing": "#2E7D32", Healthcare: "#00695C",
-  Advertising: "#E65100", Marketing: "#AD1457", "Data Centers": "#37474F",
+  "Impact Finance": "#1B5E20", "Impact Investing": "#2B762F", Healthcare: "#00695C",
+  Advertising: "#B84100", Marketing: "#AD1457", "Data Centers": "#37474F",
   Streaming: "#6A1B9A", Publishing: "#4E342E", Manufacturing: "#455A64",
 };
 
@@ -42,10 +42,10 @@ function FilterButton({
 
 function hawkinsLevel(score: number): { label: string; color: string } {
   if (score >= 400) return { label: "Enlightened", color: "#7B2D8E" };
-  if (score >= 350) return { label: "Acceptance", color: "#2E7D32" };
+  if (score >= 350) return { label: "Acceptance", color: "#2B762F" };
   if (score >= 300) return { label: "Willingness", color: "#1565C0" };
   if (score >= 250) return { label: "Neutrality", color: "#836311" };
-  return { label: "Courage", color: "#C75B12" };
+  return { label: "Courage", color: "#AB4E0F" };
 }
 
 export function ClientsGrid({ clients }: { clients: Client[] }) {

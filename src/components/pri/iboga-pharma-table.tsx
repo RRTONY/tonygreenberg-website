@@ -40,7 +40,7 @@ export function IbogaPharmaTable() {
         </table>
       </div>
       {IBOGA_PHARMA_ALTERNATIVES.length > 5 && (
-        <button onClick={() => setExpanded(!expanded)} className="mt-4 rounded-md bg-pri-purple px-6 py-2.5 text-sm font-bold text-white">
+        <button onClick={() => setExpanded(!expanded)} className="inline-flex items-center mt-4 rounded-md bg-pri-purple px-6 py-2.5 text-sm font-bold text-white min-h-11 md:min-h-6">
           {expanded ? "Show fewer" : `Show all ${IBOGA_PHARMA_ALTERNATIVES.length}`}
         </button>
       )}

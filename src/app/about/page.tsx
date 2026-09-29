@@ -64,7 +64,7 @@ export default function AboutPage() {
       </div>
 
       <div className="mx-auto max-w-3xl px-6 py-10">
-        <p className="mb-3 font-mono text-xs tracking-[0.2em] text-brand-gold-light uppercase">
+        <p className="mb-3 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase dark:text-brand-gold-light">
           Chapter One
         </p>
         <h2 className="mb-6 font-heading text-2xl font-normal text-foreground">
@@ -89,7 +89,7 @@ export default function AboutPage() {
       </div>
 
       <div className="mx-auto max-w-3xl border-t border-border px-6 py-10">
-        <p className="mb-3 font-mono text-xs tracking-[0.2em] text-brand-gold-light uppercase">
+        <p className="mb-3 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase dark:text-brand-gold-light">
           Chapter Two
         </p>
         <h2 className="mb-6 font-heading text-2xl font-normal text-foreground">
@@ -126,7 +126,7 @@ export default function AboutPage() {
       </div>
 
       <div className="mx-auto max-w-3xl border-t border-border px-6 py-10">
-        <p className="mb-3 font-mono text-xs tracking-[0.2em] text-brand-gold-light uppercase">
+        <p className="mb-3 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase dark:text-brand-gold-light">
           Chapter Three
         </p>
         <h2 className="mb-6 font-heading text-2xl font-normal text-foreground">
@@ -182,7 +182,7 @@ export default function AboutPage() {
       </div>
 
       <div className="mx-auto max-w-3xl border-t border-border px-6 py-10">
-        <p className="mb-3 font-mono text-xs tracking-[0.2em] text-brand-gold-light uppercase">
+        <p className="mb-3 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase dark:text-brand-gold-light">
           The Muse
         </p>
         <h2 className="mb-5 font-heading text-2xl font-normal text-foreground">
@@ -236,7 +236,7 @@ export default function AboutPage() {
         <div className="flex flex-wrap justify-center gap-4">
           <a
             href="mailto:tony@tonygreenberg.com"
-            className="rounded-sm bg-brand-gold-light px-6 py-2.5 font-mono text-xs tracking-wide text-background"
+            className="inline-flex items-center rounded-sm bg-brand-gold-light px-6 py-2.5 font-mono text-xs tracking-wide text-[#0A0A10] min-h-11 md:min-h-6"
           >
             Reach Out
           </a>
@@ -247,11 +247,11 @@ export default function AboutPage() {
             Join the Ecosystem
           </Link>
         </div>
-        <p className="mt-6 font-mono text-xs text-white/30">Santa Monica · Aspen · At Large</p>
+        <p className="mt-6 font-mono text-xs text-white/55">Santa Monica · Aspen · At Large</p>
       </div>
 
       <div className="border-t border-border py-6 text-center">
-        <Link href="/" className="font-mono text-sm tracking-wide text-brand-gold">
+        <Link href="/" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
           Back to the Essays →
         </Link>
       </div>

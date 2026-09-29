@@ -104,7 +104,7 @@ export default function EcosystemPage() {
       </section>
 
       <div className="border-t border-border py-6 text-center">
-        <Link href="/find-my" className="font-mono text-sm tracking-wide text-brand-gold">
+        <Link href="/find-my" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
           Explore the Assessments →
         </Link>
       </div>

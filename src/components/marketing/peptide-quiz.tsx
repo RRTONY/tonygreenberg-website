@@ -402,7 +402,7 @@ export function PeptideQuiz() {
             This quiz is for educational purposes only and does not constitute medical advice. All
             questions are based on publicly available FDA communications, peer-reviewed
             literature, and established medical standards. Protected under Fair Comment doctrine.{" "}
-            <Link href="/peptide-matrix" className="text-brand-gold">
+            <Link href="/peptide-matrix" className="text-brand-gold underline underline-offset-2">
               View our methodology →
             </Link>
           </p>

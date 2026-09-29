@@ -47,8 +47,8 @@ const SERIES: SeriesDef[] = [
 const CATEGORY_CLASSES: Record<string, { text: string; bg: string }> = {
   "Business & Capital": { text: "text-[#1565C0]", bg: "bg-[#1565C0]/10" },
   "Systems & Innovation": { text: "text-[#7B2D8E]", bg: "bg-[#7B2D8E]/10" },
-  "Culture & Communication": { text: "text-[#C75B12]", bg: "bg-[#C75B12]/10" },
-  "Living Well": { text: "text-[#2E7D32]", bg: "bg-[#2E7D32]/10" },
+  "Culture & Communication": { text: "text-[#AB4E0F]", bg: "bg-[#C75B12]/10" },
+  "Living Well": { text: "text-[#2B762F]", bg: "bg-[#2E7D32]/10" },
   "Impact & Purpose": { text: "text-[#00695C]", bg: "bg-[#00695C]/10" },
   "The Crusades": { text: "text-[#B71C1C]", bg: "bg-[#B71C1C]/10" },
 };
@@ -67,7 +67,7 @@ export default async function SeriesPage() {
   return (
     <div>
       <div className="bg-linear-to-b from-background to-secondary px-6 pt-16 pb-10 sm:px-10">
-        <Link href="/" className="mb-6 inline-block font-mono text-xs tracking-wide text-brand-gold uppercase">
+        <Link href="/" className="inline-flex items-center mb-6 font-mono text-xs tracking-wide text-brand-gold uppercase min-h-11 md:min-h-6">
           ← Back to The Blog
         </Link>
         <p className="mb-2 font-mono text-xs tracking-[0.15em] text-brand-gold uppercase">
@@ -111,7 +111,7 @@ export default async function SeriesPage() {
                       <Link
                         key={post.slug}
                         href={`/blog/${post.slug}`}
-                        className="flex items-center gap-2 rounded-sm px-2 py-1.5 transition-colors hover:bg-brand-gold/5"
+                        className="flex items-center gap-2 rounded-sm px-2 py-1.5 transition-colors hover:bg-brand-gold/5 min-h-11 md:min-h-6"
                       >
                         <span className="min-w-6 font-mono text-xs font-semibold text-muted-foreground">
                           {i + 1}.
@@ -148,7 +148,7 @@ export default async function SeriesPage() {
       </div>
 
       <div className="border-t border-border py-6 text-center">
-        <Link href="/search" className="font-mono text-sm tracking-wide text-brand-gold">
+        <Link href="/search" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
           Search All Essays →
         </Link>
       </div>

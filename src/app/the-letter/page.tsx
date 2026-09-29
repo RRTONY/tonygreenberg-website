@@ -213,7 +213,7 @@ export default async function TheLetterPage() {
           <div className="flex flex-wrap gap-3">
             <Link
               href="/find-my"
-              className="inline-flex items-center justify-center rounded-sm bg-brand-gold-light px-4 py-2.5 font-mono text-xs tracking-wide text-background uppercase shadow-[0_0_20px_rgba(212,185,106,0.3)] transition-transform hover:scale-105"
+              className="inline-flex items-center justify-center rounded-sm bg-brand-gold-light px-4 py-2.5 font-mono text-xs tracking-wide text-[#0A0A10] uppercase shadow-[0_0_20px_rgba(212,185,106,0.3)] transition-transform hover:scale-105"
             >
               Find Your Fit →
             </Link>
@@ -230,7 +230,7 @@ export default async function TheLetterPage() {
       {/* Three Visitor Pathways */}
       <div className="border-b border-border bg-background px-6 py-10 sm:px-10">
         <div className="mx-auto max-w-5xl">
-          <p className="mb-5 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase opacity-70">
+          <p className="mb-5 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
             Where do you want to start?
           </p>
           <div className="grid divide-y divide-border border-t border-border sm:grid-cols-3 sm:divide-x sm:divide-y-0">
@@ -255,7 +255,7 @@ export default async function TheLetterPage() {
         <div className="mx-auto max-w-5xl">
           <div className="mb-1 flex flex-wrap items-baseline gap-4">
             <h2 className="font-heading text-2xl font-bold text-foreground">Start Here</h2>
-            <p className="font-mono text-xs tracking-wide text-brand-gold uppercase opacity-70">
+            <p className="font-mono text-xs tracking-wide text-brand-gold uppercase">
               7 essays that explain what I think and what I&apos;m building
             </p>
           </div>
@@ -267,7 +267,7 @@ export default async function TheLetterPage() {
                 href={`/blog/${essay.slug}`}
                 className="grid grid-cols-[2rem_1fr_auto] gap-4 border-t border-border py-4 transition-colors hover:bg-brand-gold/5"
               >
-                <span className="font-mono text-xs text-brand-gold/40">{essay.num}</span>
+                <span className="font-mono text-xs text-brand-gold">{essay.num}</span>
                 <span>
                   <span className="block font-heading font-bold leading-tight text-foreground">
                     {essay.title}
@@ -275,7 +275,7 @@ export default async function TheLetterPage() {
                   <span className="text-sm text-muted-foreground">{essay.why}</span>
                 </span>
                 <span className="min-w-20 text-right">
-                  <span className="block font-mono text-[0.58rem] tracking-wide text-brand-gold uppercase opacity-60">
+                  <span className="block font-mono text-[0.58rem] tracking-wide text-brand-gold uppercase">
                     {essay.theme}
                   </span>
                   <span className="font-mono text-[0.6rem] text-muted-foreground">{essay.time}</span>
@@ -292,7 +292,7 @@ export default async function TheLetterPage() {
       {/* Four Doors */}
       <div className="bg-[#0E0C09]">
         <div className="px-4 pt-10 pb-5 text-center">
-          <p className="mb-1.5 font-mono text-xs tracking-[0.22em] text-brand-gold-light/55 uppercase">
+          <p className="mb-1.5 font-mono text-xs tracking-[0.22em] text-brand-gold-light/85 uppercase">
             Four Doors
           </p>
           <p className="font-heading text-2xl text-[#F5F0E6]">
@@ -324,14 +324,14 @@ export default async function TheLetterPage() {
                 </div>
               )}
               <div className="flex flex-col justify-center bg-[#0A0A10] p-8">
-                <p className="mb-3 font-mono text-xs tracking-wide text-brand-gold uppercase">
+                <p className="mb-3 font-mono text-xs tracking-wide text-brand-gold-light uppercase">
                   Harm Reduction · ImpactSoul
                 </p>
                 <h3 className="mb-4 font-heading text-2xl font-bold text-white">{featured.title}</h3>
                 {featured.excerpt && (
                   <p className="mb-5 text-white/70">{featured.excerpt}</p>
                 )}
-                <p className="mb-5 font-mono text-xs text-brand-gold-light/60">
+                <p className="mb-5 font-mono text-xs text-brand-gold-light/85">
                   {featured.readTime ? `${featured.readTime} min read` : null}
                 </p>
                 <p className="font-mono text-xs tracking-wide text-brand-gold-light uppercase">
@@ -454,7 +454,7 @@ export default async function TheLetterPage() {
                   {...linkProps}
                   className="block rounded-lg border border-border p-6 transition-colors hover:border-brand-gold/30"
                 >
-                  <p className="mb-2 font-mono text-[0.58rem] tracking-[0.18em] text-brand-gold uppercase opacity-70">
+                  <p className="mb-2 font-mono text-[0.58rem] tracking-[0.18em] text-brand-gold uppercase">
                     {item.tag}
                   </p>
                   <p className="mb-2 font-heading font-bold text-foreground">{item.title}</p>
@@ -466,15 +466,15 @@ export default async function TheLetterPage() {
           </div>
           <p className="mt-5 border-t border-border pt-4 font-mono text-xs text-muted-foreground">
             Also active in:{" "}
-            <Link href="/psychedelic-readiness-index" className="text-brand-gold opacity-70">
+            <Link href="/psychedelic-readiness-index" className="text-brand-gold">
               Psychedelic Medicine
             </Link>{" "}
             ·{" "}
-            <Link href="/brewsoul" className="text-brand-gold opacity-70">
+            <Link href="/brewsoul" className="text-brand-gold">
               BrewSoul
             </Link>{" "}
             ·{" "}
-            <Link href="/ecosystem" className="text-brand-gold opacity-70">
+            <Link href="/ecosystem" className="text-brand-gold">
               Full Ecosystem →
             </Link>
           </p>
@@ -496,7 +496,7 @@ export default async function TheLetterPage() {
                   i < MOST_READ.length - 1 ? "border-b border-brand-gold-light/10" : ""
                 }`}
               >
-                <span className="font-mono text-xs text-brand-gold-light">{item.num}</span>
+                <span className="font-mono text-xs text-brand-gold dark:text-brand-gold-light">{item.num}</span>
                 <span>
                   <span className="font-heading font-semibold text-foreground">{item.title}</span>
                   {item.subtitle && (

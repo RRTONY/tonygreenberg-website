@@ -321,7 +321,7 @@ export const WOUND_CARDS: WoundCard[] = [
     wound: "I don't know what I'm building anymore",
     subtext: "Purpose that went missing somewhere around 35",
     icon: "✶",
-    color: "#836311",
+    color: "#D4B96A",
     links: [
       { label: "Find Your Purpose", path: "/dharma-finder", type: "assessment" },
       { label: "Find Your Blueprint", path: "/living-declaration", type: "tool" },
@@ -427,7 +427,7 @@ export const DIRECTORY: DirectorySection[] = [
   {
     category: "Love & Belonging",
     subtitle: "The people work",
-    color: "#C97B7B",
+    color: "#B75050",
     items: [
       { name: "Find Your Partner", hook: "15 questions across 5 domains. The invisible architecture of your intimacy, mapped.", status: "live", url: "https://intimacyassess-tcir3hon.manus.space" },
       { name: "Find Your Tribe", hook: "The people who think like you do at 2am.", status: "live", url: "/community" },
@@ -440,7 +440,7 @@ export const DIRECTORY: DirectorySection[] = [
   {
     category: "Body & Temple",
     subtitle: "The vessel that carries everything else",
-    color: "#7BC9A4",
+    color: "#337D5A",
     items: [
       { name: "Find Your Chemistry", hook: "Your body is a lab. Time to read the results.", status: "live", url: "https://regenhealth-4nns6jnd.manus.space" },
       { name: "Find Your Water", hook: "The element that teaches you to flow, not force.", status: "live", url: "https://aqwaterqpr-wvzsc3ph.manus.space" },
@@ -453,7 +453,7 @@ export const DIRECTORY: DirectorySection[] = [
   {
     category: "Taste & Ritual",
     subtitle: "What touches your mouth should touch your mind and heart",
-    color: "#C9A87B",
+    color: "#8F6B3B",
     items: [
       { name: "Find Your Mezcal", hook: "The agave that matches your soul — not your Instagram.", status: "live", url: "https://mezcalagave-ahru9fq8.manus.space" },
       { name: "Find Your Tequila", hook: "Highland or lowland. Blanco or añejo. A love letter in liquid form.", status: "live", url: "https://tequilaazul-fxqrr3js.manus.space" },
@@ -465,7 +465,7 @@ export const DIRECTORY: DirectorySection[] = [
   {
     category: "Mind & Systems",
     subtitle: "For the ones who see the architecture underneath",
-    color: "#7BA8C9",
+    color: "#40769E",
     items: [
       { name: "Find Your Blueprint", hook: "The operating system for what comes after extraction.", status: "live", url: "/living-declaration" },
       { name: "Find Your Capital", hook: "How aligned money actually moves.", status: "live", url: "https://portfoliofamilyoffice.manus.space" },

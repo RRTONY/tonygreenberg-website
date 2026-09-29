@@ -399,7 +399,7 @@ export default function AkbarPage() {
         <h2 className="mb-6 font-heading text-3xl font-bold sm:text-4xl">
           The Question That Remains
         </h2>
-        <p className="mb-8 font-heading text-xl text-[#C8362A]">
+        <p className="mb-8 font-heading text-xl text-[#D74B3F]">
           In a city that is losing its memory, who is holding yours?
         </p>
         <p className="mb-4 leading-relaxed">
@@ -423,7 +423,7 @@ export default function AkbarPage() {
       <SquareStrip images={FOOTER_GALLERY} className="mt-16 grid grid-cols-3 gap-2 px-2 sm:grid-cols-6 sm:px-6" />
 
       <div className="border-t border-[#C9A84C]/15 px-6 py-6 text-center">
-        <Link href="/" className="font-mono text-sm tracking-wide text-[#C9A84C]">
+        <Link href="/" className="inline-flex items-center font-mono text-sm tracking-wide text-[#C9A84C] min-h-11 md:min-h-6">
           ← Back to the Essays
         </Link>
       </div>

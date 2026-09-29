@@ -162,10 +162,10 @@ export function ImpactDashboardExplorer() {
           <div className="mb-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {[
               { label: "Total Token Holders", value: `${AGGREGATE.totalTokenHolders.toLocaleString()}+`, sub: "Across 4 ecosystems", color: "#836311" },
-              { label: "Impact Capital Deployed", value: AGGREGATE.totalImpactDeployed, sub: "Direct regenerative funding", color: "#27AE60" },
+              { label: "Impact Capital Deployed", value: AGGREGATE.totalImpactDeployed, sub: "Direct regenerative funding", color: "#1E8449" },
               { label: "Projects Funded", value: AGGREGATE.totalProjectsFunded.toString(), sub: "Ocean, education, digital, mental health", color: "#0077B6" },
               { label: "Community Members", value: `${AGGREGATE.totalCommunityMembers.toLocaleString()}+`, sub: "Active participants worldwide", color: "#6C5CE7" },
-              { label: "Avg Hawkins Score", value: AGGREGATE.avgHawkins.toString(), sub: "Above integrity threshold (200+)", color: "#D4B96A" },
+              { label: "Avg Hawkins Score", value: AGGREGATE.avgHawkins.toString(), sub: "Above integrity threshold (200+)", color: "#9E822E" },
               { label: "Portfolio Companies", value: `${AGGREGATE.portfolioCompanies}+`, sub: "Psychedelic, impact, Web3, health", color: "#9B59B6" },
             ].map((kpi) => (
               <GlassCard key={kpi.label} className="p-6">
@@ -195,7 +195,7 @@ export function ImpactDashboardExplorer() {
                   </div>
                   <p className="mb-3 text-sm leading-relaxed text-muted-foreground">{token.mission.slice(0, 100)}...</p>
                   <div className="flex justify-between font-mono text-xs">
-                    <span className="text-[#27AE60]">{token.metrics.impactDeployed} deployed</span>
+                    <span className="text-[#1E8449]">{token.metrics.impactDeployed} deployed</span>
                     <span style={{ color: token.color }}>{token.metrics.impactMultiplier} multiplier</span>
                   </div>
                 </GlassCard>
@@ -461,7 +461,7 @@ export function ImpactDashboardExplorer() {
           <div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
             {[
               { label: "Charities Scored", value: CHARITY_SUMMARY.totalCharities.toString(), color: "#836311", Icon: BarChart3 },
-              { label: "Avg Composite Score", value: CHARITY_SUMMARY.avgScore.toString(), color: "#27AE60", Icon: TrendingUp },
+              { label: "Avg Composite Score", value: CHARITY_SUMMARY.avgScore.toString(), color: "#1E8449", Icon: TrendingUp },
               { label: "Evaluators Unified", value: CHARITY_SUMMARY.evaluatorsUnified.toString(), color: "#3498DB", Icon: Link2 },
               { label: "Scoring Dimensions", value: CHARITY_SUMMARY.dimensions.toString(), color: "#9B59B6", Icon: Target },
               { label: "Sectors Covered", value: CHARITY_SUMMARY.sectors.toString(), color: "#E67E22", Icon: Globe },
@@ -483,7 +483,7 @@ export function ImpactDashboardExplorer() {
               goes. Clear means full disclosure. Opaque means you&apos;re funding a black box.
             </p>
             <div className="mb-2 flex h-10 gap-1.5 overflow-hidden rounded-lg">
-              <div className="flex items-center justify-center font-mono text-xs font-bold text-white" style={{ flex: CHARITY_SUMMARY.clearTransparency, background: "#27AE60" }}>
+              <div className="flex items-center justify-center font-mono text-xs font-bold text-white" style={{ flex: CHARITY_SUMMARY.clearTransparency, background: "#1E8449" }}>
                 {CHARITY_SUMMARY.clearTransparency}%
               </div>
               <div className="flex items-center justify-center font-mono text-xs font-bold text-white" style={{ flex: CHARITY_SUMMARY.hazyTransparency, background: "#E67E22" }}>

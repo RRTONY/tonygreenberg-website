@@ -14,7 +14,9 @@ import { usePathname } from "next/navigation";
 // (still-Server-Component) header/footer through as `children` — Server
 // Components can be rendered as children of a Client Component like this
 // without themselves becoming client components.
-const SUPPRESSED_PREFIXES = ["/brewsoul", "/attention-theft", "/kava", "/humanos"];
+// /oauth is the MCP sign-in page (src/app/oauth/authorize), a focused
+// screen an AI app opens mid-connection, not part of the site.
+const SUPPRESSED_PREFIXES = ["/brewsoul", "/attention-theft", "/kava", "/humanos", "/oauth"];
 
 export function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();

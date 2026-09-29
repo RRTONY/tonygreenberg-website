@@ -156,11 +156,11 @@ export function JourneyTracker({
   }, []);
 
   const shellClass = isDark
-    ? "border border-brand-gold-light/15 bg-[#0A0A10]/70 backdrop-blur-xl"
+    ? "border border-brand-gold-light/15 bg-[#0A0A10]/90 backdrop-blur-xl"
     : "border border-brand-gold-light/30 bg-background/95 backdrop-blur-xl";
   const textPrimaryClass = isDark ? "text-brand-gold-light" : "text-brand-gold";
-  const textSecondaryClass = isDark ? "text-[#E8E4DC]/50" : "text-[#666]";
-  const textMutedClass = isDark ? "text-[#E8E4DC]/30" : "text-[#999]";
+  const textSecondaryClass = isDark ? "text-[#E8E4DC]/75" : "text-[#666]";
+  const textMutedClass = isDark ? "text-[#E8E4DC]/60" : "text-[#707070]";
   const trackClass = isDark ? "bg-brand-gold-light/8" : "bg-brand-gold/8";
 
   if (compact) {

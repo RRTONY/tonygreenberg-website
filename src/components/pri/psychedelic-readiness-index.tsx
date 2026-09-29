@@ -702,17 +702,17 @@ export function PsychedelicReadinessIndex() {
                     )}
                     <div className="mb-1 text-[1.8rem]">{m.icon}</div>
                     <div className="mb-0.5 font-heading text-sm text-pri-cream">{m.name}</div>
-                    <div className="mb-4 text-[.75rem] font-semibold tracking-[0.05em] text-pri-cream/40 uppercase">{m.src}</div>
+                    <div className="mb-4 text-[.75rem] font-semibold tracking-[0.05em] text-pri-cream/60 uppercase">{m.src}</div>
 
                     <div className="mb-5">
-                      <div className="mb-1 text-[.75rem] font-bold tracking-[0.06em] text-pri-cream/40 uppercase">Intensity</div>
+                      <div className="mb-1 text-[.75rem] font-bold tracking-[0.06em] text-pri-cream/60 uppercase">Intensity</div>
                       <div className="h-1 bg-pri-cream/10">
                         <div className={`h-full ${m.intensity > 0.8 ? "bg-pri-purple" : m.intensity > 0.5 ? "bg-pri-purple-mid" : "bg-[#6B8F71]"}`} style={{ width: `${m.intensity * 100}%` }} />
                       </div>
                       <div className="mt-0.5 text-[.75rem] font-bold text-pri-cream">{Math.round(m.intensity * 100)}%</div>
                     </div>
 
-                    <div className="mb-2 text-[.75rem] font-bold tracking-[0.06em] text-pri-cream/40 uppercase">Dimension Scores</div>
+                    <div className="mb-2 text-[.75rem] font-bold tracking-[0.06em] text-pri-cream/60 uppercase">Dimension Scores</div>
                     {(Object.keys(DIM_LABELS) as DimKey[]).map((d) => (
                       <div key={d} className="mb-1.5 flex items-center gap-1.5">
                         <div className="w-12.5 shrink-0 text-[.75rem] text-pri-cream/50 uppercase">{DIM_LABELS[d].split(" ")[0]}</div>
@@ -732,7 +732,7 @@ export function PsychedelicReadinessIndex() {
                     </div>
 
                     <div className="mt-4 border-t border-pri-cream/8 pt-3">
-                      <div className="mb-1 text-[.75rem] font-bold tracking-[0.06em] text-pri-cream/40 uppercase">Safety</div>
+                      <div className="mb-1 text-[.75rem] font-bold tracking-[0.06em] text-pri-cream/60 uppercase">Safety</div>
                       <div className="text-[.75rem] leading-[1.5] text-pri-cream/60">
                         {ms.contraindications.length} contraindications
                         <br />
@@ -793,7 +793,7 @@ export function PsychedelicReadinessIndex() {
         />
         <div className="mx-auto max-w-250 px-5">
           <div className="mb-8 border-b border-pri-cream/8 pb-5">
-            <div className="mb-1 flex items-center gap-2 text-xs font-bold tracking-[0.25em] text-pri-purple uppercase">
+            <div className="mb-1 flex items-center gap-2 text-xs font-bold tracking-[0.25em] text-pri-purple-light uppercase">
               <span className="block h-0.5 w-6 bg-pri-purple" />
               Pharmacological Safety
             </div>
@@ -822,9 +822,9 @@ export function PsychedelicReadinessIndex() {
             <table className="w-full border-collapse text-[.85rem]">
               <thead>
                 <tr className="border-b-2 border-pri-cream/15">
-                  <th className="px-4 py-3 text-left text-[.7rem] font-extrabold tracking-[0.08em] text-pri-purple uppercase">Compound</th>
-                  <th className="px-4 py-3 text-left text-[.7rem] font-extrabold tracking-[0.08em] text-pri-purple uppercase">Interaction</th>
-                  <th className="px-4 py-3 text-center text-[.7rem] font-extrabold tracking-[0.08em] text-pri-purple uppercase">Risk</th>
+                  <th className="px-4 py-3 text-left text-[.7rem] font-extrabold tracking-[0.08em] text-pri-purple-light uppercase">Compound</th>
+                  <th className="px-4 py-3 text-left text-[.7rem] font-extrabold tracking-[0.08em] text-pri-purple-light uppercase">Interaction</th>
+                  <th className="px-4 py-3 text-center text-[.7rem] font-extrabold tracking-[0.08em] text-pri-purple-light uppercase">Risk</th>
                 </tr>
               </thead>
               <tbody>
@@ -835,7 +835,7 @@ export function PsychedelicReadinessIndex() {
                     <td className="px-4 py-3 text-center">
                       <span
                         className={`inline-block px-2.5 py-0.5 text-xs font-extrabold tracking-[0.04em] uppercase ${
-                          row.riskLevel === "hard_stop" ? "bg-[#ef4444]/15 text-[#ef4444]" : row.riskLevel === "caution_md" ? "bg-[#f97316]/15 text-[#f97316]" : "bg-[#eab308]/15 text-[#eab308]"
+                          row.riskLevel === "hard_stop" ? "bg-[#ef4444]/15 text-[#F87171]" : row.riskLevel === "caution_md" ? "bg-[#f97316]/15 text-[#f97316]" : "bg-[#eab308]/15 text-[#eab308]"
                         }`}
                       >
                         {row.riskLabel}
@@ -848,7 +848,7 @@ export function PsychedelicReadinessIndex() {
           </div>
 
           <div className="mt-8">
-            <div className="mb-4 text-xs font-extrabold tracking-[0.12em] text-pri-purple uppercase">MAO-B Inhibitor Wash-Out Guidance</div>
+            <div className="mb-4 text-xs font-extrabold tracking-[0.12em] text-pri-purple-light uppercase">MAO-B Inhibitor Wash-Out Guidance</div>
             <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-px border border-pri-cream/8 bg-pri-cream/6">
               {Object.entries(MAOB_WASHOUT).map(([drug, info]) => (
                 <div key={drug} className="bg-[#0A0F1E]/40 p-5">
@@ -924,7 +924,7 @@ export function PsychedelicReadinessIndex() {
               className="brightness-50 contrast-120"
             />
             <div className="px-8 py-6">
-              <div className="mb-4 text-xs font-extrabold tracking-[0.12em] text-pri-purple uppercase">Crisis Resources</div>
+              <div className="mb-4 text-xs font-extrabold tracking-[0.12em] text-pri-purple-light uppercase">Crisis Resources</div>
               <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4">
                 {CRISIS_RESOURCES.map((r) => (
                   <div key={r.name}>
@@ -951,13 +951,13 @@ export function PsychedelicReadinessIndex() {
         <div className="mx-auto max-w-300 px-5 py-8">
           <div className="mb-8 flex flex-wrap items-end justify-between gap-3 border-b border-pri-cream/8 pb-5">
             <div>
-              <div className="mb-1 flex items-center gap-2 text-xs font-bold tracking-[0.25em] text-pri-purple uppercase">
+              <div className="mb-1 flex items-center gap-2 text-xs font-bold tracking-[0.25em] text-pri-purple-light uppercase">
                 <span className="block h-0.5 w-6 bg-pri-purple" />
                 Consciousness-Aligned Assessment
               </div>
               <h2 className="font-heading text-[clamp(1.5rem,4vw,2.8rem)] text-pri-cream">Readiness Index</h2>
             </div>
-            <div className="text-right text-[.78rem] text-pri-cream/40">{QUESTIONS.length} Questions · 6 Domains</div>
+            <div className="text-right text-[.78rem] text-pri-cream/60">{QUESTIONS.length} Questions · 6 Domains</div>
           </div>
         </div>
 
@@ -965,7 +965,7 @@ export function PsychedelicReadinessIndex() {
           {/* PHILOSOPHY */}
           {state === "philosophy" && (
             <div className="px-5 py-6 text-center">
-              <div className="mb-8 text-[.6rem] tracking-[0.28em] text-brand-gold uppercase">Tony Greenberg · The Diode of Perception</div>
+              <div className="mb-8 text-[.6rem] tracking-[0.28em] text-brand-gold-light uppercase">Tony Greenberg · The Diode of Perception</div>
               <div className="mx-auto max-w-160 text-left">
                 {PHILOSOPHY_PARAGRAPHS.map((para, i) => (
                   <p
@@ -973,14 +973,14 @@ export function PsychedelicReadinessIndex() {
                     className={`mb-6 font-heading text-[clamp(1rem,2.8vw,1.2rem)] leading-[1.85] ${para.italic ? "italic" : ""}`}
                     style={{ color: `rgba(244,240,232,${0.92 - i * 0.05})` }}
                   >
-                    {i === 0 && <span className="float-left mt-1 mr-1 font-heading text-[clamp(2rem,5vw,2.8rem)] leading-none text-brand-gold">T</span>}
+                    {i === 0 && <span className="float-left mt-1 mr-1 font-heading text-[clamp(2rem,5vw,2.8rem)] leading-none text-brand-gold-light">T</span>}
                     {i === 0 ? para.text.slice(1) : para.text}
                   </p>
                 ))}
               </div>
               <div className="my-8 h-px bg-linear-to-r from-transparent via-brand-gold/30 to-transparent" />
               <div className="mx-auto mb-8 max-w-140 border border-brand-gold/20 bg-brand-gold/7 p-6 text-left">
-                <div className="mb-3 text-[.6rem] tracking-[0.2em] text-brand-gold uppercase">What the Numbers Are Saying</div>
+                <div className="mb-3 text-[.6rem] tracking-[0.2em] text-brand-gold-light uppercase">What the Numbers Are Saying</div>
                 <p className="m-0 text-[clamp(.85rem,2.2vw,.95rem)] leading-[1.8] text-pri-cream/70">
                   You are the instrument. Every medicine, every ceremony, every facilitator conversation begins with one question: what is the current
                   condition of the thing being played? This assessment exists to answer that — not to gatekeep, but to give you an honest map before you
@@ -991,7 +991,7 @@ export function PsychedelicReadinessIndex() {
                 See Where You Actually Stand →
               </button>
               <div className="mt-6">
-                <Link href="/the-philosophy" className="text-[.75rem] tracking-[0.1em] text-brand-gold">
+                <Link href="/the-philosophy" className="text-[.75rem] tracking-[0.1em] text-brand-gold-light">
                   Read the full philosophy →
                 </Link>
               </div>
@@ -1001,7 +1001,7 @@ export function PsychedelicReadinessIndex() {
           {/* INTRO */}
           {state === "intro" && (
             <div className="px-5 py-8 text-center">
-              <Star className="mx-auto mb-4 size-11 text-brand-gold" fill="currentColor" />
+              <Star className="mx-auto mb-4 size-11 text-brand-gold-light" fill="currentColor" />
               <h2 className="mb-4 font-heading text-[clamp(1.5rem,4vw,2rem)] text-pri-cream">Your Readiness Assessment</h2>
               <p className="mx-auto mb-8 max-w-130 text-[clamp(.88rem,2.5vw,1rem)] text-pri-cream/65">
                 Most people walk into these experiences with a plan. Very few walk in with a map. This is the map ... {QUESTIONS.length} questions across 6
@@ -1011,7 +1011,7 @@ export function PsychedelicReadinessIndex() {
                 {(Object.keys(DIM_LABELS) as DimKey[]).map((d) => (
                   <div key={d} className="bg-[#0A0F1E]/40 px-1.5 py-3 text-center">
                     <div className="mb-0.5 text-xl">{DIM_ICONS[d]}</div>
-                    <div className="text-[.58rem] font-bold tracking-[0.06em] text-pri-cream/40 uppercase">{DIM_LABELS[d]}</div>
+                    <div className="text-[.58rem] font-bold tracking-[0.06em] text-pri-cream/60 uppercase">{DIM_LABELS[d]}</div>
                   </div>
                 ))}
               </div>
@@ -1028,13 +1028,13 @@ export function PsychedelicReadinessIndex() {
                 <div className="h-0.75 flex-1 bg-pri-cream/10">
                   <div className="h-full bg-pri-purple transition-[width] duration-400" style={{ width: `${((currentQ + 1) / QUESTIONS.length) * 100}%` }} />
                 </div>
-                <div className="text-[.78rem] font-bold whitespace-nowrap text-pri-cream/45">
+                <div className="text-[.78rem] font-bold whitespace-nowrap text-pri-cream/60">
                   {currentQ + 1} / {QUESTIONS.length}
                 </div>
               </div>
 
               <div className="border border-pri-cream/8 bg-pri-cream/4 p-[clamp(1.5rem,4vw,2.25rem)]">
-                <div className="mb-3 text-xs font-bold tracking-[0.14em] text-pri-purple uppercase">{domain.category}</div>
+                <div className="mb-3 text-xs font-bold tracking-[0.14em] text-pri-purple-light uppercase">{domain.category}</div>
                 <div className={`font-heading text-[clamp(1rem,3vw,1.2rem)] leading-[1.45] font-semibold text-pri-cream ${domain.facilitatedNote ? "mb-4" : "mb-8"}`}>
                   {domain.text}
                   {domain.facilitatedNote && <span className="ml-1 text-pri-purple-light">*</span>}
@@ -1046,8 +1046,8 @@ export function PsychedelicReadinessIndex() {
                   </div>
                 )}
                 <div className="mb-2.5 flex justify-between">
-                  <span className="text-xs font-bold tracking-[0.06em] text-pri-cream/35 uppercase">Least Likely</span>
-                  <span className="text-xs font-bold tracking-[0.06em] text-pri-cream/35 uppercase">Most Likely</span>
+                  <span className="text-xs font-bold tracking-[0.06em] text-pri-cream/60 uppercase">Least Likely</span>
+                  <span className="text-xs font-bold tracking-[0.06em] text-pri-cream/60 uppercase">Most Likely</span>
                 </div>
                 <input
                   type="range"
@@ -1092,17 +1092,17 @@ export function PsychedelicReadinessIndex() {
                 <div className="h-0.75 flex-1 bg-pri-cream/10">
                   <div className="h-full bg-pri-purple-light transition-[width] duration-400" style={{ width: `${((currentPathwayQ + 1) / PATHWAY_QUESTIONS.length) * 100}%` }} />
                 </div>
-                <div className="text-[.78rem] font-bold whitespace-nowrap text-pri-cream/45">
+                <div className="text-[.78rem] font-bold whitespace-nowrap text-pri-cream/60">
                   {currentPathwayQ + 1} / {PATHWAY_QUESTIONS.length}
                 </div>
               </div>
               <div className="border border-pri-purple-light/15 bg-pri-cream/4 p-[clamp(1.5rem,4vw,2.25rem)]">
                 <div className="mb-3 text-xs font-bold tracking-[0.14em] text-pri-purple-light uppercase">What Matters to You</div>
                 <div className={`font-heading text-[clamp(1rem,3vw,1.2rem)] leading-[1.45] font-semibold text-pri-cream ${pathwayQ.note ? "mb-4" : "mb-8"}`}>{pathwayQ.text}</div>
-                {pathwayQ.note && <div className="mb-6 text-[.78rem] text-pri-cream/45 italic">{pathwayQ.note}</div>}
+                {pathwayQ.note && <div className="mb-6 text-[.78rem] text-pri-cream/60 italic">{pathwayQ.note}</div>}
                 <div className="mb-2.5 flex justify-between">
-                  <span className="max-w-[45%] text-[.72rem] font-bold text-pri-cream/35">{pathwayQ.lowLabel}</span>
-                  <span className="max-w-[45%] text-right text-[.72rem] font-bold text-pri-cream/35">{pathwayQ.highLabel}</span>
+                  <span className="max-w-[45%] text-[.72rem] font-bold text-pri-cream/60">{pathwayQ.lowLabel}</span>
+                  <span className="max-w-[45%] text-right text-[.72rem] font-bold text-pri-cream/60">{pathwayQ.highLabel}</span>
                 </div>
                 <input
                   type="range"
@@ -1120,7 +1120,7 @@ export function PsychedelicReadinessIndex() {
                 <button onClick={prevPathwayQuestion} className="border-[1.5px] border-pri-cream/20 px-5 py-3 text-sm font-bold text-pri-cream">
                   ← Back
                 </button>
-                <button onClick={nextPathwayQuestion} className="max-w-60 flex-1 justify-center bg-pri-purple-light px-6 py-3 text-sm font-bold text-pri-cream">
+                <button onClick={nextPathwayQuestion} className="max-w-60 flex-1 justify-center bg-pri-purple px-6 py-3 text-sm font-bold text-pri-cream">
                   {currentPathwayQ === PATHWAY_QUESTIONS.length - 1 ? "See My Results →" : "Next →"}
                 </button>
               </div>
@@ -1131,30 +1131,30 @@ export function PsychedelicReadinessIndex() {
           {state === "results" && results && (
             <div className="px-5">
               <div className="mb-8 border-b border-pri-cream/8 pt-8 pb-10 text-center">
-                <div className="text-xs font-extrabold tracking-[0.14em] text-pri-purple uppercase">Where You Stand</div>
-                <div className="my-2 font-heading text-[clamp(4rem,12vw,6rem)] leading-none font-black text-pri-purple">{results.overall}</div>
+                <div className="text-xs font-extrabold tracking-[0.14em] text-pri-purple-light uppercase">Where You Stand</div>
+                <div className="my-2 font-heading text-[clamp(4rem,12vw,6rem)] leading-none font-black text-pri-purple-light">{results.overall}</div>
                 <div className="mb-2 text-base font-bold tracking-[0.08em] text-pri-cream uppercase">{results.level.label}</div>
                 <div className="mx-auto max-w-110 text-[clamp(.82rem,2.5vw,.9rem)] text-pri-cream/55">{results.level.description}</div>
               </div>
 
-              <div className="mb-4 text-xs font-extrabold tracking-[0.14em] text-pri-purple uppercase">Six Dimensions</div>
+              <div className="mb-4 text-xs font-extrabold tracking-[0.14em] text-pri-purple-light uppercase">Six Dimensions</div>
               <div className="mb-8 grid grid-cols-[repeat(auto-fit,minmax(100px,1fr))] gap-px border border-pri-cream/8 bg-pri-cream/6">
                 {(Object.keys(results.dimScores) as DimKey[]).map((d) => (
                   <div key={d} className="bg-[#0A0F1E]/40 px-2 py-4 text-center">
-                    <div className="mb-1 text-[.75rem] font-bold tracking-[0.08em] text-pri-cream/40 uppercase">
+                    <div className="mb-1 text-[.75rem] font-bold tracking-[0.08em] text-pri-cream/60 uppercase">
                       {DIM_ICONS[d]} {DIM_LABELS[d]}
                     </div>
                     <div className="font-heading text-[clamp(1.4rem,4vw,1.9rem)] font-black text-pri-cream">
                       {results.dimScores[d]}
-                      <small className="text-[.8rem] text-pri-purple">/100</small>
+                      <small className="text-[.8rem] text-pri-purple-light">/100</small>
                     </div>
                   </div>
                 ))}
               </div>
 
-              <div className="mb-4 text-xs font-extrabold tracking-[0.14em] text-pri-purple uppercase">Where Your Profile Points</div>
+              <div className="mb-4 text-xs font-extrabold tracking-[0.14em] text-pri-purple-light uppercase">Where Your Profile Points</div>
               <div className="mb-4 border border-pri-purple/30 bg-pri-purple/10 px-5 py-4">
-                <div className="mb-1 flex items-center gap-1.5 text-xs font-extrabold tracking-[0.06em] text-pri-purple uppercase">
+                <div className="mb-1 flex items-center gap-1.5 text-xs font-extrabold tracking-[0.06em] text-pri-purple-light uppercase">
                   <AlertTriangle className="size-3.5" />
                   Review Safety Data Before Trying Any Medicine
                 </div>
@@ -1167,13 +1167,13 @@ export function PsychedelicReadinessIndex() {
               <div className="mb-8 grid grid-cols-[repeat(auto-fit,minmax(140px,1fr))] gap-px border border-pri-cream/8 bg-pri-cream/6">
                 {results.topMatches.map((m, i) => (
                   <div key={m.id} onClick={() => setSelectedMedicine(m)} className="relative cursor-pointer bg-[#0A0F1E]/40 px-4 py-6 text-center transition-colors hover:bg-[#0A0F1E]/60">
-                    <div className="absolute top-2 left-2 text-xs font-extrabold tracking-[0.1em] text-pri-purple">#{i + 1}</div>
+                    <div className="absolute top-2 left-2 text-xs font-extrabold tracking-[0.1em] text-pri-purple-light">#{i + 1}</div>
                     <div className="mb-1.5 text-[1.8rem]">{m.icon}</div>
                     <div className="mb-1.5 font-heading text-[clamp(.82rem,2vw,1rem)] leading-[1.3] font-bold text-pri-cream">{m.name}</div>
                     <div className="my-1.5 h-0.5 bg-pri-cream/8">
                       <div className="h-full bg-pri-purple transition-[width] duration-1000" style={{ width: `${m.matchScore}%` }} />
                     </div>
-                    <div className="text-[.62rem] font-semibold tracking-[0.06em] text-pri-cream/40 uppercase">
+                    <div className="text-[.62rem] font-semibold tracking-[0.06em] text-pri-cream/60 uppercase">
                       {m.matchScore >= 80 ? "this one knows you" : m.matchScore >= 60 ? "worth a real look" : "keep it on the radar"}
                     </div>
                   </div>
@@ -1187,7 +1187,7 @@ export function PsychedelicReadinessIndex() {
                 heightClass="h-[clamp(140px,20vw,240px)] mb-6"
                 className="brightness-50 contrast-115"
               />
-              <div className="mb-4 text-xs font-extrabold tracking-[0.14em] text-pri-purple uppercase">Where This Could Go</div>
+              <div className="mb-4 text-xs font-extrabold tracking-[0.14em] text-pri-purple-light uppercase">Where This Could Go</div>
               {results.sequence.map((s, i) => (
                 <div key={s.name} className="mb-3 flex flex-wrap items-start gap-4 border border-pri-cream/8 bg-pri-cream/4 p-[clamp(1.25rem,3vw,1.75rem)]">
                   <div className="min-w-8 font-heading text-2xl leading-none font-black text-pri-cream/7">{String(i + 1).padStart(2, "0")}</div>
@@ -1195,7 +1195,7 @@ export function PsychedelicReadinessIndex() {
                     <div className="mb-0.5 font-heading text-[clamp(.95rem,2.5vw,1.1rem)] font-bold text-pri-cream">
                       {s.icon} {s.name}
                     </div>
-                    <div className="mb-1.5 text-[.7rem] font-bold tracking-[0.08em] text-pri-purple uppercase">{s.time}</div>
+                    <div className="mb-1.5 text-[.7rem] font-bold tracking-[0.08em] text-pri-purple-light uppercase">{s.time}</div>
                     <div className="text-[clamp(.8rem,2vw,.85rem)] leading-[1.55] text-pri-cream/50">{s.why}</div>
                   </div>
                   <div className="min-w-25 text-right">
@@ -1248,7 +1248,7 @@ export function PsychedelicReadinessIndex() {
                         <button
                           disabled={!referralEmail || !referralRegion}
                           onClick={handleReferralSubmit}
-                          className={`self-start bg-pri-purple-light px-5 py-2.5 text-[.8rem] font-bold text-pri-cream ${!referralEmail || !referralRegion ? "opacity-50" : ""}`}
+                          className={`self-start bg-pri-purple px-5 py-2.5 text-[.8rem] font-bold text-pri-cream ${!referralEmail || !referralRegion ? "opacity-50" : ""}`}
                         >
                           Send Introduction Request
                         </button>
@@ -1274,7 +1274,7 @@ export function PsychedelicReadinessIndex() {
                 {savedMeds.length > 0 && (
                   <button
                     onClick={() => document.querySelector("[data-saved-panel]")?.scrollIntoView({ behavior: "smooth" })}
-                    className="flex items-center justify-center gap-2 border-[1.5px] border-pri-purple/40 px-6 py-3 text-sm font-bold text-pri-purple uppercase"
+                    className="flex items-center justify-center gap-2 border-[1.5px] border-pri-purple/40 px-6 py-3 text-sm font-bold text-pri-purple-light uppercase"
                   >
                     <Heart className="size-4" fill="currentColor" />
                     View Saved ({savedMeds.length})
@@ -1294,16 +1294,16 @@ export function PsychedelicReadinessIndex() {
       </section>
 
       {/* ── TESTIMONIALS ── */}
-      <section className="border-t border-pri-purple/12 bg-[#0A0F1E]/60 px-5 py-16">
+      <section className="border-t border-pri-purple/12 bg-[#0A0F1E] px-5 py-16">
         <div className="mx-auto max-w-180">
-          <div className="mb-10 text-center text-[.68rem] font-bold tracking-[0.2em] text-pri-cream/35 uppercase">From people who took it</div>
+          <div className="mb-10 text-center text-[.68rem] font-bold tracking-[0.2em] text-pri-cream/60 uppercase">From people who took it</div>
           <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-6">
             {TESTIMONIALS.map((t) => (
               <div key={t.name + t.context} className="flex flex-col gap-4 rounded-lg border border-pri-cream/7 bg-pri-cream/3 p-6">
                 <p className="m-0 font-heading text-[clamp(.88rem,2.2vw,.95rem)] leading-[1.75] text-pri-cream/72 italic">&ldquo;{t.quote}&rdquo;</p>
                 <div className="border-t border-pri-cream/8 pt-3">
                   <div className="text-[.78rem] font-bold tracking-[0.04em] text-pri-purple-light">{t.name}</div>
-                  <div className="mt-0.5 text-[.72rem] tracking-[0.03em] text-pri-cream/35">{t.context}</div>
+                  <div className="mt-0.5 text-[.72rem] tracking-[0.03em] text-pri-cream/60">{t.context}</div>
                 </div>
               </div>
             ))}
@@ -1332,12 +1332,12 @@ export function PsychedelicReadinessIndex() {
           >
             Get Your ImpactSoul Score →
           </a>
-          <div className="mt-5 text-xs tracking-[0.04em] text-pri-cream/35">Free · 8 minutes · No account required</div>
+          <div className="mt-5 text-xs tracking-[0.04em] text-pri-cream/60">Free · 8 minutes · No account required</div>
         </div>
       </section>
 
       {/* ── FOOTER ── */}
-      <footer className="relative bg-pri-ink py-12 text-center text-pri-cream/40">
+      <footer className="relative bg-pri-ink py-12 text-center text-pri-cream/60">
         <div className="absolute inset-0 z-0 overflow-hidden">
           <Image
             src="https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_10_7_izBDVpysTtokCeVbU0sNp6_1773615912434_na1fn_L2hvbWUvdWJ1bnR1L2Zvb3Rlcl9pbWFnZQ_2a2c6369.jpg"
@@ -1350,21 +1350,21 @@ export function PsychedelicReadinessIndex() {
         </div>
         <div className="relative z-10 px-5">
           <div className="mb-1 font-heading text-[1.3rem] text-pri-cream">
-            ImpactSoul <span className="text-pri-purple">×</span> Find My Medicine
+            ImpactSoul <span className="text-pri-purple-light">×</span> Find My Medicine
           </div>
           <div className="mb-3 text-[.78rem]">A consciousness-aligned capital initiative</div>
           <div className="my-4 flex flex-wrap justify-center gap-6">
-            <Link href="/" className="text-[.75rem] font-semibold tracking-[0.06em] text-pri-cream/35 uppercase">
+            <Link href="/" className="text-[.75rem] font-semibold tracking-[0.06em] text-pri-cream/60 uppercase">
               TonyGreenberg.com
             </Link>
-            <a href="https://impactsoul.is" target="_blank" rel="noopener noreferrer" className="text-[.75rem] font-semibold tracking-[0.06em] text-pri-cream/35 uppercase">
+            <a href="https://impactsoul.is" target="_blank" rel="noopener noreferrer" className="text-[.75rem] font-semibold tracking-[0.06em] text-pri-cream/60 uppercase">
               ImpactSoul.is
             </a>
           </div>
 
           <div className="mx-auto mt-6 max-w-150 border-t border-pri-cream/6 pt-5">
-            <div className="mb-2 text-xs font-bold tracking-[0.08em] text-pri-purple uppercase">Legal Disclaimer</div>
-            <div className="text-[.7rem] leading-[1.8] text-pri-cream/35">
+            <div className="mb-2 text-xs font-bold tracking-[0.08em] text-pri-purple-light uppercase">Legal Disclaimer</div>
+            <div className="text-[.7rem] leading-[1.8] text-pri-cream/60">
               The Psychedelic Readiness Index is community-aggregated information compiled for educational and harm reduction purposes only. It does not
               constitute medical advice, diagnosis, or treatment. No medicine, provider, or protocol listed here constitutes an endorsement or
               recommendation. Always consult qualified healthcare professionals before engaging with any psychedelic substance. You proceed entirely at your

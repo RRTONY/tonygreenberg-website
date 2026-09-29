@@ -91,7 +91,7 @@ export default function TheTerritoryPage() {
       </div>
 
       <div className="border-t border-border py-6 text-center">
-        <Link href="/engine-room" className="font-mono text-sm tracking-wide text-brand-gold">
+        <Link href="/engine-room" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
           Continue to The Engine Room →
         </Link>
       </div>

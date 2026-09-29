@@ -76,7 +76,7 @@ export default function UnderNdaPage() {
       </div>
 
       <div className="border-t border-border py-6 text-center">
-        <Link href="/the-body" className="font-mono text-sm tracking-wide text-brand-gold">
+        <Link href="/the-body" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
           Continue to The Body →
         </Link>
       </div>
