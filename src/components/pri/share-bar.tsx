@@ -29,13 +29,13 @@ export function PriShareBar() {
       <div className="mb-3 text-xs font-bold tracking-[0.12em] text-pri-purple uppercase">Share This Instrument</div>
       <div className="flex flex-wrap justify-center gap-3">
         <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(SHARE_URL)}&text=${encodeURIComponent(SHARE_TEXT)}`} target="_blank" rel="noopener noreferrer" className={BTN_CLASS}>
-          <XIcon className="size-3.5" /> X / Twitter
+          <XIcon className="size-3.5" /> Share on X
         </a>
         <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(SHARE_URL)}`} target="_blank" rel="noopener noreferrer" className={BTN_CLASS}>
-          <LinkedinIcon className="size-3.5" /> LinkedIn
+          <LinkedinIcon className="size-3.5" /> Share on LinkedIn
         </a>
         <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(SHARE_URL)}`} target="_blank" rel="noopener noreferrer" className={BTN_CLASS}>
-          <FacebookIcon className="size-3.5" /> Facebook
+          <FacebookIcon className="size-3.5" /> Share on Facebook
         </a>
         <a href={`mailto:?subject=${encodeURIComponent("The Psychedelic Readiness Index")}&body=${encodeURIComponent(SHARE_TEXT + "\n\n" + SHARE_URL)}`} className={BTN_CLASS}>
           <Mail className="size-3.5" /> Send by Email

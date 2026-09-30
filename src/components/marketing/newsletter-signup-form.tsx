@@ -10,8 +10,20 @@ const CONTACT_EMAIL = "tony@tonygreenberg.com";
 // Inline newsletter signup for /subscribe. Same submit path as
 // `newsletter-popup.tsx`: POST /api/subscribe (Kit), falling back to a
 // prefilled mailto if the service is down, and setting the shared
-// `tg_subscribed` flag so the popup stops asking afterwards.
-export function NewsletterSignupForm({ source = "subscribe" }: { source?: string }) {
+// `tg_subscribed` flag so the popup stops asking afterwards. The label,
+// placeholder and layout props let other pages (e.g. /the-letter's "Dispatch"
+// block) reuse the same form with their own live copy.
+export function NewsletterSignupForm({
+  source = "subscribe",
+  buttonLabel = "Subscribe Free",
+  placeholder = "you@example.com",
+  className = "mx-auto flex max-w-md flex-col gap-3 sm:flex-row",
+}: {
+  source?: string;
+  buttonLabel?: string;
+  placeholder?: string;
+  className?: string;
+}) {
   const [email, setEmail] = useState("");
   const [pending, setPending] = useState(false);
   const [done, setDone] = useState<"api" | "mailto" | null>(null);
@@ -53,7 +65,7 @@ export function NewsletterSignupForm({ source = "subscribe" }: { source?: string
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mx-auto flex max-w-md flex-col gap-3 sm:flex-row">
+    <form onSubmit={handleSubmit} className={className}>
       <label htmlFor="subscribe-email" className="sr-only">
         Email address
       </label>
@@ -62,14 +74,14 @@ export function NewsletterSignupForm({ source = "subscribe" }: { source?: string
         type="email"
         required
         autoComplete="email"
-        placeholder="you@example.com"
+        placeholder={placeholder}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         className="h-11 flex-1"
       />
       <Button type="submit" disabled={pending} className="h-11 font-mono text-xs tracking-wider uppercase">
         {pending && <Loader2 className="size-4 animate-spin" />}
-        Subscribe Free
+        {buttonLabel}
       </Button>
     </form>
   );

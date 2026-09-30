@@ -16,14 +16,14 @@ const VENTURES = [
     name: "RampRate",
     role: "CEO & Founder",
     years: "2000–Present",
-    desc: "Enterprise technology advisory. $10B+ benchmarked. SPY Index with 1M+ data points. Microsoft, Disney, Goldman Sachs, Nike. The objective lever in enterprise IT procurement.",
+    desc: "Enterprise technology advisory. $10B+ in enterprise contracts priced, audited, and renegotiated. SPY Index with 1M+ data points. Microsoft, Disney, Goldman Sachs, Nike. The objective lever in enterprise IT procurement.",
     url: "https://ramprate.com",
   },
   {
     name: "ImpactSoul",
     role: "Founder",
     years: "2021–Present",
-    desc: "Certified B Corp. Tokenizing high-value cultural and real estate assets to fund regenerative impact. Four live token ecosystems: BEYOND, REX, SPACE, BEING.",
+    desc: "ImpactSoul is a RampRate company tokenizing high-value cultural and real estate assets to fund regenerative impact. Four live token ecosystems: BEYOND, REX, SPACE, BEING.",
     url: "https://impactsoul.is",
   },
   {

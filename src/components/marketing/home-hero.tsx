@@ -68,13 +68,16 @@ export function HomeHero({ essayCount }: { essayCount: number }) {
           Tony Greenberg
         </div>
 
-        <h1 className="mb-3 font-heading text-4xl leading-[1.1] font-normal text-white [text-shadow:0_2px_12px_rgba(0,0,0,0.4)] sm:text-6xl">
+        {/* Live keeps the page's one H1 as a descriptive, screen-reader-only
+            title; the big headline below is display text. */}
+        <h1 className="sr-only">Tony Greenberg — Strategist, Author &amp; Systems Thinker</h1>
+        <p className="mb-3 font-heading text-4xl leading-[1.1] font-normal text-white [text-shadow:0_2px_12px_rgba(0,0,0,0.4)] sm:text-6xl">
           I expose broken systems.
           <br />
           <em className="animate-gold-shimmer bg-[length:200%_auto] bg-linear-to-r from-[#836311] via-[#F5E6A3] to-[#836311] bg-clip-text not-italic text-transparent">
             Then I build what comes next.
           </em>
-        </h1>
+        </p>
 
         <p className="mb-5 max-w-xl text-sm text-white/92 sm:text-base">
           $10B+ in enterprise contracts priced, audited, and renegotiated

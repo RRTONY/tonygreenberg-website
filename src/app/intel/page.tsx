@@ -19,7 +19,7 @@ const PORTFOLIO: PortCo[] = [
   {
     name: "RampRate",
     category: "Enterprise Technology & AI",
-    description: "IT sourcing & benchmarking firm. $10B+ benchmarked. SPY Index holds 1M+ data points. B Corp certified.",
+    description: "IT sourcing firm. Twenty-five years proving enterprise pricing is mostly fiction. SPY Index holds 1M+ data points. RampRate is a Certified B Corporation™.",
     investmentThesis: "Trust is the ultimate moat in enterprise procurement. After 25 years of benchmarking every major cloud, colocation, and network deal, RampRate's data advantage is compounding — not depreciating. The SPY Index is the Bloomberg Terminal of infrastructure sourcing.",
     hawkinsScore: 400,
     compassScores: [9, 5, 7, 8, 9, 7, 10],
@@ -37,7 +37,7 @@ const PORTFOLIO: PortCo[] = [
   {
     name: "ImpactSoul",
     category: "Social Impact & Tokenization",
-    description: "Certified B Corp tokenizing high-value cultural and real estate assets to fund regenerative impact. Four live token ecosystems: BEYOND, REX, SPACE, BEING.",
+    description: "ImpactSoul is a RampRate company tokenizing high-value cultural and real estate assets to fund regenerative impact. Four live token ecosystems: BEYOND, REX, SPACE, BEING.",
     investmentThesis: "Philanthropy is broken because it separates giving from owning. Asset-backed impact tokens let communities own a piece of the mission — a dinosaur skeleton, ocean cleanup infrastructure, digital access points. When you tokenize meaning, you create markets for things that matter.",
     hawkinsScore: 540,
     compassScores: [8, 9, 10, 9, 10, 10, 8],
@@ -211,7 +211,8 @@ export default function IntelPage() {
           </p>
           <p className="text-sm text-muted-foreground">
             Howard W. Buffett&apos;s framework: calculates the <em>impact value of each dollar</em>,
-            not the dollar value of impact.
+            not the dollar value of impact. Key Impact Indicator × Future Impact ÷ (Efficiency ×
+            Multiplier) over Time.
           </p>
         </div>
         <div className="border-l-2 border-[#6B8E23] bg-[#6B8E23]/5 p-5">
@@ -219,8 +220,9 @@ export default function IntelPage() {
             Hawkins Consciousness Score
           </p>
           <p className="text-sm text-muted-foreground">
-            David Hawkins&apos; Map of Consciousness (20-1000). 200+ = integrity threshold. 500+ =
-            love-driven. 700+ = enlightened.
+            David Hawkins&apos; Map of Consciousness (20-1000). Calibrates the energetic frequency
+            of the organization&apos;s mission. 200+ = integrity threshold. 500+ = love-driven.
+            700+ = enlightened.
           </p>
         </div>
       </div>

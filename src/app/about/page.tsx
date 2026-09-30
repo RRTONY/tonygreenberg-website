@@ -23,7 +23,7 @@ const HERO_IMAGE =
   "https://cdn.sanity.io/images/a3q1cyqs/production/4b0c5b229fd4f51c9134a30943d369cadbceab70-1200x670.webp";
 
 const RECEIPTS = [
-  { label: "Enterprise tech benchmarked", value: "$10B+" },
+  { label: "Enterprise contracts priced, audited, and renegotiated", value: "$10B+" },
   { label: "SPY Index data points", value: "1,000,000+" },
   { label: "Fortune 500 clients served", value: "Hundreds" },
   { label: "Years of unsolicited opinions", value: "25+" },
@@ -98,10 +98,9 @@ export default function AboutPage() {
         <p className="mb-6 leading-relaxed text-foreground/80">
           RampRate was born from a simple observation: enterprise technology vendors lie about
           what things cost, and their customers don&apos;t know enough to call them on it. So we
-          built the most comprehensive benchmarking operation on the planet. The SPY Index — over
-          a million data points on what infrastructure actually costs versus what vendors claim.
-          Microsoft, Disney, Goldman Sachs, Nike. Hundreds of Fortune 500s. $10 billion
-          benchmarked.
+          put $10B+ in tech spend under a microscope. The SPY Index shows what infrastructure
+          actually costs versus what vendors claim. Microsoft, Disney, Goldman Sachs, Nike.
+          Hundreds of Fortune 500s.
         </p>
         <p className="mb-6 leading-relaxed text-foreground/80">
           Eighteen years of saving companies hundreds of millions of dollars. And then the
@@ -133,9 +132,9 @@ export default function AboutPage() {
           Consciousness expansion isn&apos;t optional anymore.
         </h2>
         <p className="mb-6 leading-relaxed text-foreground/80">
-          ImpactSoul is a Certified B Corp venture foundry that tokenizes high-value cultural and
-          real estate assets to fund regenerative impact. Four live token ecosystems — BEYOND
-          (ocean cleanup), REX (paleontology), SPACE (digital access), BEING (mental health) —
+          ImpactSoul is a RampRate company and venture foundry that tokenizes high-value cultural
+          and real estate assets to fund regenerative impact. Four live token ecosystems: BEYOND
+          (ocean cleanup), REX (paleontology), SPACE (digital access), and BEING (mental health),
           putting everyday people into investments previously reserved for the 0.1%. Facilitated a
           multi-million-dollar grant for XPRIZE Foundation. Advised Bhutan&apos;s Gross National
           Happiness Centre. Championed tribal rights from Latin America to Africa under the Nagoya
@@ -217,6 +216,9 @@ export default function AboutPage() {
       </div>
 
       <div className="mx-auto max-w-3xl px-6 py-10">
+        <p className="mb-6 text-center font-mono text-xs tracking-[0.2em] text-brand-gold uppercase dark:text-brand-gold-light">
+          What They Say
+        </p>
         <PartnerQuotes count={3} />
       </div>
 

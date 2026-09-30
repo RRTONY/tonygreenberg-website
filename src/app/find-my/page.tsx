@@ -90,7 +90,7 @@ function LinkCard({ item }: { item: FindMyLink }) {
 }
 
 const HERO_IMG =
-  "https://cdn.sanity.io/images/a3q1cyqs/production/39e00f37d376aa6c2e7e29c14f4e233c80727d81-1200x670.webp";
+  "https://cdn.sanity.io/images/a3q1cyqs/production/5af7e3e99c3980447b5a8c4926b67fd0e48f5025-1200x670.webp";
 
 export default function FindMyPage() {
   return (
@@ -109,7 +109,7 @@ export default function FindMyPage() {
 
         <h1 className="mt-5 mb-2 font-heading text-[clamp(1.8rem,4vw,2.4rem)] leading-tight font-normal text-foreground">Find What&apos;s Yours</h1>
         <p className="mx-auto max-w-105 text-base leading-relaxed text-muted-foreground">
-          {FIND_MY_TOTAL} decision frameworks that reduce friction and create clarity. No sales pitch. Just tools.
+          20+ decision frameworks that reduce friction and create clarity. No sales pitch. Just tools.
         </p>
 
         <div className="mx-auto mt-5 max-w-120 rounded-xl border border-brand-gold/12 bg-brand-gold/4 p-6 text-left">

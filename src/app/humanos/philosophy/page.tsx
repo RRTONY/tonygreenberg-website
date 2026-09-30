@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { EyebrowLabel } from "@/components/marketing/eyebrow-label";
-import { PersonCard } from "@/components/humanos/person-card";
 import { MENTOR } from "@/lib/content/humanos-content";
 
 // Ported from legacy client/src/pages/humanos/HumanosPhilosophy.tsx. Real
@@ -65,7 +64,35 @@ export default function HumanosPhilosophy() {
           survive it.
         </p>
 
-        <PersonCard person={MENTOR} />
+        {/* Live swapped the shared PersonCard quote for David Orban's own
+            "You are a transhuman" line plus a short note on his role (live
+            tonygreenberg.com, 2026-10-01). The shared MENTOR quote is left
+            as-is for /humanos/ecosystem. */}
+        <div className="flex flex-wrap items-start gap-6 rounded-lg border border-neutral-200 bg-white p-7 shadow-sm">
+          <Image
+            src={MENTOR.img!}
+            alt="David Orban"
+            width={80}
+            height={80}
+            className="size-20 shrink-0 rounded-full object-cover"
+          />
+          <div className="min-w-50 flex-1">
+            <blockquote className="m-0 text-lg leading-relaxed text-neutral-600 italic">
+              &ldquo;You are a transhuman. The very definition of the human condition is the
+              necessity to adapt to change. Through technology, we now live in an intrinsically
+              transhumanist era.&rdquo;
+            </blockquote>
+            <p className="mt-3 font-mono text-[0.65rem] tracking-[0.2em] text-violet-600 uppercase">
+              — David Orban, Advisor to Singularity University, Former Chairman of Humanity+
+            </p>
+            <p className="mt-3 text-base leading-relaxed text-neutral-500">
+              David&apos;s philosophy — that we are all transhumans, defined by our ability to adapt
+              and overcome limitations through technology — was the catalyst for Human OS 2.0. At
+              the 2010 H+ Summit, his mentorship helped crystallize the core insight: technology
+              must fit humans like a glove, not a cast.
+            </p>
+          </div>
+        </div>
       </section>
 
       {/* THE MAXIMIZER TRAP */}

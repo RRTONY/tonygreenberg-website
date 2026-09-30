@@ -9,7 +9,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Invest in the Thesis — Portfolio & ABIT Waitlist",
   description:
-    "35+ portfolio companies across psychedelic medicine, impact venture, Web3, blockchain, and health tech. ImpactSoul ABITs launch Q3 2026.",
+    "35+ portfolio companies across psychedelic medicine, impact venture, Web3, blockchain, and health tech. ImpactSoul ABITs launch Q1 2027.",
   alternates: { canonical: "/invest" },
 };
 
@@ -163,13 +163,13 @@ export default function InvestPage() {
           Asset-Backed Impact Tokens. Real assets. Real value. Tokenized.
         </p>
         <p className="mb-4 leading-relaxed text-foreground/80">
-          The assets that matter most — cultural, regenerative, natural — are the ones
-          traditional capital markets cannot properly price. ImpactSoul is a Certified B
-          Corporation fixing that. Every ABIT is backed by a real asset, structured for impact,
+          The assets that matter most, cultural, regenerative, and natural, are the ones
+          traditional capital markets cannot properly price. ImpactSoul is a RampRate company
+          working on that problem. Every ABIT is backed by a real asset, structured for impact,
           and designed to compound regeneratively.
         </p>
         <p className="mb-6 text-sm text-muted-foreground">
-          Launching Q3 2026. Waitlist open now. No solicitation. No commitment. First position
+          Launching Q1 2027. Waitlist open now. No solicitation. No commitment. First position
           when the door opens.
         </p>
         <a

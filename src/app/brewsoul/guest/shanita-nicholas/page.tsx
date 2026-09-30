@@ -45,7 +45,7 @@ export default function ShanitaNicholasPage() {
           </p>
           <p className="mb-3.5 text-base leading-[1.8] text-[#2d1810]">
             She is one of the heartbeats of the coffee industry because she operates at the intersection where science, justice, and commerce collide.
-            Through Quantum Seeds, she&apos;s building origin-roasting infrastructure that moves manufacturing profit back to producing countries — not as
+            Through Quantum Seeds, she&apos;s building origin-roasting infrastructure that moves manufacturing profit back to producing countries—not as
             charity, but as economic architecture. She doesn&apos;t just critique the system. She&apos;s building the replacement.
           </p>
           <p className="text-base leading-[1.8] text-[#2d1810]">

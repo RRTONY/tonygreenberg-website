@@ -35,10 +35,31 @@ const PAGE_SIZE = 12;
 // snappier than a server round-trip per filter change).
 //
 // "Most Read" and "Most Provocative" — legacy's other two sidebar widgets —
-// are NOT ported. Both ranked posts by a `reads` count that defaulted to a
-// flat 500 for any post without one; that's not real analytics, it's a
-// placeholder, and this migration doesn't fabricate numbers it can't back.
-// Revisit once real view-count data exists (see NEXTJS-MIGRATION-TODO.md).
+// ranked posts by a `reads` count that defaulted to a flat 500 for any post
+// without one. The live site now shows both lists (2026-10-01), so the two
+// rankings are ported as fixed lists of the same posts in live's order, but
+// WITHOUT the read counts: this migration doesn't publish numbers it can't
+// back. Revisit once real view-count data exists (see NEXTJS-MIGRATION-TODO.md).
+const MOST_READ = [
+  { slug: "boiling-the-human-summit-harvard-kurzweil", title: "“Boiling the Human” H+ Summit Transcript / Harvard-Kurzweil" },
+  { slug: "the-restaurant-with-no-menu-prices-ai-ethics-manifesto", title: "Zuck: Fix This Now & Lead AI Toward Ethical Billing" },
+  { slug: "only-time-buys-trust", title: "Trust Us? Are You Really My Friend?" },
+  { slug: "return-on-investment-going-green-going-green-2", title: "Return on Investment - Are You Going Green?" },
+  { slug: "customer-service-key-to-business-success", title: "Customer Service: The Key to Business Success" },
+];
+
+const MOST_PROVOCATIVE = [
+  { slug: "boiling-the-human-summit-harvard-kurzweil", title: "“Boiling the Human” H+ Summit Transcript / Harvard-Kurzweil" },
+  { slug: "the-restaurant-with-no-menu-prices-ai-ethics-manifesto", title: "Zuck: Fix This Now & Lead AI Toward Ethical Billing" },
+  { slug: "the-ball-and-blockchain-decentralization", title: "The Ball and Blockchain: Obstacles to a World-Changing Trajectory" },
+  { slug: "grateful-smuggest-sentiment-or-selfish-act", title: "Grateful: Smuggest Sentiment or Second Most Selfish Act?" },
+  { slug: "apologize", title: "I Apologize. Not Me. Nix “I Am Sorry” From Our Lexicon" },
+];
+
+const RANKED_LISTS = [
+  { heading: "Most Read", posts: MOST_READ },
+  { heading: "Most Provocative", posts: MOST_PROVOCATIVE },
+];
 export function HomeArchive({ posts, initialTheme }: { posts: Post[]; initialTheme?: string }) {
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
@@ -215,6 +236,26 @@ export function HomeArchive({ posts, initialTheme }: { posts: Post[]; initialThe
         </div>
 
         <aside className="hidden lg:block">
+          {RANKED_LISTS.map((list) => (
+            <div key={list.heading} className="mb-6">
+              <div className="mb-2 border-b-2 border-brand-gold pb-1.5 font-mono text-xs tracking-wide text-brand-gold uppercase">
+                {list.heading}
+              </div>
+              <ol>
+                {list.posts.map((post, i) => (
+                  <li key={post.slug} className="border-b border-border/50">
+                    <Link href={`/blog/${post.slug}`} className="flex items-baseline gap-2.5 py-2">
+                      <span className="font-mono text-xs text-brand-gold">{i + 1}</span>
+                      <span className="font-heading text-sm leading-snug font-semibold text-foreground">
+                        {post.title}
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          ))}
+
           <div className="mb-6">
             <div className="mb-2 border-b-2 border-brand-gold pb-1.5 font-mono text-xs tracking-wide text-brand-gold uppercase">
               Curated Journeys

@@ -55,6 +55,14 @@ import { Badge } from "@/components/ui/badge";
 // target) is this migration's canonical contact CTA and already uses a
 // current address (tony@impactsoul.is); this page links onward to it
 // instead of duplicating a second, possibly-stale contact email.
+//
+// 2026-10-01 live-sync pass: live now shows the full "Published Articles"
+// list (Forbes, Business Insider and HuffPost up front, the rest behind
+// "Show All Publications"), the Credential box's contact line, and the
+// "$10B+ in enterprise contracts..." stat label, so those are ported
+// verbatim from legacy ThoughtCloud.tsx, reversing the two drops above.
+// The hidden publications sit in a native <details> so they're still in
+// the server HTML.
 
 export const metadata: Metadata = {
   title: "The Open Door",
@@ -254,10 +262,12 @@ const PODCASTS = [
   { show: "RampRate Podcast", episode: "How to Think When $100M's Are on the Line", ep: "Mini-Episode", date: "May 2016", url: "https://ramprate.com/mini-episode-tony-greenberg-ceo-of-ramprate/" },
 ];
 
-// Only the bylines that genuinely don't appear anywhere in /published's
-// bibliography — Forbes and Business Insider aren't among that page's
-// outlets at all. See the port note above for the full reconciliation.
-const UNIQUE_PUBLICATIONS = [
+type Publication = {
+  outlet: string;
+  articles: { title: string; url: string; date: string; note: string }[];
+};
+
+const PUBLICATIONS: Publication[] = [
   {
     outlet: "Forbes",
     articles: [
@@ -272,7 +282,79 @@ const UNIQUE_PUBLICATIONS = [
       { title: "Amazon Should Prevail In The Race To Acquire Hulu", url: "https://www.businessinsider.com/author/tony-greenberg", date: "September 2011", note: "" },
     ],
   },
+  {
+    outlet: "HuffPost",
+    articles: [
+      { title: "Building a Community In a Weekend", url: "https://www.huffpost.com/author/tony-greenberg", date: "May 2012", note: "Contributor" },
+      { title: "Business at the Speed of Light: What Is a Millisecond Worth?", url: "https://www.huffpost.com/author/tony-greenberg", date: "May 2012", note: "" },
+      { title: "Seeing Through the Eyes of the Tourists", url: "https://www.huffpost.com/entry/seeing-through-the-eyes-o_b_6117198", date: "November 2014", note: "" },
+      { title: "Scrubbing Our Lives Clean From Dr. Bronner's to Pressure Cookers", url: "https://www.huffpost.com/entry/scrubbing-our-lives-clean_b_559712", date: "June 2010", note: "" },
+      { title: "Key Cloud Migration Decisions", url: "https://www.huffpost.com/author/tony-greenberg", date: "October 2011", note: "" },
+      { title: "Profiling the Public Cloud Buyer's Danger", url: "https://www.huffpost.com/author/tony-greenberg", date: "October 2011", note: "" },
+      { title: "A Cynic Predicts IT and Media in 2011", url: "https://www.huffpost.com/author/tony-greenberg", date: "2011", note: "" },
+      { title: "When Valuations Don't Mean Valuable", url: "https://www.huffpost.com/author/tony-greenberg", date: "2011", note: "" },
+      { title: "Amazon to Beat All Suitors For Hulu?", url: "https://www.huffpost.com/author/tony-greenberg", date: "2011", note: "" },
+      { title: "My Other Car Is a Bentley...Not", url: "https://www.huffpost.com/author/tony-greenberg", date: "2011", note: "" },
+      { title: "Jumping Through Hoops With Hulu", url: "https://www.huffpost.com/author/tony-greenberg", date: "2011", note: "" },
+      { title: "The 2011 Cynic Measures His Predictions", url: "https://www.huffpost.com/author/tony-greenberg", date: "2012", note: "" },
+    ],
+  },
+  {
+    outlet: "Medium",
+    articles: [
+      { title: "The Right Numbers: Supplier Fit, Gross National Happiness, and Blockchain", url: "https://medium.com/@ramprate", date: "December 2018", note: "" },
+      { title: "From Supply Chain to the Blockchain: Heal the Body, Mind, & Earth", url: "https://medium.com/@ramprate", date: "October 2018", note: "" },
+      { title: "Enterprise Blockchain: Can Big Business Co-opt an Existential Threat?", url: "https://medium.com/@ramprate", date: "July 2018", note: "" },
+      { title: "The Ball and Blockchain: Obstacles to a World-Changing Trajectory", url: "https://medium.com/@ramprate", date: "2018", note: "" },
+      { title: "A Historical Perspective on Blockchain", url: "https://medium.com/@ramprate", date: "March 2018", note: "Published in Coinmonks — 154 claps" },
+      { title: "What Solutions are Best Built with Blockchain or NOT", url: "https://medium.com/@ramprate", date: "March 2018", note: "Published in Crypto Currency Hub" },
+      { title: "Microsoft's Underwater Data Centers", url: "https://medium.com/@ramprate/microsofts-underwater-data-centers-really-3c39ff010483", date: "2017", note: "" },
+    ],
+  },
+  {
+    outlet: "MediaVillage",
+    articles: [
+      { title: "Clout vs. Klout: Why They Aren't the Same And Never Will Be", url: "https://www.mediavillage.com/article/clout-vs-klout-why-they-arent-the-same-and-never-will-be-tony-greenberg/", date: "April 2012", note: "Thought Leader" },
+      { title: "The 2011 Cynic Measures His Predictions", url: "https://www.mediavillage.com/article/the-2011-cynic-measures-his-predictions-tony-greenberg-ramprate/", date: "January 2012", note: "" },
+    ],
+  },
 ];
+
+// Live shows the first three outlets up front and the rest behind a button.
+const VISIBLE_PUBLICATIONS = PUBLICATIONS.slice(0, 3);
+const MORE_PUBLICATIONS = PUBLICATIONS.slice(3);
+const PUBLICATION_ARTICLE_COUNT = PUBLICATIONS.reduce((n, p) => n + p.articles.length, 0);
+
+function PublicationList({ pub }: { pub: Publication }) {
+  return (
+    <div>
+      <p className="mb-2 font-mono text-xs font-bold tracking-[0.12em] text-brand-gold uppercase">
+        {pub.outlet}
+      </p>
+      <div className="divide-y divide-border">
+        {pub.articles.map((article) => (
+          <a
+            key={article.title}
+            href={article.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-baseline gap-3 py-3"
+          >
+            <span className="min-w-20 font-mono text-xs text-muted-foreground">
+              {article.date}
+            </span>
+            <span className="flex-1 text-foreground">
+              {article.title}
+              {article.note && (
+                <span className="ml-2 font-mono text-xs text-brand-gold">({article.note})</span>
+              )}
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 type Testimonial = {
   name: string;
@@ -323,7 +405,7 @@ const STATS = [
   { label: "Guarantee", value: "3x" },
   { label: "Typical Delivery", value: "10–24x" },
   { label: "Client Testimonials", value: `${TESTIMONIALS.length}` },
-  { label: "Benchmarked", value: "$10B+" },
+  { label: "In enterprise contracts priced, audited, and renegotiated", value: "$10B+" },
 ];
 
 export default function TheOpenDoorPage() {
@@ -351,7 +433,7 @@ export default function TheOpenDoorPage() {
       </h2>
       <p className="mb-8 text-foreground/80">
         Every client who walks through our door has a version of one of these asks. Not
-        &ldquo;raise me money&rdquo; — but the kind of asks that make a company so compelling
+        &quot;raise me money&quot; — but the kind of asks that make a company so compelling
         that capital chases them. Here are ten real scenarios, with exact names, exact targets,
         and exact reasons they&apos;ll pick up the phone.
       </p>
@@ -469,51 +551,34 @@ export default function TheOpenDoorPage() {
         ))}
       </div>
 
-      {/* ── ALSO IN PRINT (content unique to this page vs. /published) ── */}
+      {/* ── PUBLISHED ARTICLES ── */}
       <p className="mb-2 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
         In Print
       </p>
       <h2 className="mb-3 font-heading text-2xl font-bold text-foreground">
-        Also Published
+        Published Articles
       </h2>
       <p className="mb-6 text-foreground/80">
-        The fuller bibliography — 28+ HuffPost bylines, Medium, MediaVillage — lives on{" "}
-        <Link href="/published" className="text-brand-gold">
-          /published
-        </Link>
-        . Two outlets from that run don&apos;t appear there at all:
+        Across Forbes, Business Insider, HuffPost, Medium, MediaVillage, and LinkedIn — writing
+        about enterprise technology, blockchain, valuations, cloud infrastructure, and the
+        intersection of business and humanity.
       </p>
       <div className="mb-10 space-y-6">
-        {UNIQUE_PUBLICATIONS.map((pub) => (
-          <div key={pub.outlet}>
-            <p className="mb-2 font-mono text-xs font-bold tracking-[0.12em] text-brand-gold uppercase">
-              {pub.outlet}
-            </p>
-            <div className="divide-y divide-border">
-              {pub.articles.map((article) => (
-                <a
-                  key={article.title}
-                  href={article.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-baseline gap-3 py-3"
-                >
-                  <span className="min-w-20 font-mono text-xs text-muted-foreground">
-                    {article.date}
-                  </span>
-                  <span className="flex-1 text-foreground">
-                    {article.title}
-                    {article.note && (
-                      <span className="ml-2 font-mono text-xs text-brand-gold">
-                        ({article.note})
-                      </span>
-                    )}
-                  </span>
-                </a>
+        {VISIBLE_PUBLICATIONS.map((pub) => (
+          <PublicationList key={pub.outlet} pub={pub} />
+        ))}
+        {MORE_PUBLICATIONS.length > 0 && (
+          <details className="group">
+            <summary className="mx-auto flex min-h-11 w-fit cursor-pointer list-none items-center rounded-xs border border-brand-gold/30 px-6 font-mono text-xs tracking-[0.08em] text-brand-gold uppercase transition-colors group-open:hidden hover:bg-brand-gold-light/10 [&::-webkit-details-marker]:hidden">
+              Show All Publications ({PUBLICATION_ARTICLE_COUNT} articles)
+            </summary>
+            <div className="space-y-6">
+              {MORE_PUBLICATIONS.map((pub) => (
+                <PublicationList key={pub.outlet} pub={pub} />
               ))}
             </div>
-          </div>
-        ))}
+          </details>
+        )}
       </div>
 
       {/* ── TESTIMONIALS ── */}
@@ -639,6 +704,12 @@ export default function TheOpenDoorPage() {
           infrastructure of trust. Published across Forbes, Business Insider, HuffPost, and
           Medium. Presented at the Clinton Global Initiative. CEO of RampRate. Chief Impact
           Officer of ImpactSoul.
+        </p>
+        <p className="mt-6 text-white/50">
+          Tony Greenberg &bull; Santa Monica, CA &bull;{" "}
+          <a href="mailto:Tony@joyandwoe.com" className="text-brand-gold-light">
+            Tony@joyandwoe.com
+          </a>
         </p>
       </div>
 
