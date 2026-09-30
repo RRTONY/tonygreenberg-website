@@ -57,7 +57,7 @@ post (121) with the new site, text and images, on a production build.
 - This file is now the named main project file for every AI tool: `AGENTS.md` (read order + must-follow rule), `CLAUDE.md`, `CONTRIBUTING.md` workflow rule 6 and the `tonyg-task-planner` agent all say to read this status block first and update it before finishing; the MCP server's `get_project_rules` now returns this block as `migrationStatus`.
 - Supabase project `tonygreenberg` created; keys in `.env.local` (not Netlify yet). See Phase 2.
 - Padding: the 8 story pages now match live's column width, side margins and text spacing; remaining spacing gaps and live's new heading font listed in Phase 12.
-- GitHub check (`pr-lint.yml`) fixed: it ran Node 20, but pnpm 11.17 needs Node 22.13+, so `pnpm install` crashed (`node:sqlite`). Now Node 22, same as `netlify.toml`.
+- GitHub check (`pr-lint.yml`) fixed: it ran Node 20, but pnpm 11.17 needs Node 22.13+, so `pnpm install` crashed (`node:sqlite`). Now Node 22, same as `netlify.toml`. Then its type check failed on every page (`Cannot find name 'PageProps'`): Next.js 16 only creates those route types during dev/build/typegen, so a fresh CI checkout has none. Added a `pnpm exec next typegen` step before the type check; tested in a clean checkout with no `.next` or `.env.local` (23 errors without it, 0 with it).
 - `ROUTES-INVENTORY.md`: every legacy route checked (200, working 308, or a documented deferral);
   live-only routes listed.
 - Left out on purpose: live's hidden copy-protection notice, returning-visitor toasts, fake
