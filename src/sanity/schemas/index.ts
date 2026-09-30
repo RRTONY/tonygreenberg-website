@@ -6,6 +6,7 @@ import page from "./page";
 import pageSeo from "./pageSeo";
 import siteSettings from "./siteSettings";
 import redirect from "./redirect";
+import dataTable from "./dataTable";
 
 export const schemaTypes = [
   siteSettings,
@@ -15,5 +16,6 @@ export const schemaTypes = [
   redirect,
   author,
   category,
+  dataTable,
   post,
 ];

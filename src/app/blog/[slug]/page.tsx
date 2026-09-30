@@ -9,6 +9,7 @@ import {
   relatedPostsQuery,
   recentPostsQuery,
   postsForReadingPathQuery,
+  postsBySlugsQuery,
 } from "@/lib/sanity/queries";
 import { READING_PATHS } from "@/lib/content/reading-paths";
 import { DEFAULT_OG_IMAGE } from "@/lib/content/default-image";
@@ -20,6 +21,8 @@ import { AiSummaryLinks, SITE_URL } from "@/components/ai-summary-links";
 import { ArticleFooter } from "@/components/blog/article-footer";
 import { BlogShareBar } from "@/components/blog/blog-share-bar";
 import { TrackLastBlogVisit } from "@/components/blog/track-last-blog-visit";
+import { PostHeaderExtras, BeforeYouRead, PostLessonBlocks, SeriesReadingList } from "@/components/blog/post-extras";
+import { getSeriesForPost } from "@/lib/content/essay-series";
 import { getArticleJsonLd } from "@/lib/structured-data";
 
 type PostDetail = {
@@ -125,6 +128,16 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
     relatedPosts = related.length ? related : fallbackRelated;
   }
 
+  const seriesInfo = getSeriesForPost(post.slug.current);
+  const seriesTitles = seriesInfo
+    ? await sanityFetch<{ title: string; slug: string }[]>({
+        query: postsBySlugsQuery,
+        params: { slugs: seriesInfo.series.posts },
+        tags: ["post"],
+      })
+    : [];
+  const seriesTitlesBySlug = Object.fromEntries(seriesTitles.map((p) => [p.slug, p.title]));
+
   const date = new Date(post.publishedAt).toLocaleDateString("en-US", {
     month: "long",
     day: "numeric",
@@ -172,6 +185,8 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
             </>
           )}
         </div>
+        <PostHeaderExtras slug={post.slug.current} />
+        {post.excerpt && <p className="mt-5 text-base leading-relaxed text-foreground/80 italic">{post.excerpt}</p>}
       </header>
 
       <BlogShareBar path={`/blog/${post.slug.current}`} title={post.title} />
@@ -193,6 +208,8 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
         </blockquote>
       )}
 
+      <BeforeYouRead slug={post.slug.current} />
+
       {/* portable-text.tsx hand-styles every block/mark directly (no
           @tailwindcss/typography dependency) — .article-body only exists
           to scope the drop-cap selector in globals.css. */}
@@ -212,6 +229,8 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
           ))}
         </div>
       )}
+
+      <PostLessonBlocks slug={post.slug.current} category={post.category?.title} />
 
       {relatedPosts.length > 0 && (
         <section className="mt-14 border-t border-border pt-10">
@@ -239,6 +258,8 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
       )}
 
       <ArticleFooter slug={post.slug.current} />
+
+      <SeriesReadingList slug={post.slug.current} titlesBySlug={seriesTitlesBySlug} />
 
       <AiSummaryLinks
         className="mt-14 border-t border-border pt-10"

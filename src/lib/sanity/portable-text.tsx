@@ -56,6 +56,39 @@ export const portableTextComponents: PortableTextComponents = {
         </figure>
       );
     },
+    // Legacy markdown tables (schemas/dataTable.ts). Scrolls sideways inside
+    // its own box on phones so the page itself never does.
+    dataTable: ({ value }) => {
+      const rows = ((value?.rows ?? []) as { _key?: string; cells?: string[] }[]).filter((r) => r.cells?.length);
+      if (rows.length < 2) return null;
+      const [head, ...body] = rows;
+      return (
+        <div className="my-8 overflow-x-auto rounded-lg border border-border">
+          <table className="w-full border-collapse text-left text-sm">
+            <thead className="bg-secondary">
+              <tr>
+                {head.cells!.map((cell, i) => (
+                  <th key={i} scope="col" className="px-4 py-3 align-bottom font-mono text-xs font-semibold tracking-wide text-foreground uppercase">
+                    {cell}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {body.map((row, r) => (
+                <tr key={row._key ?? r} className="border-t border-border">
+                  {row.cells!.map((cell, i) => (
+                    <td key={i} className="px-4 py-3 align-top leading-relaxed text-foreground/85">
+                      {cell}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      );
+    },
   },
   block: {
     h2: ({ children }) => <h2 className="mt-10 mb-4 font-heading text-2xl font-bold">{children}</h2>,

@@ -20,6 +20,13 @@ type Block = {
   level?: number;
 };
 
+// schemas/dataTable.ts: plain-text cells, first row is the header.
+export type TableBlock = {
+  _type: "dataTable";
+  _key: string;
+  rows: { _type: "row"; _key: string; cells: string[] }[];
+};
+
 let keyCounter = 0;
 function key(): string {
   keyCounter += 1;
@@ -90,10 +97,30 @@ function headingStyle(depth: number): string {
   return `h${Math.max(shifted, 2)}`;
 }
 
-export function markdownToPortableText(markdown: string): Block[] {
+// Table cells are stored as plain text, so inline markdown is flattened:
+// **bold**/*em*/`code` lose their markers, [text](url) keeps the text.
+function cellText(raw: string): string {
+  return raw
+    .replace(/<br\s*\/?>/gi, " ")
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
+    .replace(/(\*\*|__|\*|_|`)(.+?)\1/g, "$2")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+export function tableTokenToBlock(token: Tokens.Table): TableBlock {
+  const toRow = (cells: { text: string }[]) => ({
+    _type: "row" as const,
+    _key: key(),
+    cells: cells.map((c) => cellText(c.text)),
+  });
+  return { _type: "dataTable", _key: key(), rows: [toRow(token.header), ...token.rows.map(toRow)] };
+}
+
+export function markdownToPortableText(markdown: string): (Block | TableBlock)[] {
   keyCounter = 0;
   const tokens = marked.lexer(markdown || "");
-  const blocks: Block[] = [];
+  const blocks: (Block | TableBlock)[] = [];
 
   for (const token of tokens) {
     switch (token.type) {
@@ -157,9 +184,13 @@ export function markdownToPortableText(markdown: string): Block[] {
         });
         break;
       }
-      // "space", "hr", "html", "table" — deliberately skipped; not present
-      // in any sampled post body and not worth a block-schema extension
-      // for a one-time migration.
+      // Added 2026-10-01: 18 posts do have tables, and the first migration
+      // dropped them all (see scripts/restore-blog-tables.ts).
+      case "table": {
+        blocks.push(tableTokenToBlock(token as Tokens.Table));
+        break;
+      }
+      // "space", "hr", "html" — deliberately skipped.
       default:
         break;
     }
