@@ -6,6 +6,9 @@ const nextConfig: NextConfig = {
       // Legacy registers "/find-my-tribe" as a second path to the same
       // Community component — same duplicate-route pattern as /blog above.
       { source: "/find-my-tribe", destination: "/community", permanent: true },
+      // Live-only (not in `_legacy-manus-app/`): live sends /connect to the
+      // homepage (checked 2026-10-01).
+      { source: "/connect", destination: "/", permanent: true },
       // Legacy did this exact redirect client-side via
       // `window.location.replace("/living-declaration")` — a real 308 is
       // strictly better (works without JS, no flash of the old route).
