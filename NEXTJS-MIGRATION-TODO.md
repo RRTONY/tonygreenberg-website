@@ -17,7 +17,7 @@
 
 > Update this block at the end of each working session. Checkbox counts are from this file.
 
-**Overall:** 231 items done, 37 open. Phases 0, 3, 6, 8 and 9 are complete. Most of what's
+**Overall:** 232 items done, 39 open. Phases 0, 3, 6, 8 and 9 are complete. Most of what's
 open is blocked on something outside the code (Supabase project, Stripe, Netlify env vars, Tony's
 sign-off, DNS) or is the final QA pass. **Nothing from this rebuild is live yet.** Work is on
 branch `migration/2026-09-29-images-mcp-a11y`, staged but not committed.
@@ -30,7 +30,7 @@ branch `migration/2026-09-29-images-mcp-a11y`, staged but not committed.
 | 5 Blog | 18 | 1 | Tables and live essay updates saved as drafts; `you-are-the-moat` password gate open |
 | 7 PRI/Kava | 20 | 1 | `/pri-research` deferred (admin-only, no backend) |
 | 11 MCP server | 8 | 2 | Built; needs `GITHUB_TOKEN`/`MCP_ADMIN_USERS`/`MCP_SITE_ORIGIN` in Netlify, then a real PR test |
-| 12 SEO & cutover | 11 | 6 | Visual diff, link check, Lighthouse, Search Console/GA4, staging noindex |
+| 12 SEO & cutover | 12 | 8 | Visual diff, link check, Lighthouse, Search Console/GA4, staging noindex |
 | 13 Images | 7 | 11 | Page images rescued from Manus are wired in; blog-body images and a few asset gaps left |
 | 14 QA & launch | 0 | 7 | Mobile/a11y/cross-browser pass, sign-off, DNS cutover |
 
@@ -56,6 +56,8 @@ post (121) with the new site, text and images, on a production build.
 - Old WordPress-era post addresses (89) redirect to their post again, like live; the Netlify copy is now hidden from search engines (host-based `X-Robots-Tag`). See Phase 12.
 - This file is now the named main project file for every AI tool: `AGENTS.md` (read order + must-follow rule), `CLAUDE.md`, `CONTRIBUTING.md` workflow rule 6 and the `tonyg-task-planner` agent all say to read this status block first and update it before finishing; the MCP server's `get_project_rules` now returns this block as `migrationStatus`.
 - Supabase project `tonygreenberg` created; keys in `.env.local` (not Netlify yet). See Phase 2.
+- Padding: the 8 story pages now match live's column width, side margins and text spacing; remaining spacing gaps and live's new heading font listed in Phase 12.
+- GitHub check (`pr-lint.yml`) fixed: it ran Node 20, but pnpm 11.17 needs Node 22.13+, so `pnpm install` crashed (`node:sqlite`). Now Node 22, same as `netlify.toml`.
 - `ROUTES-INVENTORY.md`: every legacy route checked (200, working 308, or a documented deferral);
   live-only routes listed.
 - Left out on purpose: live's hidden copy-protection notice, returning-visitor toasts, fake
@@ -63,6 +65,7 @@ post (121) with the new site, text and images, on a production build.
   never sent anything, and Manus-hosted links.
 
 **Waiting on a decision (owner or team):**
+000. Switch titles to live's new font (Cormorant Garamond) and red labels on the story pages? See Phase 12.
 00. **What is Supabase for?** The project exists (2026-10-01) but has no tables, and `/login` leads to a dashboard that was never built. Pick a use (staff login, saving form answers...) or remove the login page and Supabase code.
 0. **`/blog/you-are-the-moat` is open to everyone on the new site**, but password-protected on live and in legacy. How to gate it: a server-checked password (the essay stays out of the page until unlocked), or unpublish it. Note the Sanity dataset itself may be publicly readable, so real secrecy also means checking that.
 1. Import the 2 live-only essays missing from Sanity: `the-tollbooth-and-the-alternative`, `what-quest-could-fix` (their heroes are already in Sanity).
@@ -417,6 +420,9 @@ Earlier, already-superseded plan for this phase (admin dashboard + approval work
 - [x] Homepage "Recent Updates" band (2026-09-29): on the live site (a newer `Blog.tsx` than `_legacy-manus-app/`, so rebuilt from the live page's markup), replacing the older "Latest Thinking" pair. **Found while doing it:** two live essays are missing from Sanity, `the-tollbooth-and-the-alternative` (Aug 18, 2026, the live site's newest) and `what-quest-could-fix`. Both were published on live after the legacy snapshot and need importing.
 - [ ] Re-sync the legacy reference: `_legacy-manus-app/` is older than what's live (Recent Updates proves it), so visual diffs should be against the live site, not only that folder.
 - [ ] Visual diff pass: every ported page vs. legacy page
+- [x] **Padding / spacing on the story pages matched to live (2026-10-01).** Measured margins, text column and spacing on 31 pages, live vs a production build, at 375px and 1280px. The "door" story pages were the clear mismatch: live's text column is ~546px (ours was 720px), 20px side margins on phones / 40px on desktop, body text 19px/1.8 on phones and 18px/1.85 on desktop (ours 16px/1.5). Fixed on `/the-body`, `/engine-room`, `/under-nda`, `/the-nightstand`, `/the-web`, `/the-territory`, `/about`, `/intel` (Intel uses live's 16.8px/1.9; About's hero line 480px max, 18.4px/1.8). Re-measured: all 8 match live to within 2px (About's column 28px narrower), no sideways scroll at 375px.
+- [ ] **Spacing still different from live (found 2026-10-01, not fixed):** the gap between the site header and the page title is smaller here on most pages (e.g. `/invest`, `/engage`, `/start-here` 96px vs live's 168px on phones; `/the-open-door` 64px vs 201px; blog posts 92px vs 419px, where live has a big hero above the title). Also different layouts, not just padding: `/blog` and `/` text column, `/series`, `/impact-dashboard` desktop column, `/walk-through` and `/find-my` title position, `/humanos`. Go page by page against live.
+- [ ] **Design change on live, needs a decision:** live's story pages now use **Cormorant Garamond** for titles (ours: Playfair Display), a lighter title weight (400 vs our 700), and a red eyebrow label (`#8E1E25`, wider letter spacing) instead of our gold. A site-wide font swap is a design call, so not done.
 - [ ] Link check across all ported pages (no 404s, no broken internal cross-references). **First full pass done 2026-09-29** (510 pages crawled from the sitemap plus every internal link, on a production build). Fixed in code: `/brewsoul/coffee/…-tarrazú` 404 (the route got the id still percent-encoded), 30+ links that went through the `/assessments/*` redirects, `/find-your-me`'s dead Homeaglow link, the two root-level Iboga essay links, and the dead FauxTony nav item. Fixed as **Sanity drafts** (`scripts/fix-blog-body-links.ts`, 14 posts): broken post links, leaked `![…](og-default.jpg)` placeholder text, Energy Is Money's split author bio, and scraped WordPress furniture ("Share this / Related / You Might Also Like / Copyright", "Show More / Top News", `[mc4wp_form]`). Left for a decision: `/framework`'s "Ask FauxTony" button, `when-healing-becomes-extraction`'s two links to a Dr. Lee case file that doesn't exist, and `the-clock-keeper-chronicles-part-1`'s link to the deferred `/clock-keeper-part-2`. Re-run after the drafts are published. **2026-10-01 re-run** (local production build, all 498 sitemap URLs load; 440 unique internal links): 5 broken. Fixed as a Sanity draft: `molecule-as-mirror-10-what-the-pioneers-know`'s "Final installment" link pointed at a non-existent part-10 slug (now part 11; live also shows that line twice, kept). Already fixed in a waiting draft: `forever-chemicals-...` → `/blog/psychedelic-readiness-index`. Still the 3 known decisions: `/fauxtony` (from `/framework`), `/clock-keeper-part-2`, `/blog/the-case-file-dr-samuel-lee`.
 - [ ] Lighthouse pass (performance/accessibility/SEO) on top 20 pages by traffic **2026-09-30, 20 key pages (no traffic data yet), local production build, mobile:** averages performance 87, accessibility 99→100, best practices 100, SEO 92→100, CLS 0 everywhere. Fixed: `public/robots.txt` had an `LLMs:` line (not a real directive) that made Google treat the whole file as invalid, now a comment; `h3`/`h4` headings skipping a level on `/assessments`, `/kava`, `/peptide-watch` (same look, right tag); the Kava and /attention-theft back-arrow links had no accessible name on phones; two small phone-width contrast misses. Left: performance is local-machine only (±10-15 points, see CONTRIBUTING.md); the slowest were `/` 76 (LCP 5.2 s), `/psychedelic-readiness-index` 82, `/iboga-ibogaine` 83. Re-run against the Netlify deploy before launch.
 - [ ] Connect Google Search Console + GA4 to the new deployment on day one of cutover
