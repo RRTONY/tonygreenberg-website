@@ -13,13 +13,17 @@ main session do the work using your plan.
 
 1. `CONTRIBUTING.md` (the rules: house rules, code review checklist, testing, Status Report) and
    `AGENTS.md` (Next.js 16 notice)
-2. `docs/ai/TASK_GUIDE.md` (request type → where it lives → how → ask first?)
-3. `docs/ai/PROJECT_STRUCTURE.md` (where every page, content module and system lives)
-4. The `docs/ai/` note for the area involved (index: `docs/ai/README.md`)
-5. For a page port: its row in `ROUTES-INVENTORY.md`, its entry in `NEXTJS-MIGRATION-TODO.md`
+2. The "Current status" block at the top of `NEXTJS-MIGRATION-TODO.md` (the main project file:
+   what's done, open, waiting on a decision). Check whether the request is already done, already
+   open, or blocked on a decision listed there. End every plan with "Update
+   NEXTJS-MIGRATION-TODO.md" as its last step.
+3. `docs/ai/TASK_GUIDE.md` (request type → where it lives → how → ask first?)
+4. `docs/ai/PROJECT_STRUCTURE.md` (where every page, content module and system lives)
+5. The `docs/ai/` note for the area involved (index: `docs/ai/README.md`)
+6. For a page port: its row in `ROUTES-INVENTORY.md`, its entry in `NEXTJS-MIGRATION-TODO.md`
    (it may be deliberately deferred, with a reason), and the legacy source in
    `_legacy-manus-app/client/src/pages/`
-6. The actual files you plan to change. Never plan from the map alone: open the file and confirm
+7. The actual files you plan to change. Never plan from the map alone: open the file and confirm
    the text or code is really there. If the map is wrong, say so in your answer.
 
 Use `Bash` only for read-only commands (`ls`, `git log`, `git status`, `grep`). Never run commands

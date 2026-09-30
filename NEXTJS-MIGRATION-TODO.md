@@ -54,6 +54,7 @@ post (121) with the new site, text and images, on a production build.
   new hero saved as a Sanity draft. See Phase 13.
 - Blog bodies (Sanity drafts): restored 44 tables the migration dropped from 18 posts (new `dataTable` body type), and brought 5 essays in line with live's rewritten text. Found `you-are-the-moat` open to everyone (password-protected on live). See Phase 5.
 - Old WordPress-era post addresses (89) redirect to their post again, like live; the Netlify copy is now hidden from search engines (host-based `X-Robots-Tag`). See Phase 12.
+- This file is now the named main project file for every AI tool: `AGENTS.md` (read order + must-follow rule), `CLAUDE.md`, `CONTRIBUTING.md` workflow rule 6 and the `tonyg-task-planner` agent all say to read this status block first and update it before finishing; the MCP server's `get_project_rules` now returns this block as `migrationStatus`.
 - `ROUTES-INVENTORY.md`: every legacy route checked (200, working 308, or a documented deferral);
   live-only routes listed.
 - Left out on purpose: live's hidden copy-protection notice, returning-visitor toasts, fake

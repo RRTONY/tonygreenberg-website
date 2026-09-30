@@ -219,11 +219,12 @@ export function createAdminMcpServer(user: McpUser): Server {
                 ? "You can prepare changes (they wait as pending), but a team member with write access must publish them."
                 : "Full access, including publishing.",
         },
-        howToUse: `Follow every rule below for the rest of this conversation. For each request, first use taskGuide to decide what kind of task it is, where it lives and whether it needs a yes, and projectStructure to find the files. Pass "${rules.version}" as ${RULES_VERSION_PARAM} on every tool that changes something. Before touching a feature, read its note from knowledgeBase with github_read_file.`,
+        howToUse: `Follow every rule below for the rest of this conversation. Read migrationStatus (the status block of NEXTJS-MIGRATION-TODO.md, the main project file) to see what's done, open and waiting on a decision. For each request, first use taskGuide to decide what kind of task it is, where it lives and whether it needs a yes, and projectStructure to find the files. Pass "${rules.version}" as ${RULES_VERSION_PARAM} on every tool that changes something. Before touching a feature, read its note from knowledgeBase with github_read_file.`,
         rules: rules.content,
         fullRules: rules.fullRules,
         taskGuide: guides.taskGuide,
         projectStructure: guides.projectStructure,
+        migrationStatus: guides.migrationStatus,
         knowledgeBase,
       });
     }

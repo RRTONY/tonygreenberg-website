@@ -25,6 +25,11 @@ incidents: [`docs/ai/`](docs/ai/README.md).
    one person's machine is invisible to every other tool and teammate.
 5. **Confirm before anything hard to undo or outward-facing**: publishing, merging, deleting,
    DNS, spending money. Approval for one action doesn't carry over to the next.
+6. **Update [`NEXTJS-MIGRATION-TODO.md`](NEXTJS-MIGRATION-TODO.md) before you finish.** It's the
+   main project file. Read its "Current status" block when you start; when you finish, check off
+   what you completed (date + what you verified), add anything new you found to the right phase,
+   and refresh the status block (date, done/open counts, done this session, waiting on a
+   decision, next up). The file is large: open the phase you need, not the whole thing.
 
 ## Talking to the Team
 

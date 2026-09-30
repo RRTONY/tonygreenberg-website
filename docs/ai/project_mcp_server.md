@@ -21,7 +21,7 @@ per-person roles and rules gate.
   drafts. It refuses while the PR's checks (the Netlify deploy preview) are pending or failing.
 - **Rules gate:** `get_project_rules` returns `AGENTS.md` first (the entry point and must-follow
   summary), then `CONTRIBUTING.md` (full rules), plus `docs/ai/TASK_GUIDE.md`,
-  `docs/ai/PROJECT_STRUCTURE.md` and the `docs/ai/` note list, all read from `main`. It also returns
+  `docs/ai/PROJECT_STRUCTURE.md`, the "Current status" block of `NEXTJS-MIGRATION-TODO.md` (the main project file; only that block, as `migrationStatus`, since the whole file is ~200 KB) and the `docs/ai/` note list, all read from `main`. It also returns
   a `rulesVersion` (a hash of both files' git blob shas, cached 5 minutes), so editing either file
   changes it. Every tool that changes something needs `rules_version` set to that value and
   refuses to run without it, with a stale one, or if the rules can't be loaded. This is a hard

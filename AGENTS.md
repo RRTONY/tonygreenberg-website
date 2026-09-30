@@ -11,15 +11,20 @@ site until both have been read.
 ## Read in this order
 
 1. **This file**: the must-follow summary below.
-2. **[`CONTRIBUTING.md`](CONTRIBUTING.md)**: the full rules (house rules, Next.js 16 / Tailwind v4
+2. **The "Current status" block at the top of
+   [`NEXTJS-MIGRATION-TODO.md`](NEXTJS-MIGRATION-TODO.md)**: the main project file. What's done,
+   what's open, what's waiting on a decision, and what's next. Read the status block every
+   session; open the phase you're working in when you need detail (the file is large, so don't
+   load all of it by default).
+3. **[`CONTRIBUTING.md`](CONTRIBUTING.md)**: the full rules (house rules, Next.js 16 / Tailwind v4
    specifics, the "What NOT to Do" list, code review checklist, testing, Status Report format).
-3. **[`docs/ai/TASK_GUIDE.md`](docs/ai/TASK_GUIDE.md)**: what kind of request this is, where the
+4. **[`docs/ai/TASK_GUIDE.md`](docs/ai/TASK_GUIDE.md)**: what kind of request this is, where the
    change really lives, what can't be done, what needs a yes.
-4. **[`docs/ai/PROJECT_STRUCTURE.md`](docs/ai/PROJECT_STRUCTURE.md)**: where every page, content
+5. **[`docs/ai/PROJECT_STRUCTURE.md`](docs/ai/PROJECT_STRUCTURE.md)**: where every page, content
    module and outside system lives.
-5. The [`docs/ai/`](docs/ai/README.md) note for the area you're touching (past incidents, gotchas).
+6. The [`docs/ai/`](docs/ai/README.md) note for the area you're touching (past incidents, gotchas).
 
-In Claude Code, the **`tonyg-task-planner`** agent (`.claude/agents/`) does steps 3 to 5 for you:
+In Claude Code, the **`tonyg-task-planner`** agent (`.claude/agents/`) does steps 4 to 6 for you:
 give it the request and it returns a plan. It only reads, never edits.
 
 ## What this project is
@@ -53,6 +58,10 @@ Tailwind v4 + shadcn/ui, Sanity for editorial content, deployed on Netlify from 
 - **Confirm before anything hard to undo or outward-facing**: publishing, merging, deleting, DNS.
 - **Plain, short replies for the team** (Tony, Darryl, Kimberly aren't developers). No em dashes
   in messages written for them. End every reply that did work with the Status Report.
+- **Keep `NEXTJS-MIGRATION-TODO.md` current, every session that does work.** Check off items as
+  they're done (with the date and what was verified), add new items you find in the right phase,
+  and update the "Current status" block at the top (date, done/open counts, what was done, what's
+  waiting on a decision, next up) before you finish. It's the team's main record, not optional.
 - **Save what you learn in the repo** (this file, `CONTRIBUTING.md`, or a `docs/ai/` note), not in
   a private memory folder, so every other AI tool sees it too.
 

@@ -15,7 +15,20 @@ export const KNOWLEDGE_BASE_DIR = "docs/ai";
 export const GUIDE_PATHS = {
   taskGuide: "docs/ai/TASK_GUIDE.md",
   projectStructure: "docs/ai/PROJECT_STRUCTURE.md",
+  // The main project file. Only its "Current status" block is returned (see
+  // statusBlock below): the whole file is ~200 KB, too much for every call.
+  migrationStatus: "NEXTJS-MIGRATION-TODO.md",
 } as const;
+
+// From the "## Current status" heading up to the next "---" rule. If that
+// heading is missing (renamed, or an older copy of the file), the top of the
+// file instead, so the answer is "roughly right" rather than 200 KB or nothing.
+function statusBlock(markdown: string): string {
+  const start = markdown.indexOf("## Current status");
+  if (start === -1) return markdown.slice(0, 8000);
+  const end = markdown.indexOf("\n---", start);
+  return markdown.slice(start, end === -1 ? undefined : end).trim();
+}
 
 // Tools that change the site or its content. A connected Claude/ChatGPT
 // session can ignore server instructions, so these refuse to run until the
@@ -70,7 +83,12 @@ export async function getProjectGuides(): Promise<Record<keyof typeof GUIDE_PATH
   const branch = await gh.getDefaultBranch();
   const keys = Object.keys(GUIDE_PATHS) as Array<keyof typeof GUIDE_PATHS>;
   const files = await Promise.all(keys.map((k) => gh.getFile(GUIDE_PATHS[k], branch).catch(() => null)));
-  const guides = Object.fromEntries(keys.map((k, i) => [k, files[i]?.content ?? null])) as Record<
+  const guides = Object.fromEntries(
+    keys.map((k, i) => {
+      const content = files[i]?.content ?? null;
+      return [k, content && k === "migrationStatus" ? statusBlock(content) : content];
+    }),
+  ) as Record<
     keyof typeof GUIDE_PATHS,
     string | null
   >;
