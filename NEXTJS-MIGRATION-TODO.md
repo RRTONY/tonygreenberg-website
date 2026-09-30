@@ -17,7 +17,7 @@
 
 > Update this block at the end of each working session. Checkbox counts are from this file.
 
-**Overall:** 230 items done, 38 open. Phases 0, 3, 6, 8 and 9 are complete. Most of what's
+**Overall:** 231 items done, 37 open. Phases 0, 3, 6, 8 and 9 are complete. Most of what's
 open is blocked on something outside the code (Supabase project, Stripe, Netlify env vars, Tony's
 sign-off, DNS) or is the final QA pass. **Nothing from this rebuild is live yet.** Work is on
 branch `migration/2026-09-29-images-mcp-a11y`, staged but not committed.
@@ -25,7 +25,7 @@ branch `migration/2026-09-29-images-mcp-a11y`, staged but not committed.
 | Phase | Done | Open | Note |
 | --- | --- | --- | --- |
 | 1 Sanity | 15 | 1 | Spot-check migrated post formatting in Studio |
-| 2 Supabase | 6 | 2 | Blocked on creating the Supabase project (needs a login) |
+| 2 Supabase | 7 | 1 | Project created, keys local only; needs a decision on what it's for (no tables yet, `/login` leads nowhere) |
 | 4 Marketing | 57 | 7 | Remaining pages need a real backend or auth (deferred), plus `/shop` (Stripe) |
 | 5 Blog | 18 | 1 | Tables and live essay updates saved as drafts; `you-are-the-moat` password gate open |
 | 7 PRI/Kava | 20 | 1 | `/pri-research` deferred (admin-only, no backend) |
@@ -55,6 +55,7 @@ post (121) with the new site, text and images, on a production build.
 - Blog bodies (Sanity drafts): restored 44 tables the migration dropped from 18 posts (new `dataTable` body type), and brought 5 essays in line with live's rewritten text. Found `you-are-the-moat` open to everyone (password-protected on live). See Phase 5.
 - Old WordPress-era post addresses (89) redirect to their post again, like live; the Netlify copy is now hidden from search engines (host-based `X-Robots-Tag`). See Phase 12.
 - This file is now the named main project file for every AI tool: `AGENTS.md` (read order + must-follow rule), `CLAUDE.md`, `CONTRIBUTING.md` workflow rule 6 and the `tonyg-task-planner` agent all say to read this status block first and update it before finishing; the MCP server's `get_project_rules` now returns this block as `migrationStatus`.
+- Supabase project `tonygreenberg` created; keys in `.env.local` (not Netlify yet). See Phase 2.
 - `ROUTES-INVENTORY.md`: every legacy route checked (200, working 308, or a documented deferral);
   live-only routes listed.
 - Left out on purpose: live's hidden copy-protection notice, returning-visitor toasts, fake
@@ -62,6 +63,7 @@ post (121) with the new site, text and images, on a production build.
   never sent anything, and Manus-hosted links.
 
 **Waiting on a decision (owner or team):**
+00. **What is Supabase for?** The project exists (2026-10-01) but has no tables, and `/login` leads to a dashboard that was never built. Pick a use (staff login, saving form answers...) or remove the login page and Supabase code.
 0. **`/blog/you-are-the-moat` is open to everyone on the new site**, but password-protected on live and in legacy. How to gate it: a server-checked password (the essay stays out of the page until unlocked), or unpublish it. Note the Sanity dataset itself may be publicly readable, so real secrecy also means checking that.
 1. Import the 2 live-only essays missing from Sanity: `the-tollbooth-and-the-alternative`, `what-quest-could-fix` (their heroes are already in Sanity).
 2. `/protecting-your-business`: live has much more detail about the named person (new sections, demands, a submission form, a name keyword list). Not copied yet because it's an accusation page.
@@ -120,7 +122,7 @@ post (121) with the new site, text and images, on a production build.
 
 ## Phase 2 — Supabase
 
-- [ ] **Blocked on you:** creating the actual Supabase project needs an interactive browser login (`supabase login`) or the dashboard — not something that can be done headlessly, same category of blocker as the earlier Sanity API-token issue. Either run `supabase login` yourself and say so, or create the project at supabase.com/dashboard and paste the Project URL + anon key + service-role key here (same handling as the DB password and Sanity token before — straight into `web/.env.local`, gitignored, never in a tracked file)
+- [x] Supabase project created (2026-10-01): `tonygreenberg` (free plan, West US), `https://zukaqnbknrsmixjvozlj.supabase.co`. URL, publishable key (in `NEXT_PUBLIC_SUPABASE_ANON_KEY`, the name the code reads) and secret key are in `.env.local`; all three checked against Supabase's API. **Not yet in Netlify** (its three Supabase settings are still empty). With the keys set, `src/proxy.ts` is active locally: a production build still serves every page (checked /, /blog, a post, /the-letter, /living-declaration, /america-unbundled, /studio, /login, redirects, 404s). **Found:** `supabase/migrations/0001_init.sql` isn't in the repo (the folder is empty), so no tables exist yet, and `/login` sends a signed-in user to `/dashboard/approvals`, which was never built (the approval dashboard was replaced by the MCP server). Needs a decision on what Supabase is for before tables or accounts are made.
 - [x] `web/src/lib/supabase/server.ts` (SSR client for Server Components/Actions, current `getAll`/`setAll` cookie API) and `client.ts` (browser client) helpers
 - [x] `web/src/lib/supabase/service-role.ts` — bypasses RLS, server-only, for chat logging (not in the original plan, but required to satisfy "service-role write only, no public read" below)
 - [x] `web/src/proxy.ts` — Supabase's required session-refresh middleware, renamed to `proxy.ts` per Next.js 16. **Ships with a guard**: if `NEXT_PUBLIC_SUPABASE_URL`/`_ANON_KEY` aren't set yet, it no-ops instead of throwing — without that guard it took the *entire site* down (every route 500'd) the moment it was added, since it ran on every request. Safe to leave in place; it activates automatically once real credentials land in `.env.local`
