@@ -21,7 +21,7 @@ const WHAT_WERE_BUILDING = [
 
 export default function UnderNdaPage() {
   return (
-    <div className="mx-auto max-w-3xl px-6 py-10">
+    <div className="mx-auto max-w-[39rem] px-5 py-8 text-[1.1875rem]/[1.8] sm:px-10 sm:text-lg/[1.85]">
       <p className="mb-2 font-mono text-xs tracking-[0.15em] text-brand-gold uppercase">
         Door 04 — Deep Dive
       </p>

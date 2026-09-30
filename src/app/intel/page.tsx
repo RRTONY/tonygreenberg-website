@@ -180,14 +180,14 @@ const PORTFOLIO: PortCo[] = [
 
 export default function IntelPage() {
   return (
-    <div className="mx-auto max-w-3xl px-6 py-10">
+    <div className="mx-auto max-w-[39rem] px-5 py-8 text-[1.05rem]/[1.9] sm:px-10">
       <p className="mb-2 font-mono text-xs tracking-[0.15em] text-brand-gold uppercase">
         The Work
       </p>
       <h1 className="mb-5 font-heading text-3xl font-bold text-foreground sm:text-4xl">
         Where the Thinking Meets the Doing
       </h1>
-      <p className="mb-10 max-w-2xl leading-relaxed text-foreground/80">
+      <p className="mb-10 max-w-2xl text-foreground/80">
         Every company and cause here passes through three gates before it gets my time. Then it
         gets scored on seven dimensions of impact, measured against Howard W. Buffett&apos;s
         Impact Rate of Return framework, and calibrated on David Hawkins&apos; Map of
@@ -238,7 +238,7 @@ export default function IntelPage() {
         <p className="mb-2 font-mono text-xs tracking-wide text-brand-gold uppercase">
           The Lesson
         </p>
-        <p className="leading-relaxed text-foreground/80">
+        <p className="text-foreground/80">
           Measure what matters, not what&apos;s easy to count. Howard Buffett taught us that the
           impact value of each dollar matters more than the dollar value of impact. David Hawkins
           showed us that consciousness calibrates everything. The portfolio that scores highest on

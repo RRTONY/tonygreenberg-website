@@ -53,7 +53,7 @@ export default function AboutPage() {
               <br />
               <em className="text-brand-gold-light not-italic">taught me everything.</em>
             </h1>
-            <p className="max-w-md text-lg leading-relaxed text-white/75">
+            <p className="max-w-120 text-[1.15rem]/[1.8] text-white/75">
               Wrong about the timing. Right about everything else. For 25 years. First URL on live
               TV. First webcast. First digital record label. Cloud before AWS was trusted.
               Blockchain before the lawyers showed up. Psychedelic medicine before it was
@@ -63,21 +63,21 @@ export default function AboutPage() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-3xl px-6 py-10">
+      <div className="mx-auto max-w-[39rem] px-5 py-8 text-[1.1875rem]/[1.8] sm:px-10 sm:text-lg/[1.85]">
         <p className="mb-3 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase dark:text-brand-gold-light">
           Chapter One
         </p>
         <h2 className="mb-6 font-heading text-2xl font-normal text-foreground">
           Before the systems, there was the question.
         </h2>
-        <p className="mb-6 leading-relaxed text-foreground/80">
+        <p className="mb-6 text-foreground/80">
           It started with retail. Boutique shops, direct-response marketing, the unglamorous work
           of selling things to people who didn&apos;t know they needed them. The 1990s were a
           masterclass in hustle — launching businesses, selling businesses, learning that the
           distance between a good idea and a dead company is about six months of cash flow and one
           honest conversation nobody wants to have.
         </p>
-        <p className="mb-6 leading-relaxed text-foreground/80">
+        <p className="mb-6 text-foreground/80">
           Then came Exodus Communications. A $37 billion IPO. Raindance Communications — running
           sales and marketing for a company that was scaling faster than anyone could steer. The
           lesson wasn&apos;t about scale. It was about what happens when growth outpaces wisdom.
@@ -88,21 +88,21 @@ export default function AboutPage() {
         </blockquote>
       </div>
 
-      <div className="mx-auto max-w-3xl border-t border-border px-6 py-10">
+      <div className="mx-auto max-w-[39rem] border-t border-border px-5 py-8 text-[1.1875rem]/[1.8] sm:px-10 sm:text-lg/[1.85]">
         <p className="mb-3 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase dark:text-brand-gold-light">
           Chapter Two
         </p>
         <h2 className="mb-6 font-heading text-2xl font-normal text-foreground">
           $10 billion in truth-telling.
         </h2>
-        <p className="mb-6 leading-relaxed text-foreground/80">
+        <p className="mb-6 text-foreground/80">
           RampRate was born from a simple observation: enterprise technology vendors lie about
           what things cost, and their customers don&apos;t know enough to call them on it. So we
           put $10B+ in tech spend under a microscope. The SPY Index shows what infrastructure
           actually costs versus what vendors claim. Microsoft, Disney, Goldman Sachs, Nike.
           Hundreds of Fortune 500s.
         </p>
-        <p className="mb-6 leading-relaxed text-foreground/80">
+        <p className="mb-6 text-foreground/80">
           Eighteen years of saving companies hundreds of millions of dollars. And then the
           question that changed everything: <em>what is all this money for?</em> Saving a
           corporation $40 million on cloud infrastructure is satisfying. But if that $40 million
@@ -124,14 +124,14 @@ export default function AboutPage() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-3xl border-t border-border px-6 py-10">
+      <div className="mx-auto max-w-[39rem] border-t border-border px-5 py-8 text-[1.1875rem]/[1.8] sm:px-10 sm:text-lg/[1.85]">
         <p className="mb-3 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase dark:text-brand-gold-light">
           Chapter Three
         </p>
         <h2 className="mb-6 font-heading text-2xl font-normal text-foreground">
           Consciousness expansion isn&apos;t optional anymore.
         </h2>
-        <p className="mb-6 leading-relaxed text-foreground/80">
+        <p className="mb-6 text-foreground/80">
           ImpactSoul is a RampRate company and venture foundry that tokenizes high-value cultural
           and real estate assets to fund regenerative impact. Four live token ecosystems: BEYOND
           (ocean cleanup), REX (paleontology), SPACE (digital access), and BEING (mental health),
@@ -140,13 +140,13 @@ export default function AboutPage() {
           Happiness Centre. Championed tribal rights from Latin America to Africa under the Nagoya
           Protocol.
         </p>
-        <p className="mb-6 leading-relaxed text-foreground/80">
+        <p className="mb-6 text-foreground/80">
           Investor in MycoMedica Life Sciences and five other psychedelic medicine ventures — from
           FDA Breakthrough Therapy designations to consciousness research platforms. Because the
           next infrastructure revolution isn&apos;t servers and switches. It&apos;s the operating
           system between our ears.
         </p>
-        <p className="mb-6 leading-relaxed text-foreground/80">
+        <p className="mb-6 text-foreground/80">
           Spoke at Harvard&apos;s H+ Summit alongside Ray Kurzweil in 2010 on the convergence of
           humanity and technology. Keynoted at Davos, Paris Blockchain Week, UCLA, and more
           conferences than memory permits. Written up by Forbes, Wired, Business Week, and others
@@ -158,7 +158,7 @@ export default function AboutPage() {
         </blockquote>
       </div>
 
-      <div className="mx-auto max-w-3xl px-6 pb-10">
+      <div className="mx-auto max-w-[39rem] px-5 pb-8 text-[1.1875rem]/[1.8] sm:px-10 sm:text-lg/[1.85]">
         <div className="rounded-lg bg-linear-to-br from-[#11111A] to-[#20162C] p-8 text-[#F5F0E0]">
           <p className="mb-3 font-mono text-xs tracking-[0.17em] text-brand-gold-light uppercase">
             What I am thinking about now
@@ -180,7 +180,7 @@ export default function AboutPage() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-3xl border-t border-border px-6 py-10">
+      <div className="mx-auto max-w-[39rem] border-t border-border px-5 py-8 text-[1.1875rem]/[1.8] sm:px-10 sm:text-lg/[1.85]">
         <p className="mb-3 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase dark:text-brand-gold-light">
           The Muse
         </p>
@@ -215,7 +215,7 @@ export default function AboutPage() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-3xl px-6 py-10">
+      <div className="mx-auto max-w-[39rem] px-5 py-8 text-[1.1875rem]/[1.8] sm:px-10 sm:text-lg/[1.85]">
         <p className="mb-6 text-center font-mono text-xs tracking-[0.2em] text-brand-gold uppercase dark:text-brand-gold-light">
           What They Say
         </p>
