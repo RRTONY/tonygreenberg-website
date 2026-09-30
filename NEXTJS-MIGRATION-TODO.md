@@ -13,48 +13,72 @@
 - UI: Tailwind CSS v4 + shadcn/ui (Radix base) — same design-system convention the team already uses elsewhere. `next/image` for all images. No framer-motion — CSS transitions / `tailwindcss-animate` only.
 
 
-## Current status — 2026-09-29
+## Current status — 2026-10-01
 
 > Update this block at the end of each working session. Checkbox counts are from this file.
 
-**Overall:** 223 items done, 37 open. Phases 0, 3, 5, 6, 8 and 9 are complete. Most of what's
+**Overall:** 229 items done, 39 open. Phases 0, 3, 6, 8 and 9 are complete. Most of what's
 open is blocked on something outside the code (Supabase project, Stripe, Netlify env vars, Tony's
-sign-off, DNS) or is the final QA pass. **Nothing from this rebuild is live yet**, and all work
-since 2026-09-28 is still uncommitted on `main` in the working copy.
+sign-off, DNS) or is the final QA pass. **Nothing from this rebuild is live yet.** Work is on
+branch `migration/2026-09-29-images-mcp-a11y`, staged but not committed.
 
 | Phase | Done | Open | Note |
 | --- | --- | --- | --- |
 | 1 Sanity | 15 | 1 | Spot-check migrated post formatting in Studio |
 | 2 Supabase | 6 | 2 | Blocked on creating the Supabase project (needs a login) |
-| 4 Marketing | 55 | 7 | Remaining pages need a real backend or auth (deferred), plus `/shop` (Stripe) |
+| 4 Marketing | 57 | 7 | Remaining pages need a real backend or auth (deferred), plus `/shop` (Stripe) |
+| 5 Blog | 18 | 1 | Tables and live essay updates saved as drafts; `you-are-the-moat` password gate open |
 | 7 PRI/Kava | 20 | 1 | `/pri-research` deferred (admin-only, no backend) |
-| 11 MCP server | 7 | 2 | Built; needs `GITHUB_TOKEN`/`MCP_ADMIN_USERS`/`MCP_SITE_ORIGIN` in Netlify, then a real PR test |
-| 12 SEO & cutover | 10 | 6 | Visual diff, link check, Lighthouse, Search Console/GA4, staging noindex |
+| 11 MCP server | 8 | 2 | Built; needs `GITHUB_TOKEN`/`MCP_ADMIN_USERS`/`MCP_SITE_ORIGIN` in Netlify, then a real PR test |
+| 12 SEO & cutover | 10 | 7 | Visual diff, link check, Lighthouse, Search Console/GA4, staging noindex |
 | 13 Images | 7 | 11 | Page images rescued from Manus are wired in; blog-body images and a few asset gaps left |
 | 14 QA & launch | 0 | 7 | Mobile/a11y/cross-browser pass, sign-off, DNS cutover |
 
-**Done this session (2026-09-28 → 29):**
-- New pages: `/medicine-sequencing`, `/the-philosophy` instrument links, `/subscribe`, `/skippy` (noindex), `/ecosystem-map`.
-- Fixed soft 404s site-wide (removed the root `loading.tsx`; missing pages return 404 again).
-- MCP server for AI tools rebuilt at `/api/mcp`, serving `AGENTS.md` then `CONTRIBUTING.md` with a rules-version gate.
-- 91 of 94 Manus-hosted images/videos rescued into Sanity (`docs/ai/manus-media-rescue.md`), then wired back into `/akbar`, `/living-declaration`, `/impact-dashboard`, `/find-my`, `/find-your-coffee`, `/consciousness-scale`, `/find-your-me`, `/humanos` (hero, nav logo, 12 headshots) and `/facilitator-index`; the 19 in-body blog images are saved as Sanity drafts on 4 posts.
-- Matched the live site: header, the Four Doors modal, the homepage BrewSoul "Intelligence Engine" band, and the homepage "Recent Updates" band (live-only, not in `_legacy-manus-app/`). Site now defaults to light mode like live.
-- Put back legacy's own intro copy on `/find-your-coffee` and `/consciousness-scale` (earlier ports had added text that wasn't Tony's).
-- Fixed the drop cap landing on section labels ("T HE PREMISE") on every page using `EyebrowLabel`.
+**Done this session (2026-10-01): synced with the live site.** Compared every live page (163) and
+post (121) with the new site, text and images, on a production build.
+- Pages brought in line with live's current copy: `/living-declaration` (rewritten, plus live's
+  six-question form as a mailto), `/impact-dashboard` (now a pro forma "target representation",
+  tokens optional, REX "never launched"), `/the-letter` (ROI strip, provocation quote, memory-layer
+  quote, Dispatch signup, Featured Essay card as live shows it), `/the-open-door` (25 published
+  articles), `/about`, `/intel`, `/engine-room`, `/invest` (ABIT launch Q1 2027),
+  `/humanos/path-to-here` ("a RampRate company"), `/humanos/philosophy` (David Orban quote),
+  `/attention-theft` (CAN-SPAM quote), `/find-my` (live's card taglines), `/journeys`, `/articles`,
+  homepage + `/blog` (Most Read / Most Provocative lists), `/brewsoul/chains`, `/the-territory`,
+  `/psychedelic-readiness-index`, Shanita Nicholas.
+- New live-only pages: `/america-unbundled` (Part One) and `/america-unbundled-field-guide`
+  (Part Two); `/connect` → `/` (308) like live.
+- Every blog post now has live's extra blocks (lesson, validity, next steps, further reading,
+  voices, since-this-was-written, Before You Read, series box). See Phase 5.
+- Images: 5 new or swapped live images rescued into Sanity (`scripts/rescue-2026-10-live-images.ts`);
+  `/find-my` hero and the Letter's Featured Essay image wired; `your-blood-lies-without-your-dna`
+  new hero saved as a Sanity draft. See Phase 13.
+- Blog bodies (Sanity drafts): restored 44 tables the migration dropped from 18 posts (new `dataTable` body type), and brought 5 essays in line with live's rewritten text. Found `you-are-the-moat` open to everyone (password-protected on live). See Phase 5.
+- `ROUTES-INVENTORY.md`: every legacy route checked (200, working 308, or a documented deferral);
+  live-only routes listed.
+- Left out on purpose: live's hidden copy-protection notice, returning-visitor toasts, fake
+  counters, the Attention Theft "Wall of Shame" (live shows only test entries), email gates that
+  never sent anything, and Manus-hosted links.
 
 **Waiting on a decision (owner or team):**
-1. Import the 2 live-only essays missing from Sanity: `the-tollbooth-and-the-alternative`, `what-quest-could-fix`.
-2. Use the rescued photo on `/alex-azzi` (a real person on an accusation page).
-3. Keep or drop the hardcoded "117 pageviews" traffic box in Recent Updates.
-4. Delete the `manus/production-restoration-2026-09-10` branch (reviewed; nothing left to bring over).
-5. Commit the uncommitted work, and how to split it.
-6. Owner content items listed in `docs/ai/project_production_restoration_branch.md` (clinician quotes, testimonials, B Corp and token claims, legacy URL redirects).
-7. Publish the 17 blog drafts in Studio after a look: 4 with restored in-body images (Clarisse Abelarde, You Are the Moat, FRQNCY, Energy Is Money) and 14 with link/cleanup fixes (Energy Is Money has both).
-8. Three dead links with no obvious target: `/framework`'s "Ask FauxTony" button (FauxTony was cancelled; suggest pointing it at `/engage` or removing it), the Dr. Lee case-file link in `when-healing-becomes-extraction` (no such essay), and the Clock Keeper Part II link (page deferred).
+0. **`/blog/you-are-the-moat` is open to everyone on the new site**, but password-protected on live and in legacy. How to gate it: a server-checked password (the essay stays out of the page until unlocked), or unpublish it. Note the Sanity dataset itself may be publicly readable, so real secrecy also means checking that.
+1. Import the 2 live-only essays missing from Sanity: `the-tollbooth-and-the-alternative`, `what-quest-could-fix` (their heroes are already in Sanity).
+2. `/protecting-your-business`: live has much more detail about the named person (new sections, demands, a submission form, a name keyword list). Not copied yet because it's an accusation page.
+3. `/impact-dashboard`: title and description now match live (SEO copy, needs a yes).
+4. Live disagrees with itself: "One hundred charities" vs the 98 in our data (`/charity-scorecard`); ABIT launch "Q1 2027" on most pages but "Q3 2026" on live's `/amplifier`; "103 coffees" vs 107 in the data.
+5. `/the-open-door` shows Tony@joyandwoe.com again, as live does (an earlier pass had dropped it). Still current?
+6. Two coffee notes (Equator, Olympia) still say "B Corp"; live dropped that claim from both chains' strengths, but the notes couldn't be seen on live.
+7. Use the rescued photo on `/alex-azzi` (a real person on an accusation page).
+8. Keep or drop the hardcoded "117 pageviews" traffic box in Recent Updates.
+9. Delete the `manus/production-restoration-2026-09-10` branch (reviewed; nothing left to bring over).
+10. Commit the staged work, and how to split it.
+11. Owner content items listed in `docs/ai/project_production_restoration_branch.md` (clinician quotes, testimonials, B Corp and token claims, legacy URL redirects).
+12. Publish the Sanity drafts in Studio after a look: 17 from before (4 with restored in-body images, 14 with link/cleanup fixes), plus 2026-10-01's: 18 posts with restored tables, 5 essays updated to live's text (Blood/DNA also has its new hero).
+13. Three dead links with no obvious target: `/framework`'s "Ask FauxTony" button, the Dr. Lee case-file link in `when-healing-becomes-extraction`, and the Clock Keeper Part II link.
+14. The "Updated for Today" AI-rewrite toggle live shows on posts: not ported (live defaults to the original text).
+15. `/blog/akbar-cuisine-restoration-economics` redirects to `/akbar` on live. Do the same here?
+16. `/the-stack` (live, marked "Private review draft", not in live's sitemap): port it once it's final?
 
-**Next up (no decision needed):** style check of the remaining
-pages against the **live** site (the legacy folder is older than live); re-run the link check once
-the blog drafts are published.
+**Next up (no decision needed):** re-run the link check once the drafts are published.
 
 ---
 
@@ -186,6 +210,8 @@ Source: legacy `client/src/pages/*.tsx`. Port real copy/structure into Next.js p
 - [x] `/subscribe` — Subscribe.tsx. Ported 2026-09-29: legacy copy, a working free signup through `/api/subscribe` (Kit, with a mailto fallback, same as the popup), and the $99/yr membership and $27 compilation shown as information only with no checkout. This fixed a live 404, because `/the-letter` already linked here. `/api/subscribe` also got input length caps.
 - [ ] `/shop`, `/payment-success`, `/payment-cancel` — **defer**: these are Stripe-backed; flag for the later billing-migration phase, do not port checkout logic yet, static/informational content only if ported now
 - [x] Drop dead code, do not port: `HumanOS.tsx`, `ComponentShowcase.tsx`, `VendorIntakeForm.tsx`, `VendorIntakeLong.tsx`, pre-consolidation manifesto sub-pages (`AttentionEconomics.tsx`, `BlockerFinder.tsx`, `LegalDatabase.tsx`, `TenWeapons.tsx`, `ReportSpammer.tsx`). Effectively satisfied by the repo-wide flatten: the entire legacy Vite/Express app (including all of these) now lives only under `_legacy-manus-app/`, outside `src/app/` entirely — none of them are part of the deployed Next.js app or its build.
+- [x] `/america-unbundled-field-guide` — live-only (no legacy file; added to the live site after the `_legacy-manus-app/` snapshot). Ported 2026-10-01 from the live page: copy, links, title/description/OG and Article JSON-LD verbatim; hero image from Sanity (rescued `age-of-ai-no-party`). The 10 "90-day commitment" questions are a small client island (`components/america-unbundled/field-guide-responses.tsx`) that saves to localStorage under live's key, copies, or downloads a .txt; nothing is sent anywhere. Sits inside the normal site chrome (live has its own standalone masthead; kept in-page). Part One `/america-unbundled` is ported too (next line); its temporary 307 to `/` is gone. `/connect` → `/` 308 added (matches live).
+- [x] `/america-unbundled` — live-only Part One, "AI Does Not Have a Candidate" (no legacy file). Ported 2026-10-01 from the live page: copy, links, title/description/keywords/OG and Article JSON-LD verbatim; same series masthead and styling as Part Two; hero is the same rescued Sanity image (`age-of-ai-no-party`). The "Share the question" rail is a tiny client island (`components/america-unbundled/share-rail.tsx`: copy link + device share; X/LinkedIn are plain links). `#sources` anchor kept for Part Two's link. Temporary `/america-unbundled` → `/` redirect removed from `next.config.ts`.
 
 ## Phase 5 — Blog Engine (Sanity-backed)
 
@@ -206,6 +232,10 @@ Source: legacy `client/src/pages/*.tsx`. Port real copy/structure into Next.js p
 - [x] Preserve internal cross-link structure from `client/src/data/linkMap.ts` / `readingPaths.ts` (built, not yet pushed — pending local review). Both ported as real, working features, not just cross-referenced.
   - **`readingPaths.ts`** (90+ hand-picked "read next" connections with real editorial reasons) → `lib/content/reading-paths.ts`, wired into `/blog/[slug]`'s existing "Read next" section: a curated path now takes priority over the old always-generic same-category/recent fallback (which still applies for the ~6 posts with no curated path), and each recommended card now shows its real reason line. Extracted the actual runtime object via `tsx` (safer than regex-parsing hand-written TS) and cross-checked all 117 keys + 352 target slugs against the real 121-post corpus: found 2 keys and 2 targets using stale slug spellings for posts already renamed elsewhere in this migration (same Bentley/EV and Butcher's Daughter posts already fixed in the article-footers pass) — fixed. The 2 stale keys turned out to be duplicate entries for posts that already had a correctly-spelled key elsewhere with its own different recommendation list; kept the correctly-spelled key's original list rather than merging two competing editorial takes. Fixing one of those also surfaced a self-reference (a post recommending itself once its alias resolved to its own slug) — dropped. 8 recommendations pointing at `attention-theft-the-silent-crime-of-the-digital-age` dropped — not a blog post (legacy's own un-ported standalone manifesto page), so these already silently never rendered in legacy either (its lookup only ever matched against blog posts). Also fixed a real pre-existing gap noticed while touching this code: `relatedPostsQuery`/`recentPostsQuery` never selected `publishedAt`, so the fallback "Read next" cards were silently missing their date. Verified live on 3 real posts (a curated one, the merged/self-ref-fixed one, and an uncurated fallback one) — real reasons render, no self-links, fallback still works.
   - **`linkMap.ts`** (~190 real entities auto-linked wherever named in body text) → `lib/content/link-map.ts` (data + ported `autoLinkSegments`) + `lib/sanity/auto-link-body.ts` (`autoLinkBody`, a Portable-Text-block transform run on `post.body` before it reaches `<PortableText>` in `/blog/[slug]/page.tsx` — deliberately done as a data-tree transform rather than changes to `portable-text.tsx`'s renderer, so the existing `marks.link` handler picks up new links with zero renderer changes and zero risk to the link-mark fix made earlier this phase). Conservative by design: only touches spans with no marks at all (bold/italic/code/already-linked text is untouched), and skips a whole block if it already has a real link mark anywhere in it — a per-span/per-block version of legacy's own per-paragraph "skip if markdown links already present" rule. Dropped 17 of 193 entries before porting: they point at internal routes that don't exist yet in this app (`/self-portrait`, `/ecosystem-map`, `/the-index`, the 5 `/brewsoul/*` pages, 2 `/assessments/*` pages, `/the-mirror`, `/homeaglow-...`) — auto-linking those would manufacture a fresh 404 on every matching mention across all 121 posts, a much larger blast radius than this migration's one deliberate `/find-my` forward-reference (kept, since it's already used elsewhere in this app and tracked as a real upcoming page). Checked the 2 `.manus.space` external links (Clarisse Abelarde's and Aqueous's own sites) live — both 200 OK, kept; the Zero-Manus-dependency rule is about this project's own dead CDN paths, not linking out to a third party's page-builder-hosted site. Verified live on 3 real posts: real new external links landed with correct hrefs (e.g. `harvard.edu`, `linkedin.com/in/alexveytsel`) using the transform's own key-naming convention to confirm they're genuinely new (not pre-existing), a post with zero matching entities correctly got zero new links, and a post's pre-existing real link (Alison Zai's site) rendered completely untouched — confirming the "don't touch already-marked spans" guarantee holds.
+- [x] **Post extras from live (2026-10-01):** every post now shows the blocks legacy `BlogPost.tsx` and live render around the essay: format tag, validity score and series badge in the header, the summary, "Before You Read" (Reveal/Hint via `<details>`, answer in the server HTML), then The Lesson, Next Steps, Further Reading, Voices in This Space / Also involves, Since this was written, and the series reading list. Data ported unchanged into `src/lib/content/post-extras.ts` (from `blogData.json`, `riddleData.ts`, `thoughtLeaders.ts`), `further-reading.ts` and `essay-series.ts` (now shared with `/series`); component `src/components/blog/post-extras.tsx`. Checked against live: lesson, next steps and validity match on every post that loaded. Left out on purpose: read counts, reactions/comments/"Rate this thinking" (no backend), and the "Updated for Today" toggle (an AI rewrite; live defaults to the original text, which is what Sanity holds).
+- [x] **Lost tables restored (2026-10-01):** the migration's markdown converter had no table case, so all tables in 18 posts (44 tables) were silently dropped; live still shows them. Added a plain `dataTable` body type (`src/sanity/schemas/dataTable.ts`, rendered in `src/lib/sanity/portable-text.tsx`, scrolls inside its own box on phones), a table case in `scripts/markdown-to-portable-text.ts`, and put every table back after the paragraph that precedes it in the legacy markdown (`scripts/restore-blog-tables.ts`), as **Sanity drafts** built on existing drafts. `find-my-ev-...` had a malformed table showing as raw "|" text; now a real table (draft).
+- [x] **Essays rewritten on live, saved as Sanity drafts (2026-10-01)** (`scripts/sync-live-essays.ts`, from live's essay body; live images rescued into Sanity): `your-blood-lies-without-your-dna`, `energy-is-money-money-is-memory` (kept our fixed author bio), `the-way-of-dao`, `what-solutions-are-best-built-with-blockchain` replaced with live's version; `the-peptide-truth-...` got live's "Provenance and Corrections" note and the new stem cell appendix. Checked: every live paragraph is in the drafts. Not changed: posts where live still shows old WordPress furniture we already cleaned (Davos 2022, Boiling the Human, Mastering BD, and others), and `/the-stack` links (a "Private review draft" page on live, not ported; text kept, link dropped).
+- [ ] **`you-are-the-moat` is password-protected on live and in legacy** (`passwordGate`, a browser-side check), but the port renders it openly to everyone. Needs a decision on how to gate it (see status block) before launch.
 
 ## Phase 6 — BrewSoul (28 routes)
 
@@ -393,6 +423,13 @@ Earlier, already-superseded plan for this phase (admin dashboard + approval work
 - [x] **Manus media rescue (2026-09-29):** all 94 Manus-hosted image/video references in the legacy source (`/api/img/*`, `/manus-storage/*`) were checked live. **91 were still downloadable, including the `/akbar` photos the entry below calls "permanently lost"**, and all 91 are now Sanity assets (`scripts/rescue-manus-media.ts`; Sanity dedupes by SHA-1). 3 were gone (HTTP 502). The manifest `docs/ai/manus-media-rescue.md` maps each one to the legacy files that used it and its Sanity URL. They are **not wired into pages yet**: go page by page, with real alt text. `/facilitator-index`'s two diagrams are done (`scripts/rescue-facilitator-images.ts`).
 
 **⚠ Correction (2026-09-10): the legacy Manus-hosted site is back up.** An earlier pass recorded tonygreenberg.com as fully down (503 on the root domain, 404 on `/api/img/`) — as of this pass it's serving 200s again, and Tony's team has since uploaded real, unique per-post hero images directly to several live legacy posts (filenames like `*-hero-repaired-2026-09_*`, dated this month — not present in this repo's `_legacy-manus-app` checkout, which is a stale snapshot). Diffed all 99 `BLOG-IMAGE-BRIEFS.md` slugs' live `og:image` against the shared generic fallback and found 7 with real new art (visually verified each before use, one candidate excluded as a mis-fitting generic template image — see that file's own note); rescued all 7 into Sanity via `scripts/rescue-2026-09-blog-images.ts`. **Re-check the remaining un-rescued slugs periodically** rather than treating this source as permanently exhausted — it may keep getting new art. Any image still only pointing at the old dead Manus paths from *before* this correction should still be treated as unrecoverable from that source.
+
+**Re-check 2026-10-01 (`scripts/rescue-2026-10-live-images.ts`):** loaded all 163 live non-blog pages in a headless browser (images, videos, CSS backgrounds) plus every live post's `og:image`, and dropped every image the legacy source or the rescue manifest already names (ignoring the live host's `site-NNN-`/`NN-` prefixes and `_<hash>` suffixes, which are renames only). No new per-post hero art since 2026-09-10. Five real changes, all uploaded to Sanity:
+- `your-blood-lies-without-your-dna`: live swapped the shattered-vial hero for a new one. Saved as a **Sanity draft** (publish in Studio after a look).
+- `/find-my` hero: live swapped it (woman on a forked path). Wired in `src/app/find-my/page.tsx`. `/find-your-me` still uses the old one, same as live.
+- `/the-letter` Featured Essay card: live uses its own card image (forest statue), not the post's hero. Wired in `src/app/the-letter/page.tsx`. The live post itself is titled "I Made Money Today on Psychedelics. I'm Not Celebrating." (same as Sanity); only live's Letter card uses "When Healing Becomes Extraction" and its own summary, so the card copy is set in the page, not taken from the post.
+- Saved: `what-quest-could-fix` hero (not wired) (https://cdn.sanity.io/images/a3q1cyqs/production/1076430823b78acdcace1db06f75ef416490f8de-1200x670.webp; the post isn't imported yet; `the-tollbooth-and-the-alternative` reuses California Toll Roads' hero, already in Sanity) and the America Unbundled image (https://cdn.sanity.io/images/a3q1cyqs/production/1f524a6b2fbe9f105982d4997d4df1f6a18d937b-1200x800.webp). Both pages are live-only (no legacy file); both are now ported and use it (Phase 4, 2026-10-01).
+- Skipped: `tony-og-default-repaired-*` (generic branded card, same call as 2026-09-10) and `/flow-circuit`'s Manus CDN photo/video (the new route redirects to `flow.tonygreenberg.com`).
 
 Every image below needs to exist as a real asset uploaded to Sanity (or explicitly kept as a static `public/` file if it's a UI/brand asset, not content). Fill in as each is sourced/uploaded — do not launch with placeholder images.
 

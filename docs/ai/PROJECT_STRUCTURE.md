@@ -32,6 +32,9 @@ how to handle a request is in [`TASK_GUIDE.md`](TASK_GUIDE.md). Last checked 202
 - **Marketing, assessment, BrewSoul, PRI, Kava, peptide pages:** in code, in the route's
   `page.tsx`, its component under `src/components/`, and/or a data module in `src/lib/content/`.
 - **Blog posts (`/blog/[slug]`, `/blog/category/[slug]`, `/essays`):** Sanity `post` documents.
+- **Live-only pages** (on the live site but not in `_legacy-manus-app/`, listed at the end of
+  `ROUTES-INVENTORY.md`): e.g. `/america-unbundled-field-guide`, text in its `page.tsx`, the
+  question form in `src/components/america-unbundled/`.
 - **Page titles/descriptions:** each route's `metadata`/`generateMetadata` export. Blog posts use
   their Sanity `seo` field.
 
