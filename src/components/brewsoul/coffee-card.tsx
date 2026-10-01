@@ -16,7 +16,7 @@ export interface CoffeeCardScores {
 }
 
 function qprColorClass(qpr: number) {
-  if (qpr >= 80) return "text-[#4A7C59]";
+  if (qpr >= 80) return "text-[#3B6548]";
   if (qpr >= 60) return "text-[#836311]";
   return "text-[#8B2500]";
 }
@@ -34,14 +34,14 @@ export function CoffeeCard({ coffee, scores }: { coffee: CatalogItem; scores: Co
       <div className="mb-2 text-sm text-[#6B5B4F]">
         {coffee.originCountry} · {coffee.variety} · {coffee.processingMethod}
       </div>
-      <div className="mb-3 text-sm text-[#999] italic">{coffee.tastingNotes?.join(", ") || "Complex, nuanced"}</div>
+      <div className="mb-3 text-sm text-[#6E6E6E] italic">{coffee.tastingNotes?.join(", ") || "Complex, nuanced"}</div>
       <div className="flex items-center justify-between">
         <div className="flex flex-wrap gap-1.5">
           <span className="rounded-full bg-[#836311]/8 px-2 py-0.5 font-mono text-[0.65rem] text-[#6F4E37]">
             {tierEmoji(computeTier(coffee.cuppingScore || 0))} {coffee.cuppingScore}
           </span>
           {coffee.moldTestStatus === "verified" && (
-            <span className="rounded-full bg-[#4A7C59]/10 px-2 py-0.5 font-mono text-[0.65rem] text-[#4A7C59]">
+            <span className="rounded-full bg-[#4A7C59]/10 px-2 py-0.5 font-mono text-[0.65rem] text-[#3B6548]">
               Mold-Free ✓
             </span>
           )}

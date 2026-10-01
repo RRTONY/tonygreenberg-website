@@ -329,7 +329,7 @@ export default async function TheLetterPage() {
       {/* What I'm thinking now */}
       <div className="border-b border-brand-gold-light/10 bg-[#0A0A10] px-6 py-5 sm:px-10">
         <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-6">
-          <p className="shrink-0 font-mono text-[0.58rem] tracking-[0.2em] text-brand-gold-light/60 uppercase">
+          <p className="shrink-0 font-mono text-[0.58rem] tracking-[0.2em] text-brand-gold-light/85 uppercase">
             Aug 2026
           </p>
           <p className="min-w-0 flex-1 basis-64 font-heading text-base leading-normal text-[#F5F0E0]/85 italic sm:text-lg">
@@ -630,7 +630,7 @@ export default async function TheLetterPage() {
             tony@impactsoul.is
           </a>
         </p>
-        <p className="font-mono text-xs tracking-[0.08em] text-[#F5F0E0]/40">
+        <p className="font-mono text-xs tracking-[0.08em] text-[#F5F0E0]/65">
           tonygreenberg.com &nbsp;·&nbsp; impactsoul.is &nbsp;·&nbsp; ramprate.com
         </p>
       </div>
@@ -654,7 +654,7 @@ export default async function TheLetterPage() {
             placeholder="your@email.com"
             className="flex flex-col gap-3 sm:flex-row"
           />
-          <p className="mt-2 text-xs text-muted-foreground/70 italic">
+          <p className="mt-2 text-xs text-muted-foreground italic">
             No algorithm. No pitch deck. Leave whenever.
           </p>
         </div>

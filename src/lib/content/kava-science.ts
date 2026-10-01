@@ -4,6 +4,8 @@ export interface Kavalactone {
   abbrev: string;
   mechanisms: string[];
   priRelevance: string;
+  // 700-weight shades: used as text on white and behind white text, so they
+  // must pass WCAG AA (the original 500 shades failed, 2026-10-02).
   colorHex: string;
 }
 
@@ -14,12 +16,12 @@ export interface Kavalactone {
 // for the static kavalactone grid — same RSC-boundary lesson already
 // learned porting /brewsoul/decaf.
 export const KAVALACTONES: Kavalactone[] = [
-  { num: 1, name: "Desmethoxyyangonin", abbrev: "DMY", mechanisms: ["Increases dopamine", "Reversible MAO-B inhibitor"], priRelevance: "Elevates mood, openness, sociability; reduces resistance to experience; fights effects of low dopamine.", colorHex: "#F59E0B" },
-  { num: 2, name: "Dihydrokavain", abbrev: "DHK", mechanisms: ["GABA-A potentiation — the strongest anxiolytic kavalactone"], priRelevance: "Core anxiety reduction; dissolves the fear that blocks readiness; the therapeutic workhorse of the kava bowl.", colorHex: "#3B82F6" },
-  { num: 3, name: "Yangonin", abbrev: "Y", mechanisms: ["CB1 receptor affinity — endocannabinoid system engagement", "CNS calming"], priRelevance: "Endocannabinoid bridge; produces warm, grounded sensory receptivity; the body-warmth kavalactone.", colorHex: "#10B981" },
-  { num: 4, name: "Kavain", abbrev: "K", mechanisms: ["Sodium and calcium channel blockade", "Acts on limbic system and amygdala"], priRelevance: "Physical relaxation without cognitive fog; the ideal carrier state. Chemotypes with 4 as first number are most desirable for ceremony. Kavain and dihydrokavain are the most permeable to the blood-brain barrier.", colorHex: "#8B5CF6" },
-  { num: 5, name: "Dihydromethysticin", abbrev: "DHM", mechanisms: ["Increases serotonin", "MAO-B inhibition", "Activates glutamatergic NMDA receptors"], priRelevance: "Serotonergic priming; may sensitize 5-HT2A pathway for subsequent medicines; neuroprotective via Nrf2/HO1 pathway.", colorHex: "#EC4899" },
-  { num: 6, name: "Methysticin", abbrev: "M", mechanisms: ["Serotonin modulation", "Nrf2 and HO1 pathway activation (neuroprotective)", "NF-kB inhibition (anti-inflammatory)"], priRelevance: "Anti-neuroinflammatory; protects the nervous system entering altered states; the guardian kavalactone.", colorHex: "#EF4444" },
+  { num: 1, name: "Desmethoxyyangonin", abbrev: "DMY", mechanisms: ["Increases dopamine", "Reversible MAO-B inhibitor"], priRelevance: "Elevates mood, openness, sociability; reduces resistance to experience; fights effects of low dopamine.", colorHex: "#B45309" },
+  { num: 2, name: "Dihydrokavain", abbrev: "DHK", mechanisms: ["GABA-A potentiation — the strongest anxiolytic kavalactone"], priRelevance: "Core anxiety reduction; dissolves the fear that blocks readiness; the therapeutic workhorse of the kava bowl.", colorHex: "#1D4ED8" },
+  { num: 3, name: "Yangonin", abbrev: "Y", mechanisms: ["CB1 receptor affinity — endocannabinoid system engagement", "CNS calming"], priRelevance: "Endocannabinoid bridge; produces warm, grounded sensory receptivity; the body-warmth kavalactone.", colorHex: "#047857" },
+  { num: 4, name: "Kavain", abbrev: "K", mechanisms: ["Sodium and calcium channel blockade", "Acts on limbic system and amygdala"], priRelevance: "Physical relaxation without cognitive fog; the ideal carrier state. Chemotypes with 4 as first number are most desirable for ceremony. Kavain and dihydrokavain are the most permeable to the blood-brain barrier.", colorHex: "#6D28D9" },
+  { num: 5, name: "Dihydromethysticin", abbrev: "DHM", mechanisms: ["Increases serotonin", "MAO-B inhibition", "Activates glutamatergic NMDA receptors"], priRelevance: "Serotonergic priming; may sensitize 5-HT2A pathway for subsequent medicines; neuroprotective via Nrf2/HO1 pathway.", colorHex: "#BE185D" },
+  { num: 6, name: "Methysticin", abbrev: "M", mechanisms: ["Serotonin modulation", "Nrf2 and HO1 pathway activation (neuroprotective)", "NF-kB inhibition (anti-inflammatory)"], priRelevance: "Anti-neuroinflammatory; protects the nervous system entering altered states; the guardian kavalactone.", colorHex: "#B91C1C" },
 ];
 
 export const COMBINED_PROFILE = [

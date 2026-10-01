@@ -92,13 +92,13 @@ export function BlendBuilderExplorer({ coffees }: { coffees: CatalogItem[] }) {
                   className="w-25"
                 />
                 <span className="w-10 shrink-0 text-right font-mono text-[0.85rem] font-bold text-[#836311]">{p.pct}%</span>
-                <button onClick={() => removePart(p.coffeeId)} className="text-lg text-[#999]">
+                <button onClick={() => removePart(p.coffeeId)} className="text-lg text-[#6E6E6E]">
                   ✕
                 </button>
               </div>
             );
           })}
-          <div className={`text-right font-mono text-[0.78rem] ${totalPct === 100 ? "text-[#4A7C59]" : "text-[#8B2500]"}`}>
+          <div className={`text-right font-mono text-[0.78rem] ${totalPct === 100 ? "text-[#3B6548]" : "text-[#8B2500]"}`}>
             Total: {totalPct}% {totalPct !== 100 && "(adjust to 100%)"}
           </div>
         </div>

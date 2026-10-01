@@ -95,7 +95,7 @@ function CoffeeCard({ coffee }: { coffee: EsotericCoffee }) {
         </div>
       )}
 
-      {coffee.note && <p className="mt-3 text-[13px] text-[#6b5a4e] italic opacity-80">⚠ {coffee.note}</p>}
+      {coffee.note && <p className="mt-3 text-[13px] text-[#6b5a4e] italic">⚠ {coffee.note}</p>}
       {coffee.references && <p className="mt-2.5 border-t border-black/5 pt-2.5 text-xs leading-snug text-[#6b5a4e]">{coffee.references}</p>}
     </div>
   );
@@ -108,18 +108,18 @@ export default function BrewSoulEsotericPage() {
   return (
     <div className="min-h-screen bg-[#FAFAF7]">
       <section className="mx-auto max-w-225 px-5 pt-[clamp(60px,10vw,120px)] pb-15 text-center">
-        <div className="mb-3 font-mono text-[11px] tracking-[0.3em] text-[#6b5a4e] uppercase opacity-80">BrewSoul Intelligence</div>
+        <div className="mb-3 font-mono text-[11px] tracking-[0.3em] text-[#6b5a4e] uppercase">BrewSoul Intelligence</div>
         <h1 className="mb-4 font-heading text-[clamp(32px,5vw,56px)] leading-[1.1] font-bold text-[#0A0A10]">Esoteric Coffee Index</h1>
         <p className="mb-6 font-heading text-[clamp(18px,2.5vw,24px)] text-[#836311] italic">Where To Actually Buy The Legendary Coffees</p>
         <p className="mx-auto max-w-150 text-base leading-relaxed text-[#6b5a4e]">
           Most coffee drinkers never encounter these. Not because they&apos;re hidden — but because nobody tells you where to find them. Until now.
         </p>
-        <div className="mt-6 font-mono text-[10px] tracking-[0.1em] text-[#6b5a4e] opacity-60 uppercase">Last Updated: May 2026</div>
+        <div className="mt-6 font-mono text-[10px] tracking-[0.1em] text-[#6b5a4e] uppercase">Last Updated: May 2026</div>
       </section>
 
       <section className="mx-auto max-w-215 px-5 pb-15">
         <div className="mb-8 border-b-2 border-[#836311] pb-3">
-          <div className="mb-3 font-mono text-[11px] tracking-[0.3em] text-[#6b5a4e] uppercase opacity-80">Tier 1</div>
+          <div className="mb-3 font-mono text-[11px] tracking-[0.3em] text-[#6b5a4e] uppercase">Tier 1</div>
           <h2 className="font-heading text-[clamp(26px,4vw,40px)] leading-[1.15] font-bold text-[#0A0A10]">The Holy Grail Coffees</h2>
           <p className="mt-2 text-sm text-[#6b5a4e]">Rarity 9–10. Genetic unicorns. The coffees that changed what coffee means.</p>
         </div>
@@ -130,7 +130,7 @@ export default function BrewSoulEsotericPage() {
 
       <section className="mx-auto max-w-215 px-5 pb-15">
         <div className="mb-8 border-b-2 border-[#8b4c2a] pb-3">
-          <div className="mb-3 font-mono text-[11px] tracking-[0.3em] text-[#6b5a4e] uppercase opacity-80">Tier 2</div>
+          <div className="mb-3 font-mono text-[11px] tracking-[0.3em] text-[#6b5a4e] uppercase">Tier 2</div>
           <h2 className="font-heading text-[clamp(26px,4vw,40px)] leading-[1.15] font-bold text-[#0A0A10]">Competition Monsters</h2>
           <p className="mt-2 text-sm text-[#6b5a4e]">The varieties winning World Barista Championships and fetching auction records.</p>
         </div>
@@ -155,7 +155,7 @@ export default function BrewSoulEsotericPage() {
       </section>
 
       <section className="mx-auto max-w-215 px-5 pb-15">
-        <div className="mb-3 font-mono text-[11px] tracking-[0.3em] text-[#6b5a4e] uppercase opacity-80">Coffee Explorer Score</div>
+        <div className="mb-3 font-mono text-[11px] tracking-[0.3em] text-[#6b5a4e] uppercase">Coffee Explorer Score</div>
         <h2 className="mb-6 font-heading text-[clamp(24px,3.5vw,36px)] leading-[1.15] font-bold text-[#0A0A10]">The Scorecard</h2>
         <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
           <table className="w-full border-collapse text-sm">

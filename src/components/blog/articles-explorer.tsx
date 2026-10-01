@@ -155,9 +155,9 @@ export function ArticlesExplorer({ posts }: { posts: ArchivePost[] }) {
               >
                 <span className="uppercase">{mode.label}</span>
                 {"desc" in mode ? (
-                  <span className="text-[0.58rem] opacity-70">{mode.desc}</span>
+                  <span className="text-[0.58rem] opacity-90">{mode.desc}</span>
                 ) : (
-                  <span className="text-[0.58rem] opacity-70">{posts.length} pieces</span>
+                  <span className="text-[0.58rem] opacity-90">{posts.length} pieces</span>
                 )}
               </button>
             ))}

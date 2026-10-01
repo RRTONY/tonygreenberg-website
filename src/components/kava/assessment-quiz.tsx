@@ -130,15 +130,15 @@ const DOMAIN_STYLES: Record<
   { text: string; tabActive: string; tabInactive: string; iconActive: string; iconInactive: string; optionActive: string; optionInactive: string; bar: string; nextButton: string }
 > = {
   somatic: {
-    text: "text-[#2563EB]",
-    tabActive: "border-[#2563EB] bg-[#2563EB] text-white",
+    text: "text-[#1d4ed8]",
+    tabActive: "border-[#1d4ed8] bg-[#1d4ed8] text-white",
     tabInactive: "border-kava-sand-muted bg-transparent text-kava-ink/75",
     iconActive: "bg-white/30 text-white",
-    iconInactive: "bg-[#2563EB]/20 text-[#2563EB]",
-    optionActive: "border-[#2563EB] bg-[#2563EB] text-white",
+    iconInactive: "bg-[#1d4ed8]/20 text-[#1d4ed8]",
+    optionActive: "border-[#1d4ed8] bg-[#1d4ed8] text-white",
     optionInactive: "border-kava-sand-muted bg-white text-kava-ink",
-    bar: "bg-[#2563EB]",
-    nextButton: "bg-[#2563EB]",
+    bar: "bg-[#1d4ed8]",
+    nextButton: "bg-[#1d4ed8]",
   },
   psychological: {
     text: "text-[#8B5CF6]",
@@ -189,10 +189,10 @@ const DOMAIN_STYLES: Record<
 type Recommendation = "CLEARED" | "CONDITIONAL" | "DEFER" | "NOT READY";
 
 const RECOMMENDATION_STYLES: Record<Recommendation, { text: string; ring: string; softBg: string; desc: string }> = {
-  CLEARED: { text: "text-[#15803D]", ring: "border-[#16a34a]", softBg: "bg-[#16a34a]/10", desc: "Proceed to journey." },
-  CONDITIONAL: { text: "text-[#d97706]", ring: "border-[#d97706]", softBg: "bg-[#d97706]/10", desc: "Address flagged domains; re-assess within 2 weeks." },
-  DEFER: { text: "text-[#ea580c]", ring: "border-[#ea580c]", softBg: "bg-[#ea580c]/10", desc: "Additional preparation work required; 30-day minimum before re-assessment." },
-  "NOT READY": { text: "text-[#dc2626]", ring: "border-[#dc2626]", softBg: "bg-[#dc2626]/10", desc: "Significant support intervention needed before PRI pathway continues." },
+  CLEARED: { text: "text-[#166534]", ring: "border-[#166534]", softBg: "bg-[#166534]/10", desc: "Proceed to journey." },
+  CONDITIONAL: { text: "text-[#92400e]", ring: "border-[#92400e]", softBg: "bg-[#92400e]/10", desc: "Address flagged domains; re-assess within 2 weeks." },
+  DEFER: { text: "text-[#9a3412]", ring: "border-[#9a3412]", softBg: "bg-[#9a3412]/10", desc: "Additional preparation work required; 30-day minimum before re-assessment." },
+  "NOT READY": { text: "text-[#b91c1c]", ring: "border-[#b91c1c]", softBg: "bg-[#b91c1c]/10", desc: "Significant support intervention needed before PRI pathway continues." },
 };
 
 function getRecommendation(score: number): Recommendation {

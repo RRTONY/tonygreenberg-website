@@ -17,7 +17,7 @@ export function CostCalculator() {
       <div className="mb-5 flex flex-wrap items-center gap-4">
         <span className="text-[15px] text-[#2d1810]">I drink</span>
         <input type="range" aria-label="Cups of coffee per day" min={1} max={6} value={cups} onChange={(e) => setCups(+e.target.value)} className="w-30 accent-[#c4873b]" />
-        <span className="font-heading text-2xl font-bold text-[#c4873b]">{cups}</span>
+        <span className="font-heading text-2xl font-bold text-[#80541c]">{cups}</span>
         <span className="text-[15px] text-[#2d1810]">cups per day</span>
       </div>
       <div className="grid gap-4 [grid-template-columns:repeat(auto-fit,minmax(180px,1fr))]">

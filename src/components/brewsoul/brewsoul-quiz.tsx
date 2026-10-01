@@ -192,11 +192,11 @@ export function BrewSoulQuiz() {
                     <div className="font-mono text-[0.68rem] text-[#6F4E37]">
                       {coffee.producer} · {coffee.originCountry} · {coffee.variety}
                     </div>
-                    <div className="text-[0.78rem] text-[#999] italic">{coffee.tastingNotes.slice(0, 4).join(", ")}</div>
+                    <div className="text-[0.78rem] text-[#6E6E6E] italic">{coffee.tastingNotes.slice(0, 4).join(", ")}</div>
                   </div>
                   <div className="shrink-0 text-right">
-                    <div className="font-mono text-sm font-bold text-[#4A7C59]">{Math.round((match / 55) * 100)}% match</div>
-                    <div className="font-mono text-[0.68rem] text-[#999]">
+                    <div className="font-mono text-sm font-bold text-[#3B6548]">{Math.round((match / 55) * 100)}% match</div>
+                    <div className="font-mono text-[0.68rem] text-[#6E6E6E]">
                       QPR {qpr} · {tierEmoji(tier)} · ${coffee.priceUsd}
                     </div>
                   </div>

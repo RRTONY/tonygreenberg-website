@@ -38,7 +38,7 @@ export default function BrewSoulDropsPage() {
             </div>
             <div className="flex items-center justify-between">
               <span className="font-mono text-[0.85rem] font-bold text-[#836311]">{c.priceUsd ? `$${c.priceUsd}` : "—"}</span>
-              <span className={`rounded-full px-2 py-0.5 font-mono text-[0.65rem] ${c.scores.tier <= 2 ? "bg-[#C5A23C]/10 text-[#836311]" : "bg-[#4A7C59]/10 text-[#4A7C59]"}`}>
+              <span className={`rounded-full px-2 py-0.5 font-mono text-[0.65rem] ${c.scores.tier <= 2 ? "bg-[#C5A23C]/10 text-[#836311]" : "bg-[#4A7C59]/10 text-[#3B6548]"}`}>
                 {c.scores.tier}
               </span>
             </div>

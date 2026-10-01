@@ -25,8 +25,8 @@ export const metadata: Metadata = {
 
 const TIER_COMPARE = [
   { t: "Conventional", items: ["Up to 250 lbs chemicals/acre", "42 pesticides used globally", "No mold testing required", "Soil degradation over time", "No biodiversity requirements", "No supply chain transparency", "$0.40-0.60/oz"], borderClass: "border-t-[#8b4c2a]", textClass: "text-[#C66F41]" },
-  { t: "USDA Organic", items: ["No synthetic pesticides", "Natural pesticides allowed (kill pollinators)", "No mold testing required", "Soil preservation (not regeneration)", "No shade or canopy requirements", "Supply chain audited annually", "$0.65-0.90/oz"], borderClass: "border-t-[#7a8c6e]", textClass: "text-[#7a8c6e]" },
-  { t: "Demeter Biodynamic", items: ["Zero pesticides of any kind", "Pollinators fully protected", "Lab tested: mold, mycotoxins, heavy metals", "Active soil regeneration + carbon sequestration", "40%+ shade canopy, 12+ tree species", "Full origin-to-cup traceability", "$1.30-1.90/oz"], borderClass: "border-t-[#c4873b]", textClass: "text-[#c4873b]" },
+  { t: "USDA Organic", items: ["No synthetic pesticides", "Natural pesticides allowed (kill pollinators)", "No mold testing required", "Soil preservation (not regeneration)", "No shade or canopy requirements", "Supply chain audited annually", "$0.65-0.90/oz"], borderClass: "border-t-[#7a8c6e]", textClass: "text-[#566650]" },
+  { t: "Demeter Biodynamic", items: ["Zero pesticides of any kind", "Pollinators fully protected", "Lab tested: mold, mycotoxins, heavy metals", "Active soil regeneration + carbon sequestration", "40%+ shade canopy, 12+ tree species", "Full origin-to-cup traceability", "$1.30-1.90/oz"], borderClass: "border-t-[#c4873b]", textClass: "text-[#80541c]" },
 ];
 
 const SCIENCE = [
@@ -50,7 +50,7 @@ export default function BrewSoulBiodynamicPage() {
     <div className="bg-[#f5efe0] text-[#2d1810]">
       <section className="relative flex min-h-[70vh] items-center justify-center overflow-hidden bg-linear-to-br from-[#1a0e08] via-[#2d1810] to-[#2d3a24] px-7 py-20 text-center">
         <div className="relative z-1 max-w-3xl">
-          <div className="mb-6 font-mono text-[11px] tracking-[0.3em] text-[#7a8c6e] uppercase">BrewSoul · Biodynamic Coffee</div>
+          <div className="mb-6 font-mono text-[11px] tracking-[0.3em] text-[#566650] uppercase">BrewSoul · Biodynamic Coffee</div>
           <h1 className="mb-5 font-heading text-[clamp(36px,6vw,68px)] leading-[1.05] font-bold text-[#f5efe0] italic">
             Every Farm on Earth
             <br />
@@ -177,7 +177,7 @@ export default function BrewSoulBiodynamicPage() {
             {IMPACT_METRICS.map((m) => (
               <div key={m.u} className="rounded-md border border-white/8 bg-white/4 p-5">
                 <div className="font-heading text-[28px] leading-[1.1] font-bold text-[#d4a84b]">{m.n}</div>
-                <div className="mb-2.5 font-mono text-[10px] tracking-wide text-[#c4873b]">{m.u}</div>
+                <div className="mb-2.5 font-mono text-[10px] tracking-wide text-[#80541c]">{m.u}</div>
                 <div className="text-[13px] leading-snug text-[#f5efe0]/60">{m.d}</div>
               </div>
             ))}

@@ -59,7 +59,7 @@ export default function KavaCaffeinePage() {
             </p>
           </KavaCard>
           <KavaCard>
-            <h4 className="mb-2 font-heading text-base font-bold text-[#15803D]">Yerba Mate Alternative</h4>
+            <h4 className="mb-2 font-heading text-base font-bold text-[#166534]">Yerba Mate Alternative</h4>
             <p className="text-sm leading-[1.75] text-kava-ink/80">
               Community-documented finding: yerba mate pairs better with kava than coffee. Yerba mate contains theobromine alongside caffeine; theobromine
               provides gentler, longer-duration energy without the spike-crash and appears to interact more softly with the CYP1A2 inhibition dynamic. Not

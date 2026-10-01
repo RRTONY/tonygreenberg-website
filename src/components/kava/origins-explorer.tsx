@@ -79,7 +79,7 @@ export const ISLANDS: Island[] = [
     cultivar: { name: "Mo'i", note: "Royal cultivar — finest Hawaiian 'awa, cleanest heady profile, PRI ceremony grade" },
   },
   {
-    id: "pohnpei", name: "Pohnpei / FSM", localName: "Sakau — World's Strongest", colorHex: "#7C3AED", colorClass: "text-[#7C3AED]", bgClass: "bg-[#7C3AED]", activeBgClass: "bg-[#7C3AED]", year: "~1000 BCE",
+    id: "pohnpei", name: "Pohnpei / FSM", localName: "Sakau — World's Strongest", colorHex: "#6d28d9", colorClass: "text-[#6d28d9]", bgClass: "bg-[#6d28d9]", activeBgClass: "bg-[#6d28d9]", year: "~1000 BCE",
     facts: [
       "Called sakau — prepared fresh on flat basalt stone called pwehl",
       "Kavalactone profile uniquely intense — fastest onset, most pronounced physical effects of any kava tradition",

@@ -66,13 +66,13 @@ export function CompareExplorer({ coffees }: { coffees: CatalogItem[] }) {
       </div>
 
       {selected.length === 0 ? (
-        <div className="px-8 py-16 text-center text-[#999]">Select coffees above to start comparing.</div>
+        <div className="px-8 py-16 text-center text-[#6E6E6E]">Select coffees above to start comparing.</div>
       ) : (
         <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
           <table className="w-full border-collapse text-[0.85rem]">
             <thead>
               <tr className="border-b-2 border-[#6F4E37]/10">
-                <th className="px-2 py-3 text-left font-mono text-[0.72rem] text-[#999]">Metric</th>
+                <th className="px-2 py-3 text-left font-mono text-[0.72rem] text-[#6E6E6E]">Metric</th>
                 {selected.map((c) => (
                   <th key={c.id} className="px-2 py-3 text-center font-heading text-[0.9rem] text-[#2C1810]">
                     <Link href={`/brewsoul/coffee/${c.id}`}>{c.name}</Link>

@@ -223,7 +223,7 @@ export default function BrewSoulHomePage() {
               >
                 <div>
                   <span className="font-heading text-base font-bold text-[#2C1810]">{s.brand}</span>
-                  <span className="ml-3 font-mono text-xs text-[#999]">{s.category}</span>
+                  <span className="ml-3 font-mono text-xs text-[#6E6E6E]">{s.category}</span>
                 </div>
                 <span
                   className={`font-mono text-sm font-bold ${s.severity >= 80 ? "text-[#8B2500]" : s.severity >= 50 ? "text-[#836311]" : "text-[#6B5B4F]"}`}

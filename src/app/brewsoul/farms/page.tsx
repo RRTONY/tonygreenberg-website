@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function BrewSoulFarmsPage() {
   return (
     <section className="mx-auto max-w-225 px-6 py-12">
-      <div className="mb-2 font-mono text-xs tracking-[0.25em] text-[#4A7C59] uppercase">Origin Stories</div>
+      <div className="mb-2 font-mono text-xs tracking-[0.25em] text-[#3B6548] uppercase">Origin Stories</div>
       <h1 className="mb-2 font-heading text-3xl font-bold text-[#2C1810] sm:text-[2.4rem]">Farm Passports</h1>
       <p className="mb-10 text-[0.95rem] leading-relaxed text-[#6B5B4F]">
         Meet the people who grow your coffee. Every farm profiled here has been verified for transparency, fair labor practices, and environmental
@@ -47,7 +47,7 @@ export default function BrewSoulFarmsPage() {
               <p className="mb-3 text-[0.85rem] leading-relaxed text-[#6B5B4F]">{f.story}</p>
               <div className="flex flex-wrap gap-1.5">
                 {f.varieties.map((v) => (
-                  <span key={v} className="rounded-full bg-[#4A7C59]/6 px-2 py-0.5 font-mono text-[0.65rem] text-[#4A7C59]">
+                  <span key={v} className="rounded-full bg-[#4A7C59]/6 px-2 py-0.5 font-mono text-[0.65rem] text-[#3B6548]">
                     {v}
                   </span>
                 ))}

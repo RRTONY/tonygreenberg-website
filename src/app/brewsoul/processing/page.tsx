@@ -25,9 +25,9 @@ export default function BrewSoulProcessingPage() {
           <div key={pm.id} className="rounded-xl border border-[#6F4E37]/8 border-l-4 border-l-[#6F4E37] bg-white p-6">
             <h3 className="mb-1.5 font-heading text-xl font-bold text-[#2C1810]">{pm.name}</h3>
             <p className="mb-3 text-[0.9rem] leading-relaxed text-[#6B5B4F]">{pm.description}</p>
-            <div className="mb-1 font-mono text-[0.72rem] font-bold text-[#4A7C59]">Flavor Impact</div>
-            <p className="text-[0.85rem] text-[#4A7C59] italic">{pm.flavorImpact}</p>
-            <div className="mt-2 font-mono text-[0.68rem] text-[#999]">
+            <div className="mb-1 font-mono text-[0.72rem] font-bold text-[#3B6548]">Flavor Impact</div>
+            <p className="text-[0.85rem] text-[#3B6548] italic">{pm.flavorImpact}</p>
+            <div className="mt-2 font-mono text-[0.68rem] text-[#6E6E6E]">
               Complexity: {pm.complexity}/10 · Category: {pm.category}
             </div>
             {pm.controversy && <p className="mt-2 text-[0.82rem] text-[#836311] italic">{pm.controversy}</p>}

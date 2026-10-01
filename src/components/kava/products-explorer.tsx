@@ -265,7 +265,7 @@ export function ProductsExplorer() {
             <div className="flex flex-wrap items-center justify-between gap-3 border-t border-kava-sand-muted pt-3">
               <div>
                 <p className="font-heading text-lg font-bold text-kava-saffron">{p.price}</p>
-                <p className="text-xs text-kava-ink/50">PRI Rating: {p.priRating}/5</p>
+                <p className="text-xs text-kava-ink/75">PRI Rating: {p.priRating}/5</p>
               </div>
               {p.buyUrl !== "#" && (
                 <a href={p.buyUrl} target="_blank" rel="noopener noreferrer" className="rounded-lg bg-kava-saffron px-4 py-2 text-sm font-bold text-white">

@@ -65,8 +65,8 @@ export function ChemotypeDecoder() {
             </div>
           ))}
           {decodedResult[0]?.num === 4 && (
-            <div className="rounded-lg border-l-3 border-l-[#16a34a] bg-[#16a34a]/8 p-3 text-sm">
-              <strong className="text-[#16a34a]">PRI Ceremony Grade:</strong> Chemotypes with kavain (4) as dominant are most desirable for ceremonial use.
+            <div className="rounded-lg border-l-3 border-l-[#166534] bg-[#166534]/8 p-3 text-sm">
+              <strong className="text-[#166534]">PRI Ceremony Grade:</strong> Chemotypes with kavain (4) as dominant are most desirable for ceremonial use.
             </div>
           )}
         </div>

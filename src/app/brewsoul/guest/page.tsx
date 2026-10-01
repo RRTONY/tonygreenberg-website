@@ -69,7 +69,7 @@ export default function BrewSoulGuestPage() {
 
         <div className="mt-4 rounded-xl border-2 border-dashed border-[#836311]/20 px-6 py-10 text-center">
           <div className="mb-2 font-heading text-xl text-[#5C4A32] italic">More guests coming soon</div>
-          <p className="text-sm text-[#5C4A32]/60">Farmers, roasters, scientists, and builders who are changing how coffee works.</p>
+          <p className="text-sm text-[#5C4A32]">Farmers, roasters, scientists, and builders who are changing how coffee works.</p>
         </div>
       </section>
     </div>

@@ -288,7 +288,7 @@
   --kava-ink: #1a1008;
   --kava-saffron: #8e521f;
   --kava-cobalt: #2a5aa0;
-  --kava-terracotta: #c84b2a;
+  --kava-terracotta: #a83d20; /* was #c84b2a: 3.5:1 on the sand tints, AA needs 4.5 (2026-10-02) */
   --kava-sand-muted: #e8dcc4;
   --kava-saffron-light: #d4923e;
   --kava-cobalt-light: #4a7ac0;

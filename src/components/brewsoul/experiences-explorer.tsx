@@ -37,7 +37,7 @@ export function ExperiencesExplorer({ experiences }: { experiences: ExperienceEn
             <div className="mb-2 text-[0.82rem] text-[#6F4E37]">{exp.location}</div>
             <p className="text-[0.85rem] leading-relaxed text-[#6B5B4F]">{exp.description}</p>
             <div className="mt-2 flex items-center justify-between">
-              {exp.price && <span className="font-mono text-[0.72rem] text-[#4A7C59]">{exp.price}</span>}
+              {exp.price && <span className="font-mono text-[0.72rem] text-[#3B6548]">{exp.price}</span>}
               {exp.url && (
                 <a href={exp.url} target="_blank" rel="noopener noreferrer" className="font-mono text-[0.68rem] text-[#6F4E37]">
                   Visit →

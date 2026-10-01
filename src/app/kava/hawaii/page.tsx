@@ -60,10 +60,10 @@ export default function KavaHawaiiPage() {
       />
 
       <KavaSection>
-        <div className="flex items-start gap-4 rounded-xl border-2 border-[#dc2626] bg-[#dc2626]/8 p-5">
-          <AlertTriangle size={28} className="mt-0.5 shrink-0 text-[#dc2626]" />
+        <div className="flex items-start gap-4 rounded-xl border-2 border-[#b91c1c] bg-[#b91c1c]/8 p-5">
+          <AlertTriangle size={28} className="mt-0.5 shrink-0 text-[#b91c1c]" />
           <div>
-            <p className="mb-2 text-base font-bold text-[#dc2626]">CRITICAL SAFETY WARNING</p>
+            <p className="mb-2 text-base font-bold text-[#b91c1c]">CRITICAL SAFETY WARNING</p>
             <p className="text-sm leading-[1.75] text-kava-ink">
               Kava must NEVER be used concurrently with methamphetamine or during acute meth intoxication. The combination creates unpredictable cardiac and
               neurological risk. Any harm reduction application involves kava in the recovery period only — minimum 48 to 72 hours after last meth use — and
@@ -98,7 +98,7 @@ export default function KavaHawaiiPage() {
           <div className="absolute top-0 bottom-0 left-4 w-0.5 bg-kava-sand-muted" />
           {TIMELINE.map((t) => (
             <div key={t.year} className="relative mb-6 flex items-start gap-4">
-              <div className={`z-10 mt-1.5 ml-2.5 size-3 shrink-0 rounded-full ${t.type === "crisis" ? "bg-kava-terracotta" : "bg-[#16a34a]"}`} />
+              <div className={`z-10 mt-1.5 ml-2.5 size-3 shrink-0 rounded-full ${t.type === "crisis" ? "bg-kava-terracotta" : "bg-[#166534]"}`} />
               <div className="flex-1">
                 <div className="mb-1 flex items-center gap-2">
                   <span className="text-sm font-bold text-kava-ink">{t.year}</span>
@@ -126,8 +126,8 @@ export default function KavaHawaiiPage() {
                 <p className="mb-1 text-xs font-bold tracking-wide text-kava-terracotta uppercase">Meth Damage</p>
                 <p className="text-sm font-medium text-kava-ink">{a.damage}</p>
               </div>
-              <div className="rounded-lg border-l-3 border-[#16a34a] bg-[#16a34a]/10 p-4">
-                <p className="mb-1 text-xs font-bold tracking-wide text-[#16a34a] uppercase">Kava Response</p>
+              <div className="rounded-lg border-l-3 border-[#166534] bg-[#166534]/10 p-4">
+                <p className="mb-1 text-xs font-bold tracking-wide text-[#166534] uppercase">Kava Response</p>
                 <p className="text-sm font-medium text-kava-ink">{a.kavaResponse}</p>
               </div>
             </div>

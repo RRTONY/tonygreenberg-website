@@ -5,7 +5,7 @@ import type { ProducerEntry } from "@/lib/intelligence-engine/types";
 
 const GRADE_TAG_CLASS: Record<string, string> = {
   A: "bg-[#C5A23C]/10 text-[#836311]",
-  B: "bg-[#4A7C59]/10 text-[#4A7C59]",
+  B: "bg-[#4A7C59]/10 text-[#3B6548]",
 };
 const DEFAULT_TAG_CLASS = "bg-[#6F4E37]/10 text-[#6F4E37]";
 
@@ -57,7 +57,7 @@ export function RoastersExplorer({ roasters }: { roasters: ProducerEntry[] }) {
               {r.region ? `, ${r.region}` : ""}
             </div>
             <p className="mb-2 text-[0.85rem] leading-relaxed text-[#6B5B4F]">{r.philosophy || r.description}</p>
-            <div className="flex flex-wrap gap-2 font-mono text-[0.68rem] text-[#999]">
+            <div className="flex flex-wrap gap-2 font-mono text-[0.68rem] text-[#6E6E6E]">
               <span>Quality: {r.qualityScore}</span>
               <span>·</span>
               <span>Transparency: {r.transparencyScore}</span>

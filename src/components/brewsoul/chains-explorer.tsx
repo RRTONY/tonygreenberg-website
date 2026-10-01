@@ -5,7 +5,7 @@ import type { ChainEntry } from "@/lib/intelligence-engine/types";
 
 const TIER_TAG_CLASS: Record<ChainEntry["tier"], string> = {
   S: "bg-[#C5A23C]/12 text-[#836311]",
-  A: "bg-[#4A7C59]/10 text-[#4A7C59]",
+  A: "bg-[#4A7C59]/10 text-[#3B6548]",
   B: "bg-[#6F4E37]/8 text-[#6F4E37]",
   C: "bg-[#999]/10 text-[#666]",
   D: "bg-[#8B2500]/6 text-[#8B2500]",
@@ -21,7 +21,7 @@ const TIER_BORDER_CLASS: Record<ChainEntry["tier"], string> = {
 };
 const TIER_TEXT_CLASS: Record<ChainEntry["tier"], string> = {
   S: "text-[#836311]",
-  A: "text-[#4A7C59]",
+  A: "text-[#3B6548]",
   B: "text-[#6F4E37]",
   C: "text-[#666]",
   D: "text-[#8B2500]",
@@ -29,7 +29,7 @@ const TIER_TEXT_CLASS: Record<ChainEntry["tier"], string> = {
 };
 const TIER_FILTER_ACTIVE_CLASS: Record<ChainEntry["tier"], string> = {
   S: "border-2 border-[#836311] bg-[#C5A23C]/12 text-[#836311]",
-  A: "border-2 border-[#4A7C59] bg-[#4A7C59]/10 text-[#4A7C59]",
+  A: "border-2 border-[#4A7C59] bg-[#4A7C59]/10 text-[#3B6548]",
   B: "border-2 border-[#6F4E37] bg-[#6F4E37]/8 text-[#6F4E37]",
   C: "border-2 border-[#666] bg-[#999]/10 text-[#666]",
   D: "border-2 border-[#8B2500] bg-[#8B2500]/6 text-[#8B2500]",
@@ -46,7 +46,7 @@ const TYPE_LABELS: Record<ChainEntry["type"], string> = {
 
 function ScoreBar({ value }: { value: number }) {
   const cls = value >= 7 ? BAR_CLASS.good : value >= 5 ? BAR_CLASS.mid : BAR_CLASS.low;
-  const textCls = value >= 7 ? "text-[#4A7C59]" : value >= 5 ? "text-[#836311]" : "text-[#8B2500]";
+  const textCls = value >= 7 ? "text-[#3B6548]" : value >= 5 ? "text-[#836311]" : "text-[#8B2500]";
   return (
     <div className="flex items-center gap-2">
       <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-[#6F4E37]/6">
@@ -72,14 +72,14 @@ function ChainCard({ chain, expanded, onToggle }: { chain: ChainEntry; expanded:
           <div className="flex flex-wrap items-center gap-2">
             <span className={`rounded-full px-2 py-0.5 font-mono text-[0.65rem] ${TIER_TAG_CLASS[chain.tier]}`}>{chain.tier}-Tier</span>
             <span className="rounded-full bg-[#6F4E37]/5 px-2 py-0.5 font-mono text-[0.65rem] text-[#6B5B4F]">{TYPE_LABELS[chain.type]}</span>
-            <span className="font-mono text-[0.62rem] text-[#999]">
+            <span className="font-mono text-[0.62rem] text-[#6E6E6E]">
               {chain.hq} · {chain.locations.toLocaleString()} locations · Est. {chain.founded}
             </span>
           </div>
         </div>
         <div className="shrink-0 text-right">
           <div className={`font-mono text-2xl font-bold ${TIER_TEXT_CLASS[chain.tier]}`}>{chain.aggregate}</div>
-          <div className="font-mono text-[0.58rem] text-[#999] uppercase">Score</div>
+          <div className="font-mono text-[0.58rem] text-[#6E6E6E] uppercase">Score</div>
         </div>
       </div>
 
@@ -98,7 +98,7 @@ function ChainCard({ chain, expanded, onToggle }: { chain: ChainEntry; expanded:
               <div key={s.label}>
                 <div className="mb-0.5 flex justify-between">
                   <span className="font-mono text-[0.68rem] text-[#6B5B4F]">{s.label}</span>
-                  <span className="font-mono text-[0.58rem] text-[#999]">{s.weight}</span>
+                  <span className="font-mono text-[0.58rem] text-[#6E6E6E]">{s.weight}</span>
                 </div>
                 <ScoreBar value={s.value} />
               </div>
@@ -107,10 +107,10 @@ function ChainCard({ chain, expanded, onToggle }: { chain: ChainEntry; expanded:
 
           <div className="mb-4 grid grid-cols-2 gap-4">
             <div>
-              <div className="mb-1 font-mono text-[0.62rem] tracking-[0.15em] text-[#4A7C59] uppercase">Strengths</div>
+              <div className="mb-1 font-mono text-[0.62rem] tracking-[0.15em] text-[#3B6548] uppercase">Strengths</div>
               {chain.strengths.map((s) => (
                 <div key={s} className="flex gap-1.5 py-0.5 text-[0.82rem] text-[#2C1810]">
-                  <span className="text-[#4A7C59]">+</span> {s}
+                  <span className="text-[#3B6548]">+</span> {s}
                 </div>
               ))}
             </div>
@@ -186,7 +186,7 @@ export function ChainsExplorer({ chains }: { chains: ChainEntry[] }) {
               tierFilter === t ? TIER_FILTER_ACTIVE_CLASS[t] : "border border-[#6F4E37]/10 text-[#6B5B4F]"
             }`}
           >
-            {t} <span className="text-[0.62rem] opacity-70">({tierCounts[t]})</span>
+            {t} <span className="text-[0.62rem]">({tierCounts[t]})</span>
           </button>
         ))}
       </div>
@@ -213,7 +213,7 @@ export function ChainsExplorer({ chains }: { chains: ChainEntry[] }) {
         className="mb-6 w-full rounded-lg border border-[#6F4E37]/15 bg-[#6F4E37]/2 px-4 py-3 text-sm"
       />
 
-      <div className="mb-4 font-mono text-[0.72rem] text-[#999]">
+      <div className="mb-4 font-mono text-[0.72rem] text-[#6E6E6E]">
         Showing {filtered.length} of {chains.length} chains
       </div>
 
@@ -223,7 +223,7 @@ export function ChainsExplorer({ chains }: { chains: ChainEntry[] }) {
         ))}
       </div>
 
-      {filtered.length === 0 && <div className="px-8 py-16 text-center text-[#999]">No chains match your filters. Try adjusting your criteria.</div>}
+      {filtered.length === 0 && <div className="px-8 py-16 text-center text-[#6E6E6E]">No chains match your filters. Try adjusting your criteria.</div>}
     </>
   );
 }

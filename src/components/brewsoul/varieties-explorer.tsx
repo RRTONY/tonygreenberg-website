@@ -29,9 +29,9 @@ export function VarietiesExplorer({ varieties }: { varieties: VarietyEntry[] }) 
             </div>
             <h3 className="mb-1.5 font-heading text-[1.1rem] font-bold text-[#2C1810]">{v.name}</h3>
             <p className="mb-2 text-[0.85rem] leading-relaxed text-[#6B5B4F]">{v.description}</p>
-            <p className="mt-1 text-[0.82rem] text-[#4A7C59] italic">{v.cupProfile}</p>
+            <p className="mt-1 text-[0.82rem] text-[#3B6548] italic">{v.cupProfile}</p>
             {v.yieldLevel && (
-              <div className="mt-2 font-mono text-[0.68rem] text-[#999]">
+              <div className="mt-2 font-mono text-[0.68rem] text-[#6E6E6E]">
                 Yield: {v.yieldLevel} · Resistance: {v.diseaseResistance || "unknown"}
               </div>
             )}

@@ -16,8 +16,8 @@ const SEVERITY_BORDER_CLASS: Record<Risk["severity"], string> = {
 };
 const SEVERITY_BADGE_CLASS: Record<Risk["severity"], string> = {
   HIGH: "bg-[#8b4c2a]",
-  MODERATE: "bg-[#c4873b]",
-  LOW: "bg-[#7a8c6e]",
+  MODERATE: "bg-[#94612a]",
+  LOW: "bg-[#5a6a50]",
 };
 
 // Ported from legacy BrewSoulHealthFull.tsx's expand/collapse risks

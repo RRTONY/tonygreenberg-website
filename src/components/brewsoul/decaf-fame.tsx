@@ -23,7 +23,7 @@ export function DecafFame() {
               <div className="mt-1 text-xs text-[#6b5a4e]">{b.cert}</div>
             </div>
             <div className="text-right">
-              <div className="font-mono text-base font-bold text-[#c4873b]">{b.perOz}/oz</div>
+              <div className="font-mono text-base font-bold text-[#80541c]">{b.perOz}/oz</div>
               <div className="text-xs text-[#6b5a4e]">{b.price}</div>
             </div>
           </div>

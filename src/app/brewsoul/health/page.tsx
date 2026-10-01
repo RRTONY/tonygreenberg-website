@@ -83,9 +83,9 @@ const TIMING = [
 ];
 
 const PROTOCOL = [
-  { n: "1", title: "Morning: 1-2 Biodynamic Cups", detail: "Light or medium roast. Wait 90 min after waking. Maximum CGA, polyphenols, and caffeine benefit. Mold-tested. Zero pesticides.", colorClass: "border-t-[#c4873b]", textClass: "text-[#c4873b]" },
-  { n: "2", title: "Afternoon: 1 SWP Decaf Cup", detail: "Swiss Water Process biodynamic decaf. 70-80% of antioxidants retained. Zero sleep disruption. Zero methylene chloride.", colorClass: "border-t-[#4a7c8c]", textClass: "text-[#4a7c8c]" },
-  { n: "3", title: "Evening: Nothing", detail: "Let adenosine accumulate. Even decaf has 2-7mg caffeine. Herbal tea or water only after 5pm. Protect deep sleep.", colorClass: "border-t-[#7a8c6e]", textClass: "text-[#7a8c6e]" },
+  { n: "1", title: "Morning: 1-2 Biodynamic Cups", detail: "Light or medium roast. Wait 90 min after waking. Maximum CGA, polyphenols, and caffeine benefit. Mold-tested. Zero pesticides.", colorClass: "border-t-[#c4873b]", textClass: "text-[#80541c]" },
+  { n: "2", title: "Afternoon: 1 SWP Decaf Cup", detail: "Swiss Water Process biodynamic decaf. 70-80% of antioxidants retained. Zero sleep disruption. Zero methylene chloride.", colorClass: "border-t-[#4a7c8c]", textClass: "text-[#3d6b7a]" },
+  { n: "3", title: "Evening: Nothing", detail: "Let adenosine accumulate. Even decaf has 2-7mg caffeine. Herbal tea or water only after 5pm. Protect deep sleep.", colorClass: "border-t-[#7a8c6e]", textClass: "text-[#566650]" },
 ];
 
 export default function BrewSoulHealthPage() {
@@ -94,7 +94,7 @@ export default function BrewSoulHealthPage() {
       {/* Hero */}
       <section className="relative flex min-h-[70vh] items-center justify-center overflow-hidden bg-linear-to-br from-[#2a4c5c] via-[#1a0e08] to-[#3a7a4a] px-7 py-20 text-center">
         <div className="relative z-1 max-w-3xl">
-          <div className="mb-6 font-mono text-[11px] tracking-[0.3em] text-[#7a8c6e] uppercase">BrewSoul · Science, Not Marketing</div>
+          <div className="mb-6 font-mono text-[11px] tracking-[0.3em] text-[#566650] uppercase">BrewSoul · Science, Not Marketing</div>
           <h1 className="mb-5 font-heading text-[clamp(36px,6vw,68px)] leading-[1.05] font-bold text-[#f5efe0] italic">
             What Coffee
             <br />
@@ -123,7 +123,7 @@ export default function BrewSoulHealthPage() {
       {/* Longevity */}
       <section className="bg-[#ede4d0] px-7 py-20">
         <div className="mx-auto max-w-275">
-          <div className="mb-3 font-mono text-[11px] tracking-[0.3em] text-[#6b5a4e]/80 uppercase">The Longevity Evidence</div>
+          <div className="mb-3 font-mono text-[11px] tracking-[0.3em] text-[#6b5a4e] uppercase">The Longevity Evidence</div>
           <h2 className="mb-6 font-heading text-[clamp(28px,4vw,44px)] leading-[1.15] font-bold text-[#1a0e08] italic">
             What 10+ Million Participants Tell Us
           </h2>
@@ -139,7 +139,7 @@ export default function BrewSoulHealthPage() {
                 <div className="mb-1.5 text-base font-bold text-[#1a0e08]">{l.title}</div>
                 <div className="mb-2.5 text-sm leading-relaxed text-[#5c3a28]">{l.finding}</div>
                 <div className="font-mono text-[10px] text-[#6b5a4e]">{l.study}</div>
-                <div className="mt-0.5 font-mono text-[10px] text-[#7a8c6e]">n = {l.n}</div>
+                <div className="mt-0.5 font-mono text-[10px] text-[#566650]">n = {l.n}</div>
               </div>
             ))}
           </div>
@@ -173,7 +173,7 @@ export default function BrewSoulHealthPage() {
       {/* Caffeine metabolism */}
       <section className="bg-[#f5efe0] px-7 py-20">
         <div className="mx-auto max-w-275">
-          <div className="mb-3 font-mono text-[11px] tracking-[0.3em] text-[#6b5a4e]/80 uppercase">Your Genetics Matter</div>
+          <div className="mb-3 font-mono text-[11px] tracking-[0.3em] text-[#6b5a4e] uppercase">Your Genetics Matter</div>
           <h2 className="mb-6 font-heading text-[clamp(28px,4vw,44px)] leading-[1.15] font-bold text-[#1a0e08] italic">CYP1A2: The Coffee Gene</h2>
           <p className="mb-4.5 max-w-180 text-[17px] leading-[1.7] text-[#2d1810]">
             Half the population metabolizes caffeine fast. Half metabolizes it slowly. This single gene variant (CYP1A2) determines whether coffee is a
@@ -213,7 +213,7 @@ export default function BrewSoulHealthPage() {
       {/* Timing */}
       <section className="bg-[#ede4d0] px-7 py-20">
         <div className="mx-auto max-w-275">
-          <div className="mb-3 font-mono text-[11px] tracking-[0.3em] text-[#6b5a4e]/80 uppercase">Chronobiology</div>
+          <div className="mb-3 font-mono text-[11px] tracking-[0.3em] text-[#6b5a4e] uppercase">Chronobiology</div>
           <h2 className="mb-6 font-heading text-[clamp(28px,4vw,44px)] leading-[1.15] font-bold text-[#1a0e08] italic">The Optimal Coffee Schedule</h2>
           <p className="mb-4.5 max-w-180 text-[17px] leading-[1.7] text-[#2d1810]">
             When you drink coffee matters as much as what you drink. Cortisol follows a circadian rhythm. Caffeine has a 5-6 hour half-life. Adenosine
@@ -226,7 +226,7 @@ export default function BrewSoulHealthPage() {
                 <div className="w-10 shrink-0 text-center text-[28px]">{t.icon}</div>
                 <div className="flex-1">
                   <div className="mb-1 flex flex-wrap items-center gap-3">
-                    <div className="font-mono text-[13px] font-semibold text-[#c4873b]">{t.time}</div>
+                    <div className="font-mono text-[13px] font-semibold text-[#80541c]">{t.time}</div>
                     <div className="text-sm font-bold text-[#1a0e08]">{t.label}</div>
                   </div>
                   <div className="text-sm leading-relaxed text-[#5c3a28]">{t.advice}</div>
@@ -240,7 +240,7 @@ export default function BrewSoulHealthPage() {
       {/* Compounds */}
       <section className="bg-[#f5efe0] px-7 py-20">
         <div className="mx-auto max-w-275">
-          <div className="mb-3 font-mono text-[11px] tracking-[0.3em] text-[#6b5a4e]/80 uppercase">Compound Science</div>
+          <div className="mb-3 font-mono text-[11px] tracking-[0.3em] text-[#6b5a4e] uppercase">Compound Science</div>
           <h2 className="mb-6 font-heading text-[clamp(28px,4vw,44px)] leading-[1.15] font-bold text-[#1a0e08] italic">What&apos;s Actually in Your Cup</h2>
           <p className="mb-4.5 max-w-180 text-[17px] leading-[1.7] text-[#2d1810]">
             Coffee contains 1,000+ bioactive compounds. These eight are the most studied and most impactful. Understanding them changes how you choose
@@ -279,7 +279,7 @@ export default function BrewSoulHealthPage() {
                 <div className="mb-3 text-xs text-[#f5efe0]/50">Source: {m.source}</div>
                 <div className="mb-3 text-sm leading-relaxed text-[#f5efe0]/75">{m.risk}</div>
                 <div className="rounded-md bg-[#3a7a4a]/15 p-3">
-                  <div className="mb-1 font-mono text-[9px] tracking-wide text-[#7a8c6e]">Solution</div>
+                  <div className="mb-1 font-mono text-[9px] tracking-wide text-[#566650]">Solution</div>
                   <div className="text-[13px] leading-snug text-[#e8dcc8]">{m.solution}</div>
                 </div>
               </div>
@@ -300,7 +300,7 @@ export default function BrewSoulHealthPage() {
       {/* Simplification protocol */}
       <section className="bg-[#f5efe0] px-7 py-20">
         <div className="mx-auto max-w-275">
-          <div className="mb-3 font-mono text-[11px] tracking-[0.3em] text-[#6b5a4e]/80 uppercase">The Protocol</div>
+          <div className="mb-3 font-mono text-[11px] tracking-[0.3em] text-[#6b5a4e] uppercase">The Protocol</div>
           <h2 className="mb-6 font-heading text-[clamp(28px,4vw,44px)] leading-[1.15] font-bold text-[#1a0e08] italic">
             The Great Simplification — Applied to Coffee
           </h2>
@@ -349,7 +349,7 @@ export default function BrewSoulHealthPage() {
         <div className="mx-auto mb-4 max-w-125 text-sm leading-relaxed text-[#f5efe0]/50">
           Peer-reviewed research on every claim. 8 longevity benefits. 7 real risks. 8 bioactive compounds. Zero wellness marketing.
         </div>
-        <div className="font-mono text-[10px] tracking-wide text-[#f5efe0]/30">All citations peer-reviewed · Data verified Feb 2026</div>
+        <div className="font-mono text-[10px] tracking-wide text-[#f5efe0]/70">All citations peer-reviewed · Data verified Feb 2026</div>
       </footer>
     </div>
   );

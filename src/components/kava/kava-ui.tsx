@@ -47,11 +47,11 @@ const BADGE_CLASS: Record<string, string> = {
   saffron: "bg-kava-saffron/8 text-[#7A461A]",
   cobalt: "bg-kava-cobalt/8 text-kava-cobalt",
   terracotta: "bg-kava-terracotta/12 text-kava-terracotta",
-  green: "bg-[#16a34a]/12 text-[#15803D]",
-  red: "bg-[#dc2626]/12 text-[#dc2626]",
-  amber: "bg-[#d97706]/12 text-[#d97706]",
-  purple: "bg-[#7c3aed]/12 text-[#7c3aed]",
-  teal: "bg-[#0d9488]/12 text-[#0d9488]",
+  green: "bg-[#166534]/12 text-[#166534]",
+  red: "bg-[#b91c1c]/12 text-[#b91c1c]",
+  amber: "bg-[#92400e]/12 text-[#92400e]",
+  purple: "bg-[#6d28d9]/12 text-[#6d28d9]",
+  teal: "bg-[#115e59]/12 text-[#115e59]",
 };
 
 export function KavaBadge({ children, color = "saffron" }: { children: React.ReactNode; color?: keyof typeof BADGE_CLASS }) {

@@ -184,12 +184,12 @@ export function PrescriptionWizard() {
       <div className="border-b border-[#5d3a28]/8 bg-[#ede4d0] px-7 py-4">
         <div className="mx-auto flex max-w-3xl gap-1">
           {STEPS.map((s, i) => (
-            <div key={s.key} className={`h-1 flex-1 rounded-full ${i <= stepIdx ? "bg-[#c4873b]" : "bg-[#5d3a28]/10"}`} />
+            <div key={s.key} className={`h-1 flex-1 rounded-full ${i <= stepIdx ? "bg-[#94612a]" : "bg-[#5d3a28]/10"}`} />
           ))}
         </div>
         <div className="mx-auto mt-2 flex max-w-3xl justify-between">
           {STEPS.map((s, i) => (
-            <div key={s.key} className={`font-mono text-[9px] tracking-wide ${i <= stepIdx ? "text-[#c4873b]" : "text-[#6b5a4e]/50"}`}>
+            <div key={s.key} className={`font-mono text-[9px] tracking-wide ${i <= stepIdx ? "text-[#80541c]" : "text-[#6b5a4e]"}`}>
               {s.n}. {s.label}
             </div>
           ))}
@@ -325,7 +325,7 @@ export function PrescriptionWizard() {
               <h2 className="font-heading text-[clamp(28px,4vw,42px)] leading-[1.15] font-bold text-[#1a0e08] italic">
                 {rx.cafCups} Caf + {rx.decafCups} Decaf · {rx.roast} Roast
               </h2>
-              <div className="mt-2 font-mono text-[13px] text-[#c4873b]">~${rx.dailyCost}/day</div>
+              <div className="mt-2 font-mono text-[13px] text-[#80541c]">~${rx.dailyCost}/day</div>
             </div>
 
             {rx.warnings.length > 0 && (
@@ -386,13 +386,13 @@ export function PrescriptionWizard() {
                   </div>
                   <div className="mt-1 text-[13px] text-[#5c3a28]">{b.why}</div>
                 </div>
-                <div className="font-mono text-sm font-semibold text-[#c4873b]">{b.price}</div>
+                <div className="font-mono text-sm font-semibold text-[#80541c]">{b.price}</div>
               </Link>
             ))}
 
             {rx.decafCups > 0 && (
               <>
-                <div className="mt-6 mb-3 font-mono text-[11px] tracking-wide text-[#4a7c8c]">Decaf Pick</div>
+                <div className="mt-6 mb-3 font-mono text-[11px] tracking-wide text-[#3d6b7a]">Decaf Pick</div>
                 <Link
                   href={rx.decafBrand.link}
                   className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-[#5d3a28]/8 border-l-4 border-l-[#4a7c8c] bg-white p-5"
@@ -404,7 +404,7 @@ export function PrescriptionWizard() {
                     </div>
                     <div className="mt-1 text-[13px] text-[#5c3a28]">{rx.decafBrand.why}</div>
                   </div>
-                  <div className="font-mono text-sm font-semibold text-[#4a7c8c]">{rx.decafBrand.price}</div>
+                  <div className="font-mono text-sm font-semibold text-[#3d6b7a]">{rx.decafBrand.price}</div>
                 </Link>
               </>
             )}

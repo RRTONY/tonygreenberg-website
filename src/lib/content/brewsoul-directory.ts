@@ -23,12 +23,14 @@ export interface BrewSoulCategory {
   pages: BrewSoulPageEntry[];
 }
 
+// Badge colours match CategoryBadge's darker shades (WCAG AA on cream and
+// as text on the tinted cards; the original 500-weight hues failed, 2026-10-02).
 export const CAT_COLORS: Record<string, { bg: string; border: string; badge: string; badgeText: string }> = {
-  "Start Here": { bg: "rgba(197,162,60,0.06)", border: "rgba(197,162,60,0.18)", badge: "#C5A23C", badgeText: "#FAFAF7" },
-  "The Intelligence Engine": { bg: "rgba(59,130,246,0.05)", border: "rgba(59,130,246,0.15)", badge: "#3B82F6", badgeText: "#FAFAF7" },
-  "Deep Research": { bg: "rgba(139,92,246,0.05)", border: "rgba(139,92,246,0.15)", badge: "#8B5CF6", badgeText: "#FAFAF7" },
-  "Reference Library": { bg: "rgba(16,185,129,0.05)", border: "rgba(16,185,129,0.15)", badge: "#10B981", badgeText: "#FAFAF7" },
-  "Tools & Discovery": { bg: "rgba(249,115,22,0.05)", border: "rgba(249,115,22,0.15)", badge: "#F97316", badgeText: "#FAFAF7" },
+  "Start Here": { bg: "rgba(197,162,60,0.06)", border: "rgba(197,162,60,0.18)", badge: "#836311", badgeText: "#FAFAF7" },
+  "The Intelligence Engine": { bg: "rgba(59,130,246,0.05)", border: "rgba(59,130,246,0.15)", badge: "#2563EB", badgeText: "#FAFAF7" },
+  "Deep Research": { bg: "rgba(139,92,246,0.05)", border: "rgba(139,92,246,0.15)", badge: "#7C3AED", badgeText: "#FAFAF7" },
+  "Reference Library": { bg: "rgba(16,185,129,0.05)", border: "rgba(16,185,129,0.15)", badge: "#047857", badgeText: "#FAFAF7" },
+  "Tools & Discovery": { bg: "rgba(249,115,22,0.05)", border: "rgba(249,115,22,0.15)", badge: "#C2410C", badgeText: "#FAFAF7" },
   "Guest Series": { bg: "rgba(139,69,19,0.06)", border: "rgba(139,69,19,0.18)", badge: "#8B4513", badgeText: "#FAFAF7" },
 };
 

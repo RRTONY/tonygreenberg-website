@@ -22,7 +22,7 @@ const GRID_COLS: Record<number, string> = {
 export function NextSteps({ steps, title = "Continue Your Journey" }: { steps: NextStep[]; title?: string }) {
   return (
     <div className="mt-12 border-t border-[#6F4E37]/10 pt-10">
-      <div className="mb-2 text-center font-mono text-[0.68rem] tracking-[0.2em] text-[#7F6826] uppercase">
+      <div className="mb-2 text-center font-mono text-[0.68rem] tracking-[0.2em] text-[#6B5D21] uppercase">
         {title}
       </div>
       <div className={GRID_COLS[Math.min(steps.length, 3)] ?? GRID_COLS[3]}>

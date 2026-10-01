@@ -38,11 +38,11 @@ export default function BrewSoulEconomicsPage() {
 
   const stats = [
     { label: "Coffees", value: String(BREWSOUL_COFFEES.length), className: "text-[#6F4E37]" },
-    { label: "Origins", value: String(origins.length), className: "text-[#4A7C59]" },
+    { label: "Origins", value: String(origins.length), className: "text-[#3B6548]" },
     { label: "Avg $/Bag", value: `$${avgPrice.toFixed(0)}`, className: "text-[#836311]" },
-    { label: "Farmer Share", value: `${avgFarmerPct.toFixed(0)}%`, className: avgFarmerPct >= 15 ? "text-[#4A7C59]" : "text-[#8B2500]" },
+    { label: "Farmer Share", value: `${avgFarmerPct.toFixed(0)}%`, className: avgFarmerPct >= 15 ? "text-[#3B6548]" : "text-[#8B2500]" },
     { label: "Roasters", value: String(ROASTERS.length), className: "text-[#6F4E37]" },
-    { label: "Varieties", value: String(VARIETIES.length), className: "text-[#4A7C59]" },
+    { label: "Varieties", value: String(VARIETIES.length), className: "text-[#3B6548]" },
   ];
 
   return (
