@@ -183,7 +183,7 @@ export function ShanitaInterview() {
   return (
     <>
       <div className="mb-4 flex justify-end">
-        <button onClick={toggleAll} className="rounded-sm border border-[#8b4c2a] px-3.5 py-1.5 font-mono text-xs tracking-wide text-[#8b4c2a]">
+        <button onClick={toggleAll} className="inline-flex items-center rounded-sm border border-[#8b4c2a] px-3.5 py-1.5 font-mono text-xs tracking-wide text-[#8b4c2a] min-h-11 md:min-h-6">
           {allOpen ? "Collapse All" : "Expand All 10"}
         </button>
       </div>
@@ -206,7 +206,7 @@ export function ShareRow() {
         href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="rounded-md border border-[#D4AF37]/25 px-4 py-2 font-mono text-xs tracking-wide text-[#2d1810]"
+        className="inline-flex items-center rounded-md border border-[#D4AF37]/25 px-4 py-2 font-mono text-xs tracking-wide text-[#2d1810] min-h-11 md:min-h-6"
       >
         𝕏 Share on X
       </a>
@@ -214,7 +214,7 @@ export function ShareRow() {
         href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="rounded-md border border-[#D4AF37]/25 px-4 py-2 font-mono text-xs tracking-wide text-[#2d1810]"
+        className="inline-flex items-center rounded-md border border-[#D4AF37]/25 px-4 py-2 font-mono text-xs tracking-wide text-[#2d1810] min-h-11 md:min-h-6"
       >
         in Share on LinkedIn
       </a>

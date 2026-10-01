@@ -3,7 +3,7 @@
 import { useCallback, useMemo, useState } from "react";
 import Link from "next/link";
 import { ThemedBackground } from "@/components/assessments/themed-background";
-import { AssessmentIntro } from "@/components/assessments/assessment-intro";
+import Image from "next/image";
 import { EmailGate } from "@/components/assessments/email-gate";
 import { WhatsNext } from "@/components/assessments/whats-next";
 import { AssessmentResultActions } from "@/components/assessments/result-actions";
@@ -19,26 +19,20 @@ import { JourneyTracker, useJourneyProgress } from "@/components/assessments/jou
 // unchanged and verbatim, as is the 6-month-reminder and X/LinkedIn/copy
 // share functionality.
 //
-// Not ported: the `HERO_IMG` cinematic background
-// (`/api/img/consciousness-scale-hero-v2_085e0746.jpg`) — a Manus-proxied
-// asset, which CONTRIBUTING.md's Zero-Manus-Dependency rule forbids
-// referencing even temporarily. No replacement image exists in Sanity yet
-// and this page's scope doesn't include a Sanity upload, so the
-// image-driven "60vh hero collapsing to a progress bar on question 1"
-// treatment is dropped entirely in favor of the plain question-card layout
-// every other assessment in this migration already uses — same
-// decorative-flourish-requiring-an-unavailable-asset call already made for
-// `AssessmentIntro`'s own hero-image treatment. A real hero image briefed
-// for Sanity is one of this port's NEEDS.
+// The `HERO_IMG` cinematic background (`consciousness-scale-hero-v2`, on
+// the Manus `/api/img/` host) was rescued into Sanity on 2026-09-28
+// (docs/ai/manus-media-rescue.md), so the page opens the way legacy does:
+// straight onto the quiz, with a 60vh photo hero (legacy's own copy) above
+// question 1 that disappears once you move on. An earlier pass had added a
+// separate `AssessmentIntro` landing screen with a description and "what
+// you get" list that weren't in legacy, plus an EXIT button back to it;
+// both are gone again.
 //
 // Since this assessment produces one composite score walked along a
 // single 17-level scale rather than independent scored dimensions,
 // `AssessmentRadarChart` doesn't apply (there's nothing to plot on
 // multiple axes) — the real single-axis gauge/full-map visualization is
-// ported as its own bespoke section instead. `AssessmentIntro`'s
-// "Dimensions" stat is filled with the level count (17) as the closest
-// honest structural analog, same kind of best-fit-under-a-fixed-label call
-// as the one made on `/dharma-finder`.
+// ported as its own bespoke section instead.
 //
 // Every per-level color (17 known-at-build-time values) is precomposed as
 // a literal Tailwind class on the level object itself (`textClass`,
@@ -49,8 +43,8 @@ import { JourneyTracker, useJourneyProgress } from "@/components/assessments/jou
 // for the same reason. The two remaining `style={}` uses (the gauge
 // marker's `left` position and the running-average dot's `background`)
 // are genuinely runtime-computed values that can't be known at build
-// time — the same documented exception `AssessmentIntro`'s `accentColor`
-// and `nav-progress-bar.tsx`'s `width` already use.
+// time — the same documented exception `nav-progress-bar.tsx`'s `width`
+// already uses.
 interface Level {
   level: number;
   name: string;
@@ -290,12 +284,15 @@ function getInsight(score: number): string {
   return "You are accessing states of Peace and beyond — where the question of purpose becomes irrelevant because you are the answer. Where doing arises from being. Where the self that was asking the questions has become transparent to something larger. This is rare territory. The only instruction from here is to keep going — and to help others find their way to the threshold.";
 }
 
-const ACCENT = "#8B6914";
+const ACCENT = "#836311";
 
-type Phase = "landing" | "quiz" | "results";
+type Phase = "quiz" | "results";
+
+const HERO_IMG =
+  "https://cdn.sanity.io/images/a3q1cyqs/production/fa73ed701c190e4ce24c4f8c49777b099a7889de-1200x670.webp";
 
 export function ConsciousnessScaleQuiz() {
-  const [phase, setPhase] = useState<Phase>("landing");
+  const [phase, setPhase] = useState<Phase>("quiz");
   const [emailGated, setEmailGated] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Record<number, number>>({});
@@ -361,28 +358,6 @@ export function ConsciousnessScaleQuiz() {
     [runningScore],
   );
 
-  if (phase === "landing") {
-    return (
-      <div className="relative z-1 min-h-screen font-sans text-[#2C1810]">
-        <ThemedBackground theme="ecosystem" />
-        <AssessmentIntro
-          title="Consciousness Scale"
-          subtitle="Where you are on a Tuesday at 2pm — not who you aspire to be."
-          description="25 questions inspired by David R. Hawkins' Map of Consciousness. Each one requires at least a minute of honest reflection. This isn't a personality test — it's a calibration of how you actually show up under pressure, in grief, in silence, and in the ordinary moments nobody's watching."
-          stats={{ questions: QUESTIONS.length, dimensions: LEVELS.length, minutes: 12 }}
-          whatYouGet={[
-            "Your calibrated score on the 20–700+ Hawkins scale",
-            "Your current level, from Shame to Enlightenment",
-            "A real, level-specific reading of what it means and what's next",
-            "The full 17-level map, with your position marked",
-          ]}
-          accentColor={ACCENT}
-          onBegin={() => setPhase("quiz")}
-        />
-      </div>
-    );
-  }
-
   if (phase === "quiz") {
     return (
       <div className="relative z-1 flex min-h-screen flex-col font-sans text-[#2C1810]">
@@ -393,7 +368,7 @@ export function ConsciousnessScaleQuiz() {
             <div className="h-full bg-linear-to-r from-brand-gold to-brand-gold-light transition-[width] duration-500" style={{ width: `${progress}%` }} />
           </div>
           <div className="flex justify-between px-6 py-3 font-mono text-[0.65rem] tracking-[0.1em] text-[#4A3A2A]">
-            <button onClick={() => setPhase("landing")}>← EXIT</button>
+            <span />
             <span>
               {currentQuestion + 1} / {QUESTIONS.length}
             </span>
@@ -412,8 +387,34 @@ export function ConsciousnessScaleQuiz() {
           )}
         </div>
 
-        <div className="relative z-1 mx-auto flex w-full max-w-2xl flex-1 flex-col justify-center px-6 pt-28 pb-12">
-          <p className="mb-6 font-mono text-[0.65rem] tracking-[0.2em] text-[#8B7B6B] uppercase">
+        {currentQuestion === 0 && (
+          <div className="relative isolate h-[60vh] overflow-hidden bg-[#0A0A10]">
+            <Image src={HERO_IMG} alt="" fill priority sizes="100vw" className="-z-20 object-cover object-[center_30%] brightness-45" />
+            {/* Legacy faded straight to the page color behind the copy, which left
+                the small paragraph unreadable; darkened behind the text instead,
+                with only a thin fade into the page at the bottom edge. */}
+            <div aria-hidden="true" className="absolute inset-0 -z-10 bg-linear-to-b from-transparent from-30% to-[#0A0A10]/75" />
+            <div aria-hidden="true" className="absolute inset-x-0 bottom-0 -z-10 h-6 bg-linear-to-b from-transparent to-background" />
+            <div className="absolute bottom-8 left-[clamp(1.5rem,5vw,4rem)] max-w-175 pr-6">
+              <p className="mb-2 font-mono text-[0.65rem] tracking-[0.25em] text-brand-gold-light uppercase">Inspired by David R. Hawkins</p>
+              <h1 className="mb-3 font-heading text-[clamp(1.8rem,4vw,2.8rem)] leading-[1.2] font-normal text-[#FAFAF7]">
+                Where Does Your Consciousness Actually Calibrate?
+              </h1>
+              <p className="max-w-140 text-[clamp(0.9rem,1.5vw,1rem)] leading-[1.7] text-[#FAF0E0]/75">
+                25 questions. Each one requires at least a minute of honest reflection. Answer who you are on a Tuesday at 2pm — not who you aspire to be.
+              </p>
+            </div>
+          </div>
+        )}
+
+        <div
+          className={
+            currentQuestion === 0
+              ? "relative z-1 mx-auto flex w-full max-w-2xl flex-1 flex-col justify-center px-6 pt-10 pb-12"
+              : "relative z-1 mx-auto flex w-full max-w-2xl flex-1 flex-col justify-center px-6 pt-28 pb-12"
+          }
+        >
+          <p className="mb-6 font-mono text-[0.65rem] tracking-[0.2em] text-[#736455] uppercase">
             Question {currentQuestion + 1} of {QUESTIONS.length}
           </p>
           <h3 className="mb-8 font-heading text-[clamp(1.2rem,2.2vw,1.6rem)] leading-[1.5] font-normal">{currentQ.text}</h3>
@@ -456,7 +457,7 @@ export function ConsciousnessScaleQuiz() {
         </div>
 
         <div className="border-t border-brand-gold/10 px-6 py-6 text-center">
-          <p className="font-mono text-[0.65rem] tracking-[0.1em] text-[#9B8B7B]">
+          <p className="font-mono text-[0.65rem] tracking-[0.1em] text-[#736455]">
             Based on David R. Hawkins&apos; <em>Power vs. Force</em> (1995) · Curated by Tony Greenberg
           </p>
         </div>
@@ -489,7 +490,7 @@ export function ConsciousnessScaleQuiz() {
       </div>
 
       <section className="mx-auto max-w-3xl px-6 py-10">
-        <div className="mb-2 flex justify-between font-mono text-[0.6rem] text-[#8B7B6B]">
+        <div className="mb-2 flex justify-between font-mono text-[0.6rem] text-[#736455]">
           <span>20</span>
           <span className="font-semibold text-brand-gold">You: {totalScore}</span>
           <span>700+</span>
@@ -500,7 +501,7 @@ export function ConsciousnessScaleQuiz() {
             style={{ left: `${scalePercent}%` }}
           />
         </div>
-        <div className="mt-1.5 flex justify-between font-mono text-[0.55rem] text-[#9B8B7B]">
+        <div className="mt-1.5 flex justify-between font-mono text-[0.55rem] text-[#736455]">
           <span>Shame</span>
           <span>Courage 200</span>
           <span>Love 500</span>
@@ -603,7 +604,7 @@ export function ConsciousnessScaleQuiz() {
         <AssessmentResultActions accentColor={ACCENT} resultSlug="consciousness-scale" />
         <button
           onClick={() => {
-            setPhase("landing");
+            setPhase("quiz");
             setEmailGated(false);
             setCurrentQuestion(0);
             setAnswers({});
@@ -616,7 +617,7 @@ export function ConsciousnessScaleQuiz() {
       </section>
 
       <footer className="border-t border-brand-gold/8 px-6 py-8 text-center">
-        <p className="font-mono text-[0.65rem] tracking-[0.1em] text-[#8B7B6B]">
+        <p className="font-mono text-[0.65rem] tracking-[0.1em] text-[#736455]">
           Based on David R. Hawkins&apos; <em>Power vs. Force</em> (1995) · Curated by Tony Greenberg
         </p>
       </footer>

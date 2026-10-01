@@ -9,20 +9,26 @@ import {
   relatedPostsQuery,
   recentPostsQuery,
   postsForReadingPathQuery,
+  postsBySlugsQuery,
 } from "@/lib/sanity/queries";
 import { READING_PATHS } from "@/lib/content/reading-paths";
 import { DEFAULT_OG_IMAGE } from "@/lib/content/default-image";
 import { urlFor } from "@/lib/sanity/image";
 import { PortableText, portableTextComponents } from "@/lib/sanity/portable-text";
+import { legacyBodyLayout } from "@/lib/sanity/legacy-body";
 import { autoLinkBody } from "@/lib/sanity/auto-link-body";
 import { PostCard } from "@/components/blog/post-card";
+import { AiSummaryLinks, SITE_URL } from "@/components/ai-summary-links";
 import { ArticleFooter } from "@/components/blog/article-footer";
 import { BlogShareBar } from "@/components/blog/blog-share-bar";
 import { TrackLastBlogVisit } from "@/components/blog/track-last-blog-visit";
+import { PostHeaderExtras, BeforeYouRead, PostLessonBlocks, SeriesReadingList } from "@/components/blog/post-extras";
+import { getSeriesForPost } from "@/lib/content/essay-series";
 import { getArticleJsonLd } from "@/lib/structured-data";
 
 type PostDetail = {
   _id: string;
+  _createdAt: string;
   _updatedAt: string;
   title: string;
   subtitle?: string;
@@ -33,7 +39,7 @@ type PostDetail = {
   heroImage?: Parameters<typeof urlFor>[0];
   readTime?: number;
   body: Parameters<typeof PortableText>[0]["value"];
-  author?: { name: string };
+  author?: { name: string; avatar?: Parameters<typeof urlFor>[0] };
   category?: { title: string; slug: { current: string } };
   tags?: string[];
   seo?: {
@@ -124,6 +130,16 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
     relatedPosts = related.length ? related : fallbackRelated;
   }
 
+  const seriesInfo = getSeriesForPost(post.slug.current);
+  const seriesTitles = seriesInfo
+    ? await sanityFetch<{ title: string; slug: string }[]>({
+        query: postsBySlugsQuery,
+        params: { slugs: seriesInfo.series.posts },
+        tags: ["post"],
+      })
+    : [];
+  const seriesTitlesBySlug = Object.fromEntries(seriesTitles.map((p) => [p.slug, p.title]));
+
   const date = new Date(post.publishedAt).toLocaleDateString("en-US", {
     month: "long",
     day: "numeric",
@@ -138,6 +154,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
     updatedAt: post._updatedAt,
     heroImage: post.heroImage,
     authorName: post.author?.name,
+    authorAvatar: post.author?.avatar,
   });
 
   return (
@@ -151,7 +168,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
         {post.category && (
           <Link
             href={`/blog/category/${post.category.slug.current}`}
-            className="font-mono text-xs uppercase tracking-wide text-brand-gold hover:text-brand-gold-light"
+            className="inline-flex items-center font-mono text-xs uppercase tracking-wide text-brand-gold hover:text-brand-gold-light min-h-11 md:min-h-6"
           >
             {post.category.title}
           </Link>
@@ -171,6 +188,8 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
             </>
           )}
         </div>
+        <PostHeaderExtras slug={post.slug.current} />
+        {post.excerpt && <p className="mt-5 text-base leading-relaxed text-foreground/80 italic">{post.excerpt}</p>}
       </header>
 
       <BlogShareBar path={`/blog/${post.slug.current}`} title={post.title} />
@@ -192,11 +211,13 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
         </blockquote>
       )}
 
+      <BeforeYouRead slug={post.slug.current} />
+
       {/* portable-text.tsx hand-styles every block/mark directly (no
           @tailwindcss/typography dependency) — .article-body only exists
           to scope the drop-cap selector in globals.css. */}
       <div className="article-body text-foreground">
-        <PortableText value={autoLinkBody(post.body)} components={portableTextComponents} />
+        <PortableText value={autoLinkBody(legacyBodyLayout(post.body, post._createdAt))} components={portableTextComponents} />
       </div>
 
       {post.tags && post.tags.length > 0 && (
@@ -211,6 +232,8 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
           ))}
         </div>
       )}
+
+      <PostLessonBlocks slug={post.slug.current} category={post.category?.title} />
 
       {relatedPosts.length > 0 && (
         <section className="mt-14 border-t border-border pt-10">
@@ -238,6 +261,14 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
       )}
 
       <ArticleFooter slug={post.slug.current} />
+
+      <SeriesReadingList slug={post.slug.current} titlesBySlug={seriesTitlesBySlug} />
+
+      <AiSummaryLinks
+        className="mt-14 border-t border-border pt-10"
+        heading="Request an AI summary of this essay"
+        prompt={`Please read and summarize this essay by Tony Greenberg: ${SITE_URL}/blog/${post.slug.current}`}
+      />
     </article>
   );
 }

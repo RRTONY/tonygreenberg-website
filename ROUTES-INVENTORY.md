@@ -57,3 +57,24 @@ Ran against `blogData.json`'s 121 records' `image` field:
 - **1** → no `image` field at all (`heart-protocol-addendum`)
 
 See `NEXTJS-MIGRATION-TODO.md` Phase 13 for the actionable checklist.
+
+## Live-only routes (no legacy file)
+
+Added to the live site after the `_legacy-manus-app/` snapshot, so they're ported straight from
+tonygreenberg.com instead of a legacy `.tsx` file.
+
+| URL | New route | Notes |
+|---|---|---|
+| `/america-unbundled-field-guide` | `src/app/america-unbundled-field-guide/page.tsx` | Part Two of "America, Unbundled". Ported 2026-10-01 |
+| `/america-unbundled` | `src/app/america-unbundled/page.tsx` | Part One of "America, Unbundled", "AI Does Not Have a Candidate". Ported 2026-10-01 |
+| `/connect` | redirect | 308 to `/`, same as live |
+
+**Checked 2026-10-01** against live's `sitemap.xml` (285 URLs) and every legacy route in `App.tsx`
+(197): every legacy route is ported (200), redirected to a working page (33 × 308), or a documented
+deferral/cancellation in `NEXTJS-MIGRATION-TODO.md` (19 × 404: admin pages, auth/backend features,
+`/shop`, `/fauxtony`, `/clock-keeper-part-2`). Still on live but not here:
+
+| URL | Status on live | Notes |
+|---|---|---|
+| `/blog/the-tollbooth-and-the-alternative`, `/blog/what-quest-could-fix` | real posts | Not in Sanity yet; importing them is waiting on the owner. Heroes already in Sanity (see Phase 13) |
+| `/seven-doors`, `/projects`, `/impact`, `/heroes`, `/built-on-manus`, `/library`, `/health` | in live's sitemap, but render live's own "404" page | Nothing to port. Don't list them in our sitemap |

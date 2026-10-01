@@ -86,7 +86,7 @@ export function IbogaCompassSection() {
 
           <SubSection>
             <div className="mb-4 text-[.85rem] font-extrabold tracking-[0.12em] text-pri-purple uppercase">The 10 Dimensions</div>
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
               <table className="w-full min-w-150 border-collapse">
                 <thead>
                   <tr>
@@ -111,7 +111,7 @@ export function IbogaCompassSection() {
           <SubSection>
             <div className="mb-4 text-[.85rem] font-extrabold tracking-[0.12em] text-pri-purple uppercase">Priority Rank Multipliers</div>
             <p className="mb-4 max-w-200 text-[1.05rem] leading-[1.75] text-pri-brown">After the 28 questions, the user reorders dimensions. Position determines multiplier:</p>
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
               <table className="w-full max-w-150 border-collapse">
                 <thead>
                   <tr>
@@ -155,7 +155,7 @@ export function IbogaCompassSection() {
                 >
                   <span className="min-w-10 font-mono text-[.85rem] font-bold text-pri-purple-light">{String(section.sectionNum).padStart(2, "0")}</span>
                   <span className="flex-1 text-[1.05rem] font-bold text-pri-cream">{section.sectionTitle}</span>
-                  <span className="text-[.85rem] text-pri-cream/45">
+                  <span className="text-[.85rem] text-pri-cream/60">
                     {section.questions.length} question{section.questions.length > 1 ? "s" : ""}
                   </span>
                   <span className={`text-xl text-pri-purple-light transition-transform ${isOpen ? "rotate-180" : ""}`}>▾</span>
@@ -169,7 +169,7 @@ export function IbogaCompassSection() {
                           <span className="mr-2 font-mono text-pri-purple-light">{q.id}.</span>
                           {q.text}
                         </p>
-                        {q.note && <p className="mb-2 text-[.9rem] text-pri-cream/45 italic">{q.note}</p>}
+                        {q.note && <p className="mb-2 text-[.9rem] text-pri-cream/60 italic">{q.note}</p>}
                         <ul className="m-0 list-disc space-y-1 pl-6">
                           {q.options.map((opt) => (
                             <li key={opt} className="text-[.95rem] leading-[1.7] text-pri-cream/80">
@@ -194,7 +194,7 @@ export function IbogaCompassSection() {
             );
           })}
 
-          <p className="mt-8 text-[.95rem] text-pri-cream/45">
+          <p className="mt-8 text-[.95rem] text-pri-cream/60">
             <strong className="text-pri-purple-light">Final Step — Priority Rank:</strong> After 28 questions, the user sees their pre-ranked 10 dimensions.
             They can tap up/down arrows to reorder. Top 3 weighted ×1.4 to ×2.0. Bottom 3 weighted ×0.5 to ×0.7.
           </p>
@@ -210,7 +210,7 @@ export function IbogaCompassSection() {
           </div>
           <h2 className="mb-4 font-heading text-[clamp(1.4rem,3.5vw,2.2rem)] text-pri-ink">How Substance Selections Route to Facilities</h2>
           <p className="mb-6 max-w-200 text-[1.05rem] leading-[1.75] text-pri-brown">Additive boosts — selecting multiple substances compounds all routing bonuses.</p>
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
             <table className="w-full min-w-175 border-collapse">
               <thead>
                 <tr>
@@ -276,7 +276,7 @@ export function IbogaCompassSection() {
                 <a href={r.url} className="text-base font-bold text-pri-purple-light underline">
                   {r.text}
                 </a>
-                <span className="text-[.9rem] text-pri-cream/45"> — {r.desc}</span>
+                <span className="text-[.9rem] text-pri-cream/60"> — {r.desc}</span>
               </li>
             ))}
           </ul>
@@ -286,10 +286,10 @@ export function IbogaCompassSection() {
             <Link href="/iboga-compass" className="inline-block rounded-lg bg-linear-to-br from-pri-purple to-pri-purple-mid px-10 py-4 text-[1.1rem] font-bold tracking-[0.04em] text-white shadow-[0_4px_20px_rgba(107,33,168,.35)]">
               Take the Compass Assessment
             </Link>
-            <p className="mt-3 text-[.85rem] text-pri-cream/45">28 questions · 5 minutes · ranked facility matches</p>
+            <p className="mt-3 text-[.85rem] text-pri-cream/60">28 questions · 5 minutes · ranked facility matches</p>
           </div>
 
-          <p className="mt-3 text-center text-[.9rem] text-pri-cream/45">
+          <p className="mt-3 text-center text-[.9rem] text-pri-cream/60">
             <a href="https://tonygreenberg.com" className="text-pri-purple-light">
               tonygreenberg.com
             </a>

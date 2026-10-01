@@ -2,15 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { EyebrowLabel } from "@/components/marketing/eyebrow-label";
-import { PersonCard } from "@/components/humanos/person-card";
 import { MENTOR } from "@/lib/content/humanos-content";
 
 // Ported from legacy client/src/pages/humanos/HumanosPhilosophy.tsx. Real
 // copy verbatim: "Boiling the Human", the David Orban pull-quote, "The
 // Maximizer Trap" (4 real symptom chips), "The Conscious Satisficer" (4
 // real unlocks + the Consciousness Scale image), and "The Shift"'s
-// FROM -> TO table. David Orban's `/api/img/` headshot is dropped for the
-// shared `PersonCard` initials-avatar treatment (see
+// FROM -> TO table. David Orban's headshot (rescued from Manus into Sanity,
+// 2026-09-28) renders through the shared `PersonCard` (see
 // components/humanos/person-card.tsx) instead of an inline layout —
 // consolidated into that shared component since Ecosystem needs the same
 // treatment for 12 more people.
@@ -22,7 +21,7 @@ export const metadata: Metadata = {
 };
 
 const CONSCIOUSNESS_IMG =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/consciousness-scale-HjPE8waC75o6fHtrhXiBKu.webp";
+  "https://cdn.sanity.io/images/a3q1cyqs/production/4bdf04e4f73f2f9248df6e2d26ba4113594af75c-1434x1920.webp";
 
 const MAXIMIZER_SYMPTOMS = ["Analysis Paralysis", "Chronic Dissatisfaction", "Decision Fatigue", "The \"Grass is Greener\" Syndrome"];
 const SATISFICER_UNLOCKS = ["Radical Agency", "Deep Focus", "Joy in the Present", "Sustainable Growth"];
@@ -65,7 +64,35 @@ export default function HumanosPhilosophy() {
           survive it.
         </p>
 
-        <PersonCard person={MENTOR} />
+        {/* Live swapped the shared PersonCard quote for David Orban's own
+            "You are a transhuman" line plus a short note on his role (live
+            tonygreenberg.com, 2026-10-01). The shared MENTOR quote is left
+            as-is for /humanos/ecosystem. */}
+        <div className="flex flex-wrap items-start gap-6 rounded-lg border border-neutral-200 bg-white p-7 shadow-sm">
+          <Image
+            src={MENTOR.img!}
+            alt="David Orban"
+            width={80}
+            height={80}
+            className="size-20 shrink-0 rounded-full object-cover"
+          />
+          <div className="min-w-50 flex-1">
+            <blockquote className="m-0 text-lg leading-relaxed text-neutral-600 italic">
+              &ldquo;You are a transhuman. The very definition of the human condition is the
+              necessity to adapt to change. Through technology, we now live in an intrinsically
+              transhumanist era.&rdquo;
+            </blockquote>
+            <p className="mt-3 font-mono text-[0.65rem] tracking-[0.2em] text-violet-600 uppercase">
+              — David Orban, Advisor to Singularity University, Former Chairman of Humanity+
+            </p>
+            <p className="mt-3 text-base leading-relaxed text-neutral-500">
+              David&apos;s philosophy — that we are all transhumans, defined by our ability to adapt
+              and overcome limitations through technology — was the catalyst for Human OS 2.0. At
+              the 2010 H+ Summit, his mentorship helped crystallize the core insight: technology
+              must fit humans like a glove, not a cast.
+            </p>
+          </div>
+        </div>
       </section>
 
       {/* THE MAXIMIZER TRAP */}
@@ -101,7 +128,7 @@ export default function HumanosPhilosophy() {
 
       {/* THE CONSCIOUS SATISFICER */}
       <section className="mx-auto max-w-3xl px-6 py-16">
-        <EyebrowLabel className="mb-3 font-mono text-xs tracking-[0.2em] text-emerald-600 uppercase">
+        <EyebrowLabel className="mb-3 font-mono text-xs tracking-[0.2em] text-emerald-700 uppercase">
           The Conscious Satisficer
         </EyebrowLabel>
         <h2 className="mb-6 font-heading text-3xl leading-tight font-bold text-neutral-900 sm:text-4xl">
@@ -159,12 +186,12 @@ export default function HumanosPhilosophy() {
                 className="grid grid-cols-[1fr_auto_1fr] items-center gap-4 rounded-lg border border-neutral-200 bg-white p-5 shadow-sm"
               >
                 <div>
-                  <p className="mb-1 font-mono text-[0.6rem] tracking-[0.1em] text-red-500/70 uppercase">From</p>
+                  <p className="mb-1 font-mono text-[0.6rem] tracking-[0.1em] text-red-700 uppercase">From</p>
                   <p className="m-0 text-base text-neutral-600">{row.from}</p>
                 </div>
                 <span className="text-lg font-bold text-violet-600">&rarr;</span>
                 <div>
-                  <p className="mb-1 font-mono text-[0.6rem] tracking-[0.1em] text-emerald-600/70 uppercase">To</p>
+                  <p className="mb-1 font-mono text-[0.6rem] tracking-[0.1em] text-emerald-700 uppercase">To</p>
                   <p className="m-0 text-base font-semibold text-neutral-900">{row.to}</p>
                 </div>
               </div>

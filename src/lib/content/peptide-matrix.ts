@@ -31,10 +31,10 @@ export const ENTITIES: MatrixEntity[] = [
 ];
 
 export const QUADRANTS = [
-  { id: "Q1", label: "Aligned", subtitle: "High Reviews + High Evidence", color: "#2E8B57", risk: "LOW", description: "Market acceptance aligned with science. These practitioners have both satisfied patients AND evidence-based treatments." },
-  { id: "Q2", label: "Good Science, Poor Marketing", subtitle: "Low Reviews + High Evidence", color: "#4A90D9", risk: "LOW", description: "Evidence-based despite bad reviews. Good science, poor bedside manner or marketing." },
-  { id: "Q3", label: "Obvious Scams", subtitle: "Low Reviews + Low Evidence", color: "#888888", risk: "HIGH", description: "The market has identified poor quality. Low satisfaction AND low evidence." },
-  { id: "Q4", label: "Danger Zone", subtitle: "High Reviews + Low Evidence", color: "#C0392B", risk: "HIGHEST", description: "Satisfaction ≠ safety/efficacy. People love it but science doesn't support it. This is where the most harm occurs." },
+  { id: "Q1", label: "Aligned", subtitle: "High Reviews + High Evidence", color: "#2E8B57", textColor: "#246C44", risk: "LOW", description: "Market acceptance aligned with science. These practitioners have both satisfied patients AND evidence-based treatments." },
+  { id: "Q2", label: "Good Science, Poor Marketing", subtitle: "Low Reviews + High Evidence", color: "#4A90D9", textColor: "#2365A9", risk: "LOW", description: "Evidence-based despite bad reviews. Good science, poor bedside manner or marketing." },
+  { id: "Q3", label: "Obvious Scams", subtitle: "Low Reviews + Low Evidence", color: "#888888", textColor: "#5E5E5E", risk: "HIGH", description: "The market has identified poor quality. Low satisfaction AND low evidence." },
+  { id: "Q4", label: "Danger Zone", subtitle: "High Reviews + Low Evidence", color: "#C0392B", textColor: "#A93226", risk: "HIGHEST", description: "Satisfaction ≠ safety/efficacy. People love it but science doesn't support it. This is where the most harm occurs." },
 ] as const;
 
 export const DANGER_MECHANISMS = [

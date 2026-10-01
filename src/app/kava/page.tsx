@@ -57,7 +57,7 @@ export default function KavaHomePage() {
             <Link key={m.path} href={m.path}>
               <KavaCard className="h-full hover:-translate-y-0.5 hover:border-transparent hover:shadow-lg">
                 <m.icon size={28} className="mb-3 text-kava-saffron" />
-                <h3 className="mb-1 font-heading text-lg font-bold text-kava-ink">{m.title}</h3>
+                <h2 className="mb-1 font-heading text-lg font-bold text-kava-ink">{m.title}</h2>
                 <p className="text-sm leading-relaxed text-kava-ink/60">{m.desc}</p>
               </KavaCard>
             </Link>
@@ -113,13 +113,13 @@ export default function KavaHomePage() {
         <div className="text-center">
           <p className="mb-3 text-sm font-medium text-kava-ink/60">Part of the TonyGreenberg.com ecosystem</p>
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <Link href="/psychedelic-readiness-index" className="rounded-lg bg-kava-saffron px-4 py-2 text-sm font-semibold text-white">
+            <Link href="/psychedelic-readiness-index" className="inline-flex items-center rounded-lg bg-kava-saffron px-4 py-2 text-sm font-semibold text-white min-h-11 md:min-h-6">
               Full PRI Assessment
             </Link>
-            <Link href="/find-my" className="rounded-lg border border-kava-sand-muted bg-white px-4 py-2 text-sm font-semibold text-kava-ink">
+            <Link href="/find-my" className="inline-flex items-center rounded-lg border border-kava-sand-muted bg-white px-4 py-2 text-sm font-semibold text-kava-ink min-h-11 md:min-h-6">
               Find My ___ Hub
             </Link>
-            <Link href="/blog" className="rounded-lg border border-kava-sand-muted bg-white px-4 py-2 text-sm font-semibold text-kava-ink">
+            <Link href="/blog" className="inline-flex items-center rounded-lg border border-kava-sand-muted bg-white px-4 py-2 text-sm font-semibold text-kava-ink min-h-11 md:min-h-6">
               Essays
             </Link>
           </div>

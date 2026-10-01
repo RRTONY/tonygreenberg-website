@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Copy, CheckCircle, Filter, Globe, Megaphone, Scale, FileText } from "lucide-react";
-import { GlassCard } from "@/components/manifesto/manifesto-ui";
+import { GlassCard, PullQuote } from "@/components/manifesto/manifesto-ui";
 import { LAWS, LETTER_TEMPLATE, type LawStatus } from "@/lib/content/attention-theft";
 
 // Ported from legacy client/src/pages/manifesto/AttentionTheft.tsx's Legal
@@ -102,6 +102,11 @@ export function LegalArsenal() {
           );
         })}
       </div>
+
+      <PullQuote className="border-l-brand-gold">
+        &ldquo;The CAN-SPAM Act is 20 years old. It was written before AI, before the attention economy, before spam
+        became a trillion-dollar theft operation. It&apos;s time for legislation with real teeth.&rdquo;
+      </PullQuote>
 
       <div className="mt-8">
         <h3 className="mb-4 flex items-center gap-2 font-heading text-xl font-bold text-crusade-red">

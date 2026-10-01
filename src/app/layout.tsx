@@ -72,7 +72,10 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+        {/* Light by default and not tied to the OS setting, matching legacy's
+            ThemeContext (`defaultTheme="light"`, no system detection) and the
+            live site. The toggle still switches and remembers the choice. */}
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} disableTransitionOnChange>
           <TooltipProvider>
             <NavProgressBar />
             <a

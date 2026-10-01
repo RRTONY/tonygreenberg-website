@@ -257,8 +257,12 @@
 
 :root {
   /* Brand constants — same value in both themes (legacy Layout.tsx used
-     these as theme-independent hover/active colors, not derived tokens). */
-  --brand-gold: #8b6914;
+     these as theme-independent hover/active colors, not derived tokens).
+     Gold is #836311, a hair darker than legacy's #8b6914: legacy's value was
+     4.3–4.4:1 on the cream backgrounds, just under WCAG AA's 4.5:1 for the
+     small mono labels it's used for everywhere (2026-09-29 axe audit). On
+     the near-black sections use brand-gold-light instead. */
+  --brand-gold: #836311;
   --brand-gold-light: #d4b96a;
 
   /* /attention-theft's own "crusade" accent palette — a deliberate one-off
@@ -269,19 +273,22 @@
   --crusade-ink: #1a1a1a;
   --crusade-brown: #2c2418;
   --crusade-muted: #6b6358;
-  --crusade-teal: #0e7c7c;
+  --crusade-teal: #0d7373; /* legacy #0e7c7c was 4.3:1 on its own tinted badges (2026-09-30) */
   --crusade-ember: #d4850a;
   --crusade-sand: #ede9e0;
   --crusade-warm-white: #f5f3ee;
 
   /* /kava's own "Moroccan Riad 12" accent palette — a deliberate
      one-off sub-brand identity for the whole Kava encyclopedia
-     subsystem (10 pages), same reasoning as --crusade-*. */
+     subsystem (10 pages), same reasoning as --crusade-*.
+     Saffron is #8e521f, darker than legacy's #b86a28: legacy's value was
+     3.5:1 on sand and 4.1:1 under white button text, both under WCAG AA's
+     4.5:1 (2026-09-30 axe audit). */
   --kava-sand: #f5edd8;
   --kava-ink: #1a1008;
-  --kava-saffron: #b86a28;
+  --kava-saffron: #8e521f;
   --kava-cobalt: #2a5aa0;
-  --kava-terracotta: #c84b2a;
+  --kava-terracotta: #a83d20; /* was #c84b2a: 3.5:1 on the sand tints, AA needs 4.5 (2026-10-02) */
   --kava-sand-muted: #e8dcc4;
   --kava-saffron-light: #d4923e;
   --kava-cobalt-light: #4a7ac0;
@@ -294,7 +301,7 @@
   --pri-ink: #1c1410;
   --pri-purple: #6b21a8;
   --pri-purple-mid: #9333ea;
-  --pri-purple-light: #a855f7;
+  --pri-purple-light: #b87bf9; /* legacy #a855f7 was 3.1-4.2:1 on the brown PRI panels (2026-09-30); this is the on-dark purple, use pri-purple on cream */
   --pri-brown: #4a3f35;
   --pri-tan: #7a6a5a;
   --pri-border: #e0d8cc;
@@ -314,7 +321,7 @@
   --card-foreground: #111111;
   --popover: #ffffff;
   --popover-foreground: #111111;
-  --primary: #8b6914;
+  --primary: #836311;
   --primary-foreground: #fafaf7;
   --secondary: #f0ece0;
   --secondary-foreground: #111111;
@@ -325,7 +332,7 @@
   --destructive: oklch(0.577 0.245 27.325);
   --border: rgba(74, 29, 107, 0.15);
   --input: rgba(74, 29, 107, 0.15);
-  --ring: #8b6914;
+  --ring: #836311;
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
@@ -355,7 +362,7 @@
   --secondary-foreground: #f5f0e0;
   --muted: #111118;
   --muted-foreground: #bbbbbb;
-  --accent: #8b6914;
+  --accent: #836311;
   --accent-foreground: #f5f0e0;
   --destructive: oklch(0.704 0.191 22.216);
   --border: rgba(74, 29, 107, 0.15);
@@ -391,10 +398,12 @@
   }
 }
 
-/* Drop cap on the opening paragraph of an article body — applied by
-   position (first <p>), not per-post data, so it works for every post
-   automatically. Scope to .article-body so it never leaks elsewhere. */
-.article-body > p:first-of-type::first-letter {
+/* Drop cap on the first real paragraph of an article body — applied by
+   position, not per-post data, so it works for every post automatically:
+   the first <p> without data-no-drop-cap (bylines, "← Back" links and other
+   short or symbol-led lines, flagged in portable-text.tsx). Scoped to
+   .article-body so it never leaks elsewhere. */
+.article-body > p:not([data-no-drop-cap]):not(p:not([data-no-drop-cap]) ~ p)::first-letter {
   font-family: var(--font-display);
   font-size: 3.5em;
   font-weight: 700;
@@ -402,4 +411,26 @@
   line-height: 0.85;
   padding-right: 0.08em;
   color: var(--brand-gold);
+}
+/* iPhone Safari zooms the whole page when a form field under 16px is tapped
+   (2026-09-30 WebKit/iPhone pass found 8 pages). On phone widths, lift the
+   fields that carry a small text utility to 16px; tablet and up keep their
+   designed size. Inside @layer utilities (see docs/ai/feedback_css_layer_bug.md);
+   the :is(input:not(...)) argument gives it more specificity than a single
+   .text-sm, so it wins within the layer. Fields sized 16px+ never match. */
+@layer utilities {
+  @media (max-width: 767.98px) {
+    :is(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]), select, textarea):is(
+        .text-xs,
+        .text-sm,
+        [class*="text-[0."],
+        [class*="text-[11px]"],
+        [class*="text-[12px]"],
+        [class*="text-[13px]"],
+        [class*="text-[14px]"],
+        [class*="text-[15px]"]
+      ) {
+      font-size: 16px;
+    }
+  }
 }

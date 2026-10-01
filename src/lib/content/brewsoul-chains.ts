@@ -7,6 +7,8 @@ import type { ChainEntry } from "@/lib/intelligence-engine/types";
 // `tsx` extraction script, same approach used for brewsoul-coffees.ts,
 // so the real computed values are preserved exactly without
 // re-implementing the aggregate/tier derivation logic by hand.
+// 2026-10-01: Equator's and Olympia's "B Corp" verdict wording and
+// "B Corp certified" strength dropped to match live tonygreenberg.com.
 export const CHAIN_RANKINGS: ChainEntry[] = [
   {
     "rank": 1,
@@ -473,9 +475,8 @@ export const CHAIN_RANKINGS: ChainEntry[] = [
       "experience": 7,
       "consistency": 8
     },
-    "verdict": "Certified B Corp that proves ethical sourcing and great coffee aren't mutually exclusive. The conscience of California coffee.",
+    "verdict": "A values-led roaster that proves ethical sourcing and great coffee aren't mutually exclusive. The conscience of California coffee.",
     "strengths": [
-      "B Corp certified",
       "Exceptional ethics",
       "Fair pricing",
       "Women-owned"
@@ -505,9 +506,8 @@ export const CHAIN_RANKINGS: ChainEntry[] = [
       "experience": 7,
       "consistency": 8
     },
-    "verdict": "B Corp roaster with exceptional ethics. Their natural Ethiopians are crowd-pleasers. Pacific Northwest's conscience.",
+    "verdict": "A roaster with exceptional ethics. Their natural Ethiopians are crowd-pleasers. Pacific Northwest's conscience.",
     "strengths": [
-      "B Corp certified",
       "Excellent naturals",
       "Fair pricing",
       "Strong ethics"

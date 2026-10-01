@@ -67,7 +67,7 @@ export function CorrectionForm({ medicine, onClose }: { medicine: MedicineWithSa
     );
   }
 
-  const inputClass = "w-full border border-pri-border bg-pri-parchment px-3.5 py-2.5 font-body text-[.88rem] text-pri-ink outline-none";
+  const inputClass = "w-full border border-pri-border bg-pri-parchment px-3.5 py-2.5 font-body text-[.88rem] text-pri-ink outline-none focus-visible:ring-2 focus-visible:ring-ring";
 
   return (
     <div className="py-6">
@@ -78,8 +78,8 @@ export function CorrectionForm({ medicine, onClose }: { medicine: MedicineWithSa
       </p>
 
       <div className="mb-4">
-        <label className="mb-1.5 block text-xs font-bold tracking-[0.08em] text-pri-tan uppercase">Which Section?</label>
-        <select value={fieldName} onChange={(e) => setFieldName(e.target.value)} className={`${inputClass} cursor-pointer`}>
+        <label htmlFor="correction-section" className="mb-1.5 block text-xs font-bold tracking-[0.08em] text-pri-tan uppercase">Which Section?</label>
+        <select id="correction-section" value={fieldName} onChange={(e) => setFieldName(e.target.value)} className={`${inputClass} cursor-pointer`}>
           {FIELD_OPTIONS.map((o) => (
             <option key={o.value} value={o.value}>
               {o.label}

@@ -52,6 +52,7 @@ export function BlendBuilderExplorer({ coffees }: { coffees: CatalogItem[] }) {
       />
 
       <select
+        aria-label="Add a coffee to the blend"
         onChange={(e) => {
           addPart(e.target.value);
           e.target.value = "";
@@ -90,14 +91,14 @@ export function BlendBuilderExplorer({ coffees }: { coffees: CatalogItem[] }) {
                   onChange={(e) => updatePct(p.coffeeId, Number(e.target.value))}
                   className="w-25"
                 />
-                <span className="w-10 shrink-0 text-right font-mono text-[0.85rem] font-bold text-[#C5A23C]">{p.pct}%</span>
-                <button onClick={() => removePart(p.coffeeId)} className="text-lg text-[#999]">
+                <span className="w-10 shrink-0 text-right font-mono text-[0.85rem] font-bold text-[#836311]">{p.pct}%</span>
+                <button onClick={() => removePart(p.coffeeId)} className="text-lg text-[#6E6E6E]">
                   ✕
                 </button>
               </div>
             );
           })}
-          <div className={`text-right font-mono text-[0.78rem] ${totalPct === 100 ? "text-[#4A7C59]" : "text-[#8B2500]"}`}>
+          <div className={`text-right font-mono text-[0.78rem] ${totalPct === 100 ? "text-[#3B6548]" : "text-[#8B2500]"}`}>
             Total: {totalPct}% {totalPct !== 100 && "(adjust to 100%)"}
           </div>
         </div>
@@ -105,7 +106,7 @@ export function BlendBuilderExplorer({ coffees }: { coffees: CatalogItem[] }) {
 
       {blendScores && (
         <div className="rounded-xl border border-[#6F4E37]/8 bg-[#C5A23C]/4 p-6">
-          <div className="mb-3 font-mono text-[0.68rem] tracking-[0.25em] text-[#C5A23C] uppercase">Blend Profile{name ? `: "${name}"` : ""}</div>
+          <div className="mb-3 font-mono text-[0.68rem] tracking-[0.25em] text-[#836311] uppercase">Blend Profile{name ? `: "${name}"` : ""}</div>
           <div className="grid grid-cols-3 gap-4">
             {[
               { label: "QPR", value: blendScores.qpr },
@@ -113,7 +114,7 @@ export function BlendBuilderExplorer({ coffees }: { coffees: CatalogItem[] }) {
               { label: "Overall", value: blendScores.overall },
             ].map((s) => (
               <div key={s.label} className="text-center">
-                <div className="font-mono text-2xl font-bold text-[#C5A23C]">{s.value.toFixed(1)}</div>
+                <div className="font-mono text-2xl font-bold text-[#836311]">{s.value.toFixed(1)}</div>
                 <div className="font-mono text-[0.68rem] text-[#6B5B4F]">{s.label}</div>
               </div>
             ))}

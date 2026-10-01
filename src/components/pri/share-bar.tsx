@@ -12,7 +12,7 @@ const SHARE_URL = "https://tonygreenberg.com/psychedelic-readiness-index";
 const SHARE_TEXT = "The Psychedelic Readiness Index ... find your medicine match. 39 substances, 6 domains, hard-stop screening, medication interaction matrix.";
 
 const BTN_CLASS =
-  "flex items-center gap-1.5 rounded-lg border border-pri-purple-light/30 bg-pri-purple/12 px-4 py-2 text-[.82rem] text-pri-cream no-underline transition-colors hover:bg-pri-purple/20";
+  "flex items-center gap-1.5 rounded-lg border border-pri-purple-light/30 bg-pri-purple/12 px-4 py-2 text-[.82rem] text-pri-ink no-underline transition-colors hover:bg-pri-purple/20";
 
 export function PriShareBar() {
   const [copied, setCopied] = useState(false);
@@ -26,16 +26,16 @@ export function PriShareBar() {
 
   return (
     <div className="text-center">
-      <div className="mb-3 text-xs font-bold tracking-[0.12em] text-pri-purple-light uppercase">Share This Instrument</div>
+      <div className="mb-3 text-xs font-bold tracking-[0.12em] text-pri-purple uppercase">Share This Instrument</div>
       <div className="flex flex-wrap justify-center gap-3">
         <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(SHARE_URL)}&text=${encodeURIComponent(SHARE_TEXT)}`} target="_blank" rel="noopener noreferrer" className={BTN_CLASS}>
-          <XIcon className="size-3.5" /> X / Twitter
+          <XIcon className="size-3.5" /> Share on X
         </a>
         <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(SHARE_URL)}`} target="_blank" rel="noopener noreferrer" className={BTN_CLASS}>
-          <LinkedinIcon className="size-3.5" /> LinkedIn
+          <LinkedinIcon className="size-3.5" /> Share on LinkedIn
         </a>
         <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(SHARE_URL)}`} target="_blank" rel="noopener noreferrer" className={BTN_CLASS}>
-          <FacebookIcon className="size-3.5" /> Facebook
+          <FacebookIcon className="size-3.5" /> Share on Facebook
         </a>
         <a href={`mailto:?subject=${encodeURIComponent("The Psychedelic Readiness Index")}&body=${encodeURIComponent(SHARE_TEXT + "\n\n" + SHARE_URL)}`} className={BTN_CLASS}>
           <Mail className="size-3.5" /> Send by Email

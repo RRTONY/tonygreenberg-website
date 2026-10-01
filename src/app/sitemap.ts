@@ -17,6 +17,8 @@ const STATIC_ROUTES = [
   "/about",
   "/akbar",
   "/alex-azzi",
+  "/america-unbundled",
+  "/america-unbundled-field-guide",
   "/amplifier",
   "/articles",
   "/assessment",

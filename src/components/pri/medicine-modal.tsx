@@ -175,7 +175,7 @@ export function MedicineModal({
                       feeling like the grooves of old patterns have been smoothed, and for the first time they can choose a different path.&rdquo;
                     </p>
                   </div>
-                  <div className="text-[.72rem] text-pri-cream/45">Dr. Beverly Reader, MD ... IFS + Ketamine-Assisted Psychotherapy ... Los Angeles ... 424-532-1552</div>
+                  <div className="text-[.72rem] text-pri-cream/60">Dr. Beverly Reader, MD ... IFS + Ketamine-Assisted Psychotherapy ... Los Angeles ... 424-532-1552</div>
                 </div>
               )}
 

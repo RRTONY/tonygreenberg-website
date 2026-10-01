@@ -15,9 +15,9 @@ interface Myth {
 // Precomposed literal classes per verdict — small enumerable set, same
 // Tailwind static-scanner rule enforced throughout this migration.
 const VERDICT_CLASS: Record<Verdict, string> = {
-  DEBUNKED: "bg-[#16a34a]/15 text-[#16a34a]",
-  NUANCED: "bg-[#d97706]/15 text-[#d97706]",
-  "FALSE AND DANGEROUS": "bg-[#dc2626]/15 text-[#dc2626]",
+  DEBUNKED: "bg-[#166534]/15 text-[#166534]",
+  NUANCED: "bg-[#92400e]/15 text-[#92400e]",
+  "FALSE AND DANGEROUS": "bg-[#b91c1c]/15 text-[#b91c1c]",
 };
 
 // Ported from legacy client/src/pages/kava/KavaMyths.tsx — the real 7

@@ -17,8 +17,8 @@ export default function BrewSoulGlossaryPage() {
   return (
     <section className="mx-auto max-w-225 px-6 py-12">
       <div className="mb-2 font-mono text-xs tracking-[0.25em] text-[#6F4E37] uppercase">Speak Coffee</div>
-      <h1 className="mb-2 font-heading text-3xl font-bold text-[#2C1810] sm:text-4xl">Glossary</h1>
-      <p className="mb-8 max-w-2xl text-[0.95rem] leading-relaxed text-[#6B5B4F]">
+      <h1 className="mb-2 font-heading text-3xl font-bold text-[#2C1810] sm:text-[2.4rem]">Glossary</h1>
+      <p className="mb-8 text-[0.95rem] leading-relaxed text-[#6B5B4F]">
         Every term you need to navigate specialty coffee without feeling like an outsider.
       </p>
 

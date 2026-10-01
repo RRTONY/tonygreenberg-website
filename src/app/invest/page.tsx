@@ -9,14 +9,14 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Invest in the Thesis — Portfolio & ABIT Waitlist",
   description:
-    "35+ portfolio companies across psychedelic medicine, impact venture, Web3, blockchain, and health tech. ImpactSoul ABITs launch Q3 2026.",
+    "35+ portfolio companies across psychedelic medicine, impact venture, Web3, blockchain, and health tech. ImpactSoul ABITs launch Q1 2027.",
   alternates: { canonical: "/invest" },
 };
 
 const CATEGORIES = [
   {
     name: "Psychedelic Medicine",
-    text: "text-[#9B59B6]",
+    text: "text-[#8C49A7]",
     dot: "bg-[#9B59B6]",
     companies: [
       { name: "MycoMedica Life Sciences", role: "Investor", note: "Paul Stamets' patent portfolio company" },
@@ -28,7 +28,7 @@ const CATEGORIES = [
   },
   {
     name: "Impact Venture & Finance",
-    text: "text-[#27AE60]",
+    text: "text-[#1A7440]",
     dot: "bg-[#27AE60]",
     companies: [
       { name: "Capria.VC", role: "LP", note: "India's top social impact fund — 1.2M people impacted" },
@@ -42,7 +42,7 @@ const CATEGORIES = [
   },
   {
     name: "Web3, DAOs & Governance",
-    text: "text-[#3498DB]",
+    text: "text-[#1D6CA1]",
     dot: "bg-[#3498DB]",
     companies: [
       { name: "Tea", role: "Investor", note: "Equitable open-source for Web3" },
@@ -53,7 +53,7 @@ const CATEGORIES = [
   },
   {
     name: "Blockchain Infrastructure",
-    text: "text-[#E67E22]",
+    text: "text-[#9B5212]",
     dot: "bg-[#E67E22]",
     companies: [
       { name: "Synternet", role: "Advisor/Investor", note: "Formerly NOIA Network — the Waze of internet congestion" },
@@ -66,7 +66,7 @@ const CATEGORIES = [
   },
   {
     name: "Identity & Trust",
-    text: "text-[#1ABC9C]",
+    text: "text-[#107461]",
     dot: "bg-[#1ABC9C]",
     companies: [
       { name: "Yoti", role: "Partner", note: "Digital ID & age verification — 55% YoY revenue growth" },
@@ -75,7 +75,7 @@ const CATEGORIES = [
   },
   {
     name: "Health & Wellness Tech",
-    text: "text-[#E74C3C]",
+    text: "text-[#C42818]",
     dot: "bg-[#E74C3C]",
     companies: [
       { name: "Hiro Technologies", role: "Investor", note: "Miki Agrawal — MycoDigestible diapers" },
@@ -91,10 +91,10 @@ export default function InvestPage() {
     <div>
       <section className="bg-linear-to-br from-background to-secondary px-6 py-16 text-center sm:px-10 dark:from-[#0A0A10] dark:via-[#111118] dark:to-[#1a1a24]">
         <div className="mx-auto max-w-2xl">
-          <p className="mb-4 font-mono text-xs tracking-[0.25em] text-brand-gold uppercase">
+          <p className="mb-[1.2rem] font-mono text-xs/[1.8] tracking-[0.25em] text-brand-gold uppercase">
             The Portfolio
           </p>
-          <h1 className="mb-4 font-heading text-3xl font-bold text-foreground sm:text-4xl">
+          <h1 className="mb-4 font-heading text-[2rem]/[1.2] font-bold text-foreground sm:text-[3.2rem]/[1.2]">
             Invest in the Thesis
           </h1>
           <p className="mx-auto max-w-lg text-foreground/70">
@@ -163,13 +163,13 @@ export default function InvestPage() {
           Asset-Backed Impact Tokens. Real assets. Real value. Tokenized.
         </p>
         <p className="mb-4 leading-relaxed text-foreground/80">
-          The assets that matter most — cultural, regenerative, natural — are the ones
-          traditional capital markets cannot properly price. ImpactSoul is a Certified B
-          Corporation fixing that. Every ABIT is backed by a real asset, structured for impact,
+          The assets that matter most, cultural, regenerative, and natural, are the ones
+          traditional capital markets cannot properly price. ImpactSoul is a RampRate company
+          working on that problem. Every ABIT is backed by a real asset, structured for impact,
           and designed to compound regeneratively.
         </p>
         <p className="mb-6 text-sm text-muted-foreground">
-          Launching Q3 2026. Waitlist open now. No solicitation. No commitment. First position
+          Launching Q1 2027. Waitlist open now. No solicitation. No commitment. First position
           when the door opens.
         </p>
         <a
@@ -181,7 +181,7 @@ export default function InvestPage() {
           Join the Waitlist → ImpactSoul.is
         </a>
         <p className="mt-3 text-sm text-muted-foreground">
-          <a href="mailto:tony@impactsoul.is" className="text-brand-gold">
+          <a href="mailto:tony@impactsoul.is" className="text-brand-gold underline underline-offset-2">
             tony@impactsoul.is
           </a>{" "}
           for direct inquiries.

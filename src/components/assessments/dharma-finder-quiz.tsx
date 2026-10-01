@@ -174,7 +174,7 @@ function generateDharmaProfile(answers: Record<number, string>): DharmaProfile {
   };
 }
 
-const ACCENT = "#8B6914";
+const ACCENT = "#836311";
 
 type Phase = "landing" | "quiz" | "interstitial" | "results";
 
@@ -320,7 +320,7 @@ export function DharmaFinderQuiz() {
             </div>
           )}
 
-          <p className="mb-4 font-mono text-[0.7rem] tracking-[0.2em] text-[#8B7B6B] uppercase">
+          <p className="mb-4 font-mono text-[0.7rem] tracking-[0.2em] text-[#736455] uppercase">
             Question {currentQuestion + 1} of {TOTAL}
           </p>
           <h3 className="mb-6 font-heading text-[clamp(1.3rem,2.5vw,1.7rem)] leading-[1.4] font-normal">{currentQ.text}</h3>
@@ -330,7 +330,7 @@ export function DharmaFinderQuiz() {
             onChange={(e) => handleAnswer(e.target.value)}
             placeholder="Take your time. There are no wrong answers — only honest ones..."
             rows={6}
-            className="w-full resize-y rounded-sm border border-black/10 bg-white/50 p-5 text-[1.02rem] leading-relaxed text-[#2C1810] outline-none placeholder:text-[#9B8B7B] focus:border-brand-gold"
+            className="w-full resize-y rounded-sm border border-black/10 bg-white/50 p-5 text-[1.02rem] leading-relaxed text-[#2C1810] outline-none focus-visible:ring-2 focus-visible:ring-ring placeholder:text-[#736455] focus:border-brand-gold"
           />
 
           <div className="mt-8 flex items-center justify-between">
@@ -346,13 +346,13 @@ export function DharmaFinderQuiz() {
             </button>
           </div>
 
-          <p className="mt-6 text-center font-mono text-[0.7rem] text-[#9B8B7B]">
+          <p className="mt-6 text-center font-mono text-[0.7rem] text-[#736455]">
             You can skip questions and come back — or leave them blank. The inquiry honors your pace.
           </p>
         </div>
 
         <div className="border-t border-brand-gold/10 px-6 py-8 text-center">
-          <p className="font-mono text-[0.7rem] tracking-[0.1em] text-[#8B7B6B]">
+          <p className="font-mono text-[0.7rem] tracking-[0.1em] text-[#736455]">
             Based on{" "}
             <a
               href="https://civilizationemerging.com/dharma-inquiry-original-version/"
@@ -423,7 +423,7 @@ export function DharmaFinderQuiz() {
         <div className="mb-1.5 h-2 rounded-sm bg-black/8">
           <div className="h-full rounded-sm bg-linear-to-r from-brand-gold to-brand-gold-light transition-[width] duration-1000" style={{ width: `${completionDepth}%` }} />
         </div>
-        <p className="font-mono text-[0.8rem] text-[#8B7B6B]">{completionDepth}% of questions explored</p>
+        <p className="font-mono text-[0.8rem] text-[#736455]">{completionDepth}% of questions explored</p>
       </section>
 
       <section className="mx-auto max-w-3xl px-6 pb-12">

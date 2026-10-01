@@ -148,7 +148,7 @@ export const SCORECARD_CATEGORIES: ScorecardCategory[] = [
 
 export const SCORE_TIERS = [
   { range: "45–50", verdict: "Best available in a messy market", note: "Still verify every batch. No vendor is infallible.", color: "#2A5AA0" },
-  { range: "35–44", verdict: "Maybe acceptable — verify aggressively", note: "Multiple gaps present. Treat every lot as a new unknown.", color: "#B86A28" },
+  { range: "35–44", verdict: "Maybe acceptable — verify aggressively", note: "Multiple gaps present. Treat every lot as a new unknown.", color: "#9B5922" },
   { range: "25–34", verdict: "Too many holes", note: "Not acceptable for any injectable or high-risk compound.", color: "#C84B2A" },
   { range: "Under 25", verdict: "Walk away immediately", note: "Do not proceed under any circumstances.", color: "#C84B2A" },
 ];
@@ -276,7 +276,7 @@ export const ROLE_CHECKLISTS: RoleChecklist[] = [
   {
     role: "Researcher",
     iconKey: "flask",
-    color: "#8B6914",
+    color: "#836311",
     description: "You use peptides in laboratory research, clinical trials, or academic studies.",
     items: [
       "Source only from vendors with documented cGMP manufacturing and full analytical packages",

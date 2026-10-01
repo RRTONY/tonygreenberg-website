@@ -46,11 +46,11 @@ export const COMPASS_DIMENSIONS = [
 
 function hawkinsLabel(score: number): { label: string; color: string } {
   if (score >= 700) return { label: "Enlightenment", color: "#D4B96A" };
-  if (score >= 600) return { label: "Peace", color: "#6B8E23" };
-  if (score >= 540) return { label: "Joy", color: "#2E8B57" };
-  if (score >= 500) return { label: "Love", color: "#C06070" };
-  if (score >= 400) return { label: "Reason", color: "#4682B4" };
-  if (score >= 350) return { label: "Acceptance", color: "#5F9EA0" };
+  if (score >= 600) return { label: "Peace", color: "#5F7E1F" };
+  if (score >= 540) return { label: "Joy", color: "#2B8352" };
+  if (score >= 500) return { label: "Love", color: "#BA5163" };
+  if (score >= 400) return { label: "Reason", color: "#427AA9" };
+  if (score >= 350) return { label: "Acceptance", color: "#4C7E80" };
   if (score >= 310) return { label: "Willingness", color: "#6A5ACD" };
   if (score >= 250) return { label: "Neutrality", color: "#708090" };
   if (score >= 200) return { label: "Courage", color: "#B8860B" };
@@ -79,7 +79,7 @@ function GatesCheck({ gates }: { gates: [boolean, boolean, boolean] }) {
       {labels.map((label, i) => (
         <div
           key={label}
-          className={`flex items-center gap-1.5 font-mono text-xs ${gates[i] ? "text-[#2E8B57]" : "text-[#8B0000]"}`}
+          className={`flex items-center gap-1.5 font-mono text-xs ${gates[i] ? "text-[#267449]" : "text-[#8B0000]"}`}
         >
           {gates[i] ? <Check className="size-3.5" /> : <X className="size-3.5" />}
           {label}
@@ -101,7 +101,7 @@ function CompassRadar({ scores }: { scores: number[] }) {
               className="h-full rounded-full"
               style={{
                 width: `${(scores[i] / max) * 100}%`,
-                background: scores[i] >= 9 ? "#D4B96A" : scores[i] >= 7 ? "#8B6914" : "#A0A0A0",
+                background: scores[i] >= 9 ? "#D4B96A" : scores[i] >= 7 ? "#836311" : "#A0A0A0",
               }}
             />
           </div>
@@ -113,8 +113,8 @@ function CompassRadar({ scores }: { scores: number[] }) {
 }
 
 const competitorStyle: Record<Competitor["type"], string> = {
-  partner: "bg-[#2E8B57]/10 text-[#2E8B57]",
-  adjacent: "bg-[#4682B4]/10 text-[#4682B4]",
+  partner: "bg-[#2E8B57]/10 text-[#267449]",
+  adjacent: "bg-[#4682B4]/10 text-[#3C6F9A]",
   competitor: "bg-[#8B0000]/10 text-[#8B0000]",
 };
 
@@ -130,7 +130,7 @@ export function IntelPortfolio({ portfolio }: { portfolio: PortCo[] }) {
                 <span
                   className={`rounded-full px-2 py-0.5 font-mono text-xs uppercase ${
                     co.status === "Active"
-                      ? "bg-[#2E8B57]/10 text-[#2E8B57]"
+                      ? "bg-[#2E8B57]/10 text-[#267449]"
                       : co.status === "Stealth"
                         ? "bg-brand-gold/10 text-brand-gold"
                         : "bg-muted text-muted-foreground"
@@ -192,7 +192,7 @@ export function IntelPortfolio({ portfolio }: { portfolio: PortCo[] }) {
             </div>
 
             <div className="mb-5">
-              <p className="mb-2 font-mono text-xs tracking-wide text-[#4682B4] uppercase">
+              <p className="mb-2 font-mono text-xs tracking-wide text-[#3C6F9A] uppercase">
                 Impact Rate of Return (iRR) — Howard W. Buffett Framework
               </p>
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">

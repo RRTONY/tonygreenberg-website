@@ -100,7 +100,7 @@ export function DisclaimerGate({ onConsent }: { onConsent: () => void }) {
               onChange={(e) => setInitials(e.target.value.toUpperCase().slice(0, 5))}
               placeholder="e.g. TG"
               maxLength={5}
-              className={`w-full max-w-40 border-2 bg-pri-parchment px-4 py-3 text-center font-heading text-2xl font-bold tracking-[0.15em] text-pri-ink outline-none ${initials.length >= 2 ? "border-pri-purple" : "border-pri-border"}`}
+              className={`w-full max-w-40 border-2 bg-pri-parchment px-4 py-3 text-center font-heading text-2xl font-bold tracking-[0.15em] text-pri-ink outline-none focus-visible:ring-2 focus-visible:ring-ring ${initials.length >= 2 ? "border-pri-purple" : "border-pri-border"}`}
             />
           </div>
 

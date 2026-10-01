@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 // Ported from legacy client/src/pages/ThePhilosophy.tsx. Real content,
 // unchanged — Tony's "Diode of Perception" passage and its full "What This
-// Means" interpretation. The 4 "Instruments" links (Psychedelic Readiness
-// Index, Facilitator Index, Medicine Sequencing, Three Friends Gate) don't
-// exist yet in this migration — rendered as a "Coming Soon" badge instead
-// of a broken link, matching the pattern used on /impact-dashboard's
-// SoulScore links. Revisit and re-link each as its destination is built.
+// Means" interpretation. Of the 4 "Instruments", three are live links; the
+// Three Friends Gate (/friend-gate) is still deferred (needs a real backend),
+// so it keeps a "Coming Soon" badge instead of a broken link — re-link it
+// when that route is built.
 export const metadata: Metadata = {
   title: "The Philosophy — The Diode of Perception",
   description:
@@ -61,20 +62,17 @@ const WHAT_THIS_MEANS = [
 ];
 
 const INSTRUMENTS = [
-  { label: "Psychedelic Readiness Index", desc: "38 medicines. 50+ questions. Your readiness profile." },
-  { label: "Facilitator Index", desc: "108-item assessment for practitioners and seekers evaluating fit." },
-  { label: "Medicine Sequencing", desc: "The spectrum ladder — don't skip rungs." },
-  { label: "Three Friends Gate", desc: "Permission from the people who know you best." },
+  { label: "Psychedelic Readiness Index", desc: "38 medicines. 50+ questions. Your readiness profile.", href: "/psychedelic-readiness-index" },
+  { label: "Facilitator Index", desc: "108-item assessment for practitioners and seekers evaluating fit.", href: "/facilitator-index" },
+  { label: "Medicine Sequencing", desc: "The spectrum ladder — don't skip rungs.", href: "/medicine-sequencing" },
+  { label: "Three Friends Gate", desc: "Permission from the people who know you best.", href: null },
 ];
 
 export default function ThePhilosophyPage() {
   return (
     <div className="min-h-screen bg-linear-to-br from-[#0A0C14] via-[#0F0A1A] to-[#0D1008] pb-24 font-heading text-[#F4F0E8]">
-      <div className="relative border-b border-[#c9a84c]/12 px-6 py-24 text-center">
-        <div
-          className="pointer-events-none absolute top-0 left-1/2 h-75 w-150 -translate-x-1/2"
-          style={{ background: "radial-gradient(ellipse at center, rgba(107,33,168,0.18) 0%, transparent 70%)" }}
-        />
+      <div className="relative overflow-hidden border-b border-[#c9a84c]/12 px-6 py-24 text-center">
+        <div className="pointer-events-none absolute top-0 left-1/2 h-75 w-150 -translate-x-1/2 bg-[radial-gradient(ellipse_at_center,rgba(107,33,168,0.18)_0%,transparent_70%)]" />
         <p className="mb-6 font-mono text-[0.6rem] tracking-[0.3em] text-[#c9a84c] uppercase">
           Tony Greenberg
         </p>
@@ -136,20 +134,34 @@ export default function ThePhilosophyPage() {
         </h2>
 
         <div className="flex flex-col gap-3">
-          {INSTRUMENTS.map((inst) => (
-            <div
-              key={inst.label}
-              className="flex items-center justify-between gap-4 border border-[#c9a84c]/15 bg-[#F4F0E8]/4 px-5 py-4"
-            >
+          {INSTRUMENTS.map((inst) => {
+            const body = (
               <div>
                 <div className="mb-0.5 font-sans text-sm font-bold text-[#F4F0E8]">{inst.label}</div>
                 <div className="font-sans text-xs text-[#F4F0E8]/45">{inst.desc}</div>
               </div>
-              <span className="flex shrink-0 items-center gap-1.5 rounded-full bg-white/5 px-2.5 py-1 font-mono text-[0.6rem] tracking-wide text-[#F4F0E8]/40 uppercase">
-                Coming Soon
-              </span>
-            </div>
-          ))}
+            );
+            return inst.href ? (
+              <Link
+                key={inst.label}
+                href={inst.href}
+                className="flex items-center justify-between gap-4 border border-[#c9a84c]/15 bg-[#F4F0E8]/4 px-5 py-4 transition-colors hover:border-[#c9a84c]/40 hover:bg-[#F4F0E8]/8"
+              >
+                {body}
+                <ArrowRight aria-hidden="true" className="size-4 shrink-0 text-[#c9a84c]" />
+              </Link>
+            ) : (
+              <div
+                key={inst.label}
+                className="flex items-center justify-between gap-4 border border-[#c9a84c]/15 bg-[#F4F0E8]/4 px-5 py-4"
+              >
+                {body}
+                <span className="flex shrink-0 items-center gap-1.5 rounded-full bg-white/5 px-2.5 py-1 font-mono text-[0.6rem] tracking-wide text-[#F4F0E8]/40 uppercase">
+                  Coming Soon
+                </span>
+              </div>
+            );
+          })}
         </div>
       </div>
 

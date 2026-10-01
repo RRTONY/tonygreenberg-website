@@ -18,8 +18,8 @@ export default function BrewSoulWallOfShamePage() {
   return (
     <section className="mx-auto max-w-225 px-6 py-12">
       <div className="mb-2 font-mono text-xs tracking-[0.25em] text-[#8B2500] uppercase">The Reckoning</div>
-      <h1 className="mb-2 font-heading text-3xl font-bold text-[#2C1810] sm:text-4xl">Wall of Shame</h1>
-      <p className="mb-8 max-w-2xl text-[0.95rem] leading-relaxed text-[#6B5B4F]">
+      <h1 className="mb-2 font-heading text-3xl font-bold text-[#2C1810] sm:text-[2.4rem]">Wall of Shame</h1>
+      <p className="mb-8 text-[0.95rem] leading-relaxed text-[#6B5B4F]">
         The coffee industry has a transparency problem. These are the practices, brands, and myths that exploit farmers, mislead consumers, or perpetuate
         harm. We name names because accountability starts with visibility.
       </p>

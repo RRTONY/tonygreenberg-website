@@ -21,12 +21,12 @@ export function HealthTicker() {
   const [idx, setIdx] = useState(0);
   return (
     <div className="mx-auto max-w-xl">
-      <div className="mb-4 rounded-2xl border border-[#8B6914]/15 bg-white/60 px-8 py-8 backdrop-blur-xl">
+      <div className="mb-4 rounded-2xl border border-[#836311]/15 bg-white/60 px-8 py-8 backdrop-blur-xl">
         <p className="min-h-12 font-heading text-lg text-[#2C1810] italic">&ldquo;{HEALTH_FACTS[idx]}&rdquo;</p>
       </div>
       <button
         onClick={() => setIdx((idx + 1) % HEALTH_FACTS.length)}
-        className="rounded-md border border-[#8B6914]/20 bg-white/60 px-6 py-3 font-mono text-xs tracking-wide text-[#8B6914] uppercase backdrop-blur-xl transition-transform hover:-translate-y-0.5"
+        className="rounded-md border border-[#836311]/20 bg-white/60 px-6 py-3 font-mono text-xs tracking-wide text-[#836311] uppercase backdrop-blur-xl transition-transform hover:-translate-y-0.5"
       >
         Next Fact →
       </button>

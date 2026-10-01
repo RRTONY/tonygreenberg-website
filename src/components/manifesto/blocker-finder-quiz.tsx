@@ -43,7 +43,7 @@ export function BlockerFinderQuiz() {
           ))}
         </div>
         <div className="mb-2 text-center">
-          <span className="text-xs font-bold tracking-wider text-crusade-teal/60 uppercase">
+          <span className="text-xs font-bold tracking-wider text-crusade-teal uppercase">
             Question {step + 1} of {QUESTIONS.length}
           </span>
         </div>

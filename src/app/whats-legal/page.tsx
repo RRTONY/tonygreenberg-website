@@ -40,7 +40,7 @@ export default function WhatsLegalPage() {
 
       <section className="bg-[#0A0A10] px-6 py-20 text-white">
         <div className="mx-auto max-w-3xl">
-          <p className="mb-5 font-mono text-xs tracking-[0.25em] text-[#C84B2A] uppercase">
+          <p className="mb-5 font-mono text-xs tracking-[0.25em] text-[#D3512E] uppercase">
             Regulatory Intelligence · Updated May 2026
           </p>
           <h1 className="mb-5 font-heading text-4xl leading-tight font-bold sm:text-5xl">
@@ -48,7 +48,7 @@ export default function WhatsLegalPage() {
             <br />
             <span className="text-[#C84B2A]">That Matters.</span>
           </h1>
-          <p className="max-w-2xl text-lg leading-relaxed text-zinc-300">
+          <p className="max-w-3xl text-lg leading-relaxed text-zinc-300">
             Not legal advice. Not a scare piece. Just the facts — compound by compound, country
             by country — so you can make informed decisions about your own body.
           </p>
@@ -110,16 +110,16 @@ export default function WhatsLegalPage() {
 
       <section className="bg-secondary px-6 py-12">
         <div className="mx-auto flex max-w-3xl flex-wrap justify-center gap-4">
-          <Link href="/rip-peptide-sciences" className="rounded-md border border-border bg-card px-5 py-2 text-sm font-medium">
+          <Link href="/rip-peptide-sciences" className="inline-flex items-center rounded-md border border-border bg-card px-5 py-2 text-sm font-medium min-h-11 md:min-h-6">
             ← RIP Peptide Sciences
           </Link>
-          <Link href="/verify-your-coa" className="rounded-md border border-border bg-card px-5 py-2 text-sm font-medium">
+          <Link href="/verify-your-coa" className="inline-flex items-center rounded-md border border-border bg-card px-5 py-2 text-sm font-medium min-h-11 md:min-h-6">
             Verify Your COA →
           </Link>
-          <Link href="/price-tracker" className="rounded-md border border-border bg-card px-5 py-2 text-sm font-medium">
+          <Link href="/price-tracker" className="inline-flex items-center rounded-md border border-border bg-card px-5 py-2 text-sm font-medium min-h-11 md:min-h-6">
             Price Tracker →
           </Link>
-          <Link href="/test-your-peptides" className="rounded-md border border-border bg-card px-5 py-2 text-sm font-medium">
+          <Link href="/test-your-peptides" className="inline-flex items-center rounded-md border border-border bg-card px-5 py-2 text-sm font-medium min-h-11 md:min-h-6">
             Test Your Peptides →
           </Link>
         </div>

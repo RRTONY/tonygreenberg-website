@@ -1,5 +1,5 @@
 import { BrewSoulNav, BrewSoulFooter } from "@/components/brewsoul/brewsoul-nav";
-import { CategoryBadge } from "@/components/brewsoul/category-badge";
+import { BrewSoulMain } from "@/components/brewsoul/brewsoul-main";
 
 // Ported from legacy client/src/pages/brewsoul/BrewSoulLayout.tsx — the
 // shared shell for every /brewsoul/* route. The main site's SiteHeader/
@@ -10,10 +10,7 @@ export default function BrewSoulRootLayout({ children }: LayoutProps<"/brewsoul"
   return (
     <div className="min-h-screen bg-[#FAFAF7] text-[#2C1810]">
       <BrewSoulNav />
-      <main className="pt-13">
-        <CategoryBadge />
-        {children}
-      </main>
+      <BrewSoulMain>{children}</BrewSoulMain>
       <BrewSoulFooter />
     </div>
   );

@@ -1,11 +1,34 @@
 import type { NextConfig } from "next";
+import { LEGACY_POST_REDIRECTS } from "./src/lib/content/legacy-post-redirects";
 
 const nextConfig: NextConfig = {
+  // Keep the Netlify copies (the main *.netlify.app URL and every deploy
+  // preview) out of search results so Google doesn't index a duplicate of
+  // tonygreenberg.com. Host-based, so the real domain stays indexable after
+  // DNS cutover with no change here. Added 2026-10-01 (Phase 12/14 noindex).
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "(?<host>.+)\\.netlify\\.app" }],
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
+    ];
+  },
   async redirects() {
     return [
+      // Old WordPress-era post addresses → the post (see legacy-post-redirects.ts).
+      ...LEGACY_POST_REDIRECTS.map(([source, slug]) => ({
+        source,
+        destination: `/blog/${slug}`,
+        permanent: true,
+      })),
       // Legacy registers "/find-my-tribe" as a second path to the same
       // Community component — same duplicate-route pattern as /blog above.
       { source: "/find-my-tribe", destination: "/community", permanent: true },
+      // Live-only (not in `_legacy-manus-app/`): live sends /connect to the
+      // homepage (checked 2026-10-01).
+      { source: "/connect", destination: "/", permanent: true },
       // Legacy did this exact redirect client-side via
       // `window.location.replace("/living-declaration")` — a real 308 is
       // strictly better (works without JS, no flash of the old route).
@@ -129,11 +152,6 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "cdn.sanity.io" },
-      // RampRate's own S3-backed CDN (STATUS.md: storage already migrated
-      // off Manus to AWS S3). Not a Manus domain — safe to keep. Any image
-      // still resolving to *.manuscdn.com must be re-uploaded to Sanity
-      // before its page is ported, not proxied through Manus.
-      { protocol: "https", hostname: "d2xsxph8kpxj0f.cloudfront.net" },
       // Real, live Unsplash stock photos used as BrewSoul city hero
       // images (see lib/content/brewsoul-cities.ts) — not a dead Manus
       // proxy, but also not yet uploaded to Sanity per this repo's own

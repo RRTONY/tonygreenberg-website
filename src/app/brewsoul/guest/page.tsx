@@ -29,7 +29,7 @@ export default function BrewSoulGuestPage() {
   return (
     <div>
       <section className="border-b-3 border-[#8b4c2a] bg-linear-to-br from-[#3B2F1E] to-[#2E4A3A] px-6 py-[clamp(48px,8vw,80px)] pb-12 text-center">
-        <div className="mb-4 font-mono text-[11px] tracking-[0.2em] text-[#8B6914]">Tony G Guest Series</div>
+        <div className="mb-4 font-mono text-[11px] tracking-[0.2em] text-[#836311]">Tony G Guest Series</div>
         <h1 className="mx-auto mb-4 max-w-175 font-heading text-[clamp(28px,5vw,44px)] leading-[1.2] font-bold text-[#FAF8F2] italic">
           The People Reshaping Coffee
         </h1>
@@ -54,7 +54,7 @@ export default function BrewSoulGuestPage() {
             <div className="flex-1 p-6 sm:p-8">
               <div className="mb-2 font-mono text-[10px] tracking-[0.15em] text-[#A0522D]">Guest Interview</div>
               <h2 className="mb-1 font-heading text-[clamp(18px,3vw,26px)] leading-[1.25] font-bold text-[#3B2F1E]">{g.name}</h2>
-              <p className="mb-3 font-heading text-[clamp(14px,2vw,18px)] text-[#8B6914] italic">{g.headline}</p>
+              <p className="mb-3 font-heading text-[clamp(14px,2vw,18px)] text-[#836311] italic">{g.headline}</p>
               <p className="mb-3 text-sm leading-relaxed text-[#5C4A32]">{g.teaser}</p>
               <div className="flex flex-wrap gap-1.5">
                 {g.tags.map((t) => (
@@ -67,9 +67,9 @@ export default function BrewSoulGuestPage() {
           </Link>
         ))}
 
-        <div className="mt-4 rounded-xl border-2 border-dashed border-[#8B6914]/20 px-6 py-10 text-center">
+        <div className="mt-4 rounded-xl border-2 border-dashed border-[#836311]/20 px-6 py-10 text-center">
           <div className="mb-2 font-heading text-xl text-[#5C4A32] italic">More guests coming soon</div>
-          <p className="text-sm text-[#5C4A32]/60">Farmers, roasters, scientists, and builders who are changing how coffee works.</p>
+          <p className="text-sm text-[#5C4A32]">Farmers, roasters, scientists, and builders who are changing how coffee works.</p>
         </div>
       </section>
     </div>

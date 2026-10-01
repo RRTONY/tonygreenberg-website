@@ -12,7 +12,7 @@ export type Vendor = {
 };
 
 function ScoreBadge({ score }: { score: number }) {
-  const color = score >= 80 ? "bg-emerald-600" : score >= 60 ? "bg-amber-500" : "bg-red-600";
+  const color = score >= 80 ? "bg-emerald-700" : score >= 60 ? "bg-amber-700" : "bg-red-600";
   return (
     <span className={`inline-block rounded px-2 py-0.5 text-xs font-bold text-white ${color}`}>
       {score}
@@ -47,7 +47,7 @@ export function VendorScorecard({ vendors }: { vendors: Vendor[] }) {
         </button>
       </div>
 
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b-2 border-border text-left">

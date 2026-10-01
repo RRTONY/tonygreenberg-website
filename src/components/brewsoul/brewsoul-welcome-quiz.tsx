@@ -247,12 +247,12 @@ function GlassOption({
   return (
     <button
       onClick={onClick}
-      className={`flex w-full items-center gap-3 rounded-2xl border px-5 py-3.5 text-left backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:border-[#8B6914]/50 hover:bg-white/85 hover:shadow-lg ${
-        selected ? "-translate-y-0.5 border-[#8B6914]/50 bg-white/85 shadow-lg" : "border-[#8B6914]/15 bg-white/60"
+      className={`flex w-full items-center gap-3 rounded-2xl border px-5 py-3.5 text-left backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:border-[#836311]/50 hover:bg-white/85 hover:shadow-lg ${
+        selected ? "-translate-y-0.5 border-[#836311]/50 bg-white/85 shadow-lg" : "border-[#836311]/15 bg-white/60"
       }`}
     >
       <span className="text-xl [filter:drop-shadow(0_2px_6px_rgba(139,105,20,0.2))]">{emoji}</span>
-      <span className={`font-sans text-sm ${selected ? "font-semibold text-[#8B6914]" : "text-[#2A2A2A]"}`}>{text}</span>
+      <span className={`font-sans text-sm ${selected ? "font-semibold text-[#836311]" : "text-[#2A2A2A]"}`}>{text}</span>
     </button>
   );
 }
@@ -326,9 +326,9 @@ export function BrewSoulWelcomeQuiz() {
   if (identity) {
     return (
       <div className="relative min-h-screen overflow-hidden bg-linear-to-b from-[#FAFAF7] via-[#F0E8D8] to-[#F5F0E6]">
-        <div className="fixed inset-x-0 top-0 z-100 h-1 bg-[#8B6914]/8">
+        <div className="fixed inset-x-0 top-0 z-100 h-1 bg-[#836311]/8">
           <div
-            className="h-full bg-linear-to-r from-[#C5A23C] to-[#8B6914] shadow-[0_0_12px_rgba(197,162,60,0.4)] transition-[width] duration-500"
+            className="h-full bg-linear-to-r from-[#C5A23C] to-[#836311] shadow-[0_0_12px_rgba(197,162,60,0.4)] transition-[width] duration-500"
             style={{ width: `${progress}%` }}
           />
         </div>
@@ -339,21 +339,21 @@ export function BrewSoulWelcomeQuiz() {
         >
           <div className="max-w-md">
             <div className="mb-4 text-6xl [filter:drop-shadow(0_4px_12px_rgba(139,105,20,0.3))]">{identity.badge}</div>
-            <div className="mb-3 font-mono text-[0.68rem] tracking-[0.3em] text-[#8B6914] uppercase">
+            <div className="mb-3 font-mono text-[0.68rem] tracking-[0.3em] text-[#836311] uppercase">
               Your Coffee Identity
             </div>
             <h1 className="mb-4 font-heading text-3xl font-bold text-[#1A1A1A] sm:text-4xl">{identity.name}</h1>
             <p className="mb-8 text-base leading-relaxed text-[#4A4A4A]">{identity.desc}</p>
 
-            <div className="mb-5 rounded-2xl border border-[#8B6914]/15 bg-white/60 p-5 backdrop-blur-xl">
-              <div className="mb-3 font-mono text-[0.65rem] tracking-[0.2em] text-[#8B6914] uppercase">
+            <div className="mb-5 rounded-2xl border border-[#836311]/15 bg-white/60 p-5 backdrop-blur-xl">
+              <div className="mb-3 font-mono text-[0.65rem] tracking-[0.2em] text-[#836311] uppercase">
                 Your Recommended Path
               </div>
               <div className="flex flex-wrap justify-center gap-2">
                 {identity.path.map((p, i) => (
                   <span
                     key={p}
-                    className="rounded-full border border-[#8B6914]/15 bg-[#8B6914]/8 px-3 py-1.5 text-sm text-[#5A4A20]"
+                    className="rounded-full border border-[#836311]/15 bg-[#836311]/8 px-3 py-1.5 text-sm text-[#5A4A20]"
                   >
                     {i > 0 && "→ "}
                     {p}
@@ -362,29 +362,29 @@ export function BrewSoulWelcomeQuiz() {
               </div>
             </div>
 
-            <div className="mb-8 rounded-2xl border border-[#8B6914]/15 bg-white/60 p-5 backdrop-blur-xl">
-              <div className="mb-3 font-mono text-[0.65rem] tracking-[0.2em] text-[#8B6914] uppercase">Starter Gear</div>
+            <div className="mb-8 rounded-2xl border border-[#836311]/15 bg-white/60 p-5 backdrop-blur-xl">
+              <div className="mb-3 font-mono text-[0.65rem] tracking-[0.2em] text-[#836311] uppercase">Starter Gear</div>
               {identity.gear.map((g, i) => (
                 <div
                   key={g.name}
-                  className={`flex justify-between py-1.5 ${i < identity.gear.length - 1 ? "border-b border-[#8B6914]/8" : ""}`}
+                  className={`flex justify-between py-1.5 ${i < identity.gear.length - 1 ? "border-b border-[#836311]/8" : ""}`}
                 >
                   <span className="text-sm text-[#2A2A2A]">{g.name}</span>
-                  <span className="font-mono text-[0.82rem] text-[#8B6914]">{g.price}</span>
+                  <span className="font-mono text-[0.82rem] text-[#836311]">{g.price}</span>
                 </div>
               ))}
             </div>
 
             <button
               onClick={() => router.push("/brewsoul/home")}
-              className="rounded-md bg-linear-to-br from-[#C5A23C] to-[#8B6914] px-10 py-4 font-mono text-[0.82rem] font-bold tracking-wide text-[#FAFAF7] uppercase shadow-[0_6px_24px_rgba(139,105,20,0.35)] transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(139,105,20,0.45)]"
+              className="rounded-md bg-linear-to-br from-[#C5A23C] to-[#836311] px-10 py-4 font-mono text-[0.82rem] font-bold tracking-wide text-[#FAFAF7] uppercase shadow-[0_6px_24px_rgba(139,105,20,0.35)] transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(139,105,20,0.45)]"
             >
               Enter BrewSoul →
             </button>
 
             <button
               onClick={() => router.push("/brewsoul/quiz")}
-              className="mt-2 block rounded-md border border-[#C5A23C]/30 bg-[#C5A23C]/10 px-8 py-3 font-mono text-xs tracking-wide text-[#8B6914] uppercase transition-colors hover:bg-[#C5A23C]/20"
+              className="mt-2 block rounded-md border border-[#C5A23C]/30 bg-[#C5A23C]/10 px-8 py-3 font-mono text-xs tracking-wide text-[#836311] uppercase transition-colors hover:bg-[#C5A23C]/20"
             >
               Or: Take the Taste Quiz →
             </button>
@@ -408,9 +408,9 @@ export function BrewSoulWelcomeQuiz() {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-linear-to-b from-[#FAFAF7] via-[#F0E8D8] to-[#F5F0E6]">
-      <div className="fixed inset-x-0 top-0 z-100 h-1 bg-[#8B6914]/8">
+      <div className="fixed inset-x-0 top-0 z-100 h-1 bg-[#836311]/8">
         <div
-          className="h-full bg-linear-to-r from-[#C5A23C] to-[#8B6914] shadow-[0_0_12px_rgba(197,162,60,0.4)] transition-[width] duration-500"
+          className="h-full bg-linear-to-r from-[#C5A23C] to-[#836311] shadow-[0_0_12px_rgba(197,162,60,0.4)] transition-[width] duration-500"
           style={{ width: `${progress}%` }}
         />
       </div>
@@ -418,13 +418,13 @@ export function BrewSoulWelcomeQuiz() {
       <div className="relative z-10 flex min-h-screen flex-col">
         {screen === 0 && (
           <div className="mx-auto max-w-2xl px-6 pt-24 pb-6 text-center">
-            <div className="mb-5 font-mono text-[0.65rem] tracking-[0.35em] text-[#8B6914] uppercase">
+            <div className="mb-5 font-mono text-[0.65rem] tracking-[0.35em] text-[#836311] uppercase">
               Before We Pour — Who Are You?
             </div>
             <h1 className="mb-5 font-heading text-2xl font-bold leading-tight text-[#1A1A1A] sm:text-3xl">
               The world&apos;s most complex legal drug.
               <br />
-              <span className="text-[#8B6914]">Let&apos;s find out who you are inside it.</span>
+              <span className="text-[#836311]">Let&apos;s find out who you are inside it.</span>
             </h1>
             <p className="mx-auto max-w-md rounded-xl bg-[#FAFAF7]/70 p-5 text-sm leading-loose text-[#4A4A4A] backdrop-blur-md">
               1,000+ flavor compounds. $200B industry. 125 million people depend on it for survival. Your relationship
@@ -439,7 +439,7 @@ export function BrewSoulWelcomeQuiz() {
           style={{ opacity: fadeIn ? 1 : 0 }}
         >
           <div className="w-full max-w-xl text-center">
-            <div className="mb-6 font-mono text-[0.62rem] tracking-[0.25em] text-[#8B6914]/50 uppercase">
+            <div className="mb-6 font-mono text-[0.62rem] tracking-[0.25em] text-[#836311]/50 uppercase">
               {screen + 1} / {totalScreens}
             </div>
 
@@ -459,8 +459,8 @@ export function BrewSoulWelcomeQuiz() {
                           onClick={() => setPalateAnswers((prev) => ({ ...prev, [pq.dim]: o }))}
                           className={`rounded-full border px-4 py-2 text-sm backdrop-blur-sm transition-all ${
                             palateAnswers[pq.dim] === o
-                              ? "border-2 border-[#8B6914] bg-[#8B6914]/10 text-[#8B6914]"
-                              : "border border-[#8B6914]/15 bg-white/60 text-[#4A4A4A]"
+                              ? "border-2 border-[#836311] bg-[#836311]/10 text-[#836311]"
+                              : "border border-[#836311]/15 bg-white/60 text-[#4A4A4A]"
                           }`}
                         >
                           {o}
@@ -474,8 +474,8 @@ export function BrewSoulWelcomeQuiz() {
                   disabled={Object.keys(palateAnswers).length < PALATE_QUESTIONS.length}
                   className={`mt-4 rounded-md px-8 py-3.5 font-mono text-xs tracking-wide uppercase ${
                     Object.keys(palateAnswers).length >= PALATE_QUESTIONS.length
-                      ? "bg-linear-to-br from-[#C5A23C] to-[#8B6914] font-bold text-[#FAFAF7] shadow-[0_4px_20px_rgba(139,105,20,0.3)]"
-                      : "bg-[#8B6914]/6 text-[#8B6914]/30"
+                      ? "bg-linear-to-br from-[#C5A23C] to-[#836311] font-bold text-[#FAFAF7] shadow-[0_4px_20px_rgba(139,105,20,0.3)]"
+                      : "bg-[#836311]/6 text-[#836311]/30"
                   }`}
                 >
                   Continue →
@@ -491,13 +491,13 @@ export function BrewSoulWelcomeQuiz() {
                   max={10}
                   value={weirdness}
                   onChange={(e) => setWeirdness(Number(e.target.value))}
-                  className="w-full accent-[#8B6914]"
+                  className="w-full accent-[#836311]"
                 />
                 <div className="mt-2 flex justify-between font-mono text-[0.6rem] text-[#5A4A20]/45">
                   <span>1 — Just give me good coffee</span>
                   <span>10 — Koji eugenioides</span>
                 </div>
-                <div className="my-6 font-heading text-5xl font-bold text-[#8B6914]">{weirdness}</div>
+                <div className="my-6 font-heading text-5xl font-bold text-[#836311]">{weirdness}</div>
                 <div className="mb-6 text-sm text-[#6A6A6A] italic">
                   {weirdness <= 2 && "Reliable, well-sourced, no surprises."}
                   {weirdness === 3 && "Single-origin, well-sourced, traceable."}
@@ -511,7 +511,7 @@ export function BrewSoulWelcomeQuiz() {
                 </div>
                 <button
                   onClick={advanceSlider}
-                  className="rounded-md bg-linear-to-br from-[#C5A23C] to-[#8B6914] px-8 py-3.5 font-mono text-xs font-bold tracking-wide text-[#FAFAF7] uppercase shadow-[0_4px_20px_rgba(139,105,20,0.3)]"
+                  className="rounded-md bg-linear-to-br from-[#C5A23C] to-[#836311] px-8 py-3.5 font-mono text-xs font-bold tracking-wide text-[#FAFAF7] uppercase shadow-[0_4px_20px_rgba(139,105,20,0.3)]"
                 >
                   Continue →
                 </button>
@@ -538,8 +538,8 @@ export function BrewSoulWelcomeQuiz() {
                   disabled={multiSelect.length === 0}
                   className={`mt-5 rounded-md px-8 py-3.5 font-mono text-xs tracking-wide uppercase ${
                     multiSelect.length > 0
-                      ? "bg-linear-to-br from-[#C5A23C] to-[#8B6914] font-bold text-[#FAFAF7] shadow-[0_4px_20px_rgba(139,105,20,0.3)]"
-                      : "bg-[#8B6914]/6 text-[#8B6914]/30"
+                      ? "bg-linear-to-br from-[#C5A23C] to-[#836311] font-bold text-[#FAFAF7] shadow-[0_4px_20px_rgba(139,105,20,0.3)]"
+                      : "bg-[#836311]/6 text-[#836311]/30"
                   }`}
                 >
                   Continue →

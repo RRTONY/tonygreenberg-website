@@ -69,7 +69,7 @@ export default async function CategoryPage({
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
       <header className="mb-8">
-        <Link href="/blog" className="font-mono text-xs uppercase tracking-wide text-brand-gold">
+        <Link href="/blog" className="inline-flex items-center font-mono text-xs uppercase tracking-wide text-brand-gold min-h-11 md:min-h-6">
           &larr; All essays
         </Link>
         <h1 className="mt-2 font-heading text-4xl font-bold text-foreground">{category.title}</h1>

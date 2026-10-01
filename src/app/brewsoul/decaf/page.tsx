@@ -36,7 +36,7 @@ export default function BrewSoulDecafPage() {
     <div className="bg-[#f5efe0] text-[#2d1810]">
       <section className="relative flex min-h-[70vh] items-center justify-center overflow-hidden bg-linear-to-br from-[#2a4c5c] via-[#1a0e08] to-[#2d1810] px-7 py-20 text-center">
         <div className="relative z-1 max-w-3xl">
-          <div className="mb-6 font-mono text-[11px] tracking-[0.3em] text-[#4a7c8c] uppercase">BrewSoul · Decaf Done Right</div>
+          <div className="mb-6 font-mono text-[11px] tracking-[0.3em] text-[#3d6b7a] uppercase">BrewSoul · Decaf Done Right</div>
           <h1 className="mb-5 font-heading text-[clamp(36px,6vw,68px)] leading-[1.05] font-bold text-[#f5efe0] italic">
             Paint Stripper
             <br />
@@ -67,7 +67,7 @@ export default function BrewSoulDecafPage() {
 
       <section className="bg-[#ede4d0] px-7 py-20">
         <div className="mx-auto max-w-275">
-          <div className="mb-3 font-mono text-[11px] tracking-[0.3em] text-[#6b5a4e]/80 uppercase">How Decaf is Made</div>
+          <div className="mb-3 font-mono text-[11px] tracking-[0.3em] text-[#6b5a4e] uppercase">How Decaf is Made</div>
           <h2 className="mb-6 font-heading text-[clamp(28px,4vw,44px)] leading-[1.15] font-bold text-[#1a0e08] italic">Three Processes. Only Two Are Clean.</h2>
 
           <div className="my-7 grid gap-5 [grid-template-columns:repeat(auto-fit,minmax(300px,1fr))]">
@@ -85,7 +85,7 @@ export default function BrewSoulDecafPage() {
 
             <div className="relative rounded-lg border-2 border-[#4a7c8c] bg-white p-6">
               <div className="absolute top-3 right-3 rounded-sm bg-[#4a7c8c] px-2 py-1 font-mono text-[9px] tracking-wide text-white">RECOMMENDED</div>
-              <div className="mb-1 text-lg font-bold text-[#4a7c8c]">Swiss Water Process (SWP)</div>
+              <div className="mb-1 text-lg font-bold text-[#3d6b7a]">Swiss Water Process (SWP)</div>
               <div className="mb-3 font-mono text-[10px] text-[#6b5a4e]">~10% of Global Decaf</div>
               <div className="text-sm leading-relaxed text-[#5c3a28]">
                 Uses only water, temperature, and time. Green beans soaked in hot water to dissolve caffeine. Water passed through carbon filters to
@@ -93,11 +93,11 @@ export default function BrewSoulDecafPage() {
                 organic worldwide. Developed in British Columbia, Canada. 2026 tariff note: now subject to 35% tariff (Canadian processing). Flavor
                 preservation is measurably superior in blind testing.
               </div>
-              <div className="mt-3 font-mono text-[11px] font-semibold text-[#4a7c8c]">$0.92-2.50/oz · Best flavor retention · Zero chemicals</div>
+              <div className="mt-3 font-mono text-[11px] font-semibold text-[#3d6b7a]">$0.92-2.50/oz · Best flavor retention · Zero chemicals</div>
             </div>
 
             <div className="relative rounded-lg border-2 border-[#7a8c6e] bg-white p-6">
-              <div className="absolute top-3 right-3 rounded-sm bg-[#7a8c6e] px-2 py-1 font-mono text-[9px] tracking-wide text-white">ALSO CLEAN</div>
+              <div className="absolute top-3 right-3 rounded-sm bg-[#5a6a50] px-2 py-1 font-mono text-[9px] tracking-wide text-white">ALSO CLEAN</div>
               <div className="mb-1 text-lg font-bold text-[#4a5e3c]">Supercritical CO₂ Process</div>
               <div className="mb-3 font-mono text-[10px] text-[#6b5a4e]">~5% of Global Decaf</div>
               <div className="text-sm leading-relaxed text-[#5c3a28]">
@@ -123,7 +123,7 @@ export default function BrewSoulDecafPage() {
 
       <section className="bg-[#f5efe0] px-7 py-20">
         <div className="mx-auto max-w-275">
-          <div className="mb-3 font-mono text-[11px] tracking-[0.3em] text-[#6b5a4e]/80 uppercase">Hall of Fame — Clean Decaf</div>
+          <div className="mb-3 font-mono text-[11px] tracking-[0.3em] text-[#6b5a4e] uppercase">Hall of Fame — Clean Decaf</div>
           <h2 className="mb-6 font-heading text-[clamp(28px,4vw,44px)] leading-[1.15] font-bold text-[#1a0e08] italic">13 Brands That Do It Right</h2>
           <p className="mb-6 max-w-180 text-[17px] leading-[1.7] text-[#2d1810]">
             Every brand below uses Swiss Water Process or supercritical CO₂. Zero methylene chloride. Sorted by overall value equation: quality,
@@ -158,7 +158,7 @@ export default function BrewSoulDecafPage() {
 
       <section className="bg-[#ede4d0] px-7 py-20">
         <div className="mx-auto max-w-275">
-          <div className="mb-3 font-mono text-[11px] tracking-[0.3em] text-[#6b5a4e]/80 uppercase">Environmental Impact</div>
+          <div className="mb-3 font-mono text-[11px] tracking-[0.3em] text-[#6b5a4e] uppercase">Environmental Impact</div>
           <h2 className="mb-6 font-heading text-[clamp(28px,4vw,44px)] leading-[1.15] font-bold text-[#1a0e08] italic">Carbon Footprint: Which Process Wins?</h2>
           <p className="mb-6 max-w-180 text-[17px] leading-[1.7] text-[#2d1810]">
             Decaffeination isn&apos;t just about what ends up in your cup — it&apos;s about what ends up in the atmosphere. The three processes have
@@ -167,9 +167,9 @@ export default function BrewSoulDecafPage() {
 
           <div className="my-7 grid gap-5 [grid-template-columns:repeat(auto-fit,minmax(300px,1fr))]">
             <div className="rounded-lg border border-[#5d3a28]/8 border-t-4 border-t-[#4a7c8c] bg-white p-6">
-              <div className="mb-2 font-mono text-[10px] tracking-wide text-[#4a7c8c]">Lowest Footprint</div>
+              <div className="mb-2 font-mono text-[10px] tracking-wide text-[#3d6b7a]">Lowest Footprint</div>
               <div className="mb-1 text-lg font-bold text-[#1a0e08]">Swiss Water Process</div>
-              <div className="my-3 font-heading text-[36px] font-bold text-[#4a7c8c]">
+              <div className="my-3 font-heading text-[36px] font-bold text-[#3d6b7a]">
                 ~0.8 <span className="text-base">kg CO₂e/kg</span>
               </div>
               <div className="text-sm leading-relaxed text-[#5c3a28]">
@@ -178,7 +178,7 @@ export default function BrewSoulDecafPage() {
                 in Burnaby, BC runs on BC Hydro (95% renewable).
               </div>
               <div className="mt-3 rounded-sm bg-[#4a7c8c]/8 px-3.5 py-2.5">
-                <div className="font-mono text-[10px] text-[#4a7c8c]">Why It Wins</div>
+                <div className="font-mono text-[10px] text-[#3d6b7a]">Why It Wins</div>
                 <div className="mt-1 text-xs text-[#2d1810]">
                   No chemical manufacturing upstream. No solvent disposal downstream. Water recycled in closed loop. Powered by near-100% renewable grid.
                 </div>
@@ -186,9 +186,9 @@ export default function BrewSoulDecafPage() {
             </div>
 
             <div className="rounded-lg border border-[#5d3a28]/8 border-t-4 border-t-[#7a8c6e] bg-white p-6">
-              <div className="mb-2 font-mono text-[10px] tracking-wide text-[#7a8c6e]">Moderate Footprint</div>
+              <div className="mb-2 font-mono text-[10px] tracking-wide text-[#566650]">Moderate Footprint</div>
               <div className="mb-1 text-lg font-bold text-[#1a0e08]">Supercritical CO₂</div>
-              <div className="my-3 font-heading text-[36px] font-bold text-[#7a8c6e]">
+              <div className="my-3 font-heading text-[36px] font-bold text-[#566650]">
                 ~2.5 <span className="text-base">kg CO₂e/kg</span>
               </div>
               <div className="text-sm leading-relaxed text-[#5c3a28]">
@@ -197,7 +197,7 @@ export default function BrewSoulDecafPage() {
                 waste, but 3× the energy of SWP.
               </div>
               <div className="mt-3 rounded-sm bg-[#7a8c6e]/8 px-3.5 py-2.5">
-                <div className="font-mono text-[10px] text-[#7a8c6e]">The Trade-Off</div>
+                <div className="font-mono text-[10px] text-[#566650]">The Trade-Off</div>
                 <div className="mt-1 text-xs text-[#2d1810]">Clean output (no residue) but energy-hungry process. Best flavor retention of any method. Premium price reflects the energy cost.</div>
               </div>
             </div>
@@ -245,7 +245,7 @@ export default function BrewSoulDecafPage() {
 
       <section className="bg-[#f5efe0] px-7 py-20">
         <div className="mx-auto max-w-275">
-          <div className="mb-3 font-mono text-[11px] tracking-[0.3em] text-[#6b5a4e]/80 uppercase">Decaf Health Science</div>
+          <div className="mb-3 font-mono text-[11px] tracking-[0.3em] text-[#6b5a4e] uppercase">Decaf Health Science</div>
           <h2 className="mb-6 font-heading text-[clamp(28px,4vw,44px)] leading-[1.15] font-bold text-[#1a0e08] italic">What You Keep, What You Lose</h2>
           <p className="mb-6 max-w-180 text-[17px] leading-[1.7] text-[#2d1810]">
             Decaf isn&apos;t nutritionally empty. The decaffeination process preserves most bioactive compounds. But there are real tradeoffs to
@@ -284,9 +284,9 @@ export default function BrewSoulDecafPage() {
 
       <section className="bg-[#ede4d0] px-7 py-20">
         <div className="mx-auto max-w-275">
-          <div className="mb-3 font-mono text-[11px] tracking-[0.3em] text-[#6b5a4e]/80 uppercase">Complete Price Map</div>
+          <div className="mb-3 font-mono text-[11px] tracking-[0.3em] text-[#6b5a4e] uppercase">Complete Price Map</div>
           <h2 className="mb-6 font-heading text-[clamp(28px,4vw,44px)] leading-[1.15] font-bold text-[#1a0e08] italic">Every Clean Decaf, Ranked by Value</h2>
-          <div className="overflow-x-auto rounded-lg bg-white">
+          <div className="overflow-x-auto rounded-lg bg-white" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
             <table className="w-full border-collapse text-[13px]">
               <thead>
                 <tr>
@@ -301,7 +301,7 @@ export default function BrewSoulDecafPage() {
                 {sortedByPrice.map((b, i) => (
                   <tr key={b.name} className={`${i % 2 === 1 ? "bg-[#f5efe0]/30" : ""} ${b.tier === "LEGENDARY" ? "border-l-3 border-l-[#c4873b]" : ""}`}>
                     <td className="p-2.5 text-sm font-semibold text-[#2d1810]">{b.name}</td>
-                    <td className="p-2.5 font-mono text-[13px] font-bold text-[#c4873b]">{b.perOz}</td>
+                    <td className="p-2.5 font-mono text-[13px] font-bold text-[#80541c]">{b.perOz}</td>
                     <td className="p-2.5 text-[#5c3a28]">{b.process}</td>
                     <td className="p-2.5 text-xs text-[#5c3a28]">{b.cert}</td>
                     <td className="p-2.5">
@@ -345,7 +345,7 @@ export default function BrewSoulDecafPage() {
       <footer className="bg-[#1a0e08] px-7 py-12 text-center">
         <div className="mb-2 font-heading text-2xl font-bold text-[#f5efe0] italic">BrewSoul · Decaf</div>
         <div className="mx-auto mb-4 max-w-125 text-sm leading-relaxed text-[#f5efe0]/50">13 clean brands. 10+ dirty brands. Every decaffeination process explained. Zero compromise.</div>
-        <div className="font-mono text-[10px] tracking-wide text-[#f5efe0]/30">All prices USD · Clean Label Project data · Verified Feb 2026</div>
+        <div className="font-mono text-[10px] tracking-wide text-[#f5efe0]/70">All prices USD · Clean Label Project data · Verified Feb 2026</div>
       </footer>
     </div>
   );

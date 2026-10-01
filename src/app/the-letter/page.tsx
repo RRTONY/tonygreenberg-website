@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { sanityFetch } from "@/lib/sanity/client";
-import { postTeaserBySlugQuery } from "@/lib/sanity/queries";
-import { urlFor } from "@/lib/sanity/image";
+import { postCountQuery } from "@/lib/sanity/queries";
+import { BREWSOUL_COFFEES } from "@/lib/content/brewsoul-coffees";
 import { FourDoors, type Door } from "@/components/marketing/four-doors";
+import { NewsletterSignupForm } from "@/components/marketing/newsletter-signup-form";
 
 // Ported from legacy client/src/pages/Home.tsx ("v2.0 Glass-Morphism Edition").
 // Real copy/links/data kept as-is; the bespoke visual effects (floating
@@ -14,6 +15,18 @@ import { FourDoors, type Door } from "@/components/marketing/four-doors";
 // porting: /ramprate and /human-os pointed at routes that don't exist
 // (should be https://ramprate.com and /humanos); Most Read's 5 links all
 // pointed at the same "/blog" placeholder instead of each post's real slug.
+//
+// 2026-10-01 live-sync pass: added the daily provocation strip, the
+// "memory layer" pull quote, the client ROI ticker, the closing sign-off and
+// the Dispatch signup, and updated copy to match live. Essay and coffee
+// counts stay computed from Sanity / BREWSOUL_COFFEES (live's hardcoded
+// "123 essays" and "103 coffees" are live's own numbers, not this site's).
+// The provocation's "Read the full essay" link is not ported: live points it
+// at /blog/manifesto, which has no matching post (live silently redirects it
+// to an unrelated essay), and the quote isn't in any Sanity post body. The
+// ticker is a static wrapped strip, not a scrolling marquee (that needs a
+// keyframe in globals.css). The Featured Essay card's copy is hardcoded to
+// what live shows; the Sanity post behind it keeps its own title.
 
 export const metadata: Metadata = {
   title: "The Letter",
@@ -24,6 +37,10 @@ export const metadata: Metadata = {
 
 const HERO_IMAGE =
   "https://cdn.sanity.io/images/a3q1cyqs/production/4b0c5b229fd4f51c9134a30943d369cadbceab70-1200x670.webp";
+
+// Live uses its own card image here, not the post's hero (rescued 2026-10-01).
+const FEATURED_IMAGE =
+  "https://cdn.sanity.io/images/a3q1cyqs/production/6adbe2febec7bd4ddbb62e24abc658036c5c8b26-1200x670.webp";
 
 const THREE_PATHS = [
   {
@@ -36,7 +53,7 @@ const THREE_PATHS = [
   {
     eyebrow: "Read Tony's Thinking",
     headline: "You came here because you want to understand his ideas.",
-    body: "121 essays. Start with the 7 that explain everything. No algorithm. No paywall.",
+    body: "{count} essays. Start with the 7 that explain everything. No algorithm. No paywall.",
     cta: "Start here",
     href: "/start-here",
   },
@@ -149,7 +166,7 @@ const WHAT_I_BUILD = [
   {
     tag: "Impact Capital",
     title: "ImpactSoul",
-    body: "A Certified B Corp tokenizing cultural, regenerative, and natural assets. ABITs: the financial instrument that prices what markets cannot see yet.",
+    body: "ImpactSoul is a RampRate company tokenizing cultural, regenerative, and natural assets. ABITs: the financial instrument that prices what markets cannot see yet.",
     href: "https://impactsoul.is",
     external: true,
     linkLabel: "impactsoul.is",
@@ -172,19 +189,29 @@ const MOST_READ = [
   { num: "05", title: "Davos 2022 — World Economic Forum", slug: "davos-2022-world-economic-forum-here-we-come" },
 ];
 
+// Client proof points, shown as a strip under the Four Doors (live: a
+// scrolling ticker).
+const PROOF_TICKER = [
+  "Disney — 21× ROI",
+  "Blizzard — 24× ROI",
+  "$10B+ Benchmarked",
+  "Microsoft — 18× ROI",
+  "H+ Summit at Harvard with Kurzweil",
+  "eBay — 22× ROI",
+  "93% Client Success Score",
+  "ViacomCBS — 19× ROI",
+  "25 Years · 1M+ Data Points",
+  "Sony Music — 24× ROI",
+  "Goldman Sachs — 16× ROI",
+  "Nike — 20× ROI",
+  "BBC — 17× ROI",
+  "Certified B Corp",
+  "19 Client Testimonials",
+  "3× Guarantee on Every Retainer",
+];
+
 export default async function TheLetterPage() {
-  const featured = await sanityFetch<{
-    title: string;
-    slug: { current: string };
-    excerpt?: string;
-    heroImage?: Parameters<typeof urlFor>[0];
-    publishedAt: string;
-    readTime?: number;
-  } | null>({
-    query: postTeaserBySlugQuery,
-    params: { slug: "when-healing-becomes-extraction" },
-    tags: ["post"],
-  });
+  const essayCount = await sanityFetch<number>({ query: postCountQuery, tags: ["post"] });
 
   return (
     <div>
@@ -208,12 +235,12 @@ export default async function TheLetterPage() {
             <span className="text-brand-gold-light">Then I build what comes next.</span>
           </h1>
           <p className="mb-5 max-w-lg text-base text-white/75">
-            $10B+ transactions · Microsoft, Disney, Goldman Sachs · 25 years
+            $10B+ in enterprise contracts priced, audited, and renegotiated
           </p>
           <div className="flex flex-wrap gap-3">
             <Link
               href="/find-my"
-              className="inline-flex items-center justify-center rounded-sm bg-brand-gold-light px-4 py-2.5 font-mono text-xs tracking-wide text-background uppercase shadow-[0_0_20px_rgba(212,185,106,0.3)] transition-transform hover:scale-105"
+              className="inline-flex items-center justify-center rounded-sm bg-brand-gold-light px-4 py-2.5 font-mono text-xs tracking-wide text-[#0A0A10] uppercase shadow-[0_0_20px_rgba(212,185,106,0.3)] transition-transform hover:scale-105"
             >
               Find Your Fit →
             </Link>
@@ -221,16 +248,24 @@ export default async function TheLetterPage() {
               href="/blog"
               className="inline-flex items-center justify-center rounded-sm border border-brand-gold-light/50 bg-brand-gold-light/10 px-4 py-2.5 font-mono text-xs tracking-wide text-brand-gold-light uppercase backdrop-blur-md transition-transform hover:scale-105"
             >
-              121 Essays →
+              {essayCount} Essays →
             </Link>
           </div>
         </div>
       </div>
 
+      {/* Daily provocation */}
+      <div className="border-b border-border bg-muted/40 px-6 py-8 text-center sm:px-10">
+        <p className="mx-auto max-w-xl font-heading text-lg leading-relaxed text-foreground/80 italic">
+          &quot;Because &apos;trust us, the bill will make sense later&apos; isn&apos;t a business
+          model—it&apos;s a red flag.&quot;
+        </p>
+      </div>
+
       {/* Three Visitor Pathways */}
       <div className="border-b border-border bg-background px-6 py-10 sm:px-10">
         <div className="mx-auto max-w-5xl">
-          <p className="mb-5 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase opacity-70">
+          <p className="mb-5 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
             Where do you want to start?
           </p>
           <div className="grid divide-y divide-border border-t border-border sm:grid-cols-3 sm:divide-x sm:divide-y-0">
@@ -242,7 +277,9 @@ export default async function TheLetterPage() {
                 <p className="mb-2 font-heading text-lg font-bold leading-snug text-foreground">
                   {path.headline}
                 </p>
-                <p className="text-sm text-muted-foreground">{path.body}</p>
+                <p className="text-sm text-muted-foreground">
+                  {path.body.replace("{count}", String(essayCount))}
+                </p>
                 <p className="mt-3 font-mono text-xs tracking-wide text-brand-gold">{path.cta} →</p>
               </Link>
             ))}
@@ -255,7 +292,7 @@ export default async function TheLetterPage() {
         <div className="mx-auto max-w-5xl">
           <div className="mb-1 flex flex-wrap items-baseline gap-4">
             <h2 className="font-heading text-2xl font-bold text-foreground">Start Here</h2>
-            <p className="font-mono text-xs tracking-wide text-brand-gold uppercase opacity-70">
+            <p className="font-mono text-xs tracking-wide text-brand-gold uppercase">
               7 essays that explain what I think and what I&apos;m building
             </p>
           </div>
@@ -267,7 +304,7 @@ export default async function TheLetterPage() {
                 href={`/blog/${essay.slug}`}
                 className="grid grid-cols-[2rem_1fr_auto] gap-4 border-t border-border py-4 transition-colors hover:bg-brand-gold/5"
               >
-                <span className="font-mono text-xs text-brand-gold/40">{essay.num}</span>
+                <span className="font-mono text-xs text-brand-gold">{essay.num}</span>
                 <span>
                   <span className="block font-heading font-bold leading-tight text-foreground">
                     {essay.title}
@@ -275,7 +312,7 @@ export default async function TheLetterPage() {
                   <span className="text-sm text-muted-foreground">{essay.why}</span>
                 </span>
                 <span className="min-w-20 text-right">
-                  <span className="block font-mono text-[0.58rem] tracking-wide text-brand-gold uppercase opacity-60">
+                  <span className="block font-mono text-[0.58rem] tracking-wide text-brand-gold uppercase">
                     {essay.theme}
                   </span>
                   <span className="font-mono text-[0.6rem] text-muted-foreground">{essay.time}</span>
@@ -284,7 +321,27 @@ export default async function TheLetterPage() {
             ))}
           </div>
           <Link href="/articles" className="mt-4 inline-block border-t border-border pt-3 font-mono text-xs tracking-wide text-brand-gold uppercase">
-            All 121 essays →
+            All {essayCount} essays →
+          </Link>
+        </div>
+      </div>
+
+      {/* What I'm thinking now */}
+      <div className="border-b border-brand-gold-light/10 bg-[#0A0A10] px-6 py-5 sm:px-10">
+        <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-6">
+          <p className="shrink-0 font-mono text-[0.58rem] tracking-[0.2em] text-brand-gold-light/85 uppercase">
+            Aug 2026
+          </p>
+          <p className="min-w-0 flex-1 basis-64 font-heading text-base leading-normal text-[#F5F0E0]/85 italic sm:text-lg">
+            &quot;The most important political question of the next decade is not who controls the
+            government. It is who controls the memory layer of AI — and whether that memory
+            serves the person or the platform.&quot;
+          </p>
+          <Link
+            href="/blog/energy-is-money-money-is-memory"
+            className="inline-flex min-h-11 shrink-0 items-center font-mono text-[0.6rem] tracking-[0.12em] text-brand-gold-light uppercase md:min-h-6"
+          >
+            Read the essay →
           </Link>
         </div>
       </div>
@@ -292,7 +349,7 @@ export default async function TheLetterPage() {
       {/* Four Doors */}
       <div className="bg-[#0E0C09]">
         <div className="px-4 pt-10 pb-5 text-center">
-          <p className="mb-1.5 font-mono text-xs tracking-[0.22em] text-brand-gold-light/55 uppercase">
+          <p className="mb-1.5 font-mono text-xs tracking-[0.22em] text-brand-gold-light/85 uppercase">
             Four Doors
           </p>
           <p className="font-heading text-2xl text-[#F5F0E6]">
@@ -302,46 +359,64 @@ export default async function TheLetterPage() {
         <FourDoors doors={FOUR_DOORS} />
       </div>
 
-      {/* Featured Essay */}
-      {featured && (
-        <div className="bg-linear-to-b from-background to-[#1A0A2E] px-4 py-12 dark:from-[#0A0A10]">
-          <div className="mx-auto max-w-4xl">
-            <p className="mb-6 text-center font-mono text-xs tracking-[0.25em] text-brand-gold-light uppercase">
-              Featured Essay
-            </p>
-            <Link
-              href={`/blog/${featured.slug.current}`}
-              className="grid overflow-hidden rounded-xl border border-brand-gold-light/20 shadow-2xl transition-transform hover:-translate-y-1 sm:grid-cols-2"
+      {/* Proof strip */}
+      <div className="border-y border-brand-gold/15 bg-[#F5F0E6] px-4 py-3 dark:bg-[#15120C]">
+        <ul className="mx-auto flex max-w-6xl flex-wrap justify-center gap-x-8 gap-y-2">
+          {PROOF_TICKER.map((item) => (
+            <li
+              key={item}
+              className="font-mono text-xs tracking-[0.12em] text-brand-gold uppercase dark:text-brand-gold-light"
             >
-              {featured.heroImage && (
-                <div className="relative min-h-72">
-                  <Image
-                    src={urlFor(featured.heroImage).width(700).url()}
-                    alt={featured.title}
-                    fill
-                    className="object-cover brightness-90"
-                  />
-                </div>
-              )}
-              <div className="flex flex-col justify-center bg-[#0A0A10] p-8">
-                <p className="mb-3 font-mono text-xs tracking-wide text-brand-gold uppercase">
-                  Harm Reduction · ImpactSoul
-                </p>
-                <h3 className="mb-4 font-heading text-2xl font-bold text-white">{featured.title}</h3>
-                {featured.excerpt && (
-                  <p className="mb-5 text-white/70">{featured.excerpt}</p>
-                )}
-                <p className="mb-5 font-mono text-xs text-brand-gold-light/60">
-                  {featured.readTime ? `${featured.readTime} min read` : null}
-                </p>
-                <p className="font-mono text-xs tracking-wide text-brand-gold-light uppercase">
-                  Read the Letter →
-                </p>
-              </div>
-            </Link>
-          </div>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Featured Essay */}
+      <div className="bg-linear-to-b from-background to-[#1A0A2E] px-4 py-12 dark:from-[#0A0A10]">
+        <div className="mx-auto max-w-4xl">
+          <p className="mb-6 text-center font-mono text-xs tracking-[0.25em] text-brand-gold-light uppercase">
+            Featured Essay — July 2026
+          </p>
+          <Link
+            href="/blog/when-healing-becomes-extraction"
+            className="grid overflow-hidden rounded-xl border border-brand-gold-light/20 shadow-2xl transition-transform hover:-translate-y-1 sm:grid-cols-2"
+          >
+            <div className="relative min-h-72">
+              <Image
+                src={FEATURED_IMAGE}
+                alt="When Healing Becomes Extraction"
+                fill
+                sizes="(min-width: 640px) 448px, 100vw"
+                className="object-cover brightness-90"
+              />
+              <span className="absolute top-4 left-4 rounded-sm bg-[#836311] px-2.5 py-1 font-mono text-[0.6rem] tracking-[0.15em] text-white uppercase">
+                Open Letter
+              </span>
+            </div>
+            <div className="flex flex-col justify-center bg-[#0A0A10] p-8">
+              <p className="mb-3 font-mono text-xs tracking-wide text-brand-gold-light uppercase">
+                Harm Reduction · ImpactSoul
+              </p>
+              <h3 className="mb-4 font-heading text-2xl font-bold text-white">
+                When Healing Becomes Extraction
+              </h3>
+              <p className="mb-5 text-white/70">
+                Tina Sodhi paid $2,000. She trusted a man with her life. The pharmacology was
+                predictable. The outcome was not an accident. An open letter to Rick Doblin and the
+                field that must say something now.
+              </p>
+              <p className="mb-5 font-mono text-xs text-brand-gold-light/85">
+                July 2026 · 22 min read · Investor Disclosure Included
+              </p>
+              <p className="font-mono text-xs tracking-wide text-brand-gold-light uppercase">
+                Read the Letter →
+              </p>
+            </div>
+          </Link>
         </div>
-      )}
+      </div>
 
       {/* How Tony Works in the World */}
       <div className="px-6 py-12 sm:px-10">
@@ -360,6 +435,9 @@ export default async function TheLetterPage() {
               <p className="mb-4 flex-1 text-sm text-muted-foreground">
                 Tony opens rooms. You walk through them. Engagements begin with a scoping conversation.
               </p>
+              <p className="mb-4 font-mono text-xs font-semibold tracking-wide text-brand-gold uppercase">
+                2X on consulting return guarantee
+              </p>
               <Link
                 href="/amplifier"
                 className="rounded-md bg-linear-to-br from-brand-gold-light to-[#C5A23C] py-2.5 text-center font-mono text-xs tracking-wide text-background uppercase"
@@ -377,6 +455,9 @@ export default async function TheLetterPage() {
               <p className="mb-4 flex-1 text-sm text-muted-foreground">
                 Tony finds the diamond. Together you cut it. Engagements begin with a scoping conversation.
               </p>
+              <p className="mb-4 font-mono text-xs font-semibold tracking-wide text-brand-gold uppercase">
+                3X on sourcing return guarantee
+              </p>
               <Link
                 href="/diamond-cut"
                 className="rounded-md border border-brand-gold/30 py-2.5 text-center font-mono text-xs tracking-wide text-brand-gold uppercase"
@@ -386,11 +467,8 @@ export default async function TheLetterPage() {
             </div>
           </div>
           <div className="mx-auto mt-5 max-w-xl rounded-lg border border-brand-gold-light/10 bg-muted/50 p-6 text-center">
-            <p className="mb-2 border-l-4 border-[#C5A23C] pl-4 text-left font-heading text-lg font-extrabold text-foreground">
+            <p className="border-l-4 border-[#C5A23C] pl-4 text-left font-heading text-lg font-extrabold text-foreground">
               Both engagements include a handpicked vertical domain expert. Tony does not show up alone.
-            </p>
-            <p className="text-sm font-semibold text-brand-gold">
-              2X RETURN GUARANTEE — Do the work. Show the receipts. Get 2x back.
             </p>
           </div>
         </div>
@@ -404,7 +482,7 @@ export default async function TheLetterPage() {
           </p>
           <div className="rounded-xl border border-brand-gold-light/10 bg-muted/40 p-8">
             <p className="mb-4 text-foreground">
-              ImpactSoul Asset-Backed Impact Tokens (ABITs) launch Q3 2026. Tokenizing cultural,
+              ImpactSoul Asset-Backed Impact Tokens (ABITs) launch Q1 2027. Tokenizing cultural,
               regenerative, and natural assets that traditional capital markets cannot price.
             </p>
             <a
@@ -454,7 +532,7 @@ export default async function TheLetterPage() {
                   {...linkProps}
                   className="block rounded-lg border border-border p-6 transition-colors hover:border-brand-gold/30"
                 >
-                  <p className="mb-2 font-mono text-[0.58rem] tracking-[0.18em] text-brand-gold uppercase opacity-70">
+                  <p className="mb-2 font-mono text-[0.58rem] tracking-[0.18em] text-brand-gold uppercase">
                     {item.tag}
                   </p>
                   <p className="mb-2 font-heading font-bold text-foreground">{item.title}</p>
@@ -466,15 +544,15 @@ export default async function TheLetterPage() {
           </div>
           <p className="mt-5 border-t border-border pt-4 font-mono text-xs text-muted-foreground">
             Also active in:{" "}
-            <Link href="/psychedelic-readiness-index" className="text-brand-gold opacity-70">
+            <Link href="/psychedelic-readiness-index" className="text-brand-gold">
               Psychedelic Medicine
             </Link>{" "}
             ·{" "}
-            <Link href="/brewsoul" className="text-brand-gold opacity-70">
+            <Link href="/brewsoul" className="text-brand-gold">
               BrewSoul
             </Link>{" "}
             ·{" "}
-            <Link href="/ecosystem" className="text-brand-gold opacity-70">
+            <Link href="/ecosystem" className="text-brand-gold">
               Full Ecosystem →
             </Link>
           </p>
@@ -496,7 +574,7 @@ export default async function TheLetterPage() {
                   i < MOST_READ.length - 1 ? "border-b border-brand-gold-light/10" : ""
                 }`}
               >
-                <span className="font-mono text-xs text-brand-gold-light">{item.num}</span>
+                <span className="font-mono text-xs text-brand-gold dark:text-brand-gold-light">{item.num}</span>
                 <span>
                   <span className="font-heading font-semibold text-foreground">{item.title}</span>
                   {item.subtitle && (
@@ -519,7 +597,7 @@ export default async function TheLetterPage() {
           </p>
           <div className="rounded-xl border border-[#6F4E37]/15 bg-[#6F4E37]/5 p-8">
             <p className="mb-5 text-foreground">
-              107 coffees scored. 100 chains ranked. 6 identity archetypes. The most opinionated
+              {BREWSOUL_COFFEES.length} coffees scored. 100 chains ranked. 6 identity archetypes. The most opinionated
               coffee intelligence platform on the internet — built on data, not vibes.
             </p>
             <div className="flex flex-wrap justify-center gap-3">
@@ -540,15 +618,46 @@ export default async function TheLetterPage() {
         </div>
       </div>
 
-      {/* Newsletter CTA — full EmailCapture form deferred; real capture backend not in this phase */}
-      <div className="border-t border-border px-6 py-12 text-center sm:px-10">
-        <p className="mb-4 text-foreground">Get new essays as they&apos;re published.</p>
-        <Link
-          href="/subscribe"
-          className="inline-block rounded-md bg-brand-gold px-6 py-2.5 font-mono text-xs tracking-wide text-white uppercase"
-        >
-          Subscribe →
-        </Link>
+      {/* Sign-off */}
+      <div className="bg-[#0A0A10] px-6 py-16 text-center sm:px-10">
+        <p className="mx-auto mb-4 max-w-md font-heading text-xl leading-normal text-[#F5F0E0]/70 italic sm:text-2xl">
+          &quot;Only time buys trust.
+          <br />
+          The gold is in the cracks.&quot;
+        </p>
+        <p className="mb-1 text-sm">
+          <a href="mailto:tony@impactsoul.is" className="text-brand-gold-light">
+            tony@impactsoul.is
+          </a>
+        </p>
+        <p className="font-mono text-xs tracking-[0.08em] text-[#F5F0E0]/65">
+          tonygreenberg.com &nbsp;·&nbsp; impactsoul.is &nbsp;·&nbsp; ramprate.com
+        </p>
+      </div>
+
+      {/* The Dispatch */}
+      <div className="px-6 py-10 sm:px-10">
+        <div className="mx-auto max-w-3xl border-y border-brand-gold/20 bg-brand-gold-light/5 px-4 py-6 sm:px-8">
+          <p className="mb-1.5 font-mono text-[0.62rem] tracking-[0.18em] text-brand-gold uppercase">
+            ◆ The Dispatch
+          </p>
+          <p className="mb-1.5 font-heading text-lg leading-snug font-semibold text-foreground italic sm:text-xl">
+            Not a newsletter. More like a note left on your windshield.
+          </p>
+          <p className="mb-4 text-sm leading-relaxed text-muted-foreground">
+            Arrives when something is actually worth saying. No cadence. No funnel. Just the things
+            I couldn&apos;t not write.
+          </p>
+          <NewsletterSignupForm
+            source="homepage"
+            buttonLabel="I'm in →"
+            placeholder="your@email.com"
+            className="flex flex-col gap-3 sm:flex-row"
+          />
+          <p className="mt-2 text-xs text-muted-foreground italic">
+            No algorithm. No pitch deck. Leave whenever.
+          </p>
+        </div>
       </div>
     </div>
   );

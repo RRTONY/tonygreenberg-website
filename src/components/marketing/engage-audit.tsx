@@ -166,7 +166,7 @@ export function EngageAudit() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Full name"
-                  className="w-full rounded-sm border border-brand-gold/20 bg-background px-4 py-2.5 text-sm outline-none focus:border-brand-gold"
+                  className="w-full rounded-sm border border-brand-gold/20 bg-background px-4 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring focus:border-brand-gold"
                 />
               </div>
               <div>
@@ -178,7 +178,7 @@ export function EngageAudit() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="your@email.com"
-                  className="w-full rounded-sm border border-brand-gold/20 bg-background px-4 py-2.5 text-sm outline-none focus:border-brand-gold"
+                  className="w-full rounded-sm border border-brand-gold/20 bg-background px-4 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring focus:border-brand-gold"
                 />
               </div>
             </div>
@@ -229,7 +229,7 @@ export function EngageAudit() {
             onChange={(e) => setAnswers((prev) => ({ ...prev, [QUESTIONS[currentQ].id]: e.target.value }))}
             placeholder={QUESTIONS[currentQ].placeholder}
             rows={6}
-            className="mb-1.5 w-full resize-y rounded-sm border border-border bg-secondary p-4 text-sm leading-relaxed outline-none focus:border-brand-gold"
+            className="mb-1.5 w-full resize-y rounded-sm border border-border bg-secondary p-4 text-sm leading-relaxed outline-none focus-visible:ring-2 focus-visible:ring-ring focus:border-brand-gold"
           />
           <div className="mb-6 text-right font-mono text-xs text-muted-foreground">
             {currentAnswer.trim().split(/\s+/).filter(Boolean).length} words

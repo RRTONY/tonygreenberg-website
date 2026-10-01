@@ -87,13 +87,13 @@ function ArticleRow({ post }: { post: ArchivePost }) {
           <h4 className="font-medium leading-snug text-white/90">{post.title}</h4>
           <div className="mt-1.5 flex items-center gap-3">
             {post.category && (
-              <span className="font-mono text-xs tracking-wide text-white/45">{post.category.title}</span>
+              <span className="font-mono text-xs tracking-wide text-white/60">{post.category.title}</span>
             )}
-            <span className="text-xs text-white/35">{formatDate(post.publishedAt)}</span>
+            <span className="text-xs text-white/60">{formatDate(post.publishedAt)}</span>
           </div>
           {connector && <p className="mt-2 text-xs leading-relaxed text-brand-gold-light/80 italic">Thesis: {connector}</p>}
         </div>
-        <span className="mt-1 shrink-0 text-sm text-white/35">→</span>
+        <span className="mt-1 shrink-0 text-sm text-white/60">→</span>
       </div>
     </Link>
   );
@@ -126,7 +126,7 @@ export function ThesisThreadsExplorer({ posts }: { posts: ArchivePost[] }) {
     <div className="bg-[#0A0A10] text-white/90">
       {/* Hero */}
       <div className="mx-auto max-w-5xl px-6 pt-16 pb-12 sm:px-10">
-        <p className="mb-4 font-mono text-xs tracking-[0.3em] text-brand-gold uppercase">Content Intelligence</p>
+        <p className="mb-4 font-mono text-xs tracking-[0.3em] text-brand-gold-light uppercase">Content Intelligence</p>
         <h1 className="mb-4 font-heading text-4xl leading-tight text-white/95 sm:text-6xl">
           The Thesis <span className="text-brand-gold-light italic">Threads</span>
         </h1>
@@ -142,7 +142,7 @@ export function ThesisThreadsExplorer({ posts }: { posts: ArchivePost[] }) {
           ].map((s) => (
             <div key={s.l}>
               <div className="font-heading text-2xl text-brand-gold-light">{s.n}</div>
-              <div className="font-mono text-xs tracking-wider text-white/45 uppercase">{s.l}</div>
+              <div className="font-mono text-xs tracking-wider text-white/60 uppercase">{s.l}</div>
             </div>
           ))}
         </div>
@@ -156,7 +156,7 @@ export function ThesisThreadsExplorer({ posts }: { posts: ArchivePost[] }) {
               key={t.id}
               onClick={() => setTab(t.id)}
               className={`border-b-2 px-4 py-3.5 font-mono text-xs tracking-wide whitespace-nowrap uppercase ${
-                tab === t.id ? "border-brand-gold text-brand-gold-light" : "border-transparent text-white/45 hover:text-white/70"
+                tab === t.id ? "border-brand-gold text-brand-gold-light" : "border-transparent text-white/60 hover:text-white/70"
               }`}
             >
               {t.label}
@@ -192,7 +192,7 @@ export function ThesisThreadsExplorer({ posts }: { posts: ArchivePost[] }) {
                   <ArticleRow key={post.slug} post={post} />
                 ))}
                 {current.posts.length === 0 && (
-                  <p className="py-8 text-center text-sm text-white/40 italic">
+                  <p className="py-8 text-center text-sm text-white/60 italic">
                     No articles mapped to this thread yet.
                   </p>
                 )}
@@ -201,16 +201,16 @@ export function ThesisThreadsExplorer({ posts }: { posts: ArchivePost[] }) {
               {unthreaded.length > 0 && (
                 <div className="mt-12">
                   <h3 className="mb-4 font-heading text-lg text-white/70">Unmapped Articles ({unthreaded.length})</h3>
-                  <p className="mb-4 text-xs text-white/45">
+                  <p className="mb-4 text-xs text-white/60">
                     These articles haven&apos;t been assigned to a thesis thread yet. Each one needs at least one
                     sentence connecting it to the extractive-vs-regenerative thesis.
                   </p>
-                  <div className="space-y-1 opacity-60">
+                  <div className="space-y-1 opacity-80">
                     {unthreaded.slice(0, 20).map((post) => (
                       <ArticleRow key={post.slug} post={post} />
                     ))}
                     {unthreaded.length > 20 && (
-                      <p className="py-4 text-center text-xs text-white/35">
+                      <p className="py-4 text-center text-xs text-white/60">
                         + {unthreaded.length - 20} more unmapped articles
                       </p>
                     )}
@@ -242,7 +242,7 @@ export function ThesisThreadsExplorer({ posts }: { posts: ArchivePost[] }) {
                       </span>
                     ))}
                   </div>
-                  <p className="mt-3 text-xs text-white/40 italic">Tone: {section.tone}</p>
+                  <p className="mt-3 text-xs text-white/60 italic">Tone: {section.tone}</p>
                 </GlassCard>
               ))}
             </div>
@@ -265,7 +265,7 @@ export function ThesisThreadsExplorer({ posts }: { posts: ArchivePost[] }) {
                         {cite.author} ({cite.year})
                       </h4>
                       <p className="text-sm text-white/70 italic">&ldquo;{cite.title}&rdquo;</p>
-                      <p className="mt-1 text-xs text-white/45">{cite.publisher}</p>
+                      <p className="mt-1 text-xs text-white/60">{cite.publisher}</p>
                       <p className="mt-2 text-xs text-brand-gold-light/70">Relevance: {cite.relevance}</p>
                     </div>
                   </div>
@@ -284,7 +284,7 @@ export function ThesisThreadsExplorer({ posts }: { posts: ArchivePost[] }) {
                   <p className="text-sm text-white/55">{comp.model}</p>
                   <div className="mt-3 flex items-center justify-between">
                     <span className="font-mono text-xs text-brand-gold-light/80">{comp.entryPoint}</span>
-                    <span className="max-w-[60%] text-right text-xs text-white/40 italic">{comp.limitation}</span>
+                    <span className="max-w-[60%] text-right text-xs text-white/60 italic">{comp.limitation}</span>
                   </div>
                 </GlassCard>
               ))}
@@ -330,7 +330,7 @@ export function ThesisThreadsExplorer({ posts }: { posts: ArchivePost[] }) {
       </div>
 
       <div className="border-t border-white/10 py-12 text-center">
-        <p className="font-mono text-xs tracking-widest text-white/30 uppercase">{CORE_THESIS.shortForm}</p>
+        <p className="font-mono text-xs tracking-widest text-white/60 uppercase">{CORE_THESIS.shortForm}</p>
       </div>
     </div>
   );

@@ -238,14 +238,14 @@ export default function IbogaIbogainePage() {
           greater than any single compound. Western pharmacology is beginning to agree.
         </p>
         <div className="mb-6 rounded-md border-l-4 border-[#E65100] bg-[#FFF3E0] p-5">
-          <p className="m-0 mb-1 font-bold text-[#E65100]">Entourage Hypothesis</p>
+          <p className="m-0 mb-1 font-bold text-[#C24400]">Entourage Hypothesis</p>
           <p className="m-0 text-[1.05rem] leading-[1.75] text-pri-brown">
             Like cannabis (THC + CBD + terpenes) and ayahuasca (DMT + harmalines), iboga&apos;s full alkaloid profile may produce synergistic effects that
             isolated ibogaine cannot replicate. Coronaridine alone shows independent anti-addictive properties at NIDA. Tabernanthine provides the stimulant
             phase. Voacangine contributes anti-inflammatory action.
           </p>
         </div>
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
           <table className="w-full min-w-187.5 border-collapse">
             <thead>
               <tr>
@@ -283,7 +283,7 @@ export default function IbogaIbogainePage() {
           No other known compound hits this many addiction-relevant targets in a single dose. Its primary metabolite, noribogaine, extends the therapeutic
           window to 24–48 hours with stronger mu-opioid and serotonin transporter affinity than the parent compound.
         </p>
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
           <table className="w-full min-w-162.5 border-collapse">
             <thead>
               <tr>
@@ -335,7 +335,7 @@ export default function IbogaIbogainePage() {
           bark as a living intelligence — a teacher plant that communicates through visions, purging, and ancestor contact. The other isolates the most
           pharmacologically active molecule and administers it under EKG monitoring. Both save lives. Neither is wrong.
         </p>
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
           <table className="w-full min-w-150 border-collapse">
             <thead>
               <tr>
@@ -376,7 +376,7 @@ export default function IbogaIbogainePage() {
           years of observational evidence but limited Western-style controlled studies. What exists is compelling: single-dose ibogaine eliminates opioid
           withdrawal in 80–90% of cases and sustains craving reduction at 12 months in over half of participants.
         </p>
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
           <table className="w-full min-w-137.5 border-collapse">
             <thead>
               <tr>
@@ -437,7 +437,7 @@ export default function IbogaIbogainePage() {
                   <div className="text-base font-bold text-pri-cream">{item.name}</div>
                   <div className="mt-1 font-mono text-[.85rem] text-[#D4B96A]">{item.dosage}</div>
                   {item.searchUrl && (
-                    <a href={item.searchUrl} target="_blank" rel="noopener noreferrer" className="mt-1 inline-block text-[.8rem] text-pri-cream/50 underline">
+                    <a href={item.searchUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center mt-1 text-[.8rem] text-pri-cream/50 underline min-h-11 md:min-h-6">
                       Find on Amazon →
                     </a>
                   )}
@@ -456,7 +456,7 @@ export default function IbogaIbogainePage() {
           Iboga and ibogaine demand the highest readiness thresholds of any medicine in the PRI. The 24–72 hour duration, cardiac risk profile, and
           intensity of the visionary experience mean that every dimension must be at or near maximum before proceeding.
         </p>
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
           <table className="w-full min-w-162.5 border-collapse">
             <thead>
               <tr>
@@ -472,8 +472,8 @@ export default function IbogaIbogainePage() {
                 <tr key={r.dimension} className={i % 2 ? "bg-pri-parchment" : ""}>
                   <td className={`${tdClass} w-10 text-center text-2xl`}>{r.icon}</td>
                   <td className={`${tdClass} font-bold whitespace-nowrap`}>{r.dimension}</td>
-                  <td className={`${tdClass} font-bold ${r.ibogaThreshold.includes("Critical") ? "text-[#581C87]" : "text-[#8B6914]"}`}>{r.ibogaThreshold}</td>
-                  <td className={`${tdClass} font-bold ${r.ibogaineThreshold.includes("Critical") ? "text-[#581C87]" : "text-[#8B6914]"}`}>{r.ibogaineThreshold}</td>
+                  <td className={`${tdClass} font-bold ${r.ibogaThreshold.includes("Critical") ? "text-[#581C87]" : "text-[#836311]"}`}>{r.ibogaThreshold}</td>
+                  <td className={`${tdClass} font-bold ${r.ibogaineThreshold.includes("Critical") ? "text-[#581C87]" : "text-[#836311]"}`}>{r.ibogaineThreshold}</td>
                   <td className={tdClass}>{r.keyNote}</td>
                 </tr>
               ))}
@@ -491,7 +491,7 @@ export default function IbogaIbogainePage() {
           strongest trial data. For spiritual development, iboga (whole plant) in Bwiti context is unmatched in depth and duration. Know what you need
           before choosing.
         </p>
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
           <table className="w-full min-w-187.5 border-collapse">
             <thead>
               <tr>
@@ -556,7 +556,7 @@ export default function IbogaIbogainePage() {
 
         <PriEyebrow>The Numbers</PriEyebrow>
         <h3 className="mb-4 font-heading text-[clamp(1.3rem,3vw,1.8rem)] text-pri-ink">Updated Research Data (2024–2026)</h3>
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
           <table className="w-full min-w-162.5 border-collapse">
             <thead>
               <tr>
@@ -569,7 +569,7 @@ export default function IbogaIbogainePage() {
               {UPDATED_RESEARCH.map((r, i) => (
                 <tr key={r.condition} className={i % 2 ? "bg-pri-parchment" : ""}>
                   <td className={`${tdClass} font-semibold`}>{r.condition}</td>
-                  <td className={`${tdClass} font-mono font-extrabold text-[#8B6914]`}>{r.result}</td>
+                  <td className={`${tdClass} font-mono font-extrabold text-[#836311]`}>{r.result}</td>
                   <td className={`${tdClass} text-[.85rem] opacity-75`}>{r.source}</td>
                 </tr>
               ))}
@@ -577,7 +577,7 @@ export default function IbogaIbogainePage() {
           </table>
         </div>
         <div className="mt-6 rounded-md border-l-4 border-[#E65100] bg-[#FFF3E0] p-5">
-          <p className="m-0 mb-1 font-bold text-[#E65100]">Honest Limitations</p>
+          <p className="m-0 mb-1 font-bold text-[#C24400]">Honest Limitations</p>
           <p className="m-0 text-[1.05rem] leading-[1.75] text-pri-brown">
             Most studies are observational, not randomized controlled trials. Sample sizes are small. Ibogaine is not FDA-approved. The Research Square
             2026 study — 19,071 patients — is the largest safety analysis to date. Six deaths, all in opioid-use-disorder patients at under-resourced
@@ -690,7 +690,7 @@ export default function IbogaIbogainePage() {
                 <p className="m-0 text-[.9rem] text-[#6B5A4E]">
                   {f.location}
                   {f.focus && ` | ${f.focus}`} |{" "}
-                  <a href={f.url} target="_blank" rel="noopener noreferrer" className="text-[#8B6914]">
+                  <a href={f.url} target="_blank" rel="noopener noreferrer" className="text-[#836311] underline underline-offset-2">
                     {f.url.replace("https://", "")}
                   </a>{" "}
                   | {f.pricing}
@@ -710,7 +710,7 @@ export default function IbogaIbogainePage() {
         ))}
 
         <h3 className="mt-8 mb-4 font-heading text-xl text-pri-ink">Additional Verified Facilities</h3>
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
           <table className="w-full min-w-150 border-collapse">
             <thead>
               <tr>
@@ -727,7 +727,7 @@ export default function IbogaIbogainePage() {
                   <td className={tdClass}>{r.location}</td>
                   <td className={tdClass}>{r.focus}</td>
                   <td className={tdClass}>
-                    <a href={r.url} target="_blank" rel="noopener noreferrer" className="text-[#8B6914]">
+                    <a href={r.url} target="_blank" rel="noopener noreferrer" className="text-[#836311]">
                       {r.url.replace("https://", "")}
                     </a>
                   </td>
@@ -749,7 +749,7 @@ export default function IbogaIbogainePage() {
         </div>
 
         <h3 className="mt-8 mb-4 font-heading text-xl text-pri-ink">Quick Reference</h3>
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
           <table className="w-full min-w-175 border-collapse">
             <thead>
               <tr>
@@ -766,7 +766,7 @@ export default function IbogaIbogainePage() {
                 <tr key={r.name} className={i % 2 ? "bg-pri-parchment" : ""}>
                   <td className={`${tdClass} font-bold`}>{r.name}</td>
                   <td className={tdClass}>{r.loc}</td>
-                  <td className={`${tdClass} ${r.travel.includes("3") ? "text-[#E65100]" : r.travel.includes("2") ? "text-[#8B6914]" : ""}`}>{r.travel}</td>
+                  <td className={`${tdClass} ${r.travel.includes("3") ? "text-[#E65100]" : r.travel.includes("2") ? "text-[#836311]" : ""}`}>{r.travel}</td>
                   <td className={tdClass}>{r.vet}</td>
                   <td className={tdClass}>{r.nagoya}</td>
                   <td className={`${tdClass} font-mono`}>{r.price}</td>
@@ -799,9 +799,9 @@ export default function IbogaIbogainePage() {
           This is the core of ImpactSoul&apos;s thesis: regenerative capital heals. Extractive capital destroys. Ibogaine is the most literal test of that
           proposition I have encountered.
         </p>
-        <a href="https://tonygreenberg.com/psychedelics-could-become-extractive-capitalism/" className="inline-flex rounded-md bg-[#D4B96A] px-8 py-3 font-bold text-pri-ink">
+        <Link href="/blog/psychedelics-could-become-extractive-capitalism" className="inline-flex rounded-md bg-[#D4B96A] px-8 py-3 font-bold text-pri-ink">
           Read the Full Argument →
-        </a>
+        </Link>
       </PriSection>
 
       {/* ── US LEGAL STATUS ── */}

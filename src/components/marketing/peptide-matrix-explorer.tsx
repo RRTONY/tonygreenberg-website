@@ -16,11 +16,11 @@ const RISK_COLORS: Record<MatrixEntity["riskLevel"], string> = {
 // classes per CONTRIBUTING.md's rule of thumb, rather than assembled from
 // fragments at the usage site.
 const RISK_BADGE_CLASSES: Record<MatrixEntity["riskLevel"], string> = {
-  HIGHEST: "bg-[#C0392B]/15 text-[#C0392B]",
-  HIGH: "bg-[#E67E22]/15 text-[#E67E22]",
-  MODERATE: "bg-[#F1C40F]/15 text-[#F1C40F]",
-  LOW: "bg-[#2E8B57]/15 text-[#2E8B57]",
-  REGULATORY: "bg-[#4A90D9]/15 text-[#4A90D9]",
+  HIGHEST: "bg-[#C0392B]/15 text-[#A93226]",
+  HIGH: "bg-[#E67E22]/15 text-[#9B5212]",
+  MODERATE: "bg-[#F1C40F]/15 text-[#7A6207]",
+  LOW: "bg-[#2E8B57]/15 text-[#246C44]",
+  REGULATORY: "bg-[#4A90D9]/15 text-[#2365A9]",
 };
 
 const RISK_BORDER_CLASSES: Record<MatrixEntity["riskLevel"], string> = {
@@ -32,11 +32,11 @@ const RISK_BORDER_CLASSES: Record<MatrixEntity["riskLevel"], string> = {
 };
 
 const RISK_TEXT_CLASSES: Record<MatrixEntity["riskLevel"], string> = {
-  HIGHEST: "text-[#C0392B]",
-  HIGH: "text-[#E67E22]",
-  MODERATE: "text-[#F1C40F]",
-  LOW: "text-[#2E8B57]",
-  REGULATORY: "text-[#4A90D9]",
+  HIGHEST: "text-[#A93226]",
+  HIGH: "text-[#9B5212]",
+  MODERATE: "text-[#7A6207]",
+  LOW: "text-[#246C44]",
+  REGULATORY: "text-[#2365A9]",
 };
 
 // Canvas 2D drawing uses the Canvas API directly (ctx.fillStyle, etc.) —
@@ -267,7 +267,7 @@ export function PeptideMatrixExplorer() {
     <section className="mb-12">
       <button
         onClick={() => setExpanded(!expanded)}
-        className="mb-4 flex items-center gap-2 font-mono text-xs tracking-wide text-brand-gold uppercase"
+        className="mb-4 flex items-center gap-2 font-mono text-xs tracking-wide text-brand-gold uppercase min-h-11 md:min-h-6"
       >
         <ChevronRight className={`size-4 transition-transform ${expanded ? "rotate-90" : ""}`} />
         Interactive Matrix · Click Any Entity
@@ -350,7 +350,7 @@ export function PeptideMatrixExplorer() {
       )}
 
       <h2 className="mt-12 mb-6 font-heading text-2xl font-bold text-foreground">All Entities Ranked</h2>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
         <table className="w-full border-collapse text-sm">
           <thead>
             <tr className="border-b-2 border-foreground">
@@ -379,7 +379,7 @@ export function PeptideMatrixExplorer() {
                 <td className="px-2 py-2.5 text-foreground">{entity.evidence}/100</td>
                 <td
                   className={`px-2 py-2.5 font-bold ${
-                    entity.gap > 50 ? "text-[#C0392B]" : entity.gap > 0 ? "text-[#E67E22]" : "text-[#2E8B57]"
+                    entity.gap > 50 ? "text-[#A93226]" : entity.gap > 0 ? "text-[#9B5212]" : "text-[#246C44]"
                   }`}
                 >
                   {entity.gap > 0 ? `+${entity.gap}` : entity.gap}

@@ -56,15 +56,15 @@ export default function KavaOriginsPage() {
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <KavaCard>
             <div className="mb-3 flex items-center gap-2">
-              <div className="size-3 rounded-full bg-[#16a34a]" />
-              <h4 className="font-heading text-lg font-bold text-[#16a34a]">Noble Cultivars</h4>
+              <div className="size-3 rounded-full bg-[#166534]" />
+              <h4 className="font-heading text-lg font-bold text-[#166534]">Noble Cultivars</h4>
             </div>
             <div className="space-y-2 text-sm leading-[1.75] text-kava-ink">
               <p>Favorable kavalactone composition with more pleasant effects.</p>
               <p>Lower adverse event potential.</p>
               <p>Used by Polynesians for regular consumption for 3,000 years.</p>
               <p>Spread across all Pacific nations by navigators — for good reason.</p>
-              <p className="font-bold text-[#16a34a]">The only appropriate choice for PRI ceremonial use.</p>
+              <p className="font-bold text-[#166534]">The only appropriate choice for PRI ceremonial use.</p>
             </div>
           </KavaCard>
           <KavaCard>

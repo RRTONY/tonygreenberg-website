@@ -64,14 +64,14 @@ interface ColorClasses {
 // scanner picks it up — never assembled from `colorKey` fragments at render.
 export const PALETTE: Record<ColorKey, ColorClasses> = {
   gold: {
-    hex: "#8B6914",
-    text: "text-[#8B6914]",
-    border: "border-[#8B6914]",
-    borderL: "border-l-[#8B6914]",
-    borderT: "border-t-[#8B6914]",
-    bgSoft: "bg-[#8B6914]/10",
-    bgSolid: "bg-[#8B6914]",
-    accent: "accent-[#8B6914]",
+    hex: "#836311",
+    text: "text-[#836311]",
+    border: "border-[#836311]",
+    borderL: "border-l-[#836311]",
+    borderT: "border-t-[#836311]",
+    bgSoft: "bg-[#836311]/10",
+    bgSolid: "bg-[#836311]",
+    accent: "accent-[#836311]",
   },
   goldLight: {
     hex: "#D4B96A",

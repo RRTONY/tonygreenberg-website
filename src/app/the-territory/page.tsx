@@ -21,13 +21,13 @@ const HEROES = [
   { name: "Margaret Wheatley", role: "Systems Thinker, Author", note: "'Leadership and the New Science' taught me that organizations are living systems, not machines. You don't control them — you create the conditions for them to self-organize. That insight saved me from a decade of bad management." },
   { name: "Joanna Macy", role: "Buddhist Scholar, Systems Thinker", note: "The woman who married Buddhism with systems theory and told the rest of us to stop looking away. Her 'Work That Reconnects' is the emotional infrastructure for anyone trying to build something that matters while the world burns." },
   { name: "Matt Mochary", role: "CEO Coach, Author", note: "What Matt built is a phenomenon — the operating system for the most important, most skilled companies on the planet. 'The Great CEO Within' should be the operating Bible for anyone building a product company. Full stop. We occupy different terrain: RampRate lives at the extremes — Fortune 500 giants and tiny emerging companies just finding their footing. Matt owns the specific middle with surgical precision. He's the best in the world at what he does. We're the best in the world at what we do. That mutual recognition is rare, and it's the criteria by which we choose who to work with." },
-  { name: "Clarisse Abelarde", role: "Artist, Partner, Muse", note: "A constant source of inspiration for creativity and love for humankind. Her art reminds me daily that the most important things can't be measured, benchmarked, or tokenized." },
+  { name: "Clarisse Abelarde", role: "Artist, Partner, Muse", note: "A constant source of inspiration for creativity and love for humankind. Her art reminds me daily that the most important things can't be measured or tokenized." },
   { name: "The RampRate Team", role: "25 Years Deep", note: "The people who stayed. Who built. Who believed in the mission when the market didn't. Every company is only as good as the people who refuse to leave." },
 ];
 
 export default function TheTerritoryPage() {
   return (
-    <div className="mx-auto max-w-3xl px-6 py-10">
+    <div className="mx-auto max-w-[39rem] px-5 py-8 text-[1.1875rem]/[1.8] sm:px-10 sm:text-lg/[1.85]">
       <p className="mb-2 font-mono text-xs tracking-[0.15em] text-brand-gold uppercase">
         Gratitude
       </p>
@@ -91,7 +91,7 @@ export default function TheTerritoryPage() {
       </div>
 
       <div className="border-t border-border py-6 text-center">
-        <Link href="/engine-room" className="font-mono text-sm tracking-wide text-brand-gold">
+        <Link href="/engine-room" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
           Continue to The Engine Room →
         </Link>
       </div>

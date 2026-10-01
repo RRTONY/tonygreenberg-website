@@ -97,8 +97,8 @@ const CLIENTS: Client[] = [
 ];
 
 const HAWKINS_LEVELS = [
-  { label: "Courage", range: "200-249", color: "#C75B12", desc: "Taking action despite uncertainty" },
-  { label: "Neutrality", range: "250-299", color: "#8B6914", desc: "Flexible, pragmatic, adaptable" },
+  { label: "Courage", range: "200-249", color: "#AB4E0F", desc: "Taking action despite uncertainty" },
+  { label: "Neutrality", range: "250-299", color: "#836311", desc: "Flexible, pragmatic, adaptable" },
   { label: "Willingness", range: "300-349", color: "#1565C0", desc: "Open, optimistic, growth-oriented" },
   { label: "Acceptance", range: "350-399", color: "#2E7D32", desc: "Transformative, purpose-driven" },
   { label: "Enlightened", range: "400+", color: "#7B2D8E", desc: "Visionary, regenerative, transcendent" },
@@ -117,7 +117,7 @@ export default function ClientsPage() {
   return (
     <div>
       <div className="bg-linear-to-b from-background to-secondary px-6 pt-16 pb-12 sm:px-10">
-        <Link href="/" className="mb-6 inline-block font-mono text-xs tracking-wide text-brand-gold uppercase">
+        <Link href="/" className="inline-flex items-center mb-6 font-mono text-xs tracking-wide text-brand-gold uppercase min-h-11 md:min-h-6">
           ← Back to The Broadsheet
         </Link>
         <h1 className="mb-4 font-heading text-4xl font-bold text-foreground sm:text-5xl">
@@ -192,7 +192,7 @@ export default function ClientsPage() {
       </div>
 
       <div className="border-t border-border py-6 text-center">
-        <Link href="/recent-creations" className="font-mono text-sm tracking-wide text-brand-gold">
+        <Link href="/recent-creations" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
           Recent Creations →
         </Link>
       </div>

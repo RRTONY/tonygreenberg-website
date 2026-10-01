@@ -301,10 +301,10 @@ function barClassForScore(score: number): string {
 }
 
 const JOURNEY_CONTINUES = [
-  { name: "Find Your Purpose", hook: "The Dharma Finder — what you can't stop doing.", url: "/assessments/dharma-finder", badge: "25 Qs" },
+  { name: "Find Your Purpose", hook: "The Dharma Finder — what you can't stop doing.", url: "/dharma-finder", badge: "25 Qs" },
   { name: "Find Your Therapy", hook: "Matched to your wiring, not a waitlist.", url: "/find-your-therapy", badge: "25 Qs" },
   { name: "Find Your Spirit", hook: "Map your beliefs across 10 dimensions.", url: "/find-your-spirit", badge: "35 Qs" },
-  { name: "Find Your Level", hook: "Where you sit on the consciousness scale.", url: "/assessments/consciousness-scale", badge: "25 Qs" },
+  { name: "Find Your Level", hook: "Where you sit on the consciousness scale.", url: "/consciousness-scale", badge: "25 Qs" },
   { name: "Find Your Partner", hook: "15 questions mapping the architecture of your intimacy.", url: "https://intimacyassess-tcir3hon.manus.space", badge: "15 Qs" },
   { name: "Find Your Me", hook: "The gateway to the whole ecosystem.", url: "/find-your-me", badge: "5 Qs" },
 ];

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { PortableText, type PortableTextComponents } from "@portabletext/react";
+import { PortableText, type PortableTextBlock, type PortableTextComponents } from "@portabletext/react";
 import { urlFor } from "./image";
 
 function dimsFromRef(ref: string): { width: number; height: number } {
@@ -9,11 +9,35 @@ function dimsFromRef(ref: string): { width: number; height: number } {
   return { width: 1200, height: 800 };
 }
 
+// The essay drop cap (globals.css) goes on the first real paragraph. These
+// are flagged and skipped, so the drop cap moves to the next paragraph: one
+// opening with a link ("← Back to the main article") or a symbol (a giant gold
+// arrow), an all-bold label or all-italic caption line, or a short line like
+// the byline "By Tony Greenberg, Social Impact Instigator" (a drop cap needs a
+// few lines to sit in).
+function opensWithoutLetter(block: PortableTextBlock) {
+  const spans = (block.children ?? []) as { text?: string; marks?: string[] }[];
+  const first = spans[0];
+  if (!first?.text) return false;
+  const linkKeys = new Set((block.markDefs ?? []).filter((d) => d._type === "link").map((d) => d._key));
+  if (first.marks?.some((m) => linkKeys.has(m))) return true;
+  const allMarked = (mark: string) => spans.every((c) => !c.text?.trim() || c.marks?.includes(mark));
+  if (allMarked("strong") || allMarked("em")) return true;
+  if (spans.map((c) => c.text ?? "").join("").trim().length < 80) return true;
+  return !/^[\p{L}\p{N}"'“‘]/u.test(first.text.trimStart());
+}
+
 export const portableTextComponents: PortableTextComponents = {
   types: {
     image: ({ value }) => {
       if (!value?.asset?._ref) return null;
       const { width, height } = dimsFromRef(value.asset._ref);
+      // Matches legacy BlogPost.tsx's in-body images: capped at 620px tall
+      // (tall phone screenshots would otherwise run ~1700px), and the alt
+      // text doubles as the caption when there's no separate one. Legacy
+      // cropped tall images with object-cover; contain keeps the whole
+      // screenshot readable instead.
+      const caption = value.caption || value.alt;
       return (
         <figure className="my-8">
           <Image
@@ -22,14 +46,47 @@ export const portableTextComponents: PortableTextComponents = {
             width={width}
             height={height}
             sizes="(max-width: 768px) 100vw, 800px"
-            className="rounded-lg w-full h-auto"
+            className="mx-auto h-auto max-h-155 w-auto max-w-full rounded-lg object-contain shadow-[0_4px_30px_rgba(0,0,0,0.08)]"
           />
-          {value.caption && (
-            <figcaption className="mt-2 text-sm text-muted-foreground text-center">
-              {value.caption}
+          {caption && (
+            <figcaption className="mt-4 text-center text-xs leading-normal tracking-[0.02em] text-muted-foreground italic">
+              {caption}
             </figcaption>
           )}
         </figure>
+      );
+    },
+    // Legacy markdown tables (schemas/dataTable.ts). Scrolls sideways inside
+    // its own box on phones so the page itself never does.
+    dataTable: ({ value }) => {
+      const rows = ((value?.rows ?? []) as { _key?: string; cells?: string[] }[]).filter((r) => r.cells?.length);
+      if (rows.length < 2) return null;
+      const [head, ...body] = rows;
+      return (
+        <div className="my-8 overflow-x-auto rounded-lg border border-border" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
+          <table className="w-full border-collapse text-left text-sm">
+            <thead className="bg-secondary">
+              <tr>
+                {head.cells!.map((cell, i) => (
+                  <th key={i} scope="col" className="px-4 py-3 align-bottom font-mono text-xs font-semibold tracking-wide text-foreground uppercase">
+                    {cell}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {body.map((row, r) => (
+                <tr key={row._key ?? r} className="border-t border-border">
+                  {row.cells!.map((cell, i) => (
+                    <td key={i} className="px-4 py-3 align-top leading-relaxed text-foreground/85">
+                      {cell}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       );
     },
   },
@@ -37,7 +94,11 @@ export const portableTextComponents: PortableTextComponents = {
     h2: ({ children }) => <h2 className="mt-10 mb-4 font-heading text-2xl font-bold">{children}</h2>,
     h3: ({ children }) => <h3 className="mt-8 mb-3 font-heading text-xl font-bold">{children}</h3>,
     h4: ({ children }) => <h4 className="mt-6 mb-2 font-heading text-lg font-semibold">{children}</h4>,
-    normal: ({ children }) => <p className="mb-5 leading-relaxed">{children}</p>,
+    normal: ({ children, value }) => (
+      <p className="mb-5 leading-relaxed" data-no-drop-cap={opensWithoutLetter(value) || undefined}>
+        {children}
+      </p>
+    ),
     blockquote: ({ children }) => (
       <blockquote className="my-6 border-l-4 border-primary/40 pl-5 italic text-muted-foreground">
         {children}

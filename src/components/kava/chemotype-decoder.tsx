@@ -36,7 +36,7 @@ export function ChemotypeDecoder() {
           onKeyDown={(e) => e.key === "Enter" && decodeChemotype()}
           placeholder="e.g. 4-2-6-5-3-1"
           maxLength={20}
-          className="flex-1 bg-transparent text-center font-mono text-lg tracking-widest text-kava-ink outline-none"
+          className="flex-1 bg-transparent text-center font-mono text-lg tracking-widest text-kava-ink outline-none focus-visible:ring-2 focus-visible:ring-ring"
         />
         <button onClick={decodeChemotype} className="rounded-lg bg-kava-saffron px-4 py-2 text-sm font-bold text-white">
           Decode
@@ -65,8 +65,8 @@ export function ChemotypeDecoder() {
             </div>
           ))}
           {decodedResult[0]?.num === 4 && (
-            <div className="rounded-lg border-l-3 border-l-[#16a34a] bg-[#16a34a]/8 p-3 text-sm">
-              <strong className="text-[#16a34a]">PRI Ceremony Grade:</strong> Chemotypes with kavain (4) as dominant are most desirable for ceremonial use.
+            <div className="rounded-lg border-l-3 border-l-[#166534] bg-[#166534]/8 p-3 text-sm">
+              <strong className="text-[#166534]">PRI Ceremony Grade:</strong> Chemotypes with kavain (4) as dominant are most desirable for ceremonial use.
             </div>
           )}
         </div>

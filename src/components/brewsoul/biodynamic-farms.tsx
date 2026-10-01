@@ -72,7 +72,7 @@ export function BiodynamicFarms() {
             </div>
             <div className="flex flex-wrap gap-1.5">
               {farm.cert.map((c) => (
-                <span key={c} className="rounded-sm bg-[#c4873b]/15 px-2 py-1 font-mono text-[9px] tracking-wide text-[#c4873b]">
+                <span key={c} className="rounded-sm bg-[#c4873b]/15 px-2 py-1 font-mono text-[9px] tracking-wide text-[#80541c]">
                   {c}
                 </span>
               ))}
@@ -105,7 +105,7 @@ export function BiodynamicFarms() {
           {expanded === i && (
             <div className="mt-4 border-t border-white/10 pt-4">
               <div className="text-[15px] leading-relaxed text-[#e8dcc8]">{farm.story}</div>
-              <div className="mt-3 font-mono text-[11px] text-[#c4873b]">Supplies to: {farm.roasters.join(" · ")}</div>
+              <div className="mt-3 font-mono text-[11px] text-[#80541c]">Supplies to: {farm.roasters.join(" · ")}</div>
             </div>
           )}
           <div className="mt-2 font-mono text-[10px] text-[#6b5a4e]">{expanded === i ? "▲ Collapse" : "▼ Tap for full story"}</div>

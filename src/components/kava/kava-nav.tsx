@@ -32,17 +32,17 @@ export function KavaNav() {
   return (
     <header className="sticky top-0 z-50 border-b border-kava-sand-muted bg-kava-sand backdrop-blur-sm">
       <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-5">
-        <Link href="/" className="flex items-center gap-1.5 text-sm font-medium text-kava-ink opacity-60 hover:opacity-100">
+        <Link href="/" aria-label="Back to TonyGreenberg.com" className="flex min-h-11 min-w-11 items-center gap-1.5 text-sm font-medium text-kava-ink opacity-60 hover:opacity-100">
           <ChevronLeft size={16} />
           <span className="hidden sm:inline">TonyG</span>
         </Link>
 
-        <Link href="/kava" className="flex items-center gap-2">
+        <Link href="/kava" className="flex min-h-11 items-center gap-2">
           <Beaker size={20} className="text-kava-saffron" />
           <span className="font-heading text-base font-bold tracking-wide text-kava-ink">PRI KAVA</span>
         </Link>
 
-        <button onClick={() => setMenuOpen(!menuOpen)} className="rounded-md p-2 hover:bg-black/5" aria-label="Toggle navigation">
+        <button onClick={() => setMenuOpen(!menuOpen)} className="flex size-11 items-center justify-center rounded-md hover:bg-black/5" aria-label="Toggle navigation">
           {menuOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
       </div>
@@ -96,19 +96,19 @@ export function KavaFooter() {
   return (
     <footer className="border-t border-kava-sand-muted px-5 py-8 text-center">
       <p className="mb-1 font-heading text-sm font-medium text-kava-saffron">PRI Kava Framework v2.0</p>
-      <p className="text-xs text-kava-ink opacity-50">
+      <p className="text-xs text-kava-ink/75">
         For facilitator training and research use. Not medical advice.
         <br />
         Consult a licensed medical professional before making any changes to medications or health protocols.
       </p>
       <div className="mt-4 flex items-center justify-center gap-4">
-        <Link href="/kava" className="text-xs font-medium text-kava-ink opacity-50 underline hover:opacity-100">
+        <Link href="/kava" className="inline-flex min-h-11 md:min-h-6 items-center text-xs font-medium text-kava-ink opacity-70 underline hover:opacity-100">
           Kava Home
         </Link>
-        <Link href="/psychedelic-readiness-index" className="text-xs font-medium text-kava-ink opacity-50 underline hover:opacity-100">
+        <Link href="/psychedelic-readiness-index" className="inline-flex min-h-11 md:min-h-6 items-center text-xs font-medium text-kava-ink opacity-70 underline hover:opacity-100">
           Full PRI
         </Link>
-        <Link href="/" className="text-xs font-medium text-kava-ink opacity-50 underline hover:opacity-100">
+        <Link href="/" className="inline-flex min-h-11 md:min-h-6 items-center text-xs font-medium text-kava-ink opacity-70 underline hover:opacity-100">
           TonyGreenberg.com
         </Link>
       </div>

@@ -151,14 +151,14 @@ function ExperienceCard({ experience, isCompleted }: { experience: JourneyExperi
         </div>
         <span
           className={`shrink-0 rounded-md border px-2 py-0.5 font-mono text-[0.5rem] tracking-[0.15em] uppercase ${
-            isCompleted ? `${cat.borderClass} ${cat.bgClass} ${cat.textClass}` : "border-white/5 bg-white/5 text-[#E8E4DC]/30"
+            isCompleted ? `${cat.borderClass} ${cat.bgClass} ${cat.textClass}` : "border-white/5 bg-white/5 text-[#E8E4DC]/60"
           }`}
         >
           {isCompleted ? "✓ Complete" : "Not Started"}
         </span>
       </div>
 
-      <p className="mb-0 text-[0.85rem] leading-relaxed text-[#E8E4DC]/50">{statusCopy}</p>
+      <p className="mb-0 text-[0.85rem] leading-relaxed text-[#E8E4DC]/75">{statusCopy}</p>
 
       <div className="mt-4">
         {experience.isExternal ? (
@@ -206,7 +206,7 @@ function PhaseTimeline({ completed }: { completed: Set<string> }) {
 
               <div className="mb-1 flex items-baseline gap-2">
                 <span className="font-mono text-[0.55rem] tracking-[0.15em] text-brand-gold-light/40 uppercase">Phase {phase.phase}</span>
-                <span className={`font-mono text-[0.55rem] ${isComplete ? "text-brand-gold-light" : "text-[#E8E4DC]/30"}`}>
+                <span className={`font-mono text-[0.55rem] ${isComplete ? "text-brand-gold-light" : "text-[#E8E4DC]/60"}`}>
                   {done}/{total}
                 </span>
               </div>
@@ -298,7 +298,7 @@ export function MyJourneyDashboard() {
           <div className="flex flex-wrap items-start justify-between gap-6">
             <div>
               <h1 className="mb-2 font-heading text-[clamp(1.8rem,4vw,2.8rem)] leading-[1.1] font-bold text-[#E8E4DC]">My Journey</h1>
-              <p className="max-w-130 text-base leading-relaxed text-[#E8E4DC]/50">
+              <p className="max-w-130 text-base leading-relaxed text-[#E8E4DC]/75">
                 Every question answered is a mirror held up. Every result, a compass point. This is your map of self-discovery — incomplete,
                 evolving, honest.
               </p>
@@ -382,7 +382,7 @@ export function MyJourneyDashboard() {
                 key={mode}
                 onClick={() => setViewMode(mode)}
                 className={`rounded-md border px-3.5 py-1.5 font-mono text-[0.6rem] tracking-[0.1em] uppercase ${
-                  viewMode === mode ? "border-brand-gold-light/20 bg-brand-gold-light/10 text-brand-gold-light" : "border-white/5 text-[#E8E4DC]/30"
+                  viewMode === mode ? "border-brand-gold-light/20 bg-brand-gold-light/10 text-brand-gold-light" : "border-white/5 text-[#E8E4DC]/60"
                 }`}
               >
                 {mode === "grid" ? "◫ Grid" : "⊞ Timeline"}
@@ -420,7 +420,7 @@ export function MyJourneyDashboard() {
           )}
 
           {viewMode === "grid" && filteredExperiences.length === 0 && (
-            <p className="py-16 text-center font-heading text-lg text-[#E8E4DC]/30 italic">No experiences match your filters.</p>
+            <p className="py-16 text-center font-heading text-lg text-[#E8E4DC]/60 italic">No experiences match your filters.</p>
           )}
         </div>
 
@@ -444,7 +444,7 @@ export function MyJourneyDashboard() {
         )}
 
         <footer className="mx-auto mt-12 max-w-300 border-t border-brand-gold-light/8 px-6 pt-8 text-center">
-          <p className="mb-4 font-heading text-[0.9rem] text-[#E8E4DC]/30 italic">
+          <p className="mb-4 font-heading text-[0.9rem] text-[#E8E4DC]/60 italic">
             &ldquo;The unexamined life is not worth living — but the over-examined life needs a dashboard.&rdquo;
           </p>
           <div className="flex flex-wrap justify-center gap-6">

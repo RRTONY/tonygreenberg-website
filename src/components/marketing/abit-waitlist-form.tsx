@@ -46,7 +46,7 @@ export function AbitWaitlistForm() {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="your@email.com"
           required
-          className="min-w-0 flex-1 bg-transparent px-4 py-2.5 font-body text-sm text-[#F5F0E0] outline-none placeholder:text-[#F5F0E0]/50"
+          className="min-w-0 flex-1 rounded-sm bg-transparent px-4 py-2.5 font-body text-sm text-[#F5F0E0] outline-none placeholder:text-[#F5F0E0]/50 focus-visible:ring-2 focus-visible:ring-brand-gold-light/60"
         />
         <button type="submit" className="shrink-0 bg-brand-gold/85 px-5 py-2.5 font-mono text-xs font-semibold tracking-[0.08em] text-white uppercase transition-colors hover:bg-brand-gold">
           Join Waitlist

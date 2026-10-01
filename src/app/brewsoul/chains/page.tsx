@@ -18,8 +18,8 @@ export const metadata: Metadata = {
 export default function BrewSoulChainsPage() {
   return (
     <section className="mx-auto max-w-240 px-6 py-12">
-      <div className="mb-2 font-mono text-xs tracking-[0.25em] text-[#C5A23C] uppercase">The Definitive Ranking</div>
-      <h1 className="mb-2 font-heading text-3xl font-bold text-[#2C1810] sm:text-4xl">Top 100 Coffee Chains</h1>
+      <div className="mb-2 font-mono text-xs tracking-[0.25em] text-[#836311] uppercase">The Definitive Ranking</div>
+      <h1 className="mb-2 font-heading text-3xl font-bold text-[#2C1810] sm:text-[2.4rem]">Top 100 Coffee Chains</h1>
       <p className="mb-4 max-w-3xl text-[0.95rem] leading-relaxed text-[#6B5B4F]">
         Every major coffee chain in America, objectively scored across five dimensions: Coffee Quality (30%), Value (25%), Sourcing Ethics (20%),
         Experience (15%), and Consistency (10%). Aggregate scores from consumer reviews, expert panels, transparency audits, and direct trade data.
@@ -42,7 +42,7 @@ export default function BrewSoulChainsPage() {
       </div>
 
       <div className="mb-8 rounded-lg border border-[#C5A23C]/15 bg-[#C5A23C]/6 p-5">
-        <div className="mb-1.5 font-mono text-[0.65rem] tracking-[0.15em] text-[#8B6914] uppercase">Scoring Methodology</div>
+        <div className="mb-1.5 font-mono text-[0.65rem] tracking-[0.15em] text-[#836311] uppercase">Scoring Methodology</div>
         <p className="text-[0.82rem] leading-relaxed text-[#6B5B4F]">
           Each dimension is scored 1–10 by aggregating Google reviews (4M+), Yelp reviews (2M+), SCA judge evaluations, specialty press ratings (Sprudge,
           Daily Coffee News, Barista Magazine), B Corp certifications, direct trade audit reports, and blind cupping panels. The weighted composite

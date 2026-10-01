@@ -27,9 +27,9 @@ export function HealthCompounds({ compounds }: { compounds: Compound[] }) {
           <div className="flex flex-wrap items-start justify-between gap-2">
             <div>
               <div className="font-heading text-lg font-bold text-[#1a0e08] italic">{c.name}</div>
-              <div className="mt-0.5 font-mono text-xs text-[#c4873b]">{c.amount}</div>
+              <div className="mt-0.5 font-mono text-xs text-[#99692E]">{c.amount}</div>
             </div>
-            <span className={`rounded-sm px-2 py-0.5 font-mono text-[9px] tracking-wide text-white ${c.preserved ? "bg-[#3a7a4a]" : "bg-[#c4873b]"}`}>
+            <span className={`rounded-sm px-2 py-0.5 font-mono text-[9px] tracking-wide text-white ${c.preserved ? "bg-[#3a7a4a]" : "bg-[#94612a]"}`}>
               {c.preserved ? "Preserved in Decaf" : "Lost in Decaf"}
             </span>
           </div>

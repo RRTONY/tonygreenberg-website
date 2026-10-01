@@ -44,11 +44,11 @@ const PEPTIDE_TOOLS = [
 export default function TheBodyPage() {
   return (
     <div>
-      <div className="relative h-64 overflow-hidden sm:h-80">
+      <div className="relative h-[25.3rem] overflow-hidden">
         <Image src={HERO_IMAGE} alt="Wellness and longevity elements" fill priority className="object-cover" />
       </div>
 
-      <div className="mx-auto max-w-3xl px-6 py-10">
+      <div className="mx-auto max-w-[39rem] px-5 py-8 text-[1.1875rem]/[1.8] sm:px-10 sm:text-lg/[1.85]">
         <p className="mb-2 font-mono text-xs tracking-[0.15em] text-brand-gold uppercase">
           Door 05 — Deep Dive
         </p>
@@ -137,7 +137,7 @@ export default function TheBodyPage() {
         </div>
 
         <div className="border-t border-border py-6 text-center">
-          <Link href="/the-nightstand" className="font-mono text-sm tracking-wide text-brand-gold">
+          <Link href="/the-nightstand" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
             Continue to The Nightstand →
           </Link>
         </div>

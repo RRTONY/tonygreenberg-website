@@ -18,7 +18,14 @@
 // displayed again.
 
 export const FACILITATOR_HERO_IMAGE =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/facilitator-hero-v2-KJX7ZmJuuiqi4wVnYJoJYW.webp";
+  "https://cdn.sanity.io/images/a3q1cyqs/production/5fda5233a00c0cd0161d195de059dd500b85df7e-1920x1072.webp";
+
+// Legacy's two in-body section images, rescued from the Manus /api/img/
+// proxy into Sanity on 2026-09-29 (scripts/rescue-facilitator-images.ts).
+export const FACILITATOR_BANDS_IMAGE =
+  "https://cdn.sanity.io/images/a3q1cyqs/production/710b8c623f37d45a4fbb7b423063116432f3c0ca-1200x805.webp";
+export const FACILITATOR_COMPASS_IMAGE =
+  "https://cdn.sanity.io/images/a3q1cyqs/production/70c81c5472949bb5d0510149a416bf18a123d2d3-1200x1200.webp";
 
 export interface QuickQuestion {
   id: string;

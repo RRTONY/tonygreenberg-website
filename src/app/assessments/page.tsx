@@ -64,7 +64,7 @@ export default function AssessmentsPage() {
                 <p className="mb-2 font-mono text-xs tracking-[0.2em] uppercase" style={{ color: a.accent }}>
                   {a.subtitle}
                 </p>
-                <h3 className="mb-3 font-heading text-xl font-normal text-foreground">{a.title}</h3>
+                <h2 className="mb-3 font-heading text-xl font-normal text-foreground">{a.title}</h2>
                 <p className="max-w-170 text-[1.05rem] leading-[1.7] text-muted-foreground">{a.description}</p>
               </div>
               <div className="flex flex-row items-center gap-3 sm:flex-col sm:items-end sm:text-right">

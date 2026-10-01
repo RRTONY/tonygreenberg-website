@@ -45,7 +45,7 @@ export function CharityScorecardExplorer() {
   return (
     <div>
       <nav className="sticky top-14 z-30 border-b border-border bg-background/95 backdrop-blur">
-        <div className="mx-auto flex max-w-5xl gap-0 px-4">
+        <div className="mx-auto flex max-w-5xl gap-0 overflow-x-auto px-4">
           {(
             [
               { id: "rankings" as Tab, label: "Rankings", icon: TrendingUp },
@@ -161,6 +161,7 @@ function RankingsTab() {
         <div className="relative">
           <Filter className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
           <select
+            aria-label="Filter by sector"
             value={sectorFilter}
             onChange={(e) => setSectorFilter(e.target.value as Sector | "all")}
             className="min-w-45 cursor-pointer appearance-none rounded-md border border-border bg-background py-2 pr-8 pl-10 text-sm"

@@ -75,7 +75,7 @@ const JOURNEYS: Journey[] = [
     id: "the-body-electric",
     icon: "⚡",
     title: "The Body Electric",
-    subtitle: "For the biohacker who wants receipts",
+    subtitle: "For the curious reader who wants receipts",
     description:
       "You own an Oura Ring. You've Googled 'peptides' at 2am. You suspect your doctor knows less about your blood than you do. This path connects the health investments, the alt therapy scorecard, the psychedelic medicine portfolio, and the longevity protocols — with the measurement framework that makes it science, not woo-woo.",
     duration: "~12 min read",
@@ -111,7 +111,7 @@ const JOURNEYS: Journey[] = [
     title: "The Relationship Circuit",
     subtitle: "For anyone who suspects love has a science — and a sacred geometry",
     description:
-      "A friend texted from Jerusalem: 'Do you know any Jewish men in their 50s who'd want to marry my friend?' That text was the spark that lit years of accumulated research on fire. This path traces the full arc — from the neuroscience of magnetic partnership, through the arithmetic of mutual value, the decay of modern communication, and the ties that bind us in a century that keeps trying to untie everything.",
+      "A friend texted from Jerusalem: 'Do you know any Jewish men in their 50s who'd want to marry my friend?' That text was the spark that lit years of accumulated research on fire. This path traces the full arc — from the neuroscience of magnetic partnership, through the arithmetic of mutual value, the decay of modern communication, and the ties that bind us in a century that keeps trying to untie everything. Along the way, it connects to the measurement frameworks and flow states that make relationships — like teams, like water, like everything worth studying — a matter of coherence, not luck.",
     duration: "~25 min read",
     mood: "Intimate. Scientific. Occasionally devastating.",
     stops: [
@@ -129,7 +129,7 @@ const JOURNEYS: Journey[] = [
     title: "The Whole Catastrophe",
     subtitle: "Read everything. Miss nothing.",
     description:
-      "You have time. You have curiosity. You want the full Zorba — catharsis and communion, the cracking open that lets the light in. This is the linear path through every page, in the order it was meant to be read.",
+      "You have time. You have curiosity. You want the full Zorba — catharsis and communion, the cracking open that lets the light in. This is the linear path through every page, in the order it was meant to be read. The letter, the doors, the territory, the engine, the secrets, the body, the books, the web, and finally — the phone number.",
     duration: "~60 min read",
     mood: "Everything. All of it. The beautiful mess.",
     stops: [
@@ -148,8 +148,8 @@ const JOURNEYS: Journey[] = [
 
 export default function JourneysPage() {
   return (
-    <div className="px-6 py-10">
-      <div className="mx-auto mb-10 max-w-3xl">
+    <div className="px-5 py-10 sm:px-6">
+      <div className="mx-auto mb-10 max-w-[34.125rem] text-[1.1875rem]/[1.8] sm:text-lg/[1.85]">
         <p className="mb-2 font-mono text-xs tracking-[0.15em] text-brand-gold uppercase">
           Choose Your Own Adventure
         </p>

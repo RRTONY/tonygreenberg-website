@@ -48,7 +48,7 @@ export default function PeyoteMescalinePage() {
       <section className="relative mx-auto flex min-h-[80vh] max-w-225 flex-col justify-center overflow-hidden px-5 pt-22 pb-16">
         <div className="absolute top-[5%] right-[-8%] z-0 h-3/4 w-1/2 overflow-hidden rounded-3xl opacity-30">
           <Image
-            src="https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/pri-hero-mescaline-LZ6qL5rTNsm96kDqBfwRyg.webp"
+            src="https://cdn.sanity.io/images/a3q1cyqs/production/d63325647995d649a53f8850e89974f071b2170e-1920x1072.webp"
             alt=""
             fill
             sizes="50vw"
@@ -95,7 +95,7 @@ export default function PeyoteMescalinePage() {
       <PriSection id="pharmacology">
         <div className="relative mb-8 h-[clamp(180px,25vw,280px)] w-full overflow-hidden rounded-md shadow-[0_8px_40px_rgba(107,33,168,.15)]">
           <Image
-            src="https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/pri-section-pharmacology-8nrnRWUbqMfZ8EUM9utBPY.webp"
+            src="https://cdn.sanity.io/images/a3q1cyqs/production/2df10596e3944eecf05511fb6164ee34ee2bf198-1920x1288.webp"
             alt="Receptor pharmacology"
             fill
             sizes="100vw"
@@ -104,7 +104,7 @@ export default function PeyoteMescalinePage() {
         </div>
         <PriEyebrow>Receptor Pharmacology</PriEyebrow>
         <h2 className="mb-6 font-heading text-[clamp(1.5rem,4vw,2.5rem)] text-pri-ink">Key Receptors</h2>
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
           <table className="w-full min-w-125 border-collapse">
             <thead>
               <tr>
@@ -135,7 +135,7 @@ export default function PeyoteMescalinePage() {
       <PriSection id="latuda-mirror" dark>
         <div className="relative mb-8 h-[clamp(180px,25vw,280px)] w-full overflow-hidden rounded-md">
           <Image
-            src="https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/mesc_latuda-YgTpmPv22YnAyD4CQiGmzE.webp"
+            src="https://cdn.sanity.io/images/a3q1cyqs/production/6fa3d0279b69ce5b6b8aa5e8d37c3a431dcf9049-1920x1072.webp"
             alt=""
             fill
             sizes="100vw"
@@ -148,13 +148,13 @@ export default function PeyoteMescalinePage() {
         <p className="mb-8 max-w-150 text-[clamp(.9rem,2.5vw,1.05rem)] text-pri-cream/60">
           Latuda (lurasidone) and mescaline share the same receptor targets with opposite actions:
         </p>
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
           <table className="w-full min-w-115 border-collapse">
             <thead>
               <tr>
-                <th className="border-b border-pri-cream/10 bg-pri-cream/8 px-3 py-2.5 text-left text-xs font-extrabold tracking-[0.08em] whitespace-nowrap text-pri-cream/50 uppercase">Receptor</th>
-                <th className="border-b border-pri-cream/10 bg-pri-cream/8 px-3 py-2.5 text-left text-xs font-extrabold tracking-[0.08em] whitespace-nowrap text-pri-cream/50 uppercase">Latuda</th>
-                <th className="border-b border-pri-cream/10 bg-pri-cream/8 px-3 py-2.5 text-left text-xs font-extrabold tracking-[0.08em] whitespace-nowrap text-pri-cream/50 uppercase">Mescaline</th>
+                <th className="border-b border-pri-cream/10 bg-pri-cream/8 px-3 py-2.5 text-left text-xs font-extrabold tracking-[0.08em] whitespace-nowrap text-pri-cream/65 uppercase">Receptor</th>
+                <th className="border-b border-pri-cream/10 bg-pri-cream/8 px-3 py-2.5 text-left text-xs font-extrabold tracking-[0.08em] whitespace-nowrap text-pri-cream/65 uppercase">Latuda</th>
+                <th className="border-b border-pri-cream/10 bg-pri-cream/8 px-3 py-2.5 text-left text-xs font-extrabold tracking-[0.08em] whitespace-nowrap text-pri-cream/65 uppercase">Mescaline</th>
               </tr>
             </thead>
             <tbody>
@@ -181,7 +181,7 @@ export default function PeyoteMescalinePage() {
       <PriSection id="outcomes">
         <div className="relative mb-8 h-[clamp(180px,25vw,280px)] w-full overflow-hidden rounded-md">
           <Image
-            src="https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/mesc_outcomes-bwmiTnjaYvWoVQcSh4mTTE.webp"
+            src="https://cdn.sanity.io/images/a3q1cyqs/production/aa5fb7be691a23fefde9c5c333bc49ce179f8c9a-1920x1072.webp"
             alt=""
             fill
             sizes="100vw"
@@ -204,11 +204,11 @@ export default function PeyoteMescalinePage() {
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div className="border-l-3 border-[#C9A84C] bg-pri-parchment p-5">
-            <div className="mb-1 text-xs font-extrabold tracking-[0.08em] text-[#C9A84C] uppercase">Spiritual Significance</div>
+            <div className="mb-1 text-xs font-extrabold tracking-[0.08em] text-[#866E29] uppercase">Spiritual Significance</div>
             <div className="text-[.88rem] leading-[1.6] text-pri-brown">{OUTCOMES_SPIRITUAL}</div>
           </div>
           <div className="border-l-3 border-[#6B8F71] bg-pri-parchment p-5">
-            <div className="mb-1 text-xs font-extrabold tracking-[0.08em] text-[#6B8F71] uppercase">Intent Paradox</div>
+            <div className="mb-1 text-xs font-extrabold tracking-[0.08em] text-[#5A785F] uppercase">Intent Paradox</div>
             <div className="text-[.88rem] leading-[1.6] text-pri-brown">{OUTCOMES_INTENT}</div>
           </div>
         </div>
@@ -218,7 +218,7 @@ export default function PeyoteMescalinePage() {
       <PriSection id="pharma-alternatives" dark>
         <div className="relative mb-8 h-[clamp(180px,25vw,280px)] w-full overflow-hidden rounded-md">
           <Image
-            src="https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_67_mesc_pharma_d25171fc.jpg"
+            src="https://cdn.sanity.io/images/a3q1cyqs/production/037cce693c9a348f8c11a9faa3137c4a2656f2f0-1200x670.jpg"
             alt=""
             fill
             sizes="100vw"
@@ -247,7 +247,7 @@ export default function PeyoteMescalinePage() {
       <PriSection id="supplements">
         <div className="relative mb-8 h-[clamp(180px,25vw,280px)] w-full overflow-hidden rounded-md">
           <Image
-            src="https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_64_mesc_b5ca252b.jpg"
+            src="https://cdn.sanity.io/images/a3q1cyqs/production/5fe9eaa02ef1901c720475830785db600dcf7e6a-1200x670.jpg"
             alt=""
             fill
             sizes="100vw"
@@ -260,9 +260,9 @@ export default function PeyoteMescalinePage() {
         <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-6">
           {SUPPLEMENT_STACKS.map((phase) => (
             <div key={phase.phase} className="border border-pri-border bg-pri-parchment">
-              <div className={`px-4 py-3 ${phase.phase === "PRE" ? "bg-[#6B8F71]" : phase.phase === "DAY-OF" ? "bg-[#C9A84C]" : "bg-pri-purple"}`}>
+              <div className={`px-4 py-3 ${phase.phase === "PRE" ? "bg-[#536F58]" : phase.phase === "DAY-OF" ? "bg-[#7B6425]" : "bg-pri-purple"}`}>
                 <div className="text-xs font-extrabold tracking-[0.1em] text-white uppercase">{phase.phase}</div>
-                <div className="text-[.78rem] text-white/70">{phase.timing}</div>
+                <div className="text-[.78rem] text-white/90">{phase.timing}</div>
               </div>
               <div className="p-4">
                 {phase.items.map((item, i) => (
@@ -288,7 +288,7 @@ export default function PeyoteMescalinePage() {
       <PriSection id="dimensions" dark>
         <div className="relative mb-8 h-[clamp(180px,25vw,280px)] w-full overflow-hidden rounded-md">
           <Image
-            src="https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/mesc_dimensions-9RVHkrAxpLwCZgHTJAW5G3.webp"
+            src="https://cdn.sanity.io/images/a3q1cyqs/production/926fb6af7c77f618596e53305d563d47d5281d95-1920x1072.webp"
             alt=""
             fill
             sizes="100vw"
@@ -328,7 +328,7 @@ export default function PeyoteMescalinePage() {
       <PriSection id="selector">
         <PriEyebrow>Medicine Selector</PriEyebrow>
         <h2 className="mb-6 font-heading text-[clamp(1.5rem,4vw,2.5rem)] text-pri-ink">How Mescaline Compares</h2>
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
           <table className="w-full min-w-187.5 border-collapse">
             <thead>
               <tr>
@@ -359,7 +359,7 @@ export default function PeyoteMescalinePage() {
                     <td className={tdClass}>
                       <span
                         className={`border px-1.5 py-0.5 text-xs font-bold ${
-                          m.evidence.startsWith("Strong") ? "border-[#6B8F71]/30 bg-[#6B8F71]/15 text-[#3D6B44]" : "border-[#C9A84C]/30 bg-[#C9A84C]/15 text-[#8B6914]"
+                          m.evidence.startsWith("Strong") ? "border-[#6B8F71]/30 bg-[#6B8F71]/15 text-[#3D6B44]" : "border-[#C9A84C]/30 bg-[#C9A84C]/15 text-[#7A5C10311]"
                         }`}
                       >
                         {m.evidence}
@@ -377,7 +377,7 @@ export default function PeyoteMescalinePage() {
       <PriSection id="sources" dark>
         <div className="relative mb-8 h-[clamp(180px,25vw,280px)] w-full overflow-hidden rounded-md">
           <Image
-            src="https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/mesc_sources-aQ77qjP56eHB6vhUJNNXAo.webp"
+            src="https://cdn.sanity.io/images/a3q1cyqs/production/fbba337e52018b805d21f298be1b963d1b3510cf-1920x1072.webp"
             alt=""
             fill
             sizes="100vw"
@@ -397,23 +397,23 @@ export default function PeyoteMescalinePage() {
       </PriSection>
 
       {/* ── FOOTER ── */}
-      <footer className="bg-pri-ink px-5 py-12 text-center text-pri-cream/40">
+      <footer className="bg-pri-ink px-5 py-12 text-center text-pri-cream/60">
         <div className="mx-auto max-w-150">
           <div className="mb-1 font-heading text-[1.3rem] text-pri-cream">
             ImpactSoul <span className="text-pri-purple">×</span> Psychedelic Readiness Index
           </div>
           <div className="mb-4 text-[.78rem]">A consciousness-aligned capital initiative</div>
           <div className="my-4 flex flex-wrap justify-center gap-6">
-            <Link href="/psychedelic-readiness-index" className="text-[.72rem] font-semibold tracking-[0.06em] text-pri-cream/35 uppercase">
+            <Link href="/psychedelic-readiness-index" className="text-[.72rem] font-semibold tracking-[0.06em] text-pri-cream/60 uppercase">
               ← Back to PRI
             </Link>
-            <Link href="/" className="text-[.72rem] font-semibold tracking-[0.06em] text-pri-cream/35 uppercase">
+            <Link href="/" className="text-[.72rem] font-semibold tracking-[0.06em] text-pri-cream/60 uppercase">
               TonyGreenberg.com
             </Link>
           </div>
           <div className="mt-6 border-t border-pri-cream/6 pt-5">
-            <div className="mb-2 text-xs font-bold tracking-[0.08em] text-pri-purple uppercase">Legal Disclaimer</div>
-            <div className="text-[.7rem] leading-[1.8] text-pri-cream/35">{MESCALINE_DISCLAIMER}</div>
+            <div className="mb-2 text-xs font-bold tracking-[0.08em] text-pri-purple-light uppercase">Legal Disclaimer</div>
+            <div className="text-[.7rem] leading-[1.8] text-pri-cream/60">{MESCALINE_DISCLAIMER}</div>
           </div>
         </div>
       </footer>

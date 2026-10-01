@@ -33,7 +33,7 @@ const SOCIAL_LINKS = [
 
 export default function PickUpThePhonePage() {
   return (
-    <div className="mx-auto max-w-3xl px-6 py-10">
+    <div className="mx-auto max-w-[39rem] px-5 py-10 text-[1.1875rem]/[1.8] sm:px-10 sm:text-lg/[1.85]">
       <p className="mb-2 font-mono text-xs tracking-[0.15em] text-brand-gold uppercase">
         Let&apos;s Talk
       </p>
@@ -66,7 +66,7 @@ export default function PickUpThePhonePage() {
         </p>
         <Link
           href="/engage"
-          className="inline-block rounded-sm bg-brand-gold-light px-8 py-3 font-mono text-sm tracking-wide text-background uppercase"
+          className="inline-block rounded-sm bg-brand-gold-light px-8 py-3 font-mono text-sm tracking-wide text-[#0A0A10] uppercase"
         >
           Enter The Gate →
         </Link>

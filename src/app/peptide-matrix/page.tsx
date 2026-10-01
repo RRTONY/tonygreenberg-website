@@ -91,9 +91,9 @@ export default function PeptideMatrixPage() {
       <PeptideShutdownBanner />
 
       <div className="border-b border-brand-gold/15 bg-[#0A0A10] px-6 py-2.5 text-center">
-        <p className="font-mono text-xs tracking-wide text-brand-gold/60 uppercase">
+        <p className="font-mono text-xs tracking-wide text-brand-gold-light/80 uppercase">
           Mirror of the Market · Fair Comment · Public Interest · Not Medical Advice ·{" "}
-          <a href="#appeals" className="text-brand-gold underline">
+          <a href="#appeals" className="text-brand-gold-light underline">
             Appeals Process
           </a>
         </p>
@@ -134,12 +134,12 @@ export default function PeptideMatrixPage() {
                 style={{ background: `${q.color}14`, borderColor: q.color }}
               >
                 <div className="mb-1.5 flex items-center justify-between">
-                  <h3 className="font-mono text-xs font-bold tracking-wide uppercase" style={{ color: q.color }}>
+                  <h3 className="font-mono text-xs font-bold tracking-wide uppercase" style={{ color: q.textColor }}>
                     {q.id}: {q.label}
                   </h3>
                   <span
                     className="rounded-full px-2 py-0.5 font-mono text-[0.6rem]"
-                    style={{ background: `${q.color}22`, color: q.color }}
+                    style={{ background: `${q.color}22`, color: q.textColor }}
                   >
                     {q.risk} RISK
                   </span>
@@ -232,23 +232,23 @@ export default function PeptideMatrixPage() {
         </section>
 
         <section className="mb-16 rounded-xl bg-[#0A0A10] p-8">
-          <h2 className="mb-6 font-mono text-xs tracking-wide text-brand-gold uppercase">
+          <h2 className="mb-6 font-mono text-xs tracking-wide text-brand-gold-light uppercase">
             Legal Framework &amp; Methodology
           </h2>
           <div className="grid gap-8 sm:grid-cols-2">
             <div>
-              <h3 className="mb-3 font-mono text-xs tracking-wide text-[#E8E4DC]/50 uppercase">What This Is</h3>
+              <h3 className="mb-3 font-mono text-xs tracking-wide text-[#E8E4DC]/70 uppercase">What This Is</h3>
               {WHAT_THIS_IS.map((item) => (
-                <p key={item} className="my-1.5 flex items-start gap-2 text-sm leading-relaxed text-[#E8E4DC]/50">
+                <p key={item} className="my-1.5 flex items-start gap-2 text-sm leading-relaxed text-[#E8E4DC]/70">
                   <Check className="mt-0.5 size-3.5 shrink-0 text-brand-gold" />
                   {item}
                 </p>
               ))}
             </div>
             <div>
-              <h3 className="mb-3 font-mono text-xs tracking-wide text-[#E8E4DC]/50 uppercase">What This Is NOT</h3>
+              <h3 className="mb-3 font-mono text-xs tracking-wide text-[#E8E4DC]/70 uppercase">What This Is NOT</h3>
               {WHAT_THIS_IS_NOT.map((item) => (
-                <p key={item} className="my-1.5 flex items-start gap-2 text-sm leading-relaxed text-[#E8E4DC]/50">
+                <p key={item} className="my-1.5 flex items-start gap-2 text-sm leading-relaxed text-[#E8E4DC]/70">
                   <X className="mt-0.5 size-3.5 shrink-0 text-[#C0392B]" />
                   {item}
                 </p>
@@ -257,15 +257,15 @@ export default function PeptideMatrixPage() {
           </div>
 
           <div className="mt-6 border-t border-brand-gold/10 pt-6">
-            <h3 className="mb-3 font-mono text-xs tracking-wide text-[#E8E4DC]/50 uppercase">Legal Protections</h3>
+            <h3 className="mb-3 font-mono text-xs tracking-wide text-[#E8E4DC]/70 uppercase">Legal Protections</h3>
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {LEGAL_PROTECTIONS.map((p) => (
                 <div key={p.label}>
-                  <p className="flex items-center gap-1.5 font-mono text-xs text-brand-gold">
+                  <p className="flex items-center gap-1.5 font-mono text-xs text-brand-gold-light">
                     <Check className="size-3" />
                     {p.label}
                   </p>
-                  <p className="mt-0.5 text-xs text-[#E8E4DC]/35">{p.desc}</p>
+                  <p className="mt-0.5 text-xs text-[#E8E4DC]/60">{p.desc}</p>
                 </div>
               ))}
             </div>

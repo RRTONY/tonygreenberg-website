@@ -186,7 +186,7 @@ export default function FirstSipPage() {
           <p className="mb-5 text-[1.05rem] leading-loose">
             And still, most consumers know only the poetry on the label — never the arithmetic behind the price. If
             you want to see that arithmetic laid bare, the{" "}
-            <Link href="/brewsoul/economics" className="font-semibold text-[#8B6914] underline underline-offset-3">
+            <Link href="/brewsoul/economics" className="font-semibold text-[#836311] underline underline-offset-3">
               Coffee Economics
             </Link>{" "}
             tool on this site breaks down exactly where your dollar goes — farmgate to shelf — for every brand
@@ -248,7 +248,7 @@ export default function FirstSipPage() {
           </p>
           <p className="mb-10 text-[1.05rem] leading-loose">
             This is where the{" "}
-            <Link href="/brewsoul/compare" className="font-semibold text-[#8B6914] underline underline-offset-3">
+            <Link href="/brewsoul/compare" className="font-semibold text-[#836311] underline underline-offset-3">
               Compare Coffees
             </Link>{" "}
             tool earns its place. It puts brands side by side not on flavor poetry, but on sourcing transparency,
@@ -282,14 +282,14 @@ export default function FirstSipPage() {
           </p>
           <p className="mb-10 text-[1.05rem] leading-loose">
             That&apos;s what the{" "}
-            <Link href="/brewsoul/health" className="font-semibold text-[#8B6914] underline underline-offset-3">
+            <Link href="/brewsoul/health" className="font-semibold text-[#836311] underline underline-offset-3">
               Coffee &amp; Health
             </Link>{" "}
             section is built for — peer-reviewed research on caffeine metabolism, cortisol impact, sleep disruption,
             and real contaminant risks, organized so you can decide based on your biology, not someone&apos;s
             branding budget. And if you want a personalized read on how coffee interacts with your body and habits,
             the{" "}
-            <Link href="/brewsoul/prescription" className="font-semibold text-[#8B6914] underline underline-offset-3">
+            <Link href="/brewsoul/prescription" className="font-semibold text-[#836311] underline underline-offset-3">
               Coffee Prescription
             </Link>{" "}
             tool will walk you through it.
@@ -325,13 +325,13 @@ export default function FirstSipPage() {
           </p>
 
           <div className="my-8 rounded-xl border border-[#C5A23C]/20 bg-[#FAFAF7]/80 px-8 py-6 backdrop-blur-md">
-            <h3 className="mb-4 font-mono text-xs tracking-[0.2em] text-[#C5A23C] uppercase">
+            <h3 className="mb-4 font-mono text-xs tracking-[0.2em] text-[#836311] uppercase">
               What Every Bag Should Disclose
             </h3>
             <div className="grid gap-2 [grid-template-columns:repeat(auto-fit,minmax(220px,1fr))]">
               {DEMANDS.map((d) => (
                 <div key={d} className="flex items-center gap-2">
-                  <span className="text-sm text-[#C5A23C]">→</span>
+                  <span className="text-sm text-[#836311]">→</span>
                   <span className="text-[0.92rem]">{d}</span>
                 </div>
               ))}
@@ -350,7 +350,7 @@ export default function FirstSipPage() {
             If coffee supports you, use it intentionally. If it disrupts your sleep or nervous system, respect that
             too. And if you want to understand how what you eat alongside coffee changes the experience entirely —
             absorption, acidity, nutrient interaction — the{" "}
-            <Link href="/brewsoul/pairings" className="font-semibold text-[#8B6914] underline underline-offset-3">
+            <Link href="/brewsoul/pairings" className="font-semibold text-[#836311] underline underline-offset-3">
               Coffee Pairings
             </Link>{" "}
             guide is where food meets pharmacology.
@@ -371,7 +371,7 @@ export default function FirstSipPage() {
       <section className="bg-linear-to-b from-[#F5F0E6] via-[#E8DCC8] to-[#F0E8D8] px-6 py-16 pb-20">
         <div className="mx-auto max-w-4xl">
           <div className="mb-10 text-center">
-            <div className="mb-2 font-mono text-xs tracking-[0.3em] text-[#C5A23C] uppercase">
+            <div className="mb-2 font-mono text-xs tracking-[0.3em] text-[#836311] uppercase">
               Your Coffee Journey Starts Here
             </div>
             <h2 className="mb-3 font-heading text-3xl font-bold text-[#2C1810]">Five Tools. One Mission.</h2>
@@ -391,12 +391,12 @@ export default function FirstSipPage() {
                 }`}
               >
                 <div className="mb-3 flex items-center gap-3">
-                  <span className="font-mono text-xs tracking-wide text-[#C5A23C]">{tool.num}</span>
+                  <span className="font-mono text-xs tracking-wide text-[#836311]">{tool.num}</span>
                   <span className="text-xl">{tool.icon}</span>
                 </div>
                 <h3 className="mb-2 font-heading text-lg font-bold text-[#2C1810]">{tool.title}</h3>
                 <p className="mb-4 text-sm leading-relaxed text-[#6B5B4F]">{tool.desc}</p>
-                <div className="font-mono text-[0.72rem] font-semibold text-[#8B6914]">{tool.cta} →</div>
+                <div className="font-mono text-[0.72rem] font-semibold text-[#836311]">{tool.cta} →</div>
               </Link>
             ))}
           </div>
@@ -407,7 +407,7 @@ export default function FirstSipPage() {
       <section className="bg-linear-to-b from-[#FAFAF7] via-[#F0E8D8] to-[#F5F0E6] px-6 py-14 pb-16">
         <div className="mx-auto max-w-2xl">
           <div className="mb-8 text-center">
-            <div className="mb-2 font-mono text-xs tracking-[0.3em] text-[#C5A23C] uppercase">Related Reading</div>
+            <div className="mb-2 font-mono text-xs tracking-[0.3em] text-[#836311] uppercase">Related Reading</div>
             <h2 className="mb-2 font-heading text-2xl font-bold text-[#2C1810]">The Deeper Dives</h2>
             <p className="text-[0.95rem] text-[#6B5B4F]">Context, crusades, and accountability from across the archive.</p>
           </div>
@@ -419,7 +419,7 @@ export default function FirstSipPage() {
                 href={essay.slug}
                 className={`flex items-center gap-4 py-4 text-[#6B5B4F] ${i < RELATED.length - 1 ? "border-b border-[#6F4E37]/10" : ""}`}
               >
-                <span className="shrink-0 text-xs text-[#C5A23C]">✦</span>
+                <span className="shrink-0 text-xs text-[#836311]">✦</span>
                 <span className="flex-1 font-medium text-[0.95rem] text-[#2C1810]">{essay.title}</span>
                 <span className="shrink-0 rounded-sm border border-[#6F4E37]/12 px-2.5 py-1 font-mono text-[0.68rem] font-semibold tracking-wide text-[#6B5B4F] uppercase">
                   {essay.tag}
@@ -464,7 +464,7 @@ export default function FirstSipPage() {
       {/* Email capture */}
       <section className="bg-linear-to-b from-[#FAFAF7] via-[#F0E8D8] to-[#F5F0E6] px-6 pt-12 pb-4">
         <div className="mx-auto max-w-md text-center">
-          <p className="mb-2 font-mono text-xs tracking-[0.25em] text-[#C5A23C] uppercase">Stay Informed</p>
+          <p className="mb-2 font-mono text-xs tracking-[0.25em] text-[#836311] uppercase">Stay Informed</p>
           <p className="mb-4 text-[#2C1810]">Get coffee intelligence, crusade updates, and new tool releases delivered weekly.</p>
           <FirstSipEmailCapture />
         </div>

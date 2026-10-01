@@ -402,7 +402,7 @@ export function PeptideQuiz() {
             This quiz is for educational purposes only and does not constitute medical advice. All
             questions are based on publicly available FDA communications, peer-reviewed
             literature, and established medical standards. Protected under Fair Comment doctrine.{" "}
-            <Link href="/peptide-matrix" className="text-brand-gold">
+            <Link href="/peptide-matrix" className="text-brand-gold underline underline-offset-2">
               View our methodology →
             </Link>
           </p>
@@ -529,7 +529,7 @@ export function PeptideQuiz() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="your@email.com"
               required
-              className="min-h-12 flex-1 rounded-sm border border-brand-gold/25 bg-card px-4 py-3 font-mono text-sm text-foreground outline-none"
+              className="min-h-12 flex-1 rounded-sm border border-brand-gold/25 bg-card px-4 py-3 font-mono text-sm text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
             />
             <button
               type="submit"

@@ -47,13 +47,13 @@ export default function PeptideLibraryPage() {
 
       <section className="bg-[#0A0A10] px-6 py-20 text-white">
         <div className="mx-auto max-w-3xl">
-          <p className="mb-5 font-mono text-xs tracking-[0.25em] text-[#C84B2A] uppercase">
+          <p className="mb-5 font-mono text-xs tracking-[0.25em] text-[#D3512E] uppercase">
             Compound Profiles · May 2026
           </p>
           <h1 className="mb-5 font-heading text-4xl leading-tight font-bold sm:text-5xl">
             The Complete <span className="text-brand-gold-light">Peptide Library</span>
           </h1>
-          <p className="mb-4 max-w-2xl leading-relaxed text-zinc-300">
+          <p className="mb-4 max-w-3xl leading-relaxed text-zinc-300">
             Every compound profiled with safety tier, evidence quality, regulatory status,
             pricing, suggested stacks, and what to track on your Oura Ring. No affiliate links.
             No vendor partnerships. Just data.
@@ -86,22 +86,22 @@ export default function PeptideLibraryPage() {
 
       <section className="bg-secondary px-6 py-12">
         <div className="mx-auto flex max-w-3xl flex-wrap justify-center gap-4">
-          <Link href="/find-your-peptide" className="rounded-md border border-border bg-card px-5 py-2 text-sm font-medium">
+          <Link href="/find-your-peptide" className="inline-flex items-center rounded-md border border-border bg-card px-5 py-2 text-sm font-medium min-h-11 md:min-h-6">
             Find Your Peptide (Quiz)
           </Link>
-          <Link href="/price-tracker" className="rounded-md border border-border bg-card px-5 py-2 text-sm font-medium">
+          <Link href="/price-tracker" className="inline-flex items-center rounded-md border border-border bg-card px-5 py-2 text-sm font-medium min-h-11 md:min-h-6">
             Price Tracker
           </Link>
-          <Link href="/whats-legal" className="rounded-md border border-border bg-card px-5 py-2 text-sm font-medium">
+          <Link href="/whats-legal" className="inline-flex items-center rounded-md border border-border bg-card px-5 py-2 text-sm font-medium min-h-11 md:min-h-6">
             What&apos;s Legal
           </Link>
-          <Link href="/verify-your-coa" className="rounded-md border border-border bg-card px-5 py-2 text-sm font-medium">
+          <Link href="/verify-your-coa" className="inline-flex items-center rounded-md border border-border bg-card px-5 py-2 text-sm font-medium min-h-11 md:min-h-6">
             Verify Your COA
           </Link>
-          <Link href="/test-your-peptides" className="rounded-md border border-border bg-card px-5 py-2 text-sm font-medium">
+          <Link href="/test-your-peptides" className="inline-flex items-center rounded-md border border-border bg-card px-5 py-2 text-sm font-medium min-h-11 md:min-h-6">
             Test Your Peptides
           </Link>
-          <Link href="/peptide-watch" className="rounded-md border border-border bg-card px-5 py-2 text-sm font-medium">
+          <Link href="/peptide-watch" className="inline-flex items-center rounded-md border border-border bg-card px-5 py-2 text-sm font-medium min-h-11 md:min-h-6">
             Peptide Watchdog
           </Link>
         </div>

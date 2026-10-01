@@ -23,7 +23,7 @@ const PROCESSES = Array.from(new Set(BREWSOUL_COFFEES.map((c) => c.processingMet
 const ROASTERS = Array.from(new Set(BREWSOUL_COFFEES.map((c) => c.producer))).sort();
 
 const selectClass =
-  "rounded-lg border border-[#8B6914]/15 bg-white/65 px-3 py-2 font-mono text-xs text-[#2C1810] backdrop-blur-md";
+  "max-w-full rounded-lg border border-[#836311]/15 bg-white/65 px-3 py-2 font-mono text-xs text-[#2C1810] backdrop-blur-md";
 
 export function BrowseExplorer() {
   useEffect(() => {
@@ -81,7 +81,7 @@ export function BrowseExplorer() {
       {/* Hero */}
       <section className="bg-linear-to-b from-[#F0E8D8] to-[#FAFAF7] px-6 py-16 text-center">
         <div className="mx-auto max-w-2xl">
-          <div className="mb-3 font-mono text-xs tracking-[0.3em] text-[#C5A23C] uppercase">The Catalog</div>
+          <div className="mb-3 font-mono text-xs tracking-[0.3em] text-[#836311] uppercase">The Catalog</div>
           <h1 className="mb-3 font-heading text-3xl font-bold text-[#2C1810] sm:text-4xl">Browse All Coffees</h1>
           <p className="mx-auto mb-6 max-w-lg text-base leading-relaxed text-[#6B5B4F]">
             {BREWSOUL_COFFEES.length} coffees scored, tested, and traced. Filter by what matters to you.
@@ -92,8 +92,8 @@ export function BrowseExplorer() {
               { val: String(ORIGINS.length), label: "Origins" },
               { val: String(ROASTERS.length), label: "Roasters" },
             ].map((s) => (
-              <div key={s.label} className="rounded-xl border border-[#8B6914]/15 bg-white/60 px-4 py-2 backdrop-blur-md">
-                <span className="font-heading text-lg font-bold text-[#8B6914]">{s.val}</span>
+              <div key={s.label} className="rounded-xl border border-[#836311]/15 bg-white/60 px-4 py-2 backdrop-blur-md">
+                <span className="font-heading text-lg font-bold text-[#836311]">{s.val}</span>
                 <span className="ml-1.5 font-mono text-[0.58rem] tracking-wide text-[#5A4A20]/50 uppercase">
                   {s.label}
                 </span>
@@ -105,7 +105,7 @@ export function BrowseExplorer() {
 
       {/* Intro */}
       <section className="bg-[#FAFAF7] px-6 pb-8">
-        <div className="mx-auto max-w-3xl rounded-2xl border border-[#8B6914]/12 bg-white/50 p-6 backdrop-blur-md">
+        <div className="mx-auto max-w-3xl rounded-2xl border border-[#836311]/12 bg-white/50 p-6 backdrop-blur-md">
           <p className="mb-2 text-sm leading-relaxed text-[#6B5B4F]">
             <strong className="text-[#6F4E37]">What you&apos;re looking at:</strong> Every coffee in the BrewSoul
             catalog — from competition-winning micro-lots to commodity blends — scored on cupping quality, value
@@ -125,23 +125,25 @@ export function BrowseExplorer() {
       </section>
 
       {/* Filters */}
-      <section className="sticky top-13 z-100 border-b border-[#8B6914]/8 bg-[#FAFAF7]/90 px-6 py-3 backdrop-blur-lg">
+      <section className="sticky top-13 z-100 border-b border-[#836311]/8 bg-[#FAFAF7]/90 px-6 py-3 backdrop-blur-lg">
         <div className="mx-auto max-w-6xl">
           <input
+            type="search"
+            aria-label="Search coffees"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by name, roaster, variety, or tasting note..."
-            className="mb-3 w-full max-w-md rounded-xl border border-[#8B6914]/12 bg-white/65 px-4 py-2.5 text-sm text-[#2C1810] backdrop-blur-md"
+            className="mb-3 w-full max-w-md rounded-xl border border-[#836311]/12 bg-white/65 px-4 py-2.5 text-sm text-[#2C1810] backdrop-blur-md"
           />
           <div className="flex flex-wrap items-center gap-2.5">
-            <select className={selectClass} value={sort} onChange={(e) => setSort(e.target.value as SortKey)}>
+            <select aria-label="Sort coffees" className={selectClass} value={sort} onChange={(e) => setSort(e.target.value as SortKey)}>
               <option value="qpr">Sort: Best QPR</option>
               <option value="cupping">Sort: Highest Score</option>
               <option value="price-asc">Sort: Price Low→High</option>
               <option value="price-desc">Sort: Price High→Low</option>
               <option value="name">Sort: A→Z</option>
             </select>
-            <select className={selectClass} value={origin} onChange={(e) => setOrigin(e.target.value)}>
+            <select aria-label="Filter by origin" className={selectClass} value={origin} onChange={(e) => setOrigin(e.target.value)}>
               <option value="">All Origins</option>
               {ORIGINS.map((o) => (
                 <option key={o} value={o}>
@@ -149,7 +151,7 @@ export function BrowseExplorer() {
                 </option>
               ))}
             </select>
-            <select className={selectClass} value={process} onChange={(e) => setProcess(e.target.value)}>
+            <select aria-label="Filter by processing method" className={selectClass} value={process} onChange={(e) => setProcess(e.target.value)}>
               <option value="">All Processing</option>
               {PROCESSES.map((p) => (
                 <option key={p} value={p}>
@@ -157,7 +159,7 @@ export function BrowseExplorer() {
                 </option>
               ))}
             </select>
-            <select className={selectClass} value={roaster} onChange={(e) => setRoaster(e.target.value)}>
+            <select aria-label="Filter by roaster" className={selectClass} value={roaster} onChange={(e) => setRoaster(e.target.value)}>
               <option value="">All Roasters</option>
               {ROASTERS.map((r) => (
                 <option key={r} value={r}>
@@ -165,7 +167,7 @@ export function BrowseExplorer() {
                 </option>
               ))}
             </select>
-            <label className="flex items-center gap-1.5 rounded-lg border border-[#4A7C59]/12 bg-[#4A7C59]/6 px-3 py-2 font-mono text-xs text-[#4A7C59]">
+            <label className="flex items-center gap-1.5 rounded-lg border border-[#4A7C59]/12 bg-[#4A7C59]/6 px-3 py-2 font-mono text-xs text-[#436F50]">
               <input
                 type="checkbox"
                 checked={moldOnly}
@@ -174,15 +176,16 @@ export function BrowseExplorer() {
               />
               Mold-Free Only
             </label>
-            <div className="flex items-center gap-2 rounded-lg border border-[#8B6914]/10 bg-white/50 px-3 py-1.5">
+            <div className="flex items-center gap-2 rounded-lg border border-[#836311]/10 bg-white/50 px-3 py-1.5">
               <span className="font-mono text-[0.68rem] text-[#6F4E37]">Max ${maxPrice}</span>
               <input
                 type="range"
+                aria-label="Maximum price"
                 min={10}
                 max={200}
                 value={maxPrice}
                 onChange={(e) => setMaxPrice(Number(e.target.value))}
-                className="w-24 accent-[#8B6914]"
+                className="w-24 accent-[#836311]"
               />
             </div>
           </div>
@@ -192,7 +195,7 @@ export function BrowseExplorer() {
       {/* Results */}
       <section className="min-h-[60vh] bg-linear-to-b from-[#FAFAF7] via-[#F5F0E6] to-[#FAFAF7] px-6 py-8">
         <div className="mx-auto max-w-6xl">
-          <div className="mb-5 font-mono text-xs tracking-wide text-[#C5A23C] uppercase">
+          <div className="mb-5 font-mono text-xs tracking-wide text-[#836311] uppercase">
             {filtered.length} coffee{filtered.length !== 1 ? "s" : ""} found
           </div>
           <div className="grid gap-5 [grid-template-columns:repeat(auto-fill,minmax(280px,1fr))]">
@@ -203,7 +206,7 @@ export function BrowseExplorer() {
             ))}
           </div>
           {filtered.length === 0 && (
-            <div className="mx-auto mt-8 max-w-md rounded-2xl border border-[#8B6914]/12 bg-white/60 p-10 text-center backdrop-blur-md">
+            <div className="mx-auto mt-8 max-w-md rounded-2xl border border-[#836311]/12 bg-white/60 p-10 text-center backdrop-blur-md">
               <div className="mb-3 text-3xl">☕</div>
               <p className="mb-1.5 font-heading text-lg text-[#2C1810]">No coffees match your filters.</p>
               <p className="text-sm text-[#6B5B4F]">Try broadening your search or resetting a filter.</p>

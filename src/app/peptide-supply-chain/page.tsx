@@ -43,9 +43,9 @@ export default function PeptideSupplyChainPage() {
       <PeptideShutdownBanner />
 
       <div className="border-b border-brand-gold/15 bg-[#0A0A10] px-6 py-2.5 text-center">
-        <p className="font-mono text-xs tracking-wide text-brand-gold/60 uppercase">
+        <p className="font-mono text-xs tracking-wide text-brand-gold-light/80 uppercase">
           Mirror of the Market · Fair Comment · Public Interest · Not Medical Advice ·{" "}
-          <Link href="/peptide-matrix#appeals" className="text-brand-gold underline">
+          <Link href="/peptide-matrix#appeals" className="text-brand-gold-light underline">
             Appeals Process
           </Link>
         </p>

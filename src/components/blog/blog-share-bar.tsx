@@ -1,51 +1,21 @@
 "use client";
 
-import { useState, useSyncExternalStore } from "react";
-import { Check, Copy, Mail, Sparkles } from "lucide-react";
+import { useState } from "react";
+import { Check, Copy, Mail } from "lucide-react";
+import { SITE_URL } from "@/components/ai-summary-links";
 import { FacebookIcon, LinkedinIcon, XIcon } from "@/components/icons/brand-icons";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
-const SITE_URL = "https://tonygreenberg.com";
-
-// "?q=" prefill is the de-facto convention several AI chat products settled
-// on for "open with this question already typed in" links — same idea as a
-// mailto: body, just aimed at a chat composer instead of an email client.
-// Each product still opens fine without ever reading the query if a given
-// tool drops support for it; only the prefill is lost, not the link.
-const AI_TOOLS = [
-  { label: "ChatGPT", buildHref: (prompt: string) => `https://chatgpt.com/?q=${encodeURIComponent(prompt)}` },
-  { label: "Claude", buildHref: (prompt: string) => `https://claude.ai/new?q=${encodeURIComponent(prompt)}` },
-  { label: "Gemini", buildHref: (prompt: string) => `https://gemini.google.com/app?q=${encodeURIComponent(prompt)}` },
-  { label: "Perplexity", buildHref: (prompt: string) => `https://www.perplexity.ai/search?q=${encodeURIComponent(prompt)}` },
-];
-
-const emptySubscribe = () => () => {};
-
-// window.location.origin is browser-only state — reading it directly at
-// render time (as legacy's `typeof window !== "undefined"` checks did)
-// renders the SSR fallback and the real origin in the same pass, which
-// React flags as a hydration mismatch. useSyncExternalStore is the
-// documented fix: the server snapshot always wins on the hydrating pass,
-// then the real value takes over right after.
-function useOrigin() {
-  return useSyncExternalStore(emptySubscribe, () => window.location.origin, () => SITE_URL);
-}
-
+// Icon-only square buttons (44px tap target); each keeps its full name as
+// aria-label and a hover tooltip.
 const PILL_CLASS =
-  "flex min-h-11 items-center gap-1.5 rounded-md px-3.5 py-2 text-xs font-medium no-underline transition-[background-color,transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-md";
+  "flex size-11 items-center justify-center rounded-md no-underline transition-[background-color,transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-md";
 const OUTLINE_CLASS = `${PILL_CLASS} border border-brand-gold/25 text-brand-gold hover:bg-brand-gold/6`;
 
 export function BlogShareBar({ path, title }: { path: string; title: string }) {
   const [copied, setCopied] = useState(false);
-  const origin = useOrigin();
-
-  const url = `${origin}${path}`;
-  const aiPrompt = `Please read and summarize this article for me: ${url}`;
+  // Always the production URL: share targets and AI tools need a public
+  // address, not localhost or a deploy preview.
+  const url = `${SITE_URL}${path}`;
 
   function copyLink() {
     navigator.clipboard.writeText(url).then(() => {
@@ -65,58 +35,52 @@ export function BlogShareBar({ path, title }: { path: string; title: string }) {
           href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`}
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="Share on X"
+          title="Share on X"
           className={`${PILL_CLASS} bg-black text-white hover:bg-neutral-800`}
         >
-          <XIcon className="size-3.5" /> Share on X
+          <XIcon className="size-4" />
         </a>
         <a
           href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`}
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="Share on LinkedIn"
+          title="Share on LinkedIn"
           className={`${PILL_CLASS} bg-[#0A66C2] text-white hover:bg-[#004182]`}
         >
-          <LinkedinIcon className="size-3.5" /> Share on LinkedIn
+          <LinkedinIcon className="size-4" />
         </a>
         <a
           href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`}
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="Share on Facebook"
+          title="Share on Facebook"
           className={OUTLINE_CLASS}
         >
-          <FacebookIcon className="size-3.5" /> Facebook
+          <FacebookIcon className="size-4" />
         </a>
         <a
           href={`mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(`${title}\n\n${url}`)}`}
+          aria-label="Share by email"
+          title="Share by email"
           className={OUTLINE_CLASS}
         >
-          <Mail className="size-3.5" /> Email
+          <Mail className="size-4" />
         </a>
-        <button type="button" onClick={copyLink} className={OUTLINE_CLASS}>
-          {copied ? (
-            <>
-              <Check className="size-3.5" /> Copied
-            </>
-          ) : (
-            <>
-              <Copy className="size-3.5" /> Copy Link
-            </>
-          )}
+        <button
+          type="button"
+          onClick={copyLink}
+          aria-label={copied ? "Link copied" : "Copy link"}
+          title={copied ? "Link copied" : "Copy link"}
+          className={OUTLINE_CLASS}
+        >
+          {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
         </button>
-
-        <DropdownMenu>
-          <DropdownMenuTrigger className={OUTLINE_CLASS}>
-            <Sparkles className="size-3.5" /> Ask AI
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            {AI_TOOLS.map((tool) => (
-              <DropdownMenuItem key={tool.label} asChild>
-                <a href={tool.buildHref(aiPrompt)} target="_blank" rel="noopener noreferrer">
-                  Summarize with {tool.label}
-                </a>
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <span className="sr-only" aria-live="polite">
+          {copied ? "Link copied" : ""}
+        </span>
       </div>
     </div>
   );

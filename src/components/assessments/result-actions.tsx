@@ -22,7 +22,7 @@ import { saveAssessmentResult } from "@/lib/assessments/result-log";
 // `ECOSYSTEM_CATEGORIES` url, minus the leading slash).
 export function AssessmentResultActions({
   printTargetRef,
-  accentColor = "#8B6914",
+  accentColor = "#836311",
   resultSlug,
 }: {
   printTargetRef?: React.RefObject<HTMLElement | null>;

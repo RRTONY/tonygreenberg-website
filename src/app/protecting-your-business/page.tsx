@@ -25,7 +25,7 @@ import { CaseShareButtons } from "@/components/marketing/case-share-buttons";
 // The complex floating hamburger/TOC overlay is simplified to a plain
 // inline "jump to section" list — same real navigation, less machinery.
 const PHOTO =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/kristi-klawiter-photo_99e64f14.jpeg";
+  "https://cdn.sanity.io/images/a3q1cyqs/production/9e6e4793293ddc079385db76ef73a8bf9c416826-1000x1060.jpg";
 
 export const metadata: Metadata = {
   title: "Convicted Embezzler Kristi Klawiter — $46,795 Stolen, Prior NJ Guilty Pleas",
@@ -350,7 +350,7 @@ export default function ProtectingYourBusinessPage() {
       <div className="mx-auto max-w-2xl px-6 pb-6 sm:px-10">
         <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 border-y border-border py-4 text-center">
           {TOC.map((item) => (
-            <a key={item.id} href={`#${item.id}`} className="font-mono text-xs text-brand-gold">
+            <a key={item.id} href={`#${item.id}`} className="inline-flex items-center font-mono text-xs text-brand-gold min-h-11 md:min-h-6">
               {item.label}
             </a>
           ))}
@@ -546,7 +546,7 @@ export default function ProtectingYourBusinessPage() {
             Cost of not running one: $46,795. I am not a mathematician, but I can do this
             particular calculation now.
           </AlertBox>
-          <div className="my-6 overflow-x-auto rounded-md border border-border">
+          <div className="my-6 overflow-x-auto rounded-md border border-border" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
             <table className="w-full border-collapse text-sm">
               <thead>
                 <tr className="bg-red-800/5">
@@ -589,7 +589,7 @@ export default function ProtectingYourBusinessPage() {
         </Section>
 
         <Section id="tools" num="08" title="Prevention Tools vs. the Cost of Trusting the Wrong Person">
-          <div className="mb-6 overflow-x-auto rounded-md border border-border">
+          <div className="mb-6 overflow-x-auto rounded-md border border-border" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
             <table className="w-full border-collapse text-sm">
               <thead>
                 <tr className="bg-red-800/5">
@@ -793,7 +793,7 @@ export default function ProtectingYourBusinessPage() {
       </div>
 
       <div className="border-t border-border py-6 text-center">
-        <Link href="/" className="font-mono text-sm tracking-wide text-brand-gold">
+        <Link href="/" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
           ← Back to the Essays
         </Link>
       </div>

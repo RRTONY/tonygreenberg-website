@@ -131,12 +131,12 @@ export function BiodynamicRoasters() {
               <div className="font-heading text-xl font-bold text-[#1a0e08] italic">{r.name}</div>
               <div className="mt-0.5 text-[13px] text-[#6b5a4e]">{r.loc}</div>
             </div>
-            <div className="font-heading text-base font-bold text-[#c4873b]">{r.rating}</div>
+            <div className="font-heading text-base font-bold text-[#99692E]">{r.rating}</div>
           </div>
 
           <div className="mt-2.5 text-sm leading-relaxed text-[#5c3a28]">{r.unique}</div>
 
-          <div className="my-4 overflow-x-auto">
+          <div className="my-4 overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
             <table className="w-full border-collapse text-[13px]">
               <thead>
                 <tr>
@@ -154,7 +154,7 @@ export function BiodynamicRoasters() {
                     <td className="p-2.5 text-[#5c3a28]">{p.origin}</td>
                     <td className="p-2.5 text-[#5c3a28]">{p.oz}</td>
                     <td className="p-2.5 font-semibold text-[#2d1810]">{p.price}</td>
-                    <td className="p-2.5 font-mono text-xs font-semibold text-[#c4873b]">{p.perOz}</td>
+                    <td className="p-2.5 font-mono text-xs font-semibold text-[#99692E]">{p.perOz}</td>
                   </tr>
                 ))}
               </tbody>

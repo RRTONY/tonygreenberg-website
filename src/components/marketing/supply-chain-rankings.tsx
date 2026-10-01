@@ -60,7 +60,7 @@ function DollarBar({ breakdown, showLabels = true }: { breakdown: CostBreakdown;
 
 function CredibilityBadge({ score }: { score: number }) {
   const color =
-    score >= 70 ? "bg-[#2E8B57]" : score >= 50 ? "bg-[#D4B96A]" : score >= 30 ? "bg-[#CD853F]" : "bg-[#B22222]";
+    score >= 70 ? "bg-[#2B8352]" : score >= 50 ? "bg-[#8C7328]" : score >= 30 ? "bg-[#A4672B]" : "bg-[#B22222]";
   const label =
     score >= 70 ? "Credible" : score >= 50 ? "Moderate" : score >= 30 ? "Questionable" : "Low Credibility";
   return (
@@ -72,8 +72,8 @@ function CredibilityBadge({ score }: { score: number }) {
 
 const TRANSPARENCY_CLASSES: Record<Provider["transparency"], string> = {
   high: "bg-[#2E8B57]/10 text-[#2E8B57]",
-  medium: "bg-[#D4B96A]/10 text-[#D4B96A]",
-  low: "bg-[#CD853F]/10 text-[#CD853F]",
+  medium: "bg-[#D4B96A]/10 text-[#846C26]",
+  low: "bg-[#CD853F]/10 text-[#9C6129]",
   opaque: "bg-[#B22222]/10 text-[#B22222]",
 };
 

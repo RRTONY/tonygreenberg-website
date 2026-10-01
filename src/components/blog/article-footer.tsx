@@ -55,7 +55,7 @@ export function ArticleFooter({ slug }: { slug: string }) {
     <div className="mt-14 space-y-6 border-t border-border pt-10">
       {data?.exercise && (
         <div className="rounded-r-md border-l-4 border-green-700/50 bg-green-700/5 p-6">
-          <div className="mb-2 font-mono text-xs font-semibold tracking-widest text-green-700 uppercase">Try This</div>
+          <div className="mb-2 font-mono text-xs font-semibold tracking-widest text-green-800 uppercase">Try This</div>
           <h3 className="mb-3 font-heading text-lg font-semibold text-foreground">{data.exercise.title}</h3>
           <p className="leading-relaxed text-foreground/80">{data.exercise.description}</p>
           {data.exercise.steps && (

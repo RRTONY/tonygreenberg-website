@@ -42,12 +42,12 @@ type Category = {
 // Precomposed literal classes, one per category — see CONTRIBUTING.md's
 // rule on dynamic Tailwind classes; a small fixed set gets full literal
 // strings rather than fragment-assembled `text-[${hex}]`.
-const CATEGORY_CLASSES: Record<string, { text: string; iconBg: string; dashedBorder: string; dashedBg: string }> = {
-  mezcal: { text: "text-[#92400E]", iconBg: "bg-[#92400E]/15", dashedBorder: "border-[#92400E]/30", dashedBg: "bg-[#92400E]/5" },
-  tequila: { text: "text-[#B45309]", iconBg: "bg-[#B45309]/15", dashedBorder: "border-[#B45309]/30", dashedBg: "bg-[#B45309]/5" },
-  sake: { text: "text-[#4338CA]", iconBg: "bg-[#4338CA]/15", dashedBorder: "border-[#4338CA]/30", dashedBg: "bg-[#4338CA]/5" },
-  coffee: { text: "text-[#78350F]", iconBg: "bg-[#78350F]/15", dashedBorder: "border-[#78350F]/30", dashedBg: "bg-[#78350F]/5" },
-  wine: { text: "text-[#7F1D1D]", iconBg: "bg-[#7F1D1D]/15", dashedBorder: "border-[#7F1D1D]/30", dashedBg: "bg-[#7F1D1D]/5" },
+const CATEGORY_CLASSES: Record<string, { text: string; onDark: string; iconBg: string; dashedBorder: string; dashedBg: string }> = {
+  mezcal: { text: "text-[#92400E]", onDark: "text-[#E8883A]", iconBg: "bg-[#92400E]/15", dashedBorder: "border-[#92400E]/30", dashedBg: "bg-[#92400E]/5" },
+  tequila: { text: "text-[#A54C08]", onDark: "text-[#F59E0B]", iconBg: "bg-[#B45309]/15", dashedBorder: "border-[#B45309]/30", dashedBg: "bg-[#B45309]/5" },
+  sake: { text: "text-[#4338CA]", onDark: "text-[#818CF8]", iconBg: "bg-[#4338CA]/15", dashedBorder: "border-[#4338CA]/30", dashedBg: "bg-[#4338CA]/5" },
+  coffee: { text: "text-[#78350F]", onDark: "text-[#CA5919]", iconBg: "bg-[#78350F]/15", dashedBorder: "border-[#78350F]/30", dashedBg: "bg-[#78350F]/5" },
+  wine: { text: "text-[#7F1D1D]", onDark: "text-[#E57373]", iconBg: "bg-[#7F1D1D]/15", dashedBorder: "border-[#7F1D1D]/30", dashedBg: "bg-[#7F1D1D]/5" },
 };
 
 const CATEGORIES: Category[] = [
@@ -285,7 +285,7 @@ export default function SpiritsPage() {
                     className="group mb-6 block rounded-lg bg-[#0A0A10] p-8"
                   >
                     <div className="mb-3 flex items-center justify-between">
-                      <div className={`font-mono text-xs tracking-wide uppercase ${c.text}`}>
+                      <div className={`font-mono text-xs tracking-wide uppercase ${c.onDark}`}>
                         Explore the Site →
                       </div>
                       <ArrowUpRight
@@ -346,7 +346,7 @@ export default function SpiritsPage() {
 
       <section className="bg-[#0A0A10] px-6 py-20 text-center sm:px-10">
         <div className="mx-auto max-w-2xl">
-          <p className="mb-3 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
+          <p className="mb-3 font-mono text-xs tracking-[0.2em] text-brand-gold-light uppercase">
             The Throughline
           </p>
           <h2 className="mb-5 font-heading text-2xl leading-snug font-bold text-[#F0E8D8] sm:text-3xl">
@@ -368,7 +368,7 @@ export default function SpiritsPage() {
       </section>
 
       <div className="border-t border-border py-6 text-center">
-        <Link href="/recent-creations" className="font-mono text-sm tracking-wide text-brand-gold">
+        <Link href="/recent-creations" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
           Continue to Recent Creations →
         </Link>
       </div>

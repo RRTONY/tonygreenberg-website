@@ -309,7 +309,7 @@ type Phase = "questions" | "rank" | "gate" | "results";
 // disclaimer), all ported unchanged and verbatim. Uses this site's
 // `brand-gold`/`foreground`/`muted-foreground` tokens rather than the
 // `pri-*` palette used by the rest of the PRI deep-dive modules — legacy's
-// own hex here (`#8B6914`) is an exact match for `brand-gold`, i.e. this
+// own hex here (`#836311`) is an exact match for `brand-gold`, i.e. this
 // one page always used the main site's identity, not a PRI-specific one.
 //
 // Legacy's lead-capture gate posted to `trpc.assessments.submit` (no

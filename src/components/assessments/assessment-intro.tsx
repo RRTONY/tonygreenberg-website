@@ -68,7 +68,7 @@ export function AssessmentIntro({
               <div className="font-heading text-3xl leading-none" style={{ color: accentColor }}>
                 {stat.num}
               </div>
-              <div className="mt-1 font-mono text-[11px] tracking-[0.15em] text-[#8B7B6B] uppercase">
+              <div className="mt-1 font-mono text-[11px] tracking-[0.15em] text-[#736455] uppercase">
                 {stat.label}
               </div>
             </div>
@@ -105,7 +105,7 @@ export function AssessmentIntro({
           Begin Assessment
         </button>
 
-        <p className="mt-6 font-mono text-[10px] tracking-[0.1em] text-[#9B8B7B]">
+        <p className="mt-6 font-mono text-[10px] tracking-[0.1em] text-[#736455]">
           Results stored locally. No data shared. Ever.
         </p>
       </div>

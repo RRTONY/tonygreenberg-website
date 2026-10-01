@@ -121,7 +121,7 @@ const JOURNEYS: Record<string, JourneyResult> = {
     subtitle: "For builders who need the objective lever",
     description: "You run things. You build things. You've been burned by bad vendors and worse advice. You need someone who's sat across from Microsoft, Disney, and Goldman Sachs for 25 years. This path is the business case.",
     icon: Hexagon,
-    accent: "#8B6914",
+    accent: "#836311",
     articles: [
       { slug: "customer-service-key-to-business-success", title: "Customer Service: The Key to Business Success", why: "The most-read business piece on the site — because everyone's been on the wrong end of bad service" },
       { slug: "davos-2022-world-economic-forum-here-we-come", title: "Davos 2022 — World Economic Forum", why: "What actually happens when the world's operators gather in one room" },
@@ -243,7 +243,7 @@ export function JourneyFinder() {
       <div className="bg-[#0A0A10]">
         <div className="px-6 py-24 sm:px-10">
           <div className="mx-auto max-w-3xl">
-            <p className="mb-6 font-mono text-xs tracking-[0.35em] text-brand-gold uppercase">
+            <p className="mb-6 font-mono text-xs tracking-[0.35em] text-brand-gold-light uppercase">
               5 Questions. Your Path.
             </p>
             <h1 className="mb-6 max-w-2xl font-heading text-4xl leading-tight font-normal text-[#FAFAF7] sm:text-6xl">
@@ -262,7 +262,7 @@ export function JourneyFinder() {
               {["2 minutes", "5 questions", "Your path"].map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-sm border border-brand-gold/30 px-3 py-1.5 font-mono text-xs tracking-wide text-brand-gold uppercase"
+                  className="rounded-sm border border-brand-gold/30 px-3 py-1.5 font-mono text-xs tracking-wide text-brand-gold-light uppercase"
                 >
                   {tag}
                 </span>
@@ -270,7 +270,7 @@ export function JourneyFinder() {
             </div>
             <button
               onClick={() => setStep(1)}
-              className="rounded-sm bg-brand-gold px-10 py-4 font-mono text-sm tracking-wide text-[#0A0A10] uppercase transition-transform hover:-translate-y-0.5 hover:bg-brand-gold-light"
+              className="rounded-sm bg-brand-gold-light px-10 py-4 font-mono text-sm tracking-wide text-[#0A0A10] uppercase transition-transform hover:-translate-y-0.5 hover:bg-brand-gold-light"
             >
               Begin →
             </button>
@@ -285,9 +285,9 @@ export function JourneyFinder() {
               { num: "03", label: "Start reading", desc: "Six curated articles — the ones that'll hit hardest for you." },
             ].map((s) => (
               <div key={s.num}>
-                <span className="font-mono text-xs tracking-[0.15em] text-brand-gold">{s.num}</span>
+                <span className="font-mono text-xs tracking-[0.15em] text-brand-gold-light">{s.num}</span>
                 <h3 className="mt-1.5 mb-1 font-heading text-lg font-normal text-[#FAFAF7]">{s.label}</h3>
-                <p className="text-sm leading-relaxed text-[#777]">{s.desc}</p>
+                <p className="text-sm leading-relaxed text-[#8A8A8A]">{s.desc}</p>
               </div>
             ))}
           </div>
@@ -309,7 +309,7 @@ export function JourneyFinder() {
         <div className="px-6 py-24 sm:px-10">
           <div className="mx-auto max-w-2xl">
             <div className="mb-8 flex items-center justify-between">
-              <span className="font-mono text-xs tracking-wide text-brand-gold uppercase">{q.stem}</span>
+              <span className="font-mono text-xs tracking-wide text-brand-gold-light uppercase">{q.stem}</span>
               <span className="font-mono text-xs text-[#555]">
                 {step} / {totalQuestions}
               </span>
@@ -334,7 +334,7 @@ export function JourneyFinder() {
                   >
                     <span
                       className={`mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full border font-mono text-xs ${
-                        isSelected ? "border-brand-gold text-brand-gold" : "border-[#333] text-[#555]"
+                        isSelected ? "border-brand-gold text-brand-gold-light" : "border-[#333] text-[#555]"
                       }`}
                     >
                       {isSelected ? <Check className="size-3.5" /> : String.fromCharCode(65 + i)}
@@ -350,7 +350,7 @@ export function JourneyFinder() {
             <div className="flex justify-between">
               <button
                 onClick={handleBack}
-                className={`font-mono text-xs tracking-wide uppercase ${step > 1 ? "text-[#777]" : "invisible"}`}
+                className={`font-mono text-xs tracking-wide uppercase ${step > 1 ? "text-[#8A8A8A]" : "invisible"}`}
               >
                 ← Back
               </button>
@@ -359,7 +359,7 @@ export function JourneyFinder() {
                 disabled={selectedChoice === null}
                 className={`rounded-sm px-8 py-3 font-mono text-xs tracking-wide uppercase transition-colors ${
                   selectedChoice !== null
-                    ? "bg-brand-gold text-[#0A0A10]"
+                    ? "bg-brand-gold-light text-[#0A0A10]"
                     : "cursor-not-allowed bg-white/5 text-[#555]"
                 }`}
               >
@@ -381,7 +381,7 @@ export function JourneyFinder() {
     <div className="bg-[#0A0A10]">
       <div className="px-6 py-24 sm:px-10">
         <div className="mx-auto max-w-2xl">
-          <p className="mb-4 font-mono text-xs tracking-wide text-brand-gold uppercase">
+          <p className="mb-4 font-mono text-xs tracking-wide text-brand-gold-light uppercase">
             Your Path Has Been Mapped
           </p>
           <div className="mb-3 flex items-center gap-4">
@@ -399,7 +399,7 @@ export function JourneyFinder() {
 
       <div className="border-t border-brand-gold/10 px-6 py-10 sm:px-10">
         <div className="mx-auto max-w-2xl">
-          <h3 className="mb-6 font-mono text-xs tracking-wide text-brand-gold uppercase">Your Territory Map</h3>
+          <h3 className="mb-6 font-mono text-xs tracking-wide text-brand-gold-light uppercase">Your Territory Map</h3>
           <div className="flex max-w-md flex-col gap-3">
             {allScores.map(({ journey, score: s }) => {
               const Icon = journey.icon;
@@ -431,7 +431,7 @@ export function JourneyFinder() {
 
       <div className="px-6 py-10 sm:px-10">
         <div className="mx-auto max-w-2xl">
-          <h3 className="mb-8 font-mono text-xs tracking-wide text-brand-gold uppercase">
+          <h3 className="mb-8 font-mono text-xs tracking-wide text-brand-gold-light uppercase">
             Your Reading Path — Start Here
           </h3>
           <div className="flex flex-col gap-5">
@@ -446,7 +446,7 @@ export function JourneyFinder() {
                 </span>
                 <div>
                   <h4 className="mb-1 font-heading text-base font-normal text-[#FAFAF7]">{article.title}</h4>
-                  <p className="text-sm leading-relaxed text-[#777]">{article.why}</p>
+                  <p className="text-sm leading-relaxed text-[#8A8A8A]">{article.why}</p>
                 </div>
               </Link>
             ))}
@@ -459,7 +459,7 @@ export function JourneyFinder() {
           <h3 className="mb-4 font-heading text-2xl font-normal text-[#FAFAF7]">
             Curious about the other paths?
           </h3>
-          <p className="mb-8 text-[#777]">
+          <p className="mb-8 text-[#8A8A8A]">
             Your secondary scores suggest you&apos;d also resonate with{" "}
             <strong style={{ color: allScores[1]?.journey.accent }}>{allScores[1]?.journey.title}</strong>
             {(allScores[2]?.score ?? 0) > 0 && (
@@ -473,7 +473,7 @@ export function JourneyFinder() {
           <div className="mb-8 flex flex-wrap justify-center gap-4">
             <Link
               href="/journeys"
-              className="rounded-sm border border-brand-gold/30 px-6 py-3 font-mono text-xs tracking-wide text-brand-gold uppercase"
+              className="rounded-sm border border-brand-gold/30 px-6 py-3 font-mono text-xs tracking-wide text-brand-gold-light uppercase"
             >
               Explore All Journeys
             </Link>

@@ -16,14 +16,14 @@ const VENTURES = [
     name: "RampRate",
     role: "CEO & Founder",
     years: "2000–Present",
-    desc: "Enterprise technology advisory. $10B+ benchmarked. SPY Index with 1M+ data points. Microsoft, Disney, Goldman Sachs, Nike. The objective lever in enterprise IT procurement.",
+    desc: "Enterprise technology advisory. $10B+ in enterprise contracts priced, audited, and renegotiated. SPY Index with 1M+ data points. Microsoft, Disney, Goldman Sachs, Nike. The objective lever in enterprise IT procurement.",
     url: "https://ramprate.com",
   },
   {
     name: "ImpactSoul",
     role: "Founder",
     years: "2021–Present",
-    desc: "Certified B Corp. Tokenizing high-value cultural and real estate assets to fund regenerative impact. Four live token ecosystems: BEYOND, REX, SPACE, BEING.",
+    desc: "ImpactSoul is a RampRate company tokenizing high-value cultural and real estate assets to fund regenerative impact. Four live token ecosystems: BEYOND, REX, SPACE, BEING.",
     url: "https://impactsoul.is",
   },
   {
@@ -62,7 +62,7 @@ const INVESTMENTS = [
 
 export default function EngineRoomPage() {
   return (
-    <div className="mx-auto max-w-3xl px-6 py-10">
+    <div className="mx-auto max-w-[39rem] px-5 py-8 text-[1.1875rem]/[1.8] sm:px-10 sm:text-lg/[1.85]">
       <p className="mb-2 font-mono text-xs tracking-[0.15em] text-brand-gold uppercase">
         The Work
       </p>
@@ -139,7 +139,7 @@ export default function EngineRoomPage() {
       </div>
 
       <div className="border-t border-border py-6 text-center">
-        <Link href="/under-nda" className="font-mono text-sm tracking-wide text-brand-gold">
+        <Link href="/under-nda" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
           Continue to Under NDA →
         </Link>
       </div>

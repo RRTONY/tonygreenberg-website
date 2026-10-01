@@ -167,7 +167,7 @@ export function CitiesExplorer({ cities, nationalStats }: { cities: CityData[]; 
                 <h2 className="text-2xl font-bold text-amber-50">National Chain Report Card</h2>
                 <p className="mt-1 text-sm text-amber-200/50">How the big chains score against our 7-dimension framework</p>
               </div>
-              <button onClick={() => setShowChains(!showChains)} className="rounded-lg border border-amber-500/30 px-4 py-2 text-sm text-amber-400">
+              <button onClick={() => setShowChains(!showChains)} className="inline-flex items-center rounded-lg border border-amber-500/30 px-4 py-2 text-sm text-amber-400 min-h-11 md:min-h-6">
                 {showChains ? "Hide" : "Show All"}
               </button>
             </div>
@@ -304,13 +304,13 @@ export function CitiesExplorer({ cities, nationalStats }: { cities: CityData[]; 
           <GlassCard hover={false} className="inline-block p-8">
             <p className="mb-4 text-amber-200/60">This is one module of the BrewSoul Coffee Intelligence Engine.</p>
             <div className="flex flex-wrap justify-center gap-3">
-              <Link href="/brewsoul/home" className="rounded-lg border border-amber-500/30 px-4 py-2 text-sm text-amber-400">
+              <Link href="/brewsoul/home" className="inline-flex items-center rounded-lg border border-amber-500/30 px-4 py-2 text-sm text-amber-400 min-h-11 md:min-h-6">
                 ← BrewSoul Home
               </Link>
-              <Link href="/brewsoul/browse" className="rounded-lg border border-amber-500/30 px-4 py-2 text-sm text-amber-400">
+              <Link href="/brewsoul/browse" className="inline-flex items-center rounded-lg border border-amber-500/30 px-4 py-2 text-sm text-amber-400 min-h-11 md:min-h-6">
                 Browse Catalog
               </Link>
-              <Link href="/brewsoul" className="rounded-lg border border-amber-500/30 px-4 py-2 text-sm text-amber-400">
+              <Link href="/brewsoul" className="inline-flex items-center rounded-lg border border-amber-500/30 px-4 py-2 text-sm text-amber-400 min-h-11 md:min-h-6">
                 Take the Quiz
               </Link>
             </div>

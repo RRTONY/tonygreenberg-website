@@ -168,7 +168,7 @@ export default function WalkThroughPage() {
       <div className="mx-auto max-w-3xl divide-y divide-border px-6">
         {DOORS.map((door) => (
           <div key={door.num} className="flex gap-6 py-10">
-            <div className="shrink-0 font-heading text-5xl font-bold text-brand-gold-light/40">
+            <div className="shrink-0 font-heading text-5xl font-bold text-brand-gold/80 dark:text-brand-gold-light/40">
               {door.num}
             </div>
             <div className="flex-1">
@@ -186,7 +186,7 @@ export default function WalkThroughPage() {
               </p>
               <Link
                 href={door.deeperLink}
-                className="inline-block border-b border-brand-gold/30 font-mono text-xs tracking-wide text-brand-gold"
+                className="inline-flex items-center border-b border-brand-gold/30 font-mono text-xs tracking-wide text-brand-gold min-h-11 md:min-h-6"
               >
                 {door.deeperLabel}
               </Link>
@@ -228,7 +228,7 @@ export default function WalkThroughPage() {
       </div>
 
       <div className="border-t border-border py-8 text-center">
-        <Link href="/the-territory" className="font-mono text-sm tracking-wide text-brand-gold">
+        <Link href="/the-territory" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
           Continue to The Territory →
         </Link>
       </div>

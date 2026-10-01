@@ -70,7 +70,7 @@ export default function PeptideWatchPage() {
 
       <section className="bg-[#0A0A10] px-6 py-20 text-center">
         <div className="mx-auto max-w-4xl">
-          <p className="mb-5 font-mono text-xs font-bold tracking-[0.25em] text-[#C84B2A] uppercase">
+          <p className="mb-5 font-mono text-xs font-bold tracking-[0.25em] text-[#D3512E] uppercase">
             The Definitive Supply Chain Safety Guide
           </p>
           <h1 className="mb-6 font-heading text-4xl leading-tight font-black text-white md:text-6xl">
@@ -108,7 +108,7 @@ export default function PeptideWatchPage() {
             <Link
               key={l.href}
               href={l.href}
-              className="rounded bg-brand-gold/10 px-3 py-1.5 text-brand-gold transition-colors hover:bg-brand-gold/20"
+              className="inline-flex items-center rounded bg-brand-gold/10 px-3 py-1.5 text-brand-gold-light transition-colors hover:bg-brand-gold/20 min-h-11 md:min-h-6"
             >
               {l.label}
             </Link>
@@ -171,7 +171,7 @@ export default function PeptideWatchPage() {
             proceedings, FTC actions, or state attorney general enforcement. No rumor. No Reddit
             smoke.
           </p>
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
             <table className="w-full border-collapse text-sm">
               <thead>
                 <tr className="bg-[#0A0A10] text-left text-white">
@@ -250,7 +250,7 @@ export default function PeptideWatchPage() {
             {BUYER_CHECKLIST.map((item) => (
               <div key={item.num} className="rounded-md border border-brand-gold/20 bg-card p-5">
                 <div className="flex items-start gap-4">
-                  <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-[#0A0A10] text-sm font-bold text-brand-gold">
+                  <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-[#0A0A10] text-sm font-bold text-brand-gold-light">
                     {item.num}
                   </span>
                   <div className="min-w-0 flex-1">
@@ -341,7 +341,7 @@ export default function PeptideWatchPage() {
             independent consumer intelligence body with teeth.
           </p>
           <div className="rounded-md bg-[#2A5AA0] p-8 text-white">
-            <p className="mb-3 font-mono text-xs font-bold tracking-[0.2em] text-white/50 uppercase">
+            <p className="mb-3 font-mono text-xs font-bold tracking-[0.2em] text-white/80 uppercase">
               PeptideWatch Foundation
             </p>
             <h3 className="mb-3 font-heading text-2xl font-black md:text-3xl">
@@ -357,7 +357,7 @@ export default function PeptideWatchPage() {
               {WATCHDOG_PILLARS.map((p) => (
                 <div key={p.title} className="rounded-md bg-white/10 p-4">
                   <h4 className="mb-1 text-sm font-bold text-white">{p.title}</h4>
-                  <p className="text-xs leading-relaxed text-white/75">{p.body}</p>
+                  <p className="text-xs leading-relaxed text-white">{p.body}</p>
                 </div>
               ))}
             </div>

@@ -47,7 +47,7 @@ const PROJECTS: Project[] = [
     description: "An interactive diagnostic that maps your decision-making operating system. Take the quiz, get your profile, understand how you process the world.",
     url: "/humanos",
     category: "Interactive Diagnostic",
-    accent: "#059669",
+    accent: "#047D58",
     icon: Gamepad2,
   },
   {
@@ -56,7 +56,7 @@ const PROJECTS: Project[] = [
     description: "A framework for understanding how high-performing teams actually work. Maps the invisible circuitry of collaboration, conflict, and creative output.",
     url: "/flow-circuit",
     category: "Find Your ___ Ecosystem",
-    accent: "#4A90D9",
+    accent: "#2974C2",
     icon: Zap,
   },
   {
@@ -65,7 +65,7 @@ const PROJECTS: Project[] = [
     description: "A long-form narrative essay exploring the intersection of chance encounters and meaningful coincidence. The kind of piece that makes you reconsider every accident in your life.",
     url: "https://serensynch-2agjfwhe.manus.space",
     category: "Narrative Essay",
-    accent: "#D97706",
+    accent: "#AC5F05",
     icon: BookOpen,
   },
   {
@@ -142,7 +142,7 @@ const PROJECTS: Project[] = [
     description: "A 15-question assessment mapping your intimacy intelligence across five dimensions — presence, vulnerability, attunement, repair, and sacred play. Built from the research behind Love as Dharma.",
     url: "https://intimacyassess-tcir3hon.manus.space",
     category: "Relationship Assessment",
-    accent: "#C4536A",
+    accent: "#C04860",
     icon: Heart,
   },
 ];
@@ -152,7 +152,7 @@ export default function RecentCreationsPage() {
     <div>
       <div className="border-b border-border bg-muted/30 px-8 pt-12 pb-8">
         <div className="mx-auto max-w-4xl">
-          <Link href="/the-letter" className="font-mono text-xs tracking-wide text-brand-gold uppercase">
+          <Link href="/the-letter" className="inline-flex items-center font-mono text-xs tracking-wide text-brand-gold uppercase min-h-11 md:min-h-6">
             ← Back to The Broadsheet
           </Link>
           <h1 className="mt-6 mb-4 font-heading text-4xl font-bold text-foreground sm:text-5xl">

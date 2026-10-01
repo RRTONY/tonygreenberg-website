@@ -54,7 +54,7 @@ export default function EcosystemPage() {
         </p>
       </section>
 
-      <div className="mx-auto max-w-2xl px-6 py-12">
+      <div className="mx-auto max-w-[39rem] px-5 py-12 text-[1.05rem]/[1.8] sm:px-10">
         <p className="mb-2 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
           What It Is
         </p>
@@ -71,7 +71,7 @@ export default function EcosystemPage() {
         </p>
       </div>
 
-      <div className="mx-auto max-w-2xl px-6 py-12">
+      <div className="mx-auto max-w-[39rem] px-5 py-12 text-[1.05rem]/[1.8] sm:px-10">
         <p className="mb-2 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
           Who It&apos;s For
         </p>
@@ -81,7 +81,7 @@ export default function EcosystemPage() {
         <BulletList items={WHO_ITS_FOR} />
       </div>
 
-      <div className="mx-auto max-w-2xl px-6 py-12">
+      <div className="mx-auto max-w-[39rem] px-5 py-12 text-[1.05rem]/[1.8] sm:px-10">
         <p className="mb-2 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
           What Members Receive
         </p>
@@ -104,7 +104,7 @@ export default function EcosystemPage() {
       </section>
 
       <div className="border-t border-border py-6 text-center">
-        <Link href="/find-my" className="font-mono text-sm tracking-wide text-brand-gold">
+        <Link href="/find-my" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
           Explore the Assessments →
         </Link>
       </div>

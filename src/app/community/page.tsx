@@ -58,14 +58,14 @@ export default function CommunityPage() {
         </p>
         <Link
           href="/living-declaration"
-          className="font-mono text-xs tracking-wide text-brand-gold uppercase"
+          className="inline-flex items-center font-mono text-xs tracking-wide text-brand-gold uppercase min-h-11 md:min-h-6"
         >
           Read the Manifesto →
         </Link>
       </div>
 
       <div className="border-t border-border py-6 text-center">
-        <Link href="/living-declaration" className="font-mono text-sm tracking-wide text-brand-gold">
+        <Link href="/living-declaration" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
           Continue to The Manifesto →
         </Link>
       </div>

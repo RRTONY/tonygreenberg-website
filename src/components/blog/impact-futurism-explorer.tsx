@@ -76,11 +76,11 @@ function ArticleListRow({ post, entry, index }: { post: FuturismPost; entry: Imp
       href={`/blog/${post.slug}`}
       className="grid grid-cols-[auto_1fr_auto] items-start gap-4 rounded-sm border-b border-brand-gold/10 px-2 py-5 transition-colors hover:bg-brand-gold/4"
     >
-      <div className="min-w-6 pt-0.5 font-mono text-xs text-brand-gold/50">{String(index + 1).padStart(2, "0")}</div>
+      <div className="min-w-6 pt-0.5 font-mono text-xs text-brand-gold">{String(index + 1).padStart(2, "0")}</div>
       <div>
         <div className="mb-1 flex flex-wrap items-center gap-2.5">
           <TagBadge tag={entry.tag} />
-          <span className="font-mono text-[0.6rem] text-brand-gold/60">{formatDate(post.publishedAt)}</span>
+          <span className="font-mono text-[0.6rem] text-brand-gold">{formatDate(post.publishedAt)}</span>
         </div>
         <h4 className="mb-1 font-heading text-base font-bold leading-snug text-foreground">{post.title}</h4>
         <p className="text-sm leading-relaxed text-muted-foreground">{entry.teaser}</p>

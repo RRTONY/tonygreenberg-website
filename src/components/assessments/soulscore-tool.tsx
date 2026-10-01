@@ -215,7 +215,7 @@ export function SoulScoreTool() {
 
           <button
             onClick={() => setPhase("tool")}
-            className="rounded-lg bg-linear-to-br from-[#8B6914] to-[#D4B96A] px-14 py-4 font-mono text-sm font-bold tracking-[0.2em] text-[#FAFAF7] uppercase shadow-[0_4px_20px_rgba(139,105,20,0.3)] transition-transform hover:-translate-y-0.5"
+            className="rounded-lg bg-linear-to-br from-[#836311] to-[#D4B96A] px-14 py-4 font-mono text-sm font-bold tracking-[0.2em] text-[#FAFAF7] uppercase shadow-[0_4px_20px_rgba(139,105,20,0.3)] transition-transform hover:-translate-y-0.5"
           >
             Launch SoulScore →
           </button>
@@ -381,7 +381,7 @@ function MeasureTab({
           placeholder="Entity name (optional)"
           value={entityName}
           onChange={(e) => setEntityName(e.target.value)}
-          className="mt-2 min-h-11 basis-full rounded-md border border-[#E8E4DC] bg-[#FAFAF7] px-3 py-2 text-[0.9rem] outline-none"
+          className="mt-2 min-h-11 basis-full rounded-md border border-[#E8E4DC] bg-[#FAFAF7] px-3 py-2 text-[0.9rem] outline-none focus-visible:ring-2 focus-visible:ring-ring"
         />
       </div>
 
@@ -521,7 +521,7 @@ function BenchmarkTab({ scores, entityName }: { scores: number[]; entityName: st
         {DIMENSIONS.length}-axis measurement eliminates single-dimension gaming.
       </div>
 
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
         <table className="w-full min-w-225 border-collapse font-mono text-[0.6rem]">
           <thead>
             <tr className="border-b-2 border-[#0A0A10]">

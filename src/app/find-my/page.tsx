@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
-import { ThemedBackground } from "@/components/assessments/themed-background";
 import { JourneyTracker } from "@/components/assessments/journey-tracker";
 import { CATEGORIES, FEATURED, FIND_MY_COMING, FIND_MY_LIVE, FIND_MY_TOTAL, type FindMyLink } from "@/lib/content/find-my-directory";
 
@@ -12,10 +12,12 @@ import { CATEGORIES, FEATURED, FIND_MY_COMING, FIND_MY_LIVE, FIND_MY_TOTAL, type
 // port note on real content/status corrections. Structural changes made
 // here on top of that data fix:
 //
-// Legacy's hero used a dead Manus image (`/api/img/findme-orig_c4cf916c.jpg`,
-// banned per this repo's zero-Manus rule) — dropped for the plain
-// `ThemedBackground` (theme="ecosystem") this page renders behind
-// everything anyway, same call already made on `/find-your-me`.
+// Legacy's 200px hero banner photo (`findme-orig`, on the Manus `/api/img/`
+// host) was rescued into Sanity on 2026-09-28
+// (docs/ai/manus-media-rescue.md) and is back, with the avatar overlapping
+// its bottom edge as in legacy. Legacy dimmed it over a themed (blue)
+// background; live now shows it undimmed on the plain page, and so does this
+// page (2026-10-02).
 // `AssessmentProgressBar` (a legacy component never ported to this repo)
 // is replaced with the real `JourneyTracker` (compact) — same universal
 // per-browser progress data, already used everywhere else in this
@@ -55,7 +57,7 @@ function LinkCard({ item }: { item: FindMyLink }) {
   const card = (
     <div
       className={`flex w-full max-w-120 items-center gap-4 rounded-full border border-l-[3px] bg-background/85 px-6 py-4 backdrop-blur-sm transition-all ${
-        isLive ? "border-border shadow-sm hover:-translate-y-0.5 hover:shadow-md" : "cursor-default border-border/50 opacity-60"
+        isLive ? "border-border shadow-sm hover:-translate-y-0.5 hover:shadow-md" : "cursor-default border-border/50 opacity-85"
       }`}
       style={{ borderLeftColor: item.color }}
     >
@@ -87,19 +89,25 @@ function LinkCard({ item }: { item: FindMyLink }) {
   );
 }
 
+const HERO_IMG =
+  "https://cdn.sanity.io/images/a3q1cyqs/production/5af7e3e99c3980447b5a8c4926b67fd0e48f5025-1200x670.webp";
+
 export default function FindMyPage() {
   return (
     <div className="relative z-1 min-h-screen">
-      <ThemedBackground theme="ecosystem" />
+      <div className="relative z-1 h-50 overflow-hidden">
+        {/* Live (2026-10-02) shows the photo undimmed on the plain page background. */}
+        <Image src={HERO_IMG} alt="" fill priority sizes="100vw" className="object-cover object-[center_30%]" />
+      </div>
 
-      <div className="relative z-1 mx-auto max-w-135 px-6 pt-[clamp(6rem,10vw,8rem)] pb-24 text-center">
+      <div className="relative z-10 mx-auto -mt-15 max-w-135 px-6 pb-24 text-center">
         <div className="mx-auto flex size-25 items-center justify-center rounded-full border-4 border-background bg-linear-to-br from-brand-gold to-brand-gold-light shadow-lg">
           <span className="font-heading text-4xl font-bold text-white">T</span>
         </div>
 
         <h1 className="mt-5 mb-2 font-heading text-[clamp(1.8rem,4vw,2.4rem)] leading-tight font-normal text-foreground">Find What&apos;s Yours</h1>
         <p className="mx-auto max-w-105 text-base leading-relaxed text-muted-foreground">
-          {FIND_MY_TOTAL} decision frameworks that reduce friction and create clarity. No sales pitch. Just tools.
+          20+ decision frameworks that reduce friction and create clarity. No sales pitch. Just tools.
         </p>
 
         <div className="mx-auto mt-5 max-w-120 rounded-xl border border-brand-gold/12 bg-brand-gold/4 p-6 text-left">
@@ -167,7 +175,7 @@ export default function FindMyPage() {
       <section className="relative z-1 mx-auto mt-12 max-w-130 px-6 pb-4 text-center">
         <p className="mb-3 text-[0.9rem] text-muted-foreground">Connect with Tony</p>
         <div className="flex flex-wrap items-center justify-center gap-6">
-          <Link href="/pick-up-the-phone" className="font-mono text-[0.72rem] tracking-[0.1em] text-brand-gold">
+          <Link href="/pick-up-the-phone" className="inline-flex items-center font-mono text-[0.72rem] tracking-[0.1em] text-brand-gold min-h-11 md:min-h-6">
             📞 Pick Up the Phone
           </Link>
           <span className="inline-flex items-center gap-2 font-mono text-[0.72rem] tracking-[0.1em] text-muted-foreground">
@@ -178,7 +186,7 @@ export default function FindMyPage() {
       </section>
 
       <section className="relative z-1 px-6 pb-16 text-center">
-        <p className="font-mono text-[0.65rem] tracking-[0.08em] text-muted-foreground/70">
+        <p className="font-mono text-[0.65rem] tracking-[0.08em] text-muted-foreground">
           All assessments are free · Your data is never sold · Results delivered immediately · {FIND_MY_LIVE} live now, {FIND_MY_COMING} coming soon
         </p>
       </section>

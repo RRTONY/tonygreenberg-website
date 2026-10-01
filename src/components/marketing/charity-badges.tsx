@@ -31,14 +31,14 @@ export function GradeBadge({ grade, size = "sm" }: { grade: Grade; size?: "sm" |
 }
 
 const CLOAK_CONFIG: Record<CloakStatus, { icon: typeof Eye; label: string; cls: string; desc: string }> = {
-  clear: { icon: Eye, label: "Clear", cls: "text-emerald-600", desc: "Full transparency. Open data. Nothing hidden." },
+  clear: { icon: Eye, label: "Clear", cls: "text-emerald-700", desc: "Full transparency. Open data. Nothing hidden." },
   "mostly-clear": { icon: Eye, label: "Mostly Clear", cls: "text-blue-600", desc: "Good disclosure with minor gaps." },
   hazy: { icon: EyeOff, label: "Hazy", cls: "text-amber-600", desc: "Significant information gaps." },
   opaque: { icon: EyeOff, label: "Opaque", cls: "text-red-600", desc: "Material information withheld." },
 };
 
 const CLOAK_PANEL_CLASSES: Record<CloakStatus, string> = {
-  clear: "text-emerald-600 bg-emerald-50 border-emerald-200",
+  clear: "text-emerald-800 bg-emerald-50 border-emerald-200",
   "mostly-clear": "text-blue-600 bg-blue-50 border-blue-200",
   hazy: "text-amber-600 bg-amber-50 border-amber-200",
   opaque: "text-red-600 bg-red-50 border-red-200",
@@ -60,7 +60,7 @@ export function CloakPanel({ status }: { status: CloakStatus }) {
       <Icon className="size-5" />
       <div>
         <span className="text-sm font-semibold">{label}</span>
-        <p className="text-xs opacity-80">{desc}</p>
+        <p className="text-xs">{desc}</p>
       </div>
     </div>
   );
@@ -153,7 +153,9 @@ export function evaluatorBadges(charity: {
   if (charity.cnStars) {
     badges.push({
       label: "CN",
-      value: `${charity.cnStars}★`,
+      // Charity Navigator rates out of 4 — "3 / 4" reads correctly to screen
+      // readers and sighted visitors alike, unlike a lone "3★".
+      value: `${charity.cnStars} / 4`,
       cls: charity.cnStars >= 4 ? "bg-emerald-100 text-emerald-800" : "bg-amber-100 text-amber-800",
     });
   }

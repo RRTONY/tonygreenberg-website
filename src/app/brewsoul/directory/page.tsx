@@ -22,7 +22,7 @@ export default function BrewSoulDirectoryPage() {
   return (
     <div className="mx-auto max-w-225 px-6 pt-12 pb-20">
       <div className="mb-10 text-center">
-        <div className="mb-3 font-mono text-xs tracking-[0.25em] text-[#C5A23C] uppercase">Complete Index</div>
+        <div className="mb-3 font-mono text-xs tracking-[0.25em] text-[#836311] uppercase">Complete Index</div>
         <h1 className="mb-4 font-heading text-[clamp(2rem,5vw,3rem)] leading-[1.15] font-bold text-[#2C1810]">Everything Inside BrewSoul</h1>
         <p className="mx-auto max-w-150 text-[1.1rem] leading-relaxed text-[#6B5B4F]">{BREWSOUL_TOTAL_PAGES} pages of coffee intelligence. Every page free.</p>
       </div>

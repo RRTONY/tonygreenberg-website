@@ -51,7 +51,7 @@ function ArticleList({ posts }: { posts: ArchivePost[] }) {
               {formatDate(post.publishedAt)}
             </span>
             <div className="min-w-50 flex-1">
-              <Link href={`/blog/${post.slug}`} className="block font-heading text-base font-semibold text-foreground hover:text-brand-gold">
+              <Link href={`/blog/${post.slug}`} className="inline-flex items-center font-heading text-base font-semibold text-foreground hover:text-brand-gold min-h-11 md:min-h-6">
                 {post.title}
               </Link>
               {post.subtitle && <span className="mt-0.5 block text-sm text-muted-foreground">{post.subtitle}</span>}
@@ -149,12 +149,16 @@ export function ArticlesExplorer({ posts }: { posts: ArchivePost[] }) {
                 onClick={() => handleModeChange(mode.id)}
                 className={`flex flex-col items-start gap-0.5 rounded-sm border px-3.5 py-2 font-mono text-xs tracking-wide ${
                   activeMode === mode.id
-                    ? "border-brand-gold bg-brand-gold text-[#0A0A10]"
+                    ? "border-brand-gold bg-brand-gold text-white"
                     : "border-brand-gold/25 bg-white/8 text-white/70"
                 }`}
               >
                 <span className="uppercase">{mode.label}</span>
-                {"desc" in mode && <span className="text-[0.58rem] opacity-70">{mode.desc}</span>}
+                {"desc" in mode ? (
+                  <span className="text-[0.58rem] opacity-90">{mode.desc}</span>
+                ) : (
+                  <span className="text-[0.58rem] opacity-90">{posts.length} pieces</span>
+                )}
               </button>
             ))}
           </div>
@@ -164,7 +168,7 @@ export function ArticlesExplorer({ posts }: { posts: ArchivePost[] }) {
             placeholder="Search articles, topics, or keywords…"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full max-w-lg rounded-sm border border-brand-gold/30 bg-white/7 px-5 py-3 text-white/90 outline-none placeholder:text-white/40"
+            className="w-full max-w-lg rounded-sm border border-brand-gold/30 bg-white/7 px-5 py-3 text-white/90 outline-none focus-visible:ring-2 focus-visible:ring-ring placeholder:text-white/40"
           />
         </div>
       </div>

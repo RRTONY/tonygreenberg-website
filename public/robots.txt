@@ -146,4 +146,6 @@ Disallow: /studio
 Sitemap: https://tonygreenberg.com/sitemap.xml
 
 # AI-readable content map
-LLMs: https://tonygreenberg.com/llms.txt
+# LLMs: https://tonygreenberg.com/llms.txt
+# (a comment, not a directive: "LLMs:" isn't part of the robots.txt standard, so Google
+# flagged the whole file invalid. AI crawlers find /llms.txt at its well-known path.)

@@ -15,7 +15,7 @@ export async function GemSparkStrip() {
 
   return (
     <section className="border-y border-brand-gold/20 bg-linear-to-br from-[#FFFBF0] to-[#FFF8E7] px-4 py-10 sm:px-6 dark:from-[#1a1608] dark:to-[#181206]">
-      <div className="mx-auto flex max-w-6xl flex-col flex-wrap items-start gap-8 sm:flex-row">
+      <div className="mx-auto flex max-w-300 flex-col flex-wrap items-start gap-8 sm:flex-row">
         <div className="w-full min-w-0 flex-1 sm:min-w-55 sm:basis-70">
           <div className="mb-2 flex items-center gap-2">
             <Sparkles className="size-5 text-[#C8860A]" />
@@ -47,7 +47,7 @@ export async function GemSparkStrip() {
                     {post.title}
                   </div>
                   {subtitle && (
-                    <div className="truncate font-mono text-xs tracking-wide text-[#8B6914] uppercase">
+                    <div className="truncate font-mono text-xs tracking-wide text-[#836311] uppercase">
                       {subtitle}
                     </div>
                   )}

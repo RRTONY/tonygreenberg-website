@@ -39,8 +39,8 @@ export function ShameExplorer({ entries }: { entries: ShameEntry[] }) {
             </div>
             <p className="mb-2 text-[0.88rem] leading-relaxed text-[#6B5B4F]">{s.evidence}</p>
             <div className="flex items-center justify-between gap-4">
-              <div className="font-mono text-[0.65rem] text-[#999]">Severity: {s.severity}/100</div>
-              {s.response && <div className="max-w-[60%] font-mono text-[0.65rem] text-[#999] italic">{s.response}</div>}
+              <div className="font-mono text-[0.65rem] text-[#6E6E6E]">Severity: {s.severity}/100</div>
+              {s.response && <div className="max-w-[60%] font-mono text-[0.65rem] text-[#6E6E6E] italic">{s.response}</div>}
             </div>
           </div>
         ))}

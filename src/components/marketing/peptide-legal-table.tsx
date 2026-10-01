@@ -60,7 +60,7 @@ export function PeptideLegalTable({ data }: { data: PeptideRegEntry[] }) {
             placeholder="Search compound..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-60 rounded-sm border border-border bg-background py-2 pr-4 pl-9 text-sm outline-none focus:border-brand-gold"
+            className="w-60 rounded-sm border border-border bg-background py-2 pr-4 pl-9 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring focus:border-brand-gold"
           />
         </div>
         <div className="flex gap-2">
@@ -78,7 +78,7 @@ export function PeptideLegalTable({ data }: { data: PeptideRegEntry[] }) {
         </div>
       </div>
 
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b-2 border-border text-left">

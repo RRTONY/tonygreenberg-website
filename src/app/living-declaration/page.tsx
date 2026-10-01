@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { EyebrowLabel } from "@/components/marketing/eyebrow-label";
+import { BlueprintForm } from "./blueprint-form";
 
 // Ported from legacy client/src/pages/Manifesto.tsx ("A Living Declaration
 // — The Measurement of Becoming"). Real essay prose, all real pull quotes
@@ -8,11 +10,11 @@ import { EyebrowLabel } from "@/components/marketing/eyebrow-label";
 // principles, the six numbered practices, and the "Ecosystem Map" section
 // ported in full.
 //
-// Not ported: the hero background photo and the "hand breakthrough" image
-// — both on the now-fully-dead Manus `/api/img/` host, unrecoverable (see
-// NEXTJS-MIGRATION-TODO.md Phase 13); replaced with a CSS gradient instead
-// of fabricating a substitute. Clarisse Abelarde's artwork image is gone
-// the same way — kept the real text crediting her, dropped the photo. The
+// The hero background photo, the "hand breakthrough" image and Clarisse
+// Abelarde's artwork were on the Manus `/api/img/` host; all three were
+// rescued into Sanity on 2026-09-28 (docs/ai/manus-media-rescue.md) and are
+// back in legacy's positions with legacy's alt text. The artwork caption
+// drops legacy's link to Clarisse's Manus-hosted site (zero-Manus rule). The
 // "Ecosystem Map" grid originally linked out to 6 other Manus-hosted
 // micro-sites (Gem Spark, Regenerative Protocol, SoulSmoke, LiquidSun,
 // Sacred Waters, Intimacy Assessment) plus a "Vancefolio" site — all
@@ -27,6 +29,18 @@ import { EyebrowLabel } from "@/components/marketing/eyebrow-label";
 // nowhere. "/assessment" (singular) is corrected to "/assessments" — the
 // real legacy route name, confirmed elsewhere in App.tsx; likely a typo in
 // the original.
+//
+// 2026-10-01: copy re-synced to the rewritten live page (Tony's current
+// wording for the hero, premise, essay sections, six practices, six
+// principles, coda, puzzle pieces, "Your Turn" and "Next Step"). The live
+// page restored the six-question blueprint form, so it's back as
+// `blueprint-form.tsx` (still a pre-filled email, no backend), and the hero
+// "Add Your Voice" button jumps to it. Ecosystem chips follow live's set,
+// minus live's Manus-hosted micro-site links and its self-link for
+// FusionRamp / STRATUM; "The Index" goes to /search and "Life Assessment"
+// to /the-mirror (where those URLs redirect), "Homeaglow Exposed" keeps
+// homeaglowexposed.com (live's internal route isn't ported). The
+// assessment CTA now follows live to /assessment (a real page here).
 export const metadata: Metadata = {
   title: "A Living Declaration",
   description:
@@ -40,49 +54,49 @@ const STATS = [
   { value: "12", label: "Sites Launched" },
   { value: "1M+", label: "Data Points" },
   { value: "6", label: "Active Investments" },
-  { value: "$10B+", label: "Benchmarked" },
+  { value: "$10B+", label: "Enterprise Contracts" },
 ];
 
 const PRINCIPLES = [
   {
     num: "I",
-    title: "Measure the Becoming",
-    body: "We believe the most important metric in human history has never been tracked: the speed at which a person becomes their best self. Not productivity. Not output. Not GDP. The velocity of becoming. Every system we build, every index we create, every community we convene exists to compress the distance between who you are and who you're capable of being — and to measure that compression with the same rigor Wall Street applies to quarterly earnings.",
+    title: "Measure What Matters",
+    body: "The number I care about is not productivity, output, or GDP. It is the distance between the life someone has and the life they know they could be living. If we are going to measure anything, let it be whether the tools, habits, and people around us are helping close that distance.",
   },
   {
     num: "II",
-    title: "Optimize the Vessel",
-    body: "Your biochemistry is not a footnote — it's the operating system. Peptides, exosomes, regenerative protocols, psychedelic-assisted therapy, biometric feedback loops with Oura and continuous glucose monitors — these aren't biohacking vanity projects. They're the infrastructure of human potential. You cannot think clearly in a body running on cortisol and seed oils. You cannot love deeply when your nervous system is stuck in fight-or-flight. We connect people to the biochemistry optimization that allows them to lead their most sacred, most fulfilling, most abundant life. Not as luxury. As prerequisite.",
+    title: "Take Care of the Body",
+    body: "A tired, anxious, inflamed body makes everything harder. So does treating every new protocol like a miracle. I am interested in the patient work: better information, better questions, careful experimentation, and qualified medical guidance when it is needed. The point is not to become a project. The point is to feel more present in your own life.",
   },
   {
     num: "III",
-    title: "Shrink the Footprint, Expand the Soul",
-    body: "Here is the heresy that makes economists nervous: the goal is not more GDP. The goal is less. Less extraction. Less waste. Less of the frantic production-consumption cycle that's cooking the planet and hollowing out the species. We're building toward a world where the lowest carbon footprint enables the highest quality of life — where abundance is measured in health, connection, creative output, and time sovereignty, not in units shipped. Every token we mint, every protocol we design, every community we build is oriented toward this inversion: reduce the economic footprint, expand the human one.",
+    title: "Use Less. Live More.",
+    body: "I do not think a better life requires a larger pile of stuff. It requires less waste, less extraction, and fewer systems that turn people and places into inputs. A good life has room for health, friendship, useful work, beauty, and time. If we can get more of that while doing less damage, that is a trade worth making.",
   },
   {
     num: "IV",
-    title: "Connect the Dots, Build the Tribe",
-    body: "The loneliest generation in human history is also the most connected — digitally. The paradox is the diagnosis. We're not building another social network. We're building the connective tissue for people who've already done the inner work and are ready to find their tribe, their partner, their collaborator, their co-conspirator in building what comes next. Finding your people isn't a feature. It's the foundation. Every great company, every great movement, every great love story started with two people in a room who shouldn't have met but did.",
+    title: "Find Your People",
+    body: "We are surrounded by ways to connect and strangely starved for real connection. I am not interested in another feed. I am interested in the people you call when something breaks, the collaborator who makes your idea better, and the friend who tells you the truth. Most meaningful things begin when two people who should have met finally do.",
   },
   {
     num: "V",
-    title: "Sacred Accountability",
-    body: "We measure everything. Not because measurement is sacred — but because what you measure, you can improve, and what you improve, you can share. The Flow Circuit tracks team performance. The Regenerative Protocol tracks biological optimization. The QPR Index scores intellectual rigor. Sacred Waters maps the geometry of healing. These aren't vanity dashboards. They're mirrors. And mirrors don't lie — even when the reflection is uncomfortable. We hold ourselves accountable first, then invite others to do the same.",
+    title: "Tell the Truth About the Score",
+    body: "Measurement can be useful when it keeps us honest. It can also become a costume. The work here is to make useful mirrors: ways to see where a team is stuck, where an idea is thin, or where a health question needs a better answer. I want the score to start a better conversation, not end one.",
   },
   {
     num: "VI",
-    title: "The Invitation Is the Architecture",
-    body: "This Living Declaration is not a monologue. It's an open door. We're asking you: What do you want to measure? What indices don't exist yet that should? What community would you build if you had the infrastructure? What does your most abundant life look like — and what's standing between you and it? The answers to these questions become the blueprint. Your input becomes the architecture. This isn't a platform built for you. It's a platform built with you.",
+    title: "Make It With People, Not At Them",
+    body: "This page is a work in progress, not a sermon from a mountaintop. Tell me what I have missed. Tell me what does not hold up. Tell me what you would build if you had more help and fewer hoops to jump through. The best ideas get better when someone has the nerve to challenge them.",
   },
 ];
 
 const NUMBERED_PRACTICES = [
-  { num: "1", title: "Choose satisficing over maximizing.", body: "Set clear criteria for \"good enough.\" Once met, stop searching. The maximizer's pursuit is a trap algorithms exploit. The satisficer's contentment is a fortress they cannot breach." },
-  { num: "2", title: "Embrace voluntary simplification.", body: "Reduce complexity by choice before circumstances compel it. This is not deprivation but liberation. Own fewer things. Maintain fewer accounts. Cultivate fewer but deeper relationships." },
-  { num: "3", title: "Build at human scale.", body: "Robin Dunbar discovered humans can maintain approximately 150 stable relationships. Invest in these Dunbar-scale communities — your 15-50 deep bonds, your 5 inner circle. These sustain you when large systems fail." },
-  { num: "4", title: "Redefine abundance.", body: "True abundance is not accumulation; it is alignment. When resources flow toward your conscious intentions, scarcity dissolves. Shift from \"Do I have enough?\" to \"Am I contributing enough?\"" },
-  { num: "5", title: "Let the titans compete.", body: "Large corporations, governments, and AI systems will compete for dominance. You don't need to participate. Turn inward. Build community. Create meaning. Redirect attention to what you can actually affect." },
-  { num: "6", title: "Love more, need less.", body: "The ultimate hedge against AI dominance and civilizational stress is genuine human love, presence, and connection. These require no external energy, scale poorly (which is their strength), and constitute the irreducible core of flourishing." },
+  { num: "1", title: "Choose satisficing over maximizing.", body: "Write down what is good enough. When you get there, stop. Endless comparison is a game designed to keep you dissatisfied." },
+  { num: "2", title: "Embrace voluntary simplification.", body: "Make your life a little less complicated before life does it for you. Fewer accounts, fewer things to maintain, and a few deeper relationships can be a very good trade." },
+  { num: "3", title: "Build at human scale.", body: "Put real effort into the people who know you well and show up when it matters. Big systems come and go. Your close circle is the part you can actually tend." },
+  { num: "4", title: "Redefine abundance.", body: "Abundance is not simply having more. It is having enough room, enough health, and enough agency to make a decent choice. Ask less often, \"Do I have enough?\" and more often, \"What am I making possible?\"" },
+  { num: "5", title: "Let the titans compete.", body: "Large companies, governments, and AI systems will fight for dominance. You do not have to make their contest your whole life. Put your energy into the people and places you can actually affect." },
+  { num: "6", title: "Love more, need less.", body: "Real love, attention, and friendship are not small things. They are the parts of life that resist being turned into a product, and they are worth protecting." },
 ];
 
 const STEPS = [
@@ -96,7 +110,11 @@ const ECOSYSTEM_MAP = [
   {
     principle: "Measure the Becoming",
     proof: "The QPR Index scores intellectual rigor across 91 essays. The Flow Circuit maps team performance. Human OS V2.0 diagnoses decision-making patterns. The Gem Spark maps serendipity.",
-    links: [{ label: "Human OS", href: "/humanos" }],
+    links: [
+      { label: "The Index", href: "/search" },
+      { label: "Flow Circuit", href: "/flow-circuit" },
+      { label: "Human OS", href: "/humanos" },
+    ],
   },
   {
     principle: "Optimize the Vessel",
@@ -126,6 +144,7 @@ const ECOSYSTEM_MAP = [
     proof: "Homeaglow Exposed holds corporations accountable. Vancefolio enforces portfolio intelligence. Every essay is scored, rated, and open to reaction.",
     links: [
       { label: "Homeaglow Exposed", href: "https://homeaglowexposed.com" },
+      { label: "Open Door", href: "/the-open-door" },
       { label: "Intel", href: "/intel" },
     ],
   },
@@ -133,8 +152,10 @@ const ECOSYSTEM_MAP = [
     principle: "The Invitation",
     proof: "This page. The Life Assessment below. Find Your Journey maps your path. The community you build here becomes the infrastructure for what comes next.",
     links: [
+      { label: "Life Assessment", href: "/the-mirror" },
+      { label: "Find Your Journey", href: "/find-your-journey" },
       { label: "Community", href: "/community" },
-      { label: "All Sites", href: "/recent-creations" },
+      { label: "All 11 Sites", href: "/recent-creations" },
     ],
   },
 ];
@@ -152,22 +173,38 @@ function PullQuote({ quote, attribution }: { quote: string; attribution: string 
   );
 }
 
+const IMG_BASE = "https://cdn.sanity.io/images/a3q1cyqs/production/";
+const HERO_IMG = `${IMG_BASE}72768f467b1504fe9d4870dea2f907d4bf3bf204-1200x669.webp`;
+const HAND_IMG = `${IMG_BASE}71fd25c09d03114e8c6a59aa38fd4d4dede6c7ea-1200x669.webp`;
+const CLARISSE_ART_IMG = `${IMG_BASE}d8e3526e3f1115dbeaf0b0e85435c5ce0614bb86-817x800.webp`;
+
 export default function LivingDeclarationPage() {
   return (
     <div>
-      <div className="bg-linear-to-b from-background to-secondary px-6 py-24 text-center sm:px-10 dark:from-[#0A0A10] dark:to-background">
-        <p className="mb-5 font-mono text-xs tracking-[0.3em] text-brand-gold uppercase">
+      <div className="relative isolate overflow-hidden bg-[#0A0A10] px-6 py-28 text-center sm:px-10 sm:py-36">
+        <Image src={HERO_IMG} alt="" fill priority sizes="100vw" className="-z-20 object-cover brightness-35 saturate-80" />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,rgba(139,105,20,0.15)_0%,transparent_70%)]"
+        />
+        <p className="mb-5 font-mono text-xs tracking-[0.3em] text-brand-gold-light uppercase">
           A Living Declaration
         </p>
-        <h1 className="mx-auto mb-6 max-w-2xl font-heading text-4xl leading-tight font-normal text-foreground sm:text-5xl">
-          The Measurement <span className="text-brand-gold">of Becoming</span>
+        <h1 className="mx-auto mb-6 max-w-2xl font-heading text-4xl leading-tight font-normal text-[#F5F0E8] sm:text-5xl">
+          The Measurement <span className="text-brand-gold-light">of Becoming</span>
         </h1>
-        <p className="mx-auto max-w-xl text-lg text-foreground/70">
-          We&apos;re going to measure how fast people can become their best self — and connect
-          them to the biochemistry, the community, and the accountability infrastructure that
-          makes it possible. The most abundant life. The lowest carbon footprint. A better
-          humanity for the future.
+        <p className="mx-auto mb-8 max-w-xl text-lg text-[#F5F0E8]/75">
+          This is a working declaration, not a new religion. I am interested in a simple
+          question: how do we help people get closer to the life they know they could live? The
+          answers live in the body, in our relationships, in our habits, and in the systems we
+          choose to build.
         </p>
+        <a
+          href="#your-turn"
+          className="inline-flex min-h-11 items-center rounded-md bg-brand-gold-light px-10 py-3.5 font-mono text-xs tracking-[0.15em] text-[#0A0A10] uppercase transition-colors hover:bg-[#F5F0E0]"
+        >
+          Add Your Voice →
+        </a>
       </div>
 
       <div className="grid grid-cols-2 gap-6 border-y border-brand-gold/20 bg-secondary px-6 py-10 text-center sm:grid-cols-3 sm:px-10 lg:grid-cols-6 dark:bg-[#0A0A10]">
@@ -184,25 +221,23 @@ export default function LivingDeclarationPage() {
       <div className="article-body mx-auto max-w-2xl px-6 py-14 leading-[1.9] sm:px-10 [&>p]:mb-4">
         <EyebrowLabel>The Premise</EyebrowLabel>
         <p>
-          For twenty-five years I&apos;ve been building companies, exposing extractive systems,
-          investing in consciousness-expanding medicine, tokenizing dinosaur skeletons for ocean
-          cleanup, and writing about what happens when you refuse to accept the world as it&apos;s
-          handed to you. Ninety-one essays. Twelve sites. A million data points. Six psychedelic
-          medicine investments. A B Corp that tokenizes impact. A payments corridor measured in
-          billions.
+          For twenty-five years, I have built companies, picked apart bad incentives, invested in
+          difficult ideas, and written about what happens when you refuse to accept the world
+          exactly as it is handed to you. Some of that work has involved enterprise contracts,
+          some has involved medicine, some has involved fossils and oceans. It has all been an
+          attempt to find the people and systems worth betting on.
         </p>
         <p>
-          All of it — every single thread — converges on one question:{" "}
+          Underneath all of it is one question:{" "}
           <strong>
-            How fast can a human being become the best version of themselves, and what
-            infrastructure do they need to get there?
+            What helps a person live with more clarity, more agency, and more room to become who
+            they are?
           </strong>
         </p>
         <p>
-          This Living Declaration is the answer. Not a final answer — a living one. It will
-          change as you change it. Because the most important thing I&apos;ve learned in
-          twenty-five years of building is this: the best architecture is the one your community
-          finishes for you.
+          This is not my final answer. It is a set of working principles, and I expect it to
+          change when somebody smarter than me shows me a better way to think about it. The best
+          work I have done has always been improved by people willing to take me to school.
         </p>
       </div>
 
@@ -214,30 +249,26 @@ export default function LivingDeclarationPage() {
           The Talk That Started It All
         </h2>
         <p>
-          At a Humanity+ conference at Harvard in 2010, I shared the stage with{" "}
-          <strong>Ray Kurzweil</strong> to celebrate human potential and ingenuity. Yet even in
-          that heady age of tech optimism — on the eve of Arab Spring when social media was
-          undermining rather than enabling authoritarianism — I wasn&apos;t there to blindly
-          cheerlead progress.
+          At a Humanity+ conference at Harvard in 2010, I shared a stage with{" "}
+          <strong>Ray Kurzweil</strong> during the high-water mark of tech optimism. I was
+          excited by the possibility too. I was also already worried about what happened when
+          the business model was to keep people staring at the machine.
         </p>
         <p>
-          Instead, I warned about the drive to exploit, to add fine print, to enshittify every
-          product for an additional dollar — and how the process could be so slow and
-          imperceptible that we would fail to notice it like a frog slowly being boiled alive.
-          Few listened. The congregation was drunk on possibility.
+          I warned about the slow drift toward smaller print, worse products, and another dollar
+          squeezed from every interaction. The danger was not one dramatic betrayal. It was the
+          thousand tiny tradeoffs that make life meaner while we are busy admiring the
+          convenience.
         </p>
         <p>
-          Two years later, in 2012, I wrote about the <strong>Human Operating System</strong> —
-          arguing that &quot;artificial intelligence is no match for natural stupidity&quot; and
-          that we needed technology built to fit humans &quot;like a glove instead of a
-          cast.&quot; The thesis has only become more urgent.
+          Two years later, I wrote about the <strong>Human Operating System</strong>. My point was
+          blunt: artificial intelligence is no match for natural stupidity, and technology should
+          fit human beings like a glove, not a cast. That still feels like a useful test.
         </p>
         <p>
-          Today we both can claim the mantle of prophecy. In the last five years, we&apos;ve made
-          as big a leap as any since splitting the atom. Yet the value of this change to humanity
-          is just as ambiguous as the nuclear age. With superhuman intelligence at our
-          fingertips, we haven&apos;t become supermen. We&apos;ve become shallower, more anxious,
-          and less capable.
+          I am less interested in claiming prophecy than in noticing what is right in front of
+          us. The tools have become startlingly powerful. That does not automatically make us
+          wiser, kinder, or less lonely. It means we have work to do.
         </p>
         <div className="my-8 text-center">
           <Link
@@ -248,23 +279,30 @@ export default function LivingDeclarationPage() {
           </Link>
         </div>
 
+        <Image
+          src={HAND_IMG}
+          alt="A hand breaking through the algorithmic grid — organic energy and golden flowers bursting through the machine"
+          width={1200}
+          height={669}
+          sizes="(max-width: 768px) 100vw, 672px"
+          className="my-12 h-auto w-full rounded-sm opacity-90"
+        />
+
         <EyebrowLabel>The World Waking Up</EyebrowLabel>
         <h2 className="mb-6 font-heading text-xl font-bold text-foreground sm:text-2xl">
           The Frog Was Boiled Too Fast — and Can Still Jump
         </h2>
         <p>
-          The good news is that the pace of change has jolted us into awareness.{" "}
-          <strong>Tristan Harris</strong>, former Design Ethicist at Google, describes &quot;human
-          downgrading&quot; — the systematic erosion of human capacity through technologies
-          optimized for engagement rather than flourishing. <strong>Aza Raskin</strong>, who
-          invented the infinite scroll, now speaks with deep regret. They founded the Center for
-          Humane Technology, warning that social media was humanity&apos;s first contact with AI
-          — and that humanity lost.
+          The speed of change has at least made the problem harder to ignore.{" "}
+          <strong>Tristan Harris</strong>, former Design Ethicist at Google, calls it &quot;human
+          downgrading&quot;: products tuned for engagement instead of attention, judgment, or
+          peace. <strong>Aza Raskin</strong>, who helped create the infinite scroll, has spoken
+          openly about the cost. Their warning is simple: we should not confuse a tool that
+          captures us with a tool that serves us.
         </p>
         <p>
-          Tristan and Aza are acquaintances of mine, and I&apos;m gratified to see their power and
-          direction become more relevant every day. They&apos;ve reached hundreds of millions
-          with their message. The world is finally listening.
+          I know Tristan and Aza, and I am glad their work is getting a wider hearing. It gives
+          the rest of us a chance to stop pretending that convenience is neutral.
         </p>
       </div>
 
@@ -276,34 +314,32 @@ export default function LivingDeclarationPage() {
       <div className="article-body mx-auto max-w-2xl px-6 py-14 leading-[1.9] sm:px-10 [&>p]:mb-4">
         <EyebrowLabel>An Algorithm for Human Scale Agency</EyebrowLabel>
         <p>
-          Yet I did not write this to add to the chorus of doom. Fear is not just a poor
-          foundation for flourishing — it&apos;s a surrender to the very forces you think
-          you&apos;re fighting. The attention economy profits from your anxiety. Don&apos;t let
-          them.
+          I did not write this to make anxiety into another product. Fear is easy to sell. It
+          keeps people scrolling, arguing, and handing over their attention. I am more interested
+          in what we can do with the piece of life directly in front of us.
         </p>
         <p>
-          I offer a different path: <strong>agency at human scale</strong>. In a world of systems
-          designed to break you down, you can stand tall and reclaim your self-determination.
+          I offer something smaller and harder: <strong>agency at human scale</strong>. Know what
+          you value. Put your attention there. Build enough steadiness to make your own
+          decisions. Then help somebody else do the same.
         </p>
         <h3 className="mt-8 mb-2 font-heading text-lg font-bold text-foreground">
-          Ancient Wisdom and Modern Science Converge
+          Old Ideas, Still Useful
         </h3>
         <p>
-          Many wisdom traditions that survived millennia converge on similar core practices:
-          moderation, community, presence, contentment. The Stoics knew this two thousand years
-          ago. The Buddhists knew it five hundred years before that. This convergence reflects
-          invariant features of human flourishing.
+          The traditions that lasted tend to return to the same unglamorous things: moderation,
+          community, presence, and enough. The Stoics wrote about it. Buddhists wrote about it
+          earlier. You do not need a new app to understand the basic assignment.
         </p>
         <p>
-          Fifty-five years ago, <strong>Alvin Toffler</strong> warned of &quot;Overchoice.&quot;
-          Thirty-four years later, <strong>Barry Schwartz</strong> proved him right. In{" "}
-          <em>The Paradox of Choice</em>, he identified Maximizers (who exhaustively search for
-          optimal) and{" "}
+          <strong>Alvin Toffler</strong> warned about too much choice. Later,{" "}
+          <strong>Barry Schwartz</strong> gave the problem a name in{" "}
+          <em>The Paradox of Choice</em>: maximizers keep searching for perfect, while{" "}
           <Link href="/the-territory" className="text-brand-gold underline underline-offset-2">
-            Satisficers
+            satisficers
           </Link>{" "}
-          (who stop at &quot;good enough&quot;). The finding was counterintuitive: satisficers
-          are happier.
+          know when good enough is genuinely enough. That is not laziness. It is a way of keeping
+          your life from becoming a series of browser tabs.
         </p>
       </div>
 
@@ -362,9 +398,9 @@ export default function LivingDeclarationPage() {
       <div className="article-body mx-auto max-w-2xl px-6 py-14 leading-[1.9] sm:px-10 [&>p]:mb-4">
         <EyebrowLabel>Phase 2: Rebuilding the Systems</EyebrowLabel>
         <p>
-          Just like pre-flight instructions that tell you to put on your oxygen mask before
-          assisting others, find your own serenity first. Then join me in designing
-          systems-breakers to help us find ourselves again.
+          Start by getting yourself a little steadier. Like the oxygen-mask instruction, it is
+          hard to help anyone else if you cannot breathe. Then bring what you have learned into
+          the systems around you.
         </p>
         <p>
           When I build{" "}
@@ -376,8 +412,9 @@ export default function LivingDeclarationPage() {
           >
             ImpactSoul
           </a>
-          , I&apos;m enabling reconciliation between making a living and doing good — while
-          rebuilding human-scale connections in self-governing decentralized communities.
+          , I am trying to prove that making a living and doing some good do not have to
+          be enemies. The work is messy. That is fine. It is better than waiting for a clean
+          theory.
         </p>
         <p>
           <strong>Balaji Srinivasan</strong> — crypto-philosopher and architect of{" "}
@@ -389,8 +426,8 @@ export default function LivingDeclarationPage() {
           values, not the reverse.
         </p>
         <p>
-          Balaji builds the new airplane. I&apos;m asking you to secure your oxygen mask first.
-          First find your center. Then build.
+          Balaji is building a new airplane. I am asking you to secure your oxygen mask first.
+          Find your center. Then build something worth sharing.
         </p>
         <div className="mt-8 border-t border-border pt-8">
           <h3 className="mb-2 font-heading text-lg font-bold text-foreground">
@@ -423,14 +460,11 @@ export default function LivingDeclarationPage() {
       <div className="article-body mx-auto max-w-2xl px-6 py-14 text-center leading-[1.9] sm:px-10 [&>p]:mb-4">
         <EyebrowLabel>Coda</EyebrowLabel>
         <p>
-          The storm is coming — or perhaps it is already here. You cannot control the storm. But
-          you can become the kind of person who navigates storms with grace. You can build the
-          kind of community that weathers storms together. And once you do, you can start
-          systemic change to make the journey easier for others.
+          The weather is already rough in plenty of places. You cannot control all of it. You can
+          decide what you pay attention to, what you make, and who you stand beside. Get steady
+          enough to be useful. Then make the road a little easier for the next person.
         </p>
-        <p className="font-heading text-lg font-bold text-foreground">
-          It begins with you. It begins now.
-        </p>
+        <p className="font-heading text-lg font-bold text-foreground">Start where your feet are.</p>
       </div>
 
       <hr className="border-border" />
@@ -438,9 +472,9 @@ export default function LivingDeclarationPage() {
       <div className="article-body mx-auto max-w-2xl px-6 py-14 leading-[1.9] sm:px-10 [&>p]:mb-4">
         <EyebrowLabel>The Puzzle Pieces</EyebrowLabel>
         <p>
-          Each person I&apos;ve met, each conversation I&apos;ve had, each advisor who signed up
-          for my bag of cookies — they are all part of the development of my ideals. And for
-          that, I appreciate each one of them.
+          Most of the decent things I believe were smuggled in through conversations: an argument
+          over coffee, an advisor who called bullshit, a friend who did not let me off the hook.
+          Even the people who signed up for my bag of cookies have had a hand in this.
         </p>
         <p>
           These ideals are belief systems: thoughts attached to feelings. This construct was
@@ -454,21 +488,32 @@ export default function LivingDeclarationPage() {
             Ram Dass
           </Link>
           , after studying with him for much time in Maui. And I&apos;m profoundly influenced by
-          my partner and glorious artist Clarisse Abelarde, whose work has been a constant
-          inspiration to my creativity and my love for humankind.
+          my partner and glorious artist Clarisse Abelarde, whose work is shown here as a
+          constant inspiration to my creativity and my love for humankind.
+        </p>
+        <figure className="my-10">
+          <Image
+            src={CLARISSE_ART_IMG}
+            alt="Artwork by Clarisse Abelarde — mixed media collage portrait"
+            width={817}
+            height={800}
+            sizes="(max-width: 640px) 100vw, 520px"
+            className="h-auto w-full max-w-130 rounded-md shadow-[0_8px_32px_rgba(0,0,0,0.15)]"
+          />
+          <figcaption className="mt-3 font-mono text-[0.72rem] tracking-[0.12em] text-brand-gold uppercase">
+            Artwork by Clarisse Abelarde
+          </figcaption>
+        </figure>
+        <p>
+          Advisors, skeptics, artists, and people who saw something before I could name it have
+          all left fingerprints here. The Human OS is not a finished system and it is not mine
+          alone. It is a pile of useful questions, gathered from people willing to argue in good
+          faith.
         </p>
         <p>
-          Every advisor who joined this journey, every skeptic who challenged my assumptions,
-          every visionary who saw what I couldn&apos;t yet articulate — they each added a piece
-          to the puzzle. The Human OS framework you see here is not mine alone. It&apos;s the
-          distillation of collective wisdom, the simplification of profound complexity that only
-          emerges when diverse minds collide and collaborate.
-        </p>
-        <p>
-          This is how we absorb AI and AGI into our lives. This is how we find our place in the
-          sun. Not through individual genius, but through the patient accumulation of insight,
-          the willingness to learn and unlearn, and the humility to recognize that the formula
-          for navigating this new era was always going to be a collaborative effort.
+          No one gets through a strange century by themselves. We will need the patience to
+          learn, the courage to change our minds, and enough humility to admit we do not have the
+          formula yet.
         </p>
         <p className="font-semibold text-foreground italic">
           To everyone who contributed — whether you know it or not — thank you. You are the
@@ -505,9 +550,9 @@ export default function LivingDeclarationPage() {
           This Isn&apos;t Theory. It&apos;s Already Being Built.
         </h2>
         <p className="mb-8 max-w-2xl text-foreground/70">
-          Every principle in this Living Declaration maps to something that already exists — a
-          site, a protocol, an investment, an essay, a community. The infrastructure isn&apos;t
-          hypothetical. It&apos;s live.
+          These ideas are not just words on a page. They show up in projects, essays,
+          investments, experiments, and conversations that are already underway. Some will work.
+          Some will need to be dismantled. All of them are open to scrutiny.
         </p>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {ECOSYSTEM_MAP.map((item) => (
@@ -557,13 +602,12 @@ export default function LivingDeclarationPage() {
           Are You a Conscious Satisficer?
         </h2>
         <p className="mb-8 text-foreground/70">
-          The ideas in this Living Declaration aren&apos;t abstract — they&apos;re diagnostic.
-          Take the assessment to discover your decision-making pattern, understand your
-          relationship with technology, and find out where you sit on the spectrum between
-          maximizer and satisficer. Then share your results with someone who needs to read this.
+          This is not a personality label. It is a chance to notice how you make decisions, what
+          technology is doing to your attention, and where you might be making life harder than
+          it needs to be. Take it if that sounds useful. Leave it if it does not.
         </p>
         <Link
-          href="/assessments"
+          href="/assessment"
           className="mb-4 inline-block rounded-md bg-foreground px-8 py-3 font-mono text-sm tracking-wide text-background uppercase"
         >
           Take the Assessment →
@@ -580,28 +624,17 @@ export default function LivingDeclarationPage() {
 
       <hr className="border-border" />
 
-      <div className="mx-auto max-w-2xl px-6 py-14 sm:px-10">
+      <div id="your-turn" className="mx-auto max-w-2xl scroll-mt-20 px-6 py-14 sm:px-10">
         <EyebrowLabel>Your Turn</EyebrowLabel>
         <h2 className="mb-3 font-heading text-2xl font-bold text-foreground sm:text-3xl">
-          The Architecture Needs <em className="text-brand-gold not-italic">Your Blueprint</em>
+          Tell Me Where <em className="text-brand-gold not-italic">I Have This Wrong</em>
         </h2>
-        <p className="mb-8 text-foreground/70">
-          This isn&apos;t a survey. It&apos;s an invitation to co-create. What do you want to
-          measure? What indices don&apos;t exist yet that should? What community would you build
-          if you had the infrastructure? What does your most abundant life look like? Send your
-          answers directly — one question or all of them, there are no wrong answers, only
-          honest ones.
+        <p className="mb-10 text-foreground/70">
+          This is an open notebook, not a survey. Answer one question or all six. Tell me what
+          you are trying to solve, what you wish existed, or where this whole thing gets too
+          precious. Honest answers are useful, especially the inconvenient ones.
         </p>
-        <a
-          href="mailto:tony@impactsoul.is?subject=My%20Blueprint%20for%20the%20Living%20Declaration"
-          className="inline-block rounded-md bg-brand-gold px-8 py-3 font-mono text-sm tracking-wide text-white uppercase"
-        >
-          Submit My Blueprint →
-        </a>
-        <p className="mt-3 text-sm text-muted-foreground">
-          Your responses are read personally. They shape what gets built. Nothing is sold or
-          shared.
-        </p>
+        <BlueprintForm />
       </div>
 
       <div className="bg-secondary px-6 py-16 text-center sm:px-10 dark:bg-[#0A0A10]">
@@ -609,12 +642,12 @@ export default function LivingDeclarationPage() {
           The Next Step
         </p>
         <h2 className="mx-auto mb-4 max-w-lg font-heading text-2xl font-normal text-foreground sm:text-3xl">
-          Build Your Tribe. Find Your People.
+          Bring Your People Into the Room.
         </h2>
         <p className="mx-auto mb-8 max-w-lg text-foreground/70">
-          Upload your contacts. Invite your people. Let the community find the connections you
-          didn&apos;t know existed. Finding your tribe, your partner, your collaborator — it all
-          starts here.
+          Invite the people you care about. There may be a conversation, a collaborator, or an
+          unexpected connection worth making. At minimum, it is better to build with people you
+          trust than to shout into the void alone.
         </p>
         <Link
           href="/community"
@@ -624,7 +657,7 @@ export default function LivingDeclarationPage() {
         </Link>
         <div className="mb-3">
           <Link
-            href="/assessments"
+            href="/assessment"
             className="inline-block rounded-md border border-brand-gold/40 px-6 py-2.5 font-mono text-xs tracking-wide text-brand-gold uppercase"
           >
             Or Take the Assessment First →
@@ -641,7 +674,7 @@ export default function LivingDeclarationPage() {
       </div>
 
       <div className="border-t border-border py-6 text-center">
-        <Link href="/community" className="font-mono text-sm tracking-wide text-brand-gold">
+        <Link href="/community" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
           Continue to The Community →
         </Link>
       </div>

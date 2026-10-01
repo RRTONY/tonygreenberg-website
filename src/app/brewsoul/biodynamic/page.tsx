@@ -24,9 +24,9 @@ export const metadata: Metadata = {
 };
 
 const TIER_COMPARE = [
-  { t: "Conventional", items: ["Up to 250 lbs chemicals/acre", "42 pesticides used globally", "No mold testing required", "Soil degradation over time", "No biodiversity requirements", "No supply chain transparency", "$0.40-0.60/oz"], borderClass: "border-t-[#8b4c2a]", textClass: "text-[#8b4c2a]" },
-  { t: "USDA Organic", items: ["No synthetic pesticides", "Natural pesticides allowed (kill pollinators)", "No mold testing required", "Soil preservation (not regeneration)", "No shade or canopy requirements", "Supply chain audited annually", "$0.65-0.90/oz"], borderClass: "border-t-[#7a8c6e]", textClass: "text-[#7a8c6e]" },
-  { t: "Demeter Biodynamic", items: ["Zero pesticides of any kind", "Pollinators fully protected", "Lab tested: mold, mycotoxins, heavy metals", "Active soil regeneration + carbon sequestration", "40%+ shade canopy, 12+ tree species", "Full origin-to-cup traceability", "$1.30-1.90/oz"], borderClass: "border-t-[#c4873b]", textClass: "text-[#c4873b]" },
+  { t: "Conventional", items: ["Up to 250 lbs chemicals/acre", "42 pesticides used globally", "No mold testing required", "Soil degradation over time", "No biodiversity requirements", "No supply chain transparency", "$0.40-0.60/oz"], borderClass: "border-t-[#8b4c2a]", textClass: "text-[#C66F41]" },
+  { t: "USDA Organic", items: ["No synthetic pesticides", "Natural pesticides allowed (kill pollinators)", "No mold testing required", "Soil preservation (not regeneration)", "No shade or canopy requirements", "Supply chain audited annually", "$0.65-0.90/oz"], borderClass: "border-t-[#7a8c6e]", textClass: "text-[#9fb093]" },
+  { t: "Demeter Biodynamic", items: ["Zero pesticides of any kind", "Pollinators fully protected", "Lab tested: mold, mycotoxins, heavy metals", "Active soil regeneration + carbon sequestration", "40%+ shade canopy, 12+ tree species", "Full origin-to-cup traceability", "$1.30-1.90/oz"], borderClass: "border-t-[#c4873b]", textClass: "text-[#d9a05b]" },
 ];
 
 const SCIENCE = [
@@ -50,7 +50,7 @@ export default function BrewSoulBiodynamicPage() {
     <div className="bg-[#f5efe0] text-[#2d1810]">
       <section className="relative flex min-h-[70vh] items-center justify-center overflow-hidden bg-linear-to-br from-[#1a0e08] via-[#2d1810] to-[#2d3a24] px-7 py-20 text-center">
         <div className="relative z-1 max-w-3xl">
-          <div className="mb-6 font-mono text-[11px] tracking-[0.3em] text-[#7a8c6e] uppercase">BrewSoul · Biodynamic Coffee</div>
+          <div className="mb-6 font-mono text-[11px] tracking-[0.3em] text-[#566650] uppercase">BrewSoul · Biodynamic Coffee</div>
           <h1 className="mb-5 font-heading text-[clamp(36px,6vw,68px)] leading-[1.05] font-bold text-[#f5efe0] italic">
             Every Farm on Earth
             <br />
@@ -78,7 +78,7 @@ export default function BrewSoulBiodynamicPage() {
 
       <section className="bg-[#ede4d0] px-7 py-20">
         <div className="mx-auto max-w-275">
-          <div className="mb-3 font-mono text-[11px] tracking-[0.3em] text-[#6b5a4e]/80 uppercase">The Great Simplification</div>
+          <div className="mb-3 font-mono text-[11px] tracking-[0.3em] text-[#6b5a4e] uppercase">The Great Simplification</div>
           <h2 className="mb-6 font-heading text-[clamp(28px,4vw,44px)] leading-[1.15] font-bold text-[#1a0e08] italic">
             Less Coffee. Better Coffee. Better Planet.
           </h2>
@@ -126,7 +126,7 @@ export default function BrewSoulBiodynamicPage() {
 
       <section className="bg-[#f5efe0] px-7 py-20">
         <div className="mx-auto max-w-275">
-          <div className="mb-3 font-mono text-[11px] tracking-[0.3em] text-[#6b5a4e]/80 uppercase">All Roasters & Brands — Complete Market</div>
+          <div className="mb-3 font-mono text-[11px] tracking-[0.3em] text-[#6b5a4e] uppercase">All Roasters & Brands — Complete Market</div>
           <h2 className="mb-6 font-heading text-[clamp(28px,4vw,44px)] leading-[1.15] font-bold text-[#1a0e08] italic">6 Ways to Buy Biodynamic Coffee</h2>
           <p className="mb-6 max-w-180 text-[17px] leading-[1.7] text-[#2d1810]">
             Every roaster below sources from the same 3 farms. The differences are in roasting expertise, testing transparency, packaging, price, and
@@ -139,13 +139,13 @@ export default function BrewSoulBiodynamicPage() {
 
       <section className="bg-[#ede4d0] px-7 py-20">
         <div className="mx-auto max-w-275">
-          <div className="mb-3 font-mono text-[11px] tracking-[0.3em] text-[#6b5a4e]/80 uppercase">Nutritional Science</div>
+          <div className="mb-3 font-mono text-[11px] tracking-[0.3em] text-[#6b5a4e] uppercase">Nutritional Science</div>
           <h2 className="mb-6 font-heading text-[clamp(28px,4vw,44px)] leading-[1.15] font-bold text-[#1a0e08] italic">What&apos;s Actually in a Biodynamic Cup</h2>
           <div className="grid gap-4 [grid-template-columns:repeat(auto-fit,minmax(240px,1fr))]">
             {SCIENCE.map((c) => (
               <div key={c.compound} className="rounded-md border border-[#5d3a28]/8 bg-white p-5">
                 <div className="text-sm font-bold text-[#1a0e08]">{c.compound}</div>
-                <div className="my-1 font-mono text-xs font-semibold text-[#c4873b]">{c.amount}</div>
+                <div className="my-1 font-mono text-xs font-semibold text-[#99692E]">{c.amount}</div>
                 <div className="mb-2 text-[13px] leading-snug text-[#5c3a28]">{c.effect}</div>
                 <div className="font-mono text-[9px] text-[#6b5a4e]">{c.source}</div>
               </div>
@@ -177,7 +177,7 @@ export default function BrewSoulBiodynamicPage() {
             {IMPACT_METRICS.map((m) => (
               <div key={m.u} className="rounded-md border border-white/8 bg-white/4 p-5">
                 <div className="font-heading text-[28px] leading-[1.1] font-bold text-[#d4a84b]">{m.n}</div>
-                <div className="mb-2.5 font-mono text-[10px] tracking-wide text-[#c4873b]">{m.u}</div>
+                <div className="mb-2.5 font-mono text-[10px] tracking-wide text-[#80541c]">{m.u}</div>
                 <div className="text-[13px] leading-snug text-[#f5efe0]/60">{m.d}</div>
               </div>
             ))}
@@ -202,7 +202,7 @@ export default function BrewSoulBiodynamicPage() {
         <div className="mx-auto mb-4 max-w-125 text-sm leading-relaxed text-[#f5efe0]/50">
           Complete census of every Demeter-certified biodynamic coffee on earth. 3 farms. 6 roasters. Zero compromise.
         </div>
-        <div className="font-mono text-[10px] tracking-wide text-[#f5efe0]/30">All prices USD · Data verified Feb 2026 · Peer-reviewed sources</div>
+        <div className="font-mono text-[10px] tracking-wide text-[#f5efe0]/60">All prices USD · Data verified Feb 2026 · Peer-reviewed sources</div>
       </footer>
     </div>
   );

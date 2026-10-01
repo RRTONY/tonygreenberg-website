@@ -15,17 +15,17 @@ interface Interaction {
 }
 
 const SEVERITY_CONFIG: Record<string, { bgClass: string; textClass: string; borderClass: string; barClass: string }> = {
-  "HARD STOP": { bgClass: "bg-[#dc2626]/8", textClass: "text-[#dc2626]", borderClass: "border-[#dc2626]", barClass: "bg-[#dc2626]" },
+  "HARD STOP": { bgClass: "bg-[#b91c1c]/8", textClass: "text-[#b91c1c]", borderClass: "border-[#b91c1c]", barClass: "bg-[#b91c1c]" },
   CRITICAL: { bgClass: "bg-[#991b1b]/8", textClass: "text-[#991b1b]", borderClass: "border-[#991b1b]", barClass: "bg-[#991b1b]" },
-  "ELEVATED RISK": { bgClass: "bg-[#ea580c]/8", textClass: "text-[#ea580c]", borderClass: "border-[#ea580c]", barClass: "bg-[#ea580c]" },
-  MODERATE: { bgClass: "bg-[#d97706]/8", textClass: "text-[#d97706]", borderClass: "border-[#d97706]", barClass: "bg-[#d97706]" },
-  CAUTION: { bgClass: "bg-[#ca8a04]/8", textClass: "text-[#ca8a04]", borderClass: "border-[#ca8a04]", barClass: "bg-[#ca8a04]" },
-  COMPLEX: { bgClass: "bg-[#7c3aed]/8", textClass: "text-[#7c3aed]", borderClass: "border-[#7c3aed]", barClass: "bg-[#7c3aed]" },
-  "RESEARCH FRONTIER": { bgClass: "bg-[#2563eb]/8", textClass: "text-[#2563eb]", borderClass: "border-[#2563eb]", barClass: "bg-[#2563eb]" },
+  "ELEVATED RISK": { bgClass: "bg-[#9a3412]/8", textClass: "text-[#9a3412]", borderClass: "border-[#9a3412]", barClass: "bg-[#9a3412]" },
+  MODERATE: { bgClass: "bg-[#92400e]/8", textClass: "text-[#92400e]", borderClass: "border-[#92400e]", barClass: "bg-[#92400e]" },
+  CAUTION: { bgClass: "bg-[#854d0e]/8", textClass: "text-[#854d0e]", borderClass: "border-[#854d0e]", barClass: "bg-[#854d0e]" },
+  COMPLEX: { bgClass: "bg-[#6d28d9]/8", textClass: "text-[#6d28d9]", borderClass: "border-[#6d28d9]", barClass: "bg-[#6d28d9]" },
+  "RESEARCH FRONTIER": { bgClass: "bg-[#1d4ed8]/8", textClass: "text-[#1d4ed8]", borderClass: "border-[#1d4ed8]", barClass: "bg-[#1d4ed8]" },
   NOTABLE: { bgClass: "bg-[#0369a1]/8", textClass: "text-[#0369a1]", borderClass: "border-[#0369a1]", barClass: "bg-[#0369a1]" },
-  ADDITIVE: { bgClass: "bg-[#d97706]/8", textClass: "text-[#d97706]", borderClass: "border-[#d97706]", barClass: "bg-[#d97706]" },
-  "GENERALLY OK": { bgClass: "bg-[#16a34a]/8", textClass: "text-[#16a34a]", borderClass: "border-[#16a34a]", barClass: "bg-[#16a34a]" },
-  SYNERGISTIC: { bgClass: "bg-[#0d9488]/8", textClass: "text-[#0d9488]", borderClass: "border-[#0d9488]", barClass: "bg-[#0d9488]" },
+  ADDITIVE: { bgClass: "bg-[#92400e]/8", textClass: "text-[#92400e]", borderClass: "border-[#92400e]", barClass: "bg-[#92400e]" },
+  "GENERALLY OK": { bgClass: "bg-[#166534]/8", textClass: "text-[#166534]", borderClass: "border-[#166534]", barClass: "bg-[#166534]" },
+  SYNERGISTIC: { bgClass: "bg-[#115e59]/8", textClass: "text-[#115e59]", borderClass: "border-[#115e59]", barClass: "bg-[#115e59]" },
 };
 
 // Ported from legacy client/src/pages/kava/KavaInteractions.tsx — real
@@ -88,7 +88,7 @@ export function InteractionsExplorer() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search medications or substances..."
-            className="flex-1 bg-transparent text-base text-kava-ink outline-none"
+            className="flex-1 bg-transparent text-base text-kava-ink outline-none focus-visible:ring-2 focus-visible:ring-ring"
           />
           {search && (
             <button onClick={() => setSearch("")} className="opacity-40 hover:opacity-100">
@@ -115,10 +115,10 @@ export function InteractionsExplorer() {
       </div>
 
       {hasHardStop && search.trim() && (
-        <div className="mx-auto mb-6 flex max-w-2xl items-start gap-3 rounded-xl border-2 border-[#dc2626] bg-[#dc2626]/8 p-4">
-          <AlertTriangle size={24} className="mt-0.5 shrink-0 text-[#dc2626]" />
+        <div className="mx-auto mb-6 flex max-w-2xl items-start gap-3 rounded-xl border-2 border-[#b91c1c] bg-[#b91c1c]/8 p-4">
+          <AlertTriangle size={24} className="mt-0.5 shrink-0 text-[#b91c1c]" />
           <div>
-            <p className="text-base font-bold text-[#dc2626]">Hard Stop / Critical Flag Detected</p>
+            <p className="text-base font-bold text-[#b91c1c]">Hard Stop / Critical Flag Detected</p>
             <p className="mt-1 text-sm leading-[1.75] text-kava-ink">
               One or more substances in your search trigger an absolute contraindication. Ceremony cannot proceed until these are resolved with physician
               oversight.
@@ -191,8 +191,8 @@ export function CypProfile() {
           </KavaCard>
         ))}
       </div>
-      <div className="mt-6 rounded-lg bg-[#16a34a]/8 p-4">
-        <p className="mb-1 text-sm font-bold text-[#16a34a]">NOT affected by kava:</p>
+      <div className="mt-6 rounded-lg bg-[#166534]/8 p-4">
+        <p className="mb-1 text-sm font-bold text-[#166534]">NOT affected by kava:</p>
         <p className="text-sm text-kava-ink">{NOT_AFFECTED.join(", ")}</p>
       </div>
     </>

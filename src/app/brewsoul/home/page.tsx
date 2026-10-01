@@ -54,13 +54,13 @@ export default function BrewSoulHomePage() {
       {/* Hero */}
       <section className="relative overflow-hidden bg-linear-to-b from-[#FAFAF7] via-[#F0E8D8] to-[#E8DCC8] px-6 py-24 text-center sm:py-32">
         <div className="mx-auto max-w-2xl">
-          <div className="mb-5 font-mono text-xs tracking-[0.35em] text-[#8B6914] uppercase">
+          <div className="mb-5 font-mono text-xs tracking-[0.35em] text-[#836311] uppercase">
             The Coffee Intelligence Engine
           </div>
           <h1 className="mb-5 font-heading text-4xl font-bold text-[#1A1A1A] sm:text-5xl">
             Find the Coffee You&apos;ll
             <br />
-            Actually <em className="text-[#8B6914] italic">Love</em>
+            Actually <em className="text-[#836311] italic">Love</em>
           </h1>
           <p className="mx-auto mb-8 max-w-lg rounded-2xl bg-[#FAFAF7]/70 px-6 py-4 text-base leading-relaxed text-[#4A4A4A] backdrop-blur-md">
             Taste-matched. QPR-scored. Mold-tested. Farm-traced. Dollar-tracked.
@@ -76,9 +76,9 @@ export default function BrewSoulHomePage() {
             ].map((s) => (
               <div
                 key={s.label}
-                className="rounded-2xl border border-[#8B6914]/15 bg-white/60 px-6 py-4 text-center backdrop-blur-xl"
+                className="rounded-2xl border border-[#836311]/15 bg-white/60 px-6 py-4 text-center backdrop-blur-xl"
               >
-                <div className="font-heading text-3xl font-bold text-[#8B6914]">{s.val}</div>
+                <div className="font-heading text-3xl font-bold text-[#836311]">{s.val}</div>
                 <div className="mt-1 font-mono text-[0.62rem] tracking-[0.2em] text-[#5A4A20]/60 uppercase">
                   {s.label}
                 </div>
@@ -89,37 +89,37 @@ export default function BrewSoulHomePage() {
           <div className="mb-10 flex flex-wrap justify-center gap-4">
             <Link
               href="/brewsoul/quiz"
-              className="rounded-md bg-linear-to-br from-[#C5A23C] to-[#8B6914] px-8 py-3.5 font-mono text-xs font-bold tracking-wide text-[#FAFAF7] uppercase shadow-[0_8px_32px_rgba(139,105,20,0.4)] transition-transform hover:-translate-y-0.5"
+              className="rounded-md bg-linear-to-br from-[#C5A23C] to-[#836311] px-8 py-3.5 font-mono text-xs font-bold tracking-wide text-[#FAFAF7] uppercase shadow-[0_8px_32px_rgba(139,105,20,0.4)] transition-transform hover:-translate-y-0.5"
             >
               Start Taste Quiz →
             </Link>
             <Link
               href="/brewsoul/browse"
-              className="rounded-md border-[1.5px] border-[#8B6914]/30 bg-white/70 px-8 py-3.5 font-mono text-xs font-bold tracking-wide text-[#8B6914] uppercase backdrop-blur-md transition-transform hover:-translate-y-0.5"
+              className="rounded-md border-[1.5px] border-[#836311]/30 bg-white/70 px-8 py-3.5 font-mono text-xs font-bold tracking-wide text-[#836311] uppercase backdrop-blur-md transition-transform hover:-translate-y-0.5"
             >
               Browse Top QPR
             </Link>
             <Link
               href="/brewsoul/chains"
-              className="rounded-md border-[1.5px] border-[#8B6914]/30 bg-white/70 px-8 py-3.5 font-mono text-xs font-bold tracking-wide text-[#8B6914] uppercase backdrop-blur-md transition-transform hover:-translate-y-0.5"
+              className="rounded-md border-[1.5px] border-[#836311]/30 bg-white/70 px-8 py-3.5 font-mono text-xs font-bold tracking-wide text-[#836311] uppercase backdrop-blur-md transition-transform hover:-translate-y-0.5"
             >
               Chain Rankings
             </Link>
           </div>
 
-          <div className="mx-auto max-w-xl rounded-2xl border border-[#8B6914]/15 bg-white/60 p-7 text-left backdrop-blur-xl">
+          <div className="mx-auto max-w-xl rounded-2xl border border-[#836311]/15 bg-white/60 p-7 text-left backdrop-blur-xl">
             <p className="mb-2.5 text-sm leading-relaxed text-[#5A4A20]">
-              <strong className="text-[#8B6914]">What you&apos;re looking at:</strong> An intelligence engine that
+              <strong className="text-[#836311]">What you&apos;re looking at:</strong> An intelligence engine that
               objectively scores every coffee and chain on quality, value, sourcing ethics, and experience — then
               matches you to your identity through a 6-archetype taste quiz.
             </p>
             <p className="mb-2.5 text-sm leading-relaxed text-[#5A4A20]">
-              <strong className="text-[#8B6914]">Why it matters:</strong> Coffee is the most consumed psychoactive
+              <strong className="text-[#836311]">Why it matters:</strong> Coffee is the most consumed psychoactive
               substance on earth, yet most people have no idea what they&apos;re actually drinking. This engine
               replaces marketing with measurement.
             </p>
             <p className="text-sm leading-relaxed text-[#5A4A20]">
-              <strong className="text-[#8B6914]">What to do:</strong> Take the taste quiz to discover your BrewSoul
+              <strong className="text-[#836311]">What to do:</strong> Take the taste quiz to discover your BrewSoul
               identity. Browse the catalog to find your next cup. Check the chain rankings to see if your daily stop
               is worth the money.
             </p>
@@ -129,11 +129,11 @@ export default function BrewSoulHomePage() {
 
       {/* Follow the Dollar */}
       <section className="bg-linear-to-b from-[#E8DCC8] via-[#F0E8D8] to-[#F5F0E6] px-6 py-16 text-center">
-        <div className="mb-4 font-mono text-xs tracking-[0.3em] text-[#8B6914] uppercase">Follow The Dollar</div>
+        <div className="mb-4 font-mono text-xs tracking-[0.3em] text-[#836311] uppercase">Follow The Dollar</div>
         <h2 className="mx-auto mb-6 max-w-lg font-heading text-2xl font-bold text-[#1A1A1A] sm:text-3xl">
           The farmer gets $0.40 of your $5 latte.
         </h2>
-        <div className="mx-auto mb-6 max-w-lg rounded-2xl border border-[#8B6914]/15 bg-white/60 px-6 py-5 backdrop-blur-xl">
+        <div className="mx-auto mb-6 max-w-lg rounded-2xl border border-[#836311]/15 bg-white/60 px-6 py-5 backdrop-blur-xl">
           <p className="text-sm leading-relaxed text-[#4A4A4A]">
             That&apos;s 8%. Specialty coffee has <em>less</em> equitable distribution than mainstream. We show you
             exactly where every dollar goes.
@@ -141,7 +141,7 @@ export default function BrewSoulHomePage() {
         </div>
         <Link
           href="/brewsoul/follow-the-dollar"
-          className="inline-block rounded-md bg-linear-to-br from-[#C5A23C] to-[#8B6914] px-7 py-3 font-mono text-[0.78rem] font-bold tracking-wide text-[#FAFAF7] uppercase shadow-[0_6px_24px_rgba(139,105,20,0.35)] transition-transform hover:-translate-y-0.5"
+          className="inline-block rounded-md bg-linear-to-br from-[#C5A23C] to-[#836311] px-7 py-3 font-mono text-[0.78rem] font-bold tracking-wide text-[#FAFAF7] uppercase shadow-[0_6px_24px_rgba(139,105,20,0.35)] transition-transform hover:-translate-y-0.5"
         >
           See the Full Breakdown →
         </Link>
@@ -150,7 +150,7 @@ export default function BrewSoulHomePage() {
       {/* Top QPR */}
       <section className="mx-auto max-w-5xl px-6 py-20">
         <div className="mb-10 text-center">
-          <div className="mb-2 font-mono text-xs tracking-[0.3em] text-[#8B6914] uppercase">Best Value Right Now</div>
+          <div className="mb-2 font-mono text-xs tracking-[0.3em] text-[#836311] uppercase">Best Value Right Now</div>
           <h2 className="mb-2 font-heading text-3xl font-bold text-[#2C1810]">Top QPR Coffees</h2>
           <p className="mx-auto max-w-md text-sm text-[#6B5B4F]">
             Quality-to-Price Ratio — the coffees that punch above their weight class.
@@ -166,7 +166,7 @@ export default function BrewSoulHomePage() {
         <div className="mt-8 text-center">
           <Link
             href="/brewsoul/browse"
-            className="font-mono text-[0.78rem] tracking-wide text-[#8B6914] uppercase"
+            className="font-mono text-[0.78rem] tracking-wide text-[#836311] uppercase"
           >
             Browse All {BREWSOUL_COFFEES.length} Coffees →
           </Link>
@@ -181,7 +181,7 @@ export default function BrewSoulHomePage() {
           <br />
           50% of coffee land gone by 2050.
         </h2>
-        <div className="mx-auto max-w-md rounded-2xl border border-[#8B6914]/15 bg-white/60 px-6 py-5 backdrop-blur-xl">
+        <div className="mx-auto max-w-md rounded-2xl border border-[#836311]/15 bg-white/60 px-6 py-5 backdrop-blur-xl">
           <p className="text-sm leading-relaxed text-[#4A4A4A]">
             Your choices matter more now than ever. Every cup is a vote for the future of coffee.
           </p>
@@ -192,10 +192,10 @@ export default function BrewSoulHomePage() {
       <section className="mx-auto max-w-5xl px-6 py-20">
         <div className="mb-8 flex items-baseline justify-between">
           <div>
-            <div className="mb-1 font-mono text-xs tracking-[0.3em] text-[#8B6914] uppercase">Fresh</div>
+            <div className="mb-1 font-mono text-xs tracking-[0.3em] text-[#836311] uppercase">Fresh</div>
             <h2 className="font-heading text-2xl font-bold text-[#2C1810]">New Drops</h2>
           </div>
-          <Link href="/brewsoul/drops" className="font-mono text-xs tracking-wide text-[#8B6914]">
+          <Link href="/brewsoul/drops" className="font-mono text-xs tracking-wide text-[#836311]">
             See all →
           </Link>
         </div>
@@ -219,14 +219,14 @@ export default function BrewSoulHomePage() {
             {shamePreview.map((s) => (
               <div
                 key={s.id}
-                className="flex items-center justify-between rounded-2xl border border-[#8B6914]/15 bg-white/60 px-5 py-4 backdrop-blur-xl"
+                className="flex items-center justify-between rounded-2xl border border-[#836311]/15 bg-white/60 px-5 py-4 backdrop-blur-xl"
               >
                 <div>
                   <span className="font-heading text-base font-bold text-[#2C1810]">{s.brand}</span>
-                  <span className="ml-3 font-mono text-xs text-[#999]">{s.category}</span>
+                  <span className="ml-3 font-mono text-xs text-[#6E6E6E]">{s.category}</span>
                 </div>
                 <span
-                  className={`font-mono text-sm font-bold ${s.severity >= 80 ? "text-[#8B2500]" : s.severity >= 50 ? "text-[#C5A23C]" : "text-[#6B5B4F]"}`}
+                  className={`font-mono text-sm font-bold ${s.severity >= 80 ? "text-[#8B2500]" : s.severity >= 50 ? "text-[#836311]" : "text-[#6B5B4F]"}`}
                 >
                   {s.severity}/100
                 </span>
@@ -248,7 +248,7 @@ export default function BrewSoulHomePage() {
       <section className="px-6 py-16">
         <div className="mx-auto max-w-5xl">
           <div className="mb-10 text-center">
-            <div className="mb-2 font-mono text-xs tracking-[0.3em] text-[#8B6914] uppercase">Deep Research</div>
+            <div className="mb-2 font-mono text-xs tracking-[0.3em] text-[#836311] uppercase">Deep Research</div>
             <h2 className="mb-3 font-heading text-2xl font-bold text-[#2C1810]">The Intelligence Library</h2>
             <p className="mx-auto max-w-lg text-sm leading-relaxed text-[#6B5B4F]">
               Peer-reviewed research. Complete brand censuses. Personalized protocols. No sponsored content.
@@ -259,11 +259,11 @@ export default function BrewSoulHomePage() {
               <Link
                 key={card.path}
                 href={card.path}
-                className="h-full rounded-2xl border border-[#8B6914]/15 bg-white/60 p-6 backdrop-blur-xl transition-all hover:-translate-y-1 hover:border-[#8B6914]/50 hover:bg-white/90 hover:shadow-lg"
+                className="h-full rounded-2xl border border-[#836311]/15 bg-white/60 p-6 backdrop-blur-xl transition-all hover:-translate-y-1 hover:border-[#836311]/50 hover:bg-white/90 hover:shadow-lg"
               >
                 <div className="mb-3 flex items-start justify-between">
                   <span className="text-2xl">{card.icon}</span>
-                  <span className="rounded-sm bg-[#8B6914]/8 px-2 py-0.5 font-mono text-[0.58rem] tracking-wide text-[#8B6914]">
+                  <span className="rounded-sm bg-[#836311]/8 px-2 py-0.5 font-mono text-[0.58rem] tracking-wide text-[#836311]">
                     {card.tag}
                   </span>
                 </div>
@@ -277,7 +277,7 @@ export default function BrewSoulHomePage() {
 
       {/* Health Ticker */}
       <section className="px-6 py-16 text-center">
-        <div className="mb-6 font-mono text-xs tracking-[0.3em] text-[#8B6914] uppercase">Health & Science</div>
+        <div className="mb-6 font-mono text-xs tracking-[0.3em] text-[#836311] uppercase">Health & Science</div>
         <HealthTicker />
       </section>
 

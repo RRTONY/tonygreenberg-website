@@ -15,9 +15,9 @@ export const metadata: Metadata = {
 export default function BrewSoulFarmsPage() {
   return (
     <section className="mx-auto max-w-225 px-6 py-12">
-      <div className="mb-2 font-mono text-xs tracking-[0.25em] text-[#4A7C59] uppercase">Origin Stories</div>
-      <h1 className="mb-2 font-heading text-3xl font-bold text-[#2C1810] sm:text-4xl">Farm Passports</h1>
-      <p className="mb-10 max-w-2xl text-[0.95rem] leading-relaxed text-[#6B5B4F]">
+      <div className="mb-2 font-mono text-xs tracking-[0.25em] text-[#3B6548] uppercase">Origin Stories</div>
+      <h1 className="mb-2 font-heading text-3xl font-bold text-[#2C1810] sm:text-[2.4rem]">Farm Passports</h1>
+      <p className="mb-10 text-[0.95rem] leading-relaxed text-[#6B5B4F]">
         Meet the people who grow your coffee. Every farm profiled here has been verified for transparency, fair labor practices, and environmental
         stewardship.
       </p>
@@ -37,7 +37,7 @@ export default function BrewSoulFarmsPage() {
               </div>
             )}
             <div className="p-6">
-              <div className="mb-1 font-mono text-[0.62rem] tracking-[0.15em] text-[#C5A23C] uppercase">
+              <div className="mb-1 font-mono text-[0.62rem] tracking-[0.15em] text-[#836311] uppercase">
                 {f.country} · {f.region}
               </div>
               <h3 className="mb-1 font-heading text-lg font-bold text-[#2C1810]">{f.name}</h3>
@@ -47,7 +47,7 @@ export default function BrewSoulFarmsPage() {
               <p className="mb-3 text-[0.85rem] leading-relaxed text-[#6B5B4F]">{f.story}</p>
               <div className="flex flex-wrap gap-1.5">
                 {f.varieties.map((v) => (
-                  <span key={v} className="rounded-full bg-[#4A7C59]/6 px-2 py-0.5 font-mono text-[0.65rem] text-[#4A7C59]">
+                  <span key={v} className="rounded-full bg-[#4A7C59]/6 px-2 py-0.5 font-mono text-[0.65rem] text-[#3B6548]">
                     {v}
                   </span>
                 ))}
@@ -55,7 +55,7 @@ export default function BrewSoulFarmsPage() {
               {f.certifications.length > 0 && (
                 <div className="mt-2 flex flex-wrap gap-1.5">
                   {f.certifications.map((c) => (
-                    <span key={c} className="rounded-full bg-[#C5A23C]/6 px-2 py-0.5 font-mono text-[0.6rem] text-[#8B6914]">
+                    <span key={c} className="rounded-full bg-[#C5A23C]/6 px-2 py-0.5 font-mono text-[0.6rem] text-[#836311]">
                       {c}
                     </span>
                   ))}

@@ -18,10 +18,11 @@
 // established by `find-your-me.ts`'s DIRECTORY.
 //
 // Where an item's real destination already exists in `find-your-me.ts`'s
-// audited `DIRECTORY`, this module reuses that entry's real `hook` copy
-// and `status` (via `fromEcosystem` below) rather than re-deriving a
-// second, possibly-drifting copy of the same facts — per this page's own
-// port instructions.
+// audited `DIRECTORY`, this module reuses that entry's real `status` (via
+// `fromEcosystem` below) rather than re-deriving a second, possibly-drifting
+// copy of the same fact. Taglines are this page's own short legacy/live
+// ones (FindMyHub.tsx's `ALL_LINKS`, matching live tonygreenberg.com/find-my
+// as of 2026-10-01), not find-your-me's longer `hook` copy.
 //
 // One deliberate status override: `find-your-me.ts`'s DIRECTORY marks
 // "Find Your Team" (`/flow-circuit`) as "coming" — accurate when that file
@@ -41,10 +42,10 @@
 // Chemistry/Water/Mezcal/Tequila/Capital).
 import { DIRECTORY, type DirectorySection } from "@/lib/content/find-your-me";
 
-function fromEcosystem(url: string, statusOverride?: "live" | "coming") {
+function fromEcosystem(url: string) {
   for (const section of DIRECTORY as DirectorySection[]) {
     const item = section.items.find((i) => i.url === url);
-    if (item) return { tagline: item.hook, status: statusOverride ?? item.status };
+    if (item) return { status: item.status };
   }
   throw new Error(`find-my-directory: no matching find-your-me DIRECTORY entry for ${url}`);
 }
@@ -60,7 +61,7 @@ export interface FindMyLink {
 
 export const FEATURED: FindMyLink[] = [
   { title: "Find My Me", tagline: "Clarity on identity & direction", href: "/find-your-me", icon: "🪞", color: "#D4B96A", status: "live" },
-  { title: "Find My Love", tagline: fromEcosystem("https://intimacyassess-tcir3hon.manus.space").tagline, href: "https://intimacyassess-tcir3hon.manus.space", icon: "💕", color: "#C97B7B", status: fromEcosystem("https://intimacyassess-tcir3hon.manus.space").status },
+  { title: "Find My Love", tagline: "Relational alignment framework", href: "https://intimacyassess-tcir3hon.manus.space", icon: "💕", color: "#C97B7B", status: fromEcosystem("https://intimacyassess-tcir3hon.manus.space").status },
   { title: "Find My Car", tagline: "Decision tool for major purchases", href: "/find-your-ev", icon: "🚗", color: "#4682B4", status: "coming" },
 ];
 
@@ -75,41 +76,41 @@ export const CATEGORIES: FindMyCategory[] = [
     key: "body",
     label: "Body & Health",
     items: [
-      { title: "Find My Peptide", tagline: fromEcosystem("/find-your-peptide").tagline, href: "/find-your-peptide", icon: "🧬", color: "#2E8B57", status: fromEcosystem("/find-your-peptide").status },
+      { title: "Find My Peptide", tagline: "7-axis clinical assessment · 16 archetypes", href: "/find-your-peptide", icon: "🧬", color: "#2E8B57", status: fromEcosystem("/find-your-peptide").status },
       { title: "Find My Stem Cells", tagline: "22-question clinic-risk assessment · pricing, red flags, and provider scoring", href: "https://findmystem-s3lknc4h.manus.space/", icon: "🧫", color: "#6B8F71", status: "live" },
-      { title: "Find My Diet", tagline: fromEcosystem("/find-your-diet").tagline, href: "/find-your-diet", icon: "🥗", color: "#7BC9A4", status: fromEcosystem("/find-your-diet").status },
-      { title: "Find My Movement", tagline: fromEcosystem("/find-your-movement").tagline, href: "/find-your-movement", icon: "🏃", color: "#4682B4", status: fromEcosystem("/find-your-movement").status },
-      { title: "Find My Sleep", tagline: fromEcosystem("/find-your-sleep").tagline, href: "/find-your-sleep", icon: "🌙", color: "#6A5ACD", status: fromEcosystem("/find-your-sleep").status },
-      { title: "Find My Coffee", tagline: fromEcosystem("/find-your-coffee").tagline, href: "/find-your-coffee", icon: "☕", color: "#8B6914", status: fromEcosystem("/find-your-coffee").status },
+      { title: "Find My Diet", tagline: "Food philosophy matching", href: "/find-your-diet", icon: "🥗", color: "#7BC9A4", status: fromEcosystem("/find-your-diet").status },
+      { title: "Find My Movement", tagline: "Exercise & fitness style", href: "/find-your-movement", icon: "🏃", color: "#4682B4", status: fromEcosystem("/find-your-movement").status },
+      { title: "Find My Sleep", tagline: "Sleep optimization assessment", href: "/find-your-sleep", icon: "🌙", color: "#6A5ACD", status: fromEcosystem("/find-your-sleep").status },
+      { title: "Find My Coffee", tagline: "Your perfect cup, decoded", href: "/find-your-coffee", icon: "☕", color: "#836311", status: fromEcosystem("/find-your-coffee").status },
       { title: "BrewSoul Intelligence", tagline: "100+ coffees ranked · 100 chains scored · Identity-matched", href: "/brewsoul", icon: "☕", color: "#6F4E37", status: "live" },
-      { title: "Find My Kitchen", tagline: fromEcosystem("/find-your-kitchen").tagline, href: "/find-your-kitchen", icon: "🍳", color: "#D4A76A", status: fromEcosystem("/find-your-kitchen").status },
-      { title: "Find My Sake", tagline: fromEcosystem("/find-your-sake").tagline, href: "/find-your-sake", icon: "🍶", color: "#B8860B", status: fromEcosystem("/find-your-sake").status },
+      { title: "Find My Kitchen", tagline: "Cooking style assessment", href: "/find-your-kitchen", icon: "🍳", color: "#D4A76A", status: fromEcosystem("/find-your-kitchen").status },
+      { title: "Find My Sake", tagline: "Japanese rice wine profile", href: "/find-your-sake", icon: "🍶", color: "#B8860B", status: fromEcosystem("/find-your-sake").status },
     ],
   },
   {
     key: "mind",
     label: "Mind & Spirit",
     items: [
-      { title: "Find My Therapy", tagline: fromEcosystem("/find-your-therapy").tagline, href: "/find-your-therapy", icon: "🧠", color: "#7BA8C9", status: fromEcosystem("/find-your-therapy").status },
-      { title: "Find My Spirit", tagline: fromEcosystem("/find-your-spirit").tagline, href: "/find-your-spirit", icon: "✨", color: "#A87BC9", status: fromEcosystem("/find-your-spirit").status },
-      { title: "Find My Religion", tagline: fromEcosystem("/find-your-religion").tagline, href: "/find-your-religion", icon: "🕊️", color: "#2E8B57", status: fromEcosystem("/find-your-religion").status },
+      { title: "Find My Therapy", tagline: "Match the right modality", href: "/find-your-therapy", icon: "🧠", color: "#7BA8C9", status: fromEcosystem("/find-your-therapy").status },
+      { title: "Find My Spirit", tagline: "Discover your spiritual archetype", href: "/find-your-spirit", icon: "✨", color: "#A87BC9", status: fromEcosystem("/find-your-spirit").status },
+      { title: "Find My Religion", tagline: "Philosophical & spiritual alignment", href: "/find-your-religion", icon: "🕊️", color: "#2E8B57", status: fromEcosystem("/find-your-religion").status },
     ],
   },
   {
     key: "relationships",
     label: "Relationships",
     items: [
-      { title: "Find My Sexuality", tagline: fromEcosystem("/find-your-sexuality").tagline, href: "/find-your-sexuality", icon: "🌈", color: "#C97B7B", status: fromEcosystem("/find-your-sexuality").status },
-      { title: "Find My Attachment Style", tagline: fromEcosystem("/find-your-attachment-style").tagline, href: "/find-your-attachment-style", icon: "🔗", color: "#8B4513", status: fromEcosystem("/find-your-attachment-style").status },
-      { title: "Find My Love Language", tagline: fromEcosystem("/find-your-love-language").tagline, href: "/find-your-love-language", icon: "💬", color: "#C97BA8", status: fromEcosystem("/find-your-love-language").status },
-      { title: "Find My Team", tagline: fromEcosystem("/flow-circuit", "live").tagline, href: "/flow-circuit", icon: "🤝", color: "#C9A87B", status: "live" },
+      { title: "Find My Sexuality", tagline: "6-dimension orientation mapping", href: "/find-your-sexuality", icon: "🌈", color: "#C97B7B", status: fromEcosystem("/find-your-sexuality").status },
+      { title: "Find My Attachment Style", tagline: "Attachment theory assessment", href: "/find-your-attachment-style", icon: "🔗", color: "#8B4513", status: fromEcosystem("/find-your-attachment-style").status },
+      { title: "Find My Love Language", tagline: "How you give & receive love", href: "/find-your-love-language", icon: "💬", color: "#C97BA8", status: fromEcosystem("/find-your-love-language").status },
+      { title: "Find My Team", tagline: "Collaboration & leadership style", href: "/flow-circuit", icon: "🤝", color: "#C9A87B", status: "live" },
     ],
   },
   {
     key: "identity",
     label: "Identity & Style",
     items: [
-      { title: "Find My Style", tagline: fromEcosystem("/find-your-style").tagline, href: "/find-your-style", icon: "👔", color: "#9B2335", status: fromEcosystem("/find-your-style").status },
+      { title: "Find My Style", tagline: "Personal fashion & aesthetic", href: "/find-your-style", icon: "👔", color: "#9B2335", status: fromEcosystem("/find-your-style").status },
     ],
   },
   {

@@ -52,7 +52,7 @@ export default async function SearchPage({ searchParams }: PageProps<"/search">)
           defaultValue={q}
           placeholder="Search titles, excerpts, tags, and body text..."
           autoFocus
-          className="w-full rounded-full border border-border bg-card py-3 pr-4 pl-11 text-sm text-foreground outline-none focus:border-brand-gold/50"
+          className="w-full rounded-full border border-border bg-card py-3 pr-4 pl-11 text-sm text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring focus:border-brand-gold/50"
         />
       </form>
 

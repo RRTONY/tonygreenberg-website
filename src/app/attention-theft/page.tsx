@@ -50,12 +50,12 @@ import { ECONOMICS_DATA, ECONOMICS_SOURCES, WEAPONS, CRUSADE_ARTICLES, TRUST_ART
 // explicitly deferred in NEXTJS-MIGRATION-TODO.md, so this migration
 // doesn't fake a public database that doesn't exist yet.
 const IMG = {
-  hero: "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/manifesto-glamour-hero_d3ee8a5e.jpg",
-  sacred: "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/manifesto-glamour-sacred-QNMeMG2mvDZqqvgSUsVrLM.webp",
-  weapons: "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/manifesto-glamour-weapons_82cdd78e.jpg",
-  legal: "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/manifesto-glamour-legal_e83b2084.jpg",
-  blocker: "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/manifesto-glamour-blocker-jHEBDsmZ33rTwcjbakiiKi.webp",
-  report: "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/manifesto-glamour-report_7aea41eb.jpg",
+  hero: "https://cdn.sanity.io/images/a3q1cyqs/production/13ae18ad1316373093f8b66013fdf9c563fccf68-2752x1536.png",
+  sacred: "https://cdn.sanity.io/images/a3q1cyqs/production/1dfdc43bd2082682a74d02fe1c4d86e65039128d-1920x1072.webp",
+  weapons: "https://cdn.sanity.io/images/a3q1cyqs/production/7ec84601ce457aa4c913fab39891317379bddf03-2752x1536.png",
+  legal: "https://cdn.sanity.io/images/a3q1cyqs/production/6bfa9a6149bc89e72de12eb8f8adc113b48a1cdd-2752x1536.png",
+  blocker: "https://cdn.sanity.io/images/a3q1cyqs/production/0d70bd9a8365dff14c286f640fbe638b3c7fa01c-1920x1072.webp",
+  report: "https://cdn.sanity.io/images/a3q1cyqs/production/16a2b1fedbf99d0689b9ba44ba53c0cff97f4b09-2752x1536.png",
 };
 
 export const metadata: Metadata = {
@@ -227,7 +227,7 @@ export default async function AttentionTheftPage({ searchParams }: PageProps<"/a
             <h3 className="mb-4 flex items-center gap-2 font-heading text-xl font-bold text-crusade-ink">
               <Scale size={20} className="text-crusade-red" /> Full Economics Breakdown
             </h3>
-            <div className="overflow-x-auto rounded-2xl border border-crusade-red/15">
+            <div className="overflow-x-auto rounded-2xl border border-crusade-red/15" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
               <table className="w-full min-w-160 text-left">
                 <thead>
                   <tr className="bg-crusade-red/8">

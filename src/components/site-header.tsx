@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, Search } from "lucide-react";
+import { FaLinkedinIn, FaXTwitter } from "react-icons/fa6";
 import { SearchModal } from "@/components/search-modal";
 import {
   NavigationMenu,
@@ -31,7 +32,32 @@ import {
   primaryNavLinks,
   navCategories,
   findYourMeGroups,
+  socialLinks,
 } from "@/components/site-nav-data";
+
+const SOCIAL_ICONS: Record<string, typeof FaXTwitter> = { X: FaXTwitter, LinkedIn: FaLinkedinIn };
+
+// Legacy TonyDiscovery.tsx's "Ask Tony ⌘K" pill. In legacy it opened a
+// search + FauxTony chat panel; the chat (Phase 10) was cancelled, so here
+// it opens the site search, which is that panel's top half.
+function AskTonyButton({ onClick }: { onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label="Ask Tony — search the site"
+      className="flex min-w-42.5 items-center gap-2.5 rounded-xl border-[1.5px] border-[#4A1D6B]/15 bg-[#4A1D6B]/6 px-4.5 py-2 text-[#7A5C10] transition-all duration-250 hover:scale-[1.02] hover:border-[#4A1D6B]/25 hover:bg-[#4A1D6B]/10 dark:border-[#7B3FA0]/25 dark:bg-[#7B3FA0]/12 dark:text-brand-gold-light dark:hover:border-[#7B3FA0]/40 dark:hover:bg-[#7B3FA0]/18"
+    >
+      <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-linear-135 from-brand-gold to-brand-gold-light font-heading text-[0.85rem] font-bold text-[#0A0A10]">
+        T
+      </span>
+      <span className="font-mono text-[0.8rem] tracking-[0.06em]">Ask Tony</span>
+      <kbd className="ml-0.5 rounded-[5px] border border-[#bbb] px-1.5 py-px font-mono text-[0.65rem] text-[#5c5c5c] dark:border-[#555] dark:text-[#9a9a9a]">
+        ⌘K
+      </kbd>
+    </button>
+  );
+}
 
 function NavItemLink({
   href,
@@ -52,7 +78,7 @@ function NavItemLink({
       onClick={onNavigate}
       className={`block font-mono uppercase tracking-wide transition-colors hover:text-brand-gold ${
         compact ? "text-[0.68rem] py-1" : "text-xs py-1.5"
-      } ${active ? "text-brand-gold-light" : "text-muted-foreground"}`}
+      } ${active ? "text-brand-gold dark:text-brand-gold-light" : "text-muted-foreground"}`}
     >
       {label}
     </Link>
@@ -77,24 +103,26 @@ export function SiteHeader() {
 
   return (
     <>
-    <header className="sticky top-0 z-50 border-b border-border bg-background/90 shadow-sm backdrop-blur-md supports-backdrop-filter:bg-background/85">
-      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-4 px-4">
-        <Link href="/" className="flex flex-shrink-0 items-center gap-2">
-          <span className="font-heading text-lg font-bold tracking-tight text-foreground">
+    {/* Matches legacy Layout.tsx's nav: full-width, translucent cream (dark:
+        near-black) with blur + saturate, and a faint purple hairline. */}
+    <header className="sticky top-0 z-50 border-b border-[#4A1D6B]/15 bg-[#FAFAF7]/88 backdrop-blur-xl backdrop-saturate-180 dark:bg-[#0A0A10]/88">
+      <div className="flex min-h-14 items-center justify-between gap-2 px-4 py-2.5">
+        <Link href="/" className="flex min-h-11 flex-shrink-0 items-center gap-2">
+          <span className="font-heading text-[1.15rem] font-bold whitespace-nowrap text-[#111] dark:text-[#F5F0E0]">
             Tony<span className="text-brand-gold">G</span>
           </span>
-          <span className="hidden border-l border-border pl-2.5 font-mono text-[0.68rem] uppercase tracking-wide text-muted-foreground lg:inline">
+          <span className="ml-1 hidden border-l border-[#4A1D6B]/30 pl-2.5 font-mono text-[0.7rem] tracking-[0.06em] whitespace-nowrap text-[#999] uppercase lg:inline xl:hidden 2xl:inline">
             Only Time Buys Trust
           </span>
         </Link>
 
         {/* Desktop nav */}
-        <NavigationMenu viewport={false} className="hidden xl:flex">
-          <NavigationMenuList className="gap-1">
+        <NavigationMenu viewport={false} className="ml-auto hidden max-w-none flex-none xl:flex">
+          <NavigationMenuList className="gap-2">
             {primaryNavLinks.map((link) =>
               link.href === "/find-my" ? (
                 <NavigationMenuItem key={link.href}>
-                  <NavigationMenuTrigger className="h-8 bg-transparent px-2 font-mono text-xs font-normal text-muted-foreground uppercase tracking-wide transition-colors hover:bg-transparent hover:text-brand-gold data-open:font-bold data-open:text-brand-gold-light data-popup-open:bg-transparent data-popup-open:text-brand-gold-light">
+                  <NavigationMenuTrigger className="h-8 bg-transparent px-2 font-mono text-[0.78rem] font-semibold tracking-[0.05em] whitespace-nowrap text-[#555] uppercase transition-colors hover:bg-transparent hover:text-brand-gold data-open:text-brand-gold data-popup-open:bg-transparent data-popup-open:text-brand-gold dark:text-[#bbb]">
                     {link.label}
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
@@ -122,8 +150,8 @@ export function SiteHeader() {
                 <NavigationMenuItem key={link.href}>
                   <Link
                     href={link.href}
-                    className={`inline-flex h-8 items-center px-2 font-mono text-xs uppercase tracking-wide transition-colors hover:text-brand-gold ${
-                      isActive(link.href) ? "text-brand-gold-light" : "text-muted-foreground"
+                    className={`inline-flex h-8 items-center px-2 font-mono text-[0.78rem] font-semibold tracking-[0.05em] whitespace-nowrap uppercase transition-colors hover:text-brand-gold ${
+                      isActive(link.href) ? "text-brand-gold dark:text-brand-gold-light" : "text-[#555] dark:text-[#bbb]"
                     }`}
                   >
                     {link.label}
@@ -133,7 +161,7 @@ export function SiteHeader() {
             )}
 
             <NavigationMenuItem>
-              <NavigationMenuTrigger className="h-8 bg-transparent px-2 font-mono text-xs font-normal text-muted-foreground uppercase tracking-wide transition-colors hover:bg-transparent hover:text-brand-gold data-open:font-bold data-open:text-brand-gold-light data-popup-open:bg-transparent data-popup-open:text-brand-gold-light">
+              <NavigationMenuTrigger className="h-8 bg-transparent px-2 font-mono text-[0.78rem] font-semibold tracking-[0.05em] whitespace-nowrap text-[#555] uppercase transition-colors hover:bg-transparent hover:text-brand-gold data-open:text-brand-gold data-popup-open:bg-transparent data-popup-open:text-brand-gold dark:text-[#bbb]">
                 Explore
               </NavigationMenuTrigger>
               {/* Rightmost trigger — left-aligned (Radix's default with
@@ -165,27 +193,35 @@ export function SiteHeader() {
           </NavigationMenuList>
         </NavigationMenu>
 
-        <div className="hidden items-center gap-3 xl:flex">
-          <button
-            type="button"
-            onClick={() => setSearchOpen(true)}
-            aria-label="Search"
-            className="text-muted-foreground transition-colors hover:text-brand-gold-light"
-          >
-            <Search size={16} />
-          </button>
+        <div className="ml-2 hidden items-center gap-3 border-l border-[#4A1D6B]/20 pl-3 xl:flex">
+          <AskTonyButton onClick={() => setSearchOpen(true)} />
+          {socialLinks.map((s) => {
+            const Icon = SOCIAL_ICONS[s.label];
+            return (
+              <a
+                key={s.href}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={s.label}
+                className="text-[#6b6b6b] transition-colors hover:text-brand-gold dark:text-[#aaa] dark:hover:text-brand-gold-light"
+              >
+                {Icon && <Icon className="size-3.5" />}
+              </a>
+            );
+          })}
           <ThemeToggle />
         </div>
 
         {/* Mobile menu */}
         <div className="flex items-center gap-1 xl:hidden">
-          <Button variant="ghost" size="icon" aria-label="Search" onClick={() => setSearchOpen(true)}>
+          <Button variant="ghost" size="icon" className="size-11" aria-label="Search" onClick={() => setSearchOpen(true)}>
             <Search className="size-5" />
           </Button>
           <ThemeToggle />
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" aria-label="Open menu">
+              <Button variant="ghost" size="icon" className="size-11" aria-label="Open menu">
                 <Menu className="size-5" />
               </Button>
             </SheetTrigger>

@@ -60,7 +60,7 @@ export default function HumanosResources() {
                 {pb.link && (
                   <Link
                     href={pb.link}
-                    className="font-mono text-[0.65rem] tracking-[0.1em] text-violet-600 uppercase"
+                    className="inline-flex items-center font-mono text-[0.65rem] tracking-[0.1em] text-violet-600 uppercase min-h-11 md:min-h-6"
                   >
                     Explore &rarr;
                   </Link>
@@ -74,7 +74,7 @@ export default function HumanosResources() {
       {/* DAILY PRACTICES */}
       <section className="border-y border-emerald-100 bg-emerald-50 px-6 py-16">
         <div className="mx-auto max-w-3xl">
-          <EyebrowLabel className="mb-3 font-mono text-xs tracking-[0.2em] text-emerald-600 uppercase">
+          <EyebrowLabel className="mb-3 font-mono text-xs tracking-[0.2em] text-emerald-700 uppercase">
             Daily Practices
           </EyebrowLabel>
           <p className="mb-8 text-base leading-relaxed text-neutral-700">

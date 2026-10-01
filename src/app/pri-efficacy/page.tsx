@@ -38,8 +38,8 @@ const DIM_COLORS: Record<string, string> = {
   Medical: "#EF4444",
   Pharmacological: "#F59E0B",
   Psychological: "#10B981",
-  Intention: "#6366F1",
-  Setting: "#8B5CF6",
+  Intention: "#818CF8",
+  Setting: "#A78BFA",
   Integration: "#EC4899",
 };
 
@@ -68,7 +68,7 @@ function StatCard({ title, value, subtitle, color }: { title: string; value: str
       <div className="text-[1.8rem] font-extrabold" style={{ color: color || "#A855F7" }}>
         {value}
       </div>
-      {subtitle && <div className="mt-1 text-xs text-pri-cream/40">{subtitle}</div>}
+      {subtitle && <div className="mt-1 text-xs text-pri-cream/60">{subtitle}</div>}
     </div>
   );
 }
@@ -98,7 +98,7 @@ export default function PriEfficacyPage() {
 
         <div className="mb-8 rounded-xl border border-pri-cream/8 bg-pri-cream/3 p-6">
           <h3 className="mb-5 font-heading text-xl text-pri-cream">Classification Accuracy: Likert vs. Forced-Rank</h3>
-          <p className="mb-4 text-[.8rem] text-pri-cream/40">
+          <p className="mb-4 text-[.8rem] text-pri-cream/60">
             Forced-rank calibration nearly doubles classification accuracy by eliminating acquiescence bias and social desirability effects.
           </p>
           <BarChart label="Likert Self-Report" value={classification_accuracy.likert} max={100} color="#EF4444" suffix="%" />
@@ -107,19 +107,19 @@ export default function PriEfficacyPage() {
 
         <div className="mb-8 rounded-xl border border-pri-cream/8 bg-pri-cream/3 p-6">
           <h3 className="mb-5 font-heading text-xl text-pri-cream">Dimension Priority Distribution</h3>
-          <p className="mb-4 text-[.8rem] text-pri-cream/40">
+          <p className="mb-4 text-[.8rem] text-pri-cream/60">
             Likert scoring inflates &ldquo;{first_role_inflation.role}&rdquo; by {first_role_inflation.inflation_pct}%. Forced-rank produces near-uniform
             distribution.
           </p>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <div>
-              <div className="mb-3 text-xs tracking-[0.08em] text-pri-cream/40 uppercase">Likert (biased)</div>
+              <div className="mb-3 text-xs tracking-[0.08em] text-pri-cream/60 uppercase">Likert (biased)</div>
               {dims.map((d) => (
                 <BarChart key={d} label={d} value={(role_distribution.likert as Record<string, number>)[d] / 100} max={((simulation.n_respondents / 100 / 6) * 2)} color={DIM_COLORS[d]} />
               ))}
             </div>
             <div>
-              <div className="mb-3 text-xs tracking-[0.08em] text-pri-cream/40 uppercase">Forced-Rank (calibrated)</div>
+              <div className="mb-3 text-xs tracking-[0.08em] text-pri-cream/60 uppercase">Forced-Rank (calibrated)</div>
               {dims.map((d) => (
                 <BarChart key={d} label={d} value={(role_distribution.forced_rank as Record<string, number>)[d] / 100} max={((simulation.n_respondents / 100 / 6) * 2)} color={DIM_COLORS[d]} />
               ))}
@@ -132,13 +132,13 @@ export default function PriEfficacyPage() {
             <h3 className="mb-4 font-heading text-lg text-pri-cream">Test-Retest Reliability</h3>
             <BarChart label="Likert" value={test_retest_reliability.likert} max={1} color="#EF4444" />
             <BarChart label="Forced-Rank" value={test_retest_reliability.forced_rank} max={1} color="#10B981" />
-            <p className="mt-2 text-xs text-pri-cream/35">Correlation between first and second administration (n={simulation.n_retest.toLocaleString()} retested)</p>
+            <p className="mt-2 text-xs text-pri-cream/60">Correlation between first and second administration (n={simulation.n_retest.toLocaleString()} retested)</p>
           </div>
           <div className="rounded-xl border border-pri-cream/8 bg-pri-cream/3 p-6">
             <h3 className="mb-4 font-heading text-lg text-pri-cream">Distribution Entropy</h3>
             <BarChart label="Likert" value={entropy.likert} max={entropy.max_possible} color="#F59E0B" />
             <BarChart label="Forced-Rank" value={entropy.forced_rank} max={entropy.max_possible} color="#10B981" />
-            <p className="mt-2 text-xs text-pri-cream/35">Higher entropy = more uniform distribution across dimensions (max: {entropy.max_possible})</p>
+            <p className="mt-2 text-xs text-pri-cream/60">Higher entropy = more uniform distribution across dimensions (max: {entropy.max_possible})</p>
           </div>
         </div>
 

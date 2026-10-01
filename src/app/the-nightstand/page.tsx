@@ -37,11 +37,11 @@ const CONCEPTS = [
 export default function TheNightstandPage() {
   return (
     <div>
-      <div className="relative h-64 overflow-hidden sm:h-80">
+      <div className="relative h-[25.3rem] overflow-hidden">
         <Image src={HERO_IMAGE} alt="Books and reading lamp" fill priority className="object-cover" />
       </div>
 
-      <div className="mx-auto max-w-3xl px-6 py-10">
+      <div className="mx-auto max-w-[39rem] px-5 py-8 text-[1.1875rem]/[1.8] sm:px-10 sm:text-lg/[1.85]">
         <p className="mb-2 font-mono text-xs tracking-[0.15em] text-brand-gold uppercase">
           Intellectual Infrastructure
         </p>
@@ -98,7 +98,7 @@ export default function TheNightstandPage() {
         </div>
 
         <div className="border-t border-border py-6 text-center">
-          <Link href="/the-web" className="font-mono text-sm tracking-wide text-brand-gold">
+          <Link href="/the-web" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
             Continue to The Web →
           </Link>
         </div>
