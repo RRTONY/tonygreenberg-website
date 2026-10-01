@@ -529,7 +529,7 @@ export function PeptideQuiz() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="your@email.com"
               required
-              className="min-h-12 flex-1 rounded-sm border border-brand-gold/25 bg-card px-4 py-3 font-mono text-sm text-foreground outline-none"
+              className="min-h-12 flex-1 rounded-sm border border-brand-gold/25 bg-card px-4 py-3 font-mono text-sm text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
             />
             <button
               type="submit"

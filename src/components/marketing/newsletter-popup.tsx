@@ -229,7 +229,7 @@ export function NewsletterPopup() {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="your@email.com"
                     required
-                    className="mb-3.5 w-full rounded-xl border border-[#F5EDE0]/10 bg-[#F5EDE0]/4 px-5 py-4 text-[#F5EDE0] outline-none transition-colors focus:border-[#C4841D]/30 focus:bg-[#F5EDE0]/8"
+                    className="mb-3.5 w-full rounded-xl border border-[#F5EDE0]/10 bg-[#F5EDE0]/4 px-5 py-4 text-[#F5EDE0] outline-none focus-visible:ring-2 focus-visible:ring-ring transition-colors focus:border-[#C4841D]/30 focus:bg-[#F5EDE0]/8"
                   />
                   <button
                     type="submit"

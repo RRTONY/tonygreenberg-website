@@ -148,8 +148,8 @@ const JOURNEYS: Journey[] = [
 
 export default function JourneysPage() {
   return (
-    <div className="px-6 py-10">
-      <div className="mx-auto mb-10 max-w-3xl">
+    <div className="px-5 py-10 sm:px-6">
+      <div className="mx-auto mb-10 max-w-[34.125rem] text-[1.1875rem]/[1.8] sm:text-lg/[1.85]">
         <p className="mb-2 font-mono text-xs tracking-[0.15em] text-brand-gold uppercase">
           Choose Your Own Adventure
         </p>

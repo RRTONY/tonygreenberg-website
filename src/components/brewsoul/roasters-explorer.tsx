@@ -4,7 +4,7 @@ import { useState } from "react";
 import type { ProducerEntry } from "@/lib/intelligence-engine/types";
 
 const GRADE_TAG_CLASS: Record<string, string> = {
-  A: "bg-[#C5A23C]/10 text-[#C5A23C]",
+  A: "bg-[#C5A23C]/10 text-[#836311]",
   B: "bg-[#4A7C59]/10 text-[#4A7C59]",
 };
 const DEFAULT_TAG_CLASS = "bg-[#6F4E37]/10 text-[#6F4E37]";
@@ -65,7 +65,7 @@ export function RoastersExplorer({ roasters }: { roasters: ProducerEntry[] }) {
               <span>Equity: {r.farmerEquityGrade}</span>
             </div>
             {r.url && (
-              <a href={r.url} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block font-mono text-[0.68rem] text-[#C5A23C]">
+              <a href={r.url} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block font-mono text-[0.68rem] text-[#836311]">
                 Visit →
               </a>
             )}

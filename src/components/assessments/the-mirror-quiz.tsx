@@ -451,7 +451,7 @@ export function TheMirrorQuiz({ articleTitles }: { articleTitles: Record<string,
             <div className="rounded-lg bg-[#0A0A10] p-4 text-left">
               <p className="mb-2 font-mono text-xs text-brand-gold-light">Share this link:</p>
               <div className="flex items-center gap-2">
-                <input type="text" readOnly value={SHARE_URL} className="flex-1 border-none bg-transparent font-mono text-sm text-[#FAFAF7] outline-none" />
+                <input type="text" readOnly value={SHARE_URL} className="flex-1 border-none bg-transparent font-mono text-sm text-[#FAFAF7] outline-none focus-visible:ring-2 focus-visible:ring-ring" />
                 <button onClick={() => handleShare("copy")} className="bg-brand-gold px-3 py-1 font-mono text-xs text-[#FAFAF7]">
                   Copy
                 </button>

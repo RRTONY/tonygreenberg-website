@@ -34,7 +34,7 @@ const HERO_EARTH =
 export default function ImpactDashboardPage() {
   return (
     <div>
-      <section className="relative isolate flex min-h-[70vh] flex-col items-center justify-center overflow-hidden px-6 py-20 text-center sm:px-10">
+      <section className="relative isolate flex flex-col items-center justify-start overflow-hidden pb-10 text-center sm:min-h-[70vh] sm:justify-center sm:px-10 sm:py-20">
         <Image
           src={HERO_EARTH}
           alt=""
@@ -51,7 +51,7 @@ export default function ImpactDashboardPage() {
           aria-hidden="true"
           className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,transparent_40%,color-mix(in_oklab,var(--background)_35%,transparent)_100%)]"
         />
-        <div className="mx-auto w-full max-w-3xl rounded-2xl border border-brand-gold/20 bg-card/90 px-6 py-10 shadow-xl backdrop-blur-md sm:px-10">
+        <div className="mx-auto w-full max-w-3xl rounded-b-2xl border border-t-0 border-brand-gold/20 bg-card/90 px-7 pt-10 pb-8 shadow-xl backdrop-blur-md sm:rounded-2xl sm:border-t sm:px-10 sm:py-10">
           <p className="mb-4 font-mono text-xs tracking-[0.3em] text-brand-gold uppercase">
             ImpactSoul Target Representation · 30-Day Refinement
           </p>

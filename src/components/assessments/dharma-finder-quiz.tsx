@@ -330,7 +330,7 @@ export function DharmaFinderQuiz() {
             onChange={(e) => handleAnswer(e.target.value)}
             placeholder="Take your time. There are no wrong answers — only honest ones..."
             rows={6}
-            className="w-full resize-y rounded-sm border border-black/10 bg-white/50 p-5 text-[1.02rem] leading-relaxed text-[#2C1810] outline-none placeholder:text-[#736455] focus:border-brand-gold"
+            className="w-full resize-y rounded-sm border border-black/10 bg-white/50 p-5 text-[1.02rem] leading-relaxed text-[#2C1810] outline-none focus-visible:ring-2 focus-visible:ring-ring placeholder:text-[#736455] focus:border-brand-gold"
           />
 
           <div className="mt-8 flex items-center justify-between">

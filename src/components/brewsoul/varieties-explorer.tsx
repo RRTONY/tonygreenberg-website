@@ -24,7 +24,7 @@ export function VarietiesExplorer({ varieties }: { varieties: VarietyEntry[] }) 
       <div className="grid gap-5 [grid-template-columns:repeat(auto-fill,minmax(280px,1fr))]">
         {filtered.map((v) => (
           <div key={v.id} className="rounded-xl border border-[#6F4E37]/8 bg-white p-6">
-            <div className="mb-1 font-mono text-[0.62rem] tracking-[0.15em] text-[#C5A23C] uppercase">
+            <div className="mb-1 font-mono text-[0.62rem] tracking-[0.15em] text-[#836311] uppercase">
               {v.species} · {v.origin}
             </div>
             <h3 className="mb-1.5 font-heading text-[1.1rem] font-bold text-[#2C1810]">{v.name}</h3>

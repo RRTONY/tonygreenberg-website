@@ -67,7 +67,7 @@ export function CorrectionForm({ medicine, onClose }: { medicine: MedicineWithSa
     );
   }
 
-  const inputClass = "w-full border border-pri-border bg-pri-parchment px-3.5 py-2.5 font-body text-[.88rem] text-pri-ink outline-none";
+  const inputClass = "w-full border border-pri-border bg-pri-parchment px-3.5 py-2.5 font-body text-[.88rem] text-pri-ink outline-none focus-visible:ring-2 focus-visible:ring-ring";
 
   return (
     <div className="py-6">

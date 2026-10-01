@@ -21,8 +21,8 @@ export default function BrewSoulMoldFreePage() {
   return (
     <section className="mx-auto max-w-225 px-6 py-12">
       <div className="mb-2 font-mono text-xs tracking-[0.25em] text-[#4A7C59] uppercase">Clean Coffee</div>
-      <h1 className="mb-2 font-heading text-3xl font-bold text-[#2C1810] sm:text-4xl">Mold-Free Verified</h1>
-      <p className="mb-10 max-w-2xl text-[0.95rem] leading-relaxed text-[#6B5B4F]">
+      <h1 className="mb-2 font-heading text-3xl font-bold text-[#2C1810] sm:text-[2.4rem]">Mold-Free Verified</h1>
+      <p className="mb-10 text-[0.95rem] leading-relaxed text-[#6B5B4F]">
         Mycotoxin contamination is real but overhyped by wellness marketers. Here&apos;s what the science actually says, and which coffees have been
         independently tested.
       </p>
@@ -30,7 +30,7 @@ export default function BrewSoulMoldFreePage() {
       <div className="mb-10 grid grid-cols-3 gap-4">
         {[
           { n: verified.length, label: "Verified Clean", className: "text-[#4A7C59]" },
-          { n: claims.length, label: "Claims Clean", className: "text-[#C5A23C]" },
+          { n: claims.length, label: "Claims Clean", className: "text-[#836311]" },
           { n: untested.length, label: "Untested", className: "text-[#999]" },
         ].map((s) => (
           <div key={s.label} className="rounded-lg bg-[#6F4E37]/3 p-5 text-center">
@@ -72,7 +72,7 @@ export default function BrewSoulMoldFreePage() {
                   <div className="font-heading text-[0.95rem] font-bold text-[#2C1810]">{c.name}</div>
                   <div className="font-mono text-[0.68rem] text-[#6F4E37]">{c.producer}</div>
                 </div>
-                <div className="font-mono text-[0.68rem] text-[#C5A23C]">Self-reported</div>
+                <div className="font-mono text-[0.68rem] text-[#836311]">Self-reported</div>
               </Link>
             ))}
           </div>

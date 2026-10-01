@@ -136,7 +136,7 @@ export function BiodynamicRoasters() {
 
           <div className="mt-2.5 text-sm leading-relaxed text-[#5c3a28]">{r.unique}</div>
 
-          <div className="my-4 overflow-x-auto">
+          <div className="my-4 overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
             <table className="w-full border-collapse text-[13px]">
               <thead>
                 <tr>

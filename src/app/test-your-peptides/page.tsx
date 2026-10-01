@@ -78,7 +78,7 @@ export default function TestYourPeptidesPage() {
       <PeptideShutdownBanner />
 
       <section className="bg-[#0A0A10] px-6 py-20 text-white">
-        <div className="mx-auto max-w-3xl">
+        <div className="mx-auto max-w-4xl">
           <p className="mb-5 font-mono text-xs tracking-[0.25em] text-[#D3512E] uppercase">
             Verification Resources
           </p>
@@ -89,7 +89,7 @@ export default function TestYourPeptidesPage() {
             Four ways to know what&apos;s actually in your vials — without taking anyone&apos;s
             word for it.
           </p>
-          <p className="max-w-2xl leading-relaxed text-zinc-400">
+          <p className="leading-relaxed text-zinc-400">
             The PeptideSciences collapse was a reminder that even large, trusted vendors can
             disappear overnight, and their quality documentation goes with them. Independent
             verification isn&apos;t paranoia. It&apos;s basic due diligence. Here are the four

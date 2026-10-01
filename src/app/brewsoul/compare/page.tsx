@@ -11,9 +11,9 @@ export const metadata: Metadata = {
 export default function BrewSoulComparePage() {
   return (
     <section className="mx-auto max-w-225 px-6 py-12">
-      <div className="mb-2 font-mono text-xs tracking-[0.25em] text-[#C5A23C] uppercase">Side by Side</div>
-      <h1 className="mb-2 font-heading text-3xl font-bold text-[#2C1810] sm:text-4xl">Compare Coffees</h1>
-      <p className="mb-8 max-w-2xl text-[0.95rem] leading-relaxed text-[#6B5B4F]">
+      <div className="mb-2 font-mono text-xs tracking-[0.25em] text-[#836311] uppercase">Side by Side</div>
+      <h1 className="mb-2 font-heading text-3xl font-bold text-[#2C1810] sm:text-[2.4rem]">Compare Coffees</h1>
+      <p className="mb-8 text-[0.95rem] leading-relaxed text-[#6B5B4F]">
         Select up to 4 coffees to compare scores, flavor profiles, and value.
       </p>
 

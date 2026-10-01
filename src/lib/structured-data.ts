@@ -81,6 +81,7 @@ export function getArticleJsonLd(post: {
   updatedAt?: string;
   heroImage?: Parameters<typeof urlFor>[0];
   authorName?: string;
+  authorAvatar?: Parameters<typeof urlFor>[0];
 }) {
   return {
     "@context": "https://schema.org",
@@ -90,11 +91,18 @@ export function getArticleJsonLd(post: {
     image: post.heroImage ? [urlFor(post.heroImage).width(1200).height(630).url()] : undefined,
     datePublished: post.publishedAt,
     dateModified: post.updatedAt || post.publishedAt,
-    author: { "@type": "Person", name: post.authorName || "Tony Greenberg" },
+    author: {
+      "@type": "Person",
+      name: post.authorName || "Tony Greenberg",
+      url: `${siteUrl}/about`,
+      image: post.authorAvatar ? urlFor(post.authorAvatar).width(400).url() : undefined,
+    },
     publisher: {
       "@type": "Organization",
       name: "Tony Greenberg",
-      logo: { "@type": "ImageObject", url: `${siteUrl}/favicon.ico` },
+      // /favicon.ico doesn't exist here (app/icon.tsx serves /icon), so this
+      // pointed Google at a 404 on every post until 2026-10-02.
+      logo: { "@type": "ImageObject", url: `${siteUrl}/icon` },
     },
     mainEntityOfPage: { "@type": "WebPage", "@id": `${siteUrl}/blog/${post.slug.current}` },
   };

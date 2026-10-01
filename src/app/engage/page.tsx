@@ -14,10 +14,10 @@ export default function EngagePage() {
   return (
     <div>
       <div className="bg-linear-to-br from-background to-secondary px-6 py-16 text-center sm:px-10 dark:from-[#0A0A10] dark:via-[#111118] dark:to-[#1a1a24]">
-        <p className="mb-4 font-mono text-xs tracking-[0.25em] text-brand-gold uppercase">
+        <p className="mb-[1.2rem] font-mono text-xs/[1.8] tracking-[0.25em] text-brand-gold uppercase">
           The Gate
         </p>
-        <h1 className="mx-auto mb-4 max-w-2xl font-heading text-4xl font-bold text-foreground sm:text-5xl">
+        <h1 className="mx-auto mb-4 max-w-2xl font-heading text-[2rem]/[1.2] font-bold text-foreground sm:text-[3.2rem]/[1.2]">
           Not everyone gets a meeting.
         </h1>
         <p className="mx-auto max-w-lg text-lg text-foreground/70">

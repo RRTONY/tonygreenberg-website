@@ -48,7 +48,7 @@ export default function WhatsLegalPage() {
             <br />
             <span className="text-[#C84B2A]">That Matters.</span>
           </h1>
-          <p className="max-w-2xl text-lg leading-relaxed text-zinc-300">
+          <p className="max-w-3xl text-lg leading-relaxed text-zinc-300">
             Not legal advice. Not a scare piece. Just the facts — compound by compound, country
             by country — so you can make informed decisions about your own body.
           </p>

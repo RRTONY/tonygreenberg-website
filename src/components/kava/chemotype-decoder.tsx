@@ -36,7 +36,7 @@ export function ChemotypeDecoder() {
           onKeyDown={(e) => e.key === "Enter" && decodeChemotype()}
           placeholder="e.g. 4-2-6-5-3-1"
           maxLength={20}
-          className="flex-1 bg-transparent text-center font-mono text-lg tracking-widest text-kava-ink outline-none"
+          className="flex-1 bg-transparent text-center font-mono text-lg tracking-widest text-kava-ink outline-none focus-visible:ring-2 focus-visible:ring-ring"
         />
         <button onClick={decodeChemotype} className="rounded-lg bg-kava-saffron px-4 py-2 text-sm font-bold text-white">
           Decode

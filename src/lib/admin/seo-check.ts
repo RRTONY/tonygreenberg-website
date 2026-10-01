@@ -22,9 +22,12 @@ export function decodeEntities(text: string): string {
   return text
     .replace(/&amp;/g, "&")
     .replace(/&quot;/g, '"')
-    .replace(/&#39;|&apos;/g, "'")
+    .replace(/&apos;/g, "'")
     .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">");
+    .replace(/&gt;/g, ">")
+    // React writes an apostrophe as &#x27;, so numeric and hex forms too.
+    .replace(/&#x([0-9a-f]+);/gi, (_, hex: string) => String.fromCodePoint(parseInt(hex, 16)))
+    .replace(/&#(\d+);/g, (_, dec: string) => String.fromCodePoint(Number(dec)));
 }
 
 // Pure parsing logic, separated from the network fetch so it's unit-testable

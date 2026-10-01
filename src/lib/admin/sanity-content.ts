@@ -48,6 +48,11 @@ export async function createDraft(
   return writeClient.create({ ...fields, _id: draftId, _type: type });
 }
 
+// Only ever a draft (drafts.<id>), never a published document.
+export async function deleteDraft(id: string) {
+  await writeClient.delete(toDraftId(id));
+}
+
 export interface PendingDraft {
   id: string;
   publishedId: string;

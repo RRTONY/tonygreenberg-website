@@ -43,7 +43,7 @@ function PickCard({ post, size }: { post: Post; size: "large" | "medium" }) {
         )}
         <h3
           className={`font-heading leading-tight font-bold text-white ${
-            isLarge ? "mb-1.5 text-2xl sm:text-3xl" : "text-base"
+            isLarge ? "mb-1.5 text-[1.4rem] sm:text-[2rem]" : "text-[1.1rem]"
           }`}
         >
           {post.title}
@@ -68,10 +68,10 @@ export async function EditorPicksSection() {
   if (picks.length === 0) return null;
 
   return (
-    <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+    <section className="mx-auto max-w-7xl px-4 py-10 sm:px-14">
       <div className="mb-5">
-        <h2 className="font-heading text-3xl font-bold text-foreground">Editor&apos;s Picks</h2>
-        <p className="text-muted-foreground">The essays that define the mission</p>
+        <h2 className="font-heading text-[1.6rem] font-bold text-foreground sm:text-[2.2rem]">Editor&apos;s Picks</h2>
+        <p className="text-[1.1rem] text-muted-foreground">The essays that define the mission</p>
         <div className="mt-2 h-0.75 w-10 bg-brand-gold" />
       </div>
       <div className="grid gap-5 md:grid-cols-[1.5fr_1fr]">

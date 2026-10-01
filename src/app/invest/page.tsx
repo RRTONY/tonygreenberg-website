@@ -91,10 +91,10 @@ export default function InvestPage() {
     <div>
       <section className="bg-linear-to-br from-background to-secondary px-6 py-16 text-center sm:px-10 dark:from-[#0A0A10] dark:via-[#111118] dark:to-[#1a1a24]">
         <div className="mx-auto max-w-2xl">
-          <p className="mb-4 font-mono text-xs tracking-[0.25em] text-brand-gold uppercase">
+          <p className="mb-[1.2rem] font-mono text-xs/[1.8] tracking-[0.25em] text-brand-gold uppercase">
             The Portfolio
           </p>
-          <h1 className="mb-4 font-heading text-3xl font-bold text-foreground sm:text-4xl">
+          <h1 className="mb-4 font-heading text-[2rem]/[1.2] font-bold text-foreground sm:text-[3.2rem]/[1.2]">
             Invest in the Thesis
           </h1>
           <p className="mx-auto max-w-lg text-foreground/70">

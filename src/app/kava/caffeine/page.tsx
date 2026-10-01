@@ -92,7 +92,7 @@ export default function KavaCaffeinePage() {
 
       <KavaSection>
         <KavaSectionTitle>Kava vs. Coffee — Head to Head</KavaSectionTitle>
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
           <table className="w-full text-sm text-kava-ink">
             <thead>
               <tr className="border-b-2 border-kava-sand-muted">

@@ -80,11 +80,11 @@ function EssayCard({ essay, index }: { essay: Essay; index: number }) {
 export default function StartHerePage() {
   return (
     <div>
-      <div className="bg-[#0A0A10] px-6 py-16 text-center sm:px-10 sm:py-20">
-        <p className="mb-4 font-mono text-xs tracking-[0.25em] text-brand-gold-light uppercase">
+      <div className="bg-[#0A0A10] px-6 py-12 text-center sm:px-16 sm:py-24">
+        <p className="mb-[1.2rem] font-mono text-xs/[1.8] tracking-[0.25em] text-brand-gold-light uppercase">
           The Foundation
         </p>
-        <h1 className="mx-auto mb-6 max-w-xl font-heading text-4xl leading-tight font-normal text-[#F5F0E0] sm:text-5xl">
+        <h1 className="mx-auto mb-6 max-w-xl font-heading text-[2rem]/[1.2] font-normal text-[#F5F0E0] sm:text-[3.2rem]/[1.2]">
           Five essays.
           <br />
           <em className="text-brand-gold-light not-italic">One worldview.</em>

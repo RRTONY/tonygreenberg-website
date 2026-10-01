@@ -25,7 +25,9 @@ site until both have been read.
 6. The [`docs/ai/`](docs/ai/README.md) note for the area you're touching (past incidents, gotchas).
 
 In Claude Code, the **`tonyg-task-planner`** agent (`.claude/agents/`) does steps 4 to 6 for you:
-give it the request and it returns a plan. It only reads, never edits.
+give it the request and it returns a plan. It only reads, never edits. When the work is done, the
+**`verify-change`** skill (`.claude/skills/`) runs the "check before calling anything done" steps
+below (type check, lint, Manus grep, build, a fresh server, status codes).
 
 ## What this project is
 
@@ -69,8 +71,13 @@ Tailwind v4 + shadcn/ui, Sanity for editorial content, deployed on Netlify from 
 
 - Call `get_project_rules` first. Every write tool needs its `rulesVersion` as `rules_version`; it
   changes whenever this file or `CONTRIBUTING.md` changes, so re-read when told the rules changed.
-- Code edits land on an `admin/mcp-*` branch as a pull request, never straight to `main`. Sanity
-  edits are drafts. Nothing goes live except `publish_changes`, and only after the person says yes.
+- **One request = one change.** `start_change` first, pass its `change_id` on every edit, then
+  `submit_for_review` with a plain summary and `list_pending_changes` with that `change_id` to show
+  the review (what goes live, before/after, site check). Code lands on that change's own
+  `admin/mcp-*` branch and pull request, never straight to `main`; Sanity edits are drafts.
+- Nothing goes live except `publish_changes` for that one change, with its `reviewToken`, and only
+  after you show what goes live and the person says yes. `discard_change` rejects a change;
+  `list_change_history` and `undo_change` restore an earlier version.
 - Can't be done through MCP: env vars, `package.json`/lockfiles, `netlify.toml`, `src/proxy.ts`,
   CI, DNS, image uploads, or the MCP server's own code. Tell the person who can.
 - Details: [`docs/ai/project_mcp_server.md`](docs/ai/project_mcp_server.md).

@@ -45,7 +45,7 @@ export default function VerifyYourCoaPage() {
             <br />
             <span className="text-[#C84B2A]">That Wrote It.</span>
           </h1>
-          <p className="max-w-2xl text-lg leading-relaxed text-zinc-300">
+          <p className="max-w-3xl text-lg leading-relaxed text-zinc-300">
             And a lot of labs did not write the ones you&apos;ve been given. Every peptide vendor
             will hand you a Certificate of Analysis. Most will look official. Many are internal
             documents the vendor made themselves. Some are the same document copy-pasted with

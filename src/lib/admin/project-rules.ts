@@ -41,7 +41,11 @@ export const RULES_GATED_TOOLS = new Set([
   "github_delete_file",
   "sanity_patch_document",
   "sanity_create_document",
+  "start_change",
+  "submit_for_review",
   "publish_changes",
+  "discard_change",
+  "undo_change",
 ]);
 
 export const RULES_VERSION_PARAM = "rules_version";

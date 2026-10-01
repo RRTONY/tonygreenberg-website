@@ -64,7 +64,8 @@ how to handle a request is in [`TASK_GUIDE.md`](TASK_GUIDE.md). Last checked 202
 ## MCP server (`src/lib/admin/`)
 
 Lets Claude Code / Claude Desktop / Claude.ai edit this repo's code (as a GitHub PR on an
-`admin/mcp-*` branch) and Sanity content (drafts only). Full notes:
+`admin/mcp-*` branch) and Sanity content (drafts only), and read Google Analytics, Search Console
+and Lighthouse data (`ga4-client.ts`, `gsc-client.ts`, `lighthouse-check.ts`). Full notes:
 [`project_mcp_server.md`](project_mcp_server.md).
 
 ## Outside the repo (can't be changed by editing files here)

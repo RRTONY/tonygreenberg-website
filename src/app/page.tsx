@@ -61,12 +61,12 @@ export default async function Home({ searchParams }: PageProps<"/">) {
       <HomeHero essayCount={posts.length} />
 
       <section className="bg-[#0E0C09] px-4 py-10 sm:px-6 sm:py-12">
-        <div className="mx-auto max-w-4xl">
+        <div className="mx-auto max-w-250">
           <div className="mb-6 text-center">
             <div className="mb-2 font-mono text-xs tracking-[0.2em] text-brand-gold-light/70 uppercase">
               Four Doors
             </div>
-            <h2 className="font-heading text-2xl font-normal text-white sm:text-3xl">
+            <h2 className="font-heading text-[1.6rem] font-normal text-white sm:text-[2.2rem]">
               Choose how you want to <em className="text-brand-gold-light not-italic">begin</em>
             </h2>
           </div>
@@ -81,7 +81,7 @@ export default async function Home({ searchParams }: PageProps<"/">) {
 
       <EditorPicksSection />
 
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="mx-auto max-w-7xl px-4 sm:px-14">
         <Link
           href="/protecting-your-business"
           className="mb-6 inline-flex items-center gap-2 rounded-md border border-red-800/20 bg-red-800/5 px-3.5 py-2"

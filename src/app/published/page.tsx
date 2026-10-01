@@ -98,7 +98,7 @@ export default function PublishedPage() {
   const categories = Object.keys(CATEGORY_LABELS) as Category[];
 
   return (
-    <div className="mx-auto max-w-4xl px-6 py-10">
+    <div className="mx-auto max-w-[39rem] px-5 py-10 sm:px-10">
       <Link href="/" className="inline-flex items-center font-mono text-xs tracking-wide text-brand-gold uppercase min-h-11 md:min-h-6">
         ← Back to the Broadsheet
       </Link>
@@ -111,7 +111,7 @@ export default function PublishedPage() {
         <br />
         Elsewhere
       </h1>
-      <p className="mb-8 max-w-2xl text-lg text-foreground/70">
+      <p className="mb-8 text-[1.2rem]/[1.8] text-foreground/70">
         {ARTICLES.length} articles across HuffPost, Medium, and MediaVillage. Technology, trust,
         blockchain, and the uncomfortable questions nobody else was asking at the time.
       </p>

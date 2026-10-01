@@ -59,6 +59,9 @@ incidents: [`docs/ai/`](docs/ai/README.md).
    `pnpm dlx shadcn@latest add <component>` — don't hand-roll what shadcn already ships.
 3. **No inline `style={}` in app code.** See the Tailwind section below for the exact scope and
    the one legitimate exception.
+4. **New global element rules in `globals.css` go inside `@layer base { }`.** An unlayered rule
+   beats every Tailwind utility regardless of specificity (an unlayered `a { color: inherit }` once
+   made the header links invisible). See `docs/ai/feedback_css_layer_bug.md`.
 5. **No framer-motion.** Use CSS transitions or `tailwindcss-animate` utilities. This app doesn't
    carry that dependency on purpose (same convention as ramprate-ui) — don't reintroduce it.
 6. **Multi-field forms with real validation use Formik + Yup**, not hand-rolled `useState` per
@@ -96,10 +99,16 @@ incidents: [`docs/ai/`](docs/ai/README.md).
 14. Run `pnpm typecheck` before calling a change done. `pnpm lint` too if you touched anything
     non-trivial — see "Automated Enforcement" for what it does and doesn't catch.
 15. Never commit `.env.local` — it's gitignored. Add any new env var to `.env.local.example`
-    (with no value) in the same change so the next person knows it exists.
+    (with no value) in the same change so the next person knows it exists, and say in the Status
+    Report that it also has to be set in Netlify's dashboard (the site won't see it otherwise).
+    Never write a secret, token or password into code, docs or a commit message, and keep API keys
+    on the server: never in a Client Component or a browser `fetch`.
 16. **No new dependency without discussing it with the user first.** This applies to `package.json`
     additions of any kind — a new npm package, not just a heavy one. If a task seems to need one,
     say so and what it's for before adding it, rather than installing it unilaterally.
+17. **Optional form fields with a Yup validator must accept an empty string** (e.g.
+    `.url().nullable()` alone rejects `""`, which is what an untouched input sends). Test the empty
+    case, not just a filled-in one.
 
 ## Next.js (App Router, v16)
 
@@ -185,7 +194,6 @@ was replaced
                                                                       // all by default — every
                                                                       // link inside was invisible
                                                                       // to crawlers until clicked
-```
 
 const styles = { tech: { border: "border-[#2563eb]" } }             // building a class from
 className={`hover:${c.border}/20`}                                    // fragments at the usage
@@ -276,6 +284,9 @@ Two specific Next.js App Router pitfalls to check for, since they're easy to int
 
 ## SEO
 
+- The MCP server has read-only Google tools (`check_analytics`, `search_console_performance` /
+  `_inspect_url` / `_sitemaps`, `lighthouse_check_page`), so use real Search Console and GA4 data
+  before acting on a hunch or an audit's claim. See `docs/ai/project_mcp_server.md`.
 - No SEO tooling is vendored into this repo. If Claude's current session has the `claude-seo`
   skill/agent family available (`seo`, `seo-audit`, `seo-technical`, `seo-schema`, `seo-geo`, etc.),
   use that for an actual audit rather than reinventing one inline; otherwise write metadata/schema
@@ -373,11 +384,18 @@ A change isn't done until it's been checked with real tools, not just read over.
 There's no unit-test runner in this repo yet (adding Vitest would be a new dependency, rule 16).
 
 **Through the MCP server:** `check_code_quality` on every changed file, then `check_pr_status`
-until the Netlify deploy preview passes, then open the preview link and `seo_check_page`.
+until the Netlify deploy preview passes, then open the preview link and `seo_check_page`
+(`lighthouse_check_page` too for layout or performance changes; it can time out on Netlify).
 
 **Publishing:** nothing goes live except by merging the PR (and publishing the matching Sanity
 drafts). Show the person exactly what's about to go live (`list_pending_changes` over MCP) and get
-a clear yes. Never publish while the preview build is pending or failing.
+a clear yes. Never publish while the preview build is pending or failing. Over MCP every request is
+its own change (`start_change` → edits with its `change_id` → `submit_for_review` →
+`list_pending_changes` with that `change_id`), and `publish_changes` publishes only that change,
+with the `reviewToken` from its review. Before calling it, say: "You are about to publish these
+changes to the live tonygreenberg.com website. Are you sure you want to continue?" and wait for a
+yes. If the person doesn't want it, `discard_change`. Drafts made in Studio or by scripts are never
+published by the MCP server.
 
 ## Status Report (end of every reply that did work)
 

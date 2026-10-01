@@ -53,6 +53,10 @@ export function isNotFound(err: unknown): boolean {
   return err instanceof GitHubApiError && err.status === 404;
 }
 
+export function errorStatus(err: unknown): number | null {
+  return err instanceof GitHubApiError ? err.status : null;
+}
+
 export interface FileContent {
   content: string;
   sha: string;
@@ -210,6 +214,152 @@ export async function findOpenAdminPR(
   return match
     ? { number: match.number, branch: match.head.ref, url: match.html_url }
     : null;
+}
+
+export async function listOpenAdminPRs(
+  branchPrefix: string,
+): Promise<OpenPR[]> {
+  const base = await getDefaultBranch();
+  const prs = await gh<
+    Array<{ number: number; html_url: string; head: { ref: string } }>
+  >(`/repos/${OWNER}/${REPO}/pulls?state=open&base=${base}&per_page=100`);
+  return (prs || [])
+    .filter((pr) => pr.head.ref.startsWith(branchPrefix))
+    .map((pr) => ({
+      number: pr.number,
+      branch: pr.head.ref,
+      url: pr.html_url,
+    }));
+}
+
+export async function getPRHeadSha(prNumber: number): Promise<string | null> {
+  const pr = await gh<{ head: { sha: string } }>(
+    `/repos/${OWNER}/${REPO}/pulls/${prNumber}`,
+  );
+  return pr?.head.sha ?? null;
+}
+
+export async function getPRState(prNumber: number): Promise<{
+  open: boolean;
+  merged: boolean;
+  mergeSha: string | null;
+}> {
+  const pr = await gh<{
+    state: string;
+    merged: boolean;
+    merge_commit_sha: string | null;
+  }>(`/repos/${OWNER}/${REPO}/pulls/${prNumber}`);
+  return {
+    open: pr?.state === "open",
+    merged: !!pr?.merged,
+    mergeSha: pr?.merged ? (pr.merge_commit_sha ?? null) : null,
+  };
+}
+
+export async function listBranches(prefix: string): Promise<string[]> {
+  const refs = await gh<Array<{ ref: string }>>(
+    `/repos/${OWNER}/${REPO}/git/matching-refs/heads/${prefix}`,
+  );
+  return (refs || []).map((r) => r.ref.replace(/^refs\/heads\//, ""));
+}
+
+export async function closePR(prNumber: number): Promise<void> {
+  await gh(`/repos/${OWNER}/${REPO}/pulls/${prNumber}`, {
+    method: "PATCH",
+    body: JSON.stringify({ state: "closed" }),
+  });
+}
+
+export interface CommitFile {
+  path: string;
+  status: string;
+  previousPath: string | null;
+}
+
+export async function getCommitFiles(
+  sha: string,
+): Promise<{ parentSha: string; files: CommitFile[] }> {
+  const commit = await gh<{
+    parents: Array<{ sha: string }>;
+    files?: Array<{
+      filename: string;
+      status: string;
+      previous_filename?: string;
+    }>;
+  }>(`/repos/${OWNER}/${REPO}/commits/${encodeURIComponent(sha)}`);
+  if (!commit || commit.parents.length === 0) {
+    throw new Error(`Commit ${sha} has no parent to restore from`);
+  }
+  return {
+    parentSha: commit.parents[0].sha,
+    files: (commit.files || []).map((f) => ({
+      path: f.filename,
+      status: f.status,
+      previousPath: f.previous_filename ?? null,
+    })),
+  };
+}
+
+// The git blob id of a file at a ref (null if it doesn't exist there).
+// Cheap way to tell whether a file is identical in two versions without
+// downloading it, and to restore a file (images too) by pointing at its old
+// blob instead of re-uploading its content.
+export async function getFileSha(
+  path: string,
+  ref: string,
+): Promise<string | null> {
+  try {
+    const data = await gh<{ sha: string; type: string } | unknown[]>(
+      `/repos/${OWNER}/${REPO}/contents/${encodeURI(path)}?ref=${encodeURIComponent(ref)}`,
+    );
+    if (!data || Array.isArray(data)) return null;
+    const file = data as { sha: string; type: string };
+    return file.type === "file" ? file.sha : null;
+  } catch (err) {
+    if (isNotFound(err)) return null;
+    throw err;
+  }
+}
+
+// Creates `branch` off the default branch with one commit that sets each
+// listed file to the given blob (sha) or removes it (sha null). Used by
+// "undo a published change": every file goes back to its old version in a
+// single commit, binary files included, with nothing downloaded.
+export async function createBranchWithFileStates(
+  branch: string,
+  files: Array<{ path: string; sha: string | null }>,
+  message: string,
+): Promise<void> {
+  const headSha = await getDefaultBranchSha();
+  const head = await gh<{ tree: { sha: string } }>(
+    `/repos/${OWNER}/${REPO}/git/commits/${headSha}`,
+  );
+  if (!head) throw new Error("Could not read the live site's latest version");
+  const tree = await gh<{ sha: string }>(`/repos/${OWNER}/${REPO}/git/trees`, {
+    method: "POST",
+    body: JSON.stringify({
+      base_tree: head.tree.sha,
+      tree: files.map((f) => ({
+        path: f.path,
+        mode: "100644",
+        type: "blob",
+        sha: f.sha,
+      })),
+    }),
+  });
+  if (!tree) throw new Error("Could not build the undo version");
+  const commit = await gh<{ sha: string }>(
+    `/repos/${OWNER}/${REPO}/git/commits`,
+    {
+      method: "POST",
+      body: JSON.stringify({ message, tree: tree.sha, parents: [headSha] }),
+    },
+  );
+  if (!commit) throw new Error("Could not save the undo version");
+  await gh(`/repos/${OWNER}/${REPO}/git/refs`, {
+    method: "POST",
+    body: JSON.stringify({ ref: `refs/heads/${branch}`, sha: commit.sha }),
+  });
 }
 
 export async function openPR(
@@ -450,14 +600,20 @@ export async function getFailingCheckLogExcerpt(
   return truncateLogTail(await res.text());
 }
 
+// expectedHeadSha makes GitHub refuse the merge if anything was added to
+// the change after it was reviewed.
 export async function mergePR(
   prNumber: number,
+  expectedHeadSha?: string,
 ): Promise<{ merged: boolean; sha: string }> {
   const result = await gh<{ merged: boolean; sha: string }>(
     `/repos/${OWNER}/${REPO}/pulls/${prNumber}/merge`,
     {
       method: "PUT",
-      body: JSON.stringify({ merge_method: "squash" }),
+      body: JSON.stringify({
+        merge_method: "squash",
+        ...(expectedHeadSha ? { sha: expectedHeadSha } : {}),
+      }),
     },
   );
   if (!result) throw new Error("Merge returned no data");

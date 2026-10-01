@@ -212,7 +212,7 @@ export function QuickIntake({ onGoDeeper }: { onGoDeeper: () => void }) {
           placeholder="e.g. CEDAR-001 or leave blank"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="mb-4.5 w-full rounded-md border border-facilitator-amber-light/30 bg-white/85 px-3.5 py-2.5 text-[.9rem] text-facilitator-ink outline-none"
+          className="mb-4.5 w-full rounded-md border border-facilitator-amber-light/30 bg-white/85 px-3.5 py-2.5 text-[.9rem] text-facilitator-ink outline-none focus-visible:ring-2 focus-visible:ring-ring"
         />
         <label className="mb-1.5 block text-xs font-bold tracking-[0.08em] text-facilitator-ink/45 uppercase">Contact for introduction (optional)</label>
         <input
@@ -220,7 +220,7 @@ export function QuickIntake({ onGoDeeper }: { onGoDeeper: () => void }) {
           placeholder="Email or Signal — for Tony only, never published"
           value={contact}
           onChange={(e) => setContact(e.target.value)}
-          className="mb-6 w-full rounded-md border border-facilitator-amber-light/30 bg-white/85 px-3.5 py-2.5 text-[.9rem] text-facilitator-ink outline-none"
+          className="mb-6 w-full rounded-md border border-facilitator-amber-light/30 bg-white/85 px-3.5 py-2.5 text-[.9rem] text-facilitator-ink outline-none focus-visible:ring-2 focus-visible:ring-ring"
         />
         <div className="flex flex-wrap gap-4">
           <button type="submit" className="rounded-lg bg-linear-to-br from-facilitator-amber-deep to-facilitator-amber-light px-8 py-3.5 text-sm font-bold tracking-[0.06em] text-facilitator-ink uppercase">

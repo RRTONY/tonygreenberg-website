@@ -457,7 +457,7 @@ export default function AlexAzziPage() {
           <h3 className="mt-10 mb-4 font-heading text-lg font-bold text-foreground">
             What the Documents Prove
           </h3>
-          <div className="my-6 overflow-x-auto rounded-md border border-border">
+          <div className="my-6 overflow-x-auto rounded-md border border-border" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
             <table className="w-full border-collapse text-sm">
               <thead>
                 <tr className="bg-red-800/5">

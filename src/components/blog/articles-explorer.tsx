@@ -168,7 +168,7 @@ export function ArticlesExplorer({ posts }: { posts: ArchivePost[] }) {
             placeholder="Search articles, topics, or keywords…"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full max-w-lg rounded-sm border border-brand-gold/30 bg-white/7 px-5 py-3 text-white/90 outline-none placeholder:text-white/40"
+            className="w-full max-w-lg rounded-sm border border-brand-gold/30 bg-white/7 px-5 py-3 text-white/90 outline-none focus-visible:ring-2 focus-visible:ring-ring placeholder:text-white/40"
           />
         </div>
       </div>

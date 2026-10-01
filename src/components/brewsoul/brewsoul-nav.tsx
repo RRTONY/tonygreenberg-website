@@ -110,7 +110,7 @@ export function BrewSoulNav() {
       {menuOpen && (
         <div className="fixed inset-x-0 top-13 bottom-0 z-[9998] overflow-y-auto bg-[#FAFAF7]/98 p-6 backdrop-blur-2xl">
           <div className="mx-auto max-w-[600px]">
-            <div className="mb-4 font-mono text-[0.68rem] tracking-[0.2em] text-[#C5A23C] uppercase">Navigate</div>
+            <div className="mb-4 font-mono text-[0.68rem] tracking-[0.2em] text-[#836311] uppercase">Navigate</div>
             <div className="grid grid-cols-2 gap-2">
               {NAV_SECTIONS.map((s) => (
                 <Link
@@ -125,7 +125,7 @@ export function BrewSoulNav() {
               ))}
             </div>
             <div className="mt-8 border-t border-[#6F4E37]/10 pt-6">
-              <div className="mb-3 font-mono text-[0.68rem] tracking-[0.2em] text-[#C5A23C] uppercase">Ecosystem</div>
+              <div className="mb-3 font-mono text-[0.68rem] tracking-[0.2em] text-[#836311] uppercase">Ecosystem</div>
               {BREWSOUL_ECOSYSTEM.map((e) => (
                 <a key={e.url} href={e.url} className="block py-2 font-sans text-sm text-[#6B5B4F]">
                   {e.label}

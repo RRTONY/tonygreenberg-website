@@ -171,7 +171,7 @@ export default function PeptideWatchPage() {
             proceedings, FTC actions, or state attorney general enforcement. No rumor. No Reddit
             smoke.
           </p>
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
             <table className="w-full border-collapse text-sm">
               <thead>
                 <tr className="bg-[#0A0A10] text-left text-white">

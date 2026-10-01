@@ -1,23 +1,14 @@
 import * as gh from "@/lib/admin/github-client";
-import { ADMIN_BRANCH_PREFIX } from "@/lib/admin/guardrails";
+import { branchForChange, claimContent, patchChangeSet, type ChangeSet } from "@/lib/admin/change-sets";
 import type { AdminToolContext } from "@/lib/admin/tools";
-
-function newBranchName(): string {
-  const stamp = new Date().toISOString().slice(0, 10).replace(/-/g, "");
-  const suffix = Math.random().toString(36).slice(2, 8);
-  return `${ADMIN_BRANCH_PREFIX}${stamp}-${suffix}`;
-}
 
 export interface McpToolCallResult {
   ctx: AdminToolContext;
   auditLog: string[];
-  // Opens the PR the moment a branch has its first commit (GitHub rejects a
-  // PR with no diff from base, so this can't happen any earlier than that),
-  // and reports the branch/PR this call ended up on either way. Call once,
-  // after running the tool. Without this, a later independent tool call —
-  // which resolves "the pending change" via findOpenAdminPR, see below —
-  // would never find this branch, and every write would silently start a
-  // new orphan branch of its own.
+  // Opens the change's PR the moment its branch has its first commit (GitHub
+  // rejects a PR with no diff from base, so this can't happen any earlier)
+  // and saves the PR number on the change record, then reports the branch/PR
+  // either way. Call once, after running the tool.
   finalize: () => Promise<{
     branch: string | null;
     prNumber: number | null;
@@ -25,64 +16,63 @@ export interface McpToolCallResult {
   }>;
 }
 
-// Each MCP tool call is an independent HTTP request, and Netlify Functions
-// guarantee no memory between invocations — so instead of session state,
-// every call resolves "the pending change" fresh by asking GitHub whether an
-// admin branch/PR is already open (single-operator assumption: only one edit
-// in flight at a time). No cookies or session store needed.
-// GitHub is only asked about the pending branch/PR the first time a tool
-// actually needs it — Sanity, SEO and code-check tools never touch GitHub, so
-// they keep working without GITHUB_TOKEN (or during a GitHub outage).
-export async function buildMcpToolContext(): Promise<McpToolCallResult> {
-  let resolved: Promise<void> | null = null;
-  let defaultBranch = "";
-  let branch: string | null = null;
-  let prNumber: number | null = null;
-  const resolve = () =>
-    (resolved ??= (async () => {
-      const [base, existing] = await Promise.all([gh.getDefaultBranch(), gh.findOpenAdminPR(ADMIN_BRANCH_PREFIX)]);
-      defaultBranch = base;
-      branch = existing?.branch ?? null;
-      prNumber = existing?.number ?? null;
-    })());
+const NO_CHANGE = "Start a change first (start_change) and pass its change_id.";
 
+// MCP tool calls are independent HTTP requests with no memory between them
+// (Netlify Functions), so every call that edits names the change it belongs
+// to (change_id, from start_change), and this resolves that change's own
+// branch and PR from its record. One request = one change = one branch, so
+// two requests can never end up in the same Publish (ported from ramprate-ui,
+// 2026-10-02; before that every edit went into one shared admin/mcp-* PR).
+// With no change (read-only calls) reads come from the live site's code.
+// GitHub is only asked for the default branch when a tool needs it, so the
+// Sanity, SEO and code-check tools still work without GITHUB_TOKEN.
+export async function buildMcpToolContext(change: ChangeSet | null): Promise<McpToolCallResult> {
+  let defaultBranch: Promise<string> | null = null;
+  let branch: string | null = change?.branch ?? null;
+  let prNumber: number | null = change?.prNumber ?? null;
   const auditLog: string[] = [];
 
   const ctx: AdminToolContext = {
-    getReadBranch: async () => {
-      await resolve();
-      return branch ?? defaultBranch;
-    },
+    getReadBranch: async () => branch ?? (await (defaultBranch ??= gh.getDefaultBranch())),
     ensureWriteBranch: async () => {
-      await resolve();
+      if (!change) throw new Error(NO_CHANGE);
       if (branch) return branch;
-      branch = newBranchName();
+      branch = branchForChange(change.key);
       await gh.createBranch(branch);
+      await patchChangeSet(change.key, { branch });
+      change.branch = branch;
       auditLog.push(`Created branch ${branch}`);
       return branch;
     },
-    getPRNumber: async () => {
-      await resolve();
-      return prNumber;
-    },
+    getPRNumber: async () => prNumber,
     log: (entry) => auditLog.push(entry),
+    claimContent: async (item) => (change ? claimContent(change, item) : NO_CHANGE),
   };
 
   return {
     ctx,
     auditLog,
     finalize: async () => {
-      if (!resolved) return { branch: null, prNumber: null, prUrl: null };
-      await resolved;
       let prUrl: string | null = null;
-      if (branch && !prNumber) {
-        const pr = await gh.openPR(
-          branch,
-          "MCP: site edits",
-          "Opened automatically via the tonygreenberg.com MCP server. Review the diff and the Netlify deploy preview before publishing.",
-        );
+      if (change && branch && !prNumber) {
+        let pr: gh.OpenPR;
+        try {
+          pr = await gh.openPR(
+            branch,
+            change.title,
+            `${change.request}\n\nRequested by ${change.requestedBy.name} via the tonygreenberg.com MCP server (change ${change.key}). Review it in Claude/ChatGPT before publishing.`,
+          );
+        } catch (err) {
+          // 422 = the branch has no commits yet (the write failed); the PR
+          // opens on the next successful write instead.
+          if (gh.errorStatus(err) === 422) return { branch, prNumber, prUrl };
+          throw err;
+        }
         prNumber = pr.number;
         prUrl = pr.url;
+        await patchChangeSet(change.key, { prNumber });
+        change.prNumber = prNumber;
         auditLog.push(`Opened PR #${pr.number}`);
       } else if (prNumber) {
         prUrl = `https://github.com/${gh.GITHUB_REPO.owner}/${gh.GITHUB_REPO.repo}/pull/${prNumber}`;

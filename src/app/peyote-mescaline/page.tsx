@@ -48,7 +48,7 @@ export default function PeyoteMescalinePage() {
       <section className="relative mx-auto flex min-h-[80vh] max-w-225 flex-col justify-center overflow-hidden px-5 pt-22 pb-16">
         <div className="absolute top-[5%] right-[-8%] z-0 h-3/4 w-1/2 overflow-hidden rounded-3xl opacity-30">
           <Image
-            src="https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/pri-hero-mescaline-LZ6qL5rTNsm96kDqBfwRyg.webp"
+            src="https://cdn.sanity.io/images/a3q1cyqs/production/d63325647995d649a53f8850e89974f071b2170e-1920x1072.webp"
             alt=""
             fill
             sizes="50vw"
@@ -95,7 +95,7 @@ export default function PeyoteMescalinePage() {
       <PriSection id="pharmacology">
         <div className="relative mb-8 h-[clamp(180px,25vw,280px)] w-full overflow-hidden rounded-md shadow-[0_8px_40px_rgba(107,33,168,.15)]">
           <Image
-            src="https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/pri-section-pharmacology-8nrnRWUbqMfZ8EUM9utBPY.webp"
+            src="https://cdn.sanity.io/images/a3q1cyqs/production/2df10596e3944eecf05511fb6164ee34ee2bf198-1920x1288.webp"
             alt="Receptor pharmacology"
             fill
             sizes="100vw"
@@ -104,7 +104,7 @@ export default function PeyoteMescalinePage() {
         </div>
         <PriEyebrow>Receptor Pharmacology</PriEyebrow>
         <h2 className="mb-6 font-heading text-[clamp(1.5rem,4vw,2.5rem)] text-pri-ink">Key Receptors</h2>
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
           <table className="w-full min-w-125 border-collapse">
             <thead>
               <tr>
@@ -135,7 +135,7 @@ export default function PeyoteMescalinePage() {
       <PriSection id="latuda-mirror" dark>
         <div className="relative mb-8 h-[clamp(180px,25vw,280px)] w-full overflow-hidden rounded-md">
           <Image
-            src="https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/mesc_latuda-YgTpmPv22YnAyD4CQiGmzE.webp"
+            src="https://cdn.sanity.io/images/a3q1cyqs/production/6fa3d0279b69ce5b6b8aa5e8d37c3a431dcf9049-1920x1072.webp"
             alt=""
             fill
             sizes="100vw"
@@ -148,7 +148,7 @@ export default function PeyoteMescalinePage() {
         <p className="mb-8 max-w-150 text-[clamp(.9rem,2.5vw,1.05rem)] text-pri-cream/60">
           Latuda (lurasidone) and mescaline share the same receptor targets with opposite actions:
         </p>
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
           <table className="w-full min-w-115 border-collapse">
             <thead>
               <tr>
@@ -181,7 +181,7 @@ export default function PeyoteMescalinePage() {
       <PriSection id="outcomes">
         <div className="relative mb-8 h-[clamp(180px,25vw,280px)] w-full overflow-hidden rounded-md">
           <Image
-            src="https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/mesc_outcomes-bwmiTnjaYvWoVQcSh4mTTE.webp"
+            src="https://cdn.sanity.io/images/a3q1cyqs/production/aa5fb7be691a23fefde9c5c333bc49ce179f8c9a-1920x1072.webp"
             alt=""
             fill
             sizes="100vw"
@@ -218,7 +218,7 @@ export default function PeyoteMescalinePage() {
       <PriSection id="pharma-alternatives" dark>
         <div className="relative mb-8 h-[clamp(180px,25vw,280px)] w-full overflow-hidden rounded-md">
           <Image
-            src="https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_67_mesc_pharma_d25171fc.jpg"
+            src="https://cdn.sanity.io/images/a3q1cyqs/production/037cce693c9a348f8c11a9faa3137c4a2656f2f0-1200x670.jpg"
             alt=""
             fill
             sizes="100vw"
@@ -247,7 +247,7 @@ export default function PeyoteMescalinePage() {
       <PriSection id="supplements">
         <div className="relative mb-8 h-[clamp(180px,25vw,280px)] w-full overflow-hidden rounded-md">
           <Image
-            src="https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_64_mesc_b5ca252b.jpg"
+            src="https://cdn.sanity.io/images/a3q1cyqs/production/5fe9eaa02ef1901c720475830785db600dcf7e6a-1200x670.jpg"
             alt=""
             fill
             sizes="100vw"
@@ -288,7 +288,7 @@ export default function PeyoteMescalinePage() {
       <PriSection id="dimensions" dark>
         <div className="relative mb-8 h-[clamp(180px,25vw,280px)] w-full overflow-hidden rounded-md">
           <Image
-            src="https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/mesc_dimensions-9RVHkrAxpLwCZgHTJAW5G3.webp"
+            src="https://cdn.sanity.io/images/a3q1cyqs/production/926fb6af7c77f618596e53305d563d47d5281d95-1920x1072.webp"
             alt=""
             fill
             sizes="100vw"
@@ -328,7 +328,7 @@ export default function PeyoteMescalinePage() {
       <PriSection id="selector">
         <PriEyebrow>Medicine Selector</PriEyebrow>
         <h2 className="mb-6 font-heading text-[clamp(1.5rem,4vw,2.5rem)] text-pri-ink">How Mescaline Compares</h2>
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
           <table className="w-full min-w-187.5 border-collapse">
             <thead>
               <tr>
@@ -377,7 +377,7 @@ export default function PeyoteMescalinePage() {
       <PriSection id="sources" dark>
         <div className="relative mb-8 h-[clamp(180px,25vw,280px)] w-full overflow-hidden rounded-md">
           <Image
-            src="https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/mesc_sources-aQ77qjP56eHB6vhUJNNXAo.webp"
+            src="https://cdn.sanity.io/images/a3q1cyqs/production/fbba337e52018b805d21f298be1b963d1b3510cf-1920x1072.webp"
             alt=""
             fill
             sizes="100vw"

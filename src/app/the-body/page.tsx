@@ -44,7 +44,7 @@ const PEPTIDE_TOOLS = [
 export default function TheBodyPage() {
   return (
     <div>
-      <div className="relative h-64 overflow-hidden sm:h-80">
+      <div className="relative h-[25.3rem] overflow-hidden">
         <Image src={HERO_IMAGE} alt="Wellness and longevity elements" fill priority className="object-cover" />
       </div>
 

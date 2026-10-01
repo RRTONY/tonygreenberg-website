@@ -39,7 +39,7 @@ export default function BrewSoulEconomicsPage() {
   const stats = [
     { label: "Coffees", value: String(BREWSOUL_COFFEES.length), className: "text-[#6F4E37]" },
     { label: "Origins", value: String(origins.length), className: "text-[#4A7C59]" },
-    { label: "Avg $/Bag", value: `$${avgPrice.toFixed(0)}`, className: "text-[#C5A23C]" },
+    { label: "Avg $/Bag", value: `$${avgPrice.toFixed(0)}`, className: "text-[#836311]" },
     { label: "Farmer Share", value: `${avgFarmerPct.toFixed(0)}%`, className: avgFarmerPct >= 15 ? "text-[#4A7C59]" : "text-[#8B2500]" },
     { label: "Roasters", value: String(ROASTERS.length), className: "text-[#6F4E37]" },
     { label: "Varieties", value: String(VARIETIES.length), className: "text-[#4A7C59]" },
@@ -47,9 +47,9 @@ export default function BrewSoulEconomicsPage() {
 
   return (
     <section className="mx-auto max-w-225 px-6 py-12">
-      <div className="mb-2 font-mono text-xs tracking-[0.25em] text-[#C5A23C] uppercase">The Numbers</div>
-      <h1 className="mb-2 font-heading text-3xl font-bold text-[#2C1810] sm:text-4xl">Economics Dashboard</h1>
-      <p className="mb-8 max-w-2xl text-[0.95rem] leading-relaxed text-[#6B5B4F]">
+      <div className="mb-2 font-mono text-xs tracking-[0.25em] text-[#836311] uppercase">The Numbers</div>
+      <h1 className="mb-2 font-heading text-3xl font-bold text-[#2C1810] sm:text-[2.4rem]">Economics Dashboard</h1>
+      <p className="mb-8 text-[0.95rem] leading-relaxed text-[#6B5B4F]">
         The specialty coffee economy at a glance — pricing trends, farmer equity, and the real cost of your morning cup.
       </p>
 

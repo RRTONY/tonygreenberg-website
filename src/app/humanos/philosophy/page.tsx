@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 };
 
 const CONSCIOUSNESS_IMG =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/consciousness-scale-HjPE8waC75o6fHtrhXiBKu.webp";
+  "https://cdn.sanity.io/images/a3q1cyqs/production/4bdf04e4f73f2f9248df6e2d26ba4113594af75c-1434x1920.webp";
 
 const MAXIMIZER_SYMPTOMS = ["Analysis Paralysis", "Chronic Dissatisfaction", "Decision Fatigue", "The \"Grass is Greener\" Syndrome"];
 const SATISFICER_UNLOCKS = ["Radical Agency", "Deep Focus", "Joy in the Present", "Sustainable Growth"];

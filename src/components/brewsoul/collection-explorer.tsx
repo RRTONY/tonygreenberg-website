@@ -62,7 +62,7 @@ export function CollectionExplorer({ coffees }: { coffees: CatalogItem[] }) {
           <div className="mb-2 font-heading text-xl text-[#2C1810]">Nothing here yet.</div>
           <p className="text-[0.9rem] text-[#6B5B4F]">
             Browse the{" "}
-            <Link href="/brewsoul/browse" className="text-[#C5A23C]">
+            <Link href="/brewsoul/browse" className="text-[#836311] underline underline-offset-2">
               catalog
             </Link>{" "}
             and save coffees you love.
@@ -78,7 +78,7 @@ export function CollectionExplorer({ coffees }: { coffees: CatalogItem[] }) {
                   <Link href={`/brewsoul/coffee/${c.id}`}>
                     <h3 className="font-heading text-base font-bold text-[#2C1810]">{c.name}</h3>
                   </Link>
-                  <button onClick={() => toggle(c.id)} className="text-lg text-[#C5A23C]">
+                  <button onClick={() => toggle(c.id)} className="text-lg text-[#836311]">
                     ♥
                   </button>
                 </div>
@@ -86,7 +86,7 @@ export function CollectionExplorer({ coffees }: { coffees: CatalogItem[] }) {
                   {c.producer} · {c.originCountry}
                 </div>
                 <div className="mt-2 flex gap-2">
-                  <span className="rounded-full bg-[#C5A23C]/10 px-2 py-0.5 font-mono text-[0.65rem] text-[#C5A23C]">{s.tier}</span>
+                  <span className="rounded-full bg-[#C5A23C]/10 px-2 py-0.5 font-mono text-[0.65rem] text-[#836311]">{s.tier}</span>
                   <span className="rounded-full bg-[#6F4E37]/10 px-2 py-0.5 font-mono text-[0.65rem] text-[#6F4E37]">{s.overall.toFixed(1)}</span>
                 </div>
               </div>

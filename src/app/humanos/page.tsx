@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 };
 
 const SATISFICER_IMG =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/satisficer-vs-maximizer-8cWbpDMM6EHc2L6u3bi6xT.webp";
+  "https://cdn.sanity.io/images/a3q1cyqs/production/a0276086167ed0f0ea153877a1298c28d6ba025b-1920x1072.webp";
 
 const DISCOVERIES = [
   "Your operating system type — Maximizer, Satisficer, or somewhere in between",
@@ -70,7 +70,7 @@ export default function HumanosHome() {
             System Status: Awakening
           </p>
 
-          <h1 className="mb-5 font-heading text-6xl leading-[0.95] font-bold text-white sm:text-7xl lg:text-8xl">
+          <h1 className="mb-5 font-heading text-6xl leading-[0.95] font-bold text-white uppercase sm:text-7xl lg:text-8xl">
             Human<br />
             <span className="text-violet-400">OS V2.0</span>
           </h1>
@@ -87,11 +87,11 @@ export default function HumanosHome() {
 
       {/* MAXIMIZER VS SATISFICER */}
       <section className="bg-neutral-50 px-6 py-20">
-        <div className="mx-auto max-w-3xl">
+        <div className="mx-auto max-w-225">
           <EyebrowLabel className="mb-3 font-mono text-xs tracking-[0.2em] text-violet-600 uppercase">
             The Core Question
           </EyebrowLabel>
-          <h2 className="mb-6 font-heading text-4xl leading-tight font-bold text-neutral-900 sm:text-5xl">
+          <h2 className="mb-6 font-heading text-4xl leading-tight font-bold text-neutral-900 uppercase sm:text-5xl">
             Are you a <span className="text-violet-600">Maximizer</span> or a{" "}
             <span className="text-violet-600">Satisficer</span>?
           </h2>
@@ -135,7 +135,7 @@ export default function HumanosHome() {
       {/* THE DIAGNOSTIC CTA */}
       <section className="bg-violet-50 px-6 py-20 text-center">
         <div className="mx-auto max-w-xl">
-          <h2 className="mb-4 font-heading text-3xl font-bold text-neutral-900 sm:text-4xl">
+          <h2 className="mb-4 font-heading text-3xl font-bold text-neutral-900 uppercase sm:text-4xl">
             Take the <span className="text-violet-600 italic">Diagnostic</span>
           </h2>
           <p className="mb-2 text-lg text-neutral-600 italic">
@@ -149,7 +149,7 @@ export default function HumanosHome() {
             <div className="mx-auto mb-6 flex size-14 items-center justify-center rounded-full bg-violet-100">
               <Users size={28} className="text-violet-600" />
             </div>
-            <h3 className="mb-4 font-heading text-2xl font-bold text-neutral-900">The Diagnostic</h3>
+            <h3 className="mb-4 font-heading text-2xl font-bold text-neutral-900 uppercase">The Diagnostic</h3>
             <p className="mx-auto mb-8 max-w-md text-base leading-relaxed text-neutral-600">
               Are you a Maximizer or a Satisficer? Explore the framework to discover your
               decision-making pattern — and learn how to escape the optimization trap.

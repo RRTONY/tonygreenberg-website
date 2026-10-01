@@ -81,7 +81,7 @@ export function BrowseExplorer() {
       {/* Hero */}
       <section className="bg-linear-to-b from-[#F0E8D8] to-[#FAFAF7] px-6 py-16 text-center">
         <div className="mx-auto max-w-2xl">
-          <div className="mb-3 font-mono text-xs tracking-[0.3em] text-[#C5A23C] uppercase">The Catalog</div>
+          <div className="mb-3 font-mono text-xs tracking-[0.3em] text-[#836311] uppercase">The Catalog</div>
           <h1 className="mb-3 font-heading text-3xl font-bold text-[#2C1810] sm:text-4xl">Browse All Coffees</h1>
           <p className="mx-auto mb-6 max-w-lg text-base leading-relaxed text-[#6B5B4F]">
             {BREWSOUL_COFFEES.length} coffees scored, tested, and traced. Filter by what matters to you.
@@ -195,7 +195,7 @@ export function BrowseExplorer() {
       {/* Results */}
       <section className="min-h-[60vh] bg-linear-to-b from-[#FAFAF7] via-[#F5F0E6] to-[#FAFAF7] px-6 py-8">
         <div className="mx-auto max-w-6xl">
-          <div className="mb-5 font-mono text-xs tracking-wide text-[#C5A23C] uppercase">
+          <div className="mb-5 font-mono text-xs tracking-wide text-[#836311] uppercase">
             {filtered.length} coffee{filtered.length !== 1 ? "s" : ""} found
           </div>
           <div className="grid gap-5 [grid-template-columns:repeat(auto-fill,minmax(280px,1fr))]">

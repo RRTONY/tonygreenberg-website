@@ -111,6 +111,8 @@ export function bearerFromRequest(req: Request): string {
 export const READ_ONLY_TOOLS = new Set([
   "get_project_rules",
   "list_pending_changes",
+  "list_change_history",
+  "preview_on_devices",
   "github_list_dir",
   "github_read_file",
   "seo_check_page",
@@ -119,6 +121,12 @@ export const READ_ONLY_TOOLS = new Set([
   "get_check_log_excerpt",
   "sanity_query",
   "sanity_get_document",
+  "lighthouse_check_page",
+  "check_analytics",
+  "search_console_sites",
+  "search_console_performance",
+  "search_console_inspect_url",
+  "search_console_sitemaps",
 ]);
 
 // Go live: "write" only.

@@ -59,7 +59,7 @@ export function EmailGate({ assessmentSlug, onUnlock }: { assessmentSlug: string
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Your email address"
             required
-            className="min-h-12 flex-1 border border-brand-gold-light/40 bg-white/50 px-5 py-3.5 font-mono text-[0.88rem] text-[#2C1810] outline-none placeholder:text-[#8B7B6B]"
+            className="min-h-12 flex-1 border border-brand-gold-light/40 bg-white/50 px-5 py-3.5 font-mono text-[0.88rem] text-[#2C1810] outline-none focus-visible:ring-2 focus-visible:ring-ring placeholder:text-[#8B7B6B]"
           />
           <button
             type="submit"

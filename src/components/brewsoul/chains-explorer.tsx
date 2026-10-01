@@ -46,7 +46,7 @@ const TYPE_LABELS: Record<ChainEntry["type"], string> = {
 
 function ScoreBar({ value }: { value: number }) {
   const cls = value >= 7 ? BAR_CLASS.good : value >= 5 ? BAR_CLASS.mid : BAR_CLASS.low;
-  const textCls = value >= 7 ? "text-[#4A7C59]" : value >= 5 ? "text-[#C5A23C]" : "text-[#8B2500]";
+  const textCls = value >= 7 ? "text-[#4A7C59]" : value >= 5 ? "text-[#836311]" : "text-[#8B2500]";
   return (
     <div className="flex items-center gap-2">
       <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-[#6F4E37]/6">
@@ -127,7 +127,7 @@ function ChainCard({ chain, expanded, onToggle }: { chain: ChainEntry; expanded:
           <div className="flex flex-wrap items-center gap-6">
             {chain.signatureDrink && (
               <div className="font-mono text-[0.72rem] text-[#6B5B4F]">
-                <span className="text-[#C5A23C]">★</span> Signature: {chain.signatureDrink}
+                <span className="text-[#836311]">★</span> Signature: {chain.signatureDrink}
               </div>
             )}
             <div className="font-mono text-[0.72rem] text-[#6B5B4F]">{chain.priceRange}</div>
@@ -137,7 +137,7 @@ function ChainCard({ chain, expanded, onToggle }: { chain: ChainEntry; expanded:
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="font-mono text-[0.72rem] text-[#C5A23C]"
+                className="font-mono text-[0.72rem] text-[#836311]"
               >
                 Visit →
               </a>

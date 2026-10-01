@@ -56,7 +56,7 @@ export function SubmissionForm() {
           placeholder="e.g. CEDAR-001"
           value={codedIdentity}
           onChange={(e) => setCodedIdentity(e.target.value)}
-          className="mb-5 w-full rounded-md border border-facilitator-amber-light/35 bg-white/85 px-3.5 py-2.5 text-[.92rem] text-facilitator-ink outline-none"
+          className="mb-5 w-full rounded-md border border-facilitator-amber-light/35 bg-white/85 px-3.5 py-2.5 text-[.92rem] text-facilitator-ink outline-none focus-visible:ring-2 focus-visible:ring-ring"
         />
       </div>
       <div>
@@ -66,7 +66,7 @@ export function SubmissionForm() {
           value={responses}
           onChange={(e) => setResponses(e.target.value)}
           required
-          className="mb-5 min-h-60 w-full resize-y rounded-md border border-facilitator-amber-light/35 bg-white/85 px-3.5 py-2.5 text-[.92rem] text-facilitator-ink outline-none"
+          className="mb-5 min-h-60 w-full resize-y rounded-md border border-facilitator-amber-light/35 bg-white/85 px-3.5 py-2.5 text-[.92rem] text-facilitator-ink outline-none focus-visible:ring-2 focus-visible:ring-ring"
         />
       </div>
 
@@ -89,7 +89,7 @@ export function SubmissionForm() {
               placeholder="e.g. Pacific Northwest, Western Europe, Southeast Asia"
               value={referralRegion}
               onChange={(e) => setReferralRegion(e.target.value)}
-              className="mb-5 w-full rounded-md border border-facilitator-amber-light/35 bg-white/85 px-3.5 py-2.5 text-[.92rem] text-facilitator-ink outline-none"
+              className="mb-5 w-full rounded-md border border-facilitator-amber-light/35 bg-white/85 px-3.5 py-2.5 text-[.92rem] text-facilitator-ink outline-none focus-visible:ring-2 focus-visible:ring-ring"
             />
           </div>
           <div>
@@ -99,7 +99,7 @@ export function SubmissionForm() {
               placeholder="Contact info for Tony only — never published"
               value={referralContact}
               onChange={(e) => setReferralContact(e.target.value)}
-              className="mb-5 w-full rounded-md border border-facilitator-amber-light/35 bg-white/85 px-3.5 py-2.5 text-[.92rem] text-facilitator-ink outline-none"
+              className="mb-5 w-full rounded-md border border-facilitator-amber-light/35 bg-white/85 px-3.5 py-2.5 text-[.92rem] text-facilitator-ink outline-none focus-visible:ring-2 focus-visible:ring-ring"
             />
           </div>
         </>

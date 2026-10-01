@@ -6,11 +6,11 @@
 
 /* ── Images ── */
 export const IBOGA_IMAGES = {
-  hero: "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/iboga-hero-JoM8AmTyxi83oYTSuwPWTz.webp",
-  alkaloidComparison: "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/iboga-alkaloid-comparison-dKuBTy9hCbrCVWcryVa2Qi.webp",
-  pharmacology: "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/iboga-pharmacology-receptors-QrrQQ9KaRpZgQRVWavYvsf.webp",
-  bwitiTradition: "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_65_iboga-bwiti-tradition-esnMH7bF7eMi8hnHLy8nLm_d64f0e15.jpg",
-  clinicalSetting: "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/iboga-clinical-setting-jHwatPUD9k6skVo5c88dVH.webp",
+  hero: "https://cdn.sanity.io/images/a3q1cyqs/production/72bfaa6dc05cf86d41081e93263d49ead17060d2-1920x1072.webp",
+  alkaloidComparison: "https://cdn.sanity.io/images/a3q1cyqs/production/1a42bdb29d3160486134f44c848d4af669ac81f5-1920x1072.webp",
+  pharmacology: "https://cdn.sanity.io/images/a3q1cyqs/production/f1e99527cb868def9e7c3444d0e7b733442de4f9-1920x1288.webp",
+  bwitiTradition: "https://cdn.sanity.io/images/a3q1cyqs/production/db063b54c1e9f462969c24d033c5d3093a3048db-1200x670.jpg",
+  clinicalSetting: "https://cdn.sanity.io/images/a3q1cyqs/production/9f670dc0c9754796c8227fc30461146695388f25-1920x1072.webp",
 };
 
 /* ── Pharmacology: Receptor Binding Profile ── */

@@ -54,7 +54,7 @@ export default function RipPeptideSciencesPage() {
             <br />
             <span className="text-[#C84B2A]">Then Posted Three Sentences and Disappeared.</span>
           </h1>
-          <p className="max-w-2xl text-lg leading-relaxed text-zinc-300">
+          <p className="max-w-3xl text-lg leading-relaxed text-zinc-300">
             The complete autopsy of the Peptide Sciences shutdown — what happened, why it
             happened, what it means for your protocol, and where to go now. No panic. Just facts.
           </p>

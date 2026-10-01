@@ -381,7 +381,7 @@ function MeasureTab({
           placeholder="Entity name (optional)"
           value={entityName}
           onChange={(e) => setEntityName(e.target.value)}
-          className="mt-2 min-h-11 basis-full rounded-md border border-[#E8E4DC] bg-[#FAFAF7] px-3 py-2 text-[0.9rem] outline-none"
+          className="mt-2 min-h-11 basis-full rounded-md border border-[#E8E4DC] bg-[#FAFAF7] px-3 py-2 text-[0.9rem] outline-none focus-visible:ring-2 focus-visible:ring-ring"
         />
       </div>
 
@@ -521,7 +521,7 @@ function BenchmarkTab({ scores, entityName }: { scores: number[]; entityName: st
         {DIMENSIONS.length}-axis measurement eliminates single-dimension gaming.
       </div>
 
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
         <table className="w-full min-w-225 border-collapse font-mono text-[0.6rem]">
           <thead>
             <tr className="border-b-2 border-[#0A0A10]">

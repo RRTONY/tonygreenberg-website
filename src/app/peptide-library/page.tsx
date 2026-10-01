@@ -53,7 +53,7 @@ export default function PeptideLibraryPage() {
           <h1 className="mb-5 font-heading text-4xl leading-tight font-bold sm:text-5xl">
             The Complete <span className="text-brand-gold-light">Peptide Library</span>
           </h1>
-          <p className="mb-4 max-w-2xl leading-relaxed text-zinc-300">
+          <p className="mb-4 max-w-3xl leading-relaxed text-zinc-300">
             Every compound profiled with safety tier, evidence quality, regulatory status,
             pricing, suggested stacks, and what to track on your Oura Ring. No affiliate links.
             No vendor partnerships. Just data.

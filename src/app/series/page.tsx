@@ -44,23 +44,26 @@ export default async function SeriesPage() {
 
   return (
     <div>
-      <div className="bg-linear-to-b from-background to-secondary px-6 pt-16 pb-10 sm:px-10">
-        <Link href="/" className="inline-flex items-center mb-6 font-mono text-xs tracking-wide text-brand-gold uppercase min-h-11 md:min-h-6">
-          ← Back to The Blog
-        </Link>
-        <p className="mb-2 font-mono text-xs tracking-[0.15em] text-brand-gold uppercase">
-          The Collections
-        </p>
-        <h1 className="mb-4 font-heading text-4xl font-bold text-foreground sm:text-5xl">
-          Essay Series
-        </h1>
-        <p className="max-w-xl text-lg text-foreground/70">
-          Some ideas need more than one essay. These are the multi-part investigations — threads
-          that weave through blockchain, trust, communication, and the future of business.
-        </p>
+      {/* Centered in live's ~546px story column (measured 2026-10-02). */}
+      <div className="bg-linear-to-b from-background to-secondary px-5 pt-23 pb-20 sm:px-10">
+        <div className="mx-auto max-w-[34.125rem]">
+          <Link href="/" className="inline-flex items-center mb-8 font-mono text-xs tracking-wide text-brand-gold uppercase min-h-11 md:min-h-6">
+            ← Back to The Blog
+          </Link>
+          <p className="mb-6 font-mono text-xs/[1.8] tracking-[0.3em] text-brand-gold uppercase">
+            The Collections
+          </p>
+          <h1 className="mb-4 font-heading text-[1.9rem]/[1.25] font-bold text-foreground sm:text-[2.56rem]/[1.25]">
+            Essay Series
+          </h1>
+          <p className="text-[1.15rem]/[1.7] text-foreground/70">
+            Some ideas need more than one essay. These are the multi-part investigations — threads
+            that weave through blockchain, trust, communication, and the future of business.
+          </p>
+        </div>
       </div>
 
-      <div className="mx-auto max-w-4xl px-6 py-12 sm:px-10">
+      <div className="mx-auto max-w-[39rem] px-5 py-12 sm:px-10">
         <div className="grid gap-8">
           {SERIES.map((series) => {
             const c = CATEGORY_CLASSES[series.category] ?? { text: "text-brand-gold", bg: "bg-brand-gold/10" };
@@ -72,8 +75,19 @@ export default async function SeriesPage() {
             return (
               <div
                 key={series.id}
-                className="grid gap-8 rounded-md border border-border bg-card p-8 transition-shadow hover:shadow-lg sm:grid-cols-[minmax(0,1fr)_240px]"
+                className="flex flex-col gap-6 rounded-md border border-border bg-card p-6 transition-shadow hover:shadow-lg sm:p-8"
               >
+                {firstPost?.heroImage && (
+                  <div className="relative h-50 overflow-hidden rounded-md">
+                    <Image
+                      src={urlFor(firstPost.heroImage).width(960).url()}
+                      alt={series.title}
+                      fill
+                      sizes="(min-width: 640px) 480px, 100vw"
+                      className="object-cover"
+                    />
+                  </div>
+                )}
                 <div>
                   <span className={`mb-3 inline-block rounded-sm px-2.5 py-1 font-mono text-xs tracking-wide uppercase ${c.text} ${c.bg}`}>
                     {series.category} · {series.posts.length} Parts
@@ -108,17 +122,6 @@ export default async function SeriesPage() {
                     </Link>
                   )}
                 </div>
-
-                {firstPost?.heroImage && (
-                  <div className="relative h-50 self-start overflow-hidden rounded-md sm:h-full">
-                    <Image
-                      src={urlFor(firstPost.heroImage).width(480).url()}
-                      alt={series.title}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                )}
               </div>
             );
           })}

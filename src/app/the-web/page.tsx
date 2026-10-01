@@ -39,7 +39,7 @@ const ADAGES = [
 export default function TheWebPage() {
   return (
     <div>
-      <div className="relative h-64 overflow-hidden sm:h-80">
+      <div className="relative h-[25.3rem] overflow-hidden">
         <Image src={HERO_IMAGE} alt="Connected network of golden threads" fill priority className="object-cover" />
       </div>
 

@@ -447,7 +447,7 @@ export function PsychedelicReadinessIndex() {
       <section className="relative mx-auto flex min-h-screen max-w-225 flex-col justify-center overflow-hidden px-5 pt-22 pb-16">
         <div className="absolute inset-0 z-0 overflow-hidden opacity-30">
           <Image
-            src="https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/pri-hero-v2-mSDTNiwzeoV4EwNs4reHC8.webp"
+            src="https://cdn.sanity.io/images/a3q1cyqs/production/1126cd46fd317e79cb543645ef44a536ae95f417-1920x1072.webp"
             alt=""
             fill
             sizes="100vw"
@@ -508,7 +508,7 @@ export function PsychedelicReadinessIndex() {
       {/* ── MEDICINE GRID ── */}
       <div id="medicines" className="mx-auto max-w-300 px-5 py-16">
         <CinematicBand
-          src="https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_14_1_Ay780tKhHUlRIDgLEPEyF6_1773615910924_na1fn_L2hvbWUvdWJ1bnR1L3BoYXJtYWNvcG9laWE_7a2f5a05.jpg"
+          src="https://cdn.sanity.io/images/a3q1cyqs/production/d1def9c5a5f53e8552abaf70d5770678e3c0b347-1200x669.jpg"
           alt={`${MEDICINES.length} sacred plant medicines arranged on stone tiles`}
           fadeTo="cream"
           heightClass="h-[clamp(200px,30vw,360px)] mb-8"
@@ -785,7 +785,7 @@ export function PsychedelicReadinessIndex() {
       {/* ── MAO-B INTERACTION MATRIX ── */}
       <section id="mao-b" className="bg-pri-ink pb-16 text-pri-cream">
         <CinematicBand
-          src="https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_42_2_cyf5h67593DZPHr3augAvg_1773615904853_na1fn_L2hvbWUvdWJ1bnR1L21hb2JfaW50ZXJhY3Rpb25fbWF0cml4_beb3e8b0.jpg"
+          src="https://cdn.sanity.io/images/a3q1cyqs/production/1ab05902418c91a3fb56a0e3fc940f1e6e9d72b1-1200x669.jpg"
           alt=""
           fadeTo="ink"
           objectPosition="object-center"
@@ -818,7 +818,7 @@ export function PsychedelicReadinessIndex() {
             ))}
           </div>
 
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
             <table className="w-full border-collapse text-[.85rem]">
               <thead>
                 <tr className="border-b-2 border-pri-cream/15">
@@ -866,7 +866,7 @@ export function PsychedelicReadinessIndex() {
       {/* ── MEDICATION INTERACTIONS ── */}
       <section className="bg-pri-cream pb-16">
         <CinematicBand
-          src="https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_24_3_CDtc8wRbaTczuIl5ODhL7E_1773615908910_na1fn_L2hvbWUvdWJ1bnR1L21lZGljYXRpb25faW50ZXJhY3Rpb25fZ3VpZGU_1fb2633f.jpg"
+          src="https://cdn.sanity.io/images/a3q1cyqs/production/c6135e9d655be2df472cf661549acd1d83bae611-1200x669.jpg"
           alt=""
           fadeTo="cream"
           className="brightness-85 contrast-110"
@@ -917,7 +917,7 @@ export function PsychedelicReadinessIndex() {
 
           <div className="mt-8 overflow-hidden bg-pri-ink">
             <CinematicBand
-              src="https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_9_5_VRn9xtScv1qYQMN2Aj1zNP_1773615893129_na1fn_L2hvbWUvdWJ1bnR1L2NyaXNpc19yZXNvdXJjZXNfbGlnaHRob3VzZQ_a3d95833.jpg"
+              src="https://cdn.sanity.io/images/a3q1cyqs/production/64a97b43fdaef33379848914b24515a5b3c9326f-1200x669.jpg"
               alt=""
               fadeTo="ink"
               heightClass="h-[clamp(120px,18vw,200px)]"
@@ -941,7 +941,7 @@ export function PsychedelicReadinessIndex() {
       {/* ── ASSESSMENT SECTION ── */}
       <section ref={assessmentRef} className="bg-pri-ink pb-16 text-pri-cream">
         <CinematicBand
-          src="https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_3_4_WErEguPyxSRODIYK82xMyu_1773615891673_na1fn_L2hvbWUvdWJ1bnR1L2Fzc2Vzc21lbnRfaW1hZ2U_8a8c3b82.jpg"
+          src="https://cdn.sanity.io/images/a3q1cyqs/production/41677b830bcaf5a36daa30f55dd3346df3163dcb-1200x669.jpg"
           alt=""
           fadeTo="ink"
           heightClass="h-[clamp(200px,28vw,360px)]"
@@ -1181,7 +1181,7 @@ export function PsychedelicReadinessIndex() {
               </div>
 
               <CinematicBand
-                src="https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_36_6_V2zHpGt6IKEgb2XpfKmsCJ_1773615895415_na1fn_L2hvbWUvdWJ1bnR1L2hlYWxpbmdfc2VxdWVuY2U_4c245fba.jpg"
+                src="https://cdn.sanity.io/images/a3q1cyqs/production/6d400ad9951b52a6748ee84bb1aaff7731880336-1200x669.jpg"
                 alt=""
                 fadeTo="ink"
                 heightClass="h-[clamp(140px,20vw,240px)] mb-6"
@@ -1229,21 +1229,21 @@ export function PsychedelicReadinessIndex() {
                           placeholder="Your name"
                           value={referralName}
                           onChange={(e) => setReferralName(e.target.value)}
-                          className="rounded border border-pri-purple-light/30 bg-pri-cream/6 px-3.5 py-2.5 text-[.82rem] text-pri-cream outline-none"
+                          className="rounded border border-pri-purple-light/30 bg-pri-cream/6 px-3.5 py-2.5 text-[.82rem] text-pri-cream outline-none focus-visible:ring-2 focus-visible:ring-ring"
                         />
                         <input
                           type="email"
                           placeholder="Your email"
                           value={referralEmail}
                           onChange={(e) => setReferralEmail(e.target.value)}
-                          className="rounded border border-pri-purple-light/30 bg-pri-cream/6 px-3.5 py-2.5 text-[.82rem] text-pri-cream outline-none"
+                          className="rounded border border-pri-purple-light/30 bg-pri-cream/6 px-3.5 py-2.5 text-[.82rem] text-pri-cream outline-none focus-visible:ring-2 focus-visible:ring-ring"
                         />
                         <input
                           type="text"
                           placeholder="Your region (e.g. New York, London, Sydney)"
                           value={referralRegion}
                           onChange={(e) => setReferralRegion(e.target.value)}
-                          className="rounded border border-pri-purple-light/30 bg-pri-cream/6 px-3.5 py-2.5 text-[.82rem] text-pri-cream outline-none"
+                          className="rounded border border-pri-purple-light/30 bg-pri-cream/6 px-3.5 py-2.5 text-[.82rem] text-pri-cream outline-none focus-visible:ring-2 focus-visible:ring-ring"
                         />
                         <button
                           disabled={!referralEmail || !referralRegion}
@@ -1340,7 +1340,7 @@ export function PsychedelicReadinessIndex() {
       <footer className="relative bg-pri-ink py-12 text-center text-pri-cream/60">
         <div className="absolute inset-0 z-0 overflow-hidden">
           <Image
-            src="https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_10_7_izBDVpysTtokCeVbU0sNp6_1773615912434_na1fn_L2hvbWUvdWJ1bnR1L2Zvb3Rlcl9pbWFnZQ_2a2c6369.jpg"
+            src="https://cdn.sanity.io/images/a3q1cyqs/production/9fbe29d4f1af581002b17e7b74c67b31b4b8853a-1200x669.jpg"
             alt=""
             fill
             sizes="100vw"

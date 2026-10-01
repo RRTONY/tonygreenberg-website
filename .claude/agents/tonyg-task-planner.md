@@ -31,7 +31,9 @@ that change files, install packages, push, or call external services.
 
 ## How to decide
 
-- **Question or check** → no change. Say which read-only command or MCP tool answers it.
+- **Question or check** → no change. Say which read-only command or MCP tool answers it
+  (traffic: `check_analytics`; search queries and rankings: `search_console_performance`; is a page
+  indexed: `search_console_inspect_url`; speed and accessibility scores: `lighthouse_check_page`).
 - **Where does it live?** Page copy is in code (`src/app/<route>/page.tsx`, its component, or a
   `src/lib/content/*.ts` module). Quizzes, scoring and encyclopedia data (BrewSoul, PRI, Kava) are
   always code. Only blog content (`post`/`author`/`category`) in Sanity reaches the site;

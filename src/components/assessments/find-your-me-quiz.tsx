@@ -313,7 +313,7 @@ export function FindYourMeQuiz({ articleTitles }: { articleTitles: Record<string
                     placeholder="Search experiences..."
                     value={directorySearch}
                     onChange={(e) => setDirectorySearch(e.target.value)}
-                    className="w-50 rounded-full border border-brand-gold-light/10 bg-[#0A0A10]/30 py-1.5 pr-5 pl-8 text-sm text-[#2C1810] outline-none focus:border-brand-gold-light/30"
+                    className="w-50 rounded-full border border-brand-gold-light/10 bg-[#0A0A10]/30 py-1.5 pr-5 pl-8 text-sm text-[#2C1810] outline-none focus-visible:ring-2 focus-visible:ring-ring focus:border-brand-gold-light/30"
                   />
                 </div>
               </div>

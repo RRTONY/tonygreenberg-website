@@ -47,7 +47,7 @@ export function VendorScorecard({ vendors }: { vendors: Vendor[] }) {
         </button>
       </div>
 
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b-2 border-border text-left">

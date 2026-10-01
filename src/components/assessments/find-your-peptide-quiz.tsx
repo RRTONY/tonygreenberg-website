@@ -496,7 +496,7 @@ export function FindYourPeptideQuiz() {
             "Evidence-based resources for informed decisions",
           ]}
           accentColor={ACCENT}
-          heroImage="https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/peptide-hero-find-Pd2B4xq5sV9Fwq6fkoA8sC.webp"
+          heroImage="https://cdn.sanity.io/images/a3q1cyqs/production/7a176590540e2c06279eaff5a41dc4da24ef50b3-1920x815.webp"
           onBegin={() => setPhase("assessment")}
         />
       </div>
@@ -583,7 +583,7 @@ export function FindYourPeptideQuiz() {
               onChange={(e) => setGateEmail(e.target.value)}
               placeholder="your@email.com"
               required
-              className="flex-1 rounded-sm border border-brand-gold-light/30 bg-white/50 px-4 py-2.5 font-mono text-[0.85rem] outline-none"
+              className="flex-1 rounded-sm border border-brand-gold-light/30 bg-white/50 px-4 py-2.5 font-mono text-[0.85rem] outline-none focus-visible:ring-2 focus-visible:ring-ring"
             />
             <button type="submit" className="rounded-sm bg-brand-gold-light px-6 py-2.5 font-mono text-[0.78rem] font-bold text-[#0A0A10] uppercase">
               Unlock

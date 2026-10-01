@@ -63,7 +63,7 @@ export function HomeHero({ essayCount }: { essayCount: number }) {
         }}
       />
       <div className="absolute inset-0 bg-linear-to-br from-black/45 via-black/20 to-black/35 backdrop-blur-[1px]" />
-      <div className="relative z-10 mx-auto w-full max-w-3xl px-6 py-10 sm:px-10">
+      <div className="relative z-10 mx-auto w-full max-w-225 px-5 py-10 sm:px-12">
         <div className="mb-4 font-mono text-base tracking-[0.25em] text-brand-gold-light uppercase">
           Tony Greenberg
         </div>
@@ -71,7 +71,7 @@ export function HomeHero({ essayCount }: { essayCount: number }) {
         {/* Live keeps the page's one H1 as a descriptive, screen-reader-only
             title; the big headline below is display text. */}
         <h1 className="sr-only">Tony Greenberg — Strategist, Author &amp; Systems Thinker</h1>
-        <p className="mb-3 font-heading text-4xl leading-[1.1] font-normal text-white [text-shadow:0_2px_12px_rgba(0,0,0,0.4)] sm:text-6xl">
+        <p className="mb-3 font-heading text-[2rem] leading-[1.1] font-normal text-white [text-shadow:0_2px_12px_rgba(0,0,0,0.4)] sm:text-[3.5rem]">
           I expose broken systems.
           <br />
           <em className="animate-gold-shimmer bg-[length:200%_auto] bg-linear-to-r from-[#836311] via-[#F5E6A3] to-[#836311] bg-clip-text not-italic text-transparent">
@@ -79,7 +79,7 @@ export function HomeHero({ essayCount }: { essayCount: number }) {
           </em>
         </p>
 
-        <p className="mb-5 max-w-xl text-sm text-white/92 sm:text-base">
+        <p className="mb-5 max-w-140 text-[0.9rem]/[1.65] text-white/92 sm:text-[1.05rem]/[1.65]">
           $10B+ in enterprise contracts priced, audited, and renegotiated
         </p>
 

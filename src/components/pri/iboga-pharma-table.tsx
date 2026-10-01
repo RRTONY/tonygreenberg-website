@@ -15,7 +15,7 @@ export function IbogaPharmaTable() {
 
   return (
     <div>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
         <table className="w-full min-w-175 border-collapse">
           <thead>
             <tr>

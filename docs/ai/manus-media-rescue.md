@@ -100,3 +100,75 @@ Total: 94 · in Sanity: 91 · gone: 3
 | `/manus-storage/energy-money-memory-hero-v2_deb8f3db.jpg` | `src/pages/ImpactFuturism.tsx`<br>`src/pages/BlogPost.tsx` | https://cdn.sanity.io/images/a3q1cyqs/production/9c32c48def8997eb1b08b0443f7a4dcc5b89bfe9-1920x1072.webp | in Sanity |
 | `/manus-storage/frqncy-bus-tour_dd4daeae.mov` | `src/pages/BlogPost.tsx` | https://cdn.sanity.io/files/a3q1cyqs/production/d334cc864e3b80c605211468cf5f6846a021aad0.mov | in Sanity |
 | `/manus-storage/gallery-1_d6a2437a.jpg` | `src/data/blogData.json` | https://cdn.sanity.io/images/a3q1cyqs/production/f91436c5ce26270152bc241f344b77ee266852b3-700x467.jpg | in Sanity |
+
+## CloudFront copy moved to Sanity (2026-10-02)
+
+The 65 images the code loaded from `d2xsxph8kpxj0f.cloudfront.net` (an S3 copy of the Manus storage, all under the legacy Manus project folder; owner unconfirmed) are now Sanity assets, and the host is no longer in `images.remotePatterns`. Script: `scripts/rescue-cloudfront-images.ts`. No Sanity document referenced the host.
+
+| File | Used in | Sanity URL |
+| --- | --- | --- |
+| `manifesto-glamour-hero_d3ee8a5e.jpg` | `src/app/attention-theft/page.tsx` | https://cdn.sanity.io/images/a3q1cyqs/production/13ae18ad1316373093f8b66013fdf9c563fccf68-2752x1536.png |
+| `manifesto-glamour-sacred-QNMeMG2mvDZqqvgSUsVrLM.webp` | `src/app/attention-theft/page.tsx` | https://cdn.sanity.io/images/a3q1cyqs/production/1dfdc43bd2082682a74d02fe1c4d86e65039128d-1920x1072.webp |
+| `manifesto-glamour-weapons_82cdd78e.jpg` | `src/app/attention-theft/page.tsx` | https://cdn.sanity.io/images/a3q1cyqs/production/7ec84601ce457aa4c913fab39891317379bddf03-2752x1536.png |
+| `manifesto-glamour-legal_e83b2084.jpg` | `src/app/attention-theft/page.tsx` | https://cdn.sanity.io/images/a3q1cyqs/production/6bfa9a6149bc89e72de12eb8f8adc113b48a1cdd-2752x1536.png |
+| `manifesto-glamour-blocker-jHEBDsmZ33rTwcjbakiiKi.webp` | `src/app/attention-theft/page.tsx` | https://cdn.sanity.io/images/a3q1cyqs/production/0d70bd9a8365dff14c286f640fbe638b3c7fa01c-1920x1072.webp |
+| `manifesto-glamour-report_7aea41eb.jpg` | `src/app/attention-theft/page.tsx` | https://cdn.sanity.io/images/a3q1cyqs/production/16a2b1fedbf99d0689b9ba44ba53c0cff97f4b09-2752x1536.png |
+| `satisficer-vs-maximizer-8cWbpDMM6EHc2L6u3bi6xT.webp` | `src/app/humanos/page.tsx` | https://cdn.sanity.io/images/a3q1cyqs/production/a0276086167ed0f0ea153877a1298c28d6ba025b-1920x1072.webp |
+| `consciousness-scale-HjPE8waC75o6fHtrhXiBKu.webp` | `src/app/humanos/philosophy/page.tsx` | https://cdn.sanity.io/images/a3q1cyqs/production/4bdf04e4f73f2f9248df6e2d26ba4113594af75c-1434x1920.webp |
+| `pri-hero-mescaline-LZ6qL5rTNsm96kDqBfwRyg.webp` | `src/app/peyote-mescaline/page.tsx` | https://cdn.sanity.io/images/a3q1cyqs/production/d63325647995d649a53f8850e89974f071b2170e-1920x1072.webp |
+| `pri-section-pharmacology-8nrnRWUbqMfZ8EUM9utBPY.webp` | `src/app/peyote-mescaline/page.tsx` | https://cdn.sanity.io/images/a3q1cyqs/production/2df10596e3944eecf05511fb6164ee34ee2bf198-1920x1288.webp |
+| `mesc_latuda-YgTpmPv22YnAyD4CQiGmzE.webp` | `src/app/peyote-mescaline/page.tsx` | https://cdn.sanity.io/images/a3q1cyqs/production/6fa3d0279b69ce5b6b8aa5e8d37c3a431dcf9049-1920x1072.webp |
+| `mesc_outcomes-bwmiTnjaYvWoVQcSh4mTTE.webp` | `src/app/peyote-mescaline/page.tsx` | https://cdn.sanity.io/images/a3q1cyqs/production/aa5fb7be691a23fefde9c5c333bc49ce179f8c9a-1920x1072.webp |
+| `opt_67_mesc_pharma_d25171fc.jpg` | `src/app/peyote-mescaline/page.tsx` | https://cdn.sanity.io/images/a3q1cyqs/production/037cce693c9a348f8c11a9faa3137c4a2656f2f0-1200x670.jpg |
+| `opt_64_mesc_b5ca252b.jpg` | `src/app/peyote-mescaline/page.tsx` | https://cdn.sanity.io/images/a3q1cyqs/production/5fe9eaa02ef1901c720475830785db600dcf7e6a-1200x670.jpg |
+| `mesc_dimensions-9RVHkrAxpLwCZgHTJAW5G3.webp` | `src/app/peyote-mescaline/page.tsx` | https://cdn.sanity.io/images/a3q1cyqs/production/926fb6af7c77f618596e53305d563d47d5281d95-1920x1072.webp |
+| `mesc_sources-aQ77qjP56eHB6vhUJNNXAo.webp` | `src/app/peyote-mescaline/page.tsx` | https://cdn.sanity.io/images/a3q1cyqs/production/fbba337e52018b805d21f298be1b963d1b3510cf-1920x1072.webp |
+| `kristi-klawiter-photo_99e64f14.jpeg` | `src/app/protecting-your-business/page.tsx` | https://cdn.sanity.io/images/a3q1cyqs/production/9e6e4793293ddc079385db76ef73a8bf9c416826-1000x1060.jpg |
+| `peptide-hero-find-Pd2B4xq5sV9Fwq6fkoA8sC.webp` | `src/components/assessments/find-your-peptide-quiz.tsx` | https://cdn.sanity.io/images/a3q1cyqs/production/7a176590540e2c06279eaff5a41dc4da24ef50b3-1920x815.webp |
+| `pri-hero-v2-mSDTNiwzeoV4EwNs4reHC8.webp` | `src/components/pri/psychedelic-readiness-index.tsx` | https://cdn.sanity.io/images/a3q1cyqs/production/1126cd46fd317e79cb543645ef44a536ae95f417-1920x1072.webp |
+| `opt_14_1_Ay780tKhHUlRIDgLEPEyF6_1773615910924_na1fn_L2hvbWUvdWJ1bnR1L3BoYXJtYWNvcG9laWE_7a2f5a05.jpg` | `src/components/pri/psychedelic-readiness-index.tsx` | https://cdn.sanity.io/images/a3q1cyqs/production/d1def9c5a5f53e8552abaf70d5770678e3c0b347-1200x669.jpg |
+| `opt_42_2_cyf5h67593DZPHr3augAvg_1773615904853_na1fn_L2hvbWUvdWJ1bnR1L21hb2JfaW50ZXJhY3Rpb25fbWF0cml4_beb3e8b0.jpg` | `src/components/pri/psychedelic-readiness-index.tsx` | https://cdn.sanity.io/images/a3q1cyqs/production/1ab05902418c91a3fb56a0e3fc940f1e6e9d72b1-1200x669.jpg |
+| `opt_24_3_CDtc8wRbaTczuIl5ODhL7E_1773615908910_na1fn_L2hvbWUvdWJ1bnR1L21lZGljYXRpb25faW50ZXJhY3Rpb25fZ3VpZGU_1fb2633f.jpg` | `src/components/pri/psychedelic-readiness-index.tsx` | https://cdn.sanity.io/images/a3q1cyqs/production/c6135e9d655be2df472cf661549acd1d83bae611-1200x669.jpg |
+| `opt_9_5_VRn9xtScv1qYQMN2Aj1zNP_1773615893129_na1fn_L2hvbWUvdWJ1bnR1L2NyaXNpc19yZXNvdXJjZXNfbGlnaHRob3VzZQ_a3d95833.jpg` | `src/components/pri/psychedelic-readiness-index.tsx` | https://cdn.sanity.io/images/a3q1cyqs/production/64a97b43fdaef33379848914b24515a5b3c9326f-1200x669.jpg |
+| `opt_3_4_WErEguPyxSRODIYK82xMyu_1773615891673_na1fn_L2hvbWUvdWJ1bnR1L2Fzc2Vzc21lbnRfaW1hZ2U_8a8c3b82.jpg` | `src/components/pri/psychedelic-readiness-index.tsx` | https://cdn.sanity.io/images/a3q1cyqs/production/41677b830bcaf5a36daa30f55dd3346df3163dcb-1200x669.jpg |
+| `opt_36_6_V2zHpGt6IKEgb2XpfKmsCJ_1773615895415_na1fn_L2hvbWUvdWJ1bnR1L2hlYWxpbmdfc2VxdWVuY2U_4c245fba.jpg` | `src/components/pri/psychedelic-readiness-index.tsx` | https://cdn.sanity.io/images/a3q1cyqs/production/6d400ad9951b52a6748ee84bb1aaff7731880336-1200x669.jpg |
+| `opt_10_7_izBDVpysTtokCeVbU0sNp6_1773615912434_na1fn_L2hvbWUvdWJ1bnR1L2Zvb3Rlcl9pbWFnZQ_2a2c6369.jpg` | `src/components/pri/psychedelic-readiness-index.tsx` | https://cdn.sanity.io/images/a3q1cyqs/production/9fbe29d4f1af581002b17e7b74c67b31b4b8853a-1200x669.jpg |
+| `opt_5_hero_4a47a9b2.jpg` | `src/lib/content/alex-azzi.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/c9290d2207a641d6eda8396586e320d72af07214-1200x669.jpg |
+| `cheshire-vault-69sjHYVpxTpkN5DTEThgcv.webp` | `src/lib/content/alex-azzi.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/e544ea5ed57974c080c6db754522bdc8b5507c1b-1920x1288.webp |
+| `cheshire-vanish-Vtq5Covu2WVFSmHZdAUX4X.webp` | `src/lib/content/alex-azzi.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/de23769101935ef9066d58466a8c320c3b45b341-1920x1072.webp |
+| `opt_2_red_flags_535c6c20.jpg` | `src/lib/content/alex-azzi.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/a4ac46903ab4511b439fdbcb1e6d5055898e2106-1200x669.jpg |
+| `opt_33_ledger_9aaf5507.jpg` | `src/lib/content/alex-azzi.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/14926464cf47bc2da0244f2a01cf8a0ee03484eb-1200x669.jpg |
+| `vt-principles-glass-RnR8hiqd9XHwnfeb9S4r7G.webp` | `src/lib/content/alex-azzi.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/b7d9fd68f94711b1fa1ca74514263da0bcc3b37e-1920x1072.webp |
+| `vt-sunlight-protocol-htqUDx9BYR5LqsVmLjJkrD.webp` | `src/lib/content/alex-azzi.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/79843ff39402630ee0b9cb65e9ef4b545207a9ff-1920x1072.webp |
+| `og-alex-azzi-mUffXWA2JbGUKwZdNGbJ3h.png` | `src/lib/content/alex-azzi.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/6bbaec09615e52680ecb5732be40bab75b7824f7-2752x1536.webp |
+| `facilitator-hero-v2-KJX7ZmJuuiqi4wVnYJoJYW.webp` | `src/lib/content/facilitator-index-data.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/5fda5233a00c0cd0161d195de059dd500b85df7e-1920x1072.webp |
+| `iboga-hero-JoM8AmTyxi83oYTSuwPWTz.webp` | `src/lib/content/pri-iboga-module.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/72bfaa6dc05cf86d41081e93263d49ead17060d2-1920x1072.webp |
+| `iboga-alkaloid-comparison-dKuBTy9hCbrCVWcryVa2Qi.webp` | `src/lib/content/pri-iboga-module.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/1a42bdb29d3160486134f44c848d4af669ac81f5-1920x1072.webp |
+| `iboga-pharmacology-receptors-QrrQQ9KaRpZgQRVWavYvsf.webp` | `src/lib/content/pri-iboga-module.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/f1e99527cb868def9e7c3444d0e7b733442de4f9-1920x1288.webp |
+| `opt_65_iboga-bwiti-tradition-esnMH7bF7eMi8hnHLy8nLm_d64f0e15.jpg` | `src/lib/content/pri-iboga-module.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/db063b54c1e9f462969c24d033c5d3093a3048db-1200x670.jpg |
+| `iboga-clinical-setting-jHwatPUD9k6skVo5c88dVH.webp` | `src/lib/content/pri-iboga-module.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/9f670dc0c9754796c8227fc30461146695388f25-1920x1072.webp |
+| `opt_31_psilocybin_707bf66a.jpg` | `src/lib/content/pri-medicine-images.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/dfd8d77ebb0ad7561e6d252d5bd315e60d3c681a-1200x1200.jpg |
+| `opt_12_ayahuasca_d4d3386a.jpg` | `src/lib/content/pri-medicine-images.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/1fe8d7a5e546d1ab2a777426977540fe3731d9c6-1200x1200.jpg |
+| `opt_46_mdma_bf707c70.jpg` | `src/lib/content/pri-medicine-images.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/ff54c94324486726521fa23b0f4274b523cb674d-1200x1200.jpg |
+| `opt_45_ketamine_262f6744.jpg` | `src/lib/content/pri-medicine-images.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/86db700f439a7dbc2c9c74173ef820867fc7fb77-1200x1200.jpg |
+| `opt_48_lsd_a785dcd6.jpg` | `src/lib/content/pri-medicine-images.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/22ddd7d34c3a82f8fd6d1925263ed39fa0b86f44-1200x1200.jpg |
+| `opt_30_dmt_da3785e1.jpg` | `src/lib/content/pri-medicine-images.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/2a0c31d00aae041bdff34ebdd23f022a0e29dcac-1200x1200.jpg |
+| `iboga-hero-bwiti-Yr6Po2Sv6ma2aBEtCGBpJG.webp` | `src/lib/content/pri-medicine-images.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/76e3793353f4d62f41121a611ab7e6894e129f50-1920x1072.webp |
+| `opt_7_ibogaine_4376d0d8.jpg` | `src/lib/content/pri-medicine-images.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/9ab673ec5abc873e2d69106919217da1e3788e3c-1200x1200.jpg |
+| `opt_29_mescaline_86e14bfb.jpg` | `src/lib/content/pri-medicine-images.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/8f3f2b265bff7d023da982c0e03b65ce31068e74-1200x1200.jpg |
+| `opt_37_kambo_140e8e64.jpg` | `src/lib/content/pri-medicine-images.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/75f9a376924d3a9b5b48d8a675c0e3af9282bb7f-1200x1200.jpg |
+| `opt_44_rapeh_b665d27f.jpg` | `src/lib/content/pri-medicine-images.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/46f7d7c9de66adec1784530f0505449474675a98-1200x1200.jpg |
+| `opt_49_sananga_e602d6cc.jpg` | `src/lib/content/pri-medicine-images.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/3f4ebc23ba7c4316b860c11a0a8e2af86f6a86ed-1200x1200.jpg |
+| `opt_38_microdose_c5c83f9b.jpg` | `src/lib/content/pri-medicine-images.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/5d9946347769a25ae071817dd77b8edebfe447ff-1200x1200.jpg |
+| `opt_4_cannabis_05061e58.jpg` | `src/lib/content/pri-medicine-images.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/0d4f42d4a8941514841c4f357841b71c846814d7-1200x1200.jpg |
+| `opt_32_cacao_51ff525d.jpg` | `src/lib/content/pri-medicine-images.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/292b429933368559b66ad21715e2b11c0c6db643-1200x1200.jpg |
+| `opt_47_amanita_4f26c20d.jpg` | `src/lib/content/pri-medicine-images.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/045e566169648d94d2b5df876803a6066605d7f0-1200x1200.jpg |
+| `opt_50_huachuma_0fe57ffb.jpg` | `src/lib/content/pri-medicine-images.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/3183e354df8c66ddddb3acb21279320073fd06d1-1200x1200.jpg |
+| `opt_43_salvia_544180f0.jpg` | `src/lib/content/pri-medicine-images.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/34dc29d9bcc9343b7318713dfa217bace7a4593a-1200x1200.jpg |
+| `opt_52_yopo_8641463b.jpg` | `src/lib/content/pri-medicine-images.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/5857b535fd6ababd294d3cba3c863709c2fbe86b-1200x1200.jpg |
+| `opt_18_lionsmane_82e5243f.jpg` | `src/lib/content/pri-medicine-images.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/67eb9a937121322c27c8bc2493497e46b56f1aae-1200x1200.jpg |
+| `opt_39_ibogamic_bed7ccde.jpg` | `src/lib/content/pri-medicine-images.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/170c9b0047be5bee648b111dfab15a51f426840a-1200x1200.jpg |
+| `opt_23_changa_bf8305f2.jpg` | `src/lib/content/pri-medicine-images.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/ec882c07ee6bde12500a60fbd30c13275e395c41-1200x1200.jpg |
+| `opt_51_caapi_6bf8e23e.jpg` | `src/lib/content/pri-medicine-images.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/5701816b34b7b9f97aad02d518abd0e00813d79f-1200x1200.jpg |
+| `opt_54_soma_f973a3b5.jpg` | `src/lib/content/pri-medicine-images.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/a1ae484aa30f22306686c8d55362fedd9cc43dd6-1200x1200.jpg |
+| `opt_53_mapacho_197af3b7.jpg` | `src/lib/content/pri-medicine-images.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/d49ec0394eb5396357baf1f6d71f1fba0a3aac6c-1200x1200.jpg |

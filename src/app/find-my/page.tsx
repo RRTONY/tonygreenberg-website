@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ThemedBackground } from "@/components/assessments/themed-background";
 import { JourneyTracker } from "@/components/assessments/journey-tracker";
 import { CATEGORIES, FEATURED, FIND_MY_COMING, FIND_MY_LIVE, FIND_MY_TOTAL, type FindMyLink } from "@/lib/content/find-my-directory";
 
@@ -16,8 +15,9 @@ import { CATEGORIES, FEATURED, FIND_MY_COMING, FIND_MY_LIVE, FIND_MY_TOTAL, type
 // Legacy's 200px hero banner photo (`findme-orig`, on the Manus `/api/img/`
 // host) was rescued into Sanity on 2026-09-28
 // (docs/ai/manus-media-rescue.md) and is back, with the avatar overlapping
-// its bottom edge as in legacy, over the `ThemedBackground`
-// (theme="ecosystem") this page renders behind everything.
+// its bottom edge as in legacy. Legacy dimmed it over a themed (blue)
+// background; live now shows it undimmed on the plain page, and so does this
+// page (2026-10-02).
 // `AssessmentProgressBar` (a legacy component never ported to this repo)
 // is replaced with the real `JourneyTracker` (compact) — same universal
 // per-browser progress data, already used everywhere else in this
@@ -95,11 +95,9 @@ const HERO_IMG =
 export default function FindMyPage() {
   return (
     <div className="relative z-1 min-h-screen">
-      <ThemedBackground theme="ecosystem" />
-
       <div className="relative z-1 h-50 overflow-hidden">
-        <Image src={HERO_IMG} alt="" fill priority sizes="100vw" className="object-cover object-[center_30%] brightness-40 saturate-120" />
-        <div aria-hidden="true" className="absolute inset-0 bg-linear-to-b from-[#0A0A10]/30 to-[#0A0A10]/70" />
+        {/* Live (2026-10-02) shows the photo undimmed on the plain page background. */}
+        <Image src={HERO_IMG} alt="" fill priority sizes="100vw" className="object-cover object-[center_30%]" />
       </div>
 
       <div className="relative z-10 mx-auto -mt-15 max-w-135 px-6 pb-24 text-center">

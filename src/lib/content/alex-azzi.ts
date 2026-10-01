@@ -35,22 +35,22 @@ export const SUBJECT = {
 };
 
 // Legacy's IMG.hero/mask/puppet/vault/vanish/protocol/redFlags/evidence/
-// playbook/ledger/community/healing/glass* images are all hosted on
-// d2xsxph8kpxj0f.cloudfront.net, already allowlisted in next.config.ts's
-// images.remotePatterns — safe to load through next/image directly.
+// playbook/ledger/community/healing/glass* images were on a CloudFront copy of
+// the Manus storage; since 2026-10-02 they are Sanity assets
+// (scripts/rescue-cloudfront-images.ts).
 // Legacy's SUBJECT.photo (/api/img/cheshire-orig_9554dcb8.jpg) was
 // Manus-hosted and is dropped per CONTRIBUTING's zero-Manus-dependency
 // rule — see page.tsx's port note for the initials-avatar fallback used
 // in its place.
 export const IMG = {
-  hero: "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_5_hero_4a47a9b2.jpg",
-  vault: "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/cheshire-vault-69sjHYVpxTpkN5DTEThgcv.webp",
-  vanish: "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/cheshire-vanish-Vtq5Covu2WVFSmHZdAUX4X.webp",
-  redFlags: "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_2_red_flags_535c6c20.jpg",
-  ledger: "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/opt_33_ledger_9aaf5507.jpg",
-  glassPrinciples: "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/vt-principles-glass-RnR8hiqd9XHwnfeb9S4r7G.webp",
-  glassSunlight: "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/vt-sunlight-protocol-htqUDx9BYR5LqsVmLjJkrD.webp",
-  ogImage: "https://d2xsxph8kpxj0f.cloudfront.net/310519663242884547/gXhndHxpF4hLjcgkrqbdCP/og-alex-azzi-mUffXWA2JbGUKwZdNGbJ3h.png",
+  hero: "https://cdn.sanity.io/images/a3q1cyqs/production/c9290d2207a641d6eda8396586e320d72af07214-1200x669.jpg",
+  vault: "https://cdn.sanity.io/images/a3q1cyqs/production/e544ea5ed57974c080c6db754522bdc8b5507c1b-1920x1288.webp",
+  vanish: "https://cdn.sanity.io/images/a3q1cyqs/production/de23769101935ef9066d58466a8c320c3b45b341-1920x1072.webp",
+  redFlags: "https://cdn.sanity.io/images/a3q1cyqs/production/a4ac46903ab4511b439fdbcb1e6d5055898e2106-1200x669.jpg",
+  ledger: "https://cdn.sanity.io/images/a3q1cyqs/production/14926464cf47bc2da0244f2a01cf8a0ee03484eb-1200x669.jpg",
+  glassPrinciples: "https://cdn.sanity.io/images/a3q1cyqs/production/b7d9fd68f94711b1fa1ca74514263da0bcc3b37e-1920x1072.webp",
+  glassSunlight: "https://cdn.sanity.io/images/a3q1cyqs/production/79843ff39402630ee0b9cb65e9ef4b545207a9ff-1920x1072.webp",
+  ogImage: "https://cdn.sanity.io/images/a3q1cyqs/production/6bbaec09615e52680ecb5732be40bab75b7824f7-2752x1536.webp",
 };
 
 export const TOC = [

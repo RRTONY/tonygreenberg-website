@@ -86,7 +86,7 @@ export function IbogaCompassSection() {
 
           <SubSection>
             <div className="mb-4 text-[.85rem] font-extrabold tracking-[0.12em] text-pri-purple uppercase">The 10 Dimensions</div>
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
               <table className="w-full min-w-150 border-collapse">
                 <thead>
                   <tr>
@@ -111,7 +111,7 @@ export function IbogaCompassSection() {
           <SubSection>
             <div className="mb-4 text-[.85rem] font-extrabold tracking-[0.12em] text-pri-purple uppercase">Priority Rank Multipliers</div>
             <p className="mb-4 max-w-200 text-[1.05rem] leading-[1.75] text-pri-brown">After the 28 questions, the user reorders dimensions. Position determines multiplier:</p>
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
               <table className="w-full max-w-150 border-collapse">
                 <thead>
                   <tr>
@@ -210,7 +210,7 @@ export function IbogaCompassSection() {
           </div>
           <h2 className="mb-4 font-heading text-[clamp(1.4rem,3.5vw,2.2rem)] text-pri-ink">How Substance Selections Route to Facilities</h2>
           <p className="mb-6 max-w-200 text-[1.05rem] leading-[1.75] text-pri-brown">Additive boosts — selecting multiple substances compounds all routing bonuses.</p>
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
             <table className="w-full min-w-175 border-collapse">
               <thead>
                 <tr>

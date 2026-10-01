@@ -17,7 +17,7 @@ export interface CoffeeCardScores {
 
 function qprColorClass(qpr: number) {
   if (qpr >= 80) return "text-[#4A7C59]";
-  if (qpr >= 60) return "text-[#C5A23C]";
+  if (qpr >= 60) return "text-[#836311]";
   return "text-[#8B2500]";
 }
 
@@ -46,7 +46,7 @@ export function CoffeeCard({ coffee, scores }: { coffee: CatalogItem; scores: Co
             </span>
           )}
           {coffee.limitedRelease && (
-            <span className="rounded-full bg-[#C5A23C]/10 px-2 py-0.5 font-mono text-[0.65rem] text-[#C5A23C]">
+            <span className="rounded-full bg-[#C5A23C]/10 px-2 py-0.5 font-mono text-[0.65rem] text-[#836311]">
               Limited
             </span>
           )}

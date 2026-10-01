@@ -3,14 +3,27 @@ import { isPathDenied, isPathReadDenied, isSanityTypeAllowed } from "@/lib/admin
 // Read-only admin lookups, not a page render — sanityFetch()'s revalidation
 // tags (CONTRIBUTING.md rule 9) don't apply to an ad-hoc GROQ query here.
 import { client as sanityReadClient } from "@/lib/sanity/client";
-import { createDraft, getDocumentForEditing, patchDraft } from "@/lib/admin/sanity-content";
+import { createDraft, deleteDraft, getDocumentForEditing, patchDraft } from "@/lib/admin/sanity-content";
 import { checkPageSeo } from "@/lib/admin/seo-check";
 import { checkCode } from "@/lib/admin/code-check";
+import { checkLighthouse } from "@/lib/admin/lighthouse-check";
+import { getAnalyticsSummary } from "@/lib/admin/ga4-client";
+import {
+  GSC_DIMENSIONS,
+  GSC_FILTER_OPERATORS,
+  GSC_SEARCH_TYPES,
+  getSearchPerformance,
+  inspectUrls,
+  listSitemaps,
+  listSites,
+} from "@/lib/admin/gsc-client";
 
 // Core tool set ported from ramprate-ui's src/lib/admin/tools.ts: repo file
 // tools (always on an admin/mcp-* branch, never the default branch), Sanity
-// draft tools, and checks. ramprate's analytics/Search Console/Lighthouse/
-// ClickUp/email/report tools are intentionally not ported.
+// draft tools, and checks. Lighthouse, GA4 and Search Console (read-only)
+// were added 2026-10-02; ramprate's ClickUp/email/report tools are still not
+// ported (they need tokens this site doesn't have, and the PDF report a new
+// dependency).
 // Plain JSON-schema objects, handed straight to the MCP SDK's tools/list.
 export const ADMIN_TOOLS = [
   {
@@ -137,6 +150,140 @@ export const ADMIN_TOOLS = [
     },
   },
   {
+    name: "lighthouse_check_page",
+    description:
+      "Run a real Lighthouse audit (via Google's PageSpeed Insights API) against a page on the deployed tonygreenberg.com site (MCP_SITE_ORIGIN, the Netlify site until DNS cutover). Returns performance/accessibility/best-practices/SEO scores (0-100) plus the top failing audits. Takes 20-60 seconds. Read-only.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        path: { type: "string", description: "Site route, e.g. /about or /" },
+        strategy: {
+          type: "string",
+          enum: ["mobile", "desktop"],
+          description: "Defaults to mobile",
+        },
+      },
+      required: ["path"],
+    },
+  },
+  {
+    name: "check_analytics",
+    description:
+      "Pull real Google Analytics 4 traffic for tonygreenberg.com over the last N days: total sessions, active users and pageviews, plus the top 10 pages by views. Read-only.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        days: {
+          type: "number",
+          description: "Lookback window in days. Defaults to 7.",
+        },
+      },
+      required: [],
+    },
+  },
+  {
+    name: "search_console_sites",
+    description:
+      "List every Google Search Console property the site's service account can access, with its permission level. Read-only. If tonygreenberg.com is missing, a human must add the service account (GOOGLE_GA_CLIENT_EMAIL) as a user on that property in Search Console (Settings -> Users and permissions).",
+    input_schema: {
+      type: "object" as const,
+      properties: {},
+      required: [],
+    },
+  },
+  {
+    name: "search_console_performance",
+    description:
+      "Real Google Search Console search performance: clicks, impressions, CTR (%) and average position, overall and broken down by query, page, country, device, date and/or search appearance, with optional filters and a period-over-period comparison. Read-only. Use it for: top keywords, top pages, which queries a page ranks for, ranking drops, CTR opportunities (high impressions, low CTR), daily trends. Data lags ~2-3 days. Defaults: tonygreenberg.com, last 28 days, by query, 25 rows, web search.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        site: {
+          type: "string",
+          description:
+            'Property or domain, e.g. "tonygreenberg.com" or "sc-domain:tonygreenberg.com". Defaults to tonygreenberg.com.',
+        },
+        days: {
+          type: "number",
+          description:
+            "Lookback window in days ending ~3 days ago. Default 28. Ignored if startDate is given. Search Console keeps 16 months.",
+        },
+        startDate: { type: "string", description: "YYYY-MM-DD (optional)." },
+        endDate: { type: "string", description: "YYYY-MM-DD (optional)." },
+        dimensions: {
+          type: "array",
+          items: { type: "string", enum: [...GSC_DIMENSIONS] },
+          description:
+            'Breakdown, e.g. ["query"], ["page"], ["page","query"], ["date"]. Default ["query"].',
+        },
+        filters: {
+          type: "array",
+          description:
+            'Narrow results, e.g. [{"dimension":"page","operator":"contains","expression":"/blog/"}] (country = ISO 3166-1 alpha-3, lowercase; device = DESKTOP|MOBILE|TABLET).',
+          items: {
+            type: "object",
+            properties: {
+              dimension: { type: "string", enum: [...GSC_DIMENSIONS] },
+              operator: { type: "string", enum: [...GSC_FILTER_OPERATORS] },
+              expression: { type: "string" },
+            },
+            required: ["dimension", "expression"],
+          },
+        },
+        rowLimit: {
+          type: "number",
+          description: "Rows to return, 1-1000. Default 25.",
+        },
+        searchType: {
+          type: "string",
+          enum: [...GSC_SEARCH_TYPES],
+          description: "Default web.",
+        },
+        compare: {
+          type: "boolean",
+          description:
+            "Also fetch the previous period of the same length and return a `change` per row (position change is positive when ranking improved).",
+        },
+      },
+      required: [],
+    },
+  },
+  {
+    name: "search_console_inspect_url",
+    description:
+      "Google Search Console URL Inspection for up to 20 page URLs: whether Google has indexed each page and why not, last crawl time, robots.txt/fetch status, Google-chosen vs declared canonical (flags mismatches), sitemaps and referring URLs, rich results and their issues. Read-only. This API cannot request indexing; that button exists only in the Search Console website.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        urls: {
+          type: "array",
+          items: { type: "string" },
+          description: "Full page URLs, e.g. https://tonygreenberg.com/about",
+        },
+        site: {
+          type: "string",
+          description: "Property the URLs belong to. Defaults to tonygreenberg.com.",
+        },
+      },
+      required: ["urls"],
+    },
+  },
+  {
+    name: "search_console_sitemaps",
+    description:
+      "List the sitemaps submitted in Google Search Console, with last submitted/downloaded dates, pending state, error and warning counts and URLs submitted. Read-only (submitting or deleting a sitemap is done in the Search Console website).",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        site: {
+          type: "string",
+          description: "Property. Defaults to tonygreenberg.com.",
+        },
+      },
+      required: [],
+    },
+  },
+  {
     name: "sanity_query",
     description:
       "Run a read-only GROQ query against the live Sanity dataset to look up current content.",
@@ -197,11 +344,30 @@ export interface AdminToolContext {
   ensureWriteBranch: () => Promise<string>;
   getPRNumber: () => Promise<number | null>;
   log: (entry: string) => void;
+  // Ties a Sanity document to the current change before it's edited. Returns
+  // a reason to refuse (no change started, it belongs to another waiting
+  // change, or it has unsaved Studio edits) or null to go ahead.
+  claimContent: (item: { id: string; type: string; title: string; isNew: boolean }) => Promise<string | null>;
 }
 
 export interface ToolCallResult {
   output: unknown;
   isError?: boolean;
+}
+
+function optionalString(value: unknown): string | undefined {
+  const s = typeof value === "string" ? value.trim() : "";
+  return s || undefined;
+}
+
+// Google read tools: turn a thrown error (missing env var, no access to the
+// property, quota) into a tool error the client can show, not a crash.
+async function googleCall(fn: () => Promise<unknown>, fallback: string): Promise<ToolCallResult> {
+  try {
+    return { output: await fn() };
+  } catch (err) {
+    return { output: { error: err instanceof Error ? err.message : fallback }, isError: true };
+  }
 }
 
 function denied(path: string): ToolCallResult {
@@ -410,6 +576,56 @@ export async function runAdminTool(
       }
     }
 
+    case "lighthouse_check_page": {
+      const strategy = input.strategy === "desktop" ? "desktop" : "mobile";
+      return googleCall(() => checkLighthouse(String(input.path ?? "/"), strategy), "Lighthouse check failed");
+    }
+
+    case "check_analytics": {
+      const days = Number(input.days ?? 7);
+      return googleCall(
+        () => getAnalyticsSummary(Number.isFinite(days) && days > 0 ? Math.min(days, 365) : 7),
+        "Analytics check failed",
+      );
+    }
+
+    case "search_console_sites":
+      return googleCall(async () => ({ sites: await listSites() }), "Search Console call failed");
+
+    case "search_console_performance":
+      return googleCall(
+        () =>
+          getSearchPerformance({
+            site: optionalString(input.site),
+            days: input.days === undefined ? undefined : Number(input.days),
+            startDate: optionalString(input.startDate),
+            endDate: optionalString(input.endDate),
+            dimensions: Array.isArray(input.dimensions) ? input.dimensions.map(String) : undefined,
+            rowLimit: input.rowLimit === undefined ? undefined : Number(input.rowLimit),
+            searchType: optionalString(input.searchType),
+            filters: Array.isArray(input.filters)
+              ? (input.filters as Array<Record<string, unknown>>).map((f) => ({
+                  dimension: String(f?.dimension ?? ""),
+                  operator: optionalString(f?.operator),
+                  expression: String(f?.expression ?? ""),
+                }))
+              : undefined,
+            compare: input.compare === true,
+          }),
+        "Search Console call failed",
+      );
+
+    case "search_console_inspect_url": {
+      const urls = Array.isArray(input.urls) ? input.urls.map(String) : input.url ? [String(input.url)] : [];
+      if (!urls.length) {
+        return { output: { error: "Pass `urls` (an array of full page URLs)." }, isError: true };
+      }
+      return googleCall(() => inspectUrls(optionalString(input.site), urls), "Search Console call failed");
+    }
+
+    case "search_console_sitemaps":
+      return googleCall(() => listSitemaps(optionalString(input.site)), "Search Console call failed");
+
     case "sanity_query": {
       const groq = String(input.groq ?? "");
       const result = await sanityReadClient.fetch(groq);
@@ -445,6 +661,14 @@ export async function runAdminTool(
           isError: true,
         };
       }
+      const docTitle = current as { title?: string; name?: string };
+      const refused = await ctx.claimContent({
+        id: String((current as { _id: string })._id).replace(/^drafts\./, ""),
+        type: currentType,
+        title: docTitle.title || docTitle.name || id,
+        isNew: false,
+      });
+      if (refused) return { output: { error: refused }, isError: true };
       await patchDraft(id, patch);
       ctx.log(`Patched Sanity draft for ${id}`);
       return { output: { ok: true, id } };
@@ -462,6 +686,17 @@ export async function runAdminTool(
         };
       }
       const created = await createDraft(docType, fields);
+      const refused = await ctx.claimContent({
+        id: created._id.replace(/^drafts\./, ""),
+        type: docType,
+        title: String(fields.title ?? fields.name ?? "New item"),
+        isNew: true,
+      });
+      if (refused) {
+        // Don't leave a draft behind that belongs to no change.
+        await deleteDraft(created._id);
+        return { output: { error: refused }, isError: true };
+      }
       ctx.log(`Created Sanity draft ${created._id} (${docType})`);
       return { output: { ok: true, id: created._id } };
     }

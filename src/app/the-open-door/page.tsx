@@ -410,313 +410,319 @@ const STATS = [
 
 export default function TheOpenDoorPage() {
   return (
-    <div className="mx-auto max-w-3xl px-6 py-10">
-      {/* ── HERO ── */}
-      <p className="mb-2 font-mono text-xs tracking-[0.15em] text-brand-gold uppercase">
-        The Open Door
-      </p>
-      <h1 className="mb-5 font-heading text-3xl font-bold text-foreground sm:text-4xl">
-        What Happens When You <span className="text-brand-gold">Walk In</span>
-      </h1>
-      <p className="mb-10 max-w-2xl text-foreground/80">
-        These are the real asks. Real companies. Real targets. Real reasons they&apos;ll care.
-        Businesses attract capital when they are documented on the mission and the possibility —
-        not when they are raising money.
-      </p>
+    <div>
+      {/* ── HERO ── dark band, centered, as live shows it (measured 2026-10-02) */}
+      <section className="bg-linear-to-br from-[#0A0A10] via-[#1A1A2E] to-[#0A0A10] px-8 py-22.5 text-center">
+        <div className="mx-auto max-w-175">
+          <p className="mb-6 font-mono text-[0.78rem] tracking-[0.2em] text-brand-gold-light uppercase">
+            The Open Door
+          </p>
+          <h1 className="mb-6 font-heading text-[2.2rem]/[1.15] font-normal text-white sm:text-[3.5rem]/[1.15]">
+            What Happens When You <span className="block text-brand-gold-light">Walk In</span>
+          </h1>
+          <p className="mx-auto max-w-140 text-[1.05rem]/[1.8] text-white/70">
+            These are the real asks. Real companies. Real targets. Real reasons they&apos;ll care.
+            Businesses attract capital when they are documented on the mission and the possibility —
+            not when they are raising money.
+          </p>
+        </div>
+      </section>
 
-      {/* ── MAGIC GENIE PROMPTS ── */}
-      <p className="mb-2 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
-        10 Doors You Can Open
-      </p>
-      <h2 className="mb-4 font-heading text-2xl font-bold text-foreground">
-        The Magic Genie Prompts
-      </h2>
-      <p className="mb-8 text-foreground/80">
-        Every client who walks through our door has a version of one of these asks. Not
-        &quot;raise me money&quot; — but the kind of asks that make a company so compelling
-        that capital chases them. Here are ten real scenarios, with exact names, exact targets,
-        and exact reasons they&apos;ll pick up the phone.
-      </p>
+      <div className="mx-auto max-w-[39rem] px-5 py-8 text-[1.05rem]/[1.8] sm:px-10">
+        {/* ── MAGIC GENIE PROMPTS ── */}
+        <p className="mb-2 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
+          10 Doors You Can Open
+        </p>
+        <h2 className="mb-4 font-heading text-2xl font-bold text-foreground">
+          The Magic Genie Prompts
+        </h2>
+        <p className="mb-8 text-foreground/80">
+          Every client who walks through our door has a version of one of these asks. Not
+          &quot;raise me money&quot; — but the kind of asks that make a company so compelling
+          that capital chases them. Here are ten real scenarios, with exact names, exact targets,
+          and exact reasons they&apos;ll pick up the phone.
+        </p>
 
-      <div className="mb-12 space-y-6">
-        {GENIE_PROMPTS.map((prompt) => {
-          const isInternal = prompt.link.startsWith("/");
-          return (
-            <div key={prompt.id} className="rounded-md border border-border bg-card p-6">
-              <div className="mb-3 flex flex-wrap items-baseline gap-3">
-                <span className="font-mono text-xs text-brand-gold">{prompt.door}</span>
-                <span className="font-mono text-xs tracking-wide text-muted-foreground uppercase">
-                  {prompt.domain}
+        <div className="mb-12 space-y-6">
+          {GENIE_PROMPTS.map((prompt) => {
+            const isInternal = prompt.link.startsWith("/");
+            return (
+              <div key={prompt.id} className="rounded-md border border-border bg-card p-6">
+                <div className="mb-3 flex flex-wrap items-baseline gap-3">
+                  <span className="font-mono text-xs text-brand-gold">{prompt.door}</span>
+                  <span className="font-mono text-xs tracking-wide text-muted-foreground uppercase">
+                    {prompt.domain}
+                  </span>
+                </div>
+                <p className="mb-4 font-heading text-lg font-semibold text-foreground">
+                  &ldquo;{prompt.clientAsk}&rdquo;
+                </p>
+
+                <div className="mb-4 rounded-r-md border-l-4 border-brand-gold bg-brand-gold/5 p-4">
+                  <p className="mb-1 font-mono text-xs tracking-wide text-brand-gold uppercase">
+                    The Target
+                  </p>
+                  <p className="font-heading font-bold text-foreground">{prompt.target}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {prompt.title}, {prompt.company}
+                  </p>
+                </div>
+
+                <div className="mb-4">
+                  <p className="mb-1 font-mono text-xs tracking-wide text-brand-gold uppercase">
+                    Why They&apos;ll Care
+                  </p>
+                  <p className="leading-relaxed text-foreground/80">{prompt.whyCare}</p>
+                </div>
+
+                <div className="mb-4">
+                  <p className="mb-1 font-mono text-xs tracking-wide text-brand-gold uppercase">
+                    What You Get
+                  </p>
+                  <p className="leading-relaxed text-foreground/80">{prompt.outcome}</p>
+                </div>
+
+                {isInternal ? (
+                  <Link
+                    href={prompt.link}
+                    className="border-b border-brand-gold font-mono text-xs tracking-wide text-brand-gold uppercase"
+                  >
+                    Learn more →
+                  </Link>
+                ) : (
+                  <a
+                    href={prompt.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="border-b border-brand-gold font-mono text-xs tracking-wide text-brand-gold uppercase"
+                  >
+                    Learn more →
+                  </a>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* ── KEYNOTES & SPEAKING ── */}
+        <p className="mb-2 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
+          On Stage
+        </p>
+        <h2 className="mb-5 font-heading text-2xl font-bold text-foreground">
+          Keynotes & Speaking
+        </h2>
+        <div className="mb-10 divide-y divide-border">
+          {SPEAKING.map((s) => (
+            <div key={s.event} className="py-5">
+              <div className="mb-1 flex flex-wrap items-baseline gap-3">
+                <span className="font-mono text-sm text-brand-gold">{s.year}</span>
+                <Link href={s.href} className="font-heading text-lg font-semibold text-foreground">
+                  {s.talk}
+                </Link>
+              </div>
+              <p className="text-foreground/80">{s.event}</p>
+              <p className="mt-1 font-mono text-xs text-muted-foreground">{s.note}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* ── PODCASTS ── */}
+        <p className="mb-2 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
+          On Air
+        </p>
+        <h2 className="mb-5 font-heading text-2xl font-bold text-foreground">
+          Podcasts & Interviews
+        </h2>
+        <div className="mb-10 divide-y divide-border">
+          {PODCASTS.map((p) => (
+            <a
+              key={p.show + p.episode}
+              href={p.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-4 py-4"
+            >
+              <span className="min-w-20 font-mono text-xs text-muted-foreground">
+                {p.date || "—"}
+              </span>
+              <span className="flex-1">
+                <span className="block font-semibold text-foreground">{p.episode}</span>
+                <span className="font-mono text-xs text-brand-gold">
+                  {p.show} {p.ep && `— ${p.ep}`}
+                </span>
+              </span>
+              <span className="text-brand-gold">↗</span>
+            </a>
+          ))}
+        </div>
+
+        {/* ── PUBLISHED ARTICLES ── */}
+        <p className="mb-2 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
+          In Print
+        </p>
+        <h2 className="mb-3 font-heading text-2xl font-bold text-foreground">
+          Published Articles
+        </h2>
+        <p className="mb-6 text-foreground/80">
+          Across Forbes, Business Insider, HuffPost, Medium, MediaVillage, and LinkedIn — writing
+          about enterprise technology, blockchain, valuations, cloud infrastructure, and the
+          intersection of business and humanity.
+        </p>
+        <div className="mb-10 space-y-6">
+          {VISIBLE_PUBLICATIONS.map((pub) => (
+            <PublicationList key={pub.outlet} pub={pub} />
+          ))}
+          {MORE_PUBLICATIONS.length > 0 && (
+            <details className="group">
+              <summary className="mx-auto flex min-h-11 w-fit cursor-pointer list-none items-center rounded-xs border border-brand-gold/30 px-6 font-mono text-xs tracking-[0.08em] text-brand-gold uppercase transition-colors group-open:hidden hover:bg-brand-gold-light/10 [&::-webkit-details-marker]:hidden">
+                Show All Publications ({PUBLICATION_ARTICLE_COUNT} articles)
+              </summary>
+              <div className="space-y-6">
+                {MORE_PUBLICATIONS.map((pub) => (
+                  <PublicationList key={pub.outlet} pub={pub} />
+                ))}
+              </div>
+            </details>
+          )}
+        </div>
+
+        {/* ── TESTIMONIALS ── */}
+        <p className="mb-2 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
+          The Proof
+        </p>
+        <h2 className="mb-4 font-heading text-2xl font-bold text-foreground">
+          What They Said After
+        </h2>
+        <p className="mb-3 text-foreground/80">
+          Every engagement scored. Every relationship earned. These aren&apos;t marketing quotes —
+          they&apos;re the words of CTOs, COOs, and CIOs who bet their budgets, their reputations,
+          and their careers on the outcome.
+        </p>
+        <p className="mb-6 text-foreground/80">
+          Strategy projects are graded on one thing:{" "}
+          <span className="font-semibold text-brand-gold">
+            how effectively we sell the strategy to your delivery team and how well it gets
+            implemented
+          </span>
+          . Ideas are free. Execution is everything. Our scores reflect adoption, not aspiration.
+        </p>
+        <div className="mb-8 flex flex-wrap items-center gap-4 rounded-md border border-brand-gold/15 bg-brand-gold/5 p-5">
+          <p className="font-mono text-xs tracking-[0.1em] text-brand-gold uppercase">
+            The Guarantee
+          </p>
+          <p className="text-foreground/80">
+            We guarantee <strong className="text-foreground">3x value</strong> on every retainer. We
+            typically deliver <strong className="text-foreground">10–24x</strong>. The ROI
+            isn&apos;t theoretical — it&apos;s measured against what your team actually ships.
+          </p>
+        </div>
+
+        <div className="mb-8 space-y-5">
+          {TESTIMONIALS.map((t) => (
+            <div key={t.name} className="rounded-md border border-border bg-card p-6">
+              <div className="mb-3 flex gap-2">
+                <Badge variant="outline" className="border-brand-gold/40 text-brand-gold">
+                  {t.roi}x ROI
+                </Badge>
+                <Badge className="bg-foreground text-background">{t.score}%</Badge>
+              </div>
+              <p className="mb-3 font-heading text-base text-foreground italic">
+                &ldquo;{t.quote}&rdquo;
+              </p>
+              <p className="mb-4 border-l-2 border-brand-gold/40 pl-4 text-brand-gold">
+                {t.strategic}
+              </p>
+              <p className="text-sm">
+                <span className="font-semibold text-foreground">{t.name}</span>{" "}
+                <span className="font-mono text-xs text-muted-foreground">
+                  {t.title}, {t.company}
+                </span>
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <div className="mb-12 grid grid-cols-2 gap-6 rounded-md bg-[#0A0A10] p-8 sm:grid-cols-3">
+          {STATS.map((stat) => (
+            <div key={stat.label} className="text-center">
+              <p className="font-heading text-2xl font-bold text-brand-gold-light">{stat.value}</p>
+              <p className="mt-1 font-mono text-xs tracking-[0.1em] text-white/60 uppercase">
+                {stat.label}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* ── PARODY QUOTES (explicitly labeled satire, not real endorsements) ── */}
+        <p className="mb-1 text-center font-mono text-xs tracking-[0.15em] text-brand-gold uppercase">
+          Clearly Parody — But Are They Wrong?
+        </p>
+        <h2 className="mb-4 text-center font-heading text-2xl font-bold text-foreground">
+          What They Would Have Said
+        </h2>
+        <p className="mx-auto mb-8 max-w-xl text-center text-foreground/70">
+          These quotes are entirely fictional. But if these people had spent an afternoon with Tony
+          Greenberg, we&apos;re fairly confident this is what they&apos;d walk away saying. Clearly
+          marked as satire. Obviously.
+        </p>
+
+        <div className="mb-6 space-y-6">
+          {PARODY_QUOTES.map((pq) => (
+            <div
+              key={pq.name}
+              className="relative rounded-r-md border-l-4 border-brand-gold bg-brand-gold/5 p-6"
+            >
+              <Badge
+                variant="outline"
+                className="absolute top-4 right-4 text-muted-foreground uppercase"
+              >
+                Parody
+              </Badge>
+              <p className="mb-4 pr-16 font-heading text-foreground italic">
+                &ldquo;{pq.quote}&rdquo;
+              </p>
+              <div className="flex flex-wrap items-baseline justify-between gap-2">
+                <p>
+                  <span className="font-semibold text-foreground">{pq.name}</span>{" "}
+                  <span className="font-mono text-xs text-muted-foreground">{pq.title}</span>
+                </p>
+                <span className="font-mono text-xs tracking-wide text-brand-gold uppercase">
+                  {pq.note}
                 </span>
               </div>
-              <p className="mb-4 font-heading text-lg font-semibold text-foreground">
-                &ldquo;{prompt.clientAsk}&rdquo;
-              </p>
-
-              <div className="mb-4 rounded-r-md border-l-4 border-brand-gold bg-brand-gold/5 p-4">
-                <p className="mb-1 font-mono text-xs tracking-wide text-brand-gold uppercase">
-                  The Target
-                </p>
-                <p className="font-heading font-bold text-foreground">{prompt.target}</p>
-                <p className="text-sm text-muted-foreground">
-                  {prompt.title}, {prompt.company}
-                </p>
-              </div>
-
-              <div className="mb-4">
-                <p className="mb-1 font-mono text-xs tracking-wide text-brand-gold uppercase">
-                  Why They&apos;ll Care
-                </p>
-                <p className="leading-relaxed text-foreground/80">{prompt.whyCare}</p>
-              </div>
-
-              <div className="mb-4">
-                <p className="mb-1 font-mono text-xs tracking-wide text-brand-gold uppercase">
-                  What You Get
-                </p>
-                <p className="leading-relaxed text-foreground/80">{prompt.outcome}</p>
-              </div>
-
-              {isInternal ? (
-                <Link
-                  href={prompt.link}
-                  className="border-b border-brand-gold font-mono text-xs tracking-wide text-brand-gold uppercase"
-                >
-                  Learn more →
-                </Link>
-              ) : (
-                <a
-                  href={prompt.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="border-b border-brand-gold font-mono text-xs tracking-wide text-brand-gold uppercase"
-                >
-                  Learn more →
-                </a>
-              )}
             </div>
-          );
-        })}
-      </div>
-
-      {/* ── KEYNOTES & SPEAKING ── */}
-      <p className="mb-2 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
-        On Stage
-      </p>
-      <h2 className="mb-5 font-heading text-2xl font-bold text-foreground">
-        Keynotes & Speaking
-      </h2>
-      <div className="mb-10 divide-y divide-border">
-        {SPEAKING.map((s) => (
-          <div key={s.event} className="py-5">
-            <div className="mb-1 flex flex-wrap items-baseline gap-3">
-              <span className="font-mono text-sm text-brand-gold">{s.year}</span>
-              <Link href={s.href} className="font-heading text-lg font-semibold text-foreground">
-                {s.talk}
-              </Link>
-            </div>
-            <p className="text-foreground/80">{s.event}</p>
-            <p className="mt-1 font-mono text-xs text-muted-foreground">{s.note}</p>
-          </div>
-        ))}
-      </div>
-
-      {/* ── PODCASTS ── */}
-      <p className="mb-2 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
-        On Air
-      </p>
-      <h2 className="mb-5 font-heading text-2xl font-bold text-foreground">
-        Podcasts & Interviews
-      </h2>
-      <div className="mb-10 divide-y divide-border">
-        {PODCASTS.map((p) => (
-          <a
-            key={p.show + p.episode}
-            href={p.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-4 py-4"
-          >
-            <span className="min-w-20 font-mono text-xs text-muted-foreground">
-              {p.date || "—"}
-            </span>
-            <span className="flex-1">
-              <span className="block font-semibold text-foreground">{p.episode}</span>
-              <span className="font-mono text-xs text-brand-gold">
-                {p.show} {p.ep && `— ${p.ep}`}
-              </span>
-            </span>
-            <span className="text-brand-gold">↗</span>
-          </a>
-        ))}
-      </div>
-
-      {/* ── PUBLISHED ARTICLES ── */}
-      <p className="mb-2 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
-        In Print
-      </p>
-      <h2 className="mb-3 font-heading text-2xl font-bold text-foreground">
-        Published Articles
-      </h2>
-      <p className="mb-6 text-foreground/80">
-        Across Forbes, Business Insider, HuffPost, Medium, MediaVillage, and LinkedIn — writing
-        about enterprise technology, blockchain, valuations, cloud infrastructure, and the
-        intersection of business and humanity.
-      </p>
-      <div className="mb-10 space-y-6">
-        {VISIBLE_PUBLICATIONS.map((pub) => (
-          <PublicationList key={pub.outlet} pub={pub} />
-        ))}
-        {MORE_PUBLICATIONS.length > 0 && (
-          <details className="group">
-            <summary className="mx-auto flex min-h-11 w-fit cursor-pointer list-none items-center rounded-xs border border-brand-gold/30 px-6 font-mono text-xs tracking-[0.08em] text-brand-gold uppercase transition-colors group-open:hidden hover:bg-brand-gold-light/10 [&::-webkit-details-marker]:hidden">
-              Show All Publications ({PUBLICATION_ARTICLE_COUNT} articles)
-            </summary>
-            <div className="space-y-6">
-              {MORE_PUBLICATIONS.map((pub) => (
-                <PublicationList key={pub.outlet} pub={pub} />
-              ))}
-            </div>
-          </details>
-        )}
-      </div>
-
-      {/* ── TESTIMONIALS ── */}
-      <p className="mb-2 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
-        The Proof
-      </p>
-      <h2 className="mb-4 font-heading text-2xl font-bold text-foreground">
-        What They Said After
-      </h2>
-      <p className="mb-3 text-foreground/80">
-        Every engagement scored. Every relationship earned. These aren&apos;t marketing quotes —
-        they&apos;re the words of CTOs, COOs, and CIOs who bet their budgets, their reputations,
-        and their careers on the outcome.
-      </p>
-      <p className="mb-6 text-foreground/80">
-        Strategy projects are graded on one thing:{" "}
-        <span className="font-semibold text-brand-gold">
-          how effectively we sell the strategy to your delivery team and how well it gets
-          implemented
-        </span>
-        . Ideas are free. Execution is everything. Our scores reflect adoption, not aspiration.
-      </p>
-      <div className="mb-8 flex flex-wrap items-center gap-4 rounded-md border border-brand-gold/15 bg-brand-gold/5 p-5">
-        <p className="font-mono text-xs tracking-[0.1em] text-brand-gold uppercase">
-          The Guarantee
+          ))}
+        </div>
+        <p className="mb-12 text-center font-mono text-xs text-muted-foreground">
+          * These quotes are entirely fictional and created for satirical purposes. None of these
+          individuals have endorsed or are affiliated with Tony Greenberg or his companies.
         </p>
-        <p className="text-foreground/80">
-          We guarantee <strong className="text-foreground">3x value</strong> on every retainer. We
-          typically deliver <strong className="text-foreground">10–24x</strong>. The ROI
-          isn&apos;t theoretical — it&apos;s measured against what your team actually ships.
-        </p>
-      </div>
 
-      <div className="mb-8 space-y-5">
-        {TESTIMONIALS.map((t) => (
-          <div key={t.name} className="rounded-md border border-border bg-card p-6">
-            <div className="mb-3 flex gap-2">
-              <Badge variant="outline" className="border-brand-gold/40 text-brand-gold">
-                {t.roi}x ROI
-              </Badge>
-              <Badge className="bg-foreground text-background">{t.score}%</Badge>
-            </div>
-            <p className="mb-3 font-heading text-base text-foreground italic">
-              &ldquo;{t.quote}&rdquo;
-            </p>
-            <p className="mb-4 border-l-2 border-brand-gold/40 pl-4 text-brand-gold">
-              {t.strategic}
-            </p>
-            <p className="text-sm">
-              <span className="font-semibold text-foreground">{t.name}</span>{" "}
-              <span className="font-mono text-xs text-muted-foreground">
-                {t.title}, {t.company}
-              </span>
-            </p>
-          </div>
-        ))}
-      </div>
+        {/* ── CREDIBILITY SUMMARY ── */}
+        <div className="mb-10 rounded-md bg-[#0A0A10] p-8 text-center">
+          <p className="mb-3 font-mono text-xs tracking-[0.15em] text-brand-gold uppercase">
+            The Credential
+          </p>
+          <p className="font-heading text-lg leading-relaxed text-white/90">
+            Speaker at the H+ Summit at Harvard University, 2010 — on the same stage as Ray
+            Kurzweil. Author of &ldquo;Boiling the Human.&rdquo; Twenty-five years building the
+            infrastructure of trust. Published across Forbes, Business Insider, HuffPost, and
+            Medium. Presented at the Clinton Global Initiative. CEO of RampRate. Chief Impact
+            Officer of ImpactSoul.
+          </p>
+          <p className="mt-6 text-white/50">
+            Tony Greenberg &bull; Santa Monica, CA &bull;{" "}
+            <a href="mailto:Tony@joyandwoe.com" className="text-brand-gold-light">
+              Tony@joyandwoe.com
+            </a>
+          </p>
+        </div>
 
-      <div className="mb-12 grid grid-cols-2 gap-6 rounded-md bg-[#0A0A10] p-8 sm:grid-cols-3">
-        {STATS.map((stat) => (
-          <div key={stat.label} className="text-center">
-            <p className="font-heading text-2xl font-bold text-brand-gold-light">{stat.value}</p>
-            <p className="mt-1 font-mono text-xs tracking-[0.1em] text-white/60 uppercase">
-              {stat.label}
-            </p>
-          </div>
-        ))}
-      </div>
-
-      {/* ── PARODY QUOTES (explicitly labeled satire, not real endorsements) ── */}
-      <p className="mb-1 text-center font-mono text-xs tracking-[0.15em] text-brand-gold uppercase">
-        Clearly Parody — But Are They Wrong?
-      </p>
-      <h2 className="mb-4 text-center font-heading text-2xl font-bold text-foreground">
-        What They Would Have Said
-      </h2>
-      <p className="mx-auto mb-8 max-w-xl text-center text-foreground/70">
-        These quotes are entirely fictional. But if these people had spent an afternoon with Tony
-        Greenberg, we&apos;re fairly confident this is what they&apos;d walk away saying. Clearly
-        marked as satire. Obviously.
-      </p>
-
-      <div className="mb-6 space-y-6">
-        {PARODY_QUOTES.map((pq) => (
-          <div
-            key={pq.name}
-            className="relative rounded-r-md border-l-4 border-brand-gold bg-brand-gold/5 p-6"
-          >
-            <Badge
-              variant="outline"
-              className="absolute top-4 right-4 text-muted-foreground uppercase"
-            >
-              Parody
-            </Badge>
-            <p className="mb-4 pr-16 font-heading text-foreground italic">
-              &ldquo;{pq.quote}&rdquo;
-            </p>
-            <div className="flex flex-wrap items-baseline justify-between gap-2">
-              <p>
-                <span className="font-semibold text-foreground">{pq.name}</span>{" "}
-                <span className="font-mono text-xs text-muted-foreground">{pq.title}</span>
-              </p>
-              <span className="font-mono text-xs tracking-wide text-brand-gold uppercase">
-                {pq.note}
-              </span>
-            </div>
-          </div>
-        ))}
-      </div>
-      <p className="mb-12 text-center font-mono text-xs text-muted-foreground">
-        * These quotes are entirely fictional and created for satirical purposes. None of these
-        individuals have endorsed or are affiliated with Tony Greenberg or his companies.
-      </p>
-
-      {/* ── CREDIBILITY SUMMARY ── */}
-      <div className="mb-10 rounded-md bg-[#0A0A10] p-8 text-center">
-        <p className="mb-3 font-mono text-xs tracking-[0.15em] text-brand-gold uppercase">
-          The Credential
-        </p>
-        <p className="font-heading text-lg leading-relaxed text-white/90">
-          Speaker at the H+ Summit at Harvard University, 2010 — on the same stage as Ray
-          Kurzweil. Author of &ldquo;Boiling the Human.&rdquo; Twenty-five years building the
-          infrastructure of trust. Published across Forbes, Business Insider, HuffPost, and
-          Medium. Presented at the Clinton Global Initiative. CEO of RampRate. Chief Impact
-          Officer of ImpactSoul.
-        </p>
-        <p className="mt-6 text-white/50">
-          Tony Greenberg &bull; Santa Monica, CA &bull;{" "}
-          <a href="mailto:Tony@joyandwoe.com" className="text-brand-gold-light">
-            Tony@joyandwoe.com
-          </a>
-        </p>
-      </div>
-
-      <div className="border-t border-border py-6 text-center">
-        <Link href="/pick-up-the-phone" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
-          Continue to Pick Up the Phone →
-        </Link>
+        <div className="border-t border-border py-6 text-center">
+          <Link href="/pick-up-the-phone" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
+            Continue to Pick Up the Phone →
+          </Link>
+        </div>
       </div>
     </div>
   );

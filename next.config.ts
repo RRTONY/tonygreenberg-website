@@ -152,11 +152,6 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "cdn.sanity.io" },
-      // RampRate's own S3-backed CDN (STATUS.md: storage already migrated
-      // off Manus to AWS S3). Not a Manus domain — safe to keep. Any image
-      // still resolving to *.manuscdn.com must be re-uploaded to Sanity
-      // before its page is ported, not proxied through Manus.
-      { protocol: "https", hostname: "d2xsxph8kpxj0f.cloudfront.net" },
       // Real, live Unsplash stock photos used as BrewSoul city hero
       // images (see lib/content/brewsoul-cities.ts) — not a dead Manus
       // proxy, but also not yet uploaded to Sanity per this repo's own

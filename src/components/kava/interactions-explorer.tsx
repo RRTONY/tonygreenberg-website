@@ -88,7 +88,7 @@ export function InteractionsExplorer() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search medications or substances..."
-            className="flex-1 bg-transparent text-base text-kava-ink outline-none"
+            className="flex-1 bg-transparent text-base text-kava-ink outline-none focus-visible:ring-2 focus-visible:ring-ring"
           />
           {search && (
             <button onClick={() => setSearch("")} className="opacity-40 hover:opacity-100">

@@ -39,7 +39,7 @@ const QUESTIONS = [
 ];
 
 const FIELD_CLASS =
-  "w-full rounded-sm border border-border bg-background px-4 py-3 text-base leading-relaxed text-foreground outline-none transition-colors focus:border-brand-gold-light";
+  "w-full rounded-sm border border-border bg-background px-4 py-3 text-base leading-relaxed text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring transition-colors focus:border-brand-gold-light";
 
 // The live page's six-question "blueprint" form (legacy Manifesto.tsx's
 // QUESTIONS, same labels and placeholders). Legacy posted to

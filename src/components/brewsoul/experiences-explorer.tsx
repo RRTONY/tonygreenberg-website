@@ -30,7 +30,7 @@ export function ExperiencesExplorer({ experiences }: { experiences: ExperienceEn
       <div className="grid gap-5 [grid-template-columns:repeat(auto-fill,minmax(300px,1fr))]">
         {filtered.map((exp) => (
           <div key={exp.id} className="rounded-xl border border-[#6F4E37]/8 bg-white p-5">
-            <div className="mb-1 font-mono text-[0.62rem] tracking-[0.15em] text-[#C5A23C] uppercase">
+            <div className="mb-1 font-mono text-[0.62rem] tracking-[0.15em] text-[#836311] uppercase">
               {exp.type} · {exp.country}
             </div>
             <h3 className="mb-1 font-heading text-[1.05rem] font-bold text-[#2C1810]">{exp.name}</h3>

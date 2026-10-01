@@ -46,7 +46,7 @@ export default function PriceTrackerPage() {
           <p className="mb-4 text-xl text-zinc-300">
             (And here is what some people are being charged, which is a different number.)
           </p>
-          <p className="max-w-2xl leading-relaxed text-zinc-400">
+          <p className="max-w-3xl leading-relaxed text-zinc-400">
             Twenty-five years of analyzing $10 billion in enterprise transactions taught me one
             thing that applies equally to data centers, cloud contracts, and peptide vials: the
             information asymmetry IS the markup. When you don&apos;t know what something should
