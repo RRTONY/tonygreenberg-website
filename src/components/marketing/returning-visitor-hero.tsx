@@ -31,11 +31,11 @@ export async function ReturningVisitorHero() {
     <div className="border-b border-brand-gold-light/10 bg-brand-gold-light/4 px-3 py-1.5">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-2">
         <div className="flex min-w-0 items-center gap-2 overflow-hidden">
-          <span className="shrink-0 font-heading text-[0.82rem] text-brand-gold-light">Welcome back.</span>
+          <span className="shrink-0 font-heading text-[0.82rem] text-brand-gold dark:text-brand-gold-light">Welcome back.</span>
           {lastSlug && truncTitle && (
             <Link
               href={`/blog/${lastSlug}`}
-              className="truncate border-b border-brand-gold-light/15 pb-px font-mono text-[0.6rem] tracking-[0.04em] text-brand-gold-light/55"
+              className="truncate border-b border-brand-gold-light/15 pb-px font-mono text-[0.6rem] tracking-[0.04em] text-brand-gold dark:text-brand-gold-light/55"
             >
               Continue: {truncTitle}
             </Link>
@@ -43,7 +43,7 @@ export async function ReturningVisitorHero() {
         </div>
         <Link
           href="/find-my"
-          className="shrink-0 rounded-sm bg-brand-gold-light/10 px-2 py-0.5 font-mono text-[0.58rem] tracking-[0.06em] text-brand-gold-light uppercase"
+          className="shrink-0 rounded-sm bg-brand-gold-light/10 px-2 py-0.5 font-mono text-[0.58rem] tracking-[0.06em] text-brand-gold dark:text-brand-gold-light uppercase"
         >
           Pick up where you left off →
         </Link>

@@ -110,7 +110,7 @@ export default function BrewSoulDecafPage() {
           </div>
 
           <div className="mt-5 rounded-lg bg-[#1a0e08] p-6">
-            <div className="mb-2 font-mono text-[11px] tracking-wide text-[#80541c]">The Label Test</div>
+            <div className="mb-2 font-mono text-[11px] tracking-wide text-[#c4873b]">The Label Test</div>
             <p className="text-[17px] leading-[1.7] text-[#f5efe0]/88">
               If the packaging doesn&apos;t explicitly say &ldquo;Swiss Water Process&rdquo;, &ldquo;chemical-free&rdquo;, &ldquo;solvent-free&rdquo;,
               &ldquo;water processed&rdquo;, or &ldquo;certified organic&rdquo; — assume methylene chloride. The FDA does not require disclosure of
@@ -133,7 +133,7 @@ export default function BrewSoulDecafPage() {
           <DecafFame />
 
           <div className="my-7 rounded-lg bg-[#1a0e08] p-6">
-            <div className="mb-2 font-mono text-[11px] tracking-[0.15em] text-[#80541c]">2026 Tariff Alert</div>
+            <div className="mb-2 font-mono text-[11px] tracking-[0.15em] text-[#c4873b]">2026 Tariff Alert</div>
             <p className="text-[17px] leading-[1.7] text-[#f5efe0]/88">
               Swiss Water Process decaf is now subject to a 35% tariff (processing facility is in Canada). This is pushing prices up across every SWP brand
               in 2026. The simplification play: buy in bulk now, lock in pre-escalation pricing. Subtle Earth at $0.75/oz in 2lb bags is the best hedge. Or
@@ -224,7 +224,7 @@ export default function BrewSoulDecafPage() {
           </div>
 
           <div className="mt-6 rounded-lg bg-[#1a0e08] p-7">
-            <div className="mb-3 font-mono text-[11px] tracking-[0.15em] text-[#80541c]">The Verdict</div>
+            <div className="mb-3 font-mono text-[11px] tracking-[0.15em] text-[#c4873b]">The Verdict</div>
             <div className="mb-4 font-heading text-[clamp(20px,3vw,28px)] leading-[1.3] font-bold text-[#f5efe0] italic">
               Swiss Water Process wins on every environmental metric.
             </div>

@@ -25,8 +25,8 @@ export const metadata: Metadata = {
 
 const TIER_COMPARE = [
   { t: "Conventional", items: ["Up to 250 lbs chemicals/acre", "42 pesticides used globally", "No mold testing required", "Soil degradation over time", "No biodiversity requirements", "No supply chain transparency", "$0.40-0.60/oz"], borderClass: "border-t-[#8b4c2a]", textClass: "text-[#C66F41]" },
-  { t: "USDA Organic", items: ["No synthetic pesticides", "Natural pesticides allowed (kill pollinators)", "No mold testing required", "Soil preservation (not regeneration)", "No shade or canopy requirements", "Supply chain audited annually", "$0.65-0.90/oz"], borderClass: "border-t-[#7a8c6e]", textClass: "text-[#566650]" },
-  { t: "Demeter Biodynamic", items: ["Zero pesticides of any kind", "Pollinators fully protected", "Lab tested: mold, mycotoxins, heavy metals", "Active soil regeneration + carbon sequestration", "40%+ shade canopy, 12+ tree species", "Full origin-to-cup traceability", "$1.30-1.90/oz"], borderClass: "border-t-[#c4873b]", textClass: "text-[#80541c]" },
+  { t: "USDA Organic", items: ["No synthetic pesticides", "Natural pesticides allowed (kill pollinators)", "No mold testing required", "Soil preservation (not regeneration)", "No shade or canopy requirements", "Supply chain audited annually", "$0.65-0.90/oz"], borderClass: "border-t-[#7a8c6e]", textClass: "text-[#9fb093]" },
+  { t: "Demeter Biodynamic", items: ["Zero pesticides of any kind", "Pollinators fully protected", "Lab tested: mold, mycotoxins, heavy metals", "Active soil regeneration + carbon sequestration", "40%+ shade canopy, 12+ tree species", "Full origin-to-cup traceability", "$1.30-1.90/oz"], borderClass: "border-t-[#c4873b]", textClass: "text-[#d9a05b]" },
 ];
 
 const SCIENCE = [
