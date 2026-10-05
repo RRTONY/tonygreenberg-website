@@ -26,6 +26,8 @@ import { PostHeaderExtras, BeforeYouRead, PostLessonBlocks, SeriesReadingList } 
 import { getSeriesForPost } from "@/lib/content/essay-series";
 import { getArticleJsonLd, getPostBreadcrumbJsonLd } from "@/lib/structured-data";
 import { formatPostDate } from "@/lib/format-post-date";
+import { hasUnlocked, isGatedPost } from "@/lib/gated-posts";
+import { PostPasswordGate } from "@/components/blog/post-password-gate";
 import { ArrowRight } from "lucide-react";
 
 type PostDetail = {
@@ -74,6 +76,16 @@ export async function generateMetadata({
 
   const title = post.seo?.metaTitle || post.title;
   const description = post.seo?.metaDescription || post.excerpt;
+  // A password-protected essay stays out of search results and its share
+  // previews say nothing about its contents.
+  if (isGatedPost(post.slug.current)) {
+    return {
+      title,
+      description: "This essay is password-protected.",
+      robots: { index: false, follow: false },
+      alternates: { canonical: `/blog/${post.slug.current}` },
+    };
+  }
   const ogImageSource = post.seo?.ogImage || post.heroImage;
   const ogImage = ogImageSource
     ? urlFor(ogImageSource).width(1200).height(630).url()
@@ -111,6 +123,12 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
   const { slug } = await params;
   const post = await getPost(slug);
   if (!post) notFound();
+
+  // Password-protected essays render only the lock screen until unlocked, so
+  // the body never reaches the HTML without the password.
+  if (isGatedPost(post.slug.current) && !(await hasUnlocked(post.slug.current))) {
+    return <PostPasswordGate slug={post.slug.current} />;
+  }
 
   type RelatedPost = NonNullable<Awaited<ReturnType<typeof getPost>>>;
   const curatedPath = READING_PATHS[post.slug.current];

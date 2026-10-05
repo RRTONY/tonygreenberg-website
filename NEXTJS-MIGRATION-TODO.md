@@ -17,7 +17,7 @@
 
 > Update this block at the end of each working session. Checkbox counts are from this file.
 
-**Overall:** 256 items done, 31 open. Phases 0, 1, 3, 6, 8 and 9 are complete. Most of what's
+**Overall:** 257 items done, 30 open. Phases 0, 1, 3, 6, 8 and 9 are complete. Most of what's
 open is blocked on something outside the code (Supabase project, Stripe, Netlify env vars, Tony's
 sign-off, DNS) or is the final QA pass. **Nothing from this rebuild is live on tonygreenberg.com
 yet.** Everything through 2026-10-02 is merged to `main` (PR #3) and deployed to
@@ -30,7 +30,7 @@ on the user's say-so it now requires `lint-changed-files` instead (2026-10-02).
 | 1 Sanity | 16 | 0 | Done (post formatting checked and fixed 2026-10-02) |
 | 2 Supabase | 7 | 1 | Project created, keys local only; needs a decision on what it's for (no tables yet, `/login` leads nowhere) |
 | 4 Marketing | 57 | 7 | Remaining pages need a real backend or auth (deferred), plus `/shop` (Stripe) |
-| 5 Blog | 18 | 1 | Tables and live essay updates saved as drafts; `you-are-the-moat` password gate open |
+| 5 Blog | 19 | 0 | Tables and live essay updates saved as drafts; `you-are-the-moat` password gate done (needs `GATED_POST_PASSWORD` in Netlify) |
 | 7 PRI/Kava | 20 | 1 | `/pri-research` deferred (admin-only, no backend) |
 | 11 MCP server | 14 | 4 | Per-request change system + Google tools built and tested (2026-10-02); CI fix now on `main`, so next a real publish/undo test (needs the MCP env vars in Netlify); Lighthouse key |
 | 12 SEO & cutover | 18 | 8 | Full layout sweep done (110/120 fixed pages match); small leftovers, link check, Lighthouse on Netlify, staging noindex |
@@ -90,7 +90,7 @@ post (121) with the new site, text and images, on a production build.
 0000. Blog posts: live now puts the title over a full-width hero image in a script font (and its category label overlaps the title). Copy that onto all 121 posts? Goes with the font question below. See Phase 12.
 000. Switch titles to live's new font (Cormorant Garamond) and red labels on the story pages? See Phase 12.
 00. **What is Supabase for?** The project exists (2026-10-01) but has no tables, and `/login` leads to a dashboard that was never built. Pick a use (staff login, saving form answers...) or remove the login page and Supabase code.
-0. **`/blog/you-are-the-moat` is open to everyone on the new site**, but password-protected on live and in legacy. How to gate it: a server-checked password (the essay stays out of the page until unlocked), or unpublish it. Note the Sanity dataset itself may be publicly readable, so real secrecy also means checking that.
+0. ~~**`/blog/you-are-the-moat` is open to everyone on the new site**~~ Done 2026-10-06 (password gate; set `GATED_POST_PASSWORD` in Netlify)., but password-protected on live and in legacy. How to gate it: a server-checked password (the essay stays out of the page until unlocked), or unpublish it. Note the Sanity dataset itself may be publicly readable, so real secrecy also means checking that.
 1. Import the 2 live-only essays missing from Sanity: `the-tollbooth-and-the-alternative`, `what-quest-could-fix` (their heroes are already in Sanity).
 2. `/protecting-your-business`: live has much more detail about the named person (new sections, demands, a submission form, a name keyword list). Not copied yet because it's an accusation page.
 3. `/impact-dashboard`: title and description now match live (SEO copy, needs a yes).
@@ -265,7 +265,7 @@ Source: legacy `client/src/pages/*.tsx`. Port real copy/structure into Next.js p
 - [x] **Post extras from live (2026-10-01):** every post now shows the blocks legacy `BlogPost.tsx` and live render around the essay: format tag, validity score and series badge in the header, the summary, "Before You Read" (Reveal/Hint via `<details>`, answer in the server HTML), then The Lesson, Next Steps, Further Reading, Voices in This Space / Also involves, Since this was written, and the series reading list. Data ported unchanged into `src/lib/content/post-extras.ts` (from `blogData.json`, `riddleData.ts`, `thoughtLeaders.ts`), `further-reading.ts` and `essay-series.ts` (now shared with `/series`); component `src/components/blog/post-extras.tsx`. Checked against live: lesson, next steps and validity match on every post that loaded. Left out on purpose: read counts, reactions/comments/"Rate this thinking" (no backend), and the "Updated for Today" toggle (an AI rewrite; live defaults to the original text, which is what Sanity holds).
 - [x] **Lost tables restored (2026-10-01):** the migration's markdown converter had no table case, so all tables in 18 posts (44 tables) were silently dropped; live still shows them. Added a plain `dataTable` body type (`src/sanity/schemas/dataTable.ts`, rendered in `src/lib/sanity/portable-text.tsx`, scrolls inside its own box on phones), a table case in `scripts/markdown-to-portable-text.ts`, and put every table back after the paragraph that precedes it in the legacy markdown (`scripts/restore-blog-tables.ts`), as **Sanity drafts** built on existing drafts. `find-my-ev-...` had a malformed table showing as raw "|" text; now a real table (draft).
 - [x] **Essays rewritten on live, saved as Sanity drafts (2026-10-01)** (`scripts/sync-live-essays.ts`, from live's essay body; live images rescued into Sanity): `your-blood-lies-without-your-dna`, `energy-is-money-money-is-memory` (kept our fixed author bio), `the-way-of-dao`, `what-solutions-are-best-built-with-blockchain` replaced with live's version; `the-peptide-truth-...` got live's "Provenance and Corrections" note and the new stem cell appendix. Checked: every live paragraph is in the drafts. Not changed: posts where live still shows old WordPress furniture we already cleaned (Davos 2022, Boiling the Human, Mastering BD, and others), and `/the-stack` links (a "Private review draft" page on live, not ported; text kept, link dropped).
-- [ ] **`you-are-the-moat` is password-protected on live and in legacy** (`passwordGate`, a browser-side check), but the port renders it openly to everyone. Needs a decision on how to gate it (see status block) before launch.
+- [x] **Password gate on `you-are-the-moat` (done 2026-10-06, owner chose a password).** Server-checked: the password is in the `GATED_POST_PASSWORD` env var (in `.env.local`; **must also be set in Netlify**, or the essay stays locked for everyone), compared on the server, and the body is only rendered after a correct entry (checked: the locked page HTML has none of the essay text, and it is `noindex, nofollow`). Unlock lasts 30 days via an httpOnly cookie scoped to the post; changing the password locks everyone out again. Legacy's lock screen copy ("This One's Behind a Door"). Other posts stay statically built. Tested wrong/right password and reload in Chrome and Safari. Still true: the Sanity dataset is publicly readable, so the raw text is reachable through the Sanity API by someone who knows how. Was: (`passwordGate`, a browser-side check), but the port renders it openly to everyone. Needs a decision on how to gate it (see status block) before launch.
 
 ## Phase 6 — BrewSoul (28 routes)
 
