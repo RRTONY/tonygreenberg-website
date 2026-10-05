@@ -94,10 +94,10 @@ export default function AmplifierPage() {
     <div>
       <section className="bg-linear-to-br from-background to-secondary px-6 py-16 text-center sm:px-10 dark:from-[#0A0A10] dark:via-[#111118] dark:to-[#1a1a24]">
         <div className="mx-auto max-w-3xl">
-          <p className="mb-4 font-mono text-xs tracking-[0.25em] text-brand-gold uppercase">
+          <p className="mb-5 font-mono text-[0.72rem]/[1.85] tracking-[0.25em] text-brand-gold uppercase">
             The Amplifier
           </p>
-          <h1 className="mb-4 font-heading text-3xl leading-tight font-bold text-foreground sm:text-4xl">
+          <h1 className="mb-5 font-heading text-[clamp(2rem,5vw,3.2rem)]/[1.15] font-bold text-foreground">
             Matt builds the CEO.
             <br />
             <span className="text-brand-gold">I expand the arena the CEO gets to play in.</span>
@@ -111,7 +111,7 @@ export default function AmplifierPage() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-2xl px-6 py-14 sm:px-10">
+      <div className="mx-auto max-w-[39rem] px-6 py-14 sm:px-10">
         <EyebrowLabel>A Personal Note on Matt Mochary</EyebrowLabel>
         <p className="mb-4 leading-relaxed text-foreground/80">
           I have known{" "}
@@ -142,7 +142,7 @@ export default function AmplifierPage() {
 
       <hr className="border-border" />
 
-      <div className="mx-auto max-w-2xl px-6 py-14 sm:px-10">
+      <div className="mx-auto max-w-[39rem] px-6 py-14 sm:px-10">
         <EyebrowLabel>What The Amplifier Is</EyebrowLabel>
         <p className="mb-4 leading-relaxed text-foreground/80">
           Matt Mochary builds your internal operating system. What he does not — and cannot —
@@ -165,7 +165,7 @@ export default function AmplifierPage() {
 
       <hr className="border-border" />
 
-      <div className="mx-auto max-w-2xl px-6 py-14 sm:px-10">
+      <div className="mx-auto max-w-[39rem] px-6 py-14 sm:px-10">
         <EyebrowLabel>The Unfair Advantage</EyebrowLabel>
         <p className="mb-4 text-lg font-semibold text-foreground">Tony does not show up alone.</p>
         <p className="mb-4 leading-relaxed text-foreground/80">Every Amplifier engagement includes:</p>
@@ -191,7 +191,7 @@ export default function AmplifierPage() {
 
       <hr className="border-border" />
 
-      <div className="mx-auto max-w-2xl px-6 py-14 sm:px-10">
+      <div className="mx-auto max-w-[39rem] px-6 py-14 sm:px-10">
         <EyebrowLabel>The 5 Pillars</EyebrowLabel>
         {PILLARS.map((p, i) => (
           <div
@@ -211,7 +211,7 @@ export default function AmplifierPage() {
 
       <hr className="border-border" />
 
-      <div className="mx-auto max-w-2xl px-6 py-14 sm:px-10">
+      <div className="mx-auto max-w-[39rem] px-6 py-14 sm:px-10">
         <div className="rounded-md border border-brand-gold/20 bg-brand-gold/5 px-8 py-6 text-center">
           <div className="mb-2 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
             The 2× Guarantee
@@ -283,7 +283,7 @@ export default function AmplifierPage() {
 
       <hr className="border-border" />
 
-      <div className="mx-auto max-w-2xl px-6 py-14 sm:px-10">
+      <div className="mx-auto max-w-[39rem] px-6 py-14 sm:px-10">
         <EyebrowLabel>How to Prepare</EyebrowLabel>
         <p className="mb-4 leading-relaxed text-foreground/80">
           Complete the preparation document and send to{" "}
@@ -316,7 +316,7 @@ export default function AmplifierPage() {
 
       <hr className="border-border" />
 
-      <div className="mx-auto max-w-2xl px-6 py-14 sm:px-10">
+      <div className="mx-auto max-w-[39rem] px-6 py-14 sm:px-10">
         <EyebrowLabel>What Tony Will Not Do</EyebrowLabel>
         {WONT_DO.map((item, i) => (
           <div

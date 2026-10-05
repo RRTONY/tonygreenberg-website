@@ -18,11 +18,11 @@ export const metadata: Metadata = {
 export default function HumanosPathToHere() {
   return (
     <>
-      <section className="mx-auto max-w-3xl px-6 pt-20 pb-8">
+      <section className="mx-auto max-w-200 px-6 pt-20 pb-8">
         <EyebrowLabel className="mb-3 font-mono text-xs tracking-[0.2em] text-violet-600 uppercase">
           The Path to Here
         </EyebrowLabel>
-        <h1 className="mb-4 font-heading text-5xl leading-tight font-bold text-neutral-900 sm:text-6xl">
+        <h1 className="mb-4 font-heading text-[clamp(2.2rem,5vw,3.5rem)]/[1.1] font-bold text-neutral-900">
           Path to Here
         </h1>
         <p className="text-xl leading-relaxed text-neutral-600">

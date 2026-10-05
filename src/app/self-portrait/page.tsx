@@ -52,8 +52,8 @@ export default async function SelfPortraitPage() {
     <div className="relative z-1 min-h-screen">
       <ThemedBackground theme="selfportrait" />
 
-      <div className="relative z-1 mx-auto max-w-135 px-6 pt-[clamp(6rem,10vw,8rem)] pb-12 text-center">
-        <h1 className="mb-2 font-heading text-[clamp(1.8rem,4vw,2.4rem)] leading-tight font-normal text-foreground">Your Self-Portrait</h1>
+      <div className="relative z-1 mx-auto max-w-162 px-6 pt-[clamp(6rem,10vw,8rem)] pb-12 text-center">
+        <h1 className="mb-4 font-heading text-[clamp(2.5rem,5vw,4rem)]/[1.1] font-normal text-foreground">Your Self-Portrait</h1>
         <p className="mx-auto max-w-105 text-base leading-relaxed text-muted-foreground">
           Every assessment you&apos;ve completed, in one place — a running record of what you&apos;ve discovered about yourself.
         </p>

@@ -24,7 +24,7 @@ export default function HumanosEcosystem() {
         <EyebrowLabel className="mb-3 font-mono text-xs tracking-[0.2em] text-violet-600 uppercase">
           The Ecosystem
         </EyebrowLabel>
-        <h1 className="mb-4 font-heading text-5xl leading-tight font-bold text-neutral-900 sm:text-6xl">
+        <h1 className="mb-4 font-heading text-[clamp(2.2rem,5vw,3.5rem)]/[1.1] font-bold text-neutral-900">
           The Ecosystem
         </h1>
         <p className="max-w-2xl text-xl leading-relaxed text-neutral-600">

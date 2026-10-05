@@ -417,16 +417,16 @@ export function BrewSoulWelcomeQuiz() {
 
       <div className="relative z-10 flex min-h-screen flex-col">
         {screen === 0 && (
-          <div className="mx-auto max-w-2xl px-6 pt-24 pb-6 text-center">
+          <div className="mx-auto max-w-160 px-6 pt-24 pb-6 text-center">
             <div className="mb-5 font-mono text-[0.65rem] tracking-[0.35em] text-[#836311] uppercase">
               Before We Pour — Who Are You?
             </div>
-            <h1 className="mb-5 font-heading text-2xl font-bold leading-tight text-[#1A1A1A] sm:text-3xl">
+            <h1 className="mb-5 font-heading text-[clamp(1.6rem,5vw,2.4rem)]/[1.3] font-bold text-[#1A1A1A]">
               The world&apos;s most complex legal drug.
               <br />
               <span className="text-[#836311]">Let&apos;s find out who you are inside it.</span>
             </h1>
-            <p className="mx-auto max-w-md rounded-xl bg-[#FAFAF7]/70 p-5 text-sm leading-loose text-[#4A4A4A] backdrop-blur-md">
+            <p className="mx-auto max-w-130 rounded-xl bg-[#FAFAF7]/70 px-5 py-4 text-[0.92rem]/[1.8] text-[#4A4A4A] backdrop-blur-md">
               1,000+ flavor compounds. $200B industry. 125 million people depend on it for survival. Your relationship
               with coffee says more about you than you think. Eight questions. No wrong answers. A path built just
               for you.

@@ -98,15 +98,15 @@ export default function PublishedPage() {
   const categories = Object.keys(CATEGORY_LABELS) as Category[];
 
   return (
-    <div className="mx-auto max-w-[39rem] px-5 py-10 sm:px-10">
+    <div className="mx-auto max-w-[39rem] px-5 pt-22 pb-10 sm:px-10">
       <Link href="/" className="inline-flex items-center font-mono text-xs tracking-wide text-brand-gold uppercase min-h-11 md:min-h-6">
         ← Back to the Broadsheet
       </Link>
 
-      <p className="mt-8 mb-2 font-mono text-xs tracking-[0.15em] text-brand-gold uppercase">
+      <p className="mt-3 mb-8 font-mono text-xs tracking-[0.15em] text-brand-gold uppercase md:mt-8">
         The Bylines
       </p>
-      <h1 className="mb-5 font-heading text-4xl font-bold text-foreground sm:text-5xl">
+      <h1 className="mb-6 font-heading text-[clamp(2.4rem,5vw,3.8rem)]/[1.1] font-bold text-foreground">
         Published
         <br />
         Elsewhere
@@ -147,7 +147,7 @@ export default function PublishedPage() {
                 ({catArticles.length})
               </span>
             </div>
-            <div className="grid gap-4" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))" }}>
+            <div className="grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-4">
               {catArticles.map((article) => (
                 <a
                   key={article.title}

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { BrewSoulQuiz } from "@/components/brewsoul/brewsoul-quiz";
+import { BrewSoulQuiz } from "@/components/brewsoul/brewsoul-quiz/brewsoul-quiz";
 
 export const metadata: Metadata = {
   title: "Coffee Quiz — BrewSoul",

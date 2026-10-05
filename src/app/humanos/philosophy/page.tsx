@@ -39,7 +39,7 @@ export default function HumanosPhilosophy() {
         <EyebrowLabel className="mb-3 font-mono text-xs tracking-[0.2em] text-violet-600 uppercase">
           The Philosophy
         </EyebrowLabel>
-        <h1 className="mb-6 font-heading text-5xl leading-tight font-bold text-neutral-900 sm:text-6xl">
+        <h1 className="mb-6 font-heading text-[clamp(2.2rem,5vw,3.5rem)]/[1.1] font-bold text-neutral-900">
           The Philosophy
         </h1>
         <blockquote className="m-0 border-l-4 border-violet-600 pl-6 text-xl leading-relaxed text-neutral-600 italic">

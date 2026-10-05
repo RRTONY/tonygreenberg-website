@@ -259,15 +259,15 @@ const SHARE_TEXT =
 export default function ProtectingYourBusinessPage() {
   return (
     <div>
-      <div className="mx-auto max-w-3xl px-6 py-10 sm:px-10">
-        <div className="mb-6 rounded-md bg-red-800/10 py-3 text-center font-mono text-xs font-bold tracking-[0.2em] text-red-800 uppercase">
+      <div className="mx-auto max-w-230 px-6 pt-20 pb-8">
+        <div className="mb-8 rounded-lg border border-red-800/20 bg-red-800/10 px-4 py-3 text-center font-mono text-[0.72rem]/[1.85] font-bold tracking-[0.2em] text-red-800 uppercase">
           Documented Fraud Case — Court Records &amp; Guilty Pleas on File
         </div>
 
-        <h1 className="mx-auto mb-3 max-w-2xl text-center font-heading text-3xl leading-tight font-black text-foreground sm:text-4xl">
+        <h1 className="mx-auto mb-3 max-w-180 text-center font-heading text-[clamp(2rem,5vw,3.2rem)]/[1.12] font-black text-foreground">
           She Had Two Theft Convictions. I Hired Her Anyway. She Stole $46,795.
         </h1>
-        <p className="mx-auto mb-8 max-w-xl text-center text-foreground/70">
+        <p className="mx-auto mb-8 max-w-150 text-center text-[1.15rem]/[1.7] text-pretty text-foreground/70">
           The documented case of Kristi Klawiter — convicted of theft and forgery in New Jersey,
           hired through Braintrust, and caught submitting 11 unauthorized invoices. This is the
           record I wish someone had published before I wrote the check.
@@ -347,7 +347,7 @@ export default function ProtectingYourBusinessPage() {
         </p>
       </div>
 
-      <div className="mx-auto max-w-2xl px-6 pb-6 sm:px-10">
+      <div className="mx-auto max-w-195 px-6 pb-6">
         <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 border-y border-border py-4 text-center">
           {TOC.map((item) => (
             <a key={item.id} href={`#${item.id}`} className="inline-flex items-center font-mono text-xs text-brand-gold min-h-11 md:min-h-6">
@@ -357,7 +357,7 @@ export default function ProtectingYourBusinessPage() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-2xl px-6 pb-16 sm:px-10">
+      <div className="mx-auto max-w-195 px-6 pb-16">
         <div className="mb-10 rounded-md border border-amber-700/25 bg-amber-700/5 p-7">
           <div className="mb-2 font-mono text-xs font-bold tracking-[0.2em] text-amber-800 uppercase">
             A Note From the Author

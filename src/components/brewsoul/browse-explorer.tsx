@@ -79,11 +79,11 @@ export function BrowseExplorer() {
   return (
     <div>
       {/* Hero */}
-      <section className="bg-linear-to-b from-[#F0E8D8] to-[#FAFAF7] px-6 py-16 text-center">
-        <div className="mx-auto max-w-2xl">
-          <div className="mb-3 font-mono text-xs tracking-[0.3em] text-[#836311] uppercase">The Catalog</div>
-          <h1 className="mb-3 font-heading text-3xl font-bold text-[#2C1810] sm:text-4xl">Browse All Coffees</h1>
-          <p className="mx-auto mb-6 max-w-lg text-base leading-relaxed text-[#6B5B4F]">
+      <section className="min-h-[clamp(340px,45vh,500px)] bg-linear-to-b from-[#F0E8D8] to-[#FAFAF7] text-center">
+        <div className="mx-auto max-w-225 px-6 pt-[clamp(3rem,8vh,5rem)] pb-8">
+          <div className="mb-3 font-mono text-[0.68rem]/[1.85] tracking-[0.3em] text-[#836311] uppercase">The Catalog</div>
+          <h1 className="mb-3 font-heading text-[clamp(1.8rem,5vw,3rem)]/[1.15] font-bold text-[#2C1810]">Browse All Coffees</h1>
+          <p className="mx-auto mb-6 max-w-150 text-[clamp(0.92rem,1.5vw,1.1rem)]/[1.6] text-[#6B5B4F]">
             {BREWSOUL_COFFEES.length} coffees scored, tested, and traced. Filter by what matters to you.
           </p>
           <div className="flex flex-wrap justify-center gap-3">
@@ -92,9 +92,9 @@ export function BrowseExplorer() {
               { val: String(ORIGINS.length), label: "Origins" },
               { val: String(ROASTERS.length), label: "Roasters" },
             ].map((s) => (
-              <div key={s.label} className="rounded-xl border border-[#836311]/15 bg-white/60 px-4 py-2 backdrop-blur-md">
-                <span className="font-heading text-lg font-bold text-[#836311]">{s.val}</span>
-                <span className="ml-1.5 font-mono text-[0.58rem] tracking-wide text-[#5A4A20]/50 uppercase">
+              <div key={s.label} className="rounded-xl border border-[#836311]/15 bg-white/60 px-5 py-2.5 backdrop-blur-md">
+                <span className="font-heading text-[1.3rem] font-bold text-[#836311]">{s.val}</span>
+                <span className="ml-2 font-mono text-[0.58rem] tracking-[0.15em] text-[#5A4A20]/50 uppercase">
                   {s.label}
                 </span>
               </div>
@@ -105,18 +105,18 @@ export function BrowseExplorer() {
 
       {/* Intro */}
       <section className="bg-[#FAFAF7] px-6 pb-8">
-        <div className="mx-auto max-w-3xl rounded-2xl border border-[#836311]/12 bg-white/50 p-6 backdrop-blur-md">
-          <p className="mb-2 text-sm leading-relaxed text-[#6B5B4F]">
+        <div className="mx-auto max-w-225 rounded-2xl border border-[#836311]/12 bg-white/50 px-6 py-5 backdrop-blur-md">
+          <p className="mb-2 text-[0.85rem]/[1.65] text-[#6B5B4F]">
             <strong className="text-[#6F4E37]">What you&apos;re looking at:</strong> Every coffee in the BrewSoul
             catalog — from competition-winning micro-lots to commodity blends — scored on cupping quality, value
             (QPR), sourcing ethics, and traceability. The best and worst extremes are both here, intentionally.
           </p>
-          <p className="mb-2 text-sm leading-relaxed text-[#6B5B4F]">
+          <p className="mb-2 text-[0.85rem]/[1.65] text-[#6B5B4F]">
             <strong className="text-[#6F4E37]">Why it matters:</strong> Most coffee ratings are pay-to-play or
             self-reported. This catalog aggregates SCA cupping scores, blind panel results, and supply chain audits
             into a single, objective profile for each coffee.
           </p>
-          <p className="text-sm leading-relaxed text-[#6B5B4F]">
+          <p className="text-[0.85rem]/[1.65] text-[#6B5B4F]">
             <strong className="text-[#6F4E37]">What to do:</strong> Sort by QPR (quality-to-price ratio) to find the
             best value. Filter by origin, process, or roast level. Click any card for the full scoring breakdown and
             tasting notes.
@@ -126,14 +126,14 @@ export function BrowseExplorer() {
 
       {/* Filters */}
       <section className="sticky top-13 z-100 border-b border-[#836311]/8 bg-[#FAFAF7]/90 px-6 py-3 backdrop-blur-lg">
-        <div className="mx-auto max-w-6xl">
+        <div className="mx-auto max-w-300">
           <input
             type="search"
             aria-label="Search coffees"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by name, roaster, variety, or tasting note..."
-            className="mb-3 w-full max-w-md rounded-xl border border-[#836311]/12 bg-white/65 px-4 py-2.5 text-sm text-[#2C1810] backdrop-blur-md"
+            className="mb-3 w-full max-w-125 rounded-xl border border-[#836311]/12 bg-white/65 px-4 py-2.5 text-sm text-[#2C1810] backdrop-blur-md"
           />
           <div className="flex flex-wrap items-center gap-2.5">
             <select aria-label="Sort coffees" className={selectClass} value={sort} onChange={(e) => setSort(e.target.value as SortKey)}>
@@ -194,7 +194,7 @@ export function BrowseExplorer() {
 
       {/* Results */}
       <section className="min-h-[60vh] bg-linear-to-b from-[#FAFAF7] via-[#F5F0E6] to-[#FAFAF7] px-6 py-8">
-        <div className="mx-auto max-w-6xl">
+        <div className="mx-auto max-w-300">
           <div className="mb-5 font-mono text-xs tracking-wide text-[#836311] uppercase">
             {filtered.length} coffee{filtered.length !== 1 ? "s" : ""} found
           </div>

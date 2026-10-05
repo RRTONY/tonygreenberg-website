@@ -135,21 +135,21 @@ export default function FirstSipPage() {
     <div>
       <MarkVisited stepId="first-sip" />
       {/* Hero */}
-      <section className="relative flex min-h-[70vh] items-center justify-center overflow-hidden bg-linear-to-b from-[#2C1810] via-[#3D2B1F] to-[#FAFAF7]">
-        <div className="relative z-10 max-w-2xl px-6 text-center">
-          <div className="mb-4 font-mono text-xs tracking-[0.3em] text-[#D4B96A] uppercase">
+      <section className="relative flex min-h-[85vh] items-center justify-center overflow-hidden bg-linear-to-b from-[#2C1810] via-[#3D2B1F] to-[#FAFAF7]">
+        <div className="relative z-10 max-w-170 px-6 text-center">
+          <div className="mb-4 font-mono text-[0.7rem]/[1.85] tracking-[0.3em] text-[#D4B96A] uppercase">
             Your Start Page for Coffee
           </div>
-          <h1 className="mb-5 font-heading text-4xl font-black text-[#F5F0E6] sm:text-6xl">
+          <h1 className="mb-5 font-heading text-[clamp(2.4rem,7vw,4.2rem)]/[1.05] font-black text-[#F5F0E6]">
             The First Sip
             <br />
             Is a <em className="text-[#D4B96A] italic">Vote</em>
           </h1>
-          <p className="mx-auto mb-6 max-w-lg text-base leading-relaxed text-[#F5F0E6]/85">
+          <p className="mx-auto mb-6 max-w-140 text-[clamp(1rem,2.5vw,1.15rem)]/[1.65] font-light text-[#F5F0E6]/85">
             A manifesto on coffee, capital, and consciousness — and your guided entry point into the tools,
             economics, health science, and comparisons that live inside this site.
           </p>
-          <div className="font-mono text-xs text-[#D4B96A]/70">
+          <div className="font-mono text-xs/[1.85] tracking-[0.05em] text-[#D4B96A]/70">
             By Tony Greenberg <span className="mx-2 opacity-40">·</span> Only Time Buys Trust
           </div>
         </div>

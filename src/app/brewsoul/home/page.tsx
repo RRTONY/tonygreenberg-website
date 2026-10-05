@@ -52,17 +52,17 @@ export default function BrewSoulHomePage() {
       <MarkVisited stepId="home" />
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-linear-to-b from-[#FAFAF7] via-[#F0E8D8] to-[#E8DCC8] px-6 py-24 text-center sm:py-32">
+      <section className="relative overflow-hidden bg-linear-to-b from-[#FAFAF7] via-[#F0E8D8] to-[#E8DCC8] px-6 pt-[clamp(8rem,18vh,14rem)] pb-12 text-center">
         <div className="mx-auto max-w-2xl">
-          <div className="mb-5 font-mono text-xs tracking-[0.35em] text-[#836311] uppercase">
+          <div className="mb-5 font-mono text-[0.68rem] tracking-[0.35em] text-[#836311] uppercase">
             The Coffee Intelligence Engine
           </div>
-          <h1 className="mb-5 font-heading text-4xl font-bold text-[#1A1A1A] sm:text-5xl">
+          <h1 className="mb-5 font-heading text-[clamp(2.2rem,7vw,3.8rem)]/[1.1] font-bold text-[#1A1A1A]">
             Find the Coffee You&apos;ll
             <br />
             Actually <em className="text-[#836311] italic">Love</em>
           </h1>
-          <p className="mx-auto mb-8 max-w-lg rounded-2xl bg-[#FAFAF7]/70 px-6 py-4 text-base leading-relaxed text-[#4A4A4A] backdrop-blur-md">
+          <p className="mx-auto mb-8 max-w-135 rounded-[14px] bg-[#FAFAF7]/70 px-6 py-4 text-[1.05rem]/[1.8] text-[#4A4A4A] backdrop-blur-md">
             Taste-matched. QPR-scored. Mold-tested. Farm-traced. Dollar-tracked.
             <br />
             {BREWSOUL_COFFEES.length} coffees scored. 100 chains ranked. 6 identity archetypes.

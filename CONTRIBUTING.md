@@ -114,6 +114,20 @@ incidents: [`docs/ai/`](docs/ai/README.md).
     an `inline-flex items-center gap-1.5` element, never a typed `→`, `←`, `⟶` or `»` in new UI.
     The owner asked for this (2026-10-06). Arrows inside Tony's copy (essay text, data strings) are
     content: leave them unless asked.
+19. **A multi-step flow (quiz, wizard, multi-page form) is a step registry, not one component of
+    `{step === X && (...)}` blocks.** Same shape as FydoPartner's sign-in flow
+    (`src/screens/auth/singIn/`), adapted here. Reference: `src/components/brewsoul/brewsoul-quiz/`.
+    - `<flow>/<flow>.tsx`: the parent holds only a numeric registry
+      (`const STEPS = { 1: StepQuestions, 2: StepResults }`), the shared chrome (progress bar,
+      header) and `<Step quiz={quiz} />`.
+    - `<flow>/hook/use-<flow>.ts`: the ONE shared state for the flow (step, answers, flags) and its
+      actions (`answer`, `back`, `reset`, `onNext(step?)`). No other component holds flow state.
+    - `<flow>/components/step-<name>.tsx`: one file per step. It reads state and calls the hook's
+      actions; logic only that step needs (e.g. result scoring) lives in the step.
+    - `<flow>/data/<flow>.data.ts`: questions and all UI copy (an exported `...Data` object), not
+      string literals in the step files.
+    The owner asked for this (2026-10-06). Existing quizzes still in the old shape get moved over
+    when they're next touched.
 
 ## Next.js (App Router, v16)
 

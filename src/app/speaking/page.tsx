@@ -30,18 +30,18 @@ const ROOMS = ["Davos", "Harvard H+ Summit", "UCLA", "Paris Blockchain Week"];
 export default function SpeakingPage() {
   return (
     <div>
-      <section className="bg-[#0A0A10] px-6 py-20 text-[#F5F0E0] sm:px-10">
-        <div className="mx-auto max-w-4xl">
+      <section className="bg-[#0A0A10] text-[#F5F0E0]">
+        <div className="mx-auto max-w-295 px-[clamp(1.35rem,5vw,4rem)] pt-[clamp(4rem,10vw,7.5rem)] pb-[clamp(3.25rem,7vw,5.5rem)]">
           <Link href="/about" className="inline-flex items-center font-mono text-xs tracking-wide text-brand-gold-light uppercase min-h-11 md:min-h-6">
             ← The Story
           </Link>
-          <p className="mt-9 mb-3 font-mono text-xs tracking-[0.2em] text-brand-gold-light uppercase">
+          <p className="mt-9 mb-8 font-mono text-xs tracking-[0.2em] text-brand-gold-light uppercase">
             Speaking and Conversations
           </p>
-          <h1 className="mb-6 max-w-3xl font-heading text-4xl leading-tight font-normal sm:text-6xl">
+          <h1 className="mb-6 max-w-212.5 font-heading text-[clamp(2.65rem,7vw,5.6rem)]/[0.98] font-normal text-balance">
             A room changes when someone names what everyone can already feel.
           </h1>
-          <p className="mb-8 max-w-2xl text-lg leading-relaxed text-[#F5F0E0]/75">
+          <p className="mb-8 max-w-172.5 text-[clamp(1.18rem,2vw,1.45rem)]/[1.65] text-pretty text-[#F5F0E0]/75">
             Tony Greenberg speaks about trust, capital, technology, and the human systems beneath
             them. The work is not a polished keynote about disruption. It is a live search for the
             lever that makes a broken system behave differently.

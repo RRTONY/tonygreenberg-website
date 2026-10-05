@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 
 export default function BrewSoulDirectoryPage() {
   return (
-    <div className="mx-auto max-w-225 px-6 pt-12 pb-20">
+    <div className="mx-auto max-w-250 px-6 pt-12 pb-20">
       <div className="mb-10 text-center">
         <div className="mb-3 font-mono text-xs tracking-[0.25em] text-[#836311] uppercase">Complete Index</div>
         <h1 className="mb-4 font-heading text-[clamp(2rem,5vw,3rem)] leading-[1.15] font-bold text-[#2C1810]">Everything Inside BrewSoul</h1>

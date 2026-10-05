@@ -88,15 +88,15 @@ export default function DiamondCutPage() {
     <div>
       <section className="bg-linear-to-br from-background to-secondary px-6 py-16 text-center sm:px-10 dark:from-[#0A0A10] dark:via-[#111118] dark:to-[#1a1a24]">
         <div className="mx-auto max-w-3xl">
-          <p className="mb-4 font-mono text-xs tracking-[0.25em] text-brand-gold uppercase">
+          <p className="mb-5 font-mono text-[0.72rem]/[1.85] tracking-[0.25em] text-brand-gold uppercase">
             The Diamond Cut
           </p>
-          <h1 className="mb-4 font-heading text-3xl leading-tight font-bold text-foreground sm:text-4xl">
+          <h1 className="mb-5 font-heading text-[clamp(2rem,5vw,3.2rem)]/[1.15] font-bold text-foreground">
             Every services business has
             <br />
             <span className="text-brand-gold">a product trapped inside it.</span>
           </h1>
-          <p className="mx-auto mb-3 max-w-lg text-foreground/70">
+          <p className="mx-auto mb-3 max-w-140 text-foreground/70">
             Most founders cannot see it. They are too close. Tony has spent 25 years finding
             diamonds in rough — and cutting them into something Fortune 50 companies actually buy.
           </p>
