@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { ThemedBackground } from "@/components/assessments/themed-background";
 import { WhatsNext } from "@/components/assessments/whats-next";
 import { AssessmentRadarChart } from "@/components/assessments/radar-chart";
@@ -183,7 +184,7 @@ export function SoulScoreTool() {
     return (
       <div className="relative z-1 min-h-screen font-sans text-[#2C1810]">
         <ThemedBackground theme="soulscore" />
-        <div className="relative z-1 flex min-h-screen flex-col items-center justify-center px-6 py-16 text-center">
+        <div className="relative z-1 flex min-h-[calc(100svh-3.5rem)] flex-col items-center justify-center px-6 py-8 text-center">
           <p className={`mb-4 ${MONO_LABEL}`}>by ImpactSoul</p>
           <h1 className="mb-4 font-heading text-[clamp(2.5rem,7vw,4.5rem)] leading-[1.05] font-bold">
             Soul<span className={PALETTE.gold.text}>Score</span>
@@ -194,14 +195,14 @@ export function SoulScoreTool() {
             dimensions. Any entity. Real-time.
           </p>
 
-          <div className="mb-10 grid w-full max-w-150 grid-cols-2 gap-4 sm:grid-cols-4">
+          <div className="mb-10 grid w-full max-w-150 grid-cols-2 gap-4 leading-[1.85] sm:grid-cols-3">
             {[
               { icon: "◉", label: `${DIMENSIONS.length} Dimensions`, desc: "From consciousness to carbon" },
               { icon: "⚡", label: `${ENTITY_TYPES.length} Entity Types`, desc: "Individual to supply chain" },
               { icon: "📊", label: "Real-Time Score", desc: "Instant S to F grading" },
               { icon: "🔗", label: `${SUPPLY_TIERS.length}-Tier Depth`, desc: "Full supply chain mapping" },
             ].map((item) => (
-              <div key={item.label} className="rounded-xl border border-[#D4B96A]/20 bg-white/70 p-4 text-center backdrop-blur-sm">
+              <div key={item.label} className="rounded-xl border border-[#D4B96A]/20 bg-white/70 px-4 py-5 text-center backdrop-blur-sm">
                 <div className="mb-2 text-2xl">{item.icon}</div>
                 <div className={`mb-1 font-mono text-[0.7rem] tracking-[0.1em] font-bold ${PALETTE.gold.text}`}>{item.label}</div>
                 <div className="text-[0.8rem] text-[#7A6A52]">{item.desc}</div>
@@ -209,15 +210,16 @@ export function SoulScoreTool() {
             ))}
           </div>
 
-          <p className="mb-6 font-mono text-[0.7rem] tracking-[0.15em] text-[#9A8A6A]">
+          <p className="mb-6 font-mono text-[0.7rem]/[1.85] tracking-[0.15em] text-[#9A8A6A]">
             Interactive · ~3 minutes · No account required
           </p>
 
           <button
             onClick={() => setPhase("tool")}
-            className="rounded-lg bg-linear-to-br from-[#836311] to-[#D4B96A] px-14 py-4 font-mono text-sm font-bold tracking-[0.2em] text-[#FAFAF7] uppercase shadow-[0_4px_20px_rgba(139,105,20,0.3)] transition-transform hover:-translate-y-0.5"
+            className="inline-flex items-center gap-2 rounded-lg bg-linear-to-br from-[#836311] to-[#D4B96A] px-12 py-4 font-mono text-sm font-bold tracking-[0.2em] text-[#FAFAF7] uppercase shadow-[0_4px_20px_rgba(139,105,20,0.3)] transition-transform hover:-translate-y-0.5"
           >
-            Launch SoulScore →
+            Launch SoulScore
+            <ArrowRight aria-hidden="true" className="size-4" />
           </button>
 
           <p className="mt-6 max-w-100 text-[0.75rem] leading-relaxed text-[#9A8A6A]">
