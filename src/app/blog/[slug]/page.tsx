@@ -28,6 +28,7 @@ import { getArticleJsonLd, getPostBreadcrumbJsonLd } from "@/lib/structured-data
 import { formatPostDate } from "@/lib/format-post-date";
 import { hasUnlocked, isGatedPost } from "@/lib/gated-posts";
 import { PostPasswordGate } from "@/components/blog/post-password-gate";
+import { HighlightSaveButton } from "@/components/blog/highlight-save-button";
 import { ArrowRight } from "lucide-react";
 
 type PostDetail = {
@@ -250,6 +251,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
       <div className="article-body text-foreground">
         <PortableText value={autoLinkBody(legacyBodyLayout(post.body, post._createdAt, post.title))} components={portableTextComponents} />
       </div>
+      <HighlightSaveButton postSlug={post.slug.current} />
 
       {post.tags && post.tags.length > 0 && (
         <div className="mt-10 flex flex-wrap gap-2 border-t border-border pt-6">
