@@ -54,6 +54,9 @@ import {
 
 export type DimKey = "medical" | "pharmacological" | "psychological" | "intention" | "setting" | "integration";
 
+/** The six PRI dimensions, in their standard order. */
+export const DIMS: DimKey[] = ["medical", "pharmacological", "psychological", "intention", "setting", "integration"];
+
 export interface Medicine {
   id: string;
   name: string;
