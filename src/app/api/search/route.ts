@@ -2,6 +2,8 @@ import { NextResponse, type NextRequest } from "next/server";
 import { sanityFetch } from "@/lib/sanity/client";
 import { searchPostsQuery } from "@/lib/sanity/queries";
 import { scoreItem } from "@/lib/search-engine";
+import { BREWSOUL_COFFEES } from "@/lib/content/brewsoul-coffees";
+import { CHARITIES } from "@/lib/content/charity-data";
 
 // Server-side half of the search modal's dual-path search (see
 // search-modal.tsx): the static page directory is scored instantly on the
@@ -40,12 +42,52 @@ export type SearchPostHit = {
   category?: string;
 };
 
+// `?all=1` (the /search page) also returns matching coffees and charities,
+// scored here so their full data never ships to the browser. The header
+// search modal omits it and gets posts only, as before.
+function topMatches(q: string, items: (SearchPostHit & { tags: string[] })[], limit: number): SearchPostHit[] {
+  return items
+    .map((item) => ({ item, score: scoreItem(q, { title: item.title, description: item.description, tags: item.tags }) }))
+    .filter((r) => r.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map(({ item: { title, href, description, category } }) => ({ title, href, description, category }));
+}
+
 export async function GET(request: NextRequest) {
   const q = request.nextUrl.searchParams.get("q")?.trim() ?? "";
+  const all = request.nextUrl.searchParams.get("all") === "1";
 
   if (q.length < 2) {
-    return NextResponse.json({ posts: [] });
+    return NextResponse.json(all ? { posts: [], coffees: [], charities: [] } : { posts: [] });
   }
+
+  const extras = all
+    ? {
+        coffees: topMatches(
+          q,
+          BREWSOUL_COFFEES.map((c) => ({
+            title: c.name,
+            href: `/brewsoul/coffee/${c.id}`,
+            description: `${c.producer} · ${c.originCountry} · ${c.tastingNotes.slice(0, 4).join(", ")}`,
+            category: "BrewSoul",
+            tags: ["coffee", c.originCountry, ...c.tastingNotes],
+          })),
+          8,
+        ),
+        charities: topMatches(
+          q,
+          CHARITIES.map((c) => ({
+            title: c.name,
+            href: `/charity-scorecard/${c.slug}`,
+            description: c.tagline ?? c.sector,
+            category: "Charity Scorecard",
+            tags: ["charity", c.sector],
+          })),
+          6,
+        ),
+      }
+    : {};
 
   try {
     const results = await sanityFetch<SearchPostResult[]>({
@@ -70,9 +112,9 @@ export async function GET(request: NextRequest) {
       .slice(0, 10)
       .map(({ title, href, description, category }) => ({ title, href, description, category }));
 
-    return NextResponse.json({ posts });
+    return NextResponse.json({ posts, ...extras });
   } catch (err) {
     console.error("[api/search] Sanity query failed:", err);
-    return NextResponse.json({ posts: [] }, { status: 502 });
+    return NextResponse.json({ posts: [], ...extras }, { status: 502 });
   }
 }

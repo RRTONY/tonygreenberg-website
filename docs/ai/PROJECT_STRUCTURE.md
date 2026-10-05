@@ -46,7 +46,7 @@ how to handle a request is in [`TASK_GUIDE.md`](TASK_GUIDE.md). Last checked 202
 | Footer | `src/components/site-footer.tsx` |
 | "Request an AI summary" logo tiles (blog posts + footer; also the share bar's Ask AI menu) | `src/components/ai-summary-links.tsx`: always links the production domain |
 | Page chrome wrapper | `src/components/site-chrome.tsx` |
-| Search | `src/components/search-modal.tsx`, `src/lib/search-engine.ts`, `src/app/api/search/` |
+| Search | `src/components/search-modal.tsx` (header pop-up), `src/components/search/site-search.tsx` (`/search` page, filter chips), `src/lib/search-engine.ts`, `src/app/api/search/` (`?all=1` adds coffees and charities) |
 | JSON-LD | `src/lib/structured-data.ts` |
 | Post dates (one formatter, fixed time zone) | `src/lib/format-post-date.ts` |
 | Theme (light/dark via `.dark` class) | `src/components/theme-provider.tsx`, tokens in `src/app/globals.css` |
