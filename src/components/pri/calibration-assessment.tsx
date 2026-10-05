@@ -273,7 +273,7 @@ export function CalibrationAssessment() {
 
             <div className="mb-4 rounded-2xl border border-pri-cream/8 bg-pri-cream/4 p-6">
               <h3 className="mb-2 font-heading text-base text-pri-cream">Validation Metrics</h3>
-              <p className="mb-4 text-[.78rem] text-pri-cream/60">Monte Carlo simulation: {efficacyData.simulation.n_respondents.toLocaleString()} synthetic respondents</p>
+              <p className="mb-4 text-[.78rem] text-pri-cream/60">Monte Carlo simulation: {efficacyData.simulation.n_respondents.toLocaleString("en-US")} synthetic respondents</p>
               <div className="grid grid-cols-3 gap-3">
                 <div className="text-center">
                   <div className="text-xl font-black text-pri-purple-light">{efficacyData.classification_accuracy.forced_rank}%</div>

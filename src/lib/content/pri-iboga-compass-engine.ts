@@ -397,7 +397,7 @@ function checkFilters(facility: Facility, filters: HardFilters): { passes: boole
   }
 
   if (filters.maxBudget > 0 && facility.priceMin > filters.maxBudget) {
-    return { passes: false, reason: `Minimum price $${facility.priceMin.toLocaleString()} exceeds budget cap of $${filters.maxBudget.toLocaleString()}` };
+    return { passes: false, reason: `Minimum price $${facility.priceMin.toLocaleString("en-US")} exceeds budget cap of $${filters.maxBudget.toLocaleString("en-US")}` };
   }
 
   if (filters.maxDays > 0 && facility.durationDays[0] > filters.maxDays) {

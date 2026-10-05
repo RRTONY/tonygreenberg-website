@@ -152,7 +152,7 @@ export function CitiesExplorer({ cities, nationalStats }: { cities: CityData[]; 
       <section className="relative px-6 py-16">
         <div className="mx-auto grid max-w-6xl grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
           <StatPill label="Cities Scored" value={nationalStats.totalCities} />
-          <StatPill label="Shops Scored" value={nationalStats.totalShopsScored.toLocaleString()} />
+          <StatPill label="Shops Scored" value={nationalStats.totalShopsScored.toLocaleString("en-US")} />
           <StatPill label="Avg US Latte" value={`$${nationalStats.avgNationalLattePrice}`} />
           <StatPill label="Best Score" value={nationalStats.bestScoreNational} sub={nationalStats.bestShopNational} />
           <StatPill label="Worst Score" value={nationalStats.worstScoreNational} sub={nationalStats.worstShopNational} />

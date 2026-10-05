@@ -74,7 +74,7 @@ function ChainCard({ chain, expanded, onToggle }: { chain: ChainEntry; expanded:
             <span className={`rounded-full px-2 py-0.5 font-mono text-[0.65rem] ${TIER_TAG_CLASS[chain.tier]}`}>{chain.tier}-Tier</span>
             <span className="rounded-full bg-[#6F4E37]/5 px-2 py-0.5 font-mono text-[0.65rem] text-[#6B5B4F]">{TYPE_LABELS[chain.type]}</span>
             <span className="font-mono text-[0.62rem] text-[#6E6E6E]">
-              {chain.hq} · {chain.locations.toLocaleString()} locations · Est. {chain.founded}
+              {chain.hq} · {chain.locations.toLocaleString("en-US")} locations · Est. {chain.founded}
             </span>
           </div>
         </div>
