@@ -118,6 +118,7 @@ const STATIC_ROUTES = [
   "/peptide-watch",
   "/peyote-mescaline",
   "/pick-up-the-phone",
+  "/post-intervention",
   "/pri-calibration",
   "/pri-efficacy",
   "/price-tracker",
