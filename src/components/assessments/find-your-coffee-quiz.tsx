@@ -298,7 +298,7 @@ export function FindYourCoffeeQuiz() {
   if (phase === "landing") {
     return (
       <div className="relative isolate flex min-h-screen flex-col items-center justify-center overflow-hidden px-8 text-center font-sans">
-        <Image src={HERO_IMG} alt="" fill priority sizes="100vw" className="-z-20 object-cover object-[center_40%]" />
+        <Image src={HERO_IMG} alt="" fill fetchPriority="high" loading="eager" sizes="100vw" className="-z-20 object-cover object-[center_40%]" />
         <div
           aria-hidden="true"
           className="absolute inset-0 -z-10 bg-linear-to-b from-[#0A0A10]/50 via-[#0A0A10]/30 via-40% to-[#0A0A10]/70"

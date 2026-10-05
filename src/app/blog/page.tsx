@@ -18,10 +18,7 @@ export const metadata: Metadata = {
 
 type Post = Parameters<typeof HomeArchive>[0]["posts"][number];
 
-export default async function BlogPage({ searchParams }: PageProps<"/blog">) {
-  const params = await searchParams;
-  const theme = typeof params?.theme === "string" ? params.theme : undefined;
-
+export default async function BlogPage() {
   const posts = await sanityFetch<Post[]>({ query: allPostsForArchiveQuery, tags: ["post"] });
 
   return (
@@ -39,7 +36,7 @@ export default async function BlogPage({ searchParams }: PageProps<"/blog">) {
         </p>
       </div>
 
-      <HomeArchive posts={posts} initialTheme={theme} />
+      <HomeArchive posts={posts} eagerFirstCard />
       <NewsletterPopup />
     </div>
   );

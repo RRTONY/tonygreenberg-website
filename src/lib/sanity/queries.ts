@@ -166,6 +166,10 @@ export const postsByCategoryQuery = groq`
   }
 `;
 
+// A category page with fewer posts than this is too thin to be worth
+// indexing: noindexed (still followed) and left out of the sitemap.
+export const MIN_INDEXABLE_CATEGORY_POSTS = 3;
+
 export const postCountByCategoryQuery = groq`
   count(*[_type == "post" && category->slug.current == $categorySlug])
 `;

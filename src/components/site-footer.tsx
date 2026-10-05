@@ -35,7 +35,7 @@ export function SiteFooter() {
           target="_blank"
           rel="noopener noreferrer"
           className="flex size-11 items-center justify-center text-brand-gold transition-transform hover:scale-105"
-          aria-label="X"
+          aria-label="Tony Greenberg on X"
         >
           <FaXTwitter size={20} />
         </a>
@@ -44,7 +44,7 @@ export function SiteFooter() {
           target="_blank"
           rel="noopener noreferrer"
           className="flex size-11 items-center justify-center text-brand-gold transition-transform hover:scale-105"
-          aria-label="LinkedIn"
+          aria-label="Tony Greenberg on LinkedIn"
         >
           <FaLinkedin size={20} />
         </a>

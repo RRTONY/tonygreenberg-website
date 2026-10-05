@@ -37,6 +37,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/america-unbundled-field-guide" },
   openGraph: {
     type: "article",
+    siteName: "Tony Greenberg",
     title: "America, Unbundled | Independent Political Infrastructure",
     description:
       "A field guide to independent governance, civic accountability, decentralized decision-making, and the Independent National Convention 2026.",
@@ -195,7 +196,8 @@ export default function AmericaUnbundledFieldGuidePage() {
             src={HERO_IMG}
             alt="A person stands between an obsolete records room and a bright public gathering."
             fill
-            priority
+            fetchPriority="high"
+            loading="eager"
             sizes="(min-width: 1152px) 1104px, 100vw"
             className="object-cover"
           />

@@ -148,7 +148,7 @@ export default function WalkThroughPage() {
   return (
     <div>
       <div className="relative h-72 overflow-hidden sm:h-96">
-        <Image src={HERO_IMAGE} alt="Tony Greenberg" fill className="object-cover" priority />
+        <Image src={HERO_IMAGE} alt="Tony Greenberg" fill className="object-cover" fetchPriority="high" loading="eager" />
       </div>
 
       <div className="mx-auto max-w-3xl px-6 py-10">

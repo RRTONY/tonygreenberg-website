@@ -97,7 +97,7 @@ export default function FindMyPage() {
     <div className="relative z-1 min-h-screen">
       <div className="relative z-1 h-50 overflow-hidden">
         {/* Live (2026-10-02) shows the photo undimmed on the plain page background. */}
-        <Image src={HERO_IMG} alt="" fill priority sizes="100vw" className="object-cover object-[center_30%]" />
+        <Image src={HERO_IMG} alt="" fill fetchPriority="high" loading="eager" sizes="100vw" className="object-cover object-[center_30%]" />
       </div>
 
       <div className="relative z-10 mx-auto -mt-15 max-w-135 px-6 pb-24 text-center">

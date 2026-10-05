@@ -83,7 +83,7 @@ export default async function AttentionTheftPage({ searchParams }: PageProps<"/a
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
-          <Image src={IMG.hero} alt="" fill sizes="100vw" priority className="object-cover brightness-[0.85] saturate-[1.2] contrast-[1.05]" />
+          <Image src={IMG.hero} alt="" fill sizes="100vw" fetchPriority="high" loading="eager" className="object-cover brightness-[0.85] saturate-[1.2] contrast-[1.05]" />
           <div className="absolute inset-0 bg-linear-to-b from-background/40 via-background/15 to-background/95" />
         </div>
         <div className="relative z-10 mx-auto max-w-5xl px-5 py-24 md:py-36">

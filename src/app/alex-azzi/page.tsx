@@ -122,6 +122,7 @@ export const metadata: Metadata = {
       "A documented VerifiedTribe community protection report: $137,000+ in unpaid invoices and unfulfilled equity agreements over 6 years.",
     images: [IMG.ogImage],
     type: "article",
+    siteName: "Tony Greenberg",
   },
 };
 

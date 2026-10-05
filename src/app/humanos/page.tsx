@@ -59,7 +59,8 @@ export default function HumanosHome() {
           src={HERO_IMG}
           alt="Hand breaking through glass with golden flowers"
           fill
-          priority
+          fetchPriority="high"
+          loading="eager"
           sizes="100vw"
           className="object-cover object-top"
         />
@@ -114,6 +115,7 @@ export default function HumanosHome() {
               alt="Maximizer vs Satisficer — the two operating systems"
               width={1200}
               height={675}
+              sizes="(max-width: 768px) 100vw, 768px"
               className="w-full"
             />
           </div>

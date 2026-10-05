@@ -73,7 +73,7 @@ export default async function SearchPage({ searchParams }: PageProps<"/search">)
           {results.length > 0 ? (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {results.map((post) => (
-                <PostCard key={post._id} post={post} />
+                <PostCard key={post._id} post={post} headingLevel="h2" />
               ))}
             </div>
           ) : (

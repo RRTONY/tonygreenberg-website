@@ -182,7 +182,7 @@ export default function LivingDeclarationPage() {
   return (
     <div>
       <div className="relative isolate overflow-hidden bg-[#0A0A10] px-6 py-28 text-center sm:px-10 sm:py-36">
-        <Image src={HERO_IMG} alt="" fill priority sizes="100vw" className="-z-20 object-cover brightness-35 saturate-80" />
+        <Image src={HERO_IMG} alt="" fill fetchPriority="high" loading="eager" sizes="100vw" className="-z-20 object-cover brightness-35 saturate-80" />
         <div
           aria-hidden="true"
           className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,rgba(139,105,20,0.15)_0%,transparent_70%)]"

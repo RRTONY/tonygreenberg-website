@@ -451,7 +451,8 @@ export function PsychedelicReadinessIndex() {
             alt=""
             fill
             sizes="100vw"
-            priority
+            fetchPriority="high"
+            loading="eager"
             className="object-cover object-[center_35%] brightness-85 contrast-110 saturate-120"
           />
           <div className="absolute inset-0 bg-linear-to-br from-pri-cream/85 via-pri-cream/50 to-pri-cream/20" />

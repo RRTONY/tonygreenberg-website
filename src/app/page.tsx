@@ -36,24 +36,36 @@ export const metadata: Metadata = {
     "regenerative capital",
   ],
   alternates: { canonical: "/" },
+  // A page-level openGraph replaces the layout's whole openGraph object, so
+  // type and siteName are repeated here.
   openGraph: {
+    type: "website",
+    siteName: "Tony Greenberg",
     title: "Tony Greenberg | Strategist, Author & Systems Thinker",
     description:
       "Tony Greenberg — strategist, author, and systems thinker. 25 years exposing broken systems and building replacements. Essays on business, AI, trust, and culture.",
     url: "/",
+    // Cropped to the standard 1200x630 social card size and served as JPEG
+    // (the source is 1200x670 WebP, which some link previews crop or skip).
     images: [
-      "https://cdn.sanity.io/images/a3q1cyqs/production/4b0c5b229fd4f51c9134a30943d369cadbceab70-1200x670.webp",
+      {
+        url: "https://cdn.sanity.io/images/a3q1cyqs/production/4b0c5b229fd4f51c9134a30943d369cadbceab70-1200x670.webp?w=1200&h=630&fit=crop&fm=jpg",
+        width: 1200,
+        height: 630,
+        alt: "Kintsugi bowl mended with gold, on a windowsill at sunset",
+      },
     ],
   },
 };
 
 type Post = Parameters<typeof HomeArchive>[0]["posts"][number];
 
-export default async function Home({ searchParams }: PageProps<"/">) {
-  const params = await searchParams;
-  const theme = typeof params?.theme === "string" ? params.theme : undefined;
-
+export default async function Home() {
   const posts = await sanityFetch<Post[]>({ query: allPostsForArchiveQuery, tags: ["post"] });
+  const categoryCounts: Record<string, number> = {};
+  for (const p of posts) {
+    if (p.category) categoryCounts[p.category.slug] = (categoryCounts[p.category.slug] ?? 0) + 1;
+  }
 
   return (
     <div>
@@ -117,13 +129,13 @@ export default async function Home({ searchParams }: PageProps<"/">) {
         </p>
       </div>
 
-      <CoreThemes />
+      <CoreThemes categoryCounts={categoryCounts} />
 
       <BrewSoulHomeSection />
 
       <EcosystemCTA essayCount={posts.length} />
 
-      <HomeArchive posts={posts} initialTheme={theme} />
+      <HomeArchive posts={posts} />
       <NewsletterPopup />
     </div>
   );

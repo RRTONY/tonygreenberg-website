@@ -38,6 +38,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/america-unbundled" },
   openGraph: {
     type: "article",
+    siteName: "Tony Greenberg",
     title: TITLE,
     description: DESCRIPTION,
     url: "/america-unbundled",
@@ -304,7 +305,8 @@ export default function AmericaUnbundledPage() {
             src={HERO_IMG}
             alt="A person stands between an obsolete records room and a bright public gathering."
             fill
-            priority
+            fetchPriority="high"
+            loading="eager"
             sizes="(min-width: 1152px) 1104px, 100vw"
             className="object-cover"
           />

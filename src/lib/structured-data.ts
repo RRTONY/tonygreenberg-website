@@ -2,6 +2,9 @@ import { sanityFetch } from "@/lib/sanity/client";
 import { urlFor } from "@/lib/sanity/image";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tonygreenberg.com";
+// Shared id so every post's author points at the one site-wide Person entity
+// (layout.tsx) instead of an unconnected copy.
+const PERSON_ID = `${siteUrl}/#person`;
 
 // Real values ported from the live site's JSON-LD (fetched 2026-08-22,
 // before this content moves off Manus) — not invented.
@@ -32,6 +35,7 @@ export async function getPersonJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "Person",
+    "@id": PERSON_ID,
     name: "Tony Greenberg",
     url: siteUrl,
     jobTitle: "Founder & CEO",
@@ -82,17 +86,21 @@ export function getArticleJsonLd(post: {
   heroImage?: Parameters<typeof urlFor>[0];
   authorName?: string;
   authorAvatar?: Parameters<typeof urlFor>[0];
+  section?: string;
 }) {
   return {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
     headline: post.title,
     description: post.excerpt,
     image: post.heroImage ? [urlFor(post.heroImage).width(1200).height(630).url()] : undefined,
+    articleSection: post.section,
     datePublished: post.publishedAt,
     dateModified: post.updatedAt || post.publishedAt,
     author: {
       "@type": "Person",
+      // Only Tony's posts are the site-wide Person; a guest author stays separate.
+      ...(!post.authorName || post.authorName === "Tony Greenberg" ? { "@id": PERSON_ID } : {}),
       name: post.authorName || "Tony Greenberg",
       url: `${siteUrl}/about`,
       image: post.authorAvatar ? urlFor(post.authorAvatar).width(400).url() : undefined,
@@ -105,5 +113,30 @@ export function getArticleJsonLd(post: {
       logo: { "@type": "ImageObject", url: `${siteUrl}/icon` },
     },
     mainEntityOfPage: { "@type": "WebPage", "@id": `${siteUrl}/blog/${post.slug.current}` },
+  };
+}
+
+export function getPostBreadcrumbJsonLd(post: {
+  title: string;
+  slug: { current: string };
+  category?: { title: string; slug: { current: string } };
+}) {
+  const crumbs = [
+    { name: "Home", url: siteUrl },
+    { name: "Essays", url: `${siteUrl}/blog` },
+    ...(post.category
+      ? [{ name: post.category.title, url: `${siteUrl}/blog/category/${post.category.slug.current}` }]
+      : []),
+    { name: post.title, url: `${siteUrl}/blog/${post.slug.current}` },
+  ];
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: crumbs.map((c, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: c.name,
+      item: c.url,
+    })),
   };
 }

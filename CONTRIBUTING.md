@@ -109,6 +109,11 @@ incidents: [`docs/ai/`](docs/ai/README.md).
 17. **Optional form fields with a Yup validator must accept an empty string** (e.g.
     `.url().nullable()` alone rejects `""`, which is what an untouched input sends). Test the empty
     case, not just a filled-in one.
+18. **Arrows and symbols in buttons and links are icons, not text characters.** Use lucide-react
+    (`<ArrowRight aria-hidden="true" className="size-3.5" />`, `ArrowLeft`, `ChevronRight`...) inside
+    an `inline-flex items-center gap-1.5` element, never a typed `→`, `←`, `⟶` or `»` in new UI.
+    The owner asked for this (2026-10-06). Arrows inside Tony's copy (essay text, data strings) are
+    content: leave them unless asked.
 
 ## Next.js (App Router, v16)
 

@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { urlFor } from "@/lib/sanity/image";
 import { DEFAULT_OG_IMAGE } from "@/lib/content/default-image";
+import { formatPostDate } from "@/lib/format-post-date";
 
 type PostCardData = {
   _id: string;
@@ -15,11 +16,21 @@ type PostCardData = {
   category?: { title: string; slug: { current: string } };
 };
 
-export function PostCard({ post }: { post: PostCardData }) {
-  const parsedDate = new Date(post.publishedAt);
-  const date = Number.isNaN(parsedDate.getTime())
-    ? null
-    : parsedDate.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+// `headingLevel`: h3 under a section heading (the archive, "Read next"); h2
+// only where the cards sit directly under the page's H1 (category, search).
+// `eager`: set on the first card of a list, which is often the page's
+// largest image (LCP), so it isn't lazy-loaded.
+export function PostCard({
+  post,
+  headingLevel = "h3",
+  eager = false,
+}: {
+  post: PostCardData;
+  headingLevel?: "h2" | "h3";
+  eager?: boolean;
+}) {
+  const Heading = headingLevel;
+  const date = formatPostDate(post.publishedAt);
 
   return (
     <article className="group flex flex-col overflow-hidden rounded-lg border border-border bg-card transition-shadow hover:shadow-lg">
@@ -35,9 +46,10 @@ export function PostCard({ post }: { post: PostCardData }) {
         {post.heroImage ? (
           <Image
             src={urlFor(post.heroImage).width(800).height(450).url()}
-            alt={post.title}
+            alt=""
             fill
             sizes="(max-width: 768px) 100vw, 400px"
+            {...(eager ? { fetchPriority: "high", loading: "eager" } as const : {})}
             className="object-cover transition-transform duration-300 group-hover:scale-105"
           />
         ) : (
@@ -46,6 +58,7 @@ export function PostCard({ post }: { post: PostCardData }) {
             alt=""
             fill
             sizes="(max-width: 768px) 100vw, 400px"
+            {...(eager ? { fetchPriority: "high", loading: "eager" } as const : {})}
             className="object-cover transition-transform duration-300 group-hover:scale-105"
           />
         )}
@@ -59,11 +72,11 @@ export function PostCard({ post }: { post: PostCardData }) {
             {post.category.title}
           </Link>
         )}
-        <h2 className="font-heading text-lg font-bold leading-snug text-foreground">
+        <Heading className="font-heading text-lg font-bold leading-snug text-foreground">
           <Link href={`/blog/${post.slug.current}`} className="hover:text-brand-gold">
             {post.title}
           </Link>
-        </h2>
+        </Heading>
         {post.subtitle && (
           <p className="mt-1.5 line-clamp-2 text-sm text-muted-foreground">{post.subtitle}</p>
         )}

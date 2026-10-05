@@ -203,7 +203,7 @@ export function SiteHeader() {
                 href={s.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={s.label}
+                aria-label={`Tony Greenberg on ${s.label}`}
                 className="text-[#6b6b6b] transition-colors hover:text-brand-gold dark:text-[#aaa] dark:hover:text-brand-gold-light"
               >
                 {Icon && <Icon className="size-3.5" />}

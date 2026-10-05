@@ -48,6 +48,7 @@ how to handle a request is in [`TASK_GUIDE.md`](TASK_GUIDE.md). Last checked 202
 | Page chrome wrapper | `src/components/site-chrome.tsx` |
 | Search | `src/components/search-modal.tsx`, `src/lib/search-engine.ts`, `src/app/api/search/` |
 | JSON-LD | `src/lib/structured-data.ts` |
+| Post dates (one formatter, fixed time zone) | `src/lib/format-post-date.ts` |
 | Theme (light/dark via `.dark` class) | `src/components/theme-provider.tsx`, tokens in `src/app/globals.css` |
 | Redirects | `next.config.ts` `redirects()` |
 

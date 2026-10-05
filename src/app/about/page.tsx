@@ -35,13 +35,14 @@ export default function AboutPage() {
   return (
     <div>
       <div className="relative flex min-h-[70vh] items-center overflow-hidden">
-        <Image src={HERO_IMAGE} alt="" fill priority className="object-cover brightness-[0.35]" />
+        <Image src={HERO_IMAGE} alt="" fill fetchPriority="high" loading="eager" className="object-cover brightness-[0.35]" />
         <div className="relative z-10 mx-auto flex max-w-3xl flex-wrap items-center gap-10 px-6 py-16 sm:px-10">
           <Image
             src={HEADSHOT}
             alt="Tony Greenberg"
             width={200}
             height={200}
+            sizes="(min-width: 640px) 208px, 160px"
             className="size-40 shrink-0 rounded-md border-2 border-brand-gold-light/40 object-cover object-top sm:size-52"
           />
           <div className="min-w-70 flex-1">

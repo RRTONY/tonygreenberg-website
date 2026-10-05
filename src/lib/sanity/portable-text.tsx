@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { PortableText, type PortableTextBlock, type PortableTextComponents } from "@portabletext/react";
 import { urlFor } from "./image";
 
@@ -7,6 +8,25 @@ function dimsFromRef(ref: string): { width: number; height: number } {
   const match = ref?.match(/-(\d+)x(\d+)-/);
   if (match) return { width: Number(match[1]), height: Number(match[2]) };
   return { width: 1200, height: 800 };
+}
+
+// Imported headings often open with a decorative glyph ("◆ What the Fine
+// Print Says", "✦ GemSpark of the Day"). Keep it visible, but hide it from
+// screen readers so the heading is announced (and outlined) by its words.
+const HEADING_ORNAMENT = /^\s*([◆◇✦✧✴⟶→•★☆]+)\s*/;
+function hideHeadingOrnament(children: ReactNode) {
+  const nodes = Array.isArray(children) ? children : [children];
+  const first = nodes[0];
+  if (typeof first !== "string") return children;
+  const match = first.match(HEADING_ORNAMENT);
+  if (!match) return children;
+  return [
+    <span key="ornament" aria-hidden="true">
+      {match[1]}{" "}
+    </span>,
+    first.slice(match[0].length),
+    ...nodes.slice(1),
+  ];
 }
 
 // The essay drop cap (globals.css) goes on the first real paragraph. These
@@ -91,9 +111,9 @@ export const portableTextComponents: PortableTextComponents = {
     },
   },
   block: {
-    h2: ({ children }) => <h2 className="mt-10 mb-4 font-heading text-2xl font-bold">{children}</h2>,
-    h3: ({ children }) => <h3 className="mt-8 mb-3 font-heading text-xl font-bold">{children}</h3>,
-    h4: ({ children }) => <h4 className="mt-6 mb-2 font-heading text-lg font-semibold">{children}</h4>,
+    h2: ({ children }) => <h2 className="mt-10 mb-4 font-heading text-2xl font-bold">{hideHeadingOrnament(children)}</h2>,
+    h3: ({ children }) => <h3 className="mt-8 mb-3 font-heading text-xl font-bold">{hideHeadingOrnament(children)}</h3>,
+    h4: ({ children }) => <h4 className="mt-6 mb-2 font-heading text-lg font-semibold">{hideHeadingOrnament(children)}</h4>,
     normal: ({ children, value }) => (
       <p className="mb-5 leading-relaxed" data-no-drop-cap={opensWithoutLetter(value) || undefined}>
         {children}

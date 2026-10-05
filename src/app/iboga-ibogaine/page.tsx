@@ -198,7 +198,7 @@ export default function IbogaIbogainePage() {
     <div className="min-h-screen bg-pri-cream font-body">
       {/* ── HERO ── */}
       <section className="relative flex min-h-[85vh] flex-col justify-end overflow-hidden">
-        <Image src={IBOGA_IMAGES.hero} alt="Bwiti ceremony with Tabernanthe iboga root bark" fill sizes="100vw" className="object-cover brightness-50 contrast-110 saturate-110" />
+        <Image src={IBOGA_IMAGES.hero} alt="Bwiti ceremony with Tabernanthe iboga root bark" fill sizes="100vw" fetchPriority="high" loading="eager" className="object-cover brightness-50 contrast-110 saturate-110" />
         <div className="absolute inset-0 bg-linear-to-t from-[#0A0806]/97 via-[#0A0806]/70 to-[#0A0806]/15" />
         <div className="relative z-10 mx-auto w-full max-w-225 px-6 pb-16">
           <Link href="/psychedelic-readiness-index" className="mb-6 inline-flex items-center gap-1.5 text-sm font-semibold tracking-[0.08em] text-[#D4B96A] uppercase">
@@ -460,7 +460,7 @@ export default function IbogaIbogainePage() {
           <table className="w-full min-w-162.5 border-collapse">
             <thead>
               <tr>
-                <th className={thClass}></th>
+                <th className={thClass}><span className="sr-only">Icon</span></th>
                 <th className={thClass}>Dimension</th>
                 <th className={thClass}>Iboga Threshold</th>
                 <th className={thClass}>Ibogaine Threshold</th>
@@ -495,7 +495,7 @@ export default function IbogaIbogainePage() {
           <table className="w-full min-w-187.5 border-collapse">
             <thead>
               <tr>
-                <th className={thDarkClass}></th>
+                <th className={thDarkClass}><span className="sr-only">Icon</span></th>
                 <th className={thDarkClass}>Medicine</th>
                 <th className={thDarkClass}>Addiction</th>
                 <th className={thDarkClass}>Depression</th>

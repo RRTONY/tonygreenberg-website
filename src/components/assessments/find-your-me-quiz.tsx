@@ -165,7 +165,7 @@ export function FindYourMeQuiz({ articleTitles }: { articleTitles: Record<string
         <ThemedBackground theme="selfportrait" />
 
         <div className="relative isolate z-1 flex min-h-screen flex-col items-center justify-center overflow-hidden bg-[#0A0A10] px-6 py-24 text-center text-[#E8E4DC]">
-          <Image src={HERO_IMG} alt="" fill priority sizes="100vw" className="-z-20 object-cover object-[center_40%] brightness-55 saturate-120" />
+          <Image src={HERO_IMG} alt="" fill fetchPriority="high" loading="eager" sizes="100vw" className="-z-20 object-cover object-[center_40%] brightness-55 saturate-120" />
           <div
             aria-hidden="true"
             className="absolute inset-0 -z-10 bg-linear-to-b from-[#0A0A10]/40 via-[#0A0A10]/20 via-40% to-[#0A0A10]/95"

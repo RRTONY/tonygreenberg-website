@@ -26,7 +26,7 @@ const STATS = [
 export function BrewSoulHomeSection() {
   return (
     <section className="relative isolate overflow-hidden bg-[#0D0B0A] px-6 py-24 text-center sm:py-28">
-      <Image src={HERO_IMAGE} alt="" fill sizes="100vw" className="-z-30 object-cover opacity-45" />
+      <Image src={HERO_IMAGE} alt="Steaming glass cup of coffee surrounded by coffee beans" fill sizes="100vw" className="-z-30 object-cover opacity-45" />
       <div className="absolute inset-0 -z-20 bg-[radial-gradient(ellipse_at_25%_30%,rgba(196,132,29,0.15)_0%,transparent_55%),radial-gradient(ellipse_at_75%_70%,rgba(111,78,55,0.12)_0%,transparent_50%),radial-gradient(ellipse_at_50%_50%,rgba(61,139,110,0.06)_0%,transparent_60%)]" />
       <div aria-hidden="true" className="absolute inset-0 -z-20 overflow-hidden opacity-60">
         <div className="absolute -inset-1/2 animate-jewel-aurora-rotate bg-[conic-gradient(from_0deg_at_50%_50%,#C4841D15,#6F4E3715,#3D8B6E15,#C4841D15,#D4B96A15,#C4841D15)] blur-[60px]" />
