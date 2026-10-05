@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { GrantStudyQuiz } from "@/components/assessments/grant-study-quiz";
+import { GrantStudyQuiz } from "@/components/assessments/grant-study-quiz/grant-study-quiz";
 
 export const metadata: Metadata = {
   title: "Grant Study Assessment",
