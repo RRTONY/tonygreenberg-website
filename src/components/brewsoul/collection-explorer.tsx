@@ -2,6 +2,7 @@
 
 import { useCallback, useSyncExternalStore } from "react";
 import Link from "next/link";
+import { Heart } from "lucide-react";
 import { computeToolScores } from "@/lib/content/brewsoul-tool-scores";
 import type { CatalogItem } from "@/lib/intelligence-engine/types";
 
@@ -78,8 +79,8 @@ export function CollectionExplorer({ coffees }: { coffees: CatalogItem[] }) {
                   <Link href={`/brewsoul/coffee/${c.id}`}>
                     <h3 className="font-heading text-base font-bold text-[#2C1810]">{c.name}</h3>
                   </Link>
-                  <button onClick={() => toggle(c.id)} className="text-lg text-[#836311]">
-                    ♥
+                  <button onClick={() => toggle(c.id)} aria-label={`Remove ${c.name} from your collection`} className="text-[#836311]">
+                    <Heart aria-hidden="true" className="size-4.5 fill-current" />
                   </button>
                 </div>
                 <div className="font-mono text-[0.68rem] text-[#6B5B4F]">

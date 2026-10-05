@@ -3,6 +3,13 @@
  * (coffee, mezcal, sake, tea, wine, etc.)
  * One config + data file per topic drives all pages.
  */
+import type { LucideIcon } from "lucide-react";
+
+/** A tier badge as icons: `count` copies of `icon` (e.g. 3 coffee cups, or 1 crown). */
+export interface TierIcon {
+  icon: LucideIcon;
+  count: number;
+}
 
 /* ─── Scoring ─── */
 export interface ScoringWeights {
@@ -75,7 +82,7 @@ export interface ComputedScores {
   scarcity: number;
   wow: number;
   overall: number;
-  tier: 1 | 2 | 3 | 4; // ☕ / ☕☕ / ☕☕☕ / 👑
+  tier: 1 | 2 | 3 | 4; // 1-3 coffee cups, 4 = crown (see tierIcon in scoring.ts)
   freshness: "green" | "yellow" | "red" | "unknown";
 }
 
@@ -219,7 +226,7 @@ export interface QuizQuestion {
   question: string;
   subtext?: string;
   type: "single" | "multi" | "slider" | "palate-grid";
-  options?: { label: string; value: string; emoji?: string; tag?: string }[];
+  options?: { label: string; value: string; icon?: LucideIcon; tag?: string }[];
   sliderMin?: number;
   sliderMax?: number;
   sliderLabels?: Record<number, string>;
@@ -301,7 +308,7 @@ export interface SiteConfig {
   };
   scoringWeights: ScoringWeights;
   flavorAxes: FlavorAxis[];
-  tierLabels: [string, string, string, string]; // e.g. ["☕","☕☕","☕☕☕","👑"]
+  tierIcons: [TierIcon, TierIcon, TierIcon, TierIcon]; // e.g. 1-3 Coffee icons, then 1 Crown
   tierRanges: [number, number, number, number]; // e.g. [82, 86, 90, 92]
   shameCategories: string[];
   voiceRules: string;

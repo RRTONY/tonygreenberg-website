@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { AlarmClock, Coffee, Leaf, Moon, Sunrise } from "lucide-react";
 import { HealthRisks } from "@/components/brewsoul/health-risks";
 import { HealthCompounds } from "@/components/brewsoul/health-compounds";
 import { NextSteps } from "@/components/brewsoul/next-steps";
@@ -74,12 +75,12 @@ const MYCOTOXINS = [
 ];
 
 const TIMING = [
-  { time: "5:00-7:00 AM", label: "Wake", advice: "Don't drink coffee yet. Cortisol is naturally peaking (CAR). Coffee amplifies cortisol unnecessarily and builds tolerance faster.", icon: "🌅" },
-  { time: "7:30-9:30 AM", label: "Optimal Window 1", advice: "Cortisol dips. This is the ideal first cup. Maximum alertness benefit, minimum cortisol interference.", icon: "☕" },
-  { time: "9:30-11:30 AM", label: "Cortisol Dip 2", advice: "Second cup if needed. Still within the safe window for sleep. CYP1A2 fast metabolizers can push to 11:30.", icon: "☕" },
-  { time: "12:00-2:00 PM", label: "Last Call", advice: "Absolute last caffeinated cup for slow metabolizers. Fast metabolizers can push to 2pm. After this, switch to decaf.", icon: "⏰" },
-  { time: "2:00-5:00 PM", label: "Decaf Only", advice: "Switch to Swiss Water Process decaf. You keep 70-80% of antioxidants, zero sleep disruption. Biodynamic SWP decaf is the optimal afternoon choice.", icon: "🫖" },
-  { time: "5:00 PM+", label: "No Coffee", advice: "Even decaf has 2-7mg caffeine. Herbal tea or water only. Adenosine needs to accumulate for quality sleep.", icon: "💤" },
+  { time: "5:00-7:00 AM", label: "Wake", advice: "Don't drink coffee yet. Cortisol is naturally peaking (CAR). Coffee amplifies cortisol unnecessarily and builds tolerance faster.", icon: Sunrise },
+  { time: "7:30-9:30 AM", label: "Optimal Window 1", advice: "Cortisol dips. This is the ideal first cup. Maximum alertness benefit, minimum cortisol interference.", icon: Coffee },
+  { time: "9:30-11:30 AM", label: "Cortisol Dip 2", advice: "Second cup if needed. Still within the safe window for sleep. CYP1A2 fast metabolizers can push to 11:30.", icon: Coffee },
+  { time: "12:00-2:00 PM", label: "Last Call", advice: "Absolute last caffeinated cup for slow metabolizers. Fast metabolizers can push to 2pm. After this, switch to decaf.", icon: AlarmClock },
+  { time: "2:00-5:00 PM", label: "Decaf Only", advice: "Switch to Swiss Water Process decaf. You keep 70-80% of antioxidants, zero sleep disruption. Biodynamic SWP decaf is the optimal afternoon choice.", icon: Leaf },
+  { time: "5:00 PM+", label: "No Coffee", advice: "Even decaf has 2-7mg caffeine. Herbal tea or water only. Adenosine needs to accumulate for quality sleep.", icon: Moon },
 ];
 
 const PROTOCOL = [
@@ -223,7 +224,9 @@ export default function BrewSoulHealthPage() {
           <div className="my-7 flex flex-col gap-3">
             {TIMING.map((t) => (
               <div key={t.time} className="flex items-start gap-4 rounded-lg border border-[#5d3a28]/8 bg-white p-5">
-                <div className="w-10 shrink-0 text-center text-[28px]">{t.icon}</div>
+                <div className="flex w-10 shrink-0 justify-center">
+                  <t.icon aria-hidden="true" className="size-7 text-[#836311]" />
+                </div>
                 <div className="flex-1">
                   <div className="mb-1 flex flex-wrap items-center gap-3">
                     <div className="font-mono text-[13px] font-semibold text-[#80541c]">{t.time}</div>

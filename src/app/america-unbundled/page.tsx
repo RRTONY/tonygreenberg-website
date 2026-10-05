@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowDown, ArrowRight, ArrowUpRight, Sparkle } from "lucide-react";
 import { ShareRail } from "@/components/america-unbundled/share-rail";
 
 // "AI Does Not Have a Candidate" (Part One of Tony's two-part America,
@@ -252,14 +253,14 @@ export default function AmericaUnbundledPage() {
           aria-label="America, Unbundled series"
           className="flex flex-wrap items-start justify-between gap-3 border-b-2 border-foreground pb-4 text-xs font-bold tracking-[0.12em] uppercase"
         >
-          <div>
-            Tony Greenberg <span className="text-brand-gold">✦</span> America, Unbundled
+          <div className="flex items-center gap-1.5">
+            Tony Greenberg <Sparkle aria-hidden="true" className="size-3 fill-current text-brand-gold" /> America, Unbundled
           </div>
           <Link
             href="/america-unbundled-field-guide"
-            className="text-[#5b3ca8] hover:underline dark:text-[#b3a1ec]"
+            className="inline-flex items-center gap-1.5 text-[#5b3ca8] hover:underline dark:text-[#b3a1ec]"
           >
-            02 · Continue to the field guide ↗
+            02 · Continue to the field guide <ArrowUpRight aria-hidden="true" className="size-3.5" />
           </Link>
         </nav>
 
@@ -336,9 +337,9 @@ export default function AmericaUnbundledPage() {
           </p>
           <a
             href="#argument"
-            className="inline-flex min-h-11 items-center self-start border-b border-foreground text-xs font-bold tracking-[0.08em] uppercase hover:text-[#5b3ca8] md:self-end dark:hover:text-[#b3a1ec]"
+            className="inline-flex min-h-11 items-center gap-1.5 self-start border-b border-foreground text-xs font-bold tracking-[0.08em] uppercase hover:text-[#5b3ca8] md:self-end dark:hover:text-[#b3a1ec]"
           >
-            Stay with the question ↓
+            Stay with the question <ArrowDown aria-hidden="true" className="size-3.5" />
           </a>
         </aside>
 
@@ -473,9 +474,7 @@ export default function AmericaUnbundledPage() {
                   <span className="block">Compress the country.</span>
                 </strong>
               </div>
-              <b aria-hidden className="text-2xl font-normal text-[#5b3ca8] dark:text-[#b3a1ec]">
-                →
-              </b>
+              <ArrowRight aria-hidden="true" className="size-6 text-[#5b3ca8] dark:text-[#b3a1ec]" />
               <div>
                 <small className="block font-sans text-[11px] font-bold tracking-[0.12em] text-brand-gold uppercase">
                   2026
@@ -541,7 +540,10 @@ export default function AmericaUnbundledPage() {
                 Authority has to stay visible, contestable, and correctable. Before you ask for labor, money, reputation,
                 or a vote, make power legible.{" "}
                 <ExternalLink href="https://wulfkaal.com/publications/">
-                  <strong>Read Wulf Kaal’s published work →</strong>
+                  <strong>
+                    Read Wulf Kaal’s published work{" "}
+                    <ArrowRight aria-hidden="true" className="inline size-4 align-text-bottom" />
+                  </strong>
                 </ExternalLink>
               </p>
               <div className="mt-6 grid grid-cols-2 gap-4 border-y border-border py-4 font-sans lg:grid-cols-4">
@@ -639,7 +641,10 @@ export default function AmericaUnbundledPage() {
                 href="/america-unbundled-field-guide#questions"
                 className="text-[#5b3ca8] underline underline-offset-2 hover:text-[#4b2a8d] dark:text-[#b3a1ec] dark:hover:text-[#cfc2f5]"
               >
-                <strong>Continue to the ten independence questions →</strong>
+                <strong>
+                  Continue to the ten independence questions{" "}
+                  <ArrowRight aria-hidden="true" className="inline size-4 align-text-bottom" />
+                </strong>
               </Link>
             </p>
 
@@ -772,9 +777,9 @@ export default function AmericaUnbundledPage() {
           <span>Part One · AI Does Not Have a Candidate</span>
           <Link
             href="/america-unbundled-field-guide"
-            className="inline-flex min-h-11 items-center underline underline-offset-2 hover:text-foreground sm:min-h-0"
+            className="inline-flex min-h-11 items-center gap-1.5 underline underline-offset-2 hover:text-foreground sm:min-h-0"
           >
-            Continue to Part Two: America, Unbundled →
+            Continue to Part Two: America, Unbundled <ArrowRight aria-hidden="true" className="size-3.5" />
           </Link>
         </div>
       </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { ArrowRight, Check, Link2 } from "lucide-react";
 
 interface QA {
   num: number;
@@ -154,7 +155,7 @@ function QABlock({ qa, isOpen, toggle }: { qa: QA; isOpen: boolean; toggle: () =
               <strong className="mb-1.5 block font-mono text-[11px] tracking-[0.1em] text-[#8b4c2a]">Sources</strong>
               {qa.sources.map((s) => (
                 <div key={s.url} className="relative my-1 pl-4 text-[13px]">
-                  <span className="absolute left-0 font-bold text-[#8b4c2a]">→</span>
+                  <ArrowRight aria-hidden="true" className="absolute top-0.5 left-0 size-3 text-[#8b4c2a]" />
                   <a href={s.url} target="_blank" rel="noopener noreferrer" className="text-[#2d3a24]">
                     {s.label}
                   </a>
@@ -224,9 +225,17 @@ export function ShareRow() {
           setCopied(true);
           setTimeout(() => setCopied(false), 2000);
         }}
-        className="rounded-md border border-[#D4AF37]/25 px-4 py-2 font-mono text-xs tracking-wide text-[#2d1810]"
+        className="inline-flex items-center gap-1.5 rounded-md border border-[#D4AF37]/25 px-4 py-2 font-mono text-xs tracking-wide text-[#2d1810]"
       >
-        {copied ? "✓ Copied!" : "🔗 Copy Link"}
+        {copied ? (
+          <>
+            <Check aria-hidden="true" className="size-3.5" /> Copied!
+          </>
+        ) : (
+          <>
+            <Link2 aria-hidden="true" className="size-3.5" /> Copy Link
+          </>
+        )}
       </button>
     </div>
   );

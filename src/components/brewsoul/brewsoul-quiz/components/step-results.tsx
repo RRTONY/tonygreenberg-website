@@ -4,7 +4,8 @@ import { useMemo } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { BREWSOUL_COFFEES } from "@/lib/content/brewsoul-coffees";
-import { computeQPR, computeTier, tierEmoji } from "@/lib/intelligence-engine/scoring";
+import { computeQPR, computeTier } from "@/lib/intelligence-engine/scoring";
+import { TierIcons } from "@/components/brewsoul/coffee-card";
 import type { CatalogItem } from "@/lib/intelligence-engine/types";
 import { quizData } from "../data/brewsoul-quiz.data";
 import type { StepProps } from "../brewsoul-quiz";
@@ -70,7 +71,7 @@ export function StepResults({ quiz }: StepProps) {
               <div className="shrink-0 text-right">
                 <div className="font-mono text-sm font-bold text-[#3B6548]">{Math.round((match / 55) * 100)}% match</div>
                 <div className="font-mono text-[0.68rem] text-[#6E6E6E]">
-                  QPR {qpr} · {tierEmoji(tier)} · ${coffee.priceUsd}
+                  QPR {qpr} · <TierIcons tier={tier} /> · ${coffee.priceUsd}
                 </div>
               </div>
             </Link>

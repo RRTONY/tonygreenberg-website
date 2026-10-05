@@ -2,7 +2,8 @@
  * Intelligence Engine — Scoring Engine
  * Computes QPR, Availability, Scarcity, Wow, Overall, Tier, Freshness
  */
-import type { CatalogItem, ComputedScores, ScoringWeights } from "./types";
+import { Coffee, Crown } from "lucide-react";
+import type { CatalogItem, ComputedScores, ScoringWeights, TierIcon } from "./types";
 
 function clamp(v: number, min = 0, max = 100) {
   return Math.max(min, Math.min(max, v));
@@ -101,8 +102,16 @@ export function scoreAll(items: CatalogItem[], weights: ScoringWeights): Catalog
   });
 }
 
-export function tierEmoji(tier: 1 | 2 | 3 | 4): string {
-  return ["☕", "☕☕", "☕☕☕", "👑"][tier - 1];
+const TIER_ICONS: [TierIcon, TierIcon, TierIcon, TierIcon] = [
+  { icon: Coffee, count: 1 },
+  { icon: Coffee, count: 2 },
+  { icon: Coffee, count: 3 },
+  { icon: Crown, count: 1 },
+];
+
+/** The tier badge as icons (1-3 coffee cups, tier 4 a crown). Render with `TierIcons` in coffee-card.tsx. */
+export function tierIcon(tier: 1 | 2 | 3 | 4): TierIcon {
+  return TIER_ICONS[tier - 1];
 }
 
 export function freshnessColor(f: ComputedScores["freshness"]): string {

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ArrowRight, TriangleAlert } from "lucide-react";
 import { ESOTERIC_COFFEES, EXPLORER_SCORES, ACQUISITION_PRIORITY, FINAL_OBSERVATION, type EsotericCoffee } from "@/lib/content/brewsoul-esoteric";
 import { NextSteps } from "@/components/brewsoul/next-steps";
 
@@ -75,7 +76,7 @@ function CoffeeCard({ coffee }: { coffee: EsotericCoffee }) {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 rounded-lg bg-[#0A0A10] px-3.5 py-1.5 font-mono text-[11px] text-[#D4B96A] hover:bg-[#836311] hover:text-white"
               >
-                {src.name} {src.note ? `(${src.note})` : ""} →
+                {src.name} {src.note ? `(${src.note})` : ""} <ArrowRight aria-hidden="true" className="size-3" />
               </a>
             ))}
           </div>
@@ -95,7 +96,11 @@ function CoffeeCard({ coffee }: { coffee: EsotericCoffee }) {
         </div>
       )}
 
-      {coffee.note && <p className="mt-3 text-[13px] text-[#6b5a4e] italic">⚠ {coffee.note}</p>}
+      {coffee.note && (
+        <p className="mt-3 flex items-start gap-1.5 text-[13px] text-[#6b5a4e] italic">
+          <TriangleAlert aria-hidden="true" className="mt-0.5 size-3.5 shrink-0" /> {coffee.note}
+        </p>
+      )}
       {coffee.references && <p className="mt-2.5 border-t border-black/5 pt-2.5 text-xs leading-snug text-[#6b5a4e]">{coffee.references}</p>}
     </div>
   );

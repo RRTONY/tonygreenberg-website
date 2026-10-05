@@ -17,7 +17,7 @@ export function StepIdentity({ quiz }: StepProps) {
       className={`relative z-10 flex min-h-screen flex-col items-center px-6 pt-[45vh] pb-12 text-center transition-opacity duration-500 ${visible ? "opacity-100" : "opacity-0"}`}
     >
       <div className="max-w-md">
-        <div className="mb-4 text-6xl [filter:drop-shadow(0_4px_12px_rgba(139,105,20,0.3))]">{identity.badge}</div>
+        <identity.icon aria-hidden="true" className="mx-auto mb-4 size-14 text-[#836311] drop-shadow-[0_4px_12px_rgba(139,105,20,0.3)]" strokeWidth={1.5} />
         <div className="mb-3 font-mono text-[0.68rem] tracking-[0.3em] text-[#836311] uppercase">{copy.eyebrow}</div>
         <h1 className="mb-4 font-heading text-3xl font-bold text-[#1A1A1A] sm:text-4xl">{identity.name}</h1>
         <p className="mb-8 text-base leading-relaxed text-[#4A4A4A]">{identity.desc}</p>

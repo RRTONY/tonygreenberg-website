@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import { Activity, ArrowLeft, ArrowRight, Briefcase, Heart, Shield, Sprout, type LucideIcon } from "lucide-react";
 import { ThemedBackground } from "@/components/assessments/themed-background";
 import { AssessmentIntro } from "@/components/assessments/assessment-intro";
 import { EmailGate } from "@/components/assessments/email-gate";
@@ -46,16 +47,16 @@ type FactorKey = "relationships" | "coping" | "generativity" | "career" | "healt
 interface Factor {
   key: FactorKey;
   name: string;
-  icon: string;
+  icon: LucideIcon;
   description: string;
 }
 
 const FACTORS: Factor[] = [
-  { key: "relationships", name: "Warm Relationships", icon: "♡", description: "The single strongest predictor of life satisfaction. Not quantity — quality. The depth of your connections." },
-  { key: "coping", name: "Adaptive Coping", icon: "◈", description: "How you metabolize difficulty. Mature defenses (humor, altruism, sublimation) vs. immature ones (denial, projection, passive aggression)." },
-  { key: "generativity", name: "Generativity", icon: "❋", description: "Erikson's concept: the concern for establishing and guiding the next generation. Mentoring, creating, contributing beyond self." },
-  { key: "career", name: "Career Satisfaction", icon: "△", description: "Not status or income — the sense that your work matters, uses your gifts, and aligns with your values." },
-  { key: "health", name: "Physical Vitality", icon: "○", description: "Not the absence of disease — the active cultivation of the body as an instrument of consciousness." },
+  { key: "relationships", name: "Warm Relationships", icon: Heart, description: "The single strongest predictor of life satisfaction. Not quantity — quality. The depth of your connections." },
+  { key: "coping", name: "Adaptive Coping", icon: Shield, description: "How you metabolize difficulty. Mature defenses (humor, altruism, sublimation) vs. immature ones (denial, projection, passive aggression)." },
+  { key: "generativity", name: "Generativity", icon: Sprout, description: "Erikson's concept: the concern for establishing and guiding the next generation. Mentoring, creating, contributing beyond self." },
+  { key: "career", name: "Career Satisfaction", icon: Briefcase, description: "Not status or income — the sense that your work matters, uses your gifts, and aligns with your values." },
+  { key: "health", name: "Physical Vitality", icon: Activity, description: "Not the absence of disease — the active cultivation of the body as an instrument of consciousness." },
 ];
 
 interface Question {
@@ -392,8 +393,9 @@ export function GrantStudyQuiz() {
 
         <div className="w-full max-w-2xl py-16">
           <div className="mb-6">
-            <p className="font-mono text-[0.65rem] tracking-[0.2em] text-[#2E8B57] uppercase">
-              {currentFactor.icon} {currentFactor.name}
+            <p className="flex items-center gap-1.5 font-mono text-[0.65rem] tracking-[0.2em] text-[#2E8B57] uppercase">
+              <currentFactor.icon aria-hidden="true" className="size-3.5" />
+              {currentFactor.name}
             </p>
             <p className="mt-1 text-[0.85rem] text-[#8B7B6B]">{currentFactor.description}</p>
           </div>
@@ -429,20 +431,22 @@ export function GrantStudyQuiz() {
             <button
               onClick={goPrev}
               disabled={currentQuestion === 0}
-              className="rounded-sm border border-[#ccc] px-6 py-2.5 font-mono text-[0.75rem] tracking-[0.15em] text-[#666] uppercase disabled:cursor-default disabled:text-[#ccc]"
+              className="inline-flex items-center gap-1.5 rounded-sm border border-[#ccc] px-6 py-2.5 font-mono text-[0.75rem] tracking-[0.15em] text-[#666] uppercase disabled:cursor-default disabled:text-[#ccc]"
             >
-              ← Previous
+              <ArrowLeft aria-hidden="true" className="size-3.5" />
+              Previous
             </button>
             <button
               onClick={goNext}
               disabled={!answers[currentQ.id]}
               className={
                 answers[currentQ.id]
-                  ? "rounded-sm border-none bg-[#2E8B57] px-6 py-2.5 font-mono text-[0.75rem] tracking-[0.15em] text-white uppercase"
-                  : "rounded-sm border-none bg-[#ccc] px-6 py-2.5 font-mono text-[0.75rem] tracking-[0.15em] text-white uppercase"
+                  ? "inline-flex items-center gap-1.5 rounded-sm border-none bg-[#2E8B57] px-6 py-2.5 font-mono text-[0.75rem] tracking-[0.15em] text-white uppercase"
+                  : "inline-flex items-center gap-1.5 rounded-sm border-none bg-[#ccc] px-6 py-2.5 font-mono text-[0.75rem] tracking-[0.15em] text-white uppercase"
               }
             >
-              {currentQuestion === QUESTIONS.length - 1 ? "See My Profile →" : "Next →"}
+              {currentQuestion === QUESTIONS.length - 1 ? "See My Profile" : "Next"}
+              <ArrowRight aria-hidden="true" className="size-3.5" />
             </button>
           </div>
         </div>
@@ -479,8 +483,9 @@ export function GrantStudyQuiz() {
           {factorScores.map((f) => (
             <div key={f.key} className="mb-8">
               <div className="mb-2 flex items-baseline justify-between">
-                <span className="font-heading text-[1.2rem] text-[#0A0A10]">
-                  {f.icon} {f.name}
+                <span className="inline-flex items-center gap-2 font-heading text-[1.2rem] text-[#0A0A10]">
+                  <f.icon aria-hidden="true" className="size-4.5 shrink-0" />
+                  {f.name}
                 </span>
                 <span className="font-mono text-[0.85rem] font-semibold text-[#2E8B57]">{f.score}%</span>
               </div>
@@ -497,14 +502,16 @@ export function GrantStudyQuiz() {
         <div className="mb-8 grid gap-6 sm:grid-cols-2">
           <div className="border border-[#e5e0d5] bg-white p-6">
             <p className="mb-2 font-mono text-[0.7rem] tracking-[0.2em] text-[#2E8B57] uppercase">Your Strength</p>
-            <p className="font-heading text-[1.2rem] text-[#0A0A10]">
-              {strongest.icon} {strongest.name}
+            <p className="flex items-center gap-2 font-heading text-[1.2rem] text-[#0A0A10]">
+              <strongest.icon aria-hidden="true" className="size-4.5 shrink-0" />
+              {strongest.name}
             </p>
           </div>
           <div className="border border-[#e5e0d5] bg-white p-6">
             <p className="mb-2 font-mono text-[0.7rem] tracking-[0.2em] text-brand-gold uppercase">Your Growth Edge</p>
-            <p className="font-heading text-[1.2rem] text-[#0A0A10]">
-              {growthEdge.icon} {growthEdge.name}
+            <p className="flex items-center gap-2 font-heading text-[1.2rem] text-[#0A0A10]">
+              <growthEdge.icon aria-hidden="true" className="size-4.5 shrink-0" />
+              {growthEdge.name}
             </p>
           </div>
         </div>

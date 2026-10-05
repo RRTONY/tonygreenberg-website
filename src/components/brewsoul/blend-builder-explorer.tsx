@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { X } from "lucide-react";
 import { computeToolScores } from "@/lib/content/brewsoul-tool-scores";
 import type { CatalogItem } from "@/lib/intelligence-engine/types";
 
@@ -92,8 +93,8 @@ export function BlendBuilderExplorer({ coffees }: { coffees: CatalogItem[] }) {
                   className="w-25"
                 />
                 <span className="w-10 shrink-0 text-right font-mono text-[0.85rem] font-bold text-[#836311]">{p.pct}%</span>
-                <button onClick={() => removePart(p.coffeeId)} className="text-lg text-[#6E6E6E]">
-                  ✕
+                <button onClick={() => removePart(p.coffeeId)} aria-label="Remove from blend" className="text-[#6E6E6E]">
+                  <X aria-hidden="true" className="size-4.5" />
                 </button>
               </div>
             );

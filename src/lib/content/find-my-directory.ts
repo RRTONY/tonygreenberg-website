@@ -41,6 +41,7 @@
 // already trusted throughout this migration, e.g. Find Your Partner/
 // Chemistry/Water/Mezcal/Tequila/Capital).
 import { DIRECTORY, type DirectorySection } from "@/lib/content/find-your-me";
+import { Bird, Brain, Car, ChartColumn, CircleDot, Coffee, Compass, CookingPot, Dna, Footprints, Handshake, Heart, Link, MessageCircle, Microscope, Moon, Rainbow, Salad, ScanFace, Shirt, Sparkles, Target, Triangle, Wine, type LucideIcon } from "lucide-react";
 
 function fromEcosystem(url: string) {
   for (const section of DIRECTORY as DirectorySection[]) {
@@ -54,15 +55,15 @@ export interface FindMyLink {
   title: string;
   tagline: string;
   href: string;
-  icon: string;
+  icon: LucideIcon;
   color: string;
   status: "live" | "coming";
 }
 
 export const FEATURED: FindMyLink[] = [
-  { title: "Find My Me", tagline: "Clarity on identity & direction", href: "/find-your-me", icon: "🪞", color: "#D4B96A", status: "live" },
-  { title: "Find My Love", tagline: "Relational alignment framework", href: "https://intimacyassess-tcir3hon.manus.space", icon: "💕", color: "#C97B7B", status: fromEcosystem("https://intimacyassess-tcir3hon.manus.space").status },
-  { title: "Find My Car", tagline: "Decision tool for major purchases", href: "/find-your-ev", icon: "🚗", color: "#4682B4", status: "coming" },
+  { title: "Find My Me", tagline: "Clarity on identity & direction", href: "/find-your-me", icon: ScanFace, color: "#D4B96A", status: "live" },
+  { title: "Find My Love", tagline: "Relational alignment framework", href: "https://intimacyassess-tcir3hon.manus.space", icon: Heart, color: "#C97B7B", status: fromEcosystem("https://intimacyassess-tcir3hon.manus.space").status },
+  { title: "Find My Car", tagline: "Decision tool for major purchases", href: "/find-your-ev", icon: Car, color: "#4682B4", status: "coming" },
 ];
 
 export interface FindMyCategory {
@@ -76,59 +77,59 @@ export const CATEGORIES: FindMyCategory[] = [
     key: "body",
     label: "Body & Health",
     items: [
-      { title: "Find My Peptide", tagline: "7-axis clinical assessment · 16 archetypes", href: "/find-your-peptide", icon: "🧬", color: "#2E8B57", status: fromEcosystem("/find-your-peptide").status },
-      { title: "Find My Stem Cells", tagline: "22-question clinic-risk assessment · pricing, red flags, and provider scoring", href: "https://findmystem-s3lknc4h.manus.space/", icon: "🧫", color: "#6B8F71", status: "live" },
-      { title: "Find My Diet", tagline: "Food philosophy matching", href: "/find-your-diet", icon: "🥗", color: "#7BC9A4", status: fromEcosystem("/find-your-diet").status },
-      { title: "Find My Movement", tagline: "Exercise & fitness style", href: "/find-your-movement", icon: "🏃", color: "#4682B4", status: fromEcosystem("/find-your-movement").status },
-      { title: "Find My Sleep", tagline: "Sleep optimization assessment", href: "/find-your-sleep", icon: "🌙", color: "#6A5ACD", status: fromEcosystem("/find-your-sleep").status },
-      { title: "Find My Coffee", tagline: "Your perfect cup, decoded", href: "/find-your-coffee", icon: "☕", color: "#836311", status: fromEcosystem("/find-your-coffee").status },
-      { title: "BrewSoul Intelligence", tagline: "100+ coffees ranked · 100 chains scored · Identity-matched", href: "/brewsoul", icon: "☕", color: "#6F4E37", status: "live" },
-      { title: "Find My Kitchen", tagline: "Cooking style assessment", href: "/find-your-kitchen", icon: "🍳", color: "#D4A76A", status: fromEcosystem("/find-your-kitchen").status },
-      { title: "Find My Sake", tagline: "Japanese rice wine profile", href: "/find-your-sake", icon: "🍶", color: "#B8860B", status: fromEcosystem("/find-your-sake").status },
+      { title: "Find My Peptide", tagline: "7-axis clinical assessment · 16 archetypes", href: "/find-your-peptide", icon: Dna, color: "#2E8B57", status: fromEcosystem("/find-your-peptide").status },
+      { title: "Find My Stem Cells", tagline: "22-question clinic-risk assessment · pricing, red flags, and provider scoring", href: "https://findmystem-s3lknc4h.manus.space/", icon: Microscope, color: "#6B8F71", status: "live" },
+      { title: "Find My Diet", tagline: "Food philosophy matching", href: "/find-your-diet", icon: Salad, color: "#7BC9A4", status: fromEcosystem("/find-your-diet").status },
+      { title: "Find My Movement", tagline: "Exercise & fitness style", href: "/find-your-movement", icon: Footprints, color: "#4682B4", status: fromEcosystem("/find-your-movement").status },
+      { title: "Find My Sleep", tagline: "Sleep optimization assessment", href: "/find-your-sleep", icon: Moon, color: "#6A5ACD", status: fromEcosystem("/find-your-sleep").status },
+      { title: "Find My Coffee", tagline: "Your perfect cup, decoded", href: "/find-your-coffee", icon: Coffee, color: "#836311", status: fromEcosystem("/find-your-coffee").status },
+      { title: "BrewSoul Intelligence", tagline: "100+ coffees ranked · 100 chains scored · Identity-matched", href: "/brewsoul", icon: Coffee, color: "#6F4E37", status: "live" },
+      { title: "Find My Kitchen", tagline: "Cooking style assessment", href: "/find-your-kitchen", icon: CookingPot, color: "#D4A76A", status: fromEcosystem("/find-your-kitchen").status },
+      { title: "Find My Sake", tagline: "Japanese rice wine profile", href: "/find-your-sake", icon: Wine, color: "#B8860B", status: fromEcosystem("/find-your-sake").status },
     ],
   },
   {
     key: "mind",
     label: "Mind & Spirit",
     items: [
-      { title: "Find My Therapy", tagline: "Match the right modality", href: "/find-your-therapy", icon: "🧠", color: "#7BA8C9", status: fromEcosystem("/find-your-therapy").status },
-      { title: "Find My Spirit", tagline: "Discover your spiritual archetype", href: "/find-your-spirit", icon: "✨", color: "#A87BC9", status: fromEcosystem("/find-your-spirit").status },
-      { title: "Find My Religion", tagline: "Philosophical & spiritual alignment", href: "/find-your-religion", icon: "🕊️", color: "#2E8B57", status: fromEcosystem("/find-your-religion").status },
+      { title: "Find My Therapy", tagline: "Match the right modality", href: "/find-your-therapy", icon: Brain, color: "#7BA8C9", status: fromEcosystem("/find-your-therapy").status },
+      { title: "Find My Spirit", tagline: "Discover your spiritual archetype", href: "/find-your-spirit", icon: Sparkles, color: "#A87BC9", status: fromEcosystem("/find-your-spirit").status },
+      { title: "Find My Religion", tagline: "Philosophical & spiritual alignment", href: "/find-your-religion", icon: Bird, color: "#2E8B57", status: fromEcosystem("/find-your-religion").status },
     ],
   },
   {
     key: "relationships",
     label: "Relationships",
     items: [
-      { title: "Find My Sexuality", tagline: "6-dimension orientation mapping", href: "/find-your-sexuality", icon: "🌈", color: "#C97B7B", status: fromEcosystem("/find-your-sexuality").status },
-      { title: "Find My Attachment Style", tagline: "Attachment theory assessment", href: "/find-your-attachment-style", icon: "🔗", color: "#8B4513", status: fromEcosystem("/find-your-attachment-style").status },
-      { title: "Find My Love Language", tagline: "How you give & receive love", href: "/find-your-love-language", icon: "💬", color: "#C97BA8", status: fromEcosystem("/find-your-love-language").status },
-      { title: "Find My Team", tagline: "Collaboration & leadership style", href: "/flow-circuit", icon: "🤝", color: "#C9A87B", status: "live" },
+      { title: "Find My Sexuality", tagline: "6-dimension orientation mapping", href: "/find-your-sexuality", icon: Rainbow, color: "#C97B7B", status: fromEcosystem("/find-your-sexuality").status },
+      { title: "Find My Attachment Style", tagline: "Attachment theory assessment", href: "/find-your-attachment-style", icon: Link, color: "#8B4513", status: fromEcosystem("/find-your-attachment-style").status },
+      { title: "Find My Love Language", tagline: "How you give & receive love", href: "/find-your-love-language", icon: MessageCircle, color: "#C97BA8", status: fromEcosystem("/find-your-love-language").status },
+      { title: "Find My Team", tagline: "Collaboration & leadership style", href: "/flow-circuit", icon: Handshake, color: "#C9A87B", status: "live" },
     ],
   },
   {
     key: "identity",
     label: "Identity & Style",
     items: [
-      { title: "Find My Style", tagline: "Personal fashion & aesthetic", href: "/find-your-style", icon: "👔", color: "#9B2335", status: fromEcosystem("/find-your-style").status },
+      { title: "Find My Style", tagline: "Personal fashion & aesthetic", href: "/find-your-style", icon: Shirt, color: "#9B2335", status: fromEcosystem("/find-your-style").status },
     ],
   },
   {
     key: "deep",
     label: "Deep Assessments",
     items: [
-      { title: "Dharma Finder", tagline: "25 questions to discover your purpose", href: "/dharma-finder", icon: "◎", color: "#D4B96A", status: "live" },
-      { title: "Consciousness Scale", tagline: "Map your consciousness level", href: "/consciousness-scale", icon: "△", color: "#A87BC9", status: "live" },
-      { title: "Grant Study", tagline: "Harvard's 85-year life satisfaction study", href: "/grant-study", icon: "♡", color: "#C97B7B", status: "live" },
-      { title: "Life Assessment", tagline: "Comprehensive life satisfaction across all dimensions", href: "/the-mirror", icon: "🎯", color: "#4682B4", status: "live" },
+      { title: "Dharma Finder", tagline: "25 questions to discover your purpose", href: "/dharma-finder", icon: Compass, color: "#D4B96A", status: "live" },
+      { title: "Consciousness Scale", tagline: "Map your consciousness level", href: "/consciousness-scale", icon: Triangle, color: "#A87BC9", status: "live" },
+      { title: "Grant Study", tagline: "Harvard's 85-year life satisfaction study", href: "/grant-study", icon: Heart, color: "#C97B7B", status: "live" },
+      { title: "Life Assessment", tagline: "Comprehensive life satisfaction across all dimensions", href: "/the-mirror", icon: Target, color: "#4682B4", status: "live" },
     ],
   },
   {
     key: "impact",
     label: "Impact & Scoring",
     items: [
-      { title: "SoulScore", tagline: "Impact verification & blockchain certificates", href: "/soulscore", icon: "◉", color: "#D4B96A", status: "live" },
-      { title: "Charity Scorecard", tagline: "Evaluate charities on transparency & impact", href: "/charity-scorecard", icon: "📊", color: "#2E8B57", status: "live" },
+      { title: "SoulScore", tagline: "Impact verification & blockchain certificates", href: "/soulscore", icon: CircleDot, color: "#D4B96A", status: "live" },
+      { title: "Charity Scorecard", tagline: "Evaluate charities on transparency & impact", href: "/charity-scorecard", icon: ChartColumn, color: "#2E8B57", status: "live" },
     ],
   },
 ];

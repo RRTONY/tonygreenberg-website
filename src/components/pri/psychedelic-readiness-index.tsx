@@ -28,6 +28,11 @@ import { CinematicBand } from "@/components/pri/cinematic-band";
 
 const CONTACT_EMAIL = "tony@tonygreenberg.com";
 
+function DimIcon({ dim, className }: { dim: DimKey; className: string }) {
+  const Icon = DIM_ICONS[dim];
+  return <Icon aria-hidden="true" className={className} />;
+}
+
 // ── Consent store (sessionStorage-backed boolean) ──
 // Hydration-safe read via useSyncExternalStore, same idiom established in
 // `collection-explorer.tsx` — legacy's `useState(() => sessionStorage...)`
@@ -232,19 +237,19 @@ export function PsychedelicReadinessIndex() {
       .map((d) => {
         const score = results.dimScores[d];
         const barColor = score >= 75 ? "#2E7D32" : score >= 50 ? "#9333EA" : "#6B21A8";
-        return `<tr><td style="padding:10px 14px;border-bottom:1px solid #E8E0D6;font-weight:700;width:40%">${DIM_ICONS[d]} ${DIM_LABELS[d]}</td><td style="padding:10px 14px;border-bottom:1px solid #E8E0D6;width:40%"><div style="background:#F0EBE3;height:8px;border-radius:4px;overflow:hidden"><div style="height:100%;width:${score}%;background:${barColor};border-radius:4px"></div></div></td><td style="padding:10px 14px;border-bottom:1px solid #E8E0D6;text-align:center;font-size:1.1rem;font-weight:900;width:20%">${score}<small style='font-size:.7rem;color:#7A6A5A'>/100</small></td></tr>`;
+        return `<tr><td style="padding:10px 14px;border-bottom:1px solid #E8E0D6;font-weight:700;width:40%">${DIM_LABELS[d]}</td><td style="padding:10px 14px;border-bottom:1px solid #E8E0D6;width:40%"><div style="background:#F0EBE3;height:8px;border-radius:4px;overflow:hidden"><div style="height:100%;width:${score}%;background:${barColor};border-radius:4px"></div></div></td><td style="padding:10px 14px;border-bottom:1px solid #E8E0D6;text-align:center;font-size:1.1rem;font-weight:900;width:20%">${score}<small style='font-size:.7rem;color:#7A6A5A'>/100</small></td></tr>`;
       })
       .join("");
     const matchRows = results.topMatches
       .map((m, i) => {
         const barColor = m.matchScore >= 80 ? "#2E7D32" : m.matchScore >= 60 ? "#9333EA" : "#6B21A8";
-        return `<tr><td style="padding:10px 14px;border-bottom:1px solid #E8E0D6;font-weight:800;color:#6B21A8;width:8%">#${i + 1}</td><td style="padding:10px 14px;border-bottom:1px solid #E8E0D6;font-weight:700;width:32%">${m.icon} ${m.name}</td><td style="padding:10px 14px;border-bottom:1px solid #E8E0D6;width:40%"><div style="background:#F0EBE3;height:8px;border-radius:4px;overflow:hidden"><div style="height:100%;width:${m.matchScore}%;background:${barColor};border-radius:4px"></div></div></td><td style="padding:10px 14px;border-bottom:1px solid #E8E0D6;text-align:center;font-weight:800;width:20%">${m.matchScore}%</td></tr>`;
+        return `<tr><td style="padding:10px 14px;border-bottom:1px solid #E8E0D6;font-weight:800;color:#6B21A8;width:8%">#${i + 1}</td><td style="padding:10px 14px;border-bottom:1px solid #E8E0D6;font-weight:700;width:32%">${m.name}</td><td style="padding:10px 14px;border-bottom:1px solid #E8E0D6;width:40%"><div style="background:#F0EBE3;height:8px;border-radius:4px;overflow:hidden"><div style="height:100%;width:${m.matchScore}%;background:${barColor};border-radius:4px"></div></div></td><td style="padding:10px 14px;border-bottom:1px solid #E8E0D6;text-align:center;font-weight:800;width:20%">${m.matchScore}%</td></tr>`;
       })
       .join("");
     const seqRows = results.sequence
       .map(
         (s, i) =>
-          `<tr><td style="padding:12px 14px;border-bottom:1px solid #E8E0D6"><div style="display:flex;align-items:center;gap:8px"><span style="background:#6B21A8;color:#fff;width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;font-size:.7rem;font-weight:900;flex-shrink:0">${i + 1}</span><strong>${s.icon} ${s.name}</strong></div><div style="font-size:.82rem;color:#7A6A5A;margin-top:4px;padding-left:32px">${s.why}</div></td><td style="padding:12px 14px;border-bottom:1px solid #E8E0D6;font-size:.85rem;color:#4A3F35;white-space:nowrap;vertical-align:top">${s.time}</td><td style="padding:12px 14px;border-bottom:1px solid #E8E0D6;font-weight:700;white-space:nowrap;vertical-align:top">${s.cost}</td></tr>`
+          `<tr><td style="padding:12px 14px;border-bottom:1px solid #E8E0D6"><div style="display:flex;align-items:center;gap:8px"><span style="background:#6B21A8;color:#fff;width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;font-size:.7rem;font-weight:900;flex-shrink:0">${i + 1}</span><strong>${s.name}</strong></div><div style="font-size:.82rem;color:#7A6A5A;margin-top:4px;padding-left:32px">${s.why}</div></td><td style="padding:12px 14px;border-bottom:1px solid #E8E0D6;font-size:.85rem;color:#4A3F35;white-space:nowrap;vertical-align:top">${s.time}</td><td style="padding:12px 14px;border-bottom:1px solid #E8E0D6;font-weight:700;white-space:nowrap;vertical-align:top">${s.cost}</td></tr>`
       )
       .join("");
     const savedSection =
@@ -253,7 +258,7 @@ export function PsychedelicReadinessIndex() {
             .map((id) => {
               const m = MEDICINES.find((med) => med.id === id);
               return m
-                ? `<div style="background:#F8F5F0;border:1px solid #E8E0D6;padding:10px 14px;display:flex;align-items:center;gap:8px"><span style="font-size:1.3rem">${m.icon}</span><div><div style="font-weight:700;font-size:.9rem">${m.name}</div><div style="font-size:.75rem;color:#7A6A5A;text-transform:uppercase;letter-spacing:.04em">${m.src}</div></div></div>`
+                ? `<div style="background:#F8F5F0;border:1px solid #E8E0D6;padding:10px 14px;display:flex;align-items:center;gap:8px"><div><div style="font-weight:700;font-size:.9rem">${m.name}</div><div style="font-size:.75rem;color:#7A6A5A;text-transform:uppercase;letter-spacing:.04em">${m.src}</div></div></div>`
                 : "";
             })
             .join("")}</div>`
@@ -586,7 +591,7 @@ export function PsychedelicReadinessIndex() {
                   </div>
                 )}
                 <div className="px-4 pt-3 pb-5">
-                  <div className="mb-2 text-[1.6rem]">{m.icon}</div>
+                  <m.icon aria-hidden="true" className="mb-2 size-6 text-pri-purple" />
                   <div className="mb-1.5 h-0.75 bg-pri-border">
                     <div className={`h-full ${m.intensity > 0.8 ? "bg-[#C62828]" : m.intensity > 0.5 ? "bg-[#E65100]" : "bg-[#6B8F71]"}`} style={{ width: `${m.intensity * 100}%` }} />
                   </div>
@@ -642,7 +647,7 @@ export function PsychedelicReadinessIndex() {
                     )}
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-1.5">
-                        <span className="text-xl">{m.icon}</span>
+                        <m.icon aria-hidden="true" className="size-5 shrink-0 text-pri-purple" />
                         <span className="font-heading text-sm font-bold text-pri-ink">{m.name}</span>
                       </div>
                       <div className="text-[.75rem] font-semibold tracking-[0.04em] text-pri-tan uppercase">{m.src}</div>
@@ -701,7 +706,7 @@ export function PsychedelicReadinessIndex() {
                         <div className="absolute inset-0 bg-linear-to-b from-transparent from-40% to-pri-ink" />
                       </div>
                     )}
-                    <div className="mb-1 text-[1.8rem]">{m.icon}</div>
+                    <m.icon aria-hidden="true" className="mx-auto mb-1 size-7 text-pri-purple-light" />
                     <div className="mb-0.5 font-heading text-sm text-pri-cream">{m.name}</div>
                     <div className="mb-4 text-[.75rem] font-semibold tracking-[0.05em] text-pri-cream/60 uppercase">{m.src}</div>
 
@@ -1011,7 +1016,7 @@ export function PsychedelicReadinessIndex() {
               <div className="my-6 grid grid-cols-[repeat(auto-fit,minmax(80px,1fr))] gap-px border border-pri-cream/10 bg-pri-cream/8">
                 {(Object.keys(DIM_LABELS) as DimKey[]).map((d) => (
                   <div key={d} className="bg-[#0A0F1E]/40 px-1.5 py-3 text-center">
-                    <div className="mb-0.5 text-xl">{DIM_ICONS[d]}</div>
+                    <DimIcon dim={d} className="mx-auto mb-0.5 size-5 text-pri-purple-light" />
                     <div className="text-[.58rem] font-bold tracking-[0.06em] text-pri-cream/60 uppercase">{DIM_LABELS[d]}</div>
                   </div>
                 ))}
@@ -1035,7 +1040,10 @@ export function PsychedelicReadinessIndex() {
               </div>
 
               <div className="border border-pri-cream/8 bg-pri-cream/4 p-[clamp(1.5rem,4vw,2.25rem)]">
-                <div className="mb-3 text-xs font-bold tracking-[0.14em] text-pri-purple-light uppercase">{domain.category}</div>
+                <div className="mb-3 flex items-center gap-1.5 text-xs font-bold tracking-[0.14em] text-pri-purple-light uppercase">
+                  <DimIcon dim={domain.dim} className="size-4 shrink-0" />
+                  {domain.category}
+                </div>
                 <div className={`font-heading text-[clamp(1rem,3vw,1.2rem)] leading-[1.45] font-semibold text-pri-cream ${domain.facilitatedNote ? "mb-4" : "mb-8"}`}>
                   {domain.text}
                   {domain.facilitatedNote && <span className="ml-1 text-pri-purple-light">*</span>}
@@ -1142,8 +1150,9 @@ export function PsychedelicReadinessIndex() {
               <div className="mb-8 grid grid-cols-[repeat(auto-fit,minmax(100px,1fr))] gap-px border border-pri-cream/8 bg-pri-cream/6">
                 {(Object.keys(results.dimScores) as DimKey[]).map((d) => (
                   <div key={d} className="bg-[#0A0F1E]/40 px-2 py-4 text-center">
-                    <div className="mb-1 text-[.75rem] font-bold tracking-[0.08em] text-pri-cream/60 uppercase">
-                      {DIM_ICONS[d]} {DIM_LABELS[d]}
+                    <div className="mb-1 inline-flex items-center gap-1.5 text-[.75rem] font-bold tracking-[0.08em] text-pri-cream/60 uppercase">
+                      <DimIcon dim={d} className="size-3.5 shrink-0" />
+                      {DIM_LABELS[d]}
                     </div>
                     <div className="font-heading text-[clamp(1.4rem,4vw,1.9rem)] font-black text-pri-cream">
                       {results.dimScores[d]}
@@ -1169,7 +1178,7 @@ export function PsychedelicReadinessIndex() {
                 {results.topMatches.map((m, i) => (
                   <div key={m.id} onClick={() => setSelectedMedicine(m)} className="relative cursor-pointer bg-[#0A0F1E]/40 px-4 py-6 text-center transition-colors hover:bg-[#0A0F1E]/60">
                     <div className="absolute top-2 left-2 text-xs font-extrabold tracking-[0.1em] text-pri-purple-light">#{i + 1}</div>
-                    <div className="mb-1.5 text-[1.8rem]">{m.icon}</div>
+                    <m.icon aria-hidden="true" className="mx-auto mb-1.5 size-7 text-pri-purple-light" />
                     <div className="mb-1.5 font-heading text-[clamp(.82rem,2vw,1rem)] leading-[1.3] font-bold text-pri-cream">{m.name}</div>
                     <div className="my-1.5 h-0.5 bg-pri-cream/8">
                       <div className="h-full bg-pri-purple transition-[width] duration-1000" style={{ width: `${m.matchScore}%` }} />
@@ -1193,8 +1202,9 @@ export function PsychedelicReadinessIndex() {
                 <div key={s.name} className="mb-3 flex flex-wrap items-start gap-4 border border-pri-cream/8 bg-pri-cream/4 p-[clamp(1.25rem,3vw,1.75rem)]">
                   <div className="min-w-8 font-heading text-2xl leading-none font-black text-pri-cream/7">{String(i + 1).padStart(2, "0")}</div>
                   <div className="min-w-50 flex-1">
-                    <div className="mb-0.5 font-heading text-[clamp(.95rem,2.5vw,1.1rem)] font-bold text-pri-cream">
-                      {s.icon} {s.name}
+                    <div className="mb-0.5 flex items-center gap-2 font-heading text-[clamp(.95rem,2.5vw,1.1rem)] font-bold text-pri-cream">
+                      <s.icon aria-hidden="true" className="size-5 shrink-0 text-pri-purple-light" />
+                      {s.name}
                     </div>
                     <div className="mb-1.5 text-[.7rem] font-bold tracking-[0.08em] text-pri-purple-light uppercase">{s.time}</div>
                     <div className="text-[clamp(.8rem,2vw,.85rem)] leading-[1.55] text-pri-cream/50">{s.why}</div>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowRight, Dna, Droplet, Leaf, Pill } from "lucide-react";
 import { BREWSOUL_COFFEES } from "@/lib/content/brewsoul-coffees";
 import { SHAME_ENTRIES } from "@/lib/content/brewsoul-encyclopedia";
 import { computeQPR } from "@/lib/intelligence-engine/scoring";
@@ -32,10 +33,10 @@ export const metadata: Metadata = {
 };
 
 const RESEARCH_CARDS = [
-  { path: "/brewsoul/biodynamic", icon: "🌿", title: "Biodynamic Census", sub: "3 Demeter farms, 6 roasters, every product priced", tag: "COMPLETE" },
-  { path: "/brewsoul/decaf", icon: "💧", title: "Decaf Done Right", sub: "13 clean brands vs. 10+ using paint stripper", tag: "13 BRANDS" },
-  { path: "/brewsoul/health", icon: "🧬", title: "Coffee & Health", sub: "8 longevity benefits, 7 real risks, CYP1A2 genetics", tag: "SCIENCE" },
-  { path: "/brewsoul/prescription", icon: "💊", title: "Your Prescription", sub: "AI-powered daily protocol based on your genetics", tag: "AI" },
+  { path: "/brewsoul/biodynamic", icon: Leaf, title: "Biodynamic Census", sub: "3 Demeter farms, 6 roasters, every product priced", tag: "COMPLETE" },
+  { path: "/brewsoul/decaf", icon: Droplet, title: "Decaf Done Right", sub: "13 clean brands vs. 10+ using paint stripper", tag: "13 BRANDS" },
+  { path: "/brewsoul/health", icon: Dna, title: "Coffee & Health", sub: "8 longevity benefits, 7 real risks, CYP1A2 genetics", tag: "SCIENCE" },
+  { path: "/brewsoul/prescription", icon: Pill, title: "Your Prescription", sub: "AI-powered daily protocol based on your genetics", tag: "AI" },
 ];
 
 export default function BrewSoulHomePage() {
@@ -89,9 +90,9 @@ export default function BrewSoulHomePage() {
           <div className="mb-10 flex flex-wrap justify-center gap-4">
             <Link
               href="/brewsoul/quiz"
-              className="rounded-md bg-linear-to-br from-[#C5A23C] to-[#836311] px-8 py-3.5 font-mono text-xs font-bold tracking-wide text-[#FAFAF7] uppercase shadow-[0_8px_32px_rgba(139,105,20,0.4)] transition-transform hover:-translate-y-0.5"
+              className="inline-flex items-center gap-1.5 rounded-md bg-linear-to-br from-[#C5A23C] to-[#836311] px-8 py-3.5 font-mono text-xs font-bold tracking-wide text-[#FAFAF7] uppercase shadow-[0_8px_32px_rgba(139,105,20,0.4)] transition-transform hover:-translate-y-0.5"
             >
-              Start Taste Quiz →
+              Start Taste Quiz <ArrowRight aria-hidden="true" className="size-3.5" />
             </Link>
             <Link
               href="/brewsoul/browse"
@@ -141,9 +142,9 @@ export default function BrewSoulHomePage() {
         </div>
         <Link
           href="/brewsoul/follow-the-dollar"
-          className="inline-block rounded-md bg-linear-to-br from-[#C5A23C] to-[#836311] px-7 py-3 font-mono text-[0.78rem] font-bold tracking-wide text-[#FAFAF7] uppercase shadow-[0_6px_24px_rgba(139,105,20,0.35)] transition-transform hover:-translate-y-0.5"
+          className="inline-flex items-center gap-1.5 rounded-md bg-linear-to-br from-[#C5A23C] to-[#836311] px-7 py-3 font-mono text-[0.78rem] font-bold tracking-wide text-[#FAFAF7] uppercase shadow-[0_6px_24px_rgba(139,105,20,0.35)] transition-transform hover:-translate-y-0.5"
         >
-          See the Full Breakdown →
+          See the Full Breakdown <ArrowRight aria-hidden="true" className="size-3.5" />
         </Link>
       </section>
 
@@ -166,9 +167,9 @@ export default function BrewSoulHomePage() {
         <div className="mt-8 text-center">
           <Link
             href="/brewsoul/browse"
-            className="font-mono text-[0.78rem] tracking-wide text-[#836311] uppercase"
+            className="inline-flex items-center gap-1.5 font-mono text-[0.78rem] tracking-wide text-[#836311] uppercase"
           >
-            Browse All {BREWSOUL_COFFEES.length} Coffees →
+            Browse All {BREWSOUL_COFFEES.length} Coffees <ArrowRight aria-hidden="true" className="size-3.5" />
           </Link>
         </div>
       </section>
@@ -195,8 +196,8 @@ export default function BrewSoulHomePage() {
             <div className="mb-1 font-mono text-xs tracking-[0.3em] text-[#836311] uppercase">Fresh</div>
             <h2 className="font-heading text-2xl font-bold text-[#2C1810]">New Drops</h2>
           </div>
-          <Link href="/brewsoul/drops" className="font-mono text-xs tracking-wide text-[#836311]">
-            See all →
+          <Link href="/brewsoul/drops" className="inline-flex items-center gap-1.5 font-mono text-xs tracking-wide text-[#836311]">
+            See all <ArrowRight aria-hidden="true" className="size-3.5" />
           </Link>
         </div>
         <div className="grid gap-4 [grid-template-columns:repeat(auto-fill,minmax(260px,1fr))]">
@@ -236,9 +237,9 @@ export default function BrewSoulHomePage() {
           <div className="mt-6 text-center">
             <Link
               href="/brewsoul/wall-of-shame"
-              className="font-mono text-[0.78rem] tracking-wide text-[#8B2500] uppercase"
+              className="inline-flex items-center gap-1.5 font-mono text-[0.78rem] tracking-wide text-[#8B2500] uppercase"
             >
-              See the Full Wall →
+              See the Full Wall <ArrowRight aria-hidden="true" className="size-3.5" />
             </Link>
           </div>
         </div>
@@ -262,7 +263,7 @@ export default function BrewSoulHomePage() {
                 className="h-full rounded-2xl border border-[#836311]/15 bg-white/60 p-6 backdrop-blur-xl transition-all hover:-translate-y-1 hover:border-[#836311]/50 hover:bg-white/90 hover:shadow-lg"
               >
                 <div className="mb-3 flex items-start justify-between">
-                  <span className="text-2xl">{card.icon}</span>
+                  <card.icon aria-hidden="true" className="size-6 text-[#836311]" />
                   <span className="rounded-sm bg-[#836311]/8 px-2 py-0.5 font-mono text-[0.58rem] tracking-wide text-[#836311]">
                     {card.tag}
                   </span>

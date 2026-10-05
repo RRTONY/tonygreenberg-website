@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { cn } from "@/lib/utils";
-import type { Medicine } from "@/lib/content/pri-data";
+import { MEDICINES, type Medicine } from "@/lib/content/pri-data";
 
 // Ported from legacy client/src/pages/MedicineSequencing.tsx's filter row +
 // grouped medicine cards. Each card's detail panel uses `forceMount` — same
@@ -114,9 +114,7 @@ function MedicineCard({ med, level }: { med: Medicine; level: Level }) {
       )}
     >
       <CollapsibleTrigger className="flex w-full items-center gap-4 px-4 py-3 text-left sm:px-5 sm:py-4">
-        <span aria-hidden="true" className="shrink-0 text-2xl sm:text-3xl">
-          {med.icon}
-        </span>
+        <med.icon aria-hidden="true" className="size-6 shrink-0 text-facilitator-ink/70 sm:size-7" />
         <div className="min-w-0 flex-1">
           <div className="mb-0.5 font-heading text-base font-bold text-facilitator-ink sm:text-lg">{med.name}</div>
           <div className="text-xs text-[#7A6050] italic sm:text-sm">{med.latin}</div>
@@ -166,7 +164,11 @@ function MedicineCard({ med, level }: { med: Medicine; level: Level }) {
   );
 }
 
-export function MedicineSequencingLadder({ medicines }: { medicines: Medicine[] }) {
+// Reads MEDICINES itself rather than taking them as a prop: each medicine's
+// `icon` is a lucide component, and a component can't be passed from a Server
+// Component page into this Client Component.
+export function MedicineSequencingLadder() {
+  const medicines = MEDICINES;
   const [selectedLevel, setSelectedLevel] = useState<Level | null>(null);
 
   // Sorted by rung, then by intensity within a rung — same order as legacy.

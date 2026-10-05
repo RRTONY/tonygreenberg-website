@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { AlertTriangle, TreeDeciduous, Pill, Star } from "lucide-react";
+import { AlertTriangle, ArrowLeft, ArrowRight, Check, TreeDeciduous, Pill, Star } from "lucide-react";
 import {
   IBOGA_IMAGES,
   IBOGAINE_PHARMACOLOGY,
@@ -47,6 +47,17 @@ const thClass = "border-b-2 border-[#D4CFC5] bg-[#E8E2D8] px-3 py-2.5 text-left 
 const tdClass = "border-b border-[#E8E2D8] px-3 py-2.5 align-top text-[.95rem] leading-[1.55] text-pri-brown";
 const thDarkClass = "border-b-2 border-[#3A3530] bg-[#2A2420] px-3 py-2.5 text-left text-xs font-extrabold tracking-[0.08em] whitespace-nowrap text-pri-purple-light uppercase";
 const tdDarkClass = "border-b border-[#3A3530] px-3 py-2.5 align-top text-[.95rem] leading-[1.55] text-pri-cream";
+
+/** Medicine-selector cell: a "✓" in the data renders as a check icon with screen-reader text. */
+function SelectorMark({ value }: { value: string }) {
+  if (value !== "✓") return value;
+  return (
+    <>
+      <Check aria-hidden="true" className="mx-auto size-4" />
+      <span className="sr-only">Yes</span>
+    </>
+  );
+}
 
 const UPDATED_RESEARCH = [
   { condition: "Opioid withdrawal elimination", result: "80–90%", source: "Mash et al., Ann NY Acad Sci 2000" },
@@ -174,7 +185,7 @@ const ADDITIONAL_FACILITIES = [
 ];
 
 const QUICK_REFERENCE = [
-  { name: "The Mission Within", loc: "Baja California, MX", travel: "Level 3 (regional)", vet: "⭐ Primary", nagoya: "No", price: "Contact" },
+  { name: "The Mission Within", loc: "Baja California, MX", travel: "Level 3 (regional)", vet: "Primary", primary: true, nagoya: "No", price: "Contact" },
   { name: "Ambio Life Sciences", loc: "Tijuana, MX", travel: "Level 3 (regional)", vet: "Yes", nagoya: "Only globally", price: "From $7,350" },
   { name: "Beōnd Ibogaine", loc: "Cancún, MX", travel: "Level 2", vet: "Yes", nagoya: "Yes", price: "Contact" },
   { name: "MindScape Retreat", loc: "Cozumel, MX", travel: "Level 2", vet: "Yes", nagoya: "No", price: "Contact" },
@@ -202,7 +213,8 @@ export default function IbogaIbogainePage() {
         <div className="absolute inset-0 bg-linear-to-t from-[#0A0806]/97 via-[#0A0806]/70 to-[#0A0806]/15" />
         <div className="relative z-10 mx-auto w-full max-w-225 px-6 pb-16">
           <Link href="/psychedelic-readiness-index" className="mb-6 inline-flex items-center gap-1.5 text-sm font-semibold tracking-[0.08em] text-[#D4B96A] uppercase">
-            ← Back to PRI
+            <ArrowLeft aria-hidden="true" className="size-3.5" />
+            Back to PRI
           </Link>
           <div className="mb-4 flex items-center gap-2 text-sm font-bold tracking-[0.14em] text-[#D4B96A] uppercase">
             <span className="block h-0.5 w-6 bg-[#D4B96A]" />
@@ -437,8 +449,9 @@ export default function IbogaIbogainePage() {
                   <div className="text-base font-bold text-pri-cream">{item.name}</div>
                   <div className="mt-1 font-mono text-[.85rem] text-[#D4B96A]">{item.dosage}</div>
                   {item.searchUrl && (
-                    <a href={item.searchUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center mt-1 text-[.8rem] text-pri-cream/50 underline min-h-11 md:min-h-6">
-                      Find on Amazon →
+                    <a href={item.searchUrl} target="_blank" rel="noopener noreferrer" className="mt-1 inline-flex min-h-11 items-center gap-1.5 text-[.8rem] text-pri-cream/50 underline md:min-h-6">
+                      Find on Amazon
+                      <ArrowRight aria-hidden="true" className="size-3.5" />
                     </a>
                   )}
                 </div>
@@ -470,7 +483,9 @@ export default function IbogaIbogainePage() {
             <tbody>
               {IBOGA_DIM_SCORES.map((r, i) => (
                 <tr key={r.dimension} className={i % 2 ? "bg-pri-parchment" : ""}>
-                  <td className={`${tdClass} w-10 text-center text-2xl`}>{r.icon}</td>
+                  <td className={`${tdClass} w-10 text-center`}>
+                    <r.icon aria-hidden="true" className="mx-auto size-6 text-[#836311]" />
+                  </td>
                   <td className={`${tdClass} font-bold whitespace-nowrap`}>{r.dimension}</td>
                   <td className={`${tdClass} font-bold ${r.ibogaThreshold.includes("Critical") ? "text-[#581C87]" : "text-[#836311]"}`}>{r.ibogaThreshold}</td>
                   <td className={`${tdClass} font-bold ${r.ibogaineThreshold.includes("Critical") ? "text-[#581C87]" : "text-[#836311]"}`}>{r.ibogaineThreshold}</td>
@@ -511,12 +526,22 @@ export default function IbogaIbogainePage() {
                 const isIboga = r.medicine.includes("Iboga");
                 return (
                   <tr key={r.medicine} className={isIboga ? "bg-[#D4B96A]/8" : i % 2 ? "bg-white/3" : ""}>
-                    <td className={`${tdDarkClass} w-9 text-center text-xl`}>{r.icon}</td>
+                    <td className={`${tdDarkClass} w-9 text-center`}>
+                      <r.icon aria-hidden="true" className="mx-auto size-5 text-[#D4B96A]" />
+                    </td>
                     <td className={`${tdDarkClass} whitespace-nowrap ${isIboga ? "font-extrabold" : "font-semibold"}`}>{r.medicine}</td>
-                    <td className={`${tdDarkClass} text-center`}>{r.addiction}</td>
-                    <td className={`${tdDarkClass} text-center`}>{r.depression}</td>
-                    <td className={`${tdDarkClass} text-center`}>{r.ptsd}</td>
-                    <td className={`${tdDarkClass} text-center`}>{r.tbi}</td>
+                    <td className={`${tdDarkClass} text-center`}>
+                      <SelectorMark value={r.addiction} />
+                    </td>
+                    <td className={`${tdDarkClass} text-center`}>
+                      <SelectorMark value={r.depression} />
+                    </td>
+                    <td className={`${tdDarkClass} text-center`}>
+                      <SelectorMark value={r.ptsd} />
+                    </td>
+                    <td className={`${tdDarkClass} text-center`}>
+                      <SelectorMark value={r.tbi} />
+                    </td>
                     <td className={`${tdDarkClass} font-mono whitespace-nowrap`}>{r.duration}</td>
                     <td className={`${tdDarkClass} text-center`}>{r.beginner}</td>
                     <td className={tdDarkClass}>{r.evidence}</td>
@@ -767,7 +792,16 @@ export default function IbogaIbogainePage() {
                   <td className={`${tdClass} font-bold`}>{r.name}</td>
                   <td className={tdClass}>{r.loc}</td>
                   <td className={`${tdClass} ${r.travel.includes("3") ? "text-[#E65100]" : r.travel.includes("2") ? "text-[#836311]" : ""}`}>{r.travel}</td>
-                  <td className={tdClass}>{r.vet}</td>
+                  <td className={tdClass}>
+                    {r.primary ? (
+                      <span className="inline-flex items-center gap-1">
+                        <Star aria-hidden="true" className="size-4 text-[#D4B96A]" fill="currentColor" />
+                        {r.vet}
+                      </span>
+                    ) : (
+                      r.vet
+                    )}
+                  </td>
                   <td className={tdClass}>{r.nagoya}</td>
                   <td className={`${tdClass} font-mono`}>{r.price}</td>
                 </tr>
@@ -799,8 +833,9 @@ export default function IbogaIbogainePage() {
           This is the core of ImpactSoul&apos;s thesis: regenerative capital heals. Extractive capital destroys. Ibogaine is the most literal test of that
           proposition I have encountered.
         </p>
-        <Link href="/blog/psychedelics-could-become-extractive-capitalism" className="inline-flex rounded-md bg-[#D4B96A] px-8 py-3 font-bold text-pri-ink">
-          Read the Full Argument →
+        <Link href="/blog/psychedelics-could-become-extractive-capitalism" className="inline-flex items-center gap-1.5 rounded-md bg-[#D4B96A] px-8 py-3 font-bold text-pri-ink">
+          Read the Full Argument
+          <ArrowRight aria-hidden="true" className="size-3.5" />
         </Link>
       </PriSection>
 
@@ -848,8 +883,9 @@ export default function IbogaIbogainePage() {
             <p className="m-0 text-[.95rem] leading-[1.75] text-pri-brown">{IBOGA_DISCLAIMER}</p>
           </div>
           <div className="mt-8 text-center">
-            <Link href="/psychedelic-readiness-index" className="inline-block rounded-md bg-[#D4B96A] px-8 py-3 font-bold text-pri-ink">
-              ← Return to Psychedelic Readiness Index
+            <Link href="/psychedelic-readiness-index" className="inline-flex items-center gap-1.5 rounded-md bg-[#D4B96A] px-8 py-3 font-bold text-pri-ink">
+              <ArrowLeft aria-hidden="true" className="size-3.5" />
+              Return to Psychedelic Readiness Index
             </Link>
           </div>
         </div>

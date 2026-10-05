@@ -39,7 +39,7 @@ export function StepQuestions({ quiz }: StepProps) {
             {questionIndex + 1} / {QUESTIONS.length}
           </div>
 
-          <div className="mb-3 text-4xl [filter:drop-shadow(0_4px_12px_rgba(139,105,20,0.25))]">{cur.icon}</div>
+          <cur.icon aria-hidden="true" className="mx-auto mb-3 size-9 text-[#836311] drop-shadow-[0_4px_12px_rgba(139,105,20,0.25)]" strokeWidth={1.5} />
 
           <h2 className="mb-6 font-heading text-xl font-bold text-[#1A1A1A] sm:text-2xl">{cur.q}</h2>
 

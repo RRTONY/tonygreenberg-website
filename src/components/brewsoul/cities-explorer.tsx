@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import { X } from "lucide-react";
 import {
   SCORING_DIMENSIONS,
   GRADE_SCALE,
@@ -261,8 +262,12 @@ export function CitiesExplorer({ cities, nationalStats }: { cities: CityData[]; 
             className="relative max-h-[80vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-white/15 bg-linear-to-br from-[#1a1208]/95 to-[#0f0d08]/95 p-8 shadow-2xl backdrop-blur-xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <button onClick={() => setShowMethodology(false)} className="absolute top-4 right-4 text-2xl text-amber-200/50">
-              ×
+            <button
+              onClick={() => setShowMethodology(false)}
+              aria-label="Close"
+              className="absolute top-4 right-4 flex size-11 items-center justify-center text-amber-200/50"
+            >
+              <X aria-hidden="true" className="size-5" />
             </button>
             <h2 className="mb-4 text-2xl font-bold text-amber-50">Scoring Methodology</h2>
             <p className="mb-6 text-sm leading-relaxed text-amber-200/60">
@@ -274,7 +279,7 @@ export function CitiesExplorer({ cities, nationalStats }: { cities: CityData[]; 
             <div className="mb-6 space-y-3">
               {SCORING_DIMENSIONS.map((dim) => (
                 <div key={dim.key} className="flex items-center gap-3 rounded-lg bg-white/5 p-3">
-                  <span className="text-xl">{dim.icon}</span>
+                  <dim.icon aria-hidden="true" className="size-5 shrink-0 text-amber-400" />
                   <div className="flex-1">
                     <div className="flex items-center justify-between">
                       <span className="text-sm font-medium text-amber-50">{dim.label}</span>

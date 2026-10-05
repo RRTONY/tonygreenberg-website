@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowRight, CakeSlice, Microscope, Pill, Scale, Sparkle, TrendingDown } from "lucide-react";
 import { NextSteps } from "@/components/brewsoul/next-steps";
 import { FirstSipEmailCapture } from "@/components/brewsoul/first-sip-email-capture";
 import { JourneyBar, MarkVisited } from "@/components/brewsoul/journey-bar";
@@ -28,7 +29,7 @@ export const metadata: Metadata = {
 const TOOLS = [
   {
     num: "01",
-    icon: "💊",
+    icon: Pill,
     title: "Coffee Prescription",
     desc: "AI-powered, personalized recommendations based on your biology, sensitivity, habits, and goals. Start here if you want to know what coffee should be doing for you — and what it shouldn't.",
     cta: "Personalized analysis",
@@ -36,7 +37,7 @@ const TOOLS = [
   },
   {
     num: "02",
-    icon: "🔬",
+    icon: Microscope,
     title: "Coffee & Health",
     desc: "Peer-reviewed research on caffeine metabolism, cortisol, sleep architecture, mycotoxin risk, and long-term health outcomes. The science behind the ritual.",
     cta: "Research library",
@@ -44,7 +45,7 @@ const TOOLS = [
   },
   {
     num: "03",
-    icon: "🍰",
+    icon: CakeSlice,
     title: "Coffee Pairings",
     desc: "How food changes coffee's impact on your body and palate. Absorption rates, acidity interactions, nutrient synergies — where food meets pharmacology.",
     cta: "Pairing guide",
@@ -52,7 +53,7 @@ const TOOLS = [
   },
   {
     num: "04",
-    icon: "📉",
+    icon: TrendingDown,
     title: "Coffee Economics",
     desc: "Where your dollar actually goes. Farmgate-to-shelf breakdowns, margin analysis, ad-spend-to-origin ratios, and the structural math the label never shows you.",
     cta: "Value chain breakdown",
@@ -60,7 +61,7 @@ const TOOLS = [
   },
   {
     num: "05",
-    icon: "⚖️",
+    icon: Scale,
     title: "Compare Coffees",
     desc: "Side-by-side brand comparisons on sourcing transparency, certification rigor, pricing structure, contaminant testing, and value-to-farmer ratios. The Consumer Reports of coffee — without the ad revenue bias.",
     cta: "Head-to-head comparison engine",
@@ -331,7 +332,7 @@ export default function FirstSipPage() {
             <div className="grid gap-2 [grid-template-columns:repeat(auto-fit,minmax(220px,1fr))]">
               {DEMANDS.map((d) => (
                 <div key={d} className="flex items-center gap-2">
-                  <span className="text-sm text-[#836311]">→</span>
+                  <ArrowRight aria-hidden="true" className="size-3.5 shrink-0 text-[#836311]" />
                   <span className="text-[0.92rem]">{d}</span>
                 </div>
               ))}
@@ -392,11 +393,13 @@ export default function FirstSipPage() {
               >
                 <div className="mb-3 flex items-center gap-3">
                   <span className="font-mono text-xs tracking-wide text-[#836311]">{tool.num}</span>
-                  <span className="text-xl">{tool.icon}</span>
+                  <tool.icon aria-hidden="true" className="size-5 text-[#836311]" />
                 </div>
                 <h3 className="mb-2 font-heading text-lg font-bold text-[#2C1810]">{tool.title}</h3>
                 <p className="mb-4 text-sm leading-relaxed text-[#6B5B4F]">{tool.desc}</p>
-                <div className="font-mono text-[0.72rem] font-semibold text-[#836311]">{tool.cta} →</div>
+                <div className="inline-flex items-center gap-1.5 font-mono text-[0.72rem] font-semibold text-[#836311]">
+                  {tool.cta} <ArrowRight aria-hidden="true" className="size-3.5" />
+                </div>
               </Link>
             ))}
           </div>
@@ -419,7 +422,7 @@ export default function FirstSipPage() {
                 href={essay.slug}
                 className={`flex items-center gap-4 py-4 text-[#6B5B4F] ${i < RELATED.length - 1 ? "border-b border-[#6F4E37]/10" : ""}`}
               >
-                <span className="shrink-0 text-xs text-[#836311]">✦</span>
+                <Sparkle aria-hidden="true" className="size-3 shrink-0 text-[#836311]" />
                 <span className="flex-1 font-medium text-[0.95rem] text-[#2C1810]">{essay.title}</span>
                 <span className="shrink-0 rounded-sm border border-[#6F4E37]/12 px-2.5 py-1 font-mono text-[0.68rem] font-semibold tracking-wide text-[#6B5B4F] uppercase">
                   {essay.tag}

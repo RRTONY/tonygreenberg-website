@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { BREWSOUL_CATEGORIES, CAT_COLORS, BREWSOUL_TOTAL_PAGES } from "@/lib/content/brewsoul-directory";
+import { ArrowRight } from "lucide-react";
 
 // Ported from legacy client/src/pages/brewsoul/BrewSoulDirectory.tsx —
 // real category filter pills over the full page index, extracted into a
@@ -36,7 +37,10 @@ export function DirectoryExplorer() {
                 color: active ? CAT_COLORS[cat.title].badgeText : CAT_COLORS[cat.title].badge,
               }}
             >
-              {cat.emoji} {cat.title} ({cat.pages.length})
+              <span className="inline-flex items-center gap-1.5">
+                <cat.icon aria-hidden="true" className="size-3.5 shrink-0" />
+                {cat.title} ({cat.pages.length})
+              </span>
             </button>
           );
         })}
@@ -47,7 +51,7 @@ export function DirectoryExplorer() {
         return (
           <div key={cat.title} className="mb-12">
             <div className="mb-4 flex items-center gap-3 border-b-2 pb-3" style={{ borderColor: c.border }}>
-              <span className="text-2xl">{cat.emoji}</span>
+              <cat.icon aria-hidden="true" className="size-6 shrink-0 text-[#6F4E37]" />
               <div>
                 <div className="font-heading text-xl font-bold text-[#2C1810]">{cat.title}</div>
                 <div className="text-[0.85rem] text-[#6B5B4F]">{cat.desc}</div>
@@ -63,7 +67,9 @@ export function DirectoryExplorer() {
                   style={{ background: c.bg, borderColor: c.border }}
                 >
                   <div className="mb-3 flex items-center justify-between">
-                    <span className="flex size-11 items-center justify-center rounded-[10px] bg-white/60 text-[1.75rem]">{page.icon}</span>
+                    <span className="flex size-11 items-center justify-center rounded-[10px] bg-white/60 text-[#6F4E37]">
+                      <page.icon aria-hidden="true" className="size-6" />
+                    </span>
                     <span
                       className="rounded-sm px-2 py-1 font-mono text-[0.58rem] tracking-[0.1em] uppercase"
                       style={{ background: c.badge, color: c.badgeText }}
@@ -73,8 +79,9 @@ export function DirectoryExplorer() {
                   </div>
                   <div className="mb-1.5 font-heading text-[1.05rem] leading-snug font-bold text-[#2C1810]">{page.label}</div>
                   <div className="flex-1 text-[0.85rem] leading-relaxed text-[#6B5B4F]">{page.desc}</div>
-                  <div className="mt-3 font-mono text-xs" style={{ color: c.badge }}>
-                    Explore →
+                  <div className="mt-3 inline-flex items-center gap-1.5 font-mono text-xs" style={{ color: c.badge }}>
+                    Explore
+                    <ArrowRight aria-hidden="true" className="size-3.5" />
                   </div>
                 </Link>
               ))}

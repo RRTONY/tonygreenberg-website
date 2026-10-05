@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Check, Circle, Hexagon, Infinity as InfinityIcon, Gem, Target, Swords, RotateCcw, type LucideIcon } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Circle, Hexagon, Infinity as InfinityIcon, Gem, Target, Swords, RotateCcw, type LucideIcon } from "lucide-react";
 
 // Ported from legacy client/src/pages/JourneyFinder.tsx. Real content,
 // unchanged — all 5 questions with real weighted choices, all 6 journey
@@ -270,9 +270,10 @@ export function JourneyFinder() {
             </div>
             <button
               onClick={() => setStep(1)}
-              className="rounded-sm bg-brand-gold-light px-10 py-4 font-mono text-sm tracking-wide text-[#0A0A10] uppercase transition-transform hover:-translate-y-0.5 hover:bg-brand-gold-light"
+              className="inline-flex items-center gap-1.5 rounded-sm bg-brand-gold-light px-10 py-4 font-mono text-sm tracking-wide text-[#0A0A10] uppercase transition-transform hover:-translate-y-0.5 hover:bg-brand-gold-light"
             >
-              Begin →
+              Begin
+              <ArrowRight aria-hidden="true" className="size-4" />
             </button>
           </div>
         </div>
@@ -350,20 +351,22 @@ export function JourneyFinder() {
             <div className="flex justify-between">
               <button
                 onClick={handleBack}
-                className={`font-mono text-xs tracking-wide uppercase ${step > 1 ? "text-[#8A8A8A]" : "invisible"}`}
+                className={`inline-flex items-center gap-1.5 font-mono text-xs tracking-wide uppercase ${step > 1 ? "text-[#8A8A8A]" : "invisible"}`}
               >
-                ← Back
+                <ArrowLeft aria-hidden="true" className="size-3.5" />
+                Back
               </button>
               <button
                 onClick={handleNext}
                 disabled={selectedChoice === null}
-                className={`rounded-sm px-8 py-3 font-mono text-xs tracking-wide uppercase transition-colors ${
+                className={`inline-flex items-center gap-1.5 rounded-sm px-8 py-3 font-mono text-xs tracking-wide uppercase transition-colors ${
                   selectedChoice !== null
                     ? "bg-brand-gold-light text-[#0A0A10]"
                     : "cursor-not-allowed bg-white/5 text-[#555]"
                 }`}
               >
-                {step === totalQuestions ? "See My Path →" : "Next →"}
+                {step === totalQuestions ? "See My Path" : "Next"}
+                <ArrowRight aria-hidden="true" className="size-3.5" />
               </button>
             </div>
           </div>

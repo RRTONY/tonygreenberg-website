@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { EyebrowLabel } from "@/components/marketing/eyebrow-label";
 import { BlueprintForm } from "./blueprint-form";
 
@@ -204,9 +205,9 @@ export default function LivingDeclarationPage() {
         </p>
         <a
           href="#your-turn"
-          className="inline-flex min-h-11 items-center rounded-md bg-brand-gold-light px-10 py-3.5 font-mono text-xs tracking-[0.15em] text-[#0A0A10] uppercase transition-colors hover:bg-[#F5F0E0]"
+          className="inline-flex min-h-11 items-center gap-1.5 rounded-md bg-brand-gold-light px-10 py-3.5 font-mono text-xs tracking-[0.15em] text-[#0A0A10] uppercase transition-colors hover:bg-[#F5F0E0]"
         >
-          Add Your Voice →
+          Add Your Voice <ArrowRight aria-hidden="true" className="size-3.5" />
         </a>
       </div>
 
@@ -276,9 +277,9 @@ export default function LivingDeclarationPage() {
         <div className="my-8 text-center">
           <Link
             href="/blog/boiling-the-human-summit-harvard-kurzweil"
-            className="rounded-md border border-brand-gold/30 px-6 py-2.5 font-mono text-xs tracking-wide text-brand-gold uppercase"
+            className="inline-flex items-center gap-1.5 rounded-md border border-brand-gold/30 px-6 py-2.5 font-mono text-xs tracking-wide text-brand-gold uppercase"
           >
-            Read the Original &quot;Boiling the Human&quot; Essay →
+            Read the Original &quot;Boiling the Human&quot; Essay <ArrowRight aria-hidden="true" className="size-3.5" />
           </Link>
         </div>
 
@@ -574,9 +575,9 @@ export default function LivingDeclarationPage() {
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="rounded-sm border border-brand-gold/20 px-2.5 py-1 font-mono text-[0.65rem] tracking-wide text-brand-gold uppercase"
+                      className="inline-flex items-center gap-1.5 rounded-sm border border-brand-gold/20 px-2.5 py-1 font-mono text-[0.65rem] tracking-wide text-brand-gold uppercase"
                     >
-                      {link.label} ↗
+                      {link.label} <ArrowUpRight aria-hidden="true" className="size-3" />
                     </a>
                   ) : (
                     <Link
@@ -611,16 +612,16 @@ export default function LivingDeclarationPage() {
         </p>
         <Link
           href="/assessment"
-          className="mb-4 inline-block rounded-md bg-foreground px-8 py-3 font-mono text-sm tracking-wide text-background uppercase"
+          className="mb-4 inline-flex items-center gap-1.5 rounded-md bg-foreground px-8 py-3 font-mono text-sm tracking-wide text-background uppercase"
         >
-          Take the Assessment →
+          Take the Assessment <ArrowRight aria-hidden="true" className="size-3.5" />
         </Link>
         <div>
           <Link
             href="/humanos"
-            className="inline-block rounded-md border border-red-800/30 px-6 py-2.5 font-mono text-xs tracking-wide text-red-800 uppercase"
+            className="inline-flex items-center gap-1.5 rounded-md border border-red-800/30 px-6 py-2.5 font-mono text-xs tracking-wide text-red-800 uppercase"
           >
-            Or Explore Human OS V2.0 →
+            Or Explore Human OS V2.0 <ArrowRight aria-hidden="true" className="size-3.5" />
           </Link>
         </div>
       </div>
@@ -654,31 +655,31 @@ export default function LivingDeclarationPage() {
         </p>
         <Link
           href="/community"
-          className="mb-5 inline-block rounded-md bg-brand-gold px-8 py-3 font-mono text-sm tracking-wide text-white uppercase"
+          className="mb-5 inline-flex items-center gap-1.5 rounded-md bg-brand-gold px-8 py-3 font-mono text-sm tracking-wide text-white uppercase"
         >
-          Enter the Community →
+          Enter the Community <ArrowRight aria-hidden="true" className="size-3.5" />
         </Link>
         <div className="mb-3">
           <Link
             href="/assessment"
-            className="inline-block rounded-md border border-brand-gold/40 px-6 py-2.5 font-mono text-xs tracking-wide text-brand-gold uppercase"
+            className="inline-flex items-center gap-1.5 rounded-md border border-brand-gold/40 px-6 py-2.5 font-mono text-xs tracking-wide text-brand-gold uppercase"
           >
-            Or Take the Assessment First →
+            Or Take the Assessment First <ArrowRight aria-hidden="true" className="size-3.5" />
           </Link>
         </div>
         <div>
           <Link
             href="/humanos"
-            className="inline-block rounded-md border border-red-800/30 px-6 py-2.5 font-mono text-xs tracking-wide text-red-800 uppercase"
+            className="inline-flex items-center gap-1.5 rounded-md border border-red-800/30 px-6 py-2.5 font-mono text-xs tracking-wide text-red-800 uppercase"
           >
-            Explore Human OS V2.0 →
+            Explore Human OS V2.0 <ArrowRight aria-hidden="true" className="size-3.5" />
           </Link>
         </div>
       </div>
 
       <div className="border-t border-border py-6 text-center">
-        <Link href="/community" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
-          Continue to The Community →
+        <Link href="/community" className="inline-flex items-center gap-1.5 font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
+          Continue to The Community <ArrowRight aria-hidden="true" className="size-3.5" />
         </Link>
       </div>
     </div>

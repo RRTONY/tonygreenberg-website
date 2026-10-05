@@ -16,6 +16,7 @@ import {
   TrendingUp,
   Flame,
   Skull,
+  ArrowUpRight,
 } from "lucide-react";
 import {
   GlassCard,
@@ -264,7 +265,7 @@ export default async function AttentionTheftPage({ searchParams }: PageProps<"/a
             <ul className="space-y-2">
               {ECONOMICS_SOURCES.map((s) => (
                 <li key={s.text} className="flex items-start gap-2">
-                  <span className="mt-1 shrink-0 text-crusade-teal/60">↗</span>
+                  <ArrowUpRight aria-hidden="true" className="mt-1 size-4 shrink-0 text-crusade-teal/60" />
                   {s.url ? (
                     <a href={s.url} target="_blank" rel="noopener noreferrer" className="text-sm leading-relaxed text-crusade-muted hover:underline">
                       {s.text}

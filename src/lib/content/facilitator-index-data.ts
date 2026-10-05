@@ -17,6 +17,8 @@
 // so the ported page's print/PDF feature can never drift from what's
 // displayed again.
 
+import { CircleDot, Diamond, Gem, Hexagon, Pentagon, Sparkle, Target, type LucideIcon } from "lucide-react";
+
 export const FACILITATOR_HERO_IMAGE =
   "https://cdn.sanity.io/images/a3q1cyqs/production/5fda5233a00c0cd0161d195de059dd500b85df7e-1920x1072.webp";
 
@@ -74,7 +76,7 @@ export interface Archetype {
   subtitle: string;
   description: string;
   color: string;
-  icon: string;
+  icon: LucideIcon;
   bands: { label: string; score: number; color: string }[];
 }
 
@@ -112,7 +114,7 @@ export function deriveArchetype(answers: Record<string, number>): Archetype {
       description:
         "You hold space the way a river holds its banks — present, yielding, and quietly shaping everything that moves through you. You believe the work finds its own form. You've probably been told you're too unstructured. You're not. You're calibrated to something most protocols can't measure.",
       color: "#7C3AED",
-      icon: "◈",
+      icon: Gem,
       bands,
     };
   }
@@ -123,7 +125,7 @@ export function deriveArchetype(answers: Record<string, number>): Archetype {
       description:
         "You bring the rigor the field desperately needs and rarely gets. You've read the research. You've built the container. You know exactly why the set and setting matter and you can defend every choice. The danger is mistaking the map for the territory — but you already know that.",
       color: "#0891B2",
-      icon: "⬡",
+      icon: Hexagon,
       bands,
     };
   }
@@ -134,7 +136,7 @@ export function deriveArchetype(answers: Record<string, number>): Archetype {
       description:
         "You read the room through the body before the mind has a chance to catch up. You know when someone is bracing before they do. Your work lives in the nervous system — in breath, in posture, in the micro-tremor that says 'I'm not ready yet.' Rare. Necessary. Irreplaceable.",
       color: "#059669",
-      icon: "◉",
+      icon: CircleDot,
       bands,
     };
   }
@@ -145,7 +147,7 @@ export function deriveArchetype(answers: Record<string, number>): Archetype {
       description:
         "You understand that healing is relational before it is individual. You build the field that makes the work possible — the trust, the ritual, the shared language. You've probably been in more circles than you can count. You know the difference between a group and a container.",
       color: "#BE185D",
-      icon: "⬟",
+      icon: Pentagon,
       bands,
     };
   }
@@ -156,7 +158,7 @@ export function deriveArchetype(answers: Record<string, number>): Archetype {
       description:
         "You've been doing this long enough to know what you don't know. You stay in supervision not because you have to — because you understand that the work never stops working on the worker. You are the person other practitioners call when something goes sideways.",
       color: "#D97706",
-      icon: "◎",
+      icon: Target,
       bands,
     };
   }
@@ -167,7 +169,7 @@ export function deriveArchetype(answers: Record<string, number>): Archetype {
       description:
         "You have the structure. Now the field is asking you to develop the philosophy that makes structure meaningful. The best practitioners you'll ever meet will unsettle your certainty — and that's exactly what you need. You're at the most interesting part of the journey.",
       color: "#F59E0B",
-      icon: "◇",
+      icon: Diamond,
       bands,
     };
   }
@@ -177,7 +179,7 @@ export function deriveArchetype(answers: Record<string, number>): Archetype {
     description:
       "You move fluidly between structure and emergence, soma and psyche, solo and community. You resist easy categorization — which is either your greatest strength or the thing you're still working out. Probably both. The field needs more people who can hold the whole map without collapsing it.",
     color: "#B45309",
-    icon: "✦",
+    icon: Sparkle,
     bands,
   };
 }

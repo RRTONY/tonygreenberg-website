@@ -11,13 +11,15 @@
 // `/grant-study` — no `/assessments/` prefix, see each page's own port
 // note) now exist elsewhere in this migration; `slug` below links each
 // card directly.
+import { Compass, Heart, Triangle, type LucideIcon } from "lucide-react";
+
 export interface AssessmentPreview {
   slug: string;
   title: string;
   subtitle: string;
   description: string;
   time: string;
-  icon: string;
+  icon: LucideIcon;
   accent: string;
 }
 
@@ -29,7 +31,7 @@ export const ASSESSMENTS: AssessmentPreview[] = [
     description:
       "Twenty-five questions distilled from Schmachtenberger's Dharma Inquiry — a framework for discovering your unique purpose, the intersection of your gifts and the world's needs. Not what you should do. What you can't not do.",
     time: "15–20 min",
-    icon: "◎",
+    icon: Compass,
     accent: "#836311",
   },
   {
@@ -39,7 +41,7 @@ export const ASSESSMENTS: AssessmentPreview[] = [
     description:
       "Where do you currently sit on the spectrum from Shame to Enlightenment? Twenty-five questions that map your dominant energy field across Hawkins' calibrated levels. Not a judgment — a compass.",
     time: "15–20 min",
-    icon: "△",
+    icon: Triangle,
     accent: "#6B4C8A",
   },
   {
@@ -49,7 +51,7 @@ export const ASSESSMENTS: AssessmentPreview[] = [
     description:
       "The longest study of human happiness ever conducted. Five factors predict lifelong wellbeing: relationships, adaptive coping, generativity, career satisfaction, and physical vitality. This assessment maps where you stand on each.",
     time: "15–20 min",
-    icon: "♡",
+    icon: Heart,
     accent: "#287A4C",
   },
 ];

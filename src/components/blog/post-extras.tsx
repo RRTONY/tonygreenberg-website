@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Sparkle } from "lucide-react";
 import { POST_EXTRAS } from "@/lib/content/post-extras";
 import { getFurtherReading } from "@/lib/content/further-reading";
 import { getSeriesForPost } from "@/lib/content/essay-series";
@@ -88,7 +89,9 @@ export function PostLessonBlocks({ slug, category }: { slug: string; category?: 
     <div className="mt-12 space-y-8">
       {extras?.lesson && (
         <div className="rounded-r-md border-l-4 border-brand-gold bg-brand-gold/5 p-6">
-          <p className="mb-2 font-mono text-xs tracking-widest text-brand-gold uppercase">✦ The Lesson</p>
+          <p className="mb-2 flex items-center gap-1.5 font-mono text-xs tracking-widest text-brand-gold uppercase">
+            <Sparkle aria-hidden="true" className="size-3 fill-current" /> The Lesson
+          </p>
           <p className="font-heading text-xl leading-snug text-foreground italic">{extras.lesson}</p>
         </div>
       )}
@@ -101,9 +104,7 @@ export function PostLessonBlocks({ slug, category }: { slug: string; category?: 
           <ul className="space-y-2">
             {extras.nextSteps.map((step) => (
               <li key={step} className="relative pl-5 leading-relaxed text-foreground/85">
-                <span aria-hidden="true" className="absolute left-0 text-brand-gold">
-                  ✦
-                </span>
+                <Sparkle aria-hidden="true" className="absolute top-1.5 left-0 size-3 fill-current text-brand-gold" />
                 {step}
               </li>
             ))}
@@ -148,7 +149,7 @@ export function PostLessonBlocks({ slug, category }: { slug: string; category?: 
                   <>
                     <span className="block font-semibold text-foreground">
                       {v.name}
-                      {v.url && <span className="ml-1 text-brand-gold">↗</span>}
+                      {v.url && <ArrowUpRight aria-hidden="true" className="ml-1 inline size-4 align-text-bottom text-brand-gold" />}
                     </span>
                     <span className="block text-sm text-muted-foreground">{v.title}</span>
                     <span className="mt-1 block text-sm text-foreground/75 italic">{v.relevance}</span>
@@ -241,7 +242,9 @@ export function SeriesReadingList({
                 <span className="flex min-h-11 items-center gap-2 font-semibold text-foreground md:min-h-8">
                   <span className="font-mono text-xs text-brand-gold">{n}.</span>
                   {titlesBySlug[s]}
-                  <span className="font-mono text-xs text-muted-foreground">← You are here</span>
+                  <span className="inline-flex items-center gap-1.5 font-mono text-xs text-muted-foreground">
+                    <ArrowLeft aria-hidden="true" className="size-3.5" /> You are here
+                  </span>
                 </span>
               ) : (
                 <Link
@@ -259,9 +262,9 @@ export function SeriesReadingList({
       {nextSlug && titlesBySlug[nextSlug] && (
         <Link
           href={`/blog/${nextSlug}`}
-          className="mt-4 inline-flex min-h-11 items-center rounded-sm bg-brand-gold px-5 font-mono text-xs tracking-wide text-white uppercase"
+          className="mt-4 inline-flex min-h-11 items-center gap-1.5 rounded-sm bg-brand-gold px-5 font-mono text-xs tracking-wide text-white uppercase"
         >
-          Next → {titlesBySlug[nextSlug]}
+          Next <ArrowRight aria-hidden="true" className="size-3.5 shrink-0" /> {titlesBySlug[nextSlug]}
         </Link>
       )}
     </section>

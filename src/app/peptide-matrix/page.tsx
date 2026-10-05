@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
+  ArrowRight,
   Brain,
   RefreshCw,
   Clock,
@@ -12,6 +13,7 @@ import {
   Shield,
   Newspaper,
   Check,
+  Star,
   X,
   type LucideIcon,
 } from "lucide-react";
@@ -114,7 +116,17 @@ export default function PeptideMatrixPage() {
       </section>
 
       <div className="border-y-2 border-[#C0392B] bg-[#C0392B]/8 px-6 py-6 text-center">
-        <p className="font-heading text-xl font-bold text-[#C0392B]">★★★★★ 4.8/5 &quot;Miracle cure!&quot;</p>
+        <p className="flex flex-wrap items-center justify-center gap-x-2 font-heading text-xl font-bold text-[#C0392B]">
+          <span className="inline-flex gap-0.5">
+            <Star aria-hidden="true" className="size-5 fill-current" />
+            <Star aria-hidden="true" className="size-5 fill-current" />
+            <Star aria-hidden="true" className="size-5 fill-current" />
+            <Star aria-hidden="true" className="size-5 fill-current" />
+            <Star aria-hidden="true" className="size-5 fill-current" />
+            <span className="sr-only">Five stars,</span>
+          </span>
+          4.8/5 &quot;Miracle cure!&quot;
+        </p>
         <p className="mt-2 font-mono text-xs tracking-wide text-muted-foreground">
           EVIDENCE: 0 Phase 3 RCTs · FDA Category 2 · Contamination Risk
         </p>
@@ -286,9 +298,10 @@ export default function PeptideMatrixPage() {
           </p>
           <Link
             href="/supplier-intake"
-            className="inline-block rounded-lg bg-brand-gold px-8 py-3 font-mono text-xs font-bold tracking-wide text-white uppercase"
+            className="inline-flex items-center gap-1.5 rounded-lg bg-brand-gold px-8 py-3 font-mono text-xs font-bold tracking-wide text-white uppercase"
           >
-            Become a Supply Partner →
+            Become a Supply Partner
+            <ArrowRight aria-hidden="true" className="size-3.5" />
           </Link>
         </div>
 

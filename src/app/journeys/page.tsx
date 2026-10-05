@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Brain, Flame, Orbit, Settings, Sparkles, Sprout, Zap } from "lucide-react";
 import { JourneysAccordion, type Journey } from "@/components/marketing/journeys-accordion";
 
 // Ported from legacy client/src/pages/Journeys.tsx. Real content kept as-is,
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
 const JOURNEYS: Journey[] = [
   {
     id: "the-thinker",
-    icon: "🧠",
+    icon: <Brain aria-hidden="true" className="size-7" strokeWidth={1.5} />,
     title: "The Thinker's Thread",
     subtitle: "For the philosophically restless",
     description:
@@ -37,7 +38,7 @@ const JOURNEYS: Journey[] = [
   },
   {
     id: "the-operator",
-    icon: "⚙️",
+    icon: <Settings aria-hidden="true" className="size-7" strokeWidth={1.5} />,
     title: "The Operator's Playbook",
     subtitle: "For builders who need the objective lever",
     description:
@@ -55,7 +56,7 @@ const JOURNEYS: Journey[] = [
   },
   {
     id: "the-impact-soul",
-    icon: "🌱",
+    icon: <Sprout aria-hidden="true" className="size-7" strokeWidth={1.5} />,
     title: "The Impact Trail",
     subtitle: "For regenerative capitalists and reluctant optimists",
     description:
@@ -73,7 +74,7 @@ const JOURNEYS: Journey[] = [
   },
   {
     id: "the-body-electric",
-    icon: "⚡",
+    icon: <Zap aria-hidden="true" className="size-7" strokeWidth={1.5} />,
     title: "The Body Electric",
     subtitle: "For the curious reader who wants receipts",
     description:
@@ -90,7 +91,7 @@ const JOURNEYS: Journey[] = [
   },
   {
     id: "the-crusade",
-    icon: "🔥",
+    icon: <Flame aria-hidden="true" className="size-7" strokeWidth={1.5} />,
     title: "The Crusade Files",
     subtitle: "For the righteously pissed off",
     description:
@@ -107,7 +108,7 @@ const JOURNEYS: Journey[] = [
   },
   {
     id: "the-relationship-circuit",
-    icon: "💫",
+    icon: <Sparkles aria-hidden="true" className="size-7" strokeWidth={1.5} />,
     title: "The Relationship Circuit",
     subtitle: "For anyone who suspects love has a science — and a sacred geometry",
     description:
@@ -125,7 +126,7 @@ const JOURNEYS: Journey[] = [
   },
   {
     id: "the-whole-catastrophe",
-    icon: "🌀",
+    icon: <Orbit aria-hidden="true" className="size-7" strokeWidth={1.5} />,
     title: "The Whole Catastrophe",
     subtitle: "Read everything. Miss nothing.",
     description:

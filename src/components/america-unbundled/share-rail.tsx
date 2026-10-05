@@ -1,5 +1,6 @@
 "use client";
 
+import { ArrowUpRight } from "lucide-react";
 import { useState } from "react";
 
 // "Share the question" rail on /america-unbundled. Ported from the live
@@ -11,11 +12,11 @@ const SHARE_TITLE = "AI Does Not Have a Candidate: Politics for the AI Age";
 const SHARE_TEXT = "Why America needs an independent civic grid to govern AI, energy, and political power.";
 
 const itemClass =
-  "inline-flex min-h-11 items-center border-b border-foreground/60 text-xs font-bold tracking-[0.08em] uppercase hover:text-[#5b3ca8] sm:min-h-0 dark:hover:text-[#b3a1ec]";
+  "inline-flex min-h-11 items-center gap-1.5 border-b border-foreground/60 text-xs font-bold tracking-[0.08em] uppercase hover:text-[#5b3ca8] sm:min-h-0 dark:hover:text-[#b3a1ec]";
 
 export function ShareRail() {
   const [copyLabel, setCopyLabel] = useState("Copy link");
-  const [shareLabel, setShareLabel] = useState("Share ↗");
+  const [shareLabel, setShareLabel] = useState("Share");
 
   async function copy() {
     try {
@@ -50,7 +51,7 @@ export function ShareRail() {
         rel="noopener"
         className={itemClass}
       >
-        X ↗
+        X <ArrowUpRight aria-hidden="true" className="size-3.5" />
       </a>
       <a
         href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Ftonygreenberg.com%2Famerica-unbundled"
@@ -58,13 +59,14 @@ export function ShareRail() {
         rel="noopener"
         className={itemClass}
       >
-        LinkedIn ↗
+        LinkedIn <ArrowUpRight aria-hidden="true" className="size-3.5" />
       </a>
       <button type="button" onClick={copy} className={itemClass} aria-live="polite">
         {copyLabel}
       </button>
       <button type="button" onClick={share} className={itemClass}>
         {shareLabel}
+        {shareLabel === "Share" && <ArrowUpRight aria-hidden="true" className="size-3.5" />}
       </button>
     </div>
   );

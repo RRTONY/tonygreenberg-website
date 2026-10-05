@@ -2,10 +2,12 @@
 // from legacy client/src/pages/brewsoul/BrewSoulQuiz.tsx: 7 questions scored
 // against each coffee's real `flavorProfile`. Real content, unchanged.
 
+import { Cherry, Citrus, Coffee, Droplet, Droplets, FlaskConical, Wallet, type LucideIcon } from "lucide-react";
+
 export type QuizQuestion = {
   q: string;
   dim: string;
-  icon: string;
+  icon: LucideIcon;
   opts: { text: string; score: number }[];
 };
 
@@ -13,7 +15,7 @@ export const QUESTIONS: QuizQuestion[] = [
   {
     q: "How do you feel about bright, citrusy acidity?",
     dim: "acidity",
-    icon: "🍋",
+    icon: Citrus,
     opts: [
       { text: "Love it — the brighter the better", score: 9 },
       { text: "I enjoy some brightness", score: 6 },
@@ -24,7 +26,7 @@ export const QUESTIONS: QuizQuestion[] = [
   {
     q: "Body preference — how heavy in the mouth?",
     dim: "body",
-    icon: "☕",
+    icon: Coffee,
     opts: [
       { text: "Tea-like, delicate, transparent", score: 3 },
       { text: "Medium, balanced, silky", score: 5 },
@@ -35,7 +37,7 @@ export const QUESTIONS: QuizQuestion[] = [
   {
     q: "Sweetness — what kind?",
     dim: "sweetness",
-    icon: "🍯",
+    icon: Droplet,
     opts: [
       { text: "Floral honey, raw sugar", score: 8 },
       { text: "Stone fruit, caramel", score: 6 },
@@ -46,7 +48,7 @@ export const QUESTIONS: QuizQuestion[] = [
   {
     q: "Complexity — how adventurous?",
     dim: "complexity",
-    icon: "🧪",
+    icon: FlaskConical,
     opts: [
       { text: "Surprise me — the weirder the better", score: 10 },
       { text: "I like interesting but approachable", score: 7 },
@@ -57,7 +59,7 @@ export const QUESTIONS: QuizQuestion[] = [
   {
     q: "Fruit forward or chocolate forward?",
     dim: "fruitiness",
-    icon: "🍒",
+    icon: Cherry,
     opts: [
       { text: "Berries, citrus, tropical fruit all day", score: 9 },
       { text: "Some fruit is nice, balanced", score: 6 },
@@ -68,7 +70,7 @@ export const QUESTIONS: QuizQuestion[] = [
   {
     q: "How do you usually brew?",
     dim: "brew",
-    icon: "💧",
+    icon: Droplets,
     opts: [
       { text: "Pour-over (V60, Chemex, Kalita)", score: 0 },
       { text: "Espresso", score: 0 },
@@ -80,7 +82,7 @@ export const QUESTIONS: QuizQuestion[] = [
   {
     q: "Budget per bag?",
     dim: "budget",
-    icon: "💰",
+    icon: Wallet,
     opts: [
       { text: "Under $15", score: 15 },
       { text: "$15–25", score: 25 },

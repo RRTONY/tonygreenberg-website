@@ -38,6 +38,7 @@
 // only worked with a mouse, so on a touch device the links were
 // unreachable — the port always shows the links instead, a real
 // accessibility fix, not a decoration removed.
+import { Activity, Compass, Flower2, Heart, Landmark, Sun, Users, Zap, type LucideIcon } from "lucide-react";
 
 export type Dimension = "relationships" | "purpose" | "body" | "truth" | "tribe" | "consciousness";
 
@@ -300,7 +301,7 @@ export const WOUND_TO_CATEGORY: Record<string, string> = {
 export interface WoundCard {
   wound: string;
   subtext: string;
-  icon: string;
+  icon: LucideIcon;
   color: string;
   links: { label: string; path: string; type: "assessment" | "tool" | "community" | "reading" }[];
 }
@@ -309,7 +310,7 @@ export const WOUND_CARDS: WoundCard[] = [
   {
     wound: "I keep choosing the wrong people",
     subtext: "Relationships that drain instead of sustain",
-    icon: "♡",
+    icon: Heart,
     color: "#C97B7B",
     links: [
       { label: "Find Your Partner", path: "https://intimacyassess-tcir3hon.manus.space", type: "assessment" },
@@ -320,7 +321,7 @@ export const WOUND_CARDS: WoundCard[] = [
   {
     wound: "I don't know what I'm building anymore",
     subtext: "Purpose that went missing somewhere around 35",
-    icon: "✶",
+    icon: Compass,
     color: "#D4B96A",
     links: [
       { label: "Find Your Purpose", path: "/dharma-finder", type: "assessment" },
@@ -331,7 +332,7 @@ export const WOUND_CARDS: WoundCard[] = [
   {
     wound: "My body stopped listening to me",
     subtext: "Health as negotiation instead of partnership",
-    icon: "○",
+    icon: Activity,
     color: "#7BC9A4",
     links: [
       { label: "Find Your Chemistry", path: "https://regenhealth-4nns6jnd.manus.space", type: "tool" },
@@ -342,7 +343,7 @@ export const WOUND_CARDS: WoundCard[] = [
   {
     wound: "I see what's broken and nobody cares",
     subtext: "Truth-telling in a world that rewards silence",
-    icon: "⚡",
+    icon: Zap,
     color: "#E8C97B",
     links: [
       { label: "Find Your Purpose", path: "/dharma-finder", type: "assessment" },
@@ -353,7 +354,7 @@ export const WOUND_CARDS: WoundCard[] = [
   {
     wound: "I can't find my people",
     subtext: "Surrounded by humans, starving for tribe",
-    icon: "◦",
+    icon: Users,
     color: "#9B8EC9",
     links: [
       { label: "Find Your Score", path: "/grant-study", type: "assessment" },
@@ -364,7 +365,7 @@ export const WOUND_CARDS: WoundCard[] = [
   {
     wound: "I've glimpsed something bigger and can't unsee it",
     subtext: "Consciousness expanding faster than your life can hold",
-    icon: "☉",
+    icon: Sun,
     color: "#7BA8C9",
     links: [
       { label: "Find Your Level", path: "/consciousness-scale", type: "assessment" },
@@ -375,7 +376,7 @@ export const WOUND_CARDS: WoundCard[] = [
   {
     wound: "I'm performing wellness instead of feeling it",
     subtext: "The green juice is a lie and you know it",
-    icon: "❀",
+    icon: Flower2,
     color: "#A4C97B",
     links: [
       { label: "Find Your Chemistry", path: "https://regenhealth-4nns6jnd.manus.space", type: "tool" },
@@ -386,7 +387,7 @@ export const WOUND_CARDS: WoundCard[] = [
   {
     wound: "I have the resources but not the impact",
     subtext: "Capital without consciousness is just noise",
-    icon: "⌂",
+    icon: Landmark,
     color: "#C9A87B",
     links: [
       { label: "Find Your Capital", path: "https://portfoliofamilyoffice.manus.space", type: "tool" },

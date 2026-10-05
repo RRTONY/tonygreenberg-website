@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import { X } from "lucide-react";
 import { computeToolScores } from "@/lib/content/brewsoul-tool-scores";
 import type { CatalogItem } from "@/lib/intelligence-engine/types";
 
@@ -58,9 +59,10 @@ export function CompareExplorer({ coffees }: { coffees: CatalogItem[] }) {
           <button
             key={c.id}
             onClick={() => removeCoffee(c.id)}
-            className="rounded-full bg-[#C5A23C]/10 px-3 py-1.5 font-mono text-[0.72rem] text-[#836311]"
+            aria-label={`Remove ${c.name} from comparison`}
+            className="inline-flex items-center gap-1.5 rounded-full bg-[#C5A23C]/10 px-3 py-1.5 font-mono text-[0.72rem] text-[#836311]"
           >
-            {c.name} ✕
+            {c.name} <X aria-hidden="true" className="size-3.5" />
           </button>
         ))}
       </div>

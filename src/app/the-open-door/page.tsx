@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 // Ported from legacy client/src/pages/ThoughtCloud.tsx (route /the-open-door).
@@ -485,18 +486,18 @@ export default function TheOpenDoorPage() {
                 {isInternal ? (
                   <Link
                     href={prompt.link}
-                    className="border-b border-brand-gold font-mono text-xs tracking-wide text-brand-gold uppercase"
+                    className="inline-flex items-center gap-1.5 border-b border-brand-gold font-mono text-xs tracking-wide text-brand-gold uppercase"
                   >
-                    Learn more →
+                    Learn more <ArrowRight aria-hidden="true" className="size-3.5" />
                   </Link>
                 ) : (
                   <a
                     href={prompt.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="border-b border-brand-gold font-mono text-xs tracking-wide text-brand-gold uppercase"
+                    className="inline-flex items-center gap-1.5 border-b border-brand-gold font-mono text-xs tracking-wide text-brand-gold uppercase"
                   >
-                    Learn more →
+                    Learn more <ArrowRight aria-hidden="true" className="size-3.5" />
                   </a>
                 )}
               </div>
@@ -551,7 +552,7 @@ export default function TheOpenDoorPage() {
                   {p.show} {p.ep && `— ${p.ep}`}
                 </span>
               </span>
-              <span className="text-brand-gold">↗</span>
+              <ArrowUpRight aria-hidden="true" className="size-4 shrink-0 text-brand-gold" />
             </a>
           ))}
         </div>
@@ -719,8 +720,8 @@ export default function TheOpenDoorPage() {
         </div>
 
         <div className="border-t border-border py-6 text-center">
-          <Link href="/pick-up-the-phone" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
-            Continue to Pick Up the Phone →
+          <Link href="/pick-up-the-phone" className="inline-flex items-center gap-1.5 font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
+            Continue to Pick Up the Phone <ArrowRight aria-hidden="true" className="size-3.5" />
           </Link>
         </div>
       </div>

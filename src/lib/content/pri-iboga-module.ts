@@ -4,6 +4,22 @@
  * Mirrors the mescaline-module pattern.
  */
 
+import {
+  Brain,
+  Earth,
+  HandHeart,
+  Heart,
+  HeartHandshake,
+  Hospital,
+  Leaf,
+  Pill,
+  Sparkles,
+  Sun,
+  Syringe,
+  TreeDeciduous,
+  type LucideIcon,
+} from "lucide-react";
+
 /* ── Images ── */
 export const IBOGA_IMAGES = {
   hero: "https://cdn.sanity.io/images/a3q1cyqs/production/72bfaa6dc05cf86d41081e93263d49ead17060d2-1920x1072.webp",
@@ -155,23 +171,23 @@ export const IBOGA_SUPPLEMENT_STACKS: SupplementPhase[] = [
 
 /* ── PRI Dimension Scores (iboga/ibogaine-specific) ── */
 export interface DimScoreRow {
-  icon: string;
+  icon: LucideIcon;
   dimension: string;
   ibogaThreshold: string;
   ibogaineThreshold: string;
   keyNote: string;
 }
 export const IBOGA_DIM_SCORES: DimScoreRow[] = [
-  { icon: "🧠", dimension: "Mental", ibogaThreshold: "Very High", ibogaineThreshold: "High", keyNote: "24–72hr duration demands exceptional psychological stability; no active psychosis, bipolar, or schizophrenia" },
-  { icon: "💖", dimension: "Emotional", ibogaThreshold: "Very High", ibogaineThreshold: "High", keyNote: "Life-review visions surface buried trauma; full emotional surrender required" },
-  { icon: "🏥", dimension: "Physical", ibogaThreshold: "Critical", ibogaineThreshold: "Critical", keyNote: "Mandatory cardiac screening (EKG + electrolytes); QT prolongation risk; liver function tests required" },
-  { icon: "🌍", dimension: "Set & Setting", ibogaThreshold: "Critical (Ceremonial)", ibogaineThreshold: "Critical (Clinical)", keyNote: "Iboga: Bwiti-trained facilitator non-negotiable. Ibogaine: medical supervision with cardiac monitoring" },
-  { icon: "🙏", dimension: "Spiritual", ibogaThreshold: "Highest Alignment", ibogaineThreshold: "High Alignment", keyNote: "Iboga is considered a sacrament in Bwiti — ancestor communion, death-rebirth initiation" },
+  { icon: Brain, dimension: "Mental", ibogaThreshold: "Very High", ibogaineThreshold: "High", keyNote: "24–72hr duration demands exceptional psychological stability; no active psychosis, bipolar, or schizophrenia" },
+  { icon: Heart, dimension: "Emotional", ibogaThreshold: "Very High", ibogaineThreshold: "High", keyNote: "Life-review visions surface buried trauma; full emotional surrender required" },
+  { icon: Hospital, dimension: "Physical", ibogaThreshold: "Critical", ibogaineThreshold: "Critical", keyNote: "Mandatory cardiac screening (EKG + electrolytes); QT prolongation risk; liver function tests required" },
+  { icon: Earth, dimension: "Set & Setting", ibogaThreshold: "Critical (Ceremonial)", ibogaineThreshold: "Critical (Clinical)", keyNote: "Iboga: Bwiti-trained facilitator non-negotiable. Ibogaine: medical supervision with cardiac monitoring" },
+  { icon: HandHeart, dimension: "Spiritual", ibogaThreshold: "Highest Alignment", ibogaineThreshold: "High Alignment", keyNote: "Iboga is considered a sacrament in Bwiti — ancestor communion, death-rebirth initiation" },
 ];
 
 /* ── Medicine Selector (Iboga context) ── */
 export interface MedicineSelectorRow {
-  icon: string;
+  icon: LucideIcon;
   medicine: string;
   addiction: string;
   depression: string;
@@ -182,13 +198,13 @@ export interface MedicineSelectorRow {
   evidence: string;
 }
 export const IBOGA_MEDICINE_SELECTOR: MedicineSelectorRow[] = [
-  { icon: "🌳", medicine: "Iboga (Whole Plant)", addiction: "✓", depression: "Some", ptsd: "✓", tbi: "Some", duration: "24–72h", beginner: "No", evidence: "Traditional" },
-  { icon: "💊", medicine: "Ibogaine HCl", addiction: "Best", depression: "✓", ptsd: "✓", tbi: "✓", duration: "18–36h", beginner: "No", evidence: "Moderate–Strong" },
-  { icon: "🍄", medicine: "Psilocybin", addiction: "✓", depression: "✓", ptsd: "✓", tbi: "Some", duration: "4–6h", beginner: "Yes", evidence: "Strong" },
-  { icon: "💗", medicine: "MDMA", addiction: "Some", depression: "Some", ptsd: "Best", tbi: "Some", duration: "4–6h", beginner: "Yes", evidence: "Strong" },
-  { icon: "💉", medicine: "Ketamine", addiction: "Some", depression: "Fastest", ptsd: "Some", tbi: "Some", duration: "1–2h", beginner: "Yes (clinical)", evidence: "Strong/FDA" },
-  { icon: "🌿", medicine: "Ayahuasca", addiction: "✓", depression: "✓", ptsd: "✓", tbi: "—", duration: "4–8h", beginner: "No", evidence: "Moderate" },
-  { icon: "🌵", medicine: "Mescaline/Peyote", addiction: "✓", depression: "✓", ptsd: "✓", tbi: "—", duration: "8–12h", beginner: "Moderate", evidence: "Moderate" },
+  { icon: TreeDeciduous, medicine: "Iboga (Whole Plant)", addiction: "✓", depression: "Some", ptsd: "✓", tbi: "Some", duration: "24–72h", beginner: "No", evidence: "Traditional" },
+  { icon: Pill, medicine: "Ibogaine HCl", addiction: "Best", depression: "✓", ptsd: "✓", tbi: "✓", duration: "18–36h", beginner: "No", evidence: "Moderate–Strong" },
+  { icon: Sparkles, medicine: "Psilocybin", addiction: "✓", depression: "✓", ptsd: "✓", tbi: "Some", duration: "4–6h", beginner: "Yes", evidence: "Strong" },
+  { icon: HeartHandshake, medicine: "MDMA", addiction: "Some", depression: "Some", ptsd: "Best", tbi: "Some", duration: "4–6h", beginner: "Yes", evidence: "Strong" },
+  { icon: Syringe, medicine: "Ketamine", addiction: "Some", depression: "Fastest", ptsd: "Some", tbi: "Some", duration: "1–2h", beginner: "Yes (clinical)", evidence: "Strong/FDA" },
+  { icon: Leaf, medicine: "Ayahuasca", addiction: "✓", depression: "✓", ptsd: "✓", tbi: "—", duration: "4–8h", beginner: "No", evidence: "Moderate" },
+  { icon: Sun, medicine: "Mescaline/Peyote", addiction: "✓", depression: "✓", ptsd: "✓", tbi: "—", duration: "8–12h", beginner: "Moderate", evidence: "Moderate" },
 ];
 
 /* ── Sources ── */

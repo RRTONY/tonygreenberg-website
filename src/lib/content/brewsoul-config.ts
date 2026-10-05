@@ -1,3 +1,6 @@
+import { Coffee, Crown } from "lucide-react";
+import type { TierIcon } from "@/lib/intelligence-engine/types";
+
 // Ported from legacy client/src/data/brewsoul-config.ts — BrewSoul's own
 // theme tokens and voice rules. Real content, unchanged. BrewSoul is a
 // self-contained "sub-site" with its own coffee-brown/gold palette,
@@ -43,7 +46,12 @@ export const BREWSOUL_FLAVOR_AXES = [
   { key: "chocolate", label: "Chocolate/Nutty", max: 10 },
 ] as const;
 
-export const BREWSOUL_TIER_LABELS = ["☕", "☕☕", "☕☕☕", "👑"];
+export const BREWSOUL_TIER_ICONS: [TierIcon, TierIcon, TierIcon, TierIcon] = [
+  { icon: Coffee, count: 1 },
+  { icon: Coffee, count: 2 },
+  { icon: Coffee, count: 3 },
+  { icon: Crown, count: 1 },
+];
 export const BREWSOUL_TIER_RANGES = [82, 86, 90, 92];
 
 export const BREWSOUL_SHAME_CATEGORIES = [

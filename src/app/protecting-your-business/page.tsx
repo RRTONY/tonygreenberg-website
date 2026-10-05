@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowLeft, ArrowRight, Square } from "lucide-react";
 import { CaseShareButtons } from "@/components/marketing/case-share-buttons";
 
 // Ported from legacy client/src/pages/ProtectingYourBusiness.tsx — a
@@ -580,7 +581,7 @@ export default function ProtectingYourBusinessPage() {
               </div>
               {section.items.map((item) => (
                 <div key={item} className="mb-3 flex gap-3 text-foreground/80">
-                  <span className="mt-0.5 shrink-0 text-red-800">☐</span>
+                  <Square aria-hidden="true" className="mt-1.5 size-4 shrink-0 text-red-800" />
                   <span className="leading-[1.8]">{item}</span>
                 </div>
               ))}
@@ -704,9 +705,9 @@ export default function ProtectingYourBusinessPage() {
           </p>
           <a
             href="mailto:tony@ramprate.com?subject=Fraud%20Story%20Submission"
-            className="inline-block rounded-md bg-red-800 px-6 py-2.5 font-mono text-xs font-semibold tracking-wide text-white uppercase"
+            className="inline-flex items-center gap-1.5 rounded-md bg-red-800 px-6 py-2.5 font-mono text-xs font-semibold tracking-wide text-white uppercase"
           >
-            Share Your Story →
+            Share Your Story <ArrowRight aria-hidden="true" className="size-3.5" />
           </a>
         </div>
 
@@ -793,8 +794,8 @@ export default function ProtectingYourBusinessPage() {
       </div>
 
       <div className="border-t border-border py-6 text-center">
-        <Link href="/" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
-          ← Back to the Essays
+        <Link href="/" className="inline-flex items-center gap-1.5 font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
+          <ArrowLeft aria-hidden="true" className="size-3.5" /> Back to the Essays
         </Link>
       </div>
     </div>

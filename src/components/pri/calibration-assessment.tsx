@@ -6,6 +6,11 @@ import { BarChart3, RefreshCw, ShieldCheck, Target, Sparkles } from "lucide-reac
 import { DIM_LABELS, DIM_ICONS, type DimKey } from "@/lib/content/pri-data";
 import efficacyData from "@/lib/content/pri-efficacy-data.json";
 
+function DimIcon({ dim, className }: { dim: DimKey; className: string }) {
+  const Icon = DIM_ICONS[dim];
+  return <Icon aria-hidden="true" className={className} />;
+}
+
 const DIMS: DimKey[] = ["medical", "pharmacological", "psychological", "intention", "setting", "integration"];
 
 function generatePairs(): [DimKey, DimKey][] {
@@ -194,7 +199,7 @@ export function CalibrationAssessment() {
               <div className="grid grid-cols-2 gap-4">
                 {pairs[pairIndex].map((dim) => (
                   <button key={dim} onClick={() => handlePairChoice(dim)} className="rounded-2xl border-2 border-pri-purple/30 bg-pri-cream/4 p-6 text-center transition-all hover:scale-102 hover:border-pri-purple">
-                    <div className="mb-2 text-3xl">{DIM_ICONS[dim]}</div>
+                    <DimIcon dim={dim} className="mx-auto mb-2 size-7 text-pri-purple-light" />
                     <div className="text-[.85rem] font-bold">{DIM_LABELS[dim]}</div>
                   </button>
                 ))}
@@ -222,7 +227,7 @@ export function CalibrationAssessment() {
                   className={`mb-4 flex cursor-grab items-center gap-4 rounded-2xl border p-4 ${draggedIdx === idx ? "border-pri-purple opacity-50" : "border-pri-cream/8"}`}
                 >
                   <div className="w-7 text-center text-xl font-black text-pri-purple">{idx + 1}</div>
-                  <div className="text-2xl">{DIM_ICONS[dim]}</div>
+                  <DimIcon dim={dim} className="size-6 shrink-0 text-pri-purple-light" />
                   <div className="flex-1 text-[.9rem] font-bold">{DIM_LABELS[dim]}</div>
                   <div className="flex flex-col gap-1">
                     <button onClick={() => moveItem(idx, "up")} disabled={idx === 0} className={`text-base ${idx === 0 ? "text-pri-cream/15" : "text-pri-cream/50"}`}>
@@ -254,7 +259,7 @@ export function CalibrationAssessment() {
               {rankings.map((dim, idx) => (
                 <div key={dim} className="mb-3 flex items-center gap-3">
                   <div className="w-6 text-xs font-black text-pri-purple">#{idx + 1}</div>
-                  <div className="text-xl">{DIM_ICONS[dim]}</div>
+                  <DimIcon dim={dim} className="size-5 shrink-0 text-pri-purple-light" />
                   <div className="flex-1">
                     <div className="mb-1 text-[.8rem] font-bold">{DIM_LABELS[dim]}</div>
                     <div className="h-1.5 overflow-hidden rounded-full bg-pri-cream/8">

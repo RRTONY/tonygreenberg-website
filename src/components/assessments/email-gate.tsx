@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Loader2 } from "lucide-react";
+import { Loader2, Sparkles } from "lucide-react";
 
 // Ported from legacy client/src/components/EmailGate.tsx — the
 // email-capture screen shown between finishing an assessment and seeing
@@ -45,7 +45,7 @@ export function EmailGate({ assessmentSlug, onUnlock }: { assessmentSlug: string
   return (
     <div className="flex min-h-[60vh] items-center justify-center px-8 py-[clamp(6rem,10vw,8rem)]">
       <div className="max-w-120 text-center">
-        <div className="mb-6 text-4xl">🔮</div>
+        <Sparkles aria-hidden="true" className="mx-auto mb-6 size-9 text-brand-gold-light" />
         <h2 className="mb-4 font-heading text-[clamp(1.6rem,3vw,2rem)] leading-tight font-normal text-brand-gold-light">
           Enter your email to receive your full personalized report
         </h2>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { ChevronDown, ChevronUp, Leaf, Route, Skull, Store, Trophy } from "lucide-react";
 import { SCORING_DIMENSIONS, getGradeColor, getGradeBg, type CityData, type CoffeeShop, type Grade } from "@/lib/content/brewsoul-cities";
 
 function GlassCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
@@ -52,7 +53,11 @@ function ShopRow({ shop, isBest }: { shop: CoffeeShop; isBest: boolean }) {
         <div className="flex items-center gap-3">
           <span className={`text-lg font-bold ${isBest ? "text-emerald-400" : "text-red-400"}`}>{shop.scores.total}</span>
           <GradeBadge grade={shop.scores.grade} size="sm" />
-          <span className="text-sm text-amber-200/40">{expanded ? "▲" : "▼"}</span>
+          {expanded ? (
+            <ChevronUp aria-hidden="true" className="size-4 text-amber-200/40" />
+          ) : (
+            <ChevronDown aria-hidden="true" className="size-4 text-amber-200/40" />
+          )}
         </div>
       </button>
 
@@ -136,11 +141,11 @@ export function CityDetailTabs({ city }: { city: CityData }) {
   const [tab, setTab] = useState<"best" | "worst" | "chains" | "bridge" | "noncoffee">("best");
 
   const tabs = [
-    { key: "best" as const, label: `Best ${city.bestShops.length}`, icon: "🏆" },
-    { key: "worst" as const, label: `Worst ${city.worstShops.length}`, icon: "💀" },
-    { key: "chains" as const, label: "Chain Report", icon: "🏪" },
-    { key: "bridge" as const, label: "Bridge Drinks", icon: "🌉" },
-    { key: "noncoffee" as const, label: "Not Coffee?", icon: "🍵" },
+    { key: "best" as const, label: `Best ${city.bestShops.length}`, icon: Trophy },
+    { key: "worst" as const, label: `Worst ${city.worstShops.length}`, icon: Skull },
+    { key: "chains" as const, label: "Chain Report", icon: Store },
+    { key: "bridge" as const, label: "Bridge Drinks", icon: Route },
+    { key: "noncoffee" as const, label: "Not Coffee?", icon: Leaf },
   ];
 
   return (
@@ -154,7 +159,7 @@ export function CityDetailTabs({ city }: { city: CityData }) {
               tab === t.key ? "border border-amber-500/30 bg-amber-500/20 text-amber-400 shadow-lg shadow-amber-500/10" : "border border-white/10 text-amber-200/50"
             }`}
           >
-            <span>{t.icon}</span>
+            <t.icon aria-hidden="true" className="size-4 shrink-0" />
             {t.label}
           </button>
         ))}

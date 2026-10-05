@@ -2,6 +2,7 @@
 
 import { useEffect, useSyncExternalStore } from "react";
 import Link from "next/link";
+import { ArrowRight, BookOpen, Coffee, ScanFace, Sparkles, Store, Target } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 const subscribeNever = () => () => {};
@@ -29,12 +30,12 @@ function useMounted() {
 // yet — same forward-reference pattern as the rest of Phase 6 (the nav
 // and directory are already full of these).
 const JOURNEY_STEPS = [
-  { id: "identity", label: "Identity Quiz", path: "/brewsoul", icon: "🪞", short: "Identity" },
-  { id: "first-sip", label: "The First Sip", path: "/brewsoul/first-sip", icon: "✨", short: "Manifesto" },
-  { id: "home", label: "Dashboard", path: "/brewsoul/home", icon: "☕", short: "Home" },
-  { id: "quiz", label: "Taste Quiz", path: "/brewsoul/quiz", icon: "🎯", short: "Taste" },
-  { id: "browse", label: "Catalog", path: "/brewsoul/browse", icon: "📖", short: "Browse" },
-  { id: "chains", label: "Chain Rankings", path: "/brewsoul/chains", icon: "🏪", short: "Chains" },
+  { id: "identity", label: "Identity Quiz", path: "/brewsoul", icon: ScanFace, short: "Identity" },
+  { id: "first-sip", label: "The First Sip", path: "/brewsoul/first-sip", icon: Sparkles, short: "Manifesto" },
+  { id: "home", label: "Dashboard", path: "/brewsoul/home", icon: Coffee, short: "Home" },
+  { id: "quiz", label: "Taste Quiz", path: "/brewsoul/quiz", icon: Target, short: "Taste" },
+  { id: "browse", label: "Catalog", path: "/brewsoul/browse", icon: BookOpen, short: "Browse" },
+  { id: "chains", label: "Chain Rankings", path: "/brewsoul/chains", icon: Store, short: "Chains" },
 ] as const;
 
 type Suggestion = { label: string; path: string; why: string };
@@ -224,7 +225,9 @@ export function JourneyBar() {
       </div>
 
       <div className="flex flex-wrap items-center justify-center gap-2">
-        <span className="font-mono text-[0.58rem] tracking-wide text-white/60 uppercase">Next →</span>
+        <span className="inline-flex items-center gap-1 font-mono text-[0.58rem] tracking-wide text-white/60 uppercase">
+          Next <ArrowRight aria-hidden="true" className="size-3" />
+        </span>
         {suggestions.map((s) => (
           <Link
             key={s.path}

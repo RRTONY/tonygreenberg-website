@@ -2,13 +2,14 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { ClipboardList, Menu, Plus, X, type LucideIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { BREWSOUL_ECOSYSTEM } from "@/lib/content/brewsoul-config";
 import { BREWSOUL_TOTAL_PAGES } from "@/lib/content/brewsoul-directory";
 
-const NAV_SECTIONS = [
+const NAV_SECTIONS: { label: string; path: string; icon?: LucideIcon }[] = [
   { label: "Home", path: "/brewsoul" },
-  { label: "📋 All Pages", path: "/brewsoul/directory" },
+  { label: "All Pages", path: "/brewsoul/directory", icon: ClipboardList },
   { label: "The First Sip", path: "/brewsoul/first-sip" },
   { label: "Quiz", path: "/brewsoul/quiz" },
   { label: "Catalog", path: "/brewsoul/browse" },
@@ -85,15 +86,16 @@ export function BrewSoulNav() {
             <Link
               key={s.path}
               href={s.path}
-              className={`rounded-sm px-2.5 py-1.5 font-sans text-[0.78rem] whitespace-nowrap ${
+              className={`inline-flex items-center gap-1.5 rounded-sm px-2.5 py-1.5 font-sans text-[0.78rem] whitespace-nowrap ${
                 isActive(s.path) ? "bg-[#6F4E37]/8 font-semibold text-[#6F4E37]" : "text-[#6B5B4F]"
               }`}
             >
+              {s.icon && <s.icon aria-hidden="true" className="size-3.5 shrink-0" />}
               {s.label}
             </Link>
           ))}
-          <button onClick={() => setMenuOpen(!menuOpen)} className="px-2.5 py-1.5 font-mono text-[0.72rem] text-[#86691c]">
-            More +
+          <button onClick={() => setMenuOpen(!menuOpen)} className="inline-flex items-center gap-1 px-2.5 py-1.5 font-mono text-[0.72rem] text-[#86691c]">
+            More <Plus aria-hidden="true" className="size-3.5" />
           </button>
         </div>
 
@@ -101,8 +103,13 @@ export function BrewSoulNav() {
           <Link href="/" className="hidden items-center gap-1 font-mono text-[0.6rem] tracking-wide text-[#6b6b6b] uppercase lg:flex">
             Part of Find Your Me
           </Link>
-          <button onClick={() => setMenuOpen(!menuOpen)} className="flex size-11 items-center justify-center text-xl text-[#6F4E37] md:hidden">
-            {menuOpen ? "✕" : "☰"}
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+            className="flex size-11 items-center justify-center text-[#6F4E37] md:hidden"
+          >
+            {menuOpen ? <X aria-hidden="true" className="size-5" /> : <Menu aria-hidden="true" className="size-5" />}
           </button>
         </div>
       </nav>
@@ -116,10 +123,11 @@ export function BrewSoulNav() {
                 <Link
                   key={s.path}
                   href={s.path}
-                  className={`rounded-md border border-[#6F4E37]/8 px-4 py-3 font-sans text-sm ${
+                  className={`flex items-center gap-1.5 rounded-md border border-[#6F4E37]/8 px-4 py-3 font-sans text-sm ${
                     isActive(s.path) ? "bg-[#6F4E37]/10 font-semibold text-[#6F4E37]" : "bg-[#6F4E37]/3 text-[#2C1810]"
                   }`}
                 >
+                  {s.icon && <s.icon aria-hidden="true" className="size-4 shrink-0" />}
                   {s.label}
                 </Link>
               ))}
@@ -146,9 +154,9 @@ export function BrewSoulFooter() {
       <div className="mb-6 font-mono text-[0.68rem] tracking-[0.15em] text-[#6b6b6b] uppercase">Every Cup Is a Vote</div>
       <Link
         href="/brewsoul/directory"
-        className="mb-5 inline-flex min-h-11 items-center rounded-md border border-[#6F4E37]/20 bg-[#6F4E37]/4 px-6 py-2.5 font-mono text-[0.72rem] tracking-wide text-[#6F4E37] uppercase"
+        className="mb-5 inline-flex min-h-11 items-center gap-1.5 rounded-md border border-[#6F4E37]/20 bg-[#6F4E37]/4 px-6 py-2.5 font-mono text-[0.72rem] tracking-wide text-[#6F4E37] uppercase"
       >
-        📋 See All {BREWSOUL_TOTAL_PAGES} Pages
+        <ClipboardList aria-hidden="true" className="size-4" /> See All {BREWSOUL_TOTAL_PAGES} Pages
       </Link>
       <div className="mb-6 flex flex-wrap justify-center gap-x-6 gap-y-1">
         {BREWSOUL_ECOSYSTEM.map((e) => (

@@ -48,7 +48,7 @@ export default function MedicineSequencingPage() {
         </div>
       </div>
 
-      <MedicineSequencingLadder medicines={MEDICINES} />
+      <MedicineSequencingLadder />
 
       <div className="mx-auto max-w-175 px-4 pt-8 pb-12 text-center sm:px-12">
         <p className="mb-6 text-sm leading-relaxed text-[#7A6050] sm:text-base">

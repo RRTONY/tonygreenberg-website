@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Star } from "lucide-react";
 import { ENTITIES, type MatrixEntity } from "@/lib/content/peptide-matrix";
 
 const RISK_COLORS: Record<MatrixEntity["riskLevel"], string> = {
@@ -309,8 +309,16 @@ export function PeptideMatrixExplorer() {
 
               <div className="mt-6 grid grid-cols-3 gap-4">
                 <div className="text-center">
-                  <p className="font-heading text-2xl text-brand-gold">
-                    {selected.reviews > 0 ? `${selected.reviews}★` : "N/A"}
+                  <p className="inline-flex items-center gap-1 font-heading text-2xl text-brand-gold">
+                    {selected.reviews > 0 ? (
+                      <>
+                        {selected.reviews}
+                        <Star aria-hidden="true" className="size-5 fill-current" />
+                        <span className="sr-only">stars</span>
+                      </>
+                    ) : (
+                      "N/A"
+                    )}
                   </p>
                   <p className="font-mono text-[0.65rem] text-[#E8E4DC]/40 uppercase">Reviews</p>
                 </div>
@@ -375,7 +383,17 @@ export function PeptideMatrixExplorer() {
               >
                 <td className="px-2 py-2.5 font-medium text-foreground">{entity.name}</td>
                 <td className="px-2 py-2.5 text-muted-foreground capitalize">{entity.type}</td>
-                <td className="px-2 py-2.5 text-foreground">{entity.reviews > 0 ? `${entity.reviews}★` : "N/A"}</td>
+                <td className="px-2 py-2.5 text-foreground">
+                  {entity.reviews > 0 ? (
+                    <span className="inline-flex items-center gap-0.5">
+                      {entity.reviews}
+                      <Star aria-hidden="true" className="size-3 fill-current" />
+                      <span className="sr-only">stars</span>
+                    </span>
+                  ) : (
+                    "N/A"
+                  )}
+                </td>
                 <td className="px-2 py-2.5 text-foreground">{entity.evidence}/100</td>
                 <td
                   className={`px-2 py-2.5 font-bold ${

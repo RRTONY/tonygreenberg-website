@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { AlertTriangle } from "lucide-react";
+import { AlertTriangle, ArrowDown, ArrowLeft, ArrowRight, Check } from "lucide-react";
 import {
   MESCALINE_PHARMACOLOGY,
   LATUDA_MIRROR,
@@ -40,6 +40,17 @@ export const metadata: Metadata = {
 
 const thClass = "border-b-2 border-[#D4CFC5] bg-[#E8E2D8] px-3 py-2.5 text-left text-xs font-extrabold tracking-[0.08em] whitespace-nowrap text-pri-ink uppercase";
 const tdClass = "border-b border-[#E8E2D8] px-3 py-2.5 align-top text-[.82rem] leading-[1.5] text-pri-brown";
+
+/** Medicine-selector cell: a "✓" in the data renders as a check icon with screen-reader text. */
+function SelectorMark({ value }: { value: string }) {
+  if (value !== "✓") return value;
+  return (
+    <>
+      <Check aria-hidden="true" className="mx-auto size-4" />
+      <span className="sr-only">Yes</span>
+    </>
+  );
+}
 
 export default function PeyoteMescalinePage() {
   return (
@@ -81,11 +92,13 @@ export default function PeyoteMescalinePage() {
           </div>
 
           <div className="mt-6 flex flex-wrap gap-3">
-            <Link href="/psychedelic-readiness-index" className="border-[1.5px] border-pri-ink px-8 py-3.5 text-sm font-bold tracking-[0.05em] text-pri-ink uppercase">
-              ← Back to PRI
+            <Link href="/psychedelic-readiness-index" className="inline-flex items-center gap-1.5 border-[1.5px] border-pri-ink px-8 py-3.5 text-sm font-bold tracking-[0.05em] text-pri-ink uppercase">
+              <ArrowLeft aria-hidden="true" className="size-3.5" />
+              Back to PRI
             </Link>
-            <a href="#pharmacology" className="bg-pri-purple px-8 py-3.5 text-sm font-bold tracking-[0.05em] text-pri-cream uppercase">
-              Explore Pharmacology ↓
+            <a href="#pharmacology" className="inline-flex items-center gap-1.5 bg-pri-purple px-8 py-3.5 text-sm font-bold tracking-[0.05em] text-pri-cream uppercase">
+              Explore Pharmacology
+              <ArrowDown aria-hidden="true" className="size-3.5" />
             </a>
           </div>
         </div>
@@ -272,8 +285,9 @@ export default function PeyoteMescalinePage() {
                       <div className="text-[.72rem] text-pri-tan">{item.dosage}</div>
                     </div>
                     {item.searchUrl && (
-                      <a href={item.searchUrl} target="_blank" rel="noopener noreferrer" className="shrink-0 border border-pri-purple/20 px-1.5 py-0.5 text-[.75rem] font-bold whitespace-nowrap text-pri-purple">
-                        Buy →
+                      <a href={item.searchUrl} target="_blank" rel="noopener noreferrer" className="inline-flex shrink-0 items-center gap-1 border border-pri-purple/20 px-1.5 py-0.5 text-[.75rem] font-bold whitespace-nowrap text-pri-purple">
+                        Buy
+                        <ArrowRight aria-hidden="true" className="size-3" />
                       </a>
                     )}
                   </div>
@@ -301,7 +315,7 @@ export default function PeyoteMescalinePage() {
         <div className="grid gap-3">
           {MESCALINE_DIM_SCORES.map((d) => (
             <div key={d.dimension} className="flex items-start gap-4 border border-pri-cream/8 bg-pri-cream/4 p-5">
-              <div className="shrink-0 text-3xl">{d.icon}</div>
+              <d.icon aria-hidden="true" className="size-8 shrink-0 text-pri-purple" strokeWidth={1.5} />
               <div className="flex-1">
                 <div className="mb-1 flex flex-wrap items-center justify-between gap-2">
                   <div className="font-heading text-base font-bold text-pri-cream">{d.dimension}</div>
@@ -348,18 +362,27 @@ export default function PeyoteMescalinePage() {
                 return (
                   <tr key={m.medicine} className={isMesc ? "bg-pri-purple/6" : i % 2 ? "bg-pri-parchment" : ""}>
                     <td className={`${tdClass} ${isMesc ? "font-extrabold text-pri-purple" : "font-semibold"}`}>
-                      {m.icon} {m.medicine}
+                      <m.icon aria-hidden="true" className="mr-1.5 inline size-4 align-[-0.15em]" />
+                      {m.medicine}
                     </td>
-                    <td className={`${tdClass} text-center ${m.depression === "✓" ? "text-[#3D6B44]" : "text-pri-tan"}`}>{m.depression}</td>
-                    <td className={`${tdClass} text-center ${m.anxiety === "✓" ? "text-[#3D6B44]" : "text-pri-tan"}`}>{m.anxiety}</td>
-                    <td className={`${tdClass} text-center ${m.ptsd === "✓" || m.ptsd === "Best" ? "text-[#3D6B44]" : "text-pri-tan"}`}>{m.ptsd}</td>
-                    <td className={`${tdClass} text-center ${m.addiction === "✓" || m.addiction === "Best" ? "text-[#3D6B44]" : "text-pri-tan"}`}>{m.addiction}</td>
+                    <td className={`${tdClass} text-center ${m.depression === "✓" ? "text-[#3D6B44]" : "text-pri-tan"}`}>
+                      <SelectorMark value={m.depression} />
+                    </td>
+                    <td className={`${tdClass} text-center ${m.anxiety === "✓" ? "text-[#3D6B44]" : "text-pri-tan"}`}>
+                      <SelectorMark value={m.anxiety} />
+                    </td>
+                    <td className={`${tdClass} text-center ${m.ptsd === "✓" || m.ptsd === "Best" ? "text-[#3D6B44]" : "text-pri-tan"}`}>
+                      <SelectorMark value={m.ptsd} />
+                    </td>
+                    <td className={`${tdClass} text-center ${m.addiction === "✓" || m.addiction === "Best" ? "text-[#3D6B44]" : "text-pri-tan"}`}>
+                      <SelectorMark value={m.addiction} />
+                    </td>
                     <td className={tdClass}>{m.duration}</td>
                     <td className={tdClass}>{m.beginner}</td>
                     <td className={tdClass}>
                       <span
                         className={`border px-1.5 py-0.5 text-xs font-bold ${
-                          m.evidence.startsWith("Strong") ? "border-[#6B8F71]/30 bg-[#6B8F71]/15 text-[#3D6B44]" : "border-[#C9A84C]/30 bg-[#C9A84C]/15 text-[#7A5C10311]"
+                          m.evidence.startsWith("Strong") ? "border-[#6B8F71]/30 bg-[#6B8F71]/15 text-[#3D6B44]" : "border-[#C9A84C]/30 bg-[#C9A84C]/15 text-[#7A5C10]"
                         }`}
                       >
                         {m.evidence}
@@ -404,8 +427,9 @@ export default function PeyoteMescalinePage() {
           </div>
           <div className="mb-4 text-[.78rem]">A consciousness-aligned capital initiative</div>
           <div className="my-4 flex flex-wrap justify-center gap-6">
-            <Link href="/psychedelic-readiness-index" className="text-[.72rem] font-semibold tracking-[0.06em] text-pri-cream/60 uppercase">
-              ← Back to PRI
+            <Link href="/psychedelic-readiness-index" className="inline-flex items-center gap-1.5 text-[.72rem] font-semibold tracking-[0.06em] text-pri-cream/60 uppercase">
+              <ArrowLeft aria-hidden="true" className="size-3.5" />
+              Back to PRI
             </Link>
             <Link href="/" className="text-[.72rem] font-semibold tracking-[0.06em] text-pri-cream/60 uppercase">
               TonyGreenberg.com

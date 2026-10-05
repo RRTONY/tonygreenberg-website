@@ -3,6 +3,7 @@
 import { useCallback, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { ArrowDown, ArrowLeft, ArrowRight, BookOpen, ChevronDown, Circle, ClipboardCheck, Copy, Mail, Search, Users, Wrench, type LucideIcon } from "lucide-react";
 import { ThemedBackground } from "@/components/assessments/themed-background";
 import { AssessmentRadarChart } from "@/components/assessments/radar-chart";
 import { AssessmentResultActions } from "@/components/assessments/result-actions";
@@ -19,7 +20,10 @@ import {
   WOUND_CARDS,
   WOUND_TO_CATEGORY,
   type Dimension,
+  type WoundCard,
 } from "@/lib/content/find-your-me";
+
+type LinkType = WoundCard["links"][number]["type"];
 
 // Ported from legacy client/src/pages/FindYourMe.tsx — see
 // `lib/content/find-your-me.ts` for the full port-note on real content
@@ -49,7 +53,12 @@ function GlassPanel({ children, className = "" }: { children: React.ReactNode; c
   return <div className={`rounded-2xl border border-brand-gold-light/12 bg-[#0A0A10]/90 backdrop-blur-xl ${className}`}>{children}</div>;
 }
 
-const TYPE_ICON: Record<string, string> = { assessment: "◇", tool: "○", community: "◦", reading: "▹" };
+const TYPE_ICON: Record<LinkType, LucideIcon> = { assessment: ClipboardCheck, tool: Wrench, community: Users, reading: BookOpen };
+
+function LinkTypeIcon({ type }: { type: LinkType }) {
+  const Icon = TYPE_ICON[type];
+  return <Icon aria-hidden="true" className="size-3 shrink-0" />;
+}
 
 const HERO_IMG =
   "https://cdn.sanity.io/images/a3q1cyqs/production/39e00f37d376aa6c2e7e29c14f4e233c80727d81-1200x670.webp";
@@ -177,7 +186,10 @@ export function FindYourMeQuiz({ articleTitles }: { articleTitles: Record<string
           <h2 className="mb-8 font-heading text-[clamp(1.5rem,4vw,2.8rem)] leading-[1.2] font-normal text-[#E8E4DC]/70 text-shadow-[0_2px_20px_rgba(0,0,0,0.4)]">
             to Find Y<span className="text-brand-gold-light">our</span> <span className="text-brand-gold-light italic">We</span>
           </h2>
-          <div className="mt-12 font-mono text-[0.65rem] tracking-[0.2em] text-[#D4B96A]/50">SCROLL TO BEGIN ↓</div>
+          <div className="mt-12 inline-flex items-center gap-1.5 font-mono text-[0.65rem] tracking-[0.2em] text-[#D4B96A]/50">
+            SCROLL TO BEGIN
+            <ArrowDown aria-hidden="true" className="size-3" />
+          </div>
         </div>
 
         <div className="relative z-1 mx-auto max-w-3xl px-6 pb-24">
@@ -243,8 +255,8 @@ export function FindYourMeQuiz({ articleTitles }: { articleTitles: Record<string
               {WOUND_CARDS.map((item) => (
                 <div key={item.wound} className="rounded-2xl border border-brand-gold-light/12 bg-[#0A0A10]/90 p-6 backdrop-blur-xl" style={{ borderLeft: `2px solid ${item.color}` }}>
                   <div className="flex items-start gap-4">
-                    <span className="mt-0.5 shrink-0 text-2xl" style={{ color: item.color }}>
-                      {item.icon}
+                    <span className="mt-0.5 shrink-0" style={{ color: item.color }}>
+                      <item.icon aria-hidden="true" className="size-6" />
                     </span>
                     <div>
                       <div className="mb-1 text-base font-semibold text-[#F5F0E0]/90">{item.wound}</div>
@@ -261,8 +273,9 @@ export function FindYourMeQuiz({ articleTitles }: { articleTitles: Record<string
                         className="flex items-center gap-2 font-mono text-[0.75rem] tracking-[0.1em] transition-opacity hover:opacity-70"
                         style={{ color: item.color }}
                       >
-                        <span className="text-[0.6rem]">{TYPE_ICON[link.type]}</span>
-                        {link.label} →
+                        <LinkTypeIcon type={link.type} />
+                        {link.label}
+                        <ArrowRight aria-hidden="true" className="size-3" />
                       </a>
                     ))}
                     {WOUND_TO_CATEGORY[item.wound] && (
@@ -270,8 +283,9 @@ export function FindYourMeQuiz({ articleTitles }: { articleTitles: Record<string
                         onClick={() => scrollToCategory(WOUND_TO_CATEGORY[item.wound])}
                         className="mt-1 flex items-center gap-2 py-1 font-mono text-[0.7rem] tracking-[0.1em] text-brand-gold-light/80 transition-colors hover:text-brand-gold-light"
                       >
-                        <span className="text-[0.6rem]">▼</span>
-                        Browse {WOUND_TO_CATEGORY[item.wound]} ↓
+                        <ChevronDown aria-hidden="true" className="size-3" />
+                        Browse {WOUND_TO_CATEGORY[item.wound]}
+                        <ArrowDown aria-hidden="true" className="size-3" />
                       </button>
                     )}
                   </div>
@@ -299,15 +313,17 @@ export function FindYourMeQuiz({ articleTitles }: { articleTitles: Record<string
                   <button
                     key={f}
                     onClick={() => setDirectoryFilter(f)}
-                    className={`rounded-full border px-5 py-1.5 font-mono text-[0.65rem] tracking-[0.15em] uppercase transition-colors ${
+                    className={`inline-flex items-center gap-1.5 rounded-full border px-5 py-1.5 font-mono text-[0.65rem] tracking-[0.15em] uppercase transition-colors ${
                       directoryFilter === f ? "border-brand-gold-light/40 bg-brand-gold-light/15 text-brand-gold" : "border-brand-gold-light/10 bg-[#0A0A10]/90 text-brand-gold-light/80"
                     }`}
                   >
-                    {f === "all" ? "All" : f === "live" ? "● Live" : "○ Coming"}
+                    {f === "live" && <Circle aria-hidden="true" className="size-2 fill-current" />}
+                    {f === "coming" && <Circle aria-hidden="true" className="size-2" />}
+                    {f === "all" ? "All" : f === "live" ? "Live" : "Coming"}
                   </button>
                 ))}
                 <div className="relative">
-                  <span className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-xs text-brand-gold/30">⌕</span>
+                  <Search aria-hidden="true" className="pointer-events-none absolute top-1/2 left-3 size-3 -translate-y-1/2 text-brand-gold/30" />
                   <input
                     type="text"
                     placeholder="Search experiences..."
@@ -395,9 +411,10 @@ export function FindYourMeQuiz({ articleTitles }: { articleTitles: Record<string
           <div className="text-center">
             <button
               onClick={() => setPhase("assessment")}
-              className="inline-block animate-pulse rounded-2xl border border-brand-gold-light/12 bg-[#0A0A10]/90 px-14 py-5 font-mono text-[0.9rem] tracking-[0.25em] text-brand-gold-light uppercase backdrop-blur-xl"
+              className="inline-flex animate-pulse items-center gap-2 rounded-2xl border border-brand-gold-light/12 bg-[#0A0A10]/90 px-14 py-5 font-mono text-[0.9rem] tracking-[0.25em] text-brand-gold-light uppercase backdrop-blur-xl"
             >
-              Show Me What I Already Know →
+              Show Me What I Already Know
+              <ArrowRight aria-hidden="true" className="size-4" />
             </button>
             <p className="mt-6 text-[0.9rem] text-[#2C1810]/70 italic">Takes 3 minutes. Stays with you longer.</p>
             <p className="mt-12 font-mono text-[0.6rem] tracking-[0.15em] text-brand-gold uppercase">Zero Algorithm · All Nerve · One Ecosystem</p>
@@ -427,9 +444,10 @@ export function FindYourMeQuiz({ articleTitles }: { articleTitles: Record<string
               setSelectedChoice(null);
             } else setPhase("landing");
           }}
-          className="fixed top-6 left-6 font-mono text-[0.7rem] tracking-[0.15em] text-brand-gold/50"
+          className="fixed top-6 left-6 inline-flex items-center gap-1.5 font-mono text-[0.7rem] tracking-[0.15em] text-brand-gold/50"
         >
-          ← Back
+          <ArrowLeft aria-hidden="true" className="size-3" />
+          Back
         </button>
 
         <div className={`w-full max-w-2xl transition-all duration-500 ${transitioning ? "-translate-y-5 opacity-0" : "translate-y-0 opacity-100"}`}>
@@ -492,13 +510,14 @@ export function FindYourMeQuiz({ articleTitles }: { articleTitles: Record<string
           <p className="mb-6 text-[0.95rem] text-[#F5F0E0]/50">Send this to 10 people brave enough to look. The ones who text back are your tribe.</p>
           <div className="flex flex-wrap justify-center gap-3">
             {[
-              { platform: "twitter", label: "𝕏" },
-              { platform: "linkedin", label: "in" },
-              { platform: "email", label: "✉" },
-              { platform: "copy", label: "⎘" },
-            ].map(({ platform, label }) => (
+              { platform: "twitter", name: "Share on X", label: "𝕏" },
+              { platform: "linkedin", name: "Share on LinkedIn", label: "in" },
+              { platform: "email", name: "Share by email", label: <Mail aria-hidden="true" className="size-4" /> },
+              { platform: "copy", name: "Copy link", label: <Copy aria-hidden="true" className="size-4" /> },
+            ].map(({ platform, name, label }) => (
               <button
                 key={platform}
+                aria-label={name}
                 onClick={() => handleShare(platform)}
                 className="flex size-11 items-center justify-center rounded-full border border-brand-gold/20 bg-brand-gold-light/10 text-base text-brand-gold transition-colors hover:bg-brand-gold-light/25"
               >
@@ -547,7 +566,10 @@ export function FindYourMeQuiz({ articleTitles }: { articleTitles: Record<string
             {archetype.deeperAssessments.map((assess) => (
               <Link key={assess.path} href={assess.path}>
                 <GlassPanel className="h-full p-5 transition-colors hover:border-brand-gold-light/30">
-                  <p className="mb-1.5 font-heading text-base text-brand-gold-light">{assess.label} →</p>
+                  <p className="mb-1.5 flex items-center gap-1.5 font-heading text-base text-brand-gold-light">
+                    {assess.label}
+                    <ArrowRight aria-hidden="true" className="size-3.5" />
+                  </p>
                   <p className="text-[0.85rem] leading-relaxed text-[#F5F0E0]/50">{assess.why}</p>
                 </GlassPanel>
               </Link>
@@ -558,27 +580,39 @@ export function FindYourMeQuiz({ articleTitles }: { articleTitles: Record<string
             {archetype.nextStep.path.startsWith("http") ? (
               <a href={archetype.nextStep.path} target="_blank" rel="noopener noreferrer">
                 <GlassPanel className="animate-pulse px-8 py-4">
-                  <span className="font-mono text-[0.8rem] tracking-[0.15em] text-brand-gold">{archetype.nextStep.label} →</span>
+                  <span className="inline-flex items-center gap-1.5 font-mono text-[0.8rem] tracking-[0.15em] text-brand-gold">
+                    {archetype.nextStep.label}
+                    <ArrowRight aria-hidden="true" className="size-3.5" />
+                  </span>
                 </GlassPanel>
               </a>
             ) : (
               <Link href={archetype.nextStep.path}>
                 <GlassPanel className="animate-pulse px-8 py-4">
-                  <span className="font-mono text-[0.8rem] tracking-[0.15em] text-brand-gold">{archetype.nextStep.label} →</span>
+                  <span className="inline-flex items-center gap-1.5 font-mono text-[0.8rem] tracking-[0.15em] text-brand-gold">
+                    {archetype.nextStep.label}
+                    <ArrowRight aria-hidden="true" className="size-3.5" />
+                  </span>
                 </GlassPanel>
               </Link>
             )}
             {archetype.nextStep.path !== "/community" && (
               <Link href="/community">
                 <GlassPanel className="px-8 py-4">
-                  <span className="font-mono text-[0.8rem] tracking-[0.15em] text-[#F5F0E0]/60">Find Your Tribe →</span>
+                  <span className="inline-flex items-center gap-1.5 font-mono text-[0.8rem] tracking-[0.15em] text-[#F5F0E0]/60">
+                    Find Your Tribe
+                    <ArrowRight aria-hidden="true" className="size-3.5" />
+                  </span>
                 </GlassPanel>
               </Link>
             )}
             {archetype.nextStep.path !== "/living-declaration" && (
               <Link href="/living-declaration">
                 <GlassPanel className="px-8 py-4">
-                  <span className="font-mono text-[0.8rem] tracking-[0.15em] text-[#F5F0E0]/60">Find Your Living Declaration →</span>
+                  <span className="inline-flex items-center gap-1.5 font-mono text-[0.8rem] tracking-[0.15em] text-[#F5F0E0]/60">
+                    Find Your Living Declaration
+                    <ArrowRight aria-hidden="true" className="size-3.5" />
+                  </span>
                 </GlassPanel>
               </Link>
             )}

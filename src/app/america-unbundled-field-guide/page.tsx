@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowLeft, ArrowUpRight, Bird, Sparkle } from "lucide-react";
 import { FieldGuideResponses } from "@/components/america-unbundled/field-guide-responses";
 
 // "America, Unbundled: The Field Guide" (Part Two of Tony's two-part
@@ -142,8 +143,8 @@ export default function AmericaUnbundledFieldGuidePage() {
           aria-label="America, Unbundled series"
           className="flex flex-wrap items-start justify-between gap-3 border-b-2 border-foreground pb-4 text-xs font-bold tracking-[0.12em] uppercase"
         >
-          <div>
-            Tony Greenberg <span className="text-brand-gold">✦</span> America, Unbundled
+          <div className="flex items-center gap-1.5">
+            Tony Greenberg <Sparkle aria-hidden="true" className="size-3 fill-current text-brand-gold" /> America, Unbundled
           </div>
           <div className="flex flex-wrap justify-end gap-x-4 gap-y-1">
             <Link href="/america-unbundled" className="hover:text-[#5b3ca8] dark:hover:text-[#b3a1ec]">
@@ -266,7 +267,8 @@ export default function AmericaUnbundledFieldGuidePage() {
                 href="/america-unbundled"
                 className="text-[#5b3ca8] hover:underline dark:text-[#b3a1ec]"
               >
-                <strong>Start with Part One:</strong> AI Does Not Have a Candidate ↗
+                <strong>Start with Part One:</strong> AI Does Not Have a Candidate{" "}
+                <ArrowUpRight aria-hidden="true" className="inline size-4 align-text-bottom" />
               </Link>
             </p>
 
@@ -331,7 +333,11 @@ export default function AmericaUnbundledFieldGuidePage() {
             </div>
 
             <aside aria-label="America House" className="mt-12">
-              <Label>America House 🦅 · Civic creator headquarters</Label>
+              <Label>
+                <span className="inline-flex items-center gap-1.5">
+                  America House <Bird aria-hidden="true" className="size-3.5" /> · Civic creator headquarters
+                </span>
+              </Label>
               <h3 className="mt-3 font-serif text-3xl leading-tight font-normal text-foreground">
                 The house is the set. The people are the story.
               </h3>
@@ -437,9 +443,9 @@ export default function AmericaUnbundledFieldGuidePage() {
             href={INC_URL}
             target="_blank"
             rel="noopener"
-            className="inline-flex min-h-11 shrink-0 items-center self-start border-b border-foreground text-xs font-bold tracking-[0.08em] uppercase hover:text-[#5b3ca8] sm:self-auto dark:hover:text-[#b3a1ec]"
+            className="inline-flex min-h-11 shrink-0 items-center gap-1.5 self-start border-b border-foreground text-xs font-bold tracking-[0.08em] uppercase hover:text-[#5b3ca8] sm:self-auto dark:hover:text-[#b3a1ec]"
           >
-            Program and registration ↗
+            Program and registration <ArrowUpRight aria-hidden="true" className="size-3.5" />
           </a>
         </aside>
 
@@ -455,18 +461,19 @@ export default function AmericaUnbundledFieldGuidePage() {
           <p className="mt-4">
             <Link
               href="/america-unbundled#sources"
-              className="font-bold text-[#5b3ca8] underline underline-offset-2 dark:text-[#b3a1ec]"
+              className="inline-flex items-center gap-1.5 font-bold text-[#5b3ca8] underline underline-offset-2 dark:text-[#b3a1ec]"
             >
-              Open the bibliography and receipts ↗
+              Open the bibliography and receipts <ArrowUpRight aria-hidden="true" className="size-4" />
             </Link>
           </p>
         </section>
 
         {/* Closing */}
         <section className="relative my-16 px-2 sm:px-16">
-          <span aria-hidden className="absolute top-0 right-4 hidden text-8xl leading-none text-brand-gold/25 sm:block">
-            ✦
-          </span>
+          <Sparkle
+            aria-hidden="true"
+            className="absolute top-0 right-4 hidden size-20 fill-current text-brand-gold/25 sm:block"
+          />
           <h2 className="max-w-2xl font-serif text-4xl leading-tight font-normal tracking-tight text-balance sm:text-5xl">
             Independents are not waiting for America to return.
           </h2>
@@ -513,8 +520,8 @@ export default function AmericaUnbundledFieldGuidePage() {
         {/* Series footer line */}
         <div className="mt-16 flex flex-col gap-2 border-t border-border pt-5 text-xs tracking-widest text-muted-foreground uppercase sm:flex-row sm:justify-between">
           <span>Part Two · America, Unbundled</span>
-          <Link href="/america-unbundled" className="inline-flex min-h-11 items-center underline underline-offset-2 hover:text-foreground sm:min-h-0">
-            ← Read Part One: AI Does Not Have a Candidate
+          <Link href="/america-unbundled" className="inline-flex min-h-11 items-center gap-1.5 underline underline-offset-2 hover:text-foreground sm:min-h-0">
+            <ArrowLeft aria-hidden="true" className="size-3.5" /> Read Part One: AI Does Not Have a Candidate
           </Link>
         </div>
       </div>

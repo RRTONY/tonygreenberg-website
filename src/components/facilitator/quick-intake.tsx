@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CheckCircle2, Loader2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle2, CircleDot, Gem, Hexagon, Loader2 } from "lucide-react";
 import { QUICK_QUESTIONS, SCALE_LABELS, deriveArchetype } from "@/lib/content/facilitator-index-data";
 
 const CONTACT_EMAIL = "tony@tonygreenberg.com";
@@ -27,9 +27,9 @@ function RadarBars({ bands }: { bands: { label: string; score: number; color: st
 }
 
 const WHATS_WAITING = [
-  { icon: "◈", label: "12 Bands", desc: "Context · Philosophy · Temperament · The Map · Container · Consent · Safety · Edges · Lineage · Business · Reciprocity · Integration" },
-  { icon: "⬡", label: "108 Items", desc: "Every question the field has been afraid to ask out loud. Scored, mapped, and returned to you as a living document." },
-  { icon: "◉", label: "Your Archetype Profile", desc: "A full practitioner profile — not a personality type, a philosophical position. Where you actually stand." },
+  { icon: Gem, label: "12 Bands", desc: "Context · Philosophy · Temperament · The Map · Container · Consent · Safety · Edges · Lineage · Business · Reciprocity · Integration" },
+  { icon: Hexagon, label: "108 Items", desc: "Every question the field has been afraid to ask out loud. Scored, mapped, and returned to you as a living document." },
+  { icon: CircleDot, label: "Your Archetype Profile", desc: "A full practitioner profile — not a personality type, a philosophical position. Where you actually stand." },
 ];
 
 function WhatWaitsTeaser({ onGoDeeper }: { onGoDeeper: () => void }) {
@@ -39,7 +39,7 @@ function WhatWaitsTeaser({ onGoDeeper }: { onGoDeeper: () => void }) {
       <div className="mb-6 flex flex-col gap-3">
         {WHATS_WAITING.map((it) => (
           <div key={it.label} className="flex items-start gap-3.5">
-            <span className="mt-0.5 shrink-0 text-lg text-facilitator-amber-light">{it.icon}</span>
+            <it.icon aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-facilitator-amber-light" />
             <div>
               <div className="mb-0.5 text-sm font-bold text-facilitator-ink">{it.label}</div>
               <div className="text-[.78rem] leading-normal text-facilitator-ink/55">{it.desc}</div>
@@ -48,7 +48,9 @@ function WhatWaitsTeaser({ onGoDeeper }: { onGoDeeper: () => void }) {
         ))}
       </div>
       <button onClick={onGoDeeper} className="w-full rounded-[10px] bg-linear-to-br from-facilitator-amber via-facilitator-amber-deep to-facilitator-amber-light px-8 py-4 text-sm font-bold tracking-[0.06em] text-[#FFFBF2] uppercase shadow-[0_4px_20px_rgba(180,83,9,.25)]">
-        Enter the Full Index →
+        <span className="inline-flex items-center gap-1.5">
+          Enter the Full Index <ArrowRight aria-hidden="true" className="size-4" />
+        </span>
       </button>
     </div>
   );
@@ -121,7 +123,7 @@ export function QuickIntake({ onGoDeeper }: { onGoDeeper: () => void }) {
   if (step === "intro") {
     return (
       <div className="p-8 text-center">
-        <div className="mb-3 text-4xl drop-shadow-[0_2px_8px_rgba(180,83,9,.3)]">◈</div>
+        <Gem aria-hidden="true" className="mx-auto mb-3 size-10 text-facilitator-amber-deep drop-shadow-[0_2px_8px_rgba(180,83,9,.3)]" />
         <h2 className="mb-2.5 font-heading text-[clamp(1.4rem,3vw,2rem)] font-bold text-facilitator-ink">Know Who You Go With</h2>
         <p className="mx-auto mb-4 max-w-120 text-[.95rem] leading-[1.65] text-facilitator-ink/60">
           Most people in this field have never been asked what they actually believe — only what they&apos;ve done. This is the other question. 15 items.
@@ -129,7 +131,9 @@ export function QuickIntake({ onGoDeeper }: { onGoDeeper: () => void }) {
         </p>
         <div className="mt-2 flex flex-col items-center gap-4">
           <button onClick={() => setStep("quiz")} className="w-full max-w-85 rounded-[10px] bg-linear-to-br from-facilitator-amber via-facilitator-amber-deep to-facilitator-amber-light px-10 py-4 text-sm font-bold tracking-[0.06em] text-[#FFFBF2] uppercase shadow-[0_4px_20px_rgba(180,83,9,.2)]">
-            Discover My Archetype →
+            <span className="inline-flex items-center gap-1.5">
+              Discover My Archetype <ArrowRight aria-hidden="true" className="size-4" />
+            </span>
           </button>
           <button onClick={onGoDeeper} className="w-full max-w-85 rounded-lg border border-facilitator-amber-light/35 px-8 py-3 text-[.88rem] text-facilitator-amber-deep">
             Skip to Full 108-Item Index
@@ -152,8 +156,8 @@ export function QuickIntake({ onGoDeeper }: { onGoDeeper: () => void }) {
     return (
       <div className="py-4">
         <div className="mb-6 text-center">
-          <div className="mb-2 text-5xl" style={{ color: archetype.color }}>
-            {archetype.icon}
+          <div className="mb-2 flex justify-center" style={{ color: archetype.color }}>
+            <archetype.icon aria-hidden="true" className="size-12" />
           </div>
           <div className="mb-1 text-xs font-bold tracking-[0.18em] uppercase" style={{ color: archetype.color }}>
             Your Practitioner Archetype
@@ -190,7 +194,9 @@ export function QuickIntake({ onGoDeeper }: { onGoDeeper: () => void }) {
           Send it, and when you&apos;re ready to go deeper, the full 108-item instrument is waiting.
         </p>
         <button onClick={onGoDeeper} className="mt-2 rounded-[10px] bg-linear-to-br from-facilitator-amber via-facilitator-amber-deep to-facilitator-amber-light px-10 py-3.5 text-sm font-bold tracking-[0.06em] text-[#FFFBF2] uppercase shadow-[0_4px_20px_rgba(180,83,9,.2)]">
-          Enter the Full Index →
+          <span className="inline-flex items-center gap-1.5">
+            Enter the Full Index <ArrowRight aria-hidden="true" className="size-4" />
+          </span>
         </button>
       </div>
     );
@@ -200,8 +206,8 @@ export function QuickIntake({ onGoDeeper }: { onGoDeeper: () => void }) {
     return (
       <form onSubmit={handleSubmit} className="py-4">
         <div className="mb-5 text-center">
-          <span className="text-2xl" style={{ color: archetype.color }}>
-            {archetype.icon}
+          <span className="inline-flex" style={{ color: archetype.color }}>
+            <archetype.icon aria-hidden="true" className="size-6" />
           </span>
           <h3 className="mt-1.5 mb-1 font-heading text-lg text-facilitator-ink">Log {archetype.title}</h3>
           <p className="text-[.82rem] text-facilitator-ink/50">Your responses join the index anonymously. Optional: leave a code or contact.</p>
@@ -285,10 +291,15 @@ export function QuickIntake({ onGoDeeper }: { onGoDeeper: () => void }) {
 
       <div className="mt-6 flex justify-between">
         <button onClick={handleBack} disabled={current === 0} className={`rounded-[10px] border-[1.5px] border-facilitator-amber-light/35 px-7 py-3.5 text-[clamp(1rem,2.5vw,1.05rem)] font-semibold text-facilitator-amber-deep/85 ${current === 0 ? "opacity-30" : ""}`}>
-          ← Back
+          <span className="inline-flex items-center gap-1.5">
+            <ArrowLeft aria-hidden="true" className="size-4" /> Back
+          </span>
         </button>
         <button onClick={handleNext} className="rounded-[10px] bg-linear-to-br from-facilitator-amber-deep to-facilitator-amber-light px-9 py-3.5 text-[clamp(1rem,2.5vw,1.1rem)] font-extrabold tracking-[0.03em] text-facilitator-ink shadow-[0_4px_16px_rgba(180,83,9,.3)]">
-          {current === QUICK_QUESTIONS.length - 1 ? "Reveal My Archetype →" : "Next →"}
+          <span className="inline-flex items-center gap-1.5">
+            {current === QUICK_QUESTIONS.length - 1 ? "Reveal My Archetype" : "Next"}
+            <ArrowRight aria-hidden="true" className="size-4" />
+          </span>
         </button>
       </div>
     </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, type LucideIcon } from "lucide-react";
 import { PALATE_QUESTIONS, SCREENS, WEIRDNESS_LINES, welcomeQuizData } from "../data/brewsoul-welcome-quiz.data";
 import { IDENTITY_KEY } from "../hook/use-brewsoul-welcome-quiz";
 import type { StepProps } from "../brewsoul-welcome-quiz";
@@ -24,12 +24,12 @@ function ContinueButton({ enabled, onClick, className }: { enabled: boolean; onC
 }
 
 function GlassOption({
-  emoji,
+  icon: Icon,
   text,
   selected,
   onClick,
 }: {
-  emoji: string;
+  icon: LucideIcon;
   text: string;
   selected?: boolean;
   onClick: () => void;
@@ -42,7 +42,7 @@ function GlassOption({
         selected ? "-translate-y-0.5 border-[#836311]/50 bg-white/85 shadow-lg" : "border-[#836311]/15 bg-white/60"
       }`}
     >
-      <span className="text-xl [filter:drop-shadow(0_2px_6px_rgba(139,105,20,0.2))]">{emoji}</span>
+      <Icon aria-hidden="true" className="size-5 shrink-0 text-[#836311]" strokeWidth={1.75} />
       <span className={`font-sans text-sm ${selected ? "font-semibold text-[#836311]" : "text-[#2A2A2A]"}`}>{text}</span>
     </button>
   );
@@ -140,7 +140,7 @@ export function StepQuestions({ quiz }: StepProps) {
                 {cur.opts.map((o) => (
                   <GlassOption
                     key={o.tag}
-                    emoji={o.emoji}
+                    icon={o.icon}
                     text={o.text}
                     selected={multi.includes(o.tag)}
                     onClick={() => quiz.toggleMulti(o.tag)}
@@ -154,7 +154,7 @@ export function StepQuestions({ quiz }: StepProps) {
           {!cur.multi && !cur.type && (
             <div className="mt-4 flex flex-col gap-2.5">
               {cur.opts.map((o) => (
-                <GlassOption key={o.tag} emoji={o.emoji} text={o.text} onClick={() => quiz.choose(o.tag)} />
+                <GlassOption key={o.tag} icon={o.icon} text={o.text} onClick={() => quiz.choose(o.tag)} />
               ))}
             </div>
           )}

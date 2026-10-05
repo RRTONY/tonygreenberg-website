@@ -2,6 +2,20 @@
 
 import { useCallback, useMemo, useState } from "react";
 import Link from "next/link";
+import {
+  ArrowLeft,
+  ArrowRight,
+  Brain,
+  Dna,
+  Flame,
+  Paperclip,
+  Shield,
+  Sprout,
+  TriangleAlert,
+  Wrench,
+  Zap,
+  type LucideIcon,
+} from "lucide-react";
 import { ThemedBackground } from "@/components/assessments/themed-background";
 import { AssessmentIntro } from "@/components/assessments/assessment-intro";
 import { WhatsNext } from "@/components/assessments/whats-next";
@@ -37,14 +51,14 @@ import { BioChainCTA } from "@/components/marketing/biochain-cta";
 // mailing-list action).
 type Axis = "recovery" | "metabolic" | "vitality" | "immune" | "cognitive" | "sexual" | "longevity";
 
-const AXES: Record<Axis, { label: string; icon: string }> = {
-  recovery: { label: "Recovery & Repair", icon: "🔧" },
-  metabolic: { label: "Metabolic Health", icon: "⚡" },
-  vitality: { label: "Growth & Vitality", icon: "🌱" },
-  immune: { label: "Immune Defense", icon: "🛡️" },
-  cognitive: { label: "Cognitive Performance", icon: "🧠" },
-  sexual: { label: "Hormonal & Sexual", icon: "🔥" },
-  longevity: { label: "Longevity & Cellular", icon: "🧬" },
+const AXES: Record<Axis, { label: string; icon: LucideIcon }> = {
+  recovery: { label: "Recovery & Repair", icon: Wrench },
+  metabolic: { label: "Metabolic Health", icon: Zap },
+  vitality: { label: "Growth & Vitality", icon: Sprout },
+  immune: { label: "Immune Defense", icon: Shield },
+  cognitive: { label: "Cognitive Performance", icon: Brain },
+  sexual: { label: "Hormonal & Sexual", icon: Flame },
+  longevity: { label: "Longevity & Cellular", icon: Dna },
 };
 const AXIS_KEYS = Object.keys(AXES) as Axis[];
 const ACCENT = "#007A85";
@@ -526,7 +540,12 @@ export function FindYourPeptideQuiz() {
         <div className="mx-auto max-w-150">
           <h2 className="mb-2 font-heading text-[clamp(1.4rem,3.5vw,1.8rem)] leading-[1.3]">{q.stem}</h2>
           <p className="mb-2 text-[0.95rem] leading-relaxed text-[#8B7B6B]">{q.subtext}</p>
-          {q.citation && <p className="mb-6 font-mono text-[0.6rem] text-brand-gold/40">📎 {q.citation}</p>}
+          {q.citation && (
+            <p className="mb-6 flex items-start gap-1.5 font-mono text-[0.6rem] text-brand-gold/40">
+              <Paperclip aria-hidden="true" className="mt-px size-3 shrink-0" />
+              {q.citation}
+            </p>
+          )}
 
           <div className="flex flex-col gap-3">
             {q.choices.map((choice, idx) => (
@@ -546,9 +565,10 @@ export function FindYourPeptideQuiz() {
           {currentQ > 0 && (
             <button
               onClick={() => setCurrentQ((prev) => prev - 1)}
-              className="mt-6 rounded-sm border border-black/10 px-4 py-2 font-mono text-[0.7rem] text-[#8B7B6B]"
+              className="mt-6 inline-flex items-center gap-1.5 rounded-sm border border-black/10 px-4 py-2 font-mono text-[0.7rem] text-[#8B7B6B]"
             >
-              ← Previous
+              <ArrowLeft aria-hidden="true" className="size-3.5" />
+              Previous
             </button>
           )}
         </div>
@@ -561,7 +581,7 @@ export function FindYourPeptideQuiz() {
       <div className="relative z-1 flex min-h-screen items-center justify-center px-6 py-16 font-sans text-[#2C1810]">
         <ThemedBackground theme="peptide" />
         <div className="max-w-110 text-center">
-          <div className="mb-4 text-4xl">🧬</div>
+          <Dna aria-hidden="true" className="mx-auto mb-4 size-9 text-brand-gold" />
           <h2 className="mb-2 font-heading text-3xl text-brand-gold">Your Peptide Clarity Index™ is ready.</h2>
           <p className="mb-2 text-base leading-relaxed text-[#8B7B6B]">
             Enter your email to unlock your personalized 7-axis profile, peptide recommendations with evidence
@@ -616,8 +636,9 @@ export function FindYourPeptideQuiz() {
                 : "Low readiness — physician consultation strongly recommended before starting"}
           </div>
           {contraFlags.length > 0 && (
-            <div className="mt-3 rounded-sm border border-red-500/30 bg-red-500/10 px-3 py-2 font-mono text-[0.65rem] text-red-800">
-              ⚠️ {contraFlags.length} contraindication flag{contraFlags.length > 1 ? "s" : ""} detected — physician review required
+            <div className="mt-3 flex items-center justify-center gap-1.5 rounded-sm border border-red-500/30 bg-red-500/10 px-3 py-2 font-mono text-[0.65rem] text-red-800">
+              <TriangleAlert aria-hidden="true" className="size-3.5 shrink-0" />
+              {contraFlags.length} contraindication flag{contraFlags.length > 1 ? "s" : ""} detected — physician review required
             </div>
           )}
         </div>
@@ -626,7 +647,7 @@ export function FindYourPeptideQuiz() {
           <h3 className="mb-4 font-mono text-[0.7rem] tracking-[0.15em] text-brand-gold/60 uppercase">Your 7-Axis Clinical Profile</h3>
           <div className="flex justify-center">
             <AssessmentRadarChart
-              scores={Object.fromEntries(AXIS_KEYS.map((k) => [`${AXES[k].icon} ${AXES[k].label}`, scores[k] || 0]))}
+              scores={Object.fromEntries(AXIS_KEYS.map((k) => [AXES[k].label, scores[k] || 0]))}
               max={100}
               accentColor="#D4B96A"
             />
@@ -635,22 +656,26 @@ export function FindYourPeptideQuiz() {
 
         <div className="mb-10">
           <h3 className="mb-4 font-mono text-[0.7rem] tracking-[0.15em] text-brand-gold/60 uppercase">Axis Scores</h3>
-          {AXIS_KEYS.map((key) => (
-            <div key={key} className="mb-3">
-              <div className="mb-1 flex justify-between">
-                <span className="text-[0.85rem]">
-                  {AXES[key].icon} {AXES[key].label}
-                </span>
-                <span className="font-mono text-[0.75rem] text-brand-gold">{scores[key] || 0}/100</span>
+          {AXIS_KEYS.map((key) => {
+            const { icon: AxisIcon, label } = AXES[key];
+            return (
+              <div key={key} className="mb-3">
+                <div className="mb-1 flex justify-between">
+                  <span className="inline-flex items-center gap-1.5 text-[0.85rem]">
+                    <AxisIcon aria-hidden="true" className="size-4 text-brand-gold" />
+                    {label}
+                  </span>
+                  <span className="font-mono text-[0.75rem] text-brand-gold">{scores[key] || 0}/100</span>
+                </div>
+                <div className="h-1.5 rounded-sm bg-black/6">
+                  <div
+                    className="h-full rounded-sm bg-linear-to-r from-brand-gold to-brand-gold-light transition-[width] duration-1000"
+                    style={{ width: `${scores[key] || 0}%` }}
+                  />
+                </div>
               </div>
-              <div className="h-1.5 rounded-sm bg-black/6">
-                <div
-                  className="h-full rounded-sm bg-linear-to-r from-brand-gold to-brand-gold-light transition-[width] duration-1000"
-                  style={{ width: `${scores[key] || 0}%` }}
-                />
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         <div className="mb-10 rounded-lg border border-brand-gold/10 bg-white/40 p-6">
@@ -663,7 +688,10 @@ export function FindYourPeptideQuiz() {
             <div key={p.name} className="mb-4 rounded-md border border-brand-gold/10 bg-white/40 p-4">
               <div className="mb-1 font-heading text-lg text-brand-gold">{p.name}</div>
               <p className="mb-1 text-sm leading-relaxed">{p.mechanism}</p>
-              <p className="font-mono text-[0.65rem] text-brand-gold/50">📎 {p.evidence}</p>
+              <p className="flex items-start gap-1.5 font-mono text-[0.65rem] text-brand-gold/50">
+                <Paperclip aria-hidden="true" className="mt-px size-3 shrink-0" />
+                {p.evidence}
+              </p>
             </div>
           ))}
         </div>
@@ -695,7 +723,10 @@ export function FindYourPeptideQuiz() {
         </div>
 
         <div className="mb-10 rounded-lg border border-red-500/15 bg-red-500/5 p-5">
-          <h3 className="mb-3 font-mono text-[0.7rem] tracking-[0.15em] text-red-800/70 uppercase">⚠️ Contraindications &amp; Red Flags</h3>
+          <h3 className="mb-3 flex items-center gap-1.5 font-mono text-[0.7rem] tracking-[0.15em] text-red-800/70 uppercase">
+            <TriangleAlert aria-hidden="true" className="size-3.5 shrink-0" />
+            Contraindications &amp; Red Flags
+          </h3>
           {profile.redFlags.map((flag) => (
             <p key={flag} className="mb-1 text-[0.85rem] leading-relaxed text-red-900/70">
               • {flag}
@@ -738,8 +769,9 @@ export function FindYourPeptideQuiz() {
 
         <div className="mb-10 rounded-lg border border-brand-gold/15 bg-brand-gold-light/8 p-6 text-center">
           <p className="mb-3 text-base text-[#8B7B6B]">Want the full story? Read the deep-dive essay behind this assessment.</p>
-          <Link href="/blog/the-peptide-truth-65m-fraud-industry-vs-life-changing-medicine" className="border-b border-brand-gold/30 font-mono text-[0.8rem] text-brand-gold">
-            Read &quot;The Peptide Truth&quot; →
+          <Link href="/blog/the-peptide-truth-65m-fraud-industry-vs-life-changing-medicine" className="inline-flex items-center gap-1.5 border-b border-brand-gold/30 font-mono text-[0.8rem] text-brand-gold">
+            Read &quot;The Peptide Truth&quot;
+            <ArrowRight aria-hidden="true" className="size-3.5" />
           </Link>
         </div>
 

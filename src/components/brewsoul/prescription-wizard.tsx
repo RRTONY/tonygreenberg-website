@@ -2,6 +2,23 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import {
+  ArrowLeft,
+  ArrowRight,
+  Brain,
+  Coffee,
+  Dna,
+  HeartPulse,
+  Leaf,
+  Microscope,
+  Moon,
+  Salad,
+  Scale,
+  ShieldCheck,
+  Sun,
+  TriangleAlert,
+  Wind,
+} from "lucide-react";
 
 // Ported from legacy client/src/pages/brewsoul/BrewSoulPrescriptionFull.tsx
 // — the real 5-step questionnaire (genetics/timing/health/flavor/budget)
@@ -29,16 +46,16 @@ interface Answers {
 }
 
 const HEALTH_OPTIONS = [
-  { id: "longevity", label: "Longevity / anti-aging", icon: "🧬" },
-  { id: "liver", label: "Liver protection", icon: "🫀" },
-  { id: "brain", label: "Brain health / focus", icon: "🧠" },
-  { id: "gut", label: "Gut health / digestion", icon: "🦠" },
-  { id: "weight", label: "Weight management", icon: "⚖️" },
-  { id: "mood", label: "Mood / depression prevention", icon: "☀️" },
-  { id: "sleep", label: "Sleep optimization", icon: "💤" },
-  { id: "anxiety", label: "Reduce anxiety", icon: "🧘" },
-  { id: "antioxidant", label: "Maximum antioxidants", icon: "🛡️" },
-  { id: "mold-free", label: "Mold/mycotoxin avoidance", icon: "🔬" },
+  { id: "longevity", label: "Longevity / anti-aging", icon: Dna },
+  { id: "liver", label: "Liver protection", icon: HeartPulse },
+  { id: "brain", label: "Brain health / focus", icon: Brain },
+  { id: "gut", label: "Gut health / digestion", icon: Salad },
+  { id: "weight", label: "Weight management", icon: Scale },
+  { id: "mood", label: "Mood / depression prevention", icon: Sun },
+  { id: "sleep", label: "Sleep optimization", icon: Moon },
+  { id: "anxiety", label: "Reduce anxiety", icon: Wind },
+  { id: "antioxidant", label: "Maximum antioxidants", icon: ShieldCheck },
+  { id: "mold-free", label: "Mold/mycotoxin avoidance", icon: Microscope },
 ];
 
 const FLAVOR_OPTIONS = [
@@ -273,7 +290,9 @@ export function PrescriptionWizard() {
             <div className="grid gap-2.5 [grid-template-columns:repeat(auto-fill,minmax(200px,1fr))]">
               {HEALTH_OPTIONS.map((h) => (
                 <Chip key={h.id} selected={answers.healthGoals.includes(h.id)} onClick={() => toggleList("healthGoals", h.id)}>
-                  {h.icon} {h.label}
+                  <span className="inline-flex items-center gap-2">
+                    <h.icon aria-hidden="true" className="size-4 shrink-0 text-[#c4873b]" /> {h.label}
+                  </span>
                 </Chip>
               ))}
             </div>
@@ -331,8 +350,8 @@ export function PrescriptionWizard() {
             {rx.warnings.length > 0 && (
               <div className="mb-7">
                 {rx.warnings.map((w) => (
-                  <div key={w} className="mb-2 rounded-lg border border-[#9B3030]/15 bg-[#9B3030]/6 p-4 text-sm leading-relaxed text-[#8b4c2a]">
-                    ⚠️ {w}
+                  <div key={w} className="mb-2 flex items-start gap-2 rounded-lg border border-[#9B3030]/15 bg-[#9B3030]/6 p-4 text-sm leading-relaxed text-[#8b4c2a]">
+                    <TriangleAlert aria-hidden="true" className="mt-0.5 size-4 shrink-0" /> {w}
                   </div>
                 ))}
               </div>
@@ -342,7 +361,9 @@ export function PrescriptionWizard() {
               <div className="mb-4 font-mono text-[11px] tracking-wide text-[#c5a23c]">Daily Schedule</div>
               <div className="flex flex-col gap-3">
                 <div className="flex items-start gap-3">
-                  <span className="w-8 text-center text-xl">☕</span>
+                  <span className="flex w-8 shrink-0 justify-center">
+                    <Coffee aria-hidden="true" className="size-5 text-[#c4873b]" />
+                  </span>
                   <div>
                     <div className="text-sm font-bold text-[#1a0e08]">First cup: {rx.firstCupTime}</div>
                     <div className="text-[13px] text-[#5c3a28]">
@@ -353,7 +374,9 @@ export function PrescriptionWizard() {
                 </div>
                 {rx.decafCups > 0 && (
                   <div className="flex items-start gap-3">
-                    <span className="w-8 text-center text-xl">🫖</span>
+                    <span className="flex w-8 shrink-0 justify-center">
+                    <Leaf aria-hidden="true" className="size-5 text-[#c4873b]" />
+                  </span>
                     <div>
                       <div className="text-sm font-bold text-[#1a0e08]">Decaf: After {rx.lastCafTime}</div>
                       <div className="text-[13px] text-[#5c3a28]">{rx.decafCups} Swiss Water Process decaf cup(s). 70-80% antioxidants, zero sleep disruption.</div>
@@ -361,7 +384,9 @@ export function PrescriptionWizard() {
                   </div>
                 )}
                 <div className="flex items-start gap-3">
-                  <span className="w-8 text-center text-xl">💤</span>
+                  <span className="flex w-8 shrink-0 justify-center">
+                    <Moon aria-hidden="true" className="size-5 text-[#c4873b]" />
+                  </span>
                   <div>
                     <div className="text-sm font-bold text-[#1a0e08]">No coffee after 5:00 PM</div>
                     <div className="text-[13px] text-[#5c3a28]">Even decaf has 2-7mg caffeine. Herbal tea or water only.</div>
@@ -436,8 +461,8 @@ export function PrescriptionWizard() {
         {step !== "result" && (
           <div className="mt-10 flex justify-between">
             {stepIdx > 0 ? (
-              <button onClick={prev} className="rounded-md border border-[#5d3a28]/15 px-6 py-3 font-mono text-xs tracking-wide text-[#6b5a4e]">
-                ← Back
+              <button onClick={prev} className="inline-flex items-center gap-1.5 rounded-md border border-[#5d3a28]/15 px-6 py-3 font-mono text-xs tracking-wide text-[#6b5a4e]">
+                <ArrowLeft aria-hidden="true" className="size-3.5" /> Back
               </button>
             ) : (
               <div />
@@ -445,11 +470,11 @@ export function PrescriptionWizard() {
             <button
               onClick={next}
               disabled={!canNext()}
-              className={`rounded-md px-7 py-3 font-mono text-xs tracking-wide ${
+              className={`inline-flex items-center gap-1.5 rounded-md px-7 py-3 font-mono text-xs tracking-wide ${
                 canNext() ? "bg-linear-to-br from-[#c4873b] to-[#c5a23c] text-white" : "cursor-not-allowed bg-[#5d3a28]/10 text-[#6b5a4e] opacity-50"
               }`}
             >
-              {stepIdx === STEPS.length - 2 ? "Get Prescription →" : "Next →"}
+              {stepIdx === STEPS.length - 2 ? "Get Prescription" : "Next"} <ArrowRight aria-hidden="true" className="size-3.5" />
             </button>
           </div>
         )}
