@@ -358,7 +358,7 @@ export function PeptideMatrixExplorer() {
       )}
 
       <h2 className="mt-12 mb-6 font-heading text-2xl font-bold text-foreground">All Entities Ranked</h2>
-      <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
+      <div className="relative overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
         <table className="w-full border-collapse text-sm">
           <thead>
             <tr className="border-b-2 border-foreground">

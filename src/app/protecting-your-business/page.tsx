@@ -547,7 +547,7 @@ export default function ProtectingYourBusinessPage() {
             Cost of not running one: $46,795. I am not a mathematician, but I can do this
             particular calculation now.
           </AlertBox>
-          <div className="my-6 overflow-x-auto rounded-md border border-border" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
+          <div className="relative my-6 overflow-x-auto rounded-md border border-border" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
             <table className="w-full border-collapse text-sm">
               <thead>
                 <tr className="bg-red-800/5">
@@ -590,7 +590,7 @@ export default function ProtectingYourBusinessPage() {
         </Section>
 
         <Section id="tools" num="08" title="Prevention Tools vs. the Cost of Trusting the Wrong Person">
-          <div className="mb-6 overflow-x-auto rounded-md border border-border" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
+          <div className="relative mb-6 overflow-x-auto rounded-md border border-border" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
             <table className="w-full border-collapse text-sm">
               <thead>
                 <tr className="bg-red-800/5">

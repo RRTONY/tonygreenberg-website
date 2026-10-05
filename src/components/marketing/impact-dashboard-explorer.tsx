@@ -536,7 +536,7 @@ export function ImpactDashboardExplorer() {
 
           <GlassCard className="mb-6 p-6">
             <p className="mb-4 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">Illustrative Comparison Pattern</p>
-            <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
+            <div className="relative overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
               <table className="w-full border-collapse font-mono text-xs">
                 <thead>
                   <tr className="border-b-2 border-brand-gold/20">

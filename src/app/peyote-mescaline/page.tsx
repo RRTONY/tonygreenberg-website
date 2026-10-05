@@ -117,7 +117,7 @@ export default function PeyoteMescalinePage() {
         </div>
         <PriEyebrow>Receptor Pharmacology</PriEyebrow>
         <h2 className="mb-6 font-heading text-[clamp(1.5rem,4vw,2.5rem)] text-pri-ink">Key Receptors</h2>
-        <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
+        <div className="relative overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
           <table className="w-full min-w-125 border-collapse">
             <thead>
               <tr>
@@ -161,7 +161,7 @@ export default function PeyoteMescalinePage() {
         <p className="mb-8 max-w-150 text-[clamp(.9rem,2.5vw,1.05rem)] text-pri-cream/60">
           Latuda (lurasidone) and mescaline share the same receptor targets with opposite actions:
         </p>
-        <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
+        <div className="relative overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
           <table className="w-full min-w-115 border-collapse">
             <thead>
               <tr>
@@ -342,7 +342,7 @@ export default function PeyoteMescalinePage() {
       <PriSection id="selector">
         <PriEyebrow>Medicine Selector</PriEyebrow>
         <h2 className="mb-6 font-heading text-[clamp(1.5rem,4vw,2.5rem)] text-pri-ink">How Mescaline Compares</h2>
-        <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
+        <div className="relative overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
           <table className="w-full min-w-187.5 border-collapse">
             <thead>
               <tr>

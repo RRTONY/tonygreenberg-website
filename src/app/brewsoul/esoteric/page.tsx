@@ -162,7 +162,7 @@ export default function BrewSoulEsotericPage() {
       <section className="mx-auto max-w-215 px-5 pb-15">
         <div className="mb-3 font-mono text-[11px] tracking-[0.3em] text-[#6b5a4e] uppercase">Coffee Explorer Score</div>
         <h2 className="mb-6 font-heading text-[clamp(24px,3.5vw,36px)] leading-[1.15] font-bold text-[#0A0A10]">The Scorecard</h2>
-        <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
+        <div className="relative overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
           <table className="w-full border-collapse text-sm">
             <thead>
               <tr className="border-b-2 border-[#836311]">

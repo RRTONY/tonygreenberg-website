@@ -523,7 +523,7 @@ function BenchmarkTab({ scores, entityName }: { scores: number[]; entityName: st
         {DIMENSIONS.length}-axis measurement eliminates single-dimension gaming.
       </div>
 
-      <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
+      <div className="relative overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
         <table className="w-full min-w-225 border-collapse font-mono text-[0.6rem]">
           <thead>
             <tr className="border-b-2 border-[#0A0A10]">

@@ -824,7 +824,7 @@ export function PsychedelicReadinessIndex() {
             ))}
           </div>
 
-          <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
+          <div className="relative overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
             <table className="w-full border-collapse text-[.85rem]">
               <thead>
                 <tr className="border-b-2 border-pri-cream/15">

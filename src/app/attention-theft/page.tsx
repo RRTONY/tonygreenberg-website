@@ -228,7 +228,7 @@ export default async function AttentionTheftPage({ searchParams }: PageProps<"/a
             <h3 className="mb-4 flex items-center gap-2 font-heading text-xl font-bold text-crusade-ink">
               <Scale size={20} className="text-crusade-red" /> Full Economics Breakdown
             </h3>
-            <div className="overflow-x-auto rounded-2xl border border-crusade-red/15" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
+            <div className="relative overflow-x-auto rounded-2xl border border-crusade-red/15" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
               <table className="w-full min-w-160 text-left">
                 <thead>
                   <tr className="bg-crusade-red/8">

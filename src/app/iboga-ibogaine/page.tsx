@@ -257,7 +257,7 @@ export default function IbogaIbogainePage() {
             phase. Voacangine contributes anti-inflammatory action.
           </p>
         </div>
-        <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
+        <div className="relative overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
           <table className="w-full min-w-187.5 border-collapse">
             <thead>
               <tr>
@@ -295,7 +295,7 @@ export default function IbogaIbogainePage() {
           No other known compound hits this many addiction-relevant targets in a single dose. Its primary metabolite, noribogaine, extends the therapeutic
           window to 24–48 hours with stronger mu-opioid and serotonin transporter affinity than the parent compound.
         </p>
-        <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
+        <div className="relative overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
           <table className="w-full min-w-162.5 border-collapse">
             <thead>
               <tr>
@@ -347,7 +347,7 @@ export default function IbogaIbogainePage() {
           bark as a living intelligence — a teacher plant that communicates through visions, purging, and ancestor contact. The other isolates the most
           pharmacologically active molecule and administers it under EKG monitoring. Both save lives. Neither is wrong.
         </p>
-        <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
+        <div className="relative overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
           <table className="w-full min-w-150 border-collapse">
             <thead>
               <tr>
@@ -388,7 +388,7 @@ export default function IbogaIbogainePage() {
           years of observational evidence but limited Western-style controlled studies. What exists is compelling: single-dose ibogaine eliminates opioid
           withdrawal in 80–90% of cases and sustains craving reduction at 12 months in over half of participants.
         </p>
-        <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
+        <div className="relative overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
           <table className="w-full min-w-137.5 border-collapse">
             <thead>
               <tr>
@@ -469,7 +469,7 @@ export default function IbogaIbogainePage() {
           Iboga and ibogaine demand the highest readiness thresholds of any medicine in the PRI. The 24–72 hour duration, cardiac risk profile, and
           intensity of the visionary experience mean that every dimension must be at or near maximum before proceeding.
         </p>
-        <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
+        <div className="relative overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
           <table className="w-full min-w-162.5 border-collapse">
             <thead>
               <tr>
@@ -506,7 +506,7 @@ export default function IbogaIbogainePage() {
           strongest trial data. For spiritual development, iboga (whole plant) in Bwiti context is unmatched in depth and duration. Know what you need
           before choosing.
         </p>
-        <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
+        <div className="relative overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
           <table className="w-full min-w-187.5 border-collapse">
             <thead>
               <tr>
@@ -581,7 +581,7 @@ export default function IbogaIbogainePage() {
 
         <PriEyebrow>The Numbers</PriEyebrow>
         <h3 className="mb-4 font-heading text-[clamp(1.3rem,3vw,1.8rem)] text-pri-ink">Updated Research Data (2024–2026)</h3>
-        <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
+        <div className="relative overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
           <table className="w-full min-w-162.5 border-collapse">
             <thead>
               <tr>
@@ -735,7 +735,7 @@ export default function IbogaIbogainePage() {
         ))}
 
         <h3 className="mt-8 mb-4 font-heading text-xl text-pri-ink">Additional Verified Facilities</h3>
-        <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
+        <div className="relative overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
           <table className="w-full min-w-150 border-collapse">
             <thead>
               <tr>
@@ -774,7 +774,7 @@ export default function IbogaIbogainePage() {
         </div>
 
         <h3 className="mt-8 mb-4 font-heading text-xl text-pri-ink">Quick Reference</h3>
-        <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
+        <div className="relative overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
           <table className="w-full min-w-175 border-collapse">
             <thead>
               <tr>

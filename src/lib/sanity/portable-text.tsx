@@ -83,7 +83,7 @@ export const portableTextComponents: PortableTextComponents = {
       if (rows.length < 2) return null;
       const [head, ...body] = rows;
       return (
-        <div className="my-8 overflow-x-auto rounded-lg border border-border" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
+        <div className="relative my-8 overflow-x-auto rounded-lg border border-border" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
           <table className="w-full border-collapse text-left text-sm">
             <thead className="bg-secondary">
               <tr>

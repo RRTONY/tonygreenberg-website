@@ -70,7 +70,7 @@ export function CompareExplorer({ coffees }: { coffees: CatalogItem[] }) {
       {selected.length === 0 ? (
         <div className="px-8 py-16 text-center text-[#6E6E6E]">Select coffees above to start comparing.</div>
       ) : (
-        <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
+        <div className="relative overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
           <table className="w-full border-collapse text-[0.85rem]">
             <thead>
               <tr className="border-b-2 border-[#6F4E37]/10">

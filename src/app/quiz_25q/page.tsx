@@ -10,8 +10,8 @@ import { PeptideQuiz } from "@/components/marketing/peptide-quiz";
 // handler) — kept as real client-only gating logic, not a removed feature.
 // `AssessmentResultActions`'s "Send to Tony"/"Keep Private" (a tRPC CRM
 // write) was dropped; "Download PDF" (`window.print`) is kept since it's
-// real and backend-free. Legacy hero image (CloudFront) confirmed 403,
-// same dead host as every other peptide page — dropped for plain styling.
+// real and backend-free. The hero picture live shows above the title was
+// rescued into Sanity on 2026-10-06 and is rendered by PeptideQuiz.
 export const metadata: Metadata = {
   title: "Peptide Consumer Literacy Quiz — 25 Questions",
   description:

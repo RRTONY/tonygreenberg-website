@@ -286,7 +286,7 @@ export default function BrewSoulDecafPage() {
         <div className="mx-auto max-w-275">
           <div className="mb-3 font-mono text-[11px] tracking-[0.3em] text-[#6b5a4e] uppercase">Complete Price Map</div>
           <h2 className="mb-6 font-heading text-[clamp(28px,4vw,44px)] leading-[1.15] font-bold text-[#1a0e08] italic">Every Clean Decaf, Ranked by Value</h2>
-          <div className="overflow-x-auto rounded-lg bg-white" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
+          <div className="relative overflow-x-auto rounded-lg bg-white" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
             <table className="w-full border-collapse text-[13px]">
               <thead>
                 <tr>
