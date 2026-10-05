@@ -150,7 +150,8 @@ export default function AkbarPage() {
                 src={tile.src}
                 alt=""
                 fill
-                priority
+                fetchPriority="high"
+                loading="eager"
                 sizes="(max-width: 640px) 50vw, 40vw"
                 className="object-cover brightness-65 saturate-130"
               />

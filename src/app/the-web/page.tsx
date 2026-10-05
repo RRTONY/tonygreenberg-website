@@ -40,7 +40,7 @@ export default function TheWebPage() {
   return (
     <div>
       <div className="relative h-[25.3rem] overflow-hidden">
-        <Image src={HERO_IMAGE} alt="Connected network of golden threads" fill priority className="object-cover" />
+        <Image src={HERO_IMAGE} alt="Connected network of golden threads" fill fetchPriority="high" loading="eager" className="object-cover" />
       </div>
 
       <div className="mx-auto max-w-[39rem] px-5 py-8 text-[1.1875rem]/[1.8] sm:px-10 sm:text-lg/[1.85]">

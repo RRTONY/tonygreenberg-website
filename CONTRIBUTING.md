@@ -109,6 +109,28 @@ incidents: [`docs/ai/`](docs/ai/README.md).
 17. **Optional form fields with a Yup validator must accept an empty string** (e.g.
     `.url().nullable()` alone rejects `""`, which is what an untouched input sends). Test the empty
     case, not just a filled-in one.
+18. **Arrows and symbols in buttons and links are icons, not text characters.** Use lucide-react
+    (`<ArrowRight aria-hidden="true" className="size-3.5" />`, `ArrowLeft`, `ChevronRight`...) inside
+    an `inline-flex items-center gap-1.5` element, never a typed `→`, `←`, `⟶` or `»` in new UI.
+    The owner asked for this (2026-10-06). Arrows inside Tony's copy (essay text, data strings) are
+    content: leave them unless asked.
+    **Same for emoji:** no emoji as UI icons (option buttons, cards, badges, labels, nav). Use a
+    lucide-react icon (`aria-hidden="true"` when text sits next to it), and store the icon
+    component in data files (`icon: Coffee`, typed `LucideIcon`), not an emoji string.
+19. **A multi-step flow (quiz, wizard, multi-page form) is a step registry, not one component of
+    `{step === X && (...)}` blocks.** Same shape as FydoPartner's sign-in flow
+    (`src/screens/auth/singIn/`), adapted here. Reference: `src/components/brewsoul/brewsoul-quiz/`.
+    - `<flow>/<flow>.tsx`: the parent holds only a numeric registry
+      (`const STEPS = { 1: StepQuestions, 2: StepResults }`), the shared chrome (progress bar,
+      header) and `<Step quiz={quiz} />`.
+    - `<flow>/hook/use-<flow>.ts`: the ONE shared state for the flow (step, answers, flags) and its
+      actions (`answer`, `back`, `reset`, `onNext(step?)`). No other component holds flow state.
+    - `<flow>/components/step-<name>.tsx`: one file per step. It reads state and calls the hook's
+      actions; logic only that step needs (e.g. result scoring) lives in the step.
+    - `<flow>/data/<flow>.data.ts`: questions and all UI copy (an exported `...Data` object), not
+      string literals in the step files.
+    The owner asked for this (2026-10-06). Existing quizzes still in the old shape get moved over
+    when they're next touched.
 
 ## Next.js (App Router, v16)
 

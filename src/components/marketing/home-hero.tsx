@@ -36,9 +36,11 @@ export function HomeHero({ essayCount }: { essayCount: number }) {
     <section className="relative flex min-h-[clamp(300px,42vh,420px)] items-center overflow-hidden">
       <Image
         src={HERO_IMAGE}
-        alt=""
+        alt="Kintsugi bowl mended with gold, on a windowsill at sunset"
         fill
-        priority
+        fetchPriority="high"
+        loading="eager"
+        sizes="100vw"
         className="object-cover object-[center_40%]"
       />
       <div
@@ -102,7 +104,14 @@ export function HomeHero({ essayCount }: { essayCount: number }) {
           >
             READ
           </a>
-          {" · DIAGNOSE · ENGAGE"}
+          {" · "}
+          <Link href="/find-my" className="border-b border-brand-gold-light/30 text-brand-gold-light">
+            DIAGNOSE
+          </Link>
+          {" · "}
+          <Link href="/engage" className="border-b border-brand-gold-light/30 text-brand-gold-light">
+            ENGAGE
+          </Link>
         </div>
       </div>
     </section>

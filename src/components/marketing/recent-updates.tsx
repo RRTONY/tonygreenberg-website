@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { formatPostDate } from "@/lib/format-post-date";
 
 // Rebuilt from the live tonygreenberg.com homepage's "Recent Updates" band
 // (its source is a newer Blog.tsx than the snapshot in _legacy-manus-app/,
@@ -32,20 +33,6 @@ const FILTERS = [
 ] as const;
 
 const MAX_POSTS = 3;
-
-// Most migrated `publishedAt` values are 18:30 UTC, i.e. midnight IST on the
-// real publish date (the migration ran in that zone), so formatting in UTC
-// shows the day before. Asia/Kolkata gives the dates live shows, and a fixed
-// zone keeps server and client renders identical.
-function formatDate(iso?: string) {
-  if (!iso) return null;
-  return new Date(iso).toLocaleDateString("en-US", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-    timeZone: "Asia/Kolkata",
-  });
-}
 
 export function RecentUpdates({ posts }: { posts: RecentUpdatePost[] }) {
   const [active, setActive] = useState<string | null>(null);
@@ -112,7 +99,7 @@ export function RecentUpdates({ posts }: { posts: RecentUpdatePost[] }) {
                     <div>
                       {post.publishedAt && (
                         <p className="mb-4 font-mono text-[0.68rem] tracking-[0.12em] text-[#8E1E25] uppercase">
-                          {formatDate(post.publishedAt)}
+                          {formatPostDate(post.publishedAt)}
                         </p>
                       )}
                       {post.category && (

@@ -2,6 +2,8 @@
 // used on every peptide/biohacking/bio-sourcing page. Real, static outbound
 // links to RampRate's own BioChain business site (verified live); no
 // backend/form on this side at all, so nothing to reduce here.
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+
 export type BioChainVariant = "supplier" | "buyer" | "both";
 
 export function BioChainCTA({
@@ -31,9 +33,9 @@ export function BioChainCTA({
             href="https://ramprate.com/biochain/supplier-intake"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center rounded-sm bg-[#2C1810] px-6 py-3 font-mono text-xs tracking-wide text-[#F5F0E8] uppercase min-h-11 md:min-h-6"
+            className="inline-flex items-center gap-1.5 rounded-sm bg-[#2C1810] px-6 py-3 font-mono text-xs tracking-wide text-[#F5F0E8] uppercase min-h-11 md:min-h-6"
           >
-            Supplier Application →
+            Supplier Application <ArrowRight aria-hidden="true" className="size-3.5" />
           </a>
         )}
         {(variant === "buyer" || variant === "both") && (
@@ -41,18 +43,18 @@ export function BioChainCTA({
             href="https://ramprate.com/biochain/buyer-intake"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-sm border border-[#8B5A2B] px-6 py-3 font-mono text-xs tracking-wide text-[#2C1810] uppercase"
+            className="inline-flex items-center gap-1.5 rounded-sm border border-[#8B5A2B] px-6 py-3 font-mono text-xs tracking-wide text-[#2C1810] uppercase"
           >
-            Buyer / Distribution Partner →
+            Buyer / Distribution Partner <ArrowRight aria-hidden="true" className="size-3.5" />
           </a>
         )}
         <a
           href="https://ramprate.com/biochain"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center rounded-sm px-6 py-3 font-mono text-xs tracking-wide text-[#8B5A2B] uppercase min-h-11 md:min-h-6"
+          className="inline-flex items-center gap-1.5 rounded-sm px-6 py-3 font-mono text-xs tracking-wide text-[#8B5A2B] uppercase min-h-11 md:min-h-6"
         >
-          BioChain Overview ↗
+          BioChain Overview <ArrowUpRight aria-hidden="true" className="size-3.5" />
         </a>
       </div>
     </div>

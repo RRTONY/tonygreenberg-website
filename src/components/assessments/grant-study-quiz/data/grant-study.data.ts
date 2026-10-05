@@ -1,14 +1,6 @@
-"use client";
+import { Activity, Briefcase, Heart, Shield, Sprout, type LucideIcon } from "lucide-react";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
-import Link from "next/link";
-import { ThemedBackground } from "@/components/assessments/themed-background";
-import { AssessmentIntro } from "@/components/assessments/assessment-intro";
-import { EmailGate } from "@/components/assessments/email-gate";
-import { AssessmentResultActions } from "@/components/assessments/result-actions";
-import { JourneyTracker, useJourneyProgress } from "@/components/assessments/journey-tracker";
-
-// Ported from legacy client/src/pages/GrantStudy.tsx — "Find Your Score,"
+// Data for /grant-study. Ported from legacy client/src/pages/GrantStudy.tsx — "Find Your Score,"
 // a real 25-question (5 per factor) life-satisfaction assessment built on
 // the Harvard Grant Study, the longest-running study of human happiness
 // (724 men followed from 1938 across 85+ years). Real 5 factors (Warm
@@ -41,21 +33,21 @@ import { JourneyTracker, useJourneyProgress } from "@/components/assessments/jou
 // tRPC backend exists in this Next.js app, and `AssessmentResultActions`'s
 // `resultSlug` cookie already gives `/self-portrait` a real completion
 // record.
-type FactorKey = "relationships" | "coping" | "generativity" | "career" | "health";
+export type FactorKey = "relationships" | "coping" | "generativity" | "career" | "health";
 
-interface Factor {
+export interface Factor {
   key: FactorKey;
   name: string;
-  icon: string;
+  icon: LucideIcon;
   description: string;
 }
 
-const FACTORS: Factor[] = [
-  { key: "relationships", name: "Warm Relationships", icon: "♡", description: "The single strongest predictor of life satisfaction. Not quantity — quality. The depth of your connections." },
-  { key: "coping", name: "Adaptive Coping", icon: "◈", description: "How you metabolize difficulty. Mature defenses (humor, altruism, sublimation) vs. immature ones (denial, projection, passive aggression)." },
-  { key: "generativity", name: "Generativity", icon: "❋", description: "Erikson's concept: the concern for establishing and guiding the next generation. Mentoring, creating, contributing beyond self." },
-  { key: "career", name: "Career Satisfaction", icon: "△", description: "Not status or income — the sense that your work matters, uses your gifts, and aligns with your values." },
-  { key: "health", name: "Physical Vitality", icon: "○", description: "Not the absence of disease — the active cultivation of the body as an instrument of consciousness." },
+export const FACTORS: Factor[] = [
+  { key: "relationships", name: "Warm Relationships", icon: Heart, description: "The single strongest predictor of life satisfaction. Not quantity — quality. The depth of your connections." },
+  { key: "coping", name: "Adaptive Coping", icon: Shield, description: "How you metabolize difficulty. Mature defenses (humor, altruism, sublimation) vs. immature ones (denial, projection, passive aggression)." },
+  { key: "generativity", name: "Generativity", icon: Sprout, description: "Erikson's concept: the concern for establishing and guiding the next generation. Mentoring, creating, contributing beyond self." },
+  { key: "career", name: "Career Satisfaction", icon: Briefcase, description: "Not status or income — the sense that your work matters, uses your gifts, and aligns with your values." },
+  { key: "health", name: "Physical Vitality", icon: Activity, description: "Not the absence of disease — the active cultivation of the body as an instrument of consciousness." },
 ];
 
 interface Question {
@@ -65,7 +57,7 @@ interface Question {
   options: { text: string; score: number }[];
 }
 
-const QUESTIONS: Question[] = [
+export const QUESTIONS: Question[] = [
   // Relationships (5)
   { id: 1, factor: "relationships", text: "How many people in your life could you call at 3am in a genuine crisis — and they would answer?", options: [
     { text: "None that I can think of", score: 1 },
@@ -252,16 +244,16 @@ const QUESTIONS: Question[] = [
   ]},
 ];
 
-const ACCENT = "#2E8B57";
+export const ACCENT = "#2E8B57";
 
-function getFactorScore(answers: Record<number, number>, factorKey: FactorKey): number {
+export function getFactorScore(answers: Record<number, number>, factorKey: FactorKey): number {
   const factorQs = QUESTIONS.filter((q) => q.factor === factorKey);
   const scores = factorQs.map((q) => answers[q.id] || 0).filter((s) => s > 0);
   if (scores.length === 0) return 0;
   return Math.round((scores.reduce((a, b) => a + b, 0) / (scores.length * 10)) * 100);
 }
 
-const FACTOR_INSIGHTS: Record<FactorKey, Record<"low" | "mid" | "high", string>> = {
+export const FACTOR_INSIGHTS: Record<FactorKey, Record<"low" | "mid" | "high", string>> = {
   relationships: {
     low: "The Grant Study's most powerful finding: relationships are the single strongest predictor of health and happiness at age 80. This isn't about being social — it's about depth. Start with one relationship. Go deeper than you think is comfortable.",
     mid: "You have the foundation. The Grant Study found that it's not the number of relationships but the quality of attachment that matters. The invitation: choose one relationship and invest in it with the intensity you'd give a career goal.",
@@ -289,18 +281,18 @@ const FACTOR_INSIGHTS: Record<FactorKey, Record<"low" | "mid" | "high", string>>
   },
 };
 
-function getFactorInsight(factorKey: FactorKey, score: number): string {
+export function getFactorInsight(factorKey: FactorKey, score: number): string {
   const tier = score < 40 ? "low" : score < 70 ? "mid" : "high";
   return FACTOR_INSIGHTS[factorKey][tier];
 }
 
-function barClassForScore(score: number): string {
+export function barClassForScore(score: number): string {
   if (score >= 70) return "bg-linear-to-r from-[#2E8B57] to-[#4a7c3f]";
   if (score >= 40) return "bg-linear-to-r from-brand-gold to-brand-gold-light";
   return "bg-linear-to-r from-[#8B4513] to-[#996633]";
 }
 
-const JOURNEY_CONTINUES = [
+export const JOURNEY_CONTINUES = [
   { name: "Find Your Purpose", hook: "The Dharma Finder — what you can't stop doing.", url: "/dharma-finder", badge: "25 Qs" },
   { name: "Find Your Therapy", hook: "Matched to your wiring, not a waitlist.", url: "/find-your-therapy", badge: "25 Qs" },
   { name: "Find Your Spirit", hook: "Map your beliefs across 10 dimensions.", url: "/find-your-spirit", badge: "35 Qs" },
@@ -309,262 +301,19 @@ const JOURNEY_CONTINUES = [
   { name: "Find Your Me", hook: "The gateway to the whole ecosystem.", url: "/find-your-me", badge: "5 Qs" },
 ];
 
-export function GrantStudyQuiz() {
-  const [phase, setPhase] = useState<"landing" | "quiz" | "results">("landing");
-  const [emailGated, setEmailGated] = useState(false);
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [answers, setAnswers] = useState<Record<number, number>>({});
-  const { markComplete } = useJourneyProgress();
 
-  const currentQ = QUESTIONS[currentQuestion];
-  const currentFactor = FACTORS.find((f) => f.key === currentQ.factor)!;
-  const progress = ((currentQuestion + 1) / QUESTIONS.length) * 100;
-
-  const handleSelect = useCallback(
-    (score: number) => {
-      setAnswers((prev) => ({ ...prev, [currentQ.id]: score }));
-    },
-    [currentQ],
-  );
-
-  const goNext = useCallback(() => {
-    if (currentQuestion < QUESTIONS.length - 1) {
-      setCurrentQuestion((prev) => prev + 1);
-    } else {
-      setPhase("results");
-    }
-  }, [currentQuestion]);
-
-  const goPrev = useCallback(() => {
-    if (currentQuestion > 0) setCurrentQuestion((prev) => prev - 1);
-  }, [currentQuestion]);
-
-  useEffect(() => {
-    if (phase === "results") markComplete("find-your-score");
-  }, [phase, markComplete]);
-
-  const factorScores = useMemo(
-    () => FACTORS.map((f) => ({ ...f, score: getFactorScore(answers, f.key) })),
-    [answers],
-  );
-
-  const overall = useMemo(() => {
-    const scores = factorScores.map((f) => f.score);
-    return Math.round(scores.reduce((a, b) => a + b, 0) / scores.length);
-  }, [factorScores]);
-
-  const retake = useCallback(() => {
-    setPhase("landing");
-    setCurrentQuestion(0);
-    setAnswers({});
-    setEmailGated(false);
-  }, []);
-
-  if (phase === "landing") {
-    return (
-      <div className="relative z-1 min-h-screen font-sans text-[#2C1810]">
-        <ThemedBackground theme="journey" />
-        <AssessmentIntro
-          title="The Grant Study Life Satisfaction Assessment"
-          subtitle="&ldquo;Happiness is love. Full stop.&rdquo; — George Vaillant, who directed the study for 30 years"
-          description="The Harvard Grant Study is the longest-running study of human happiness. Beginning in 1938, it followed 724 participants across their entire lives. The findings are clear: five factors predict lifelong wellbeing. This assessment measures where you stand on each."
-          stats={{ questions: QUESTIONS.length, dimensions: FACTORS.length, minutes: 12 }}
-          whatYouGet={[
-            "Your life satisfaction score across the five Grant Study factors",
-            "Your strongest factor and your growth edge",
-            "The real research behind each factor — mature coping, generativity, warm relationships",
-            "Where you stand against 85 years of Harvard's own findings",
-          ]}
-          accentColor={ACCENT}
-          onBegin={() => setPhase("quiz")}
-        />
-      </div>
-    );
-  }
-
-  if (phase === "quiz") {
-    return (
-      <div className="relative z-1 flex min-h-screen flex-col items-center justify-center px-6 font-sans text-[#2C1810]">
-        <ThemedBackground theme="journey" />
-        <div className="fixed inset-x-0 top-0 z-50 h-0.75 bg-brand-gold/10">
-          <div className="h-full bg-linear-to-r from-[#2E8B57] to-brand-gold-light transition-[width] duration-500" style={{ width: `${progress}%` }} />
-        </div>
-
-        <div className="w-full max-w-2xl py-16">
-          <div className="mb-6">
-            <p className="font-mono text-[0.65rem] tracking-[0.2em] text-[#2E8B57] uppercase">
-              {currentFactor.icon} {currentFactor.name}
-            </p>
-            <p className="mt-1 text-[0.85rem] text-[#8B7B6B]">{currentFactor.description}</p>
-          </div>
-
-          <p className="mb-6 font-mono text-[0.7rem] tracking-[0.2em] text-[#8B7B6B] uppercase">
-            Question {currentQuestion + 1} of {QUESTIONS.length}
-          </p>
-
-          <h2 className="mb-8 font-heading text-[clamp(1.2rem,2.2vw,1.5rem)] leading-[1.4] font-normal text-[#0A0A10]">
-            {currentQ.text}
-          </h2>
-
-          <div className="flex flex-col gap-3">
-            {currentQ.options.map((opt) => {
-              const isSelected = answers[currentQ.id] === opt.score;
-              return (
-                <button
-                  key={opt.text}
-                  onClick={() => handleSelect(opt.score)}
-                  className={
-                    isSelected
-                      ? "rounded-sm border border-[#0A0A10] bg-[#0A0A10] px-5 py-4 text-left text-base leading-relaxed text-[#FAFAF7] transition-colors"
-                      : "rounded-sm border border-[#d5d0c5] bg-white px-5 py-4 text-left text-base leading-relaxed text-[#333] transition-colors hover:border-[#2E8B57]/50"
-                  }
-                >
-                  {opt.text}
-                </button>
-              );
-            })}
-          </div>
-
-          <div className="mt-8 flex items-center justify-between">
-            <button
-              onClick={goPrev}
-              disabled={currentQuestion === 0}
-              className="rounded-sm border border-[#ccc] px-6 py-2.5 font-mono text-[0.75rem] tracking-[0.15em] text-[#666] uppercase disabled:cursor-default disabled:text-[#ccc]"
-            >
-              ← Previous
-            </button>
-            <button
-              onClick={goNext}
-              disabled={!answers[currentQ.id]}
-              className={
-                answers[currentQ.id]
-                  ? "rounded-sm border-none bg-[#2E8B57] px-6 py-2.5 font-mono text-[0.75rem] tracking-[0.15em] text-white uppercase"
-                  : "rounded-sm border-none bg-[#ccc] px-6 py-2.5 font-mono text-[0.75rem] tracking-[0.15em] text-white uppercase"
-              }
-            >
-              {currentQuestion === QUESTIONS.length - 1 ? "See My Profile →" : "Next →"}
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (!emailGated) {
-    return (
-      <div className="relative z-1 flex min-h-screen items-center justify-center text-[#2C1810]">
-        <ThemedBackground theme="journey" />
-        <EmailGate assessmentSlug="grant-study" onUnlock={() => setEmailGated(true)} />
-      </div>
-    );
-  }
-
-  const sorted = [...factorScores].sort((a, b) => b.score - a.score);
-  const strongest = sorted[0];
-  const growthEdge = sorted[sorted.length - 1];
-
-  return (
-    <div className="relative z-1 min-h-screen py-16 font-sans text-[#2C1810]">
-      <ThemedBackground theme="journey" />
-      <div className="mx-auto max-w-3xl px-6">
-        <div className="mb-12 text-center">
-          <p className="mb-4 font-mono text-[0.75rem] tracking-[0.2em] text-[#2E8B57] uppercase">Your Life Satisfaction Profile</p>
-          <h1 className="mb-2 font-heading text-[clamp(2rem,4vw,3rem)] leading-[1.2] font-normal text-[#0A0A10]">Overall: {overall}%</h1>
-          <p className="text-[1.1rem] text-[#666]">Based on the five factors the Harvard Grant Study identified as predictive of lifelong wellbeing</p>
-        </div>
-
-        <hr className="mb-8 border-t border-brand-gold/15" />
-
-        <div className="mb-8">
-          {factorScores.map((f) => (
-            <div key={f.key} className="mb-8">
-              <div className="mb-2 flex items-baseline justify-between">
-                <span className="font-heading text-[1.2rem] text-[#0A0A10]">
-                  {f.icon} {f.name}
-                </span>
-                <span className="font-mono text-[0.85rem] font-semibold text-[#2E8B57]">{f.score}%</span>
-              </div>
-              <div className="h-2 rounded-sm bg-[#f0ede5]">
-                <div className={`h-full rounded-sm transition-[width] duration-1000 ${barClassForScore(f.score)}`} style={{ width: `${f.score}%` }} />
-              </div>
-              <p className="mt-3 text-[0.9rem] leading-[1.7] text-[#666]">{getFactorInsight(f.key, f.score)}</p>
-            </div>
-          ))}
-        </div>
-
-        <hr className="mb-8 border-t border-brand-gold/15" />
-
-        <div className="mb-8 grid gap-6 sm:grid-cols-2">
-          <div className="border border-[#e5e0d5] bg-white p-6">
-            <p className="mb-2 font-mono text-[0.7rem] tracking-[0.2em] text-[#2E8B57] uppercase">Your Strength</p>
-            <p className="font-heading text-[1.2rem] text-[#0A0A10]">
-              {strongest.icon} {strongest.name}
-            </p>
-          </div>
-          <div className="border border-[#e5e0d5] bg-white p-6">
-            <p className="mb-2 font-mono text-[0.7rem] tracking-[0.2em] text-brand-gold uppercase">Your Growth Edge</p>
-            <p className="font-heading text-[1.2rem] text-[#0A0A10]">
-              {growthEdge.icon} {growthEdge.name}
-            </p>
-          </div>
-        </div>
-
-        <div className="mb-12 bg-[#0A0A10] p-8">
-          <p className="mb-4 font-mono text-[0.75rem] tracking-[0.2em] text-brand-gold-light uppercase">Tony&apos;s Note</p>
-          <p className="text-[1.05rem] leading-[1.8] text-[#ccc]">
-            The Harvard Grant Study began in 1938 and followed 724 men for over 85 years — making it the longest study
-            of human happiness ever conducted. George Vaillant, who directed it for three decades, distilled the
-            findings into one sentence: &ldquo;Happiness is love. Full stop.&rdquo; Robert Waldinger, the current
-            director, adds: &ldquo;The clearest message we get from this study is: good relationships keep us happier
-            and healthier.&rdquo; Your scores above aren&apos;t grades — they&apos;re a map. The factor with the
-            lowest score isn&apos;t your weakness. It&apos;s your invitation.
-          </p>
-        </div>
-
-        <div className="mb-12">
-          <JourneyTracker variant="light" currentAssessmentId="find-your-score" />
-        </div>
-
-        <div className="mb-12">
-          <p className="mb-1 text-center font-mono text-[0.65rem] tracking-[0.25em] text-brand-gold uppercase">The Journey Continues</p>
-          <p className="mb-6 text-center text-[0.95rem] text-[#666]">You&apos;ve measured what matters most. Now explore the dimensions underneath.</p>
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {JOURNEY_CONTINUES.map((item) => (
-              <a
-                key={item.name}
-                href={item.url}
-                target={item.url.startsWith("http") ? "_blank" : undefined}
-                rel={item.url.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="block border border-[#e5e0d5] bg-[#FAFAF7] p-4 transition-colors hover:border-[#2E8B57]"
-              >
-                <div className="mb-1 flex items-start justify-between gap-2">
-                  <span className="font-heading text-[0.9rem] text-[#0A0A10]">{item.name}</span>
-                  <span className="shrink-0 border border-[#e5e0d5] px-1.5 py-0.5 font-mono text-[0.5rem] tracking-[0.08em] text-brand-gold uppercase">{item.badge}</span>
-                </div>
-                <p className="m-0 text-[0.82rem] leading-relaxed text-[#666]">{item.hook}</p>
-              </a>
-            ))}
-          </div>
-        </div>
-
-        <div className="flex flex-wrap items-center justify-center gap-4">
-          <button
-            onClick={retake}
-            className="rounded-sm border border-brand-gold px-8 py-3 font-mono text-[0.8rem] tracking-[0.15em] text-brand-gold uppercase"
-          >
-            Retake Assessment
-          </button>
-          <Link href="/find-your-me" className="rounded-sm bg-brand-gold px-8 py-3 font-mono text-[0.8rem] tracking-[0.15em] text-white uppercase">
-            Explore All Assessments
-          </Link>
-        </div>
-
-        <AssessmentResultActions accentColor={ACCENT} resultSlug="grant-study" />
-
-        <p className="mt-4 text-center font-mono text-[0.7rem] tracking-widest text-[#999]">
-          Based on the Harvard Grant Study (1938–present) · Curated by Tony Greenberg
-        </p>
-      </div>
-    </div>
-  );
-}
+// UI copy. The question screen follows live (2026-10-06): no intro screen;
+// the title block sits above question 1 only, and the credit line shows
+// under every question.
+export const grantStudyData = {
+  intro: {
+    eyebrow: "Based on 85 Years of Harvard Research",
+    title: "The Grant Study Life Satisfaction Assessment",
+    body: "The Harvard Grant Study is the longest-running study of human happiness. Beginning in 1938, it followed 724 participants across their entire lives. The findings are clear: five factors predict lifelong wellbeing. This assessment measures where you stand on each.",
+  },
+  questionOf: (n: number, total: number) => `Question ${n} of ${total}`,
+  previous: "Previous",
+  next: "Next",
+  finish: "See My Profile",
+  credit: "Based on the Harvard Grant Study (1938–present) · Curated by Tony Greenberg",
+};

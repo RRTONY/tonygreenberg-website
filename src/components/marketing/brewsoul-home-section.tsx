@@ -26,7 +26,7 @@ const STATS = [
 export function BrewSoulHomeSection() {
   return (
     <section className="relative isolate overflow-hidden bg-[#0D0B0A] px-6 py-24 text-center sm:py-28">
-      <Image src={HERO_IMAGE} alt="" fill sizes="100vw" className="-z-30 object-cover opacity-45" />
+      <Image src={HERO_IMAGE} alt="Steaming glass cup of coffee surrounded by coffee beans" fill sizes="100vw" className="-z-30 object-cover opacity-45" />
       <div className="absolute inset-0 -z-20 bg-[radial-gradient(ellipse_at_25%_30%,rgba(196,132,29,0.15)_0%,transparent_55%),radial-gradient(ellipse_at_75%_70%,rgba(111,78,55,0.12)_0%,transparent_50%),radial-gradient(ellipse_at_50%_50%,rgba(61,139,110,0.06)_0%,transparent_60%)]" />
       <div aria-hidden="true" className="absolute inset-0 -z-20 overflow-hidden opacity-60">
         <div className="absolute -inset-1/2 animate-jewel-aurora-rotate bg-[conic-gradient(from_0deg_at_50%_50%,#C4841D15,#6F4E3715,#3D8B6E15,#C4841D15,#D4B96A15,#C4841D15)] blur-[60px]" />
@@ -62,14 +62,14 @@ export function BrewSoulHomeSection() {
       />
 
       <div className="mx-auto max-w-4xl">
-        <p className="mb-8 font-mono text-[0.7rem] tracking-[0.3em] text-[#C4841D]/70 uppercase">The Intelligence Engine</p>
+        <p className="mb-8 font-mono text-[0.7rem] tracking-[0.3em] text-[#C4841D] uppercase">The Intelligence Engine</p>
         <h2 className="font-heading text-6xl leading-none text-[#F5EDE0]/95 sm:text-7xl">BrewSoul</h2>
         <p className="mx-auto mt-6 max-w-2xl text-base leading-[1.75] text-[#F5EDE0]/55 sm:text-lg">
           Coffee is the most consumed psychoactive substance on earth, yet most people have no idea what they&apos;re
           actually drinking. BrewSoul is an intelligence engine that objectively scores every coffee and chain on value,
           sourcing ethics, and experience — then matches you to your identity through what you drink.
         </p>
-        <p className="mt-5 font-mono text-xs tracking-wide text-[#D4B96A]/60">
+        <p className="mt-5 font-mono text-xs tracking-wide text-[#D4B96A]/80">
           Take the quiz. Browse the scores. Find your soul.
         </p>
 
@@ -110,7 +110,7 @@ export function BrewSoulHomeSection() {
           </Link>
         </div>
 
-        <p className="mt-14 text-sm text-[#F5EDE0]/25 italic">
+        <p className="mt-14 text-sm text-[#F5EDE0]/60 italic">
           &ldquo;The cup doesn&apos;t lie. It just waits for you to listen.&rdquo;
         </p>
       </div>

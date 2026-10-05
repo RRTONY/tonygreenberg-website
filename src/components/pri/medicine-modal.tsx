@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Heart, X, AlertTriangle } from "lucide-react";
+import { AlertTriangle, ArrowRight, Heart, X } from "lucide-react";
 import type { MedicineWithSafety } from "@/lib/content/pri-data";
 import { MEDICINE_IMAGES } from "@/lib/content/pri-medicine-images";
 import { TAG_CLASS, DEFAULT_TAG_CLASS } from "@/lib/content/pri-shared";
@@ -66,7 +66,7 @@ export function MedicineModal({
         )}
 
         <div className={`relative ${heroImage ? "-mt-8 px-8" : "px-8 pt-8"}`}>
-          <div className="mb-2 text-4xl">{medicine.icon}</div>
+          <medicine.icon aria-hidden="true" className="mb-2 size-9 text-pri-purple" />
           <div className="font-heading text-[clamp(1.4rem,4vw,1.8rem)] text-pri-ink">{medicine.name}</div>
           <div className="mb-4 text-[.82rem] text-pri-tan italic">{medicine.latin}</div>
 
@@ -138,10 +138,12 @@ export function MedicineModal({
                   </div>
                   <div className="flex flex-wrap gap-3">
                     <Link href="/iboga-ibogaine" className="inline-flex items-center gap-2 bg-pri-purple px-5 py-2.5 text-[.78rem] font-bold tracking-[0.06em] text-pri-cream uppercase">
-                      Iboga vs Ibogaine Deep Dive →
+                      Iboga vs Ibogaine Deep Dive
+                      <ArrowRight aria-hidden="true" className="size-3.5" />
                     </Link>
                     <Link href="/iboga-compass" className="inline-flex items-center gap-2 bg-linear-to-br from-pri-purple to-pri-purple-mid px-5 py-2.5 text-[.78rem] font-bold tracking-[0.06em] text-pri-cream uppercase">
-                      Take the Compass →
+                      Take the Compass
+                      <ArrowRight aria-hidden="true" className="size-3.5" />
                     </Link>
                   </div>
                 </div>
@@ -154,7 +156,8 @@ export function MedicineModal({
                     selector.
                   </div>
                   <Link href="/peyote-mescaline" className="inline-flex items-center gap-2 bg-pri-purple px-5 py-2.5 text-[.78rem] font-bold tracking-[0.06em] text-pri-cream uppercase">
-                    Explore Full Module →
+                    Explore Full Module
+                      <ArrowRight aria-hidden="true" className="size-3.5" />
                   </Link>
                 </div>
               )}
@@ -186,8 +189,9 @@ export function MedicineModal({
                 </div>
                 <p className="m-0 text-[.82rem] text-pri-brown">
                   This medicine has {medicine.contraindications.length} contraindications and {medicine.drugInteractions.length} known drug interactions.{" "}
-                  <button onClick={() => setTab("safety")} className="p-0 font-bold text-pri-purple underline">
-                    View Safety &amp; Risks tab →
+                  <button onClick={() => setTab("safety")} className="inline-flex items-center gap-1 p-0 font-bold text-pri-purple underline">
+                    View Safety &amp; Risks tab
+                    <ArrowRight aria-hidden="true" className="size-3.5" />
                   </button>
                 </p>
               </div>

@@ -13,6 +13,7 @@ import {
   CATEGORY_ORDER,
   CATEGORY_DESCRIPTIONS,
 } from "@/lib/content/articles-discovery";
+import { formatPostDate } from "@/lib/format-post-date";
 
 export type ArchivePost = {
   _id: string;
@@ -34,13 +35,6 @@ const MODE_INTROS: Record<string, string> = {
     "Intellectual honesty is more interesting than consistency. These are essays where Tony publicly updated his position, changed his mind, or admitted he got something wrong.",
 };
 
-function formatDate(iso: string) {
-  const d = new Date(iso);
-  return Number.isNaN(d.getTime())
-    ? ""
-    : d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
-}
-
 function ArticleList({ posts }: { posts: ArchivePost[] }) {
   return (
     <ul className="list-none p-0">
@@ -48,7 +42,7 @@ function ArticleList({ posts }: { posts: ArchivePost[] }) {
         <li key={post.slug} className="border-b border-border py-3.5">
           <div className="flex flex-wrap items-start gap-4">
             <span className="min-w-22 pt-0.5 font-mono text-xs whitespace-nowrap text-muted-foreground">
-              {formatDate(post.publishedAt)}
+              {formatPostDate(post.publishedAt, "short")}
             </span>
             <div className="min-w-50 flex-1">
               <Link href={`/blog/${post.slug}`} className="inline-flex items-center font-heading text-base font-semibold text-foreground hover:text-brand-gold min-h-11 md:min-h-6">

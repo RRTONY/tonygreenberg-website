@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowLeft, ArrowRight, Mic, type LucideIcon } from "lucide-react";
 
 // Ported from legacy client/src/pages/Published.tsx. Real content kept
 // as-is (30 real bylines with real external URLs across HuffPost, Medium,
@@ -17,12 +18,12 @@ export const metadata: Metadata = {
 type Category = "tech" | "trust" | "culture" | "blockchain" | "media" | "impact";
 type Article = { title: string; publication: string; date: string; url: string; teaser: string; category: Category };
 
-const PUBLICATIONS = [
+const PUBLICATIONS: { name: string; logo: string | LucideIcon; color: string; count: number; tagline: string }[] = [
   { name: "HuffPost", logo: "H", color: "bg-[#0dbe4e]", count: 28, tagline: "Contributor, 2010–2012" },
   { name: "Medium", logo: "M", color: "bg-black", count: 7, tagline: "@ramprate & @tonygreenberg" },
   { name: "MediaVillage", logo: "MV", color: "bg-[#1a73e8]", count: 3, tagline: "Industry Analysis" },
   { name: "RampRate", logo: "R", color: "bg-brand-gold", count: 40, tagline: "ramprate.com/blog" },
-  { name: "Enterprise Radio", logo: "🎙", color: "bg-[#c0392b]", count: 2, tagline: "Podcast Guest" },
+  { name: "Enterprise Radio", logo: Mic, color: "bg-[#c0392b]", count: 2, tagline: "Podcast Guest" },
 ];
 
 const ARTICLES: Article[] = [
@@ -98,15 +99,15 @@ export default function PublishedPage() {
   const categories = Object.keys(CATEGORY_LABELS) as Category[];
 
   return (
-    <div className="mx-auto max-w-[39rem] px-5 py-10 sm:px-10">
-      <Link href="/" className="inline-flex items-center font-mono text-xs tracking-wide text-brand-gold uppercase min-h-11 md:min-h-6">
-        ← Back to the Broadsheet
+    <div className="mx-auto max-w-[39rem] px-5 pt-22 pb-10 sm:px-10">
+      <Link href="/" className="inline-flex items-center gap-1.5 font-mono text-xs tracking-wide text-brand-gold uppercase min-h-11 md:min-h-6">
+        <ArrowLeft aria-hidden="true" className="size-3.5" /> Back to the Broadsheet
       </Link>
 
-      <p className="mt-8 mb-2 font-mono text-xs tracking-[0.15em] text-brand-gold uppercase">
+      <p className="mt-3 mb-8 font-mono text-xs tracking-[0.15em] text-brand-gold uppercase md:mt-8">
         The Bylines
       </p>
-      <h1 className="mb-5 font-heading text-4xl font-bold text-foreground sm:text-5xl">
+      <h1 className="mb-6 font-heading text-[clamp(2.4rem,5vw,3.8rem)]/[1.1] font-bold text-foreground">
         Published
         <br />
         Elsewhere
@@ -117,10 +118,10 @@ export default function PublishedPage() {
       </p>
 
       <div className="mb-12 flex flex-wrap gap-4">
-        {PUBLICATIONS.map((pub) => (
+        {PUBLICATIONS.map(({ logo: Logo, ...pub }) => (
           <div key={pub.name} className="flex items-center gap-3 rounded-md border border-border bg-card px-5 py-3">
             <div className={`flex size-9 items-center justify-center rounded-md font-mono text-sm font-bold text-white ${pub.color}`}>
-              {pub.logo}
+              {typeof Logo === "string" ? Logo : <Logo aria-hidden="true" className="size-4" />}
             </div>
             <div>
               <p className="font-semibold text-foreground">{pub.name}</p>
@@ -147,7 +148,7 @@ export default function PublishedPage() {
                 ({catArticles.length})
               </span>
             </div>
-            <div className="grid gap-4" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))" }}>
+            <div className="grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-4">
               {catArticles.map((article) => (
                 <a
                   key={article.title}
@@ -197,9 +198,9 @@ export default function PublishedPage() {
         </p>
         <Link
           href="/"
-          className="border-b border-brand-gold-light/30 font-mono text-sm tracking-wide text-brand-gold-light uppercase"
+          className="inline-flex items-center gap-1.5 border-b border-brand-gold-light/30 font-mono text-sm tracking-wide text-brand-gold-light uppercase"
         >
-          Enter the Broadsheet →
+          Enter the Broadsheet <ArrowRight aria-hidden="true" className="size-3.5" />
         </Link>
       </div>
     </div>

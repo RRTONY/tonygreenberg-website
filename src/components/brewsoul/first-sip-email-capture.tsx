@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Check } from "lucide-react";
 
 const CONTACT_EMAIL = "tony@tonygreenberg.com";
 
@@ -45,9 +46,15 @@ export function FirstSipEmailCapture() {
       <button
         type="submit"
         disabled={submitted || !email}
-        className={`rounded-md px-5 py-2.5 font-mono text-xs tracking-wide text-white ${submitted ? "bg-[#2D5A27]" : "bg-[#836311]"}`}
+        className={`inline-flex items-center gap-1.5 rounded-md px-5 py-2.5 font-mono text-xs tracking-wide text-white ${submitted ? "bg-[#2D5A27]" : "bg-[#836311]"}`}
       >
-        {submitted ? (viaMailto ? "Sent ✓" : "Subscribed ✓") : "Subscribe"}
+        {submitted ? (
+          <>
+            {viaMailto ? "Sent" : "Subscribed"} <Check aria-hidden="true" className="size-3.5" />
+          </>
+        ) : (
+          "Subscribe"
+        )}
       </button>
     </form>
   );

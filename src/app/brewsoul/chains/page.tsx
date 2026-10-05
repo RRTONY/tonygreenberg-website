@@ -18,9 +18,9 @@ export const metadata: Metadata = {
 export default function BrewSoulChainsPage() {
   return (
     <section className="mx-auto max-w-240 px-6 py-12">
-      <div className="mb-2 font-mono text-xs tracking-[0.25em] text-[#836311] uppercase">The Definitive Ranking</div>
-      <h1 className="mb-2 font-heading text-3xl font-bold text-[#2C1810] sm:text-[2.4rem]">Top 100 Coffee Chains</h1>
-      <p className="mb-4 max-w-3xl text-[0.95rem] leading-relaxed text-[#6B5B4F]">
+      <div className="mb-2 font-mono text-[0.68rem]/[1.85] tracking-[0.25em] text-[#836311] uppercase">The Definitive Ranking</div>
+      <h1 className="mb-2 font-heading text-[clamp(1.6rem,4vw,2.4rem)]/[1.85] font-bold text-[#2C1810]">Top 100 Coffee Chains</h1>
+      <p className="mb-4 text-[0.95rem]/[1.7] text-[#6B5B4F]">
         Every major coffee chain in America, objectively scored across five dimensions: Coffee Quality (30%), Value (25%), Sourcing Ethics (20%),
         Experience (15%), and Consistency (10%). Aggregate scores from consumer reviews, expert panels, transparency audits, and direct trade data.
       </p>

@@ -7,6 +7,7 @@ import { urlFor } from "@/lib/sanity/image";
 import { DEFAULT_OG_IMAGE } from "@/lib/content/default-image";
 import { FEATURED_COUNT, IMPACT_FUTURISM_ENTRIES, TAG_BADGE, type ImpactFuturismEntry } from "@/lib/content/impact-futurism";
 import type { ArchivePost } from "@/components/blog/articles-explorer";
+import { formatPostDate } from "@/lib/format-post-date";
 
 // allPostsForArchiveQuery also selects heroImage/readTime, but the
 // ArchivePost type (defined for articles-explorer's narrower needs) omits
@@ -15,11 +16,6 @@ export type FuturismPost = ArchivePost & {
   heroImage?: Parameters<typeof urlFor>[0];
   readTime?: number;
 };
-
-function formatDate(iso: string) {
-  const d = new Date(iso);
-  return Number.isNaN(d.getTime()) ? "" : d.toLocaleDateString("en-US", { month: "long", year: "numeric" });
-}
 
 function TagBadge({ tag }: { tag: string }) {
   return (
@@ -59,7 +55,7 @@ function FeaturedCard({ post, entry }: { post: FuturismPost; entry: ImpactFuturi
       </div>
       <div className="flex flex-1 flex-col p-5">
         <div className="mb-2 font-mono text-[0.65rem] tracking-wide text-brand-gold">
-          {formatDate(post.publishedAt)}
+          {formatPostDate(post.publishedAt, "monthYear")}
           {post.readTime ? ` · ${post.readTime} min read` : ""}
         </div>
         <h3 className="mb-2.5 flex-1 font-heading text-lg font-bold leading-snug text-foreground">{post.title}</h3>
@@ -80,7 +76,7 @@ function ArticleListRow({ post, entry, index }: { post: FuturismPost; entry: Imp
       <div>
         <div className="mb-1 flex flex-wrap items-center gap-2.5">
           <TagBadge tag={entry.tag} />
-          <span className="font-mono text-[0.6rem] text-brand-gold">{formatDate(post.publishedAt)}</span>
+          <span className="font-mono text-[0.6rem] text-brand-gold">{formatPostDate(post.publishedAt, "monthYear")}</span>
         </div>
         <h4 className="mb-1 font-heading text-base font-bold leading-snug text-foreground">{post.title}</h4>
         <p className="text-sm leading-relaxed text-muted-foreground">{entry.teaser}</p>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowRight, Check } from "lucide-react";
 import { PeptideShutdownBanner } from "@/components/marketing/peptide-shutdown-banner";
 import { BioChainCTA } from "@/components/marketing/biochain-cta";
 import { ClinicRankings, type Clinic } from "@/components/marketing/clinic-rankings";
@@ -138,9 +139,10 @@ export default function PeptideHallOfShamePage() {
             </div>
             <Link
               href="/find-your-peptide"
-              className="rounded-md bg-emerald-700 px-6 py-2.5 font-mono text-xs tracking-wide whitespace-nowrap text-white uppercase"
+              className="inline-flex items-center gap-1.5 rounded-md bg-emerald-700 px-6 py-2.5 font-mono text-xs tracking-wide whitespace-nowrap text-white uppercase"
             >
-              Take the Assessment →
+              Take the Assessment
+              <ArrowRight aria-hidden="true" className="size-3.5" />
             </Link>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -154,8 +156,9 @@ export default function PeptideHallOfShamePage() {
               "7 Clinical Axes",
               "16 Archetypes",
             ].map((f) => (
-              <span key={f} className="rounded bg-emerald-700/10 px-2 py-1 font-mono text-xs text-emerald-800">
-                ✓ {f}
+              <span key={f} className="inline-flex items-center gap-1 rounded bg-emerald-700/10 px-2 py-1 font-mono text-xs text-emerald-800">
+                <Check aria-hidden="true" className="size-3" />
+                {f}
               </span>
             ))}
           </div>
@@ -174,33 +177,38 @@ export default function PeptideHallOfShamePage() {
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               href="/find-your-peptide"
-              className="rounded-lg bg-linear-to-br from-brand-gold to-brand-gold-light px-6 py-3 font-mono text-xs font-bold tracking-wide text-[#0A0A10] uppercase"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-linear-to-br from-brand-gold to-brand-gold-light px-6 py-3 font-mono text-xs font-bold tracking-wide text-[#0A0A10] uppercase"
             >
-              Take the Assessment →
+              Take the Assessment
+              <ArrowRight aria-hidden="true" className="size-3.5" />
             </Link>
             <Link
               href="/peptide-supply-chain"
-              className="rounded-lg border border-brand-gold/30 px-6 py-3 font-mono text-xs font-bold tracking-wide text-brand-gold uppercase"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-brand-gold/30 px-6 py-3 font-mono text-xs font-bold tracking-wide text-brand-gold uppercase"
             >
-              Where Does Your $ Go? →
+              Where Does Your $ Go?
+              <ArrowRight aria-hidden="true" className="size-3.5" />
             </Link>
             <Link
               href="/peptide-matrix"
-              className="rounded-lg border border-brand-gold/30 px-6 py-3 font-mono text-xs font-bold tracking-wide text-brand-gold uppercase"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-brand-gold/30 px-6 py-3 font-mono text-xs font-bold tracking-wide text-brand-gold uppercase"
             >
-              Review vs Evidence Matrix →
+              Review vs Evidence Matrix
+              <ArrowRight aria-hidden="true" className="size-3.5" />
             </Link>
             <Link
               href="/quiz_25q"
-              className="rounded-lg border border-brand-gold/30 px-6 py-3 font-mono text-xs font-bold tracking-wide text-brand-gold uppercase"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-brand-gold/30 px-6 py-3 font-mono text-xs font-bold tracking-wide text-brand-gold uppercase"
             >
-              25-Question Quiz →
+              25-Question Quiz
+              <ArrowRight aria-hidden="true" className="size-3.5" />
             </Link>
             <Link
               href="/peptide-watch"
-              className="rounded-lg border border-[#C84B2A]/40 px-6 py-3 font-mono text-xs font-bold tracking-wide text-[#C84B2A] uppercase"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-[#C84B2A]/40 px-6 py-3 font-mono text-xs font-bold tracking-wide text-[#C84B2A] uppercase"
             >
-              PeptideWatch Safety Guide →
+              PeptideWatch Safety Guide
+              <ArrowRight aria-hidden="true" className="size-3.5" />
             </Link>
           </div>
         </div>
@@ -219,9 +227,10 @@ export default function PeptideHallOfShamePage() {
           </p>
           <Link
             href="/supplier-intake"
-            className="inline-block rounded-lg bg-brand-gold px-8 py-3 font-mono text-xs font-bold tracking-wide text-white uppercase"
+            className="inline-flex items-center gap-1.5 rounded-lg bg-brand-gold px-8 py-3 font-mono text-xs font-bold tracking-wide text-white uppercase"
           >
-            Become a Supply Partner →
+            Become a Supply Partner
+            <ArrowRight aria-hidden="true" className="size-3.5" />
           </Link>
         </div>
 

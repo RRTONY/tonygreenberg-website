@@ -39,7 +39,8 @@ export default function ImpactDashboardPage() {
           src={HERO_EARTH}
           alt=""
           fill
-          priority
+          fetchPriority="high"
+          loading="eager"
           sizes="100vw"
           className="-z-20 object-cover object-[center_30%] brightness-85 saturate-120"
         />

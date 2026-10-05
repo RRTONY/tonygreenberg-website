@@ -246,10 +246,10 @@ function PathwayMetrics({ token }: { token: TokenEcosystem }) {
   return (
     <div className="flex flex-wrap gap-2">
       {[
-        { label: "Model participants", value: token.metrics.tokenHolders.toLocaleString() },
+        { label: "Model participants", value: token.metrics.tokenHolders.toLocaleString("en-US") },
         { label: "Model capital", value: token.metrics.impactDeployed },
         { label: "Project nodes", value: token.metrics.projectsFunded.toString() },
-        { label: "Model community", value: token.metrics.communityMembers.toLocaleString() },
+        { label: "Model community", value: token.metrics.communityMembers.toLocaleString("en-US") },
         { label: "Target multiplier", value: token.metrics.impactMultiplier },
       ].map((m) => (
         <div key={m.label} className="rounded-md border px-3 py-1 font-mono text-xs" style={{ background: `${token.color}10`, borderColor: `${token.color}30` }}>
@@ -294,10 +294,10 @@ export function ImpactDashboardExplorer() {
           <p className="mb-4 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">Illustrative Operating Model</p>
           <div className="mb-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { label: "Modeled Participant Reach", value: AGGREGATE.totalTokenHolders.toLocaleString(), sub: "Illustrative input, not current holders", color: "#836311" },
+              { label: "Modeled Participant Reach", value: AGGREGATE.totalTokenHolders.toLocaleString("en-US"), sub: "Illustrative input, not current holders", color: "#836311" },
               { label: "Modeled Capital Path", value: AGGREGATE.totalImpactDeployed, sub: "Illustrative allocation, not deployed capital", color: "#1E8449" },
               { label: "Potential Project Nodes", value: AGGREGATE.totalProjectsFunded.toString(), sub: "Proposed water, culture, access, and care work", color: "#0077B6" },
-              { label: "Modeled Community Reach", value: AGGREGATE.totalCommunityMembers.toLocaleString(), sub: "Scenario input, not active membership", color: "#6C5CE7" },
+              { label: "Modeled Community Reach", value: AGGREGATE.totalCommunityMembers.toLocaleString("en-US"), sub: "Scenario input, not active membership", color: "#6C5CE7" },
               { label: "Sample Integrity Input", value: AGGREGATE.avgHawkins.toString(), sub: "Draft scoring input only", color: "#9E822E" },
               { label: "Potential Portfolio Lenses", value: AGGREGATE.portfolioCompanies.toString(), sub: "Model categories, not a tracked portfolio", color: "#9B59B6" },
             ].map((kpi) => (
@@ -325,7 +325,7 @@ export function ImpactDashboardExplorer() {
                         <div className="font-mono text-xs text-muted-foreground">Never launched · concept archive</div>
                       ) : (
                         <div className="font-mono text-xs" style={{ color: token.color }}>
-                          {token.metrics.tokenHolders.toLocaleString()} modeled participants
+                          {token.metrics.tokenHolders.toLocaleString("en-US")} modeled participants
                         </div>
                       )}
                     </div>
@@ -536,7 +536,7 @@ export function ImpactDashboardExplorer() {
 
           <GlassCard className="mb-6 p-6">
             <p className="mb-4 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">Illustrative Comparison Pattern</p>
-            <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
+            <div className="relative overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
               <table className="w-full border-collapse font-mono text-xs">
                 <thead>
                   <tr className="border-b-2 border-brand-gold/20">

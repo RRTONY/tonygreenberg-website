@@ -83,7 +83,7 @@ export default function PriEfficacyPage() {
         <div className="mb-2 text-xs tracking-[0.15em] text-pri-purple-light uppercase">Psychometric Validation</div>
         <h1 className="font-heading text-[clamp(1.8rem,5vw,2.8rem)] leading-[1.2] font-bold text-pri-cream">PRI Efficacy Report</h1>
         <p className="mx-auto mt-3 max-w-150 text-[.95rem] text-pri-cream/50">
-          Monte Carlo simulation with {simulation.n_respondents.toLocaleString()} synthetic respondents validates the Psychedelic Readiness Index across
+          Monte Carlo simulation with {simulation.n_respondents.toLocaleString("en-US")} synthetic respondents validates the Psychedelic Readiness Index across
           six dimensions of preparedness.
         </p>
       </header>
@@ -132,7 +132,7 @@ export default function PriEfficacyPage() {
             <h3 className="mb-4 font-heading text-lg text-pri-cream">Test-Retest Reliability</h3>
             <BarChart label="Likert" value={test_retest_reliability.likert} max={1} color="#EF4444" />
             <BarChart label="Forced-Rank" value={test_retest_reliability.forced_rank} max={1} color="#10B981" />
-            <p className="mt-2 text-xs text-pri-cream/60">Correlation between first and second administration (n={simulation.n_retest.toLocaleString()} retested)</p>
+            <p className="mt-2 text-xs text-pri-cream/60">Correlation between first and second administration (n={simulation.n_retest.toLocaleString("en-US")} retested)</p>
           </div>
           <div className="rounded-xl border border-pri-cream/8 bg-pri-cream/3 p-6">
             <h3 className="mb-4 font-heading text-lg text-pri-cream">Distribution Entropy</h3>
@@ -146,7 +146,7 @@ export default function PriEfficacyPage() {
           <h3 className="mb-4 font-heading text-xl text-pri-cream">Methodology</h3>
           <div className="space-y-3 text-[.85rem] leading-[1.7] text-pri-cream/60">
             <p>
-              The PRI validation uses a Monte Carlo simulation with {simulation.n_respondents.toLocaleString()} synthetic respondents across{" "}
+              The PRI validation uses a Monte Carlo simulation with {simulation.n_respondents.toLocaleString("en-US")} synthetic respondents across{" "}
               {simulation.roles.length} readiness dimensions. Each respondent&apos;s answers are generated using dimension-specific trait distributions
               that model real-world response patterns including acquiescence bias and social desirability effects.
             </p>
@@ -156,10 +156,10 @@ export default function PriEfficacyPage() {
                 <strong>Classification Accuracy:</strong> Percentage of respondents correctly assigned to their true primary readiness dimension.
               </li>
               <li>
-                <strong>Test-Retest Reliability:</strong> Stability of rankings across repeated administrations (n={simulation.n_retest.toLocaleString()}).
+                <strong>Test-Retest Reliability:</strong> Stability of rankings across repeated administrations (n={simulation.n_retest.toLocaleString("en-US")}).
               </li>
               <li>
-                <strong>Faking Resistance:</strong> Tested with {simulation.n_faking.toLocaleString()} simulated fakers attempting to inflate scores.
+                <strong>Faking Resistance:</strong> Tested with {simulation.n_faking.toLocaleString("en-US")} simulated fakers attempting to inflate scores.
               </li>
               <li>
                 <strong>Distribution Entropy:</strong> Measures how uniformly respondents are classified across dimensions (max = log2(

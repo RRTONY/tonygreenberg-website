@@ -16,6 +16,7 @@ import {
   TrendingUp,
   Flame,
   Skull,
+  ArrowUpRight,
 } from "lucide-react";
 import {
   GlassCard,
@@ -83,7 +84,7 @@ export default async function AttentionTheftPage({ searchParams }: PageProps<"/a
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
-          <Image src={IMG.hero} alt="" fill sizes="100vw" priority className="object-cover brightness-[0.85] saturate-[1.2] contrast-[1.05]" />
+          <Image src={IMG.hero} alt="" fill sizes="100vw" fetchPriority="high" loading="eager" className="object-cover brightness-[0.85] saturate-[1.2] contrast-[1.05]" />
           <div className="absolute inset-0 bg-linear-to-b from-background/40 via-background/15 to-background/95" />
         </div>
         <div className="relative z-10 mx-auto max-w-5xl px-5 py-24 md:py-36">
@@ -227,7 +228,7 @@ export default async function AttentionTheftPage({ searchParams }: PageProps<"/a
             <h3 className="mb-4 flex items-center gap-2 font-heading text-xl font-bold text-crusade-ink">
               <Scale size={20} className="text-crusade-red" /> Full Economics Breakdown
             </h3>
-            <div className="overflow-x-auto rounded-2xl border border-crusade-red/15" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
+            <div className="relative overflow-x-auto rounded-2xl border border-crusade-red/15" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
               <table className="w-full min-w-160 text-left">
                 <thead>
                   <tr className="bg-crusade-red/8">
@@ -264,7 +265,7 @@ export default async function AttentionTheftPage({ searchParams }: PageProps<"/a
             <ul className="space-y-2">
               {ECONOMICS_SOURCES.map((s) => (
                 <li key={s.text} className="flex items-start gap-2">
-                  <span className="mt-1 shrink-0 text-crusade-teal/60">↗</span>
+                  <ArrowUpRight aria-hidden="true" className="mt-1 size-4 shrink-0 text-crusade-teal/60" />
                   {s.url ? (
                     <a href={s.url} target="_blank" rel="noopener noreferrer" className="text-sm leading-relaxed text-crusade-muted hover:underline">
                       {s.text}

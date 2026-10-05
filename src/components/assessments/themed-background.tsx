@@ -31,10 +31,14 @@ const THEME_BG: Record<string, string> = {
   me: "bg-linear-to-br from-[#E8E0D8] via-[#DCD4C8] to-[#E0D8D0]",
 };
 
+// Always behind the page and never catches clicks. It was `z-0`, which paints
+// a positioned layer above any non-positioned content after it: on
+// /grant-study (and the email gate on every assessment) the answer buttons sat
+// under this layer and could not be clicked. Fixed 2026-10-06.
 export function ThemedBackground({ theme }: { theme: string }) {
   const bgClass = THEME_BG[theme] ?? THEME_BG.selfportrait;
   return (
-    <div className={`fixed inset-0 z-0 overflow-hidden ${bgClass}`}>
+    <div aria-hidden="true" className={`pointer-events-none fixed inset-0 -z-10 overflow-hidden ${bgClass}`}>
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_50%,rgba(139,105,20,0.04)_100%)]" />
     </div>
   );

@@ -14,6 +14,7 @@ import {
   type ThesisThread,
 } from "@/lib/content/thesis-threads";
 import type { ArchivePost } from "@/components/blog/articles-explorer";
+import { formatPostDate } from "@/lib/format-post-date";
 
 const THREAD_ACCENT: Record<string, { border: string; text: string; wash: string }> = {
   "opacity-tax": { border: "border-red-500/30", text: "text-red-400", wash: "bg-red-500/10" },
@@ -31,13 +32,6 @@ const TABS = [
   { id: "research", label: "Research Library" },
   { id: "rules", label: "Content Rules" },
 ] as const;
-
-function formatDate(iso: string) {
-  const d = new Date(iso);
-  return Number.isNaN(d.getTime())
-    ? ""
-    : d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
-}
 
 function GlassCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
@@ -89,7 +83,7 @@ function ArticleRow({ post }: { post: ArchivePost }) {
             {post.category && (
               <span className="font-mono text-xs tracking-wide text-white/60">{post.category.title}</span>
             )}
-            <span className="text-xs text-white/60">{formatDate(post.publishedAt)}</span>
+            <span className="text-xs text-white/60">{formatPostDate(post.publishedAt, "short")}</span>
           </div>
           {connector && <p className="mt-2 text-xs leading-relaxed text-brand-gold-light/80 italic">Thesis: {connector}</p>}
         </div>

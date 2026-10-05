@@ -1,4 +1,5 @@
 "use client";
+import type { ReactNode } from "react";
 
 import Link from "next/link";
 import {
@@ -11,7 +12,9 @@ import {
 export type JourneyStop = { page: string; href: string; section: string; teaser: string };
 export type Journey = {
   id: string;
-  icon: string;
+  // Already-rendered lucide icon: a component type can't cross from the
+  // server page into this Client Component, an element can.
+  icon: ReactNode;
   title: string;
   subtitle: string;
   description: string;
@@ -51,7 +54,7 @@ export function JourneysAccordion({ journeys }: { journeys: Journey[] }) {
         <AccordionItem key={journey.id} value={journey.id} className="mb-4 rounded-lg border border-border px-6">
           <AccordionTrigger className="py-6 hover:no-underline">
             <div className="flex gap-4 text-left">
-              <span className="text-3xl leading-none">{journey.icon}</span>
+              <span className="leading-none text-brand-gold">{journey.icon}</span>
               <span>
                 <span className="mb-1 block font-heading text-xl font-bold text-foreground">
                   {journey.title}

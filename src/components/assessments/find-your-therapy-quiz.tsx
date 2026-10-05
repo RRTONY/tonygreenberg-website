@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import { ArrowRight, Copy, Mail } from "lucide-react";
 import { ThemedBackground } from "@/components/assessments/themed-background";
 import { AssessmentIntro } from "@/components/assessments/assessment-intro";
 import { EmailGate } from "@/components/assessments/email-gate";
@@ -567,13 +568,14 @@ export function FindYourTherapyQuiz() {
           <p className="mb-6 text-[0.95rem] text-[#F5F0E0]/50">The people who need this most won&apos;t search for it. Send it to them.</p>
           <div className="flex flex-wrap justify-center gap-3">
             {[
-              { platform: "twitter", label: "𝕏" },
-              { platform: "linkedin", label: "in" },
-              { platform: "email", label: "✉" },
-              { platform: "copy", label: "⎘" },
-            ].map(({ platform, label }) => (
+              { platform: "twitter", name: "Share on X", label: "𝕏" },
+              { platform: "linkedin", name: "Share on LinkedIn", label: "in" },
+              { platform: "email", name: "Share by email", label: <Mail aria-hidden="true" className="size-4" /> },
+              { platform: "copy", name: "Copy link", label: <Copy aria-hidden="true" className="size-4" /> },
+            ].map(({ platform, name, label }) => (
               <button
                 key={platform}
+                aria-label={name}
                 onClick={() => handleShare(platform)}
                 className="flex size-11 items-center justify-center rounded-full border border-brand-gold/20 bg-brand-gold-light/10 text-base text-brand-gold-light transition-colors hover:bg-brand-gold-light/25"
               >
@@ -623,8 +625,9 @@ export function FindYourTherapyQuiz() {
           <AssessmentResultActions accentColor={ACCENT} resultSlug="find-your-therapy" />
 
           <div className="mt-4">
-            <Link href="/find-my" className="font-mono text-[0.7rem] tracking-[0.1em] text-brand-gold-light/40 hover:text-brand-gold-light">
-              Explore the full Find Your ___ ecosystem →
+            <Link href="/find-my" className="inline-flex items-center gap-1.5 font-mono text-[0.7rem] tracking-[0.1em] text-brand-gold-light/40 hover:text-brand-gold-light">
+              Explore the full Find Your ___ ecosystem
+              <ArrowRight aria-hidden="true" className="size-3.5" />
             </Link>
           </div>
 

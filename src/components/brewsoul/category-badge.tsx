@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { ClipboardList } from "lucide-react";
 import { PAGE_CATEGORY_MAP } from "@/lib/content/brewsoul-directory";
 
 // One literal class per category — a small, known-at-build-time set of
@@ -35,7 +36,7 @@ export function CategoryBadge() {
           BADGE_CLASS[info.category] ?? "bg-[#6F4E37]"
         }`}
       >
-        <span className="text-xs">📋</span>
+        <ClipboardList aria-hidden="true" className="size-3" />
         {info.category}
       </Link>
     </div>

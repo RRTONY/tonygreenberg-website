@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DharmaFinderQuiz } from "@/components/assessments/dharma-finder-quiz";
+import { DharmaFinderQuiz } from "@/components/assessments/dharma-finder-quiz/dharma-finder-quiz";
 
 export const metadata: Metadata = {
   title: "Dharma Finder",

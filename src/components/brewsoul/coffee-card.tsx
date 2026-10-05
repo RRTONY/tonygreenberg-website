@@ -1,4 +1,5 @@
-import { computeTier, tierEmoji } from "@/lib/intelligence-engine/scoring";
+import { Check } from "lucide-react";
+import { computeTier, tierIcon } from "@/lib/intelligence-engine/scoring";
 import type { CatalogItem } from "@/lib/intelligence-engine/types";
 
 // Ported from legacy client/src/pages/brewsoul/BrewSoulHome.tsx's
@@ -10,7 +11,7 @@ import type { CatalogItem } from "@/lib/intelligence-engine/types";
 // utility classes instead of the inline `style={}`/JS mouse-handler
 // version, per this repo's no-inline-style rule. Real content/logic
 // unchanged; `tierStars` folded into the existing `computeTier`/
-// `tierEmoji` pair (same 92/90/86 thresholds) rather than duplicated.
+// `tierIcon` pair (same 92/90/86 thresholds) rather than duplicated.
 export interface CoffeeCardScores {
   qpr: number;
 }
@@ -19,6 +20,18 @@ function qprColorClass(qpr: number) {
   if (qpr >= 80) return "text-[#3B6548]";
   if (qpr >= 60) return "text-[#836311]";
   return "text-[#8B2500]";
+}
+
+/** A coffee's tier as icons (1-3 cups, or a crown), with a screen-reader label. */
+export function TierIcons({ tier, className = "size-3" }: { tier: 1 | 2 | 3 | 4; className?: string }) {
+  const { icon: Icon, count } = tierIcon(tier);
+  return (
+    <span role="img" aria-label={`Tier ${tier}`} className="inline-flex items-center gap-px align-[-0.125em]">
+      {Array.from({ length: count }, (_, i) => (
+        <Icon key={i} aria-hidden="true" className={className} />
+      ))}
+    </span>
+  );
 }
 
 export function CoffeeCard({ coffee, scores }: { coffee: CatalogItem; scores: CoffeeCardScores }) {
@@ -37,12 +50,12 @@ export function CoffeeCard({ coffee, scores }: { coffee: CatalogItem; scores: Co
       <div className="mb-3 text-sm text-[#6E6E6E] italic">{coffee.tastingNotes?.join(", ") || "Complex, nuanced"}</div>
       <div className="flex items-center justify-between">
         <div className="flex flex-wrap gap-1.5">
-          <span className="rounded-full bg-[#836311]/8 px-2 py-0.5 font-mono text-[0.65rem] text-[#6F4E37]">
-            {tierEmoji(computeTier(coffee.cuppingScore || 0))} {coffee.cuppingScore}
+          <span className="inline-flex items-center gap-1 rounded-full bg-[#836311]/8 px-2 py-0.5 font-mono text-[0.65rem] text-[#6F4E37]">
+            <TierIcons tier={computeTier(coffee.cuppingScore || 0)} /> {coffee.cuppingScore}
           </span>
           {coffee.moldTestStatus === "verified" && (
-            <span className="rounded-full bg-[#4A7C59]/10 px-2 py-0.5 font-mono text-[0.65rem] text-[#3B6548]">
-              Mold-Free ✓
+            <span className="inline-flex items-center gap-1 rounded-full bg-[#4A7C59]/10 px-2 py-0.5 font-mono text-[0.65rem] text-[#3B6548]">
+              Mold-Free <Check aria-hidden="true" className="size-3" />
             </span>
           )}
           {coffee.limitedRelease && (

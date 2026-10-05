@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useMemo, useState, useSyncExternalStore } from "react";
+import { ArrowUpRight, ChevronDown, ChevronUp } from "lucide-react";
 
 // Ported from legacy client/src/components/JourneyTracker.tsx — a
 // universal progress tracker across all 25 real "Find Your X" experiences
@@ -233,9 +234,19 @@ export function JourneyTracker({
 
       <button
         onClick={() => setExpanded(!expanded)}
-        className={`block w-full py-2 text-center font-mono text-xs tracking-[0.1em] ${textPrimaryClass}`}
+        className={`flex w-full items-center justify-center gap-1.5 py-2 text-center font-mono text-xs tracking-[0.1em] ${textPrimaryClass}`}
       >
-        {expanded ? "▲ Hide Details" : "▼ View Full Journey Map"}
+        {expanded ? (
+          <>
+            <ChevronUp aria-hidden="true" className="size-3.5" />
+            Hide Details
+          </>
+        ) : (
+          <>
+            <ChevronDown aria-hidden="true" className="size-3.5" />
+            View Full Journey Map
+          </>
+        )}
       </button>
 
       {expanded && (
@@ -314,7 +325,9 @@ export function JourneyTracker({
                             </span>
                           )}
                           <span className={`font-mono text-[0.5rem] ${textMutedClass}`}>~{exp.estimatedMinutes}m</span>
-                          {exp.isExternal && <span className={`font-mono text-[0.45rem] ${textMutedClass}`}>↗</span>}
+                          {exp.isExternal && (
+                            <ArrowUpRight aria-label="Opens another site" role="img" className={`size-2.5 ${textMutedClass}`} />
+                          )}
                           {isCurrent && (
                             <span
                               className={`rounded-sm px-1.5 py-0.5 font-mono text-[0.45rem] tracking-[0.1em] uppercase ${textPrimaryClass} ${isDark ? "bg-brand-gold-light/10" : "bg-brand-gold/8"}`}

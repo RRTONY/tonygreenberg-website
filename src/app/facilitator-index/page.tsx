@@ -46,7 +46,7 @@ export default function FacilitatorIndexPage() {
 
       {/* Hero */}
       <div className="relative h-[clamp(380px,60vw,620px)] w-full overflow-hidden">
-        <Image src={FACILITATOR_HERO_IMAGE} alt="" fill sizes="100vw" priority className="object-cover object-[center_35%] brightness-92 contrast-105 saturate-140" />
+        <Image src={FACILITATOR_HERO_IMAGE} alt="" fill sizes="100vw" fetchPriority="high" loading="eager" className="object-cover object-[center_35%] brightness-92 contrast-105 saturate-140" />
         <div className="absolute inset-0 flex flex-col justify-end bg-linear-to-b from-[#FFF8EB]/8 to-[#140828]/72 p-6 sm:p-12">
           <span className="mb-4 block text-[clamp(.75rem,2vw,.85rem)] font-bold tracking-[0.18em] text-[#FDE68A] uppercase [text-shadow:0_1px_6px_rgba(0,0,0,.7)]">
             Companion to the Psychedelic Readiness Index · Invitation Only · v1.0 Pilot

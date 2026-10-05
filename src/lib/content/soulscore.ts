@@ -34,6 +34,8 @@
 // Tailwind's scanner finds them same as `c.cardBorderHover` does elsewhere
 // in this codebase.
 
+import { Building2, ChartColumn, CircleDot, Coins, Crown, Dna, Eye, Gem, Globe, HandFist, Landmark, Link, Recycle, Scale, ShieldCheck, User, Users, Wallet, Zap, type LucideIcon } from "lucide-react";
+
 export type ColorKey =
   | "gold"
   | "goldLight"
@@ -193,7 +195,7 @@ export interface Dimension {
   id: number;
   label: string;
   shortLabel: string;
-  icon: string;
+  icon: LucideIcon;
   colorKey: ColorKey;
   weight: number;
   max: number;
@@ -202,31 +204,31 @@ export interface Dimension {
 }
 
 export const DIMENSIONS: Dimension[] = [
-  { id: 1, label: "Consciousness", shortLabel: "CONSC", icon: "◉", colorKey: "gold", weight: 12, max: 1000, unit: "Hawkins Scale", description: "20=Shame → 1000=Enlightenment. 200=critical threshold: below=force, above=power" },
-  { id: 2, label: "Carbon & Climate", shortLabel: "CARBN", icon: "🌍", colorKey: "teal", weight: 10, max: 100, unit: "tCO₂e", description: "Scope 1-3 + sequestration + trajectory to net-positive" },
-  { id: 3, label: "Labor Justice", shortLabel: "LABOR", icon: "⚖", colorKey: "red", weight: 10, max: 100, unit: "LJI", description: "Wage equity, benefits, safety, dignity, CEO-to-median ratio" },
-  { id: 4, label: "Supply Chain", shortLabel: "SUPLC", icon: "🔗", colorKey: "green", weight: 10, max: 100, unit: "SCI", description: "6-tier depth: Tier1 → Tier4 origin ecosystems → logistics → end-of-life" },
-  { id: 5, label: "Cultural Preservation", shortLabel: "CULTR", icon: "🏛", colorKey: "purple", weight: 8, max: 100, unit: "CPI", description: "Indigenous rights, sacred sites, traditional knowledge sovereignty" },
-  { id: 6, label: "Community Multiplier", shortLabel: "COMTY", icon: "🏘", colorKey: "blue", weight: 8, max: 100, unit: "CMX", description: "Dollar recirculation, local hiring, community ownership %, power-sharing" },
-  { id: 7, label: "Financial Justice", shortLabel: "FINJT", icon: "💎", colorKey: "goldLight", weight: 8, max: 100, unit: "FJI", description: "Stakeholder vs shareholder return distribution" },
-  { id: 8, label: "Governance & Trust", shortLabel: "GOVNT", icon: "🏗", colorKey: "indigo", weight: 7, max: 100, unit: "GTI", description: "Board diversity, stakeholder representation, transparency" },
-  { id: 9, label: "Resource Circularity", shortLabel: "RSCRC", icon: "♻", colorKey: "emerald", weight: 7, max: 100, unit: "RCI", description: "Circular material use, waste-to-value, water stewardship" },
-  { id: 10, label: "Human Dignity", shortLabel: "DGITY", icon: "✊", colorKey: "orange", weight: 7, max: 100, unit: "HDI", description: "Worker autonomy, portable credentials, mental health" },
-  { id: 11, label: "Regenerative Innovation", shortLabel: "REGEN", icon: "🧬", colorKey: "cyan", weight: 7, max: 100, unit: "RII", description: "Net-positive R&D, open-source, biomimicry" },
-  { id: 12, label: "Radical Transparency", shortLabel: "TRANS", icon: "◈", colorKey: "amber", weight: 6, max: 100, unit: "RTI", description: "Real-time reporting, blockchain verification, independent audits" },
+  { id: 1, label: "Consciousness", shortLabel: "CONSC", icon: CircleDot, colorKey: "gold", weight: 12, max: 1000, unit: "Hawkins Scale", description: "20=Shame → 1000=Enlightenment. 200=critical threshold: below=force, above=power" },
+  { id: 2, label: "Carbon & Climate", shortLabel: "CARBN", icon: Globe, colorKey: "teal", weight: 10, max: 100, unit: "tCO₂e", description: "Scope 1-3 + sequestration + trajectory to net-positive" },
+  { id: 3, label: "Labor Justice", shortLabel: "LABOR", icon: Scale, colorKey: "red", weight: 10, max: 100, unit: "LJI", description: "Wage equity, benefits, safety, dignity, CEO-to-median ratio" },
+  { id: 4, label: "Supply Chain", shortLabel: "SUPLC", icon: Link, colorKey: "green", weight: 10, max: 100, unit: "SCI", description: "6-tier depth: Tier1 → Tier4 origin ecosystems → logistics → end-of-life" },
+  { id: 5, label: "Cultural Preservation", shortLabel: "CULTR", icon: Landmark, colorKey: "purple", weight: 8, max: 100, unit: "CPI", description: "Indigenous rights, sacred sites, traditional knowledge sovereignty" },
+  { id: 6, label: "Community Multiplier", shortLabel: "COMTY", icon: Users, colorKey: "blue", weight: 8, max: 100, unit: "CMX", description: "Dollar recirculation, local hiring, community ownership %, power-sharing" },
+  { id: 7, label: "Financial Justice", shortLabel: "FINJT", icon: Gem, colorKey: "goldLight", weight: 8, max: 100, unit: "FJI", description: "Stakeholder vs shareholder return distribution" },
+  { id: 8, label: "Governance & Trust", shortLabel: "GOVNT", icon: ShieldCheck, colorKey: "indigo", weight: 7, max: 100, unit: "GTI", description: "Board diversity, stakeholder representation, transparency" },
+  { id: 9, label: "Resource Circularity", shortLabel: "RSCRC", icon: Recycle, colorKey: "emerald", weight: 7, max: 100, unit: "RCI", description: "Circular material use, waste-to-value, water stewardship" },
+  { id: 10, label: "Human Dignity", shortLabel: "DGITY", icon: HandFist, colorKey: "orange", weight: 7, max: 100, unit: "HDI", description: "Worker autonomy, portable credentials, mental health" },
+  { id: 11, label: "Regenerative Innovation", shortLabel: "REGEN", icon: Dna, colorKey: "cyan", weight: 7, max: 100, unit: "RII", description: "Net-positive R&D, open-source, biomimicry" },
+  { id: 12, label: "Radical Transparency", shortLabel: "TRANS", icon: Eye, colorKey: "amber", weight: 6, max: 100, unit: "RTI", description: "Real-time reporting, blockchain verification, independent audits" },
 ];
 
 export const TOTAL_WEIGHT = DIMENSIONS.reduce((s, d) => s + d.weight, 0);
 
 export const ENTITY_TYPES = [
-  { id: "individual", label: "Individual", icon: "👤" },
-  { id: "gig-worker", label: "Gig Worker", icon: "⚡" },
-  { id: "team", label: "Team", icon: "👥" },
-  { id: "company", label: "Company", icon: "🏢" },
-  { id: "ceo", label: "CEO", icon: "👑" },
-  { id: "supply-chain", label: "Supply Chain", icon: "🔗" },
-  { id: "fund", label: "Fund", icon: "📊" },
-  { id: "token", label: "Tokenized Asset", icon: "🪙" },
+  { id: "individual", label: "Individual", icon: User },
+  { id: "gig-worker", label: "Gig Worker", icon: Zap },
+  { id: "team", label: "Team", icon: Users },
+  { id: "company", label: "Company", icon: Building2 },
+  { id: "ceo", label: "CEO", icon: Crown },
+  { id: "supply-chain", label: "Supply Chain", icon: Link },
+  { id: "fund", label: "Fund", icon: ChartColumn },
+  { id: "token", label: "Tokenized Asset", icon: Coins },
 ];
 
 export interface BenchmarkEntity {
@@ -310,15 +312,15 @@ export interface GigLayer {
   name: string;
   desc: string;
   colorKey: ColorKey;
-  icon: string;
+  icon: LucideIcon;
 }
 
 export const GIG_LAYERS: GigLayer[] = [
-  { name: "DAO Governance", desc: "Workers vote on impact allocation", colorKey: "gold", icon: "🏛" },
-  { name: "Impact Tokens", desc: "ABIT per verified outcome, appreciates with underlying asset", colorKey: "amber", icon: "🪙" },
-  { name: "Impact Attribution", desc: "Every task → outcome chain → individual SoulScore", colorKey: "cyan", icon: "📊" },
-  { name: "Dignity Infrastructure", desc: "Portable credentials, benefits, mental health", colorKey: "purple", icon: "✊" },
-  { name: "Fair Compensation", desc: "Market rate floor, zero extraction", colorKey: "green", icon: "💰" },
+  { name: "DAO Governance", desc: "Workers vote on impact allocation", colorKey: "gold", icon: Landmark },
+  { name: "Impact Tokens", desc: "ABIT per verified outcome, appreciates with underlying asset", colorKey: "amber", icon: Coins },
+  { name: "Impact Attribution", desc: "Every task → outcome chain → individual SoulScore", colorKey: "cyan", icon: ChartColumn },
+  { name: "Dignity Infrastructure", desc: "Portable credentials, benefits, mental health", colorKey: "purple", icon: HandFist },
+  { name: "Fair Compensation", desc: "Market rate floor, zero extraction", colorKey: "green", icon: Wallet },
 ];
 
 export const CNPV_REFERENCE_POINTS = [

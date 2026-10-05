@@ -2,7 +2,7 @@
 
 import { useCallback, useState } from "react";
 import Link from "next/link";
-import { Loader2 } from "lucide-react";
+import { ArrowRight, Check, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ARCHETYPES, ASSESSMENT_QUESTIONS, AUTHORITY_ITEMS, type ArchetypeKey } from "@/lib/content/archetypes";
@@ -150,39 +150,45 @@ export function AssessmentQuiz() {
             <div className="mx-auto mb-10 flex max-w-120 flex-col gap-3">
               <Link
                 href="/impact-dashboard"
-                className="block rounded-md bg-brand-gold px-6 py-4 text-center font-mono text-[0.8rem] tracking-[0.15em] text-white uppercase"
+                className="flex items-center justify-center gap-1.5 rounded-md bg-brand-gold px-6 py-4 text-center font-mono text-[0.8rem] tracking-[0.15em] text-white uppercase"
               >
-                Go to My Dashboard →
+                Go to My Dashboard
+                <ArrowRight aria-hidden="true" className="size-3.5" />
               </Link>
               <Link
                 href="/soulscore"
-                className="block rounded-md border border-border px-6 py-4 text-center font-mono text-[0.8rem] tracking-[0.15em] text-foreground uppercase"
+                className="flex items-center justify-center gap-1.5 rounded-md border border-border px-6 py-4 text-center font-mono text-[0.8rem] tracking-[0.15em] text-foreground uppercase"
               >
-                Explore the SoulScore →
+                Explore the SoulScore
+                <ArrowRight aria-hidden="true" className="size-3.5" />
               </Link>
               <Link
                 href="/find-your-me"
-                className="block rounded-md border border-border px-6 py-4 text-center font-mono text-[0.8rem] tracking-[0.15em] text-foreground uppercase"
+                className="flex items-center justify-center gap-1.5 rounded-md border border-border px-6 py-4 text-center font-mono text-[0.8rem] tracking-[0.15em] text-foreground uppercase"
               >
-                Find Your Me →
+                Find Your Me
+                <ArrowRight aria-hidden="true" className="size-3.5" />
               </Link>
               <Link
                 href="/living-declaration"
-                className="block rounded-md border border-border px-6 py-4 text-center font-mono text-[0.8rem] tracking-[0.15em] text-foreground uppercase"
+                className="flex items-center justify-center gap-1.5 rounded-md border border-border px-6 py-4 text-center font-mono text-[0.8rem] tracking-[0.15em] text-foreground uppercase"
               >
-                Read the Living Declaration →
+                Read the Living Declaration
+                <ArrowRight aria-hidden="true" className="size-3.5" />
               </Link>
               <Link
                 href="/blog/boiling-the-human-summit-harvard-kurzweil"
-                className="block rounded-md border border-border px-6 py-4 text-center font-mono text-[0.8rem] tracking-[0.15em] text-foreground uppercase"
+                className="flex items-center justify-center gap-1.5 rounded-md border border-border px-6 py-4 text-center font-mono text-[0.8rem] tracking-[0.15em] text-foreground uppercase"
               >
-                Read &ldquo;Boiling the Human&rdquo; →
+                Read &ldquo;Boiling the Human&rdquo;
+                <ArrowRight aria-hidden="true" className="size-3.5" />
               </Link>
               <Link
                 href="/humanos"
-                className="block rounded-md border border-red-800/30 px-6 py-4 text-center font-mono text-[0.8rem] tracking-[0.15em] text-red-800 uppercase"
+                className="flex items-center justify-center gap-1.5 rounded-md border border-red-800/30 px-6 py-4 text-center font-mono text-[0.8rem] tracking-[0.15em] text-red-800 uppercase"
               >
-                Explore Human OS V2.0 →
+                Explore Human OS V2.0
+                <ArrowRight aria-hidden="true" className="size-3.5" />
               </Link>
             </div>
 
@@ -204,7 +210,14 @@ export function AssessmentQuiz() {
                   className="h-10 shrink-0 font-mono text-xs tracking-wide uppercase"
                 >
                   {pending && <Loader2 className="size-4 animate-spin" />}
-                  {subscribed ? "Subscribed ✓" : "Subscribe"}
+                  {subscribed ? (
+                    <>
+                      Subscribed
+                      <Check aria-hidden="true" className="size-4" />
+                    </>
+                  ) : (
+                    "Subscribe"
+                  )}
                 </Button>
               </div>
               {subError && <p className="mt-2 text-left text-sm text-destructive">{subError}</p>}
@@ -214,9 +227,10 @@ export function AssessmentQuiz() {
               href="https://impactsoul.is"
               target="_blank"
               rel="noopener noreferrer"
-              className="font-mono text-xs tracking-wide text-brand-gold"
+              className="inline-flex items-center gap-1.5 font-mono text-xs tracking-wide text-brand-gold"
             >
-              Explore ImpactSoul →
+              Explore ImpactSoul
+              <ArrowRight aria-hidden="true" className="size-3.5" />
             </a>
 
             <AssessmentResultActions resultSlug="assessment" />

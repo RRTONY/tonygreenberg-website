@@ -9,7 +9,6 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { CURATED_JOURNEYS } from "@/lib/content/curated-journeys";
 import { socialLinks } from "@/components/site-nav-data";
-import { THEME_MAP } from "@/lib/content/theme-map";
 import { urlFor } from "@/lib/sanity/image";
 
 type Post = {
@@ -60,29 +59,11 @@ const RANKED_LISTS = [
   { heading: "Most Read", posts: MOST_READ },
   { heading: "Most Provocative", posts: MOST_PROVOCATIVE },
 ];
-export function HomeArchive({ posts, initialTheme }: { posts: Post[]; initialTheme?: string }) {
+// `eagerFirstCard`: on /blog the first card is the largest image on screen,
+// so it loads right away; on the homepage the archive is far below the fold.
+export function HomeArchive({ posts, eagerFirstCard = false }: { posts: Post[]; eagerFirstCard?: boolean }) {
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
-  const [activeTheme, setActiveTheme] = useState<string | null>(initialTheme ?? null);
-
-  // Clicking a Core Themes card while already on "/" is a same-route
-  // client-side navigation (only the `theme` search param changes), so this
-  // component doesn't remount — `useState(initialTheme)`'s initial value
-  // only applies on first mount, so the filter silently never activated.
-  // Adjusting state during render (React's documented pattern for this,
-  // same fix already applied to site-header.tsx's mobile-menu-close) keeps
-  // it in sync with the prop on every render instead.
-  const [prevInitialTheme, setPrevInitialTheme] = useState(initialTheme);
-  if (initialTheme !== prevInitialTheme) {
-    setPrevInitialTheme(initialTheme);
-    setActiveTheme(initialTheme ?? null);
-    setSearchQuery("");
-    // A theme-card click is a fresh filter action — a category selected in
-    // an earlier session on this same page instance must not silently AND
-    // with the new theme (that combination is often empty, since themes and
-    // categories are separate taxonomies), so reset it too.
-    setActiveCategory("All");
-  }
   const [showAll, setShowAll] = useState(false);
 
   const categories = useMemo(() => {
@@ -104,12 +85,11 @@ export function HomeArchive({ posts, initialTheme }: { posts: Post[]; initialThe
         (p.excerpt ?? "").toLowerCase().includes(q) ||
         (p.category?.title ?? "").toLowerCase().includes(q) ||
         (p.tags ?? []).some((t) => t.toLowerCase().includes(q));
-      const matchesTheme = !activeTheme || (THEME_MAP[activeTheme] ?? []).includes(p.slug);
-      return matchesCat && matchesSearch && matchesTheme;
+      return matchesCat && matchesSearch;
     });
-  }, [posts, activeCategory, searchQuery, activeTheme]);
+  }, [posts, activeCategory, searchQuery]);
 
-  const isSearching = searchQuery.length > 0 || activeCategory !== "All" || activeTheme !== null;
+  const isSearching = searchQuery.length > 0 || activeCategory !== "All";
   const visiblePosts = showAll ? filtered : filtered.slice(0, PAGE_SIZE);
   const hasMore = filtered.length > PAGE_SIZE && !showAll;
 
@@ -128,84 +108,56 @@ export function HomeArchive({ posts, initialTheme }: { posts: Post[]; initialThe
                 type="text"
                 placeholder="Search essays..."
                 value={searchQuery}
-                onChange={(e) => {
-                  setSearchQuery(e.target.value);
-                  setActiveTheme(null);
-                }}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 className="h-9 bg-background pl-8"
               />
             </div>
           </div>
           <div className="flex gap-1.5 overflow-x-auto pb-1">
             <Button
-              variant={activeCategory === "All" && !activeTheme ? "default" : "outline"}
+              variant={activeCategory === "All" ? "default" : "outline"}
               size="sm"
-              onClick={() => {
-                setActiveCategory("All");
-                setActiveTheme(null);
-              }}
+              onClick={() => setActiveCategory("All")}
               className="shrink-0 font-mono text-xs tracking-wide uppercase"
             >
               All ({posts.length})
             </Button>
             {categories.map(([title, count]) => {
-              // A Core Themes selection (e.g. "The Crusades") often shares
-              // its display name with a real category — rather than show a
-              // second, separate "active theme" chip alongside this row,
-              // light up the matching pill here and let it double as the
-              // clear control (same pattern as a plain category selection).
-              const isActive = activeCategory === title || activeTheme === title;
+              const isActive = activeCategory === title;
               return (
                 <Button
                   key={title}
                   variant={isActive ? "default" : "outline"}
                   size="sm"
-                  onClick={() => {
-                    if (isActive) {
-                      setActiveCategory("All");
-                      setActiveTheme(null);
-                    } else {
-                      setActiveCategory(title);
-                      setActiveTheme(null);
-                    }
-                  }}
+                  aria-pressed={isActive}
+                  onClick={() => setActiveCategory(isActive ? "All" : title)}
                   className="shrink-0 gap-1.5 font-mono text-xs tracking-wide uppercase"
                 >
                   {title} ({count})
-                  {activeTheme === title && <X className="size-3.5" />}
+                  {isActive && <X aria-hidden="true" className="size-3.5" />}
                 </Button>
               );
             })}
-            {/* Fallback: a Core Themes selection with no same-named category
-                (so it can't piggyback on a pill above) still gets a chip. */}
-            {activeTheme && !categories.some(([title]) => title === activeTheme) && (
-              <Button
-                variant="default"
-                size="sm"
-                onClick={() => setActiveTheme(null)}
-                className="shrink-0 gap-1.5 font-mono text-xs tracking-wide uppercase"
-              >
-                {activeTheme}
-                <X className="size-3.5" />
-              </Button>
-            )}
           </div>
         </div>
       </div>
 
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-8 sm:px-6 lg:grid-cols-[1fr_260px]">
         <div className="min-w-0">
-          {!isSearching && (
-            <div className="mb-5 border-b-2 border-brand-gold pb-1.5 font-mono text-xs tracking-[0.12em] text-brand-gold uppercase">
+          {isSearching ? (
+            <h2 className="sr-only">Matching essays</h2>
+          ) : (
+            <h2 className="mb-5 border-b-2 border-brand-gold pb-1.5 font-mono text-xs tracking-[0.12em] text-brand-gold uppercase">
               Full Archive — All {posts.length} Essays
-            </div>
+            </h2>
           )}
 
           {visiblePosts.length > 0 ? (
             <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-              {visiblePosts.map((post) => (
+              {visiblePosts.map((post, i) => (
                 <PostCard
                   key={post._id}
+                  eager={eagerFirstCard && i === 0}
                   post={{
                     ...post,
                     slug: { current: post.slug },
@@ -303,7 +255,7 @@ export function HomeArchive({ posts, initialTheme }: { posts: Post[]; initialThe
                   href={s.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={s.label}
+                  aria-label={`Tony Greenberg on ${s.label}`}
                   className="rounded-sm border border-border p-2 text-brand-gold"
                 >
                   {s.label === "X" ? <FaXTwitter size={15} /> : <FaLinkedin size={15} />}

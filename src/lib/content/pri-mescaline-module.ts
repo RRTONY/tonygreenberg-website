@@ -9,6 +9,8 @@
 
 /* ── Pharmacology ── */
 
+import { Brain, Earth, HandHeart, Heart, HeartHandshake, Hospital, Leaf, Microscope, Mountain, Pill, Sparkles, Sun, TreeDeciduous, type LucideIcon } from "lucide-react";
+
 export interface ReceptorRow {
   receptor: string;
   action: string;
@@ -140,24 +142,24 @@ export const SUPPLEMENT_STACKS: SupplementPhase[] = [
 /* ── PRI Dimension Scores (mescaline-specific) ── */
 
 export interface DimScoreRow {
-  icon: string;
+  icon: LucideIcon;
   dimension: string;
   threshold: string;
   keyNote: string;
 }
 
 export const MESCALINE_DIM_SCORES: DimScoreRow[] = [
-  { icon: "\u{1F9E0}", dimension: "Mental", threshold: "High", keyNote: "8\u201312hr duration demands stability; no active psychosis" },
-  { icon: "\u{1F496}", dimension: "Emotional", threshold: "Moderate-High", keyNote: "Gentle vs ibogaine; difficult emotions surface" },
-  { icon: "\u{1F3E5}", dimension: "Physical", threshold: "Moderate", keyNote: "Cardio clearance needed; MAOI/Lithium contraindicated; nausea hrs 1\u20133" },
-  { icon: "\u{1F30E}", dimension: "Set & Setting", threshold: "Critical", keyNote: "Ceremonial structure non-negotiable; outdoor > indoor" },
-  { icon: "\u{1F64F}", dimension: "Spiritual", threshold: "High Alignment", keyNote: "35\u201350% single most significant spiritual event of life" },
+  { icon: Brain, dimension: "Mental", threshold: "High", keyNote: "8\u201312hr duration demands stability; no active psychosis" },
+  { icon: Heart, dimension: "Emotional", threshold: "Moderate-High", keyNote: "Gentle vs ibogaine; difficult emotions surface" },
+  { icon: Hospital, dimension: "Physical", threshold: "Moderate", keyNote: "Cardio clearance needed; MAOI/Lithium contraindicated; nausea hrs 1\u20133" },
+  { icon: Earth, dimension: "Set & Setting", threshold: "Critical", keyNote: "Ceremonial structure non-negotiable; outdoor > indoor" },
+  { icon: HandHeart, dimension: "Spiritual", threshold: "High Alignment", keyNote: "35\u201350% single most significant spiritual event of life" },
 ];
 
 /* ── Medicine Selector Comparison ── */
 
 export interface MedicineSelectorRow {
-  icon: string;
+  icon: LucideIcon;
   medicine: string;
   depression: string;
   anxiety: string;
@@ -169,14 +171,14 @@ export interface MedicineSelectorRow {
 }
 
 export const MEDICINE_SELECTOR: MedicineSelectorRow[] = [
-  { icon: "\u{1F335}", medicine: "Mescaline/Peyote", depression: "\u2713", anxiety: "\u2713", ptsd: "\u2713", addiction: "\u2713", duration: "8\u201312h", beginner: "Moderate", evidence: "Moderate" },
-  { icon: "\u{1F344}", medicine: "Psilocybin", depression: "\u2713", anxiety: "\u2713", ptsd: "\u2713", addiction: "\u2713", duration: "4\u20136h", beginner: "Yes", evidence: "Strong" },
-  { icon: "\u{1F497}", medicine: "MDMA", depression: "Some", anxiety: "Some", ptsd: "Best", addiction: "Some", duration: "4\u20136h", beginner: "Yes", evidence: "Strong" },
-  { icon: "\u{1F48A}", medicine: "Ketamine", depression: "Fastest", anxiety: "Some", ptsd: "Some", addiction: "Some", duration: "1\u20132h", beginner: "Yes (clinical)", evidence: "Strong/FDA" },
-  { icon: "\u{1F33F}", medicine: "Ayahuasca", depression: "\u2713", anxiety: "\u2713", ptsd: "\u2713", addiction: "\u2713", duration: "4\u20138h", beginner: "No", evidence: "Moderate" },
-  { icon: "\u{1F333}", medicine: "Ibogaine", depression: "Some", anxiety: "Some", ptsd: "\u2713", addiction: "Best", duration: "24\u201336h", beginner: "No", evidence: "Moderate" },
-  { icon: "\u{1F3D4}\uFE0F", medicine: "San Pedro", depression: "\u2713", anxiety: "\u2713", ptsd: "\u2713", addiction: "\u2713", duration: "8\u201314h", beginner: "Moderate", evidence: "Moderate" },
-  { icon: "\u{1F52C}", medicine: "Microdose", depression: "\u2713", anxiety: "\u2713", ptsd: "Some", addiction: "\u2713", duration: "Sub-perceptual", beginner: "Very Yes", evidence: "Moderate" },
+  { icon: Sun, medicine: "Mescaline/Peyote", depression: "\u2713", anxiety: "\u2713", ptsd: "\u2713", addiction: "\u2713", duration: "8\u201312h", beginner: "Moderate", evidence: "Moderate" },
+  { icon: Sparkles, medicine: "Psilocybin", depression: "\u2713", anxiety: "\u2713", ptsd: "\u2713", addiction: "\u2713", duration: "4\u20136h", beginner: "Yes", evidence: "Strong" },
+  { icon: HeartHandshake, medicine: "MDMA", depression: "Some", anxiety: "Some", ptsd: "Best", addiction: "Some", duration: "4\u20136h", beginner: "Yes", evidence: "Strong" },
+  { icon: Pill, medicine: "Ketamine", depression: "Fastest", anxiety: "Some", ptsd: "Some", addiction: "Some", duration: "1\u20132h", beginner: "Yes (clinical)", evidence: "Strong/FDA" },
+  { icon: Leaf, medicine: "Ayahuasca", depression: "\u2713", anxiety: "\u2713", ptsd: "\u2713", addiction: "\u2713", duration: "4\u20138h", beginner: "No", evidence: "Moderate" },
+  { icon: TreeDeciduous, medicine: "Ibogaine", depression: "Some", anxiety: "Some", ptsd: "\u2713", addiction: "Best", duration: "24\u201336h", beginner: "No", evidence: "Moderate" },
+  { icon: Mountain, medicine: "San Pedro", depression: "\u2713", anxiety: "\u2713", ptsd: "\u2713", addiction: "\u2713", duration: "8\u201314h", beginner: "Moderate", evidence: "Moderate" },
+  { icon: Microscope, medicine: "Microdose", depression: "\u2713", anxiety: "\u2713", ptsd: "Some", addiction: "\u2713", duration: "Sub-perceptual", beginner: "Very Yes", evidence: "Moderate" },
 ];
 
 /* ── Sources ── */

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowLeft, ArrowRight, Square } from "lucide-react";
 import { CaseShareButtons } from "@/components/marketing/case-share-buttons";
 
 // Ported from legacy client/src/pages/ProtectingYourBusiness.tsx — a
@@ -259,15 +260,15 @@ const SHARE_TEXT =
 export default function ProtectingYourBusinessPage() {
   return (
     <div>
-      <div className="mx-auto max-w-3xl px-6 py-10 sm:px-10">
-        <div className="mb-6 rounded-md bg-red-800/10 py-3 text-center font-mono text-xs font-bold tracking-[0.2em] text-red-800 uppercase">
+      <div className="mx-auto max-w-230 px-6 pt-20 pb-8">
+        <div className="mb-8 rounded-lg border border-red-800/20 bg-red-800/10 px-4 py-3 text-center font-mono text-[0.72rem]/[1.85] font-bold tracking-[0.2em] text-red-800 uppercase">
           Documented Fraud Case — Court Records &amp; Guilty Pleas on File
         </div>
 
-        <h1 className="mx-auto mb-3 max-w-2xl text-center font-heading text-3xl leading-tight font-black text-foreground sm:text-4xl">
+        <h1 className="mx-auto mb-3 max-w-180 text-center font-heading text-[clamp(2rem,5vw,3.2rem)]/[1.12] font-black text-foreground">
           She Had Two Theft Convictions. I Hired Her Anyway. She Stole $46,795.
         </h1>
-        <p className="mx-auto mb-8 max-w-xl text-center text-foreground/70">
+        <p className="mx-auto mb-8 max-w-150 text-center text-[1.15rem]/[1.7] text-pretty text-foreground/70">
           The documented case of Kristi Klawiter — convicted of theft and forgery in New Jersey,
           hired through Braintrust, and caught submitting 11 unauthorized invoices. This is the
           record I wish someone had published before I wrote the check.
@@ -347,7 +348,7 @@ export default function ProtectingYourBusinessPage() {
         </p>
       </div>
 
-      <div className="mx-auto max-w-2xl px-6 pb-6 sm:px-10">
+      <div className="mx-auto max-w-195 px-6 pb-6">
         <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 border-y border-border py-4 text-center">
           {TOC.map((item) => (
             <a key={item.id} href={`#${item.id}`} className="inline-flex items-center font-mono text-xs text-brand-gold min-h-11 md:min-h-6">
@@ -357,7 +358,7 @@ export default function ProtectingYourBusinessPage() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-2xl px-6 pb-16 sm:px-10">
+      <div className="mx-auto max-w-195 px-6 pb-16">
         <div className="mb-10 rounded-md border border-amber-700/25 bg-amber-700/5 p-7">
           <div className="mb-2 font-mono text-xs font-bold tracking-[0.2em] text-amber-800 uppercase">
             A Note From the Author
@@ -546,7 +547,7 @@ export default function ProtectingYourBusinessPage() {
             Cost of not running one: $46,795. I am not a mathematician, but I can do this
             particular calculation now.
           </AlertBox>
-          <div className="my-6 overflow-x-auto rounded-md border border-border" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
+          <div className="relative my-6 overflow-x-auto rounded-md border border-border" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
             <table className="w-full border-collapse text-sm">
               <thead>
                 <tr className="bg-red-800/5">
@@ -580,7 +581,7 @@ export default function ProtectingYourBusinessPage() {
               </div>
               {section.items.map((item) => (
                 <div key={item} className="mb-3 flex gap-3 text-foreground/80">
-                  <span className="mt-0.5 shrink-0 text-red-800">☐</span>
+                  <Square aria-hidden="true" className="mt-1.5 size-4 shrink-0 text-red-800" />
                   <span className="leading-[1.8]">{item}</span>
                 </div>
               ))}
@@ -589,7 +590,7 @@ export default function ProtectingYourBusinessPage() {
         </Section>
 
         <Section id="tools" num="08" title="Prevention Tools vs. the Cost of Trusting the Wrong Person">
-          <div className="mb-6 overflow-x-auto rounded-md border border-border" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
+          <div className="relative mb-6 overflow-x-auto rounded-md border border-border" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
             <table className="w-full border-collapse text-sm">
               <thead>
                 <tr className="bg-red-800/5">
@@ -704,9 +705,9 @@ export default function ProtectingYourBusinessPage() {
           </p>
           <a
             href="mailto:tony@ramprate.com?subject=Fraud%20Story%20Submission"
-            className="inline-block rounded-md bg-red-800 px-6 py-2.5 font-mono text-xs font-semibold tracking-wide text-white uppercase"
+            className="inline-flex items-center gap-1.5 rounded-md bg-red-800 px-6 py-2.5 font-mono text-xs font-semibold tracking-wide text-white uppercase"
           >
-            Share Your Story →
+            Share Your Story <ArrowRight aria-hidden="true" className="size-3.5" />
           </a>
         </div>
 
@@ -793,8 +794,8 @@ export default function ProtectingYourBusinessPage() {
       </div>
 
       <div className="border-t border-border py-6 text-center">
-        <Link href="/" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
-          ← Back to the Essays
+        <Link href="/" className="inline-flex items-center gap-1.5 font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
+          <ArrowLeft aria-hidden="true" className="size-3.5" /> Back to the Essays
         </Link>
       </div>
     </div>

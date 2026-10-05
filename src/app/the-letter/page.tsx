@@ -221,7 +221,8 @@ export default async function TheLetterPage() {
           src={HERO_IMAGE}
           alt=""
           fill
-          priority
+          fetchPriority="high"
+          loading="eager"
           className="object-cover object-[center_40%]"
         />
         <div className="absolute inset-0 bg-linear-to-b from-black/25 via-black/5 to-black/55" />

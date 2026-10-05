@@ -1,3 +1,4 @@
+import { Bean, Coffee, Coins, Handshake, Search, ShieldCheck, Sparkles } from "lucide-react";
 // Ported from legacy client/src/data/cityData.ts — the "BrewSoul City
 // Intelligence Module." Real 25-city leaderboard (name/state/grade/
 // score/tagline/verdict/stats), unchanged. **Real data-completeness
@@ -127,13 +128,13 @@ export function gradeFromScore(score: number): Grade {
 }
 
 export const SCORING_DIMENSIONS = [
-  { key: "beanQuality", label: "Bean Quality", max: 25, icon: "🫘" },
-  { key: "preparation", label: "Preparation", max: 20, icon: "☕" },
-  { key: "valueQpr", label: "Value / QPR", max: 15, icon: "💰" },
-  { key: "transparency", label: "Transparency", max: 15, icon: "🔍" },
-  { key: "experience", label: "Experience", max: 10, icon: "✨" },
-  { key: "accessibility", label: "Accessibility", max: 10, icon: "🤝" },
-  { key: "health", label: "Mold & Health", max: 5, icon: "🛡️" },
+  { key: "beanQuality", label: "Bean Quality", max: 25, icon: Bean },
+  { key: "preparation", label: "Preparation", max: 20, icon: Coffee },
+  { key: "valueQpr", label: "Value / QPR", max: 15, icon: Coins },
+  { key: "transparency", label: "Transparency", max: 15, icon: Search },
+  { key: "experience", label: "Experience", max: 10, icon: Sparkles },
+  { key: "accessibility", label: "Accessibility", max: 10, icon: Handshake },
+  { key: "health", label: "Mold & Health", max: 5, icon: ShieldCheck },
 ] as const;
 
 export const GRADE_SCALE = [

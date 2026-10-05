@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { client } from "@/lib/sanity/client";
-import { allPostSlugsQuery, allCategorySlugsQuery } from "@/lib/sanity/queries";
+import { allPostSlugsQuery, categoriesQuery, MIN_INDEXABLE_CATEGORY_POSTS } from "@/lib/sanity/queries";
 import { CITIES } from "@/lib/content/brewsoul-cities";
 import { BREWSOUL_COFFEES } from "@/lib/content/brewsoul-coffees";
 import { CHARITIES } from "@/lib/content/charity-data";
@@ -151,7 +151,7 @@ const STATIC_ROUTES = [
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [posts, categories] = await Promise.all([
     client.fetch<{ slug: string; _updatedAt: string }[]>(allPostSlugsQuery),
-    client.fetch<{ slug: string }[]>(allCategorySlugsQuery),
+    client.fetch<{ slug: { current: string }; postCount: number }[]>(categoriesQuery),
   ]);
 
   return [
@@ -167,11 +167,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly" as const,
       priority: 0.6,
     })),
-    ...categories.map((category) => ({
-      url: `${siteUrl}/blog/category/${category.slug}`,
-      changeFrequency: "weekly" as const,
-      priority: 0.5,
-    })),
+    // Thin categories are noindexed on their own page, so they stay out of here.
+    ...categories
+      .filter((category) => category.postCount >= MIN_INDEXABLE_CATEGORY_POSTS)
+      .map((category) => ({
+        url: `${siteUrl}/blog/category/${category.slug.current}`,
+        changeFrequency: "weekly" as const,
+        priority: 0.5,
+      })),
     ...CITIES.map((city) => ({
       url: `${siteUrl}/brewsoul/cities/${city.slug}`,
       changeFrequency: "monthly" as const,

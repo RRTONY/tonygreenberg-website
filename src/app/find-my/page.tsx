@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight, Bot, Phone } from "lucide-react";
 import { JourneyTracker } from "@/components/assessments/journey-tracker";
 import { CATEGORIES, FEATURED, FIND_MY_COMING, FIND_MY_LIVE, FIND_MY_TOTAL, type FindMyLink } from "@/lib/content/find-my-directory";
 
@@ -61,14 +62,14 @@ function LinkCard({ item }: { item: FindMyLink }) {
       }`}
       style={{ borderLeftColor: item.color }}
     >
-      <span className="flex size-10 shrink-0 items-center justify-center rounded-full text-xl" style={{ backgroundColor: `${item.color}15` }}>
-        {item.icon}
+      <span className="flex size-10 shrink-0 items-center justify-center rounded-full" style={{ backgroundColor: `${item.color}15`, color: item.color }}>
+        <item.icon aria-hidden="true" className="size-5" />
       </span>
       <div className="min-w-0 flex-1">
         <div className="font-heading text-[1.05rem] leading-tight font-medium text-foreground">{item.title}</div>
         <div className="mt-0.5 text-[0.85rem] leading-snug text-muted-foreground">{item.tagline}</div>
       </div>
-      {isLive ? <span className="shrink-0 font-mono text-xs text-muted-foreground">→</span> : <StatusBadge status={item.status} />}
+      {isLive ? <ArrowRight aria-hidden="true" className="size-3.5 shrink-0 text-muted-foreground" /> : <StatusBadge status={item.status} />}
     </div>
   );
 
@@ -97,7 +98,7 @@ export default function FindMyPage() {
     <div className="relative z-1 min-h-screen">
       <div className="relative z-1 h-50 overflow-hidden">
         {/* Live (2026-10-02) shows the photo undimmed on the plain page background. */}
-        <Image src={HERO_IMG} alt="" fill priority sizes="100vw" className="object-cover object-[center_30%]" />
+        <Image src={HERO_IMG} alt="" fill fetchPriority="high" loading="eager" sizes="100vw" className="object-cover object-[center_30%]" />
       </div>
 
       <div className="relative z-10 mx-auto -mt-15 max-w-135 px-6 pb-24 text-center">
@@ -167,7 +168,8 @@ export default function FindMyPage() {
             href="/self-portrait"
             className="inline-flex items-center gap-2 rounded-full border border-brand-gold-light/40 px-6 py-2.5 font-mono text-[0.75rem] tracking-[0.12em] text-brand-gold-light uppercase"
           >
-            View Self-Portrait →
+            View Self-Portrait
+            <ArrowRight aria-hidden="true" className="size-3.5" />
           </Link>
         </div>
       </section>
@@ -175,11 +177,13 @@ export default function FindMyPage() {
       <section className="relative z-1 mx-auto mt-12 max-w-130 px-6 pb-4 text-center">
         <p className="mb-3 text-[0.9rem] text-muted-foreground">Connect with Tony</p>
         <div className="flex flex-wrap items-center justify-center gap-6">
-          <Link href="/pick-up-the-phone" className="inline-flex items-center font-mono text-[0.72rem] tracking-[0.1em] text-brand-gold min-h-11 md:min-h-6">
-            📞 Pick Up the Phone
+          <Link href="/pick-up-the-phone" className="inline-flex min-h-11 items-center gap-1.5 font-mono text-[0.72rem] tracking-[0.1em] text-brand-gold md:min-h-6">
+            <Phone aria-hidden="true" className="size-3.5" />
+            Pick Up the Phone
           </Link>
           <span className="inline-flex items-center gap-2 font-mono text-[0.72rem] tracking-[0.1em] text-muted-foreground">
-            🤖 Ask FauxTony
+            <Bot aria-hidden="true" className="size-3.5" />
+            Ask FauxTony
             <span className="rounded-full bg-muted px-2 py-0.5 text-[0.55rem] uppercase">Coming Soon</span>
           </span>
         </div>

@@ -63,11 +63,20 @@ function splitLines(block: Block): Block[] {
  * rewriting 78 posts as Sanity drafts. Run it before autoLinkBody, so
  * auto-linking sees the final paragraphs.
  */
-export function legacyBodyLayout<T>(value: T, createdAt: string | undefined): T {
+const normalize = (t: string) => t.replace(/[“”]/g, '"').replace(/[‘’]/g, "'").replace(/\s+/g, " ").trim().toLowerCase();
+const blockText = (b: Block) => (b.children ?? []).map((s) => s.text ?? "").join("");
+
+export function legacyBodyLayout<T>(value: T, createdAt: string | undefined, title?: string): T {
   if (!Array.isArray(value)) return value;
   const imported = !!createdAt && createdAt < LEGACY_IMPORT_CUTOFF;
 
-  return value.flatMap((block: Block) => {
+  // Many imported bodies open with the post's own title as a plain paragraph,
+  // repeating the H1 right above it. Drop that first block when it matches.
+  const first = value[0] as Block | undefined;
+  const body =
+    title && first?._type === "block" && normalize(blockText(first)) === normalize(title) ? value.slice(1) : value;
+
+  return body.flatMap((block: Block) => {
     if (block._type !== "block" || block.listItem || (block.style && block.style !== "normal")) return [block];
     const blocks = block.children?.some((s) => s.text?.includes("\n")) ? splitLines(block) : [block];
     if (!imported) return blocks;

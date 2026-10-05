@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Dialog as DialogPrimitive } from "radix-ui";
-import { X } from "lucide-react";
+import { ArrowRight, X } from "lucide-react";
 import {
   Dialog,
   DialogClose,
@@ -44,17 +44,27 @@ export function FourDoors({ doors }: { doors: Door[] }) {
     <>
       <div className="grid grid-cols-2 gap-0.5 lg:grid-cols-4">
         {doors.map((door) => (
-          <button
+          // A real link (crawlable, works with JS off, cmd/middle-click opens
+          // the destination), upgraded to open the detail modal on a plain
+          // click. Was a <button>, so the destinations were only reachable
+          // from inside the modal.
+          <Link
             key={door.num}
-            onClick={() => setActive(door)}
-            className="group relative block h-56 w-full overflow-hidden text-left"
+            href={door.href}
+            onClick={(e) => {
+              if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+              e.preventDefault();
+              setActive(door);
+            }}
+            className="group relative block h-56 w-full overflow-hidden text-left focus-visible:ring-2 focus-visible:ring-brand-gold-light focus-visible:outline-none"
           >
             {door.img && door.imgWidth && door.imgHeight ? (
               <Image
                 src={door.img}
-                alt={door.title}
+                alt=""
                 width={door.imgWidth}
                 height={door.imgHeight}
+                sizes="(min-width: 1024px) 25vw, 50vw"
                 className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
               />
             ) : (
@@ -70,7 +80,7 @@ export function FourDoors({ doors }: { doors: Door[] }) {
               <div className="font-heading text-lg leading-tight text-white">{door.title}</div>
               <div className="text-xs text-white/70">{door.sub}</div>
             </div>
-          </button>
+          </Link>
         ))}
       </div>
 
@@ -135,9 +145,10 @@ export function FourDoors({ doors }: { doors: Door[] }) {
                   <Link
                     href={active.href}
                     onClick={() => setActive(null)}
-                    className="block w-full rounded-md bg-[#2C1810] px-6 py-3.5 text-center font-mono text-[0.78rem] tracking-[0.14em] text-[#FAFAF7] uppercase transition-colors hover:bg-[#836311]"
+                    className="flex w-full items-center justify-center gap-2 rounded-md bg-[#2C1810] px-6 py-3.5 font-mono text-[0.78rem] tracking-[0.14em] text-[#FAFAF7] uppercase transition-colors hover:bg-[#836311]"
                   >
-                    {active.cta} →
+                    {active.cta}
+                    <ArrowRight aria-hidden="true" className="size-4" />
                   </Link>
 
                   <p className="mt-4 text-center font-mono text-[0.62rem] tracking-[0.12em] text-[#2C1810]/30">

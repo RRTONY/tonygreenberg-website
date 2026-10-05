@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Compass, FileText, Loader2, Search } from "lucide-react";
+import { ArrowDown, ArrowUp, Compass, CornerDownLeft, FileText, Loader2, Search } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -334,11 +334,20 @@ export function SearchModal({
 
         <div className="flex items-center justify-between border-t border-border bg-muted/40 px-5 py-2.5">
           <div className="flex gap-3 font-mono text-[0.65rem] text-muted-foreground">
-            <span>
-              <kbd className="mr-1 rounded border border-border px-1">↑↓</kbd>navigate
+            <span className="inline-flex items-center">
+              <kbd className="mr-1 inline-flex items-center rounded border border-border px-1 py-0.5">
+                <ArrowUp aria-hidden="true" className="size-3" />
+                <ArrowDown aria-hidden="true" className="size-3" />
+                <span className="sr-only">Up and down arrow keys</span>
+              </kbd>
+              navigate
             </span>
-            <span>
-              <kbd className="mr-1 rounded border border-border px-1">↵</kbd>open
+            <span className="inline-flex items-center">
+              <kbd className="mr-1 inline-flex items-center rounded border border-border px-1 py-0.5">
+                <CornerDownLeft aria-hidden="true" className="size-3" />
+                <span className="sr-only">Enter key</span>
+              </kbd>
+              open
             </span>
           </div>
           <span className="font-mono text-[0.65rem] text-muted-foreground">

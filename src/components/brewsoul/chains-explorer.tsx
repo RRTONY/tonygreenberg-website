@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { ArrowRight, Star } from "lucide-react";
 import type { ChainEntry } from "@/lib/intelligence-engine/types";
 
 const TIER_TAG_CLASS: Record<ChainEntry["tier"], string> = {
@@ -73,7 +74,7 @@ function ChainCard({ chain, expanded, onToggle }: { chain: ChainEntry; expanded:
             <span className={`rounded-full px-2 py-0.5 font-mono text-[0.65rem] ${TIER_TAG_CLASS[chain.tier]}`}>{chain.tier}-Tier</span>
             <span className="rounded-full bg-[#6F4E37]/5 px-2 py-0.5 font-mono text-[0.65rem] text-[#6B5B4F]">{TYPE_LABELS[chain.type]}</span>
             <span className="font-mono text-[0.62rem] text-[#6E6E6E]">
-              {chain.hq} · {chain.locations.toLocaleString()} locations · Est. {chain.founded}
+              {chain.hq} · {chain.locations.toLocaleString("en-US")} locations · Est. {chain.founded}
             </span>
           </div>
         </div>
@@ -126,8 +127,8 @@ function ChainCard({ chain, expanded, onToggle }: { chain: ChainEntry; expanded:
 
           <div className="flex flex-wrap items-center gap-6">
             {chain.signatureDrink && (
-              <div className="font-mono text-[0.72rem] text-[#6B5B4F]">
-                <span className="text-[#836311]">★</span> Signature: {chain.signatureDrink}
+              <div className="flex items-center gap-1.5 font-mono text-[0.72rem] text-[#6B5B4F]">
+                <Star aria-hidden="true" className="size-3.5 fill-current text-[#836311]" /> Signature: {chain.signatureDrink}
               </div>
             )}
             <div className="font-mono text-[0.72rem] text-[#6B5B4F]">{chain.priceRange}</div>
@@ -137,9 +138,9 @@ function ChainCard({ chain, expanded, onToggle }: { chain: ChainEntry; expanded:
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="font-mono text-[0.72rem] text-[#836311]"
+                className="inline-flex items-center gap-1.5 font-mono text-[0.72rem] text-[#836311]"
               >
-                Visit →
+                Visit <ArrowRight aria-hidden="true" className="size-3.5" />
               </a>
             )}
           </div>

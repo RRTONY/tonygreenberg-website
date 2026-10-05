@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useMemo, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import {
   FlaskConical,
@@ -19,6 +20,9 @@ import {
   Dna,
   type LucideIcon,
 } from "lucide-react";
+
+const HERO_IMAGE =
+  "https://cdn.sanity.io/images/a3q1cyqs/production/3dd72753a22143cd9f344ad47be4a30f209b1c44-1200x509.webp";
 
 // Ported from legacy client/src/pages/PeptideQuiz25.tsx. Real content,
 // unchanged — all 25 questions, all 4 choices with feedback, all 5
@@ -341,10 +345,22 @@ export function PeptideQuiz() {
   return (
     <div>
       {phase === "intro" && (
-        <div className="mx-auto max-w-3xl px-6 py-16 sm:px-10">
+        <div className="mx-auto max-w-3xl px-6 pt-21 pb-16 sm:px-10 sm:pt-26">
+          {/* Live's hero (rescued into Sanity 2026-10-06,
+              scripts/rescue-2026-10-06-quiz25-hero.ts). */}
+          <Image
+            src={HERO_IMAGE}
+            alt="A glowing brain surrounded by question marks"
+            width={1200}
+            height={509}
+            sizes="(min-width: 768px) 672px, 100vw"
+            fetchPriority="high"
+            loading="eager"
+            className="mx-auto mb-11 w-full max-w-168"
+          />
           <div className="mb-10 text-center">
             <p className="mb-4 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">Peptide Truth System</p>
-            <h1 className="mb-4 font-heading text-4xl leading-tight font-bold text-foreground sm:text-5xl">
+            <h1 className="mb-4 font-heading text-[2rem] leading-tight font-bold text-foreground sm:text-5xl">
               How Well Do You Actually
               <br />
               Understand Peptides?

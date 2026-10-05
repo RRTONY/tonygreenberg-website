@@ -8,6 +8,27 @@ const nextConfig: NextConfig = {
   // DNS cutover with no change here. Added 2026-10-01 (Phase 12/14 noindex).
   async headers() {
     return [
+      // Baseline security headers on every page. The CSP is deliberately not a
+      // script allowlist: a strict, XSS-proof CSP needs a per-request nonce,
+      // which makes every page dynamic (no static HTML, no CDN cache; see
+      // node_modules/next/dist/docs/01-app/02-guides/content-security-policy.md),
+      // or Next's experimental SRI. These directives still block plugin
+      // content, clickjacking by other sites and <base> hijacking, with no
+      // effect on static rendering. Added 2026-10-06.
+      // No `upgrade-insecure-requests`: the site is HTTPS-only already (HSTS),
+      // and Safari applied it to http://localhost too, so every stylesheet
+      // and font failed in local testing.
+      {
+        source: "/:path*",
+        headers: [
+          {
+            key: "Content-Security-Policy",
+            value: "object-src 'none'; base-uri 'self'; frame-ancestors 'self'",
+          },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), browsing-topics=()" },
+        ],
+      },
       {
         source: "/:path*",
         has: [{ type: "host", value: "(?<host>.+)\\.netlify\\.app" }],

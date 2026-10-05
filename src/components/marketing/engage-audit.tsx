@@ -3,7 +3,7 @@
 import { useCallback, useState } from "react";
 import Link from "next/link";
 import { toast } from "sonner";
-import { Loader2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, ChevronRight, Circle, Diamond, Loader2 } from "lucide-react";
 
 // Ported from legacy client/src/pages/Engage.tsx ("The Gate"). The
 // qualification quiz — questions, scoring heuristic, and outcome gating —
@@ -198,7 +198,9 @@ export function EngageAudit() {
             }}
             className="mx-auto block rounded-sm border border-brand-gold/30 bg-background px-10 py-3 font-mono text-xs tracking-wide text-foreground uppercase transition-colors hover:border-brand-gold"
           >
-            Begin the Audit →
+            <span className="inline-flex items-center gap-1.5">
+              Begin the Audit <ArrowRight aria-hidden="true" className="size-3.5" />
+            </span>
           </button>
         </div>
       )}
@@ -239,9 +241,9 @@ export function EngageAudit() {
             <button
               onClick={() => currentQ > 0 && setCurrentQ(currentQ - 1)}
               disabled={currentQ === 0}
-              className="font-mono text-xs tracking-wide text-brand-gold uppercase disabled:text-muted-foreground/40"
+              className="inline-flex items-center gap-1.5 font-mono text-xs tracking-wide text-brand-gold uppercase disabled:text-muted-foreground/40"
             >
-              ← Previous
+              <ArrowLeft aria-hidden="true" className="size-3.5" /> Previous
             </button>
 
             {currentQ < QUESTIONS.length - 1 ? (
@@ -253,9 +255,9 @@ export function EngageAudit() {
                   }
                   setCurrentQ(currentQ + 1);
                 }}
-                className="rounded-sm border border-brand-gold/30 bg-background px-8 py-2.5 font-mono text-xs tracking-wide text-foreground uppercase"
+                className="inline-flex items-center gap-1.5 rounded-sm border border-brand-gold/30 bg-background px-8 py-2.5 font-mono text-xs tracking-wide text-foreground uppercase"
               >
-                Next →
+                Next <ArrowRight aria-hidden="true" className="size-3.5" />
               </button>
             ) : (
               <button
@@ -273,8 +275,8 @@ export function EngageAudit() {
 
       {step === "result" && outcome === "qualified" && (
         <div className="mx-auto max-w-2xl px-6 py-16 text-center sm:px-10">
-          <div className="mx-auto mb-6 flex size-16 items-center justify-center rounded-full bg-brand-gold/10 text-2xl text-brand-gold">
-            ✓
+          <div className="mx-auto mb-6 flex size-16 items-center justify-center rounded-full bg-brand-gold/10 text-brand-gold">
+            <Check aria-hidden="true" className="size-7" />
           </div>
           <h2 className="mb-4 font-heading text-3xl font-bold text-foreground">
             You&apos;ve passed The Gate.
@@ -330,9 +332,9 @@ export function EngageAudit() {
               href="https://calendly.com/tonyg/10-minute-1-1"
               target="_blank"
               rel="noopener noreferrer"
-              className="mb-2 block rounded-sm bg-brand-gold px-10 py-3.5 text-center font-mono text-sm tracking-wide text-white uppercase"
+              className="mb-2 flex items-center justify-center gap-1.5 rounded-sm bg-brand-gold px-10 py-3.5 text-center font-mono text-sm tracking-wide text-white uppercase"
             >
-              Book Your Session →
+              Book Your Session <ArrowRight aria-hidden="true" className="size-4" />
             </a>
             <div className="mb-6 text-center font-mono text-xs text-muted-foreground">
               All sessions scheduled via Calendly · Recorded via Fireflies
@@ -355,8 +357,8 @@ export function EngageAudit() {
 
       {step === "result" && outcome === "not-ready" && (
         <div className="mx-auto max-w-2xl px-6 py-16 text-center sm:px-10">
-          <div className="mx-auto mb-6 flex size-16 items-center justify-center rounded-full bg-secondary text-2xl text-muted-foreground">
-            ◇
+          <div className="mx-auto mb-6 flex size-16 items-center justify-center rounded-full bg-secondary text-muted-foreground">
+            <Diamond aria-hidden="true" className="size-7" />
           </div>
           <h2 className="mb-4 font-heading text-3xl font-bold text-foreground">
             Not yet. But close.
@@ -372,31 +374,31 @@ export function EngageAudit() {
               Before You Return
             </div>
             <ul className="m-0 grid list-none gap-2.5 p-0">
-              <li className="pl-4 text-sm text-foreground/70">
-                <span className="-ml-4 mr-1 text-brand-gold">›</span>
+              <li className="flex items-start gap-1.5 text-sm text-foreground/70">
+                <ChevronRight aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-brand-gold" />
                 Define your impact outcomes in measurable terms — numbers, timelines, beneficiaries
               </li>
-              <li className="pl-4 text-sm text-foreground/70">
-                <span className="-ml-4 mr-1 text-brand-gold">›</span>
+              <li className="flex items-start gap-1.5 text-sm text-foreground/70">
+                <ChevronRight aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-brand-gold" />
                 Take one concrete action — build a prototype, run a pilot, commit a budget
               </li>
-              <li className="pl-4 text-sm text-foreground/70">
-                <span className="-ml-4 mr-1 text-brand-gold">›</span>
+              <li className="flex items-start gap-1.5 text-sm text-foreground/70">
+                <ChevronRight aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-brand-gold" />
                 Read the essays that align with your initiative — then reference them specifically
               </li>
             </ul>
           </div>
 
-          <Link href="/" className="border-b border-brand-gold/30 font-mono text-xs tracking-wide text-brand-gold uppercase">
-            Read the Essays →
+          <Link href="/" className="inline-flex items-center gap-1.5 border-b border-brand-gold/30 font-mono text-xs tracking-wide text-brand-gold uppercase">
+            Read the Essays <ArrowRight aria-hidden="true" className="size-3.5" />
           </Link>
         </div>
       )}
 
       {step === "result" && outcome === "wrong-fit" && (
         <div className="mx-auto max-w-2xl px-6 py-16 text-center sm:px-10">
-          <div className="mx-auto mb-6 flex size-16 items-center justify-center rounded-full bg-secondary text-2xl text-muted-foreground">
-            ○
+          <div className="mx-auto mb-6 flex size-16 items-center justify-center rounded-full bg-secondary text-muted-foreground">
+            <Circle aria-hidden="true" className="size-7" />
           </div>
           <h2 className="mb-4 font-heading text-3xl font-bold text-foreground">
             This isn&apos;t the right door.
@@ -434,9 +436,9 @@ export function EngageAudit() {
           </p>
           <a
             href="mailto:tony@impactsoul.is?subject=Re: Engagement Audit — I'd like to make my case"
-            className="border-b border-brand-gold/30 font-mono text-xs tracking-wide text-brand-gold"
+            className="inline-flex items-center gap-1.5 border-b border-brand-gold/30 font-mono text-xs tracking-wide text-brand-gold"
           >
-            Entice Me →
+            Entice Me <ArrowRight aria-hidden="true" className="size-3.5" />
           </a>
         </div>
       )}

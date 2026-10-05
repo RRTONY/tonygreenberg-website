@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { FEATURED_THEMES, THEME_MAP } from "@/lib/content/theme-map";
+import { FEATURED_THEMES } from "@/lib/content/theme-map";
+import { ArrowRight } from "lucide-react";
 
 // Precomposed literal classes, one per theme — see CONTRIBUTING.md's rule on
 // dynamic Tailwind classes. A fragment-assembled `text-[${hex}]` never gets
@@ -11,12 +12,12 @@ const THEME_TEXT_CLASSES: Record<string, string> = {
   "The Crusades": "text-[#B22222]",
 };
 
-// Ported from legacy client/src/pages/Blog.tsx's "Core Themes". Legacy set
-// filter state via onClick + scrolled to the archive; here each card is a
-// plain link to "/?theme=<key>#essays-archive" and HomeArchive (a Client
-// Component) reads the `theme` search param to preset its filter — no
-// cross-component client state needed for what's fundamentally a navigation.
-export function CoreThemes() {
+// Ported from legacy client/src/pages/Blog.tsx's "Core Themes". Legacy set a
+// filter on the archive below; here each card links to the theme's real
+// category page (crawlable, and the count is that category's actual post
+// count, so it matches the archive's category pills). `categoryCounts` is
+// keyed by category slug, computed in app/page.tsx from the posts it fetches.
+export function CoreThemes({ categoryCounts }: { categoryCounts: Record<string, number> }) {
   return (
     <section className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
       <div className="mb-5">
@@ -28,23 +29,25 @@ export function CoreThemes() {
       </div>
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {FEATURED_THEMES.map((theme) => {
-          const count = (THEME_MAP[theme.key] || []).length;
+          const count = categoryCounts[theme.categorySlug] ?? 0;
           return (
             <Link
               key={theme.key}
-              href={`/?theme=${encodeURIComponent(theme.key)}#essays-archive`}
+              href={`/blog/category/${theme.categorySlug}`}
               className="rounded-md border border-border bg-card p-4 transition-shadow hover:shadow-md"
             >
               <theme.icon
+                aria-hidden="true"
                 className={`mb-1.5 size-6 ${THEME_TEXT_CLASSES[theme.key] ?? "text-brand-gold"}`}
                 strokeWidth={1.75}
               />
               <h3 className="mb-1 font-heading text-lg font-bold text-foreground">{theme.key}</h3>
               <p className="mb-1.5 text-sm text-muted-foreground">{theme.description}</p>
               <span
-                className={`font-mono text-xs tracking-wide uppercase ${THEME_TEXT_CLASSES[theme.key] ?? "text-brand-gold"}`}
+                className={`inline-flex items-center gap-1 font-mono text-xs tracking-wide uppercase ${THEME_TEXT_CLASSES[theme.key] ?? "text-brand-gold"}`}
               >
-                {count} ESSAYS →
+                {count} ESSAYS
+                <ArrowRight aria-hidden="true" className="size-3.5" />
               </span>
             </Link>
           );

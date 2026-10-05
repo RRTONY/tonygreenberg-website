@@ -8,10 +8,11 @@ import {
   computeScarcity,
   computeWow,
   computeTier,
-  tierEmoji,
   gradeColor,
 } from "@/lib/intelligence-engine/scoring";
 import { JourneyBar } from "@/components/brewsoul/journey-bar";
+import { TierIcons } from "@/components/brewsoul/coffee-card";
+import { ArrowLeft, ArrowRight, Check, ChevronRight, Trophy, X } from "lucide-react";
 
 // Ported from legacy client/src/pages/brewsoul/BrewSoulDetail.tsx — the
 // per-coffee detail page (breadcrumb, header w/ QPR + tier, quick stats,
@@ -87,22 +88,23 @@ export default async function BrewSoulCoffeeDetailPage({ params }: PageProps<"/b
     <div>
       <div className="mx-auto max-w-3xl px-6 py-12">
         {/* Breadcrumb */}
-        <div className="mb-8 font-mono text-xs text-[#6E6E6E]">
+        <nav aria-label="Breadcrumb" className="mb-8 flex flex-wrap items-center gap-1.5 font-mono text-xs text-[#6E6E6E]">
           <Link href="/brewsoul" className="text-[#6F4E37] underline underline-offset-2">
             BrewSoul
-          </Link>{" "}
-          →{" "}
+          </Link>
+          <ChevronRight aria-hidden="true" className="size-3.5" />
           <Link href="/brewsoul/browse" className="text-[#6F4E37] underline underline-offset-2">
             Browse
-          </Link>{" "}
-          → {coffee.name}
-        </div>
+          </Link>
+          <ChevronRight aria-hidden="true" className="size-3.5" />
+          <span>{coffee.name}</span>
+        </nav>
 
         {/* Header */}
         <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
           <div>
-            <div className="mb-1 font-mono text-xs tracking-[0.2em] text-[#806823] uppercase">
-              {tierEmoji(scores.tier)} Tier {scores.tier}
+            <div className="mb-1 flex items-center gap-1.5 font-mono text-xs tracking-[0.2em] text-[#806823] uppercase">
+              <TierIcons tier={scores.tier} className="size-3.5" /> Tier {scores.tier}
             </div>
             <h1 className="mb-1.5 font-heading text-2xl font-bold text-[#2C1810] sm:text-3xl">{coffee.name}</h1>
             <div className="text-base text-[#6F4E37]">by {coffee.producer}</div>
@@ -211,15 +213,21 @@ export default async function BrewSoulCoffeeDetailPage({ params }: PageProps<"/b
             <div className="rounded-lg bg-[#6F4E37]/3 p-4">
               <div className="mb-1 font-mono text-[0.62rem] tracking-[0.15em] text-[#6E6E6E] uppercase">Mold Test</div>
               <div
-                className={`font-mono text-sm font-bold ${coffee.moldTestStatus === "verified" ? "text-[#436F50]" : coffee.moldTestStatus === "claims" ? "text-[#806823]" : "text-[#6E6E6E]"}`}
+                className={`inline-flex items-center gap-1.5 font-mono text-sm font-bold ${coffee.moldTestStatus === "verified" ? "text-[#436F50]" : coffee.moldTestStatus === "claims" ? "text-[#806823]" : "text-[#6E6E6E]"}`}
               >
-                {coffee.moldTestStatus === "verified"
-                  ? "✓ Verified Clean"
-                  : coffee.moldTestStatus === "claims"
-                    ? "Claims Clean"
-                    : coffee.moldTestStatus === "failed"
-                      ? "✗ Failed"
-                      : "Untested"}
+                {coffee.moldTestStatus === "verified" ? (
+                  <>
+                    <Check aria-hidden="true" className="size-4" /> Verified Clean
+                  </>
+                ) : coffee.moldTestStatus === "claims" ? (
+                  "Claims Clean"
+                ) : coffee.moldTestStatus === "failed" ? (
+                  <>
+                    <X aria-hidden="true" className="size-4" /> Failed
+                  </>
+                ) : (
+                  "Untested"
+                )}
               </div>
               {coffee.moldTestSource && <div className="font-mono text-xs text-[#6E6E6E]">{coffee.moldTestSource}</div>}
             </div>
@@ -239,11 +247,11 @@ export default async function BrewSoulCoffeeDetailPage({ params }: PageProps<"/b
                   rel="noopener noreferrer"
                   className={
                     i === 0
-                      ? "rounded-md bg-linear-to-br from-[#6F4E37] to-[#836311] px-6 py-3 font-mono text-xs tracking-wide text-[#FAFAF7] uppercase"
-                      : "rounded-md border border-[#6F4E37]/20 px-6 py-3 font-mono text-xs tracking-wide text-[#6F4E37] uppercase"
+                      ? "inline-flex items-center gap-1.5 rounded-md bg-linear-to-br from-[#6F4E37] to-[#836311] px-6 py-3 font-mono text-xs tracking-wide text-[#FAFAF7] uppercase"
+                      : "inline-flex items-center gap-1.5 rounded-md border border-[#6F4E37]/20 px-6 py-3 font-mono text-xs tracking-wide text-[#6F4E37] uppercase"
                   }
                 >
-                  {link.label} →
+                  {link.label} <ArrowRight aria-hidden="true" className="size-3.5" />
                 </a>
               ))}
             </div>
@@ -258,8 +266,8 @@ export default async function BrewSoulCoffeeDetailPage({ params }: PageProps<"/b
           <div className="mb-10">
             <h2 className="mb-3 font-heading text-xl font-bold text-[#2C1810]">Competition Wins</h2>
             {coffee.competitionWins.map((w) => (
-              <div key={w} className="py-1.5 text-sm text-[#6B5B4F]">
-                🏆 {w}
+              <div key={w} className="flex items-start gap-2 py-1.5 text-sm text-[#6B5B4F]">
+                <Trophy aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-[#836311]" /> {w}
               </div>
             ))}
           </div>
@@ -280,8 +288,8 @@ export default async function BrewSoulCoffeeDetailPage({ params }: PageProps<"/b
                     className="rounded-lg border border-[#6F4E37]/8 bg-[#6F4E37]/3 p-4 transition-all hover:-translate-y-0.5 hover:border-[#C5A23C]/30"
                   >
                     <div className="mb-1 font-heading text-sm font-bold text-[#2C1810]">{c.name}</div>
-                    <div className="font-mono text-xs text-[#6B5B4F]">
-                      {c.originCountry} · {tierEmoji(tier)} QPR {qpr.toFixed(1)}
+                    <div className="flex flex-wrap items-center gap-1 font-mono text-xs text-[#6B5B4F]">
+                      {c.originCountry} · <TierIcons tier={tier} /> QPR {qpr.toFixed(1)}
                     </div>
                   </Link>
                 );
@@ -292,16 +300,16 @@ export default async function BrewSoulCoffeeDetailPage({ params }: PageProps<"/b
 
         {/* Journey CTAs */}
         <div className="mt-10 flex flex-wrap items-center gap-4 border-t border-[#6F4E37]/8 pt-8">
-          <Link href="/brewsoul/browse" className="inline-flex items-center font-mono text-xs text-[#6F4E37] min-h-11 md:min-h-6">
-            ← Back to catalog
+          <Link href="/brewsoul/browse" className="inline-flex min-h-11 items-center gap-1.5 font-mono text-xs text-[#6F4E37] md:min-h-6">
+            <ArrowLeft aria-hidden="true" className="size-3.5" /> Back to catalog
           </Link>
           <span className="text-[#6F4E37]/20">·</span>
-          <Link href="/brewsoul/quiz" className="inline-flex items-center font-mono text-xs text-[#806823] min-h-11 md:min-h-6">
-            Take the Taste Quiz →
+          <Link href="/brewsoul/quiz" className="inline-flex min-h-11 items-center gap-1.5 font-mono text-xs text-[#806823] md:min-h-6">
+            Take the Taste Quiz <ArrowRight aria-hidden="true" className="size-3.5" />
           </Link>
           <span className="text-[#6F4E37]/20">·</span>
-          <Link href="/brewsoul/compare" className="inline-flex items-center font-mono text-xs text-[#806823] min-h-11 md:min-h-6">
-            Compare Coffees →
+          <Link href="/brewsoul/compare" className="inline-flex min-h-11 items-center gap-1.5 font-mono text-xs text-[#806823] md:min-h-6">
+            Compare Coffees <ArrowRight aria-hidden="true" className="size-3.5" />
           </Link>
         </div>
       </div>

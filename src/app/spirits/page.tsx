@@ -198,10 +198,10 @@ export default function SpiritsPage() {
   return (
     <div>
       <div className="bg-linear-to-b from-background to-secondary px-6 py-24 text-center sm:px-10 dark:from-[#1A0E08] dark:to-background">
-        <p className="mb-4 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
+        <p className="mb-6 font-mono text-xs/[1.85] tracking-[0.2em] text-brand-gold uppercase">
           The Liquid Library
         </p>
-        <h1 className="mx-auto mb-5 max-w-2xl font-heading text-4xl leading-tight font-bold text-foreground sm:text-5xl">
+        <h1 className="mx-auto mb-6 max-w-2xl font-heading text-[clamp(2.5rem,6vw,4rem)]/[1.1] font-bold text-foreground">
           Wine, Sake, Spirits
           <br />
           <span className="text-brand-gold italic">&amp; Mezcal</span>

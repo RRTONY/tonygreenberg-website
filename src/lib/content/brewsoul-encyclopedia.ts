@@ -1,3 +1,4 @@
+import { Citrus, Cookie, Flower2, Leaf, CakeSlice } from "lucide-react";
 import type {
   VarietyEntry,
   ProducerEntry,
@@ -224,11 +225,11 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
     { label: "I don't drink coffee yet", value: "none", tag: "explorer" },
   ]},
   { id: "q2", screen: 2, question: "Pick the flavor world that excites you most", subtext: "Trust your gut.", type: "single", options: [
-    { label: "Bright fruits — berries, citrus, tropical", value: "fruity", emoji: "🍋", tag: "adventurer" },
-    { label: "Chocolate, caramel, nuts", value: "chocolate", emoji: "🍫", tag: "classic" },
-    { label: "Floral, tea-like, delicate", value: "floral", emoji: "🌸", tag: "refined" },
-    { label: "Earthy, herbal, smoky", value: "earthy", emoji: "🌿", tag: "bold" },
-    { label: "Sweet, creamy, dessert-like", value: "sweet", emoji: "", tag: "comfort" },
+    { label: "Bright fruits — berries, citrus, tropical", value: "fruity", icon: Citrus, tag: "adventurer" },
+    { label: "Chocolate, caramel, nuts", value: "chocolate", icon: Cookie, tag: "classic" },
+    { label: "Floral, tea-like, delicate", value: "floral", icon: Flower2, tag: "refined" },
+    { label: "Earthy, herbal, smoky", value: "earthy", icon: Leaf, tag: "bold" },
+    { label: "Sweet, creamy, dessert-like", value: "sweet", icon: CakeSlice, tag: "comfort" },
   ]},
   { id: "q3", screen: 3, question: "How adventurous are you with food?", subtext: "This tells us a lot about your palate.", type: "single", options: [
     { label: "I eat the same 5 meals on rotation", value: "conservative", tag: "classic" },

@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
+import { ArrowRight, ChartColumn, CircleDot, Link2, Sparkle, TriangleAlert, Zap } from "lucide-react";
 import { ThemedBackground } from "@/components/assessments/themed-background";
 import { WhatsNext } from "@/components/assessments/whats-next";
 import { AssessmentRadarChart } from "@/components/assessments/radar-chart";
@@ -183,7 +184,7 @@ export function SoulScoreTool() {
     return (
       <div className="relative z-1 min-h-screen font-sans text-[#2C1810]">
         <ThemedBackground theme="soulscore" />
-        <div className="relative z-1 flex min-h-screen flex-col items-center justify-center px-6 py-16 text-center">
+        <div className="relative z-1 flex min-h-[calc(100svh-3.5rem)] flex-col items-center justify-center px-6 py-8 text-center">
           <p className={`mb-4 ${MONO_LABEL}`}>by ImpactSoul</p>
           <h1 className="mb-4 font-heading text-[clamp(2.5rem,7vw,4.5rem)] leading-[1.05] font-bold">
             Soul<span className={PALETTE.gold.text}>Score</span>
@@ -194,33 +195,34 @@ export function SoulScoreTool() {
             dimensions. Any entity. Real-time.
           </p>
 
-          <div className="mb-10 grid w-full max-w-150 grid-cols-2 gap-4 sm:grid-cols-4">
+          <div className="mb-10 grid w-full max-w-150 grid-cols-2 gap-4 leading-[1.85] sm:grid-cols-3">
             {[
-              { icon: "◉", label: `${DIMENSIONS.length} Dimensions`, desc: "From consciousness to carbon" },
-              { icon: "⚡", label: `${ENTITY_TYPES.length} Entity Types`, desc: "Individual to supply chain" },
-              { icon: "📊", label: "Real-Time Score", desc: "Instant S to F grading" },
-              { icon: "🔗", label: `${SUPPLY_TIERS.length}-Tier Depth`, desc: "Full supply chain mapping" },
+              { icon: CircleDot, label: `${DIMENSIONS.length} Dimensions`, desc: "From consciousness to carbon" },
+              { icon: Zap, label: `${ENTITY_TYPES.length} Entity Types`, desc: "Individual to supply chain" },
+              { icon: ChartColumn, label: "Real-Time Score", desc: "Instant S to F grading" },
+              { icon: Link2, label: `${SUPPLY_TIERS.length}-Tier Depth`, desc: "Full supply chain mapping" },
             ].map((item) => (
-              <div key={item.label} className="rounded-xl border border-[#D4B96A]/20 bg-white/70 p-4 text-center backdrop-blur-sm">
-                <div className="mb-2 text-2xl">{item.icon}</div>
+              <div key={item.label} className="rounded-xl border border-[#D4B96A]/20 bg-white/70 px-4 py-5 text-center backdrop-blur-sm">
+                <item.icon aria-hidden="true" className="mx-auto mb-2 size-6 text-[#836311]" strokeWidth={1.75} />
                 <div className={`mb-1 font-mono text-[0.7rem] tracking-[0.1em] font-bold ${PALETTE.gold.text}`}>{item.label}</div>
                 <div className="text-[0.8rem] text-[#7A6A52]">{item.desc}</div>
               </div>
             ))}
           </div>
 
-          <p className="mb-6 font-mono text-[0.7rem] tracking-[0.15em] text-[#9A8A6A]">
+          <p className="mb-6 font-mono text-[0.7rem]/[1.85] tracking-[0.15em] text-[#9A8A6A]">
             Interactive · ~3 minutes · No account required
           </p>
 
           <button
             onClick={() => setPhase("tool")}
-            className="rounded-lg bg-linear-to-br from-[#836311] to-[#D4B96A] px-14 py-4 font-mono text-sm font-bold tracking-[0.2em] text-[#FAFAF7] uppercase shadow-[0_4px_20px_rgba(139,105,20,0.3)] transition-transform hover:-translate-y-0.5"
+            className="inline-flex items-center gap-2 rounded-lg bg-linear-to-br from-[#836311] to-[#D4B96A] px-12 py-4 font-mono text-sm font-bold tracking-[0.2em] text-[#FAFAF7] uppercase shadow-[0_4px_20px_rgba(139,105,20,0.3)] transition-transform hover:-translate-y-0.5"
           >
-            Launch SoulScore →
+            Launch SoulScore
+            <ArrowRight aria-hidden="true" className="size-4" />
           </button>
 
-          <p className="mt-6 max-w-100 text-[0.75rem] leading-relaxed text-[#9A8A6A]">
+          <p className="mt-6 max-w-100 text-[0.75rem] leading-relaxed text-[#7A6A52]">
             Built from 50+ meeting transcripts, 100+ research conversations, and 25 years of Fortune 500 impact
             advisory.
           </p>
@@ -369,11 +371,11 @@ function MeasureTab({
           <button
             key={e.id}
             onClick={() => setEntityType(e.id)}
-            className={`rounded-md border px-3 py-1.5 font-mono text-[0.65rem] transition-colors ${
+            className={`inline-flex items-center gap-1.5 rounded-md border px-3 py-1.5 font-mono text-[0.65rem] transition-colors ${
               entityType === e.id ? `${PALETTE.gold.border} ${PALETTE.gold.bgSoft} ${PALETTE.gold.text}` : "border-[#E8E4DC] bg-white text-[#666]"
             }`}
           >
-            {e.icon} {e.label}
+            <e.icon aria-hidden="true" className="size-4 shrink-0" /> {e.label}
           </button>
         ))}
         <input
@@ -440,7 +442,7 @@ function MeasureTab({
             <div key={d.id} className="mb-4">
               <div className="mb-1 flex items-baseline justify-between">
                 <span className="text-[0.85rem] font-semibold text-[#0A0A10]">
-                  {d.icon} {d.label}
+                  <d.icon aria-hidden="true" className="inline size-4 align-[-0.15em]" /> {d.label}
                 </span>
                 <span className={`font-mono text-[0.75rem] font-bold ${c.text}`}>
                   <AnimNum value={scores[i]} decimals={0} />
@@ -469,11 +471,11 @@ function MeasureTab({
         <div className={`mb-3 ${MONO_LABEL}`}>Auto-Diagnosis</div>
         {diagnosis.weak.length > 0 && (
           <div className="mb-3">
-            <div className={`mb-1.5 font-mono text-[0.65rem] font-bold ${PALETTE.red.text}`}>⚠ BELOW THRESHOLD</div>
+            <div className={`mb-1.5 font-mono text-[0.65rem] font-bold ${PALETTE.red.text} inline-flex items-center gap-1.5`}><TriangleAlert aria-hidden="true" className="size-3.5" /> BELOW THRESHOLD</div>
             {diagnosis.weak.map((w) => (
               <div key={w.dim.id} className={`mb-1 flex justify-between rounded-sm ${PALETTE.red.bgSoft} px-2 py-1.5 text-[0.8rem]`}>
                 <span>
-                  {w.dim.icon} {w.dim.label}
+                  <w.dim.icon aria-hidden="true" className="inline size-4 align-[-0.15em]" /> {w.dim.label}
                 </span>
                 <span className={`font-mono font-bold ${PALETTE.red.text}`}>{w.val.toFixed(0)}</span>
               </div>
@@ -482,11 +484,11 @@ function MeasureTab({
         )}
         {diagnosis.strong.length > 0 && (
           <div>
-            <div className={`mb-1.5 font-mono text-[0.65rem] font-bold ${PALETTE.green.text}`}>✦ STRENGTHS</div>
+            <div className={`mb-1.5 font-mono text-[0.65rem] font-bold ${PALETTE.green.text} inline-flex items-center gap-1.5`}><Sparkle aria-hidden="true" className="size-3.5" /> STRENGTHS</div>
             {diagnosis.strong.map((s) => (
               <div key={s.dim.id} className={`mb-1 flex justify-between rounded-sm ${PALETTE.green.bgSoft} px-2 py-1.5 text-[0.8rem]`}>
                 <span>
-                  {s.dim.icon} {s.dim.label}
+                  <s.dim.icon aria-hidden="true" className="inline size-4 align-[-0.15em]" /> {s.dim.label}
                 </span>
                 <span className={`font-mono font-bold ${PALETTE.green.text}`}>{s.val.toFixed(0)}</span>
               </div>
@@ -521,7 +523,7 @@ function BenchmarkTab({ scores, entityName }: { scores: number[]; entityName: st
         {DIMENSIONS.length}-axis measurement eliminates single-dimension gaming.
       </div>
 
-      <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
+      <div className="relative overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
         <table className="w-full min-w-225 border-collapse font-mono text-[0.6rem]">
           <thead>
             <tr className="border-b-2 border-[#0A0A10]">
@@ -853,7 +855,7 @@ function GigTab() {
                 className={`border-l-4 ${c.borderL} ${c.bgSoft} px-4 py-3 ${i < GIG_LAYERS.length - 1 ? "border-b border-[#E8E4DC]" : ""}`}
               >
                 <div className="text-[0.9rem] font-bold text-[#0A0A10]">
-                  {l.icon} {l.name}
+                  <l.icon aria-hidden="true" className="inline size-4 align-[-0.15em]" /> {l.name}
                 </div>
                 <div className="mt-0.5 text-[0.8rem] text-[#666]">{l.desc}</div>
               </div>

@@ -17,6 +17,8 @@ export const metadata: Metadata = {
     description:
       "Score consciousness, not just carbon. An interactive 12-dimension impact measurement engine by ImpactSoul — any entity, real-time.",
     url: "/soulscore",
+    type: "website",
+    siteName: "Tony Greenberg",
   },
 };
 

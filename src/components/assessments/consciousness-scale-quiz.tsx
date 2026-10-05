@@ -389,7 +389,7 @@ export function ConsciousnessScaleQuiz() {
 
         {currentQuestion === 0 && (
           <div className="relative isolate h-[60vh] overflow-hidden bg-[#0A0A10]">
-            <Image src={HERO_IMG} alt="" fill priority sizes="100vw" className="-z-20 object-cover object-[center_30%] brightness-45" />
+            <Image src={HERO_IMG} alt="" fill fetchPriority="high" loading="eager" sizes="100vw" className="-z-20 object-cover object-[center_30%] brightness-45" />
             {/* Legacy faded straight to the page color behind the copy, which left
                 the small paragraph unreadable; darkened behind the text instead,
                 with only a thin fade into the page at the bottom edge. */}

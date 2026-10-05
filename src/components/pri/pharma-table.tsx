@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { ArrowDown } from "lucide-react";
 import { PHARMA_ALTERNATIVES } from "@/lib/content/pri-mescaline-module";
 
 // Ported from legacy's `PharmaTable` — the real 16-row pharma-to-plant
@@ -12,7 +13,7 @@ export function PharmaTable() {
 
   return (
     <div>
-      <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
+      <div className="relative overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
         <table className="w-full min-w-200 border-collapse">
           <thead>
             <tr>
@@ -56,8 +57,9 @@ export function PharmaTable() {
       </div>
       {!expanded && PHARMA_ALTERNATIVES.length > 8 && (
         <div className="mt-4 text-center">
-          <button onClick={() => setExpanded(true)} className="inline-flex items-center border-[1.5px] border-pri-ink px-6 py-2.5 text-[.78rem] font-bold text-pri-ink min-h-11 md:min-h-6">
-            Show All {PHARMA_ALTERNATIVES.length} Medications ↓
+          <button onClick={() => setExpanded(true)} className="inline-flex items-center gap-1.5 border-[1.5px] border-pri-ink px-6 py-2.5 text-[.78rem] font-bold text-pri-ink min-h-11 md:min-h-6">
+            Show All {PHARMA_ALTERNATIVES.length} Medications
+            <ArrowDown aria-hidden="true" className="size-3.5" />
           </button>
         </div>
       )}

@@ -83,7 +83,7 @@ export function PriceTrackerTable({ prices }: { prices: PriceEntry[] }) {
             ))}
           </div>
 
-          <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
+          <div className="relative overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b-2 border-border text-left">
