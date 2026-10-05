@@ -86,6 +86,7 @@ const STATIC_ROUTES = [
   "/find-your-style",
   "/find-your-therapy",
   "/framework",
+  "/friend-gate",
   "/grant-study",
   "/humanos",
   "/humanos/connect",

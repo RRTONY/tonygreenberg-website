@@ -49,6 +49,8 @@ how to handle a request is in [`TASK_GUIDE.md`](TASK_GUIDE.md). Last checked 202
 | Search | `src/components/search-modal.tsx` (header pop-up), `src/components/search/site-search.tsx` (`/search` page, filter chips), `src/lib/search-engine.ts`, `src/app/api/search/` (`?all=1` adds coffees and charities) |
 | JSON-LD | `src/lib/structured-data.ts` |
 | Post dates (one formatter, fixed time zone) | `src/lib/format-post-date.ts` |
+| Member accounts (Supabase Auth, email + password) | `src/app/(auth)/` (login, signup, forgot/reset password, `actions.ts`), `src/app/auth/callback/`, `src/lib/auth.ts` (`getUser`, `requireUser`, `isAdmin` via `ADMIN_EMAILS`) |
+| Member features (Supabase tables in `supabase/migrations/0001_member_features.sql`) | `/my-highlights` (+ `components/blog/highlight-save-button.tsx`), `/my-impact` (`lib/referrals.ts`), `/clock-keeper-part-2`, `/post-intervention`, `/friend-gate` + `/friend-survey/[token]` (`lib/friend-gate.ts`, email via `lib/email.ts` / Resend), `/pri-research` (admin; `lib/pri-research.ts`), password-gated essays (`lib/gated-posts.ts`) |
 | Theme (light/dark via `.dark` class) | `src/components/theme-provider.tsx`, tokens in `src/app/globals.css` |
 | Redirects | `next.config.ts` `redirects()` |
 

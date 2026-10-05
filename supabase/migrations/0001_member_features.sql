@@ -104,6 +104,7 @@ create table if not exists public.friend_gate_slots (
   survey_token text not null unique,
   otp_hash text,
   otp_expires_at timestamptz,
+  otp_attempts integer not null default 0,
   verified boolean not null default false,
   verified_at timestamptz,
   survey_response jsonb,
