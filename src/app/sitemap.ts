@@ -58,6 +58,7 @@ const STATIC_ROUTES = [
   "/brewsoul/wall-of-shame",
   "/charity-scorecard",
   "/clients",
+  "/clock-keeper-part-2",
   "/community",
   "/consciousness-scale",
   "/dharma-finder",
