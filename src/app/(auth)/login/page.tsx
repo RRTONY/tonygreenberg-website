@@ -1,27 +1,43 @@
 import type { Metadata } from "next";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import Link from "next/link";
+import { AuthCard } from "../auth-card";
 import { LoginForm } from "./login-form";
+import { safeNext } from "@/lib/auth";
 
 export const metadata: Metadata = {
-  title: "Login",
+  title: "Sign in",
   robots: { index: false, follow: false },
+  alternates: { canonical: "/login" },
 };
 
-// Internal approver login (Supabase Auth) — gates the publish-approval
-// dashboard, not a public-facing feature. See NEXTJS-MIGRATION-TODO.md,
-// Phase 2 / Phase 11.
-export default function LoginPage() {
+// Member sign-in (Supabase Auth, email + password): saved highlights,
+// invites, and the members-only pages.
+export default async function LoginPage({ searchParams }: PageProps<"/login">) {
+  const params = await searchParams;
+  const next = safeNext(params?.next);
+  const linkError = params?.error === "link";
+
   return (
-    <div className="flex min-h-[70vh] items-center justify-center px-4">
-      <Card className="w-full max-w-sm">
-        <CardHeader>
-          <CardTitle className="font-heading">Sign in</CardTitle>
-          <CardDescription>Internal access for approvers only.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <LoginForm />
-        </CardContent>
-      </Card>
-    </div>
+    <AuthCard
+      title="Sign in"
+      description="Your saved highlights, invites and member pages."
+      footer={
+        <>
+          <Link href={`/signup?next=${encodeURIComponent(next)}`} className="text-brand-gold underline underline-offset-4">
+            New here? Create an account
+          </Link>
+          <Link href="/forgot-password" className="underline underline-offset-4">
+            Forgot your password?
+          </Link>
+        </>
+      }
+    >
+      {linkError && (
+        <p role="alert" className="mb-4 text-sm text-destructive">
+          That link has expired or was already used. Sign in, or request a new one.
+        </p>
+      )}
+      <LoginForm next={next} />
+    </AuthCard>
   );
 }
