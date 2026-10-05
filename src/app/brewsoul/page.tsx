@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { BrewSoulWelcomeQuiz } from "@/components/brewsoul/brewsoul-welcome-quiz";
+import { BrewSoulWelcomeQuiz } from "@/components/brewsoul/brewsoul-welcome-quiz/brewsoul-welcome-quiz";
 
 // Ported from legacy client/src/pages/brewsoul/BrewSoulWelcome.tsx — the
 // entry gate for the whole BrewSoul sub-site (Phase 6). See

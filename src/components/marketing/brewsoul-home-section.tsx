@@ -62,14 +62,14 @@ export function BrewSoulHomeSection() {
       />
 
       <div className="mx-auto max-w-4xl">
-        <p className="mb-8 font-mono text-[0.7rem] tracking-[0.3em] text-[#C4841D]/70 uppercase">The Intelligence Engine</p>
+        <p className="mb-8 font-mono text-[0.7rem] tracking-[0.3em] text-[#C4841D] uppercase">The Intelligence Engine</p>
         <h2 className="font-heading text-6xl leading-none text-[#F5EDE0]/95 sm:text-7xl">BrewSoul</h2>
         <p className="mx-auto mt-6 max-w-2xl text-base leading-[1.75] text-[#F5EDE0]/55 sm:text-lg">
           Coffee is the most consumed psychoactive substance on earth, yet most people have no idea what they&apos;re
           actually drinking. BrewSoul is an intelligence engine that objectively scores every coffee and chain on value,
           sourcing ethics, and experience — then matches you to your identity through what you drink.
         </p>
-        <p className="mt-5 font-mono text-xs tracking-wide text-[#D4B96A]/60">
+        <p className="mt-5 font-mono text-xs tracking-wide text-[#D4B96A]/80">
           Take the quiz. Browse the scores. Find your soul.
         </p>
 
@@ -110,7 +110,7 @@ export function BrewSoulHomeSection() {
           </Link>
         </div>
 
-        <p className="mt-14 text-sm text-[#F5EDE0]/25 italic">
+        <p className="mt-14 text-sm text-[#F5EDE0]/60 italic">
           &ldquo;The cup doesn&apos;t lie. It just waits for you to listen.&rdquo;
         </p>
       </div>

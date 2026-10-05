@@ -114,6 +114,9 @@ incidents: [`docs/ai/`](docs/ai/README.md).
     an `inline-flex items-center gap-1.5` element, never a typed `→`, `←`, `⟶` or `»` in new UI.
     The owner asked for this (2026-10-06). Arrows inside Tony's copy (essay text, data strings) are
     content: leave them unless asked.
+    **Same for emoji:** no emoji as UI icons (option buttons, cards, badges, labels, nav). Use a
+    lucide-react icon (`aria-hidden="true"` when text sits next to it), and store the icon
+    component in data files (`icon: Coffee`, typed `LucideIcon`), not an emoji string.
 19. **A multi-step flow (quiz, wizard, multi-page form) is a step registry, not one component of
     `{step === X && (...)}` blocks.** Same shape as FydoPartner's sign-in flow
     (`src/screens/auth/singIn/`), adapted here. Reference: `src/components/brewsoul/brewsoul-quiz/`.

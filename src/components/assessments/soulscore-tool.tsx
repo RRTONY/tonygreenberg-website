@@ -222,7 +222,7 @@ export function SoulScoreTool() {
             <ArrowRight aria-hidden="true" className="size-4" />
           </button>
 
-          <p className="mt-6 max-w-100 text-[0.75rem] leading-relaxed text-[#9A8A6A]">
+          <p className="mt-6 max-w-100 text-[0.75rem] leading-relaxed text-[#7A6A52]">
             Built from 50+ meeting transcripts, 100+ research conversations, and 25 years of Fortune 500 impact
             advisory.
           </p>
