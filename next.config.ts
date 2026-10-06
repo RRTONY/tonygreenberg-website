@@ -67,21 +67,10 @@ const nextConfig: NextConfig = {
         destination: "https://flow.tonygreenberg.com",
         permanent: true,
       },
-      // /supplier-intake and /supplier-intake-long/:token were real lead
-      // capture forms backed by a tRPC vendor-onboarding flow
-      // (submitStage1/submitStage2, token-gated file uploads) that no
-      // longer exists — the Manus backend it ran on is fully dead. 5
-      // already-ported pages ("Become a Supply Partner") link to
-      // /supplier-intake, so leaving it 404 breaks real, live CTAs.
-      // BioChainCTA already established the real replacement: RampRate's
-      // own live supplier intake at ramprate.com/biochain (confirmed
-      // reachable) — redirecting here instead of rebuilding a form whose
-      // only working backend doesn't exist anymore.
-      {
-        source: "/supplier-intake",
-        destination: "https://ramprate.com/biochain/supplier-intake",
-        permanent: true,
-      },
+      // /supplier-intake is a real page again (2026-10-07, matching live's
+      // Stage 1 form; it posts to the same Google Apps Script intake as
+      // RampRate's own form). Legacy's token-gated Stage 2 pages and the old
+      // "vendor-intake" names still go to RampRate's live intake.
       {
         source: "/supplier-intake-long/:token",
         destination: "https://ramprate.com/biochain/supplier-intake",

@@ -134,7 +134,7 @@ export function SiteSearch({ initialQuery, emptyStateLine }: { initialQuery: str
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search everything..."
                 autoFocus
-                className="h-11 w-full rounded-lg border border-border bg-[#FBFAF6] pr-10 pl-10 text-sm text-foreground outline-none focus:border-brand-gold-light focus-visible:ring-2 focus-visible:ring-brand-gold-light/40 [&::-webkit-search-cancel-button]:hidden"
+                className="h-11 w-full rounded-lg border border-border bg-[#FBFAF6] pr-10 pl-10 text-sm text-foreground outline-none focus:border-brand-gold-light [&::-webkit-search-cancel-button]:hidden"
               />
               {query && (
                 <button

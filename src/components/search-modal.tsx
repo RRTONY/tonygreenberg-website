@@ -225,7 +225,7 @@ export function SearchModal({
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Search everything — pages, essays, content..."
-            className="flex-1 border-none bg-transparent text-base text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring placeholder:text-muted-foreground"
+            className="flex-1 border-none bg-transparent text-base text-foreground outline-none focus-visible:outline-none placeholder:text-muted-foreground"
           />
           {isPostsLoading && <Loader2 className="size-4 shrink-0 animate-spin text-muted-foreground" />}
         </div>

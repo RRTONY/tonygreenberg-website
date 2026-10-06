@@ -182,11 +182,11 @@ export function TheIndexExplorer({ items }: { items: IndexItem[] }) {
             {filtering ? `${results.length} ${results.length === 1 ? "RESULT" : "RESULTS"}` : "RECENTLY ADDED TO THE INDEX"}
             {bodyPending && <Loader2 aria-label="Searching full text" className="size-3.5 animate-spin" />}
           </p>
-          <ul className="grid gap-3">
+          <ul className="grid grid-cols-1 gap-3">
             {results.map((item) => {
               const open = item.id === openId;
               return (
-                <li key={item.id}>
+                <li key={item.id} className="min-w-0">
                   <button
                     type="button"
                     aria-expanded={open}
@@ -275,7 +275,7 @@ function IndexTldr({ item, reads }: { item: IndexItem; reads: IndexNextRead[] | 
         {reads === null ? (
           <Loader2 aria-label="Loading next reads" className="size-4 animate-spin text-muted-foreground" />
         ) : (
-          <ul className="grid gap-1.5">
+          <ul className="grid grid-cols-1 gap-1.5">
             {reads.map((r) => (
               <li key={r.id}>
                 <IndexLink href={r.href} external={r.external} className="font-serif text-[#33243F] underline underline-offset-[3px] dark:text-brand-gold-light">

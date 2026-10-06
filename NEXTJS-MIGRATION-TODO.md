@@ -13,28 +13,37 @@
 - UI: Tailwind CSS v4 + shadcn/ui (Radix base) — same design-system convention the team already uses elsewhere. `next/image` for all images. No framer-motion — CSS transitions / `tailwindcss-animate` only.
 
 
-## Current status — 2026-10-06
+## Current status — 2026-10-07
 
-> Update this block at the end of each working session. Checkbox counts are from this file.
+> Update this block at the end of each working session. Checkbox counts are from this file. The team's
+> spreadsheet copy (`Migration-Status-Report.xlsx`) is regenerated from it by
+> `scripts/build-migration-status-report.py`.
 
-**Overall:** 265 items done, 24 open. Phases 0, 1, 3, 5, 6, 7, 8 and 9 are complete. **Nothing from
-this rebuild is live on tonygreenberg.com yet.** Everything through 2026-10-02 is on `main` (PR #3)
-and the Netlify copy; today's work is on branch `audit-lighthouse-2026-10-06` (pushed, pull request
-not opened yet, its GitHub check passing). Most of what's open needs a setting or account outside the
-code (Supabase script, Resend, Netlify env vars), a decision, new artwork, or the launch steps.
+**Overall:** 278 items done, 25 open. Phases 0, 1, 3, 5, 6, 7, 8 and 9 are complete. **Nothing from
+this rebuild is live on tonygreenberg.com yet** (it still serves the old app until DNS cutover);
+`main` deploys to the Netlify copy. Most of what's open needs a setting or account outside the code
+(Supabase scripts, Resend), a decision, new artwork, or the launch steps.
 
 | Phase | Done | Open | Note |
 | --- | --- | --- | --- |
-| 2 Supabase | 8 | 2 | Member accounts + all member features built (2026-10-06); **run the database script** and set up Resend for email |
+| 2 Supabase | 8 | 2 | **Run the 2 database scripts** (0001 member features, 0002 essay comments/reactions) and set up Resend for email |
 | 4 Marketing | 63 | 1 | Only `/shop` + payment pages left (Stripe, on hold by owner's choice) |
-| 5 Blog | 19 | 0 | Done; `you-are-the-moat` password gate needs `GATED_POST_PASSWORD` in Netlify |
-| 7 PRI/Kava | 21 | 0 | Done; `/pri-research` built (admins via `ADMIN_EMAILS`) |
-| 11 MCP server | 15 | 3 | MCP env vars in Netlify, real publish/undo test, Lighthouse key, team `.mcp.json` |
-| 12 SEO & cutover | 19 | 8 | Audit, Lighthouse, spacing and live redesigns done 2026-10-06; left: decisions (fonts, blog hero, SEO copy), link re-check, Lighthouse on the preview, Search Console at cutover |
-| 13 Images | 16 | 3 | Logo, 92 blog heroes, quiz result backgrounds (need new art) |
-| 14 QA & launch | 0 | 7 | Chrome + Safari (WebKit) checks clean 2026-10-06; left: real iPhone, sign-off, noindex check, DNS cutover |
+| 5 Blog | 26 | 0 | Done: live's essay design, Contents sidebar, comments and reactions, essay extras in Sanity |
+| 11 MCP server | 15 | 3 | Netlify vars already set; left: connect Claude.ai for real, publish/undo test, Lighthouse key, team `.mcp.json` |
+| 12 SEO & cutover | 25 | 9 | 2026-10-07: page sweep vs live, `/the-index`, `/the-mirror`, style and fonts like live; left: redesign group 2, decisions, link re-check, Lighthouse on the preview, Search Console at cutover |
+| 13 Images | 16 | 3 | Logo, ~92 unique blog heroes (live uses the same default art), quiz result backgrounds (need new art) |
+| 14 QA & launch | 0 | 7 | Crawl of all 497 pages clean 2026-10-07; left: real iPhone, sign-off, noindex check, DNS cutover |
 
-**Done this session (2026-10-06), branch `audit-lighthouse-2026-10-06`:**
+**Done this session (2026-10-07):**
+- **Blog posts match live** on every essay: hero with the title over it, live's fonts, the sticky Contents sidebar that highlights the section you're reading, pull quote, GemSpark card, Discourse comments, reactions, Rate this thinking, Ask Tony, The Mirror, Previous/Next, "The thread continues", Micro-commitment, and the "Original post / Updated for today" switch (102 essays). See Phase 5.
+- **Blog content and images now in Sanity:** every post's extra blocks (152 documents), live's default hero art, the 2 live-only essays, 102 updated versions, videos, Elixir product photos, peptide page images; the 31 pending drafts published (44 tables back). Owner chose "publish directly".
+- **Every page compared with live (188 pages) and fixed:** `/the-index` rebuilt, `/the-mirror` intro, `/essays`, `/about`, `/impact-futurism`, `/supplier-intake` (real form again), `/assessments`, "Keep going" strip on every page, `/alex-azzi` locked like live, redirects for `/seven-doors`, `/projects`, the akbar post.
+- **Style like live:** title fonts per section (Kava Fraunces, HumanOS Space Grotesk, peptide tools system serif...), dark bands and narrow column on /invest, /amplifier, /community, /framework, /the-letter, /engage, /diamond-cut, /ecosystem, /living-declaration and the homepage band; search box focus ring removed (owner asked).
+- **Checks:** type check, lint and production build pass; fresh server; crawl of all 497 sitemap pages in Chrome: no JS errors, no sideways scroll (fixed one on `/the-index`), no broken requests; blog Contents highlight and clicks tested in a browser.
+- **Netlify:** `GATED_POST_PASSWORD` added (the MCP and Supabase settings were already there).
+- **Spreadsheet:** `Migration-Status-Report.xlsx` rebuilt from this file (formulas, same layout).
+
+**Previous session (2026-10-06), branch `audit-lighthouse-2026-10-06`:**
 - **SEO audit + Mohammad's pack, technical items:** Core Themes link to real category pages with matching counts; Four Doors and "DIAGNOSE · ENGAGE" are real links; one fixed-zone post date everywhere; title no longer repeated in post bodies; card heading levels; BlogPosting + breadcrumb data; full OG/Twitter tags; hero alt text; 1200x630 share image; thin categories noindexed; "More in <category>" links. Copy changes left for Tony (Phase 12).
 - **Lighthouse:** accessibility 100 on every page checked. Hero images load first on 21 pages, image sizes fixed, ~115 KB of Sanity code no longer sent to browsers, hydration errors fixed, `/blog` static again.
 - **Spacing and live's redesigns:** 20 pages within 8px of live; `/soulscore`, `/grant-study`, `/dharma-finder`, `/quiz_25q` (hero rescued into Sanity), `/self-portrait`, `/search` now match live. Found and fixed: `/grant-study`'s answers couldn't be clicked (themed background covered them), the email gate scrolled sideways on all 17 assessments.
@@ -84,31 +93,27 @@ post (121) with the new site, text and images, on a production build.
   never sent anything, and Manus-hosted links.
 
 **Waiting on a decision (owner or team):**
-1. **Setup only someone with access can do:** run `supabase/migrations/0001_member_features.sql` in Supabase and add the auth redirect URLs; create a Resend account and verify the sending domain (DNS); in Netlify set `GATED_POST_PASSWORD`, `ADMIN_EMAILS`, `RESEND_API_KEY`, `EMAIL_FROM` and the Supabase keys. Details in Phase 2.
-2. Open the pull request for `audit-lighthouse-2026-10-06` to get the Netlify preview, then review and merge.
-3. SEO copy from the audit and Mohammad's pack (Phase 12): post title length, homepage title/description/keywords, slugs, "Six lenses", short answer + FAQ, heading rewrites, health disclaimer, author box, newsletter block, claim sources, Case File legal review, ABIT disclosures, one contact email, merging thin categories, "Further Reading" shown twice.
-4. Live's blog post design (title over a full-width hero, script font) and live's new story-page font (Cormorant Garamond, red labels). See Phase 12.
-5. `/post-intervention` says results "go to tony@tonygreenberg.com": email them to Tony once Resend is set up?
-6. `/self-portrait`: live counts 27 experiences, our catalog has 13. Have new assessments been added on live?
-7. Typed arrows inside Tony's own copy (about 340 in 125 files): switch the button/link ones to icons too?
-8. Import the 2 live-only essays missing from Sanity: `the-tollbooth-and-the-alternative`, `what-quest-could-fix` (their heroes are already in Sanity).
-9. `/protecting-your-business`: live has much more detail about the named person (new sections, demands, a submission form, a name keyword list). Not copied yet because it's an accusation page.
-10. `/impact-dashboard`: title and description now match live (SEO copy, needs a yes).
-11. Live disagrees with itself: "One hundred charities" vs the 98 in our data (`/charity-scorecard`); ABIT launch "Q1 2027" on most pages but "Q3 2026" on live's `/amplifier`; "103 coffees" vs 107 in the data.
-12. `/the-open-door` shows Tony@joyandwoe.com again, as live does. Still current?
-13. Two coffee notes (Equator, Olympia) still say "B Corp"; live dropped that claim from both chains' strengths.
-14. Use the rescued photo on `/alex-azzi` (a real person on an accusation page).
-15. Keep or drop the hardcoded "117 pageviews" traffic box in Recent Updates.
-16. Delete the `manus/production-restoration-2026-09-10` branch (reviewed; nothing left to bring over).
-17. Owner content items listed in `docs/ai/project_production_restoration_branch.md` (clinician quotes, testimonials, B Corp and token claims, legacy URL redirects).
-18. Publish the Sanity drafts in Studio after a look: 17 from before (4 with restored in-body images, 14 with link/cleanup fixes), plus 2026-10-01's: 18 posts with restored tables, 5 essays updated to live's text (Blood/DNA also has its new hero).
-19. Two dead links with no obvious target: `/framework`'s "Ask FauxTony" button and the Dr. Lee case-file link in `when-healing-becomes-extraction` (the Clock Keeper Part II link works now).
-20. The "Updated for Today" AI-rewrite toggle live shows on posts: not ported (live defaults to the original text).
-21. `/blog/akbar-cuisine-restoration-economics` redirects to `/akbar` on live. Do the same here?
-22. `/the-stack` (live, marked "Private review draft", not in live's sitemap): port it once it's final?
-23. The shop and payment pages: on hold until there's a Stripe account and a product list.
+1. **Setup only someone with access can do:** run `supabase/migrations/0001_member_features.sql` then `0002_blog_engagement.sql` in Supabase and add the auth redirect URLs; create a Resend account and verify the sending domain (DNS), then set `RESEND_API_KEY` and `EMAIL_FROM` in Netlify; add `ADMIN_EMAILS` in Netlify. Until then comments, reactions, Ask Tony and member features show "isn't available just now". Details in Phase 2.
+2. SEO copy from the audit and Mohammad's pack (Phase 12): post title length, homepage title/description/keywords, slugs, "Six lenses", short answer + FAQ, heading rewrites, health disclaimer, author box, newsletter block, claim sources, Case File legal review, ABIT disclosures, one contact email, merging thin categories, "Further Reading" shown twice.
+3. `/post-intervention` says results "go to tony@tonygreenberg.com": email them to Tony once Resend is set up?
+4. `/self-portrait`: live counts 27 experiences, our catalog has 13. Have new assessments been added on live?
+5. Typed arrows inside Tony's own copy (about 340 in 125 files): switch the button/link ones to icons too?
+6. `/protecting-your-business`: live has much more about the named person (new sections, demands, a form, a name keyword list). Owner said keep ours for now (2026-10-07); needs Tony/legal.
+7. `/impact-dashboard`: title and description now match live (SEO copy, needs a yes).
+8. Live disagrees with itself: "One hundred charities" vs the 98 in our data (`/charity-scorecard`); ABIT launch "Q1 2027" on most pages but "Q3 2026" on live's `/amplifier`; "103 coffees" vs 107 in the data.
+9. `/the-open-door` shows Tony@joyandwoe.com again, as live does. Still current?
+10. Two coffee notes (Equator, Olympia) still say "B Corp"; live dropped that claim from both chains' strengths.
+11. Keep or drop the hardcoded "117 pageviews" traffic box in Recent Updates.
+12. Delete the `manus/production-restoration-2026-09-10` branch (reviewed; nothing left to bring over).
+13. Owner content items listed in `docs/ai/project_production_restoration_branch.md` (clinician quotes, testimonials, B Corp and token claims, legacy URL redirects).
+14. Two dead links with no obvious target: `/framework`'s "Ask FauxTony" button and the Dr. Lee case-file link in `when-healing-becomes-extraction`.
+15. `/the-stack` (live, marked "Private review draft", not in live's sitemap): port it once it's final?
+16. The shop and payment pages: on hold until there's a Stripe account and a product list.
+17. The Mirror results still list 4 partner sites on `*.manus.space` (intimacy assessment, sacred waters, mezcal, regen health); 2 of them 404. Keep, replace or drop?
+18. `/blog`: live shows the homepage there; ours is a separate essay archive. Keep ours?
+19. The Tollbooth essay's 5 in-body pictures are broken on live too; new art needed (`BLOG-IMAGE-BRIEFS.md`).
 
-**Next up (no decision needed):** once the setup in item 1 is done, test a real sign-up, highlight, invite, Clock Keeper/post-intervention save and a friend-gate email end to end; re-run Lighthouse and the link check on the preview; look into the 82 sitemap warnings Search Console reports.
+**Next up (no decision needed):** finish live's redesign group 2 and the BrewSoul photo (Phase 12 open item); once the setup in item 1 is done, test a real comment, reaction, sign-up, highlight, invite, Clock Keeper/post-intervention save and a friend-gate email end to end; re-run Lighthouse and the link check on the Netlify copy; look into the 82 sitemap warnings Search Console reports.
 
 ---
 
@@ -485,6 +490,8 @@ Earlier, already-superseded plan for this phase (admin dashboard + approval work
 - [x] **Live's title fonts and sizes (2026-10-07, "fix the style"):** measured every page's title font, weight, size and label colour on live vs ours (136 pages). Now like live: Kava headings in Fraunces, HumanOS in Space Grotesk, the peptide tools / charity scorecard / thesis threads in the system serif, America Unbundled in the Iowan Old Style stack at live's size, /akbar in Fraunces 900, friend-gate and post-intervention in Georgia, and live's title sizes on peptide-matrix, peptide-supply-chain, rip-peptide-sciences and the HumanOS pages. Fonts load only on the pages that use them (`src/lib/fonts/page-fonts.ts`). Label colours stay the darker AA-contrast versions where live's lighter ones fail on a light background.
 - [x] **Peptide page images rescued into Sanity and wired (2026-10-07):** /peptide-watch hero plus its 11 section banners, /peptide-matrix and /peptide-supply-chain heroes, the /peptide-hall-of-shame hero (`scripts/rescue-2026-10-07-peptide-images.ts`, logged in `docs/ai/manus-media-rescue.md`).
 - [x] **Live's editorial redesign, first group (2026-10-07):** dark top sections, narrow single text column, short red section rules and dark call-to-action bands on /invest, /amplifier, /community (now "Sign In to Join the Community", linking our real sign-in; live's made-up counters left out), /framework, /the-letter (daily provocation with "Share this thought" and "Search past provocations"), /engage, /diamond-cut, /ecosystem and the homepage's "The thinking doesn't stop here" band. Kept on purpose: AA-contrast colours where live's fail, "Enter the Gate" instead of live's $5,000 checkout on /diamond-cut.
+
+- [ ] **Live's redesign, second group (started 2026-10-07, cut off by the usage limit):** `/living-declaration` is done (dark bands, Cormorant title; all of live's text checked present). Still to match live: `/the-web`, `/spirits`, `/iboga-ibogaine` (title weight 800), `/find-your-journey` (64px title, red label), `/impact-dashboard` (64px title), red labels on `/published` and `/speaking`, label colours on `/recent-creations` and `/soulscore`, `/pri-calibration` (title weight 900), `/quiz_25q`; `/pri-efficacy`'s "Simulation / Live Calibrations" switch (counts from the `pri_calibrations` table); live's BrewSoul photo (already in Sanity: `1c8cf85c…-1200x670.webp`) on the BrewSoul hero, first-sip, guest and browse pages; the page re-check of `/clients`, `/humanos/connect`, `/peptide-hall-of-shame` (its hero is rescued, not wired) and the blend-builder / biodynamic pages.
 
 ## Phase 13 — Images Needed in Sanity
 
