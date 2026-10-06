@@ -40,7 +40,7 @@ export default function VerifyYourCoaPage() {
           <p className="mb-5 font-mono text-xs tracking-[0.25em] text-[#D3512E] uppercase">
             COA Verification Guide
           </p>
-          <h1 className="mb-5 font-heading text-4xl leading-tight font-bold sm:text-5xl">
+          <h1 className="mb-5 font-serif text-4xl leading-tight font-bold sm:text-5xl">
             A COA Is Only As Good As the Lab
             <br />
             <span className="text-[#C84B2A]">That Wrote It.</span>
@@ -56,7 +56,7 @@ export default function VerifyYourCoaPage() {
 
       <section className="px-6 py-16">
         <div className="mx-auto max-w-2xl">
-          <h2 className="mb-3 font-heading text-2xl font-bold text-foreground sm:text-3xl">
+          <h2 className="mb-3 font-serif text-2xl font-bold text-foreground sm:text-3xl">
             The 7-Point COA Checklist
           </h2>
           <p className="mb-8 text-sm text-muted-foreground">
@@ -68,7 +68,7 @@ export default function VerifyYourCoaPage() {
 
       <section className="bg-card px-6 py-16">
         <div className="mx-auto max-w-2xl">
-          <h2 className="mb-6 font-heading text-2xl font-bold text-foreground">
+          <h2 className="mb-6 font-serif text-2xl font-bold text-foreground">
             The Two-Minute Check
           </h2>
           <p className="mb-5 text-foreground/80">If a vendor says they use Janoshik:</p>

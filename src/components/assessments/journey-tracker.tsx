@@ -4,7 +4,7 @@ import { useCallback, useMemo, useState, useSyncExternalStore } from "react";
 import { ArrowUpRight, ChevronDown, ChevronUp } from "lucide-react";
 
 // Ported from legacy client/src/components/JourneyTracker.tsx — a
-// universal progress tracker across all 25 real "Find Your X" experiences
+// universal progress tracker across every real "Find Your X" experience
 // in the ecosystem, shown on assessment results pages. Real experience
 // list, categories, and localStorage-based completion tracking unchanged
 // — including the 6 external sibling sites (Mezcal/Tequila/water/
@@ -208,7 +208,7 @@ export function JourneyTracker({
               ? "More than halfway. The mirrors are getting clearer."
               : stats.pct > 0
                 ? "The journey has begun. Keep going."
-                : "25 experiences. One complete picture of you."}
+                : `${stats.total} experiences. One complete picture of you.`}
         </p>
       </div>
 

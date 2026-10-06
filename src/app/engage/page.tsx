@@ -13,19 +13,19 @@ export const metadata: Metadata = {
 export default function EngagePage() {
   return (
     <div>
-      <div className="bg-linear-to-br from-background to-secondary px-6 py-16 text-center sm:px-10 dark:from-[#0A0A10] dark:via-[#111118] dark:to-[#1a1a24]">
-        <p className="mb-[1.2rem] font-mono text-xs/[1.8] tracking-[0.25em] text-brand-gold uppercase">
+      <section className="bg-linear-135 from-[#0A0A10] via-[#111118] to-[#1A1A24] px-6 pt-16 pb-12 text-center sm:px-10">
+        <p className="mb-[1.2rem] font-mono text-[0.72rem]/[1.85] tracking-[0.25em] text-brand-gold-light uppercase">
           The Gate
         </p>
-        <h1 className="mx-auto mb-4 max-w-2xl font-heading text-[2rem]/[1.2] font-bold text-foreground sm:text-[3.2rem]/[1.2]">
+        <h1 className="mx-auto mb-4 max-w-[43.75rem] font-heading text-[2rem]/[1.2] font-bold text-[#F5F0E0] sm:text-[3.2rem]/[1.2]">
           Not everyone gets a meeting.
         </h1>
-        <p className="mx-auto max-w-lg text-lg text-foreground/70">
+        <p className="mx-auto max-w-[35rem] text-[1.1rem]/[1.7] text-[#F5F0E0]/65">
           Seven out of ten inquiries don&apos;t qualify. This isn&apos;t gatekeeping — it&apos;s
           respect for your time and mine. If your initiative is real, your outcomes are clear,
           and you&apos;ve already started — we should talk.
         </p>
-      </div>
+      </section>
 
       <EngageAudit />
     </div>

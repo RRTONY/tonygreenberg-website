@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { urlFor } from "@/lib/sanity/image";
-import { DEFAULT_OG_IMAGE } from "@/lib/content/default-image";
+import { DEFAULT_ESSAY_HERO } from "@/lib/content/default-image";
 import { formatPostDate } from "@/lib/format-post-date";
 
 type PostCardData = {
@@ -54,7 +54,7 @@ export function PostCard({
           />
         ) : (
           <Image
-            src={DEFAULT_OG_IMAGE}
+            src={DEFAULT_ESSAY_HERO.src}
             alt=""
             fill
             sizes="(max-width: 768px) 100vw, 400px"

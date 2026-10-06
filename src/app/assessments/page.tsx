@@ -1,21 +1,23 @@
 import type { Metadata } from "next";
-import { ArrowDown, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { ThemedBackground } from "@/components/assessments/themed-background";
 import { JourneyTracker } from "@/components/assessments/journey-tracker";
 import { ASSESSMENTS } from "@/lib/content/assessments-hub";
 
-// Ported from legacy client/src/pages/Assessments.tsx. See
-// `lib/content/assessments-hub.ts` for the full port note on the three
-// real instruments. All three now have real routes (`/dharma-finder`,
-// `/consciousness-scale`, `/grant-study`), so every card links directly —
-// this page is a pure preview/hub with no quiz or results step of its own,
-// so no `EmailGate`/`AssessmentResultActions` here (each linked assessment
-// handles its own). `JourneyTracker` is reused unchanged, same real
-// per-browser progress data used everywhere else in this migration.
-// Legacy's footer claimed "Results saved for your return" — dropped for
-// an honest line since results still aren't cross-instrument-saved
-// anywhere but the per-browser `tg_assessment_results` cookie.
+// Ported from legacy client/src/pages/Assessments.tsx and matched to the live
+// tonygreenberg.com/assessments page (2026-10-07). See
+// `lib/content/assessments-hub.ts` for the port note on the three real
+// instruments. All three have real routes (`/dharma-finder`,
+// `/consciousness-scale`, `/grant-study`; live's `/assessments/<slug>` links
+// redirect there), so every card links directly. This page is a pure hub with
+// no quiz or results step of its own, so no `EmailGate`/`AssessmentResultActions`
+// here (each linked assessment handles its own). `JourneyTracker` is reused
+// unchanged. Live's "Keep going" block is the site-wide WhereNext component,
+// ported separately in the layout, not here.
+//
+// Two deliberate differences from live: the cards stack on phones (live keeps
+// three columns at 375px and the text overflows), and the footer line uses
+// `text-muted-foreground` instead of live's #aaa, which fails AA contrast.
 export const metadata: Metadata = {
   title: "Self-Assessment Tools",
   description: "Three research-backed instruments — Dharma Finder, Consciousness Scale, and the Grant Study Assessment — mapping purpose, consciousness, and life satisfaction.",
@@ -23,14 +25,14 @@ export const metadata: Metadata = {
 };
 
 export default function AssessmentsPage() {
-  return (
-    <div className="relative z-1 min-h-screen">
-      <ThemedBackground theme="journey" />
+  const first = ASSESSMENTS[0];
 
-      <div className="relative z-1 bg-[#0A0A10] pt-[clamp(7.5rem,12vw,10rem)] pb-[clamp(4rem,6vw,6rem)]">
+  return (
+    <div className="min-h-screen bg-background">
+      <div className="bg-[#0A0A10] pt-[clamp(7.5rem,12vw,10rem)] pb-[clamp(4rem,6vw,6rem)]">
         <div className="mx-auto max-w-300 px-8">
-          <div className="mb-4 font-mono text-xs tracking-[0.2em] text-brand-gold-light uppercase">Know Thyself</div>
-          <h1 className="mb-6 font-heading text-[clamp(2.5rem,5vw,3.5rem)] leading-[1.15] font-normal text-background">
+          <div className="mb-6 font-mono text-[0.78rem] tracking-[0.35em] text-[#8E1E25] uppercase">Know Thyself</div>
+          <h1 className="mb-6 font-heading text-[clamp(2.5rem,5vw,3.5rem)] leading-[1.15] font-normal text-[#FAFAF7]">
             Three Maps.
             <br />
             <span className="text-brand-gold-light">One Journey.</span>
@@ -40,61 +42,54 @@ export default function AssessmentsPage() {
             Each takes 15–20 minutes. Together, they create a portrait of where you are — and where you&apos;re being called.
           </p>
           <div className="mt-12">
-            <a
-              href="#instruments"
+            <Link
+              href={`/${first.slug}`}
               className="inline-flex items-center gap-2 bg-linear-to-br from-brand-gold to-brand-gold-light px-10 py-4 font-mono text-[0.85rem] tracking-[0.15em] text-white uppercase transition-opacity hover:opacity-90"
             >
-              See the Instruments
-              <ArrowDown aria-hidden="true" className="size-4" />
-            </a>
+              Begin Your First Assessment
+              <ArrowRight aria-hidden="true" className="size-4" />
+            </Link>
           </div>
         </div>
       </div>
 
-      <div id="instruments" className="relative z-1 mx-auto max-w-300 px-8 py-[clamp(4rem,6vw,6rem)]">
+      <div className="mx-auto max-w-300 px-8 py-[clamp(4rem,6vw,6rem)]">
         <div className="flex flex-col gap-6">
           {ASSESSMENTS.map((a) => (
             <Link
               key={a.slug}
               href={`/${a.slug}`}
-              className="grid grid-cols-1 items-center gap-6 border border-border bg-background p-8 transition-colors hover:border-brand-gold/40 sm:grid-cols-[auto_1fr_auto] sm:gap-8 sm:p-10"
+              className={`group grid grid-cols-1 items-center gap-6 border border-[#e5e0d5] bg-card px-8 py-10 transition-all duration-300 hover:translate-x-1 sm:grid-cols-[auto_1fr_auto] sm:gap-8 dark:border-border ${a.cardHover}`}
             >
-              <div className="flex size-16 items-center justify-center rounded-sm border" style={{ color: a.accent, borderColor: `${a.accent}33` }}>
-                <a.icon aria-hidden="true" className="size-8" />
+              <div className={`flex size-16 items-center justify-center rounded-xs border ${a.iconBox}`}>
+                <a.icon aria-hidden="true" strokeWidth={1.25} className="size-8" />
               </div>
               <div>
-                <p className="mb-2 font-mono text-xs tracking-[0.2em] uppercase" style={{ color: a.accent }}>
-                  {a.subtitle}
-                </p>
-                <h2 className="mb-3 font-heading text-xl font-normal text-foreground">{a.title}</h2>
+                <p className={`mb-2 font-mono text-[0.72rem] tracking-[0.2em] uppercase ${a.accentText}`}>{a.subtitle}</p>
+                <h2 className="mb-3 font-heading text-[1.4rem] font-normal text-foreground">{a.title}</h2>
                 <p className="max-w-170 text-[1.05rem] leading-[1.7] text-muted-foreground">{a.description}</p>
               </div>
-              <div className="flex flex-row items-center gap-3 sm:flex-col sm:items-end sm:text-right">
-                <p className="font-mono text-xs tracking-widest text-muted-foreground">{a.time}</p>
-                <span className="inline-flex items-center gap-1 rounded-full bg-brand-gold/10 px-2.5 py-1 font-mono text-[0.6rem] tracking-widest text-brand-gold uppercase">Begin<ArrowRight aria-hidden="true" className="size-3" /></span>
+              <div className="flex flex-row items-center gap-4 sm:min-w-25 sm:flex-col sm:items-end sm:gap-3 sm:text-right">
+                <p className="font-mono text-[0.72rem] tracking-widest text-muted-foreground">{a.time}</p>
+                <span className={`inline-flex items-center gap-1.5 font-mono text-[0.85rem] font-semibold ${a.accentText}`}>
+                  Begin
+                  <ArrowRight aria-hidden="true" className="size-3.5" />
+                </span>
               </div>
             </Link>
           ))}
         </div>
-
-        <p className="mt-10 text-center text-sm text-muted-foreground">
-          Looking for something else?{" "}
-          <Link href="/find-my" className="text-brand-gold underline underline-offset-4">
-            Browse the full assessment directory
-            <ArrowRight aria-hidden="true" className="ml-1 inline size-4 align-text-bottom" />
-          </Link>
-        </p>
       </div>
 
-      <div className="relative z-1 mx-auto max-w-300 px-8 pt-[clamp(2rem,4vw,4rem)] pb-[clamp(4rem,6vw,6rem)]">
+      <div className="mx-auto max-w-300 px-8 pt-[clamp(2rem,4vw,4rem)] pb-[clamp(4rem,6vw,6rem)]">
         <div className="mx-auto max-w-215">
           <JourneyTracker variant="light" />
         </div>
       </div>
 
-      <div className="relative z-1 border-t border-b border-border">
+      <div className="border-t border-b border-[#e5e0d5] dark:border-border">
         <div className="mx-auto max-w-300 px-8 py-[clamp(4rem,6vw,6rem)]">
-          <p className="mb-6 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">Why These Three</p>
+          <p className="mb-6 font-mono text-[0.72rem] tracking-[0.2em] text-brand-gold uppercase">Why These Three</p>
           <p className="max-w-170 text-[1.05rem] leading-[1.8] text-foreground/80">
             I&apos;ve spent twenty-five years in rooms where people are trying to figure out what matters. What I&apos;ve learned: you need three
             coordinates to locate yourself. <strong>Purpose</strong> tells you what you&apos;re here to do (Schmachtenberger).{" "}
@@ -104,8 +99,10 @@ export default function AssessmentsPage() {
         </div>
       </div>
 
-      <div className="relative z-1 px-8 py-[clamp(2rem,4vw,3rem)] text-center">
-        <p className="font-mono text-[0.7rem] tracking-widest text-muted-foreground">Curated by Tony Greenberg</p>
+      <div className="px-8 py-[clamp(2rem,4vw,3rem)] text-center">
+        <p className="font-mono text-[0.7rem] tracking-widest text-muted-foreground">
+          All assessments are free · Results saved for your return · Curated by Tony Greenberg
+        </p>
       </div>
     </div>
   );

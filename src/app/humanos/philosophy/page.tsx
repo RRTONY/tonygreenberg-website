@@ -101,7 +101,7 @@ export default function HumanosPhilosophy() {
           <EyebrowLabel className="mb-3 font-mono text-xs tracking-[0.2em] text-violet-600 uppercase">
             The Maximizer Trap
           </EyebrowLabel>
-          <h2 className="mb-6 font-heading text-3xl leading-tight font-bold text-neutral-900 sm:text-4xl">
+          <h2 className="mb-6 font-heading text-[clamp(1.6rem,3.5vw,2.4rem)] leading-[1.15] font-bold text-neutral-900">
             The Maximizer Trap
           </h2>
           <p className="mb-4 text-lg leading-relaxed text-neutral-700">
@@ -131,7 +131,7 @@ export default function HumanosPhilosophy() {
         <EyebrowLabel className="mb-3 font-mono text-xs tracking-[0.2em] text-emerald-700 uppercase">
           The Conscious Satisficer
         </EyebrowLabel>
-        <h2 className="mb-6 font-heading text-3xl leading-tight font-bold text-neutral-900 sm:text-4xl">
+        <h2 className="mb-6 font-heading text-[clamp(1.6rem,3.5vw,2.4rem)] leading-[1.15] font-bold text-neutral-900">
           The Conscious Satisficer
         </h2>
         <p className="mb-4 text-lg leading-relaxed text-neutral-700">
@@ -171,7 +171,7 @@ export default function HumanosPhilosophy() {
           <EyebrowLabel className="mb-3 font-mono text-xs tracking-[0.2em] text-violet-600 uppercase">
             The Shift
           </EyebrowLabel>
-          <h2 className="mb-6 font-heading text-3xl leading-tight font-bold text-neutral-900 sm:text-4xl">
+          <h2 className="mb-6 font-heading text-[clamp(1.6rem,3.5vw,2.4rem)] leading-[1.15] font-bold text-neutral-900">
             The Shift
           </h2>
           <p className="mb-8 text-lg leading-relaxed text-neutral-700">

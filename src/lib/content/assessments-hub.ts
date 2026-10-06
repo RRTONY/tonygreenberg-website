@@ -11,7 +11,7 @@
 // `/grant-study` — no `/assessments/` prefix, see each page's own port
 // note) now exist elsewhere in this migration; `slug` below links each
 // card directly.
-import { Compass, Heart, Triangle, type LucideIcon } from "lucide-react";
+import { CircleDot, Heart, Triangle, type LucideIcon } from "lucide-react";
 
 export interface AssessmentPreview {
   slug: string;
@@ -20,7 +20,12 @@ export interface AssessmentPreview {
   description: string;
   time: string;
   icon: LucideIcon;
-  accent: string;
+  /** Each instrument's accent color (legacy #8B6914 / #6B4C8A / #2E8B57,
+   *  darkened where needed for AA contrast) as full literal Tailwind classes,
+   *  so Tailwind's scanner generates them. Never assemble these from parts. */
+  accentText: string;
+  iconBox: string;
+  cardHover: string;
 }
 
 export const ASSESSMENTS: AssessmentPreview[] = [
@@ -31,8 +36,10 @@ export const ASSESSMENTS: AssessmentPreview[] = [
     description:
       "Twenty-five questions distilled from Schmachtenberger's Dharma Inquiry — a framework for discovering your unique purpose, the intersection of your gifts and the world's needs. Not what you should do. What you can't not do.",
     time: "15–20 min",
-    icon: Compass,
-    accent: "#836311",
+    icon: CircleDot,
+    accentText: "text-[#836311]",
+    iconBox: "border-[#836311]/20 text-[#836311]",
+    cardHover: "hover:border-[#836311] hover:shadow-[0_4px_20px_rgba(131,99,17,0.08)]",
   },
   {
     slug: "consciousness-scale",
@@ -42,7 +49,9 @@ export const ASSESSMENTS: AssessmentPreview[] = [
       "Where do you currently sit on the spectrum from Shame to Enlightenment? Twenty-five questions that map your dominant energy field across Hawkins' calibrated levels. Not a judgment — a compass.",
     time: "15–20 min",
     icon: Triangle,
-    accent: "#6B4C8A",
+    accentText: "text-[#6B4C8A]",
+    iconBox: "border-[#6B4C8A]/20 text-[#6B4C8A]",
+    cardHover: "hover:border-[#6B4C8A] hover:shadow-[0_4px_20px_rgba(107,76,138,0.08)]",
   },
   {
     slug: "grant-study",
@@ -52,6 +61,8 @@ export const ASSESSMENTS: AssessmentPreview[] = [
       "The longest study of human happiness ever conducted. Five factors predict lifelong wellbeing: relationships, adaptive coping, generativity, career satisfaction, and physical vitality. This assessment maps where you stand on each.",
     time: "15–20 min",
     icon: Heart,
-    accent: "#287A4C",
+    accentText: "text-[#287A4C]",
+    iconBox: "border-[#287A4C]/20 text-[#287A4C]",
+    cardHover: "hover:border-[#287A4C] hover:shadow-[0_4px_20px_rgba(40,122,76,0.08)]",
   },
 ];

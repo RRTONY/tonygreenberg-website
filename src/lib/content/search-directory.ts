@@ -17,10 +17,8 @@ import type { PageItem } from "@/lib/search-engine";
  *   `/assessments/*` (an old path this app now only 308-redirects from) —
  *   repointed to the real canonical top-level routes `/dharma-finder`,
  *   `/consciousness-scale`, `/grant-study`.
- * - The Index: `/the-index` isn't a real route (never was, in this app) —
- *   repointed to `/search`, the exact same fix already made twice elsewhere
- *   in this migration (`app/series/page.tsx`, `find-your-me`) for the
- *   identical dead legacy link.
+ * - The Index: was repointed to `/search` while `/the-index` didn't exist;
+ *   back on `/the-index` since that page was built (2026-10-07).
  * - The 5 pre-consolidation Attention Theft sub-pages (Economics, AI Blocker
  *   Finder, Legal Database, The 10 Weapons, Report A Spammer) were never
  *   resurrected as separate routes in this migration (Phase 8: "consolidated
@@ -74,7 +72,7 @@ export const SEARCH_DIRECTORY: PageItem[] = [
   { title: "Journeys", href: "/journeys", description: "Travel, psychedelic experiences, and consciousness exploration", tags: ["journeys", "travel", "psychedelic", "consciousness"] },
   { title: "Built by Tony G", href: "/recent-creations", description: "Things Tony has built recently", tags: ["built", "creations", "portfolio", "projects", "tony g"] },
   { title: "Intel", href: "/intel", description: "Deep dives into portfolio companies and competitive landscapes", tags: ["intel", "research", "analysis", "companies"] },
-  { title: "The Index", href: "/search", description: "Every page, every section, every door — the complete map", tags: ["index", "sitemap", "all pages", "directory"] },
+  { title: "The Index", href: "/the-index", description: "Every page, every section, every door — the complete map", tags: ["index", "sitemap", "all pages", "directory"] },
   { title: "Ecosystem", href: "/ecosystem", description: "Join the ecosystem — from Spark to Builder to Amplifier", tags: ["ecosystem", "join", "subscribe", "community"] },
   { title: "Published", href: "/published", description: "Books, articles, and published works", tags: ["published", "books", "articles", "writing"] },
   { title: "The Rolodex", href: "/clients", description: "25 years of clients — Microsoft, Disney, Goldman Sachs, Nike", tags: ["clients", "rolodex", "companies", "customers"] },

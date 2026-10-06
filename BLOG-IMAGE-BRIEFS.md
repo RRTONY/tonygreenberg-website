@@ -113,3 +113,15 @@ Generated from `client/src/data/blogData.json`. Each post below was migrated int
 | [ ] | `wheres-my-flying-car-and-an-efficient-it-market` | Where’s My Flying Car … and an Efficient IT Market? | Systems & Innovation | Editorial hero image for an essay titled "Where’s My Flying Car … and an Efficient IT Market?" (category: Systems & Innovation). Themes: IT industry, innovation, complacency, market efficiency. Sophisticated, minimal, photographic or fine-art editorial illustration style — no text, no logos, no watermarks. 1200x630, landscape. |
 | [ ] | `drbronners-to-pressurecookers-simplify-your-life` | Simplify your life - Dr. Bronner’s to Pressure Cookers | Living Well | Editorial hero image for an essay titled "Simplify your life - Dr. Bronner’s to Pressure Cookers" (category: Living Well). Themes: simple living, minimalism, conscious consumerism, multi-purpose products. Sophisticated, minimal, photographic or fine-art editorial illustration style — no text, no logos, no watermarks. 1200x630, landscape. |
 | [x] | `heart-protocol-addendum` | The Heart Protocol — Pharmacological Addendum | Psychedelic Medicine | Editorial hero image for an essay titled "The Heart Protocol — Pharmacological Addendum" (category: Psychedelic Medicine). Themes: heart protocol, cardiac health, biomarkers, preventive cardiology. Sophisticated, minimal, photographic or fine-art editorial illustration style — no text, no logos, no watermarks. 1200x630, landscape. |
+
+## In-body images still needed (added 2026-10-07)
+
+`the-tollbooth-and-the-alternative` (imported from live 2026-10-07): live's body shows 5 pictures, but all 5 are broken there too (the old image proxy serves a dark placeholder with unreadable text), so none were imported. Live's alt texts describe what each should show; insert each in the essay body in Studio once made.
+
+| Done | Where in the essay | Suggested prompt (from live's alt text) |
+| --- | --- | --- |
+| [ ] | Section 1.1 "The tollbooth" | Editorial illustration of a tollbooth operator collecting coins from rowboats while superyachts pass freely through, representing unequal access to payment rails. No text. 1200x675. |
+| [ ] | De-risking / unwritten rules section | Isometric illustration of a person lost in a maze of filing cabinets with a single red door, representing opaque de-risking decisions with no appeal. No text. 1200x675. |
+| [ ] | The unbanked section | World map made of human figures connecting to a single empty chair, representing the 1.3 billion adults excluded from the formal financial system. No text. 1200x675. |
+| [ ] | Programmable money / stablecoins section | Illustration of a hand configuring dials on a circuit-covered dial pad, representing the programmable design choices behind a stablecoin. No text. 1200x675. |
+| [ ] | The alternative / open rails section | Split illustration: a traveler blocked by a winding road of tollbooth barriers on one side, two people meeting freely in an open green space on the other. No text. 1200x675. |

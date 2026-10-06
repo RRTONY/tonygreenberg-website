@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 import { PeptideWatchFraudPatterns } from "@/components/marketing/peptide-watch-fraud-patterns";
@@ -25,9 +26,9 @@ import {
 // independent testing, the proposed PeptideWatch Foundation, whistleblower
 // reporting channels, and the closing "trust chain of custody" argument.
 //
-// The legacy per-section hero images (CloudFront-hosted) all confirmed 403,
-// same dead host as every other peptide page — dropped for plain section
-// styling. The legacy page's own <footer> was dropped as a duplicate of the
+// The hero background and the 11 section banners are live's own art,
+// rescued from the old Manus host into Sanity on 2026-10-07
+// (scripts/rescue-2026-10-07-peptide-images.ts). The legacy page's own <footer> was dropped as a duplicate of the
 // site's global SiteFooter (rendered once in layout.tsx).
 export const metadata: Metadata = {
   title: "PeptideWatch — The Definitive Consumer Safety Guide",
@@ -52,6 +53,23 @@ const MARKET_CLASSES: Record<string, string> = {
   terracotta: "border-[#C84B2A] bg-[#C84B2A]/5",
 };
 
+const BANNER_SHADOW = {
+  gold: "shadow-[0_8px_40px_rgba(139,105,20,0.12)]",
+  red: "shadow-[0_8px_40px_rgba(200,75,42,0.15)]",
+  blue: "shadow-[0_8px_40px_rgba(42,90,160,0.12)]",
+} as const;
+
+// Live's section banner: a rounded image strip that fades into the page at
+// the bottom (legacy PeptideWatch.tsx).
+function SectionBanner({ src, alt, shadow = "gold" }: { src: string; alt: string; shadow?: keyof typeof BANNER_SHADOW }) {
+  return (
+    <div className={`relative mb-8 h-48 overflow-hidden rounded-2xl md:h-64 ${BANNER_SHADOW[shadow]}`}>
+      <Image src={src} alt={alt} fill sizes="(min-width: 896px) 848px, 100vw" className="object-cover brightness-85 contrast-110" />
+      <div className="absolute inset-0 bg-linear-to-t from-background via-transparent to-transparent" />
+    </div>
+  );
+}
+
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
     <span className="mb-3 block font-mono text-xs font-bold tracking-[0.2em] text-brand-gold uppercase">
@@ -68,9 +86,20 @@ export default function PeptideWatchPage() {
         down March 6, 2026. The gray-market era is ending.
       </div>
 
-      <section className="bg-[#0A0A10] px-6 py-20 text-center">
-        <div className="mx-auto max-w-4xl">
-          <p className="mb-5 font-mono text-xs font-bold tracking-[0.25em] text-[#D3512E] uppercase">
+      <section className="relative overflow-hidden bg-[#0A0A10] px-6 py-20 text-center">
+        <div className="absolute inset-0 opacity-40">
+          <Image
+            src="https://cdn.sanity.io/images/a3q1cyqs/production/a285315b1cc22eaea951b0ac97011d8f9ed75228-1200x669.webp"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover brightness-50 contrast-120"
+          />
+        </div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_50%,rgba(184,106,40,0.15)_0%,transparent_60%),radial-gradient(ellipse_at_70%_30%,rgba(42,90,160,0.1)_0%,transparent_60%)]" />
+        <div className="relative z-10 mx-auto max-w-4xl">
+          <p className="mb-5 text-xs font-bold tracking-[0.25em] text-[#D3512E] uppercase">
             The Definitive Supply Chain Safety Guide
           </p>
           <h1 className="mb-6 font-heading text-4xl leading-tight font-black text-white md:text-6xl">
@@ -118,6 +147,7 @@ export default function PeptideWatchPage() {
 
       <div className="mx-auto max-w-4xl px-6 py-16">
         <section className="mb-20">
+          <SectionBanner src="https://cdn.sanity.io/images/a3q1cyqs/production/a4afb163c3058b3de0efc67dc8d7ada0b5914e1e-1200x669.webp" alt="Three syringes, one clear, one gold and one black, among shards of glass" />
           <SectionLabel>The Landscape</SectionLabel>
           <h2 className="mb-4 font-heading text-3xl font-black text-foreground md:text-4xl">
             Three Markets, One Syringe
@@ -140,6 +170,7 @@ export default function PeptideWatchPage() {
         </section>
 
         <section className="mb-20">
+          <SectionBanner src="https://cdn.sanity.io/images/a3q1cyqs/production/f19965a128b15aabc8e5aabdb5484cfdccd37870-1200x669.webp" alt="A glass hourglass running red sand over stacks of cash" />
           <SectionLabel>The Record</SectionLabel>
           <h2 className="mb-4 font-heading text-3xl font-black text-foreground md:text-4xl">
             Enforcement Timeline: 2024–2026
@@ -162,6 +193,7 @@ export default function PeptideWatchPage() {
         </section>
 
         <section className="mb-20">
+          <SectionBanner src="https://cdn.sanity.io/images/a3q1cyqs/production/f899bfb2cb10629c2d10368620614f1d09015b31-1200x669.webp" alt="A wall of framed mugshots crossed with evidence tape" shadow="red" />
           <SectionLabel>Documented Enforcement</SectionLabel>
           <h2 className="mb-4 font-heading text-3xl font-black text-foreground md:text-4xl">
             The Wall of Shame
@@ -214,6 +246,7 @@ export default function PeptideWatchPage() {
         </section>
 
         <section className="mb-20">
+          <SectionBanner src="https://cdn.sanity.io/images/a3q1cyqs/production/3a4faa4f51390e877672f9c33e7e266b23d6a003-1200x669.webp" alt="A ring of twelve glowing medallions around a single watching eye" />
           <SectionLabel>The Playbook</SectionLabel>
           <h2 className="mb-4 font-heading text-3xl font-black text-foreground md:text-4xl">
             12 Recurring Fraud Patterns
@@ -226,6 +259,7 @@ export default function PeptideWatchPage() {
         </section>
 
         <section className="mb-20">
+          <SectionBanner src="https://cdn.sanity.io/images/a3q1cyqs/production/b130b4de7cc7e67968a67284052852a904732b36-1200x669.webp" alt="Hands reaching toward a glowing vial over a sacred-geometry table" />
           <SectionLabel>Your Role, Your Checklist</SectionLabel>
           <h2 className="mb-4 font-heading text-3xl font-black text-foreground md:text-4xl">
             Pick Your Checklist
@@ -238,6 +272,7 @@ export default function PeptideWatchPage() {
         </section>
 
         <section className="mb-20">
+          <SectionBanner src="https://cdn.sanity.io/images/a3q1cyqs/production/794fca42cbfb4a11db5638a1d09b0f0deff98a54-1200x669.webp" alt="Glass scales weighing a bottle marked fraud against a bottle marked trust" />
           <SectionLabel>Your Hard-Core Checklist</SectionLabel>
           <h2 className="mb-4 font-heading text-3xl font-black text-foreground md:text-4xl">
             The 10-Question Supply Chain Test
@@ -269,6 +304,7 @@ export default function PeptideWatchPage() {
         </section>
 
         <section className="mb-20">
+          <SectionBanner src="https://cdn.sanity.io/images/a3q1cyqs/production/6c24979910de3dce5c605e384fb1434f2f3d707c-1200x669.webp" alt="A beam of light from a carved box across ten glowing scorecard markers" />
           <SectionLabel>Scoring System</SectionLabel>
           <h2 className="mb-4 font-heading text-3xl font-black text-foreground md:text-4xl">
             The Vendor Scorecard: 10 Categories, 50 Points
@@ -280,6 +316,7 @@ export default function PeptideWatchPage() {
         </section>
 
         <section className="mb-20">
+          <SectionBanner src="https://cdn.sanity.io/images/a3q1cyqs/production/8f6be6789e870c478ccb65d612e3be9c79ba7bc1-1200x669.webp" alt="A molecule inside a glass sphere ringed by a golden seal" />
           <SectionLabel>Independent Testing</SectionLabel>
           <h2 className="mb-4 font-heading text-3xl font-black text-foreground md:text-4xl">
             Finnrick Analytics: The Only Real Scoreboard
@@ -330,6 +367,7 @@ export default function PeptideWatchPage() {
         </section>
 
         <section className="mb-20">
+          <SectionBanner src="https://cdn.sanity.io/images/a3q1cyqs/production/e45982607158f80415eb6165279cb2f11e6ab528-1200x669.webp" alt="A glowing lighthouse above a dark shore scattered with broken vials" shadow="blue" />
           <SectionLabel>The New Architecture</SectionLabel>
           <h2 className="mb-4 font-heading text-3xl font-black text-foreground md:text-4xl">
             PeptideWatch: The Consumer Organization This Market Needs
@@ -365,6 +403,7 @@ export default function PeptideWatchPage() {
         </section>
 
         <section className="mb-20">
+          <SectionBanner src="https://cdn.sanity.io/images/a3q1cyqs/production/50f2c9b0652e477a517b636be20e3afb5322ddc1-1200x669.webp" alt="A golden whistle sounding between two silhouettes behind cracked glass" shadow="red" />
           <SectionLabel>Taking Action</SectionLabel>
           <h2 className="mb-4 font-heading text-3xl font-black text-foreground md:text-4xl">
             How to Become a Whistleblower
@@ -400,6 +439,7 @@ export default function PeptideWatchPage() {
         </section>
 
         <section className="mb-20">
+          <SectionBanner src="https://cdn.sanity.io/images/a3q1cyqs/production/5e9b076c4c7ea7bffe14507e9111de85b85eecd2-1200x669.webp" alt="A broken chain held by a certificate: trust chain of custody, not reputation" />
           <SectionLabel>Operational Intelligence</SectionLabel>
           <h2 className="mb-4 font-heading text-3xl font-black text-foreground md:text-4xl">
             The Manus-Optimized Protocol

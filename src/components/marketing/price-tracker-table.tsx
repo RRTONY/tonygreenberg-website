@@ -128,7 +128,7 @@ export function PriceTrackerTable({ prices }: { prices: PriceEntry[] }) {
 
       <section className="bg-card px-6 py-16">
         <div className="mx-auto max-w-3xl">
-          <h2 className="mb-2 font-heading text-2xl font-bold text-foreground sm:text-3xl">
+          <h2 className="mb-2 font-serif text-2xl font-bold text-foreground sm:text-3xl">
             What Will Your Protocol Actually Cost Per Month?
           </h2>
           <p className="mb-8 text-sm text-muted-foreground">

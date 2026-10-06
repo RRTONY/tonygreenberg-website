@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { Coffee } from "lucide-react";
 import { BREWSOUL_COFFEES } from "@/lib/content/brewsoul-coffees";
@@ -80,7 +81,19 @@ export function BrowseExplorer() {
   return (
     <div>
       {/* Hero */}
-      <section className="min-h-[clamp(340px,45vh,500px)] bg-linear-to-b from-[#F0E8D8] to-[#FAFAF7] text-center">
+      <section className="relative isolate min-h-[clamp(340px,45vh,500px)] overflow-hidden bg-linear-to-b from-[#F0E8D8] to-[#FAFAF7] text-center">
+        {/* Live's BrewSoul hero photo (rescued into Sanity, docs/ai/manus-media-rescue.md),
+            with legacy's warm cream fade; the scroll parallax and particle canvas are dropped. */}
+        <Image
+          src="https://cdn.sanity.io/images/a3q1cyqs/production/1c8cf85cb4a89e17203b371252c9e86ccecff53a-1200x670.webp"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="-z-20 scale-110 object-cover object-[center_40%] brightness-105 saturate-115"
+        />
+        <div aria-hidden="true" className="absolute inset-x-0 bottom-0 -z-10 h-[70%] bg-linear-to-t from-[#F0E8D8] via-[#F0E8D8]/85 to-transparent" />
+        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(240,232,216,0.3)_100%)]" />
         <div className="mx-auto max-w-225 px-6 pt-[clamp(3rem,8vh,5rem)] pb-8">
           <div className="mb-3 font-mono text-[0.68rem]/[1.85] tracking-[0.3em] text-[#836311] uppercase">The Catalog</div>
           <h1 className="mb-3 font-heading text-[clamp(1.8rem,5vw,3rem)]/[1.15] font-bold text-[#2C1810]">Browse All Coffees</h1>

@@ -43,7 +43,7 @@ export default function WhatsLegalPage() {
           <p className="mb-5 font-mono text-xs tracking-[0.25em] text-[#D3512E] uppercase">
             Regulatory Intelligence · Updated May 2026
           </p>
-          <h1 className="mb-5 font-heading text-4xl leading-tight font-bold sm:text-5xl">
+          <h1 className="mb-5 font-serif text-4xl leading-tight font-bold sm:text-5xl">
             The Actual Legal Status of Every Peptide
             <br />
             <span className="text-[#C84B2A]">That Matters.</span>
@@ -77,7 +77,7 @@ export default function WhatsLegalPage() {
 
       <section className="bg-card px-6 py-16">
         <div className="mx-auto max-w-3xl">
-          <h2 className="mb-6 font-heading text-2xl font-bold text-foreground">
+          <h2 className="mb-6 font-serif text-2xl font-bold text-foreground">
             Key Distinctions That Actually Matter
           </h2>
           <div className="space-y-6">

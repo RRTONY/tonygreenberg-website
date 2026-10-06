@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { PortableText, type PortableTextBlock, type PortableTextComponents } from "@portabletext/react";
+import { PortableText, type PortableTextBlock, type PortableTextBlockComponent, type PortableTextComponents } from "@portabletext/react";
 import { urlFor } from "./image";
+import { GemSparkCard } from "@/components/blog/gem-spark-card";
 
 function dimsFromRef(ref: string): { width: number; height: number } {
   const match = ref?.match(/-(\d+)x(\d+)-/);
@@ -47,8 +48,62 @@ function opensWithoutLetter(block: PortableTextBlock) {
   return !/^[\p{L}\p{N}"'“‘]/u.test(first.text.trimStart());
 }
 
+const essayBlocks = {
+  // Live's essay type: Cormorant Garamond italic section titles, anchored
+  // for the Contents sidebar (essay-body.ts sets anchorId).
+  h2: ({ children, value }) => (
+    <h2
+      id={(value as { anchorId?: string }).anchorId}
+      className="mt-20 mb-4 scroll-mt-28 font-essay-heading text-[2.25rem] leading-[1.05] font-medium text-foreground italic sm:mt-28 sm:text-[3.5rem]"
+    >
+      {hideHeadingOrnament(children)}
+    </h2>
+  ),
+  h3: ({ children, value }) => (
+    <h3
+      id={(value as { anchorId?: string }).anchorId}
+      className="mt-12 mb-3 scroll-mt-28 font-essay-heading text-[1.75rem] leading-tight font-medium text-foreground italic sm:text-[2.25rem]"
+    >
+      {hideHeadingOrnament(children)}
+    </h3>
+  ),
+  h4: ({ children }) => <h4 className="mt-8 mb-2 font-heading text-lg font-semibold">{hideHeadingOrnament(children)}</h4>,
+  normal: ({ children, value }) => (
+    <p
+      className="mb-6 indent-[1.5em] font-essay text-[1.05rem] leading-[1.9] text-essay-ink sm:text-[1.2rem]"
+      data-no-drop-cap={opensWithoutLetter(value) || undefined}
+    >
+      {children}
+    </p>
+  ),
+  blockquote: ({ children }) => (
+    <blockquote className="my-8 border-l-2 border-essay-brown/35 pl-5 font-fell text-[1.15rem] leading-relaxed text-essay-sepia italic">
+      {children}
+    </blockquote>
+  ),
+} satisfies Record<string, PortableTextBlockComponent>;
+
 export const portableTextComponents: PortableTextComponents = {
   types: {
+    // essay-body.ts: the auto-picked pull quote, section breaks and the
+    // GemSpark card (legacy ArticlePullQuote / divider / GemSparkCallout).
+    essayPullQuote: ({ value }) => (
+      <blockquote className="mx-auto my-14 max-w-145 border-b-2 border-essay-red/45 bg-essay-parchment/70 px-6 py-9 text-center font-fell text-[1.35rem] leading-[1.6] text-essay-ink italic sm:text-[1.7rem]">
+        <span aria-hidden="true" className="mb-4 block text-[0.7rem] tracking-[0.35em] text-essay-brown/55 not-italic">
+          · · ·
+        </span>
+        {value.text}
+        <span aria-hidden="true" className="mt-4 block text-[0.7rem] tracking-[0.35em] text-essay-brown/55 not-italic">
+          · · ·
+        </span>
+      </blockquote>
+    ),
+    sectionBreak: () => <hr className="mx-auto my-12 w-40 border-0 border-t border-essay-brown/25" />,
+    gemSpark: ({ value }) => (
+      <GemSparkCard anchorId={value.anchorId} subtitle={value.subtitle}>
+        <PortableText value={value.paragraphs} components={gemSparkComponents} />
+      </GemSparkCard>
+    ),
     image: ({ value }) => {
       if (!value?.asset?._ref) return null;
       const { width, height } = dimsFromRef(value.asset._ref);
@@ -110,24 +165,10 @@ export const portableTextComponents: PortableTextComponents = {
       );
     },
   },
-  block: {
-    h2: ({ children }) => <h2 className="mt-10 mb-4 font-heading text-2xl font-bold">{hideHeadingOrnament(children)}</h2>,
-    h3: ({ children }) => <h3 className="mt-8 mb-3 font-heading text-xl font-bold">{hideHeadingOrnament(children)}</h3>,
-    h4: ({ children }) => <h4 className="mt-6 mb-2 font-heading text-lg font-semibold">{hideHeadingOrnament(children)}</h4>,
-    normal: ({ children, value }) => (
-      <p className="mb-5 leading-relaxed" data-no-drop-cap={opensWithoutLetter(value) || undefined}>
-        {children}
-      </p>
-    ),
-    blockquote: ({ children }) => (
-      <blockquote className="my-6 border-l-4 border-primary/40 pl-5 italic text-muted-foreground">
-        {children}
-      </blockquote>
-    ),
-  },
+  block: essayBlocks,
   list: {
-    bullet: ({ children }) => <ul className="mb-5 ml-6 list-disc space-y-1.5">{children}</ul>,
-    number: ({ children }) => <ol className="mb-5 ml-6 list-decimal space-y-1.5">{children}</ol>,
+    bullet: ({ children }) => <ul className="mb-6 ml-6 list-disc space-y-2 font-essay text-[1.05rem] leading-[1.8] text-essay-ink sm:text-[1.15rem]">{children}</ul>,
+    number: ({ children }) => <ol className="mb-6 ml-6 list-decimal space-y-2 font-essay text-[1.05rem] leading-[1.8] text-essay-ink sm:text-[1.15rem]">{children}</ol>,
   },
   listItem: {
     bullet: ({ children }) => <li className="leading-relaxed">{children}</li>,
@@ -154,16 +195,25 @@ export const portableTextComponents: PortableTextComponents = {
           href={href}
           target="_blank"
           rel="noopener noreferrer"
-          className="underline underline-offset-2 hover:opacity-70"
+          className="text-essay-red underline decoration-essay-red/55 underline-offset-2 hover:opacity-70"
         >
           {children}
         </a>
       ) : (
-        <Link href={href} className="underline underline-offset-2 hover:opacity-70">
+        <Link href={href} className="text-essay-red underline decoration-essay-red/55 underline-offset-2 hover:opacity-70">
           {children}
         </Link>
       );
     },
+  },
+};
+
+// The GemSpark card's own, smaller paragraph style (legacy GemSparkCallout).
+const gemSparkComponents: PortableTextComponents = {
+  ...portableTextComponents,
+  block: {
+    ...essayBlocks,
+    normal: ({ children }) => <p className="mb-4 font-essay text-[0.95rem] leading-[1.85] text-essay-ink">{children}</p>,
   },
 };
 

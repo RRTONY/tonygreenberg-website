@@ -1,76 +1,47 @@
 import Link from "next/link";
+import type React from "react";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Sparkle } from "lucide-react";
-import { POST_EXTRAS } from "@/lib/content/post-extras";
 import { getFurtherReading } from "@/lib/content/further-reading";
 import { getSeriesForPost } from "@/lib/content/essay-series";
 
 // Ported from legacy client/src/pages/BlogPost.tsx: the per-post blocks
-// around the essay body that live still shows (format tag + validity score +
-// series badge in the header, "Before You Read", then "The Lesson", "Next
-// Steps", "Further Reading", "Voices in This Space", "Since this was written",
-// and the series reading list after the body). Data: post-extras.ts,
-// further-reading.ts, essay-series.ts. "Reveal"/"Hint" use <details>, so the
-// answer is in the server HTML and no client JS is needed. Left out on
-// purpose: the live read counter and reactions/comments (no backend), and the
-// "Updated for Today" AI-rewrite toggle (live defaults to the original text,
-// which is what Sanity holds).
+// around the essay body that live still shows ("Before You Read", then "The
+// Lesson", "Next Steps", "Further Reading", "Voices in This Space", "Since
+// this was written", and the series reading list after the body). The
+// per-post copy lives on each Sanity post ("Essay extras" fields, moved there
+// 2026-10-07); Further Reading is per category (further-reading.ts) and the
+// series list comes from essay-series.ts. "Reveal"/"Hint" use <details>, so
+// the answer is in the server HTML and no client JS is needed.
 
-function validityDotClass(value: number | string) {
-  const score = Number(value);
-  if (score >= 90) return "bg-[#2E8B57]";
-  if (score >= 75) return "bg-[#4682B4]";
-  if (score >= 60) return "bg-[#B8860B]";
-  return "bg-[#8B0000]";
-}
+export type EssayExtras = {
+  formatTag?: string;
+  validityScore?: string;
+  validityLabel?: string;
+  beforeYouRead?: { question?: string; answer?: string; hint?: string };
+  lesson?: string;
+  nextSteps?: string[];
+  voices?: { _key?: string; name: string; title?: string; relevance?: string; url?: string }[];
+  alsoInvolves?: string[];
+  sinceWritten?: { headline?: string; source?: string; year?: string; url?: string; connection?: string };
+};
 
-export function PostHeaderExtras({ slug }: { slug: string }) {
-  const extras = POST_EXTRAS[slug];
-  const seriesInfo = getSeriesForPost(slug);
-  if (!extras?.formatTag && !extras?.validityScore && !seriesInfo) return null;
-
-  return (
-    <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-xs text-muted-foreground">
-      {extras?.formatTag && (
-        <span className="rounded-sm bg-brand-gold/10 px-2 py-0.5 tracking-widest text-brand-gold uppercase">
-          {extras.formatTag}
-        </span>
-      )}
-      {extras?.validityScore && (
-        <span className="inline-flex items-center gap-1.5">
-          <span aria-hidden="true" className={`inline-block size-1.75 rounded-full ${validityDotClass(extras.validityScore)}`} />
-          Validity: {extras.validityScore} — {extras.validityLabel}
-        </span>
-      )}
-      {seriesInfo && (
-        <span className="inline-flex items-center gap-2 rounded-sm border border-border bg-secondary px-3 py-1">
-          <span className="font-semibold tracking-wide text-foreground uppercase">{seriesInfo.series.title}</span>
-          <span>
-            Part {seriesInfo.part} of {seriesInfo.total}
-          </span>
-        </span>
-      )}
-    </div>
-  );
-}
-
-export function BeforeYouRead({ slug }: { slug: string }) {
-  const riddle = POST_EXTRAS[slug]?.beforeYouRead;
-  if (!riddle) return null;
+export function BeforeYouRead({ riddle }: { riddle?: EssayExtras["beforeYouRead"] }) {
+  if (!riddle?.question) return null;
 
   return (
-    <div className="mb-8 rounded-lg border border-violet-500/20 bg-violet-500/5 p-6">
-      <p className="mb-3 font-mono text-xs tracking-widest text-violet-600 uppercase">Before You Read</p>
-      <p className="mb-4 font-heading text-lg text-foreground italic">{riddle.question}</p>
+    <div className="mb-8 max-w-195 rounded-md border border-brand-gold/25 bg-linear-to-br from-brand-gold/3 to-brand-gold/8 p-6">
+      <p className="mb-3 font-mono text-xs tracking-widest text-brand-gold uppercase">Before You Read</p>
+      <p className="mb-4 font-heading text-lg leading-snug text-foreground">{riddle.question}</p>
       <div className="flex flex-wrap items-start gap-3">
         <details className="group flex-1">
-          <summary className="inline-flex min-h-11 cursor-pointer list-none items-center rounded-md bg-violet-600 px-4 font-mono text-xs tracking-wide text-white uppercase group-open:hidden md:min-h-9">
+          <summary className="inline-flex min-h-11 cursor-pointer list-none items-center rounded-sm bg-brand-gold px-4 font-mono text-xs tracking-wide text-white uppercase group-open:hidden md:min-h-9">
             Reveal
           </summary>
           <p className="text-foreground/90">{riddle.answer}</p>
         </details>
         {riddle.hint && (
           <details className="group">
-            <summary className="inline-flex min-h-11 cursor-pointer list-none items-center rounded-md border border-violet-500/30 px-4 font-mono text-xs tracking-wide text-violet-600 uppercase group-open:hidden md:min-h-9">
+            <summary className="inline-flex min-h-11 cursor-pointer list-none items-center rounded-sm border border-brand-gold/30 px-4 font-mono text-xs tracking-wide text-brand-gold group-open:hidden md:min-h-9">
               Hint
             </summary>
             <p className="text-sm text-muted-foreground italic">{riddle.hint}</p>
@@ -81,18 +52,17 @@ export function BeforeYouRead({ slug }: { slug: string }) {
   );
 }
 
-export function PostLessonBlocks({ slug, category }: { slug: string; category?: string }) {
-  const extras = POST_EXTRAS[slug];
+export function PostLessonBlocks({ extras, category, afterNextSteps }: { extras: EssayExtras; category?: string; afterNextSteps?: React.ReactNode }) {
   const furtherReading = getFurtherReading(category ?? "", extras?.formatTag ?? "");
 
   return (
     <div className="mt-12 space-y-8">
       {extras?.lesson && (
-        <div className="rounded-r-md border-l-4 border-brand-gold bg-brand-gold/5 p-6">
-          <p className="mb-2 flex items-center gap-1.5 font-mono text-xs tracking-widest text-brand-gold uppercase">
+        <div className="border-l-2 border-essay-brown/50 bg-essay-parchment/60 px-6 py-5">
+          <p className="mb-2 flex items-center gap-1.5 font-mono text-[0.65rem] tracking-[0.18em] text-essay-brown uppercase">
             <Sparkle aria-hidden="true" className="size-3 fill-current" /> The Lesson
           </p>
-          <p className="font-heading text-xl leading-snug text-foreground italic">{extras.lesson}</p>
+          <p className="font-fell text-lg leading-relaxed text-essay-ink italic">{extras.lesson}</p>
         </div>
       )}
 
@@ -112,25 +82,27 @@ export function PostLessonBlocks({ slug, category }: { slug: string; category?: 
         </div>
       )}
 
+      {afterNextSteps}
+
       {furtherReading.length > 0 && (
         <div>
           <h2 className="mb-3 border-b border-border pb-2 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
             Further Reading
           </h2>
-          <div className="grid gap-3 sm:grid-cols-2">
+          <div className="flex flex-col gap-3">
             {furtherReading.map((item) => (
               <a
                 key={item.url}
                 href={item.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block rounded-md border border-border p-4 transition-colors hover:bg-secondary"
+                className="block rounded-xs border border-border bg-card px-4 py-3.5 transition-colors hover:border-brand-gold/40"
               >
-                <span className="block font-heading text-base font-semibold text-foreground">{item.title}</span>
-                <span className="mt-0.5 block font-mono text-[0.65rem] tracking-wide text-muted-foreground uppercase">
-                  {item.source}
+                <span className="flex flex-wrap items-baseline justify-between gap-x-4">
+                  <span className="font-essay text-[0.95rem] font-bold text-essay-ink italic">{item.title}</span>
+                  <span className="font-mono text-[0.65rem] tracking-wide text-muted-foreground uppercase">{item.source}</span>
                 </span>
-                <span className="mt-2 block text-sm text-muted-foreground italic">{item.why}</span>
+                <span className="mt-1 block font-essay text-sm text-essay-ink/85">{item.why}</span>
               </a>
             ))}
           </div>
@@ -142,8 +114,8 @@ export function PostLessonBlocks({ slug, category }: { slug: string; category?: 
           <h2 className="mb-3 border-b border-border pb-2 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
             Voices in This Space
           </h2>
-          {extras.voices && (
-            <ul className="grid gap-3 sm:grid-cols-2">
+          {extras.voices && extras.voices.length > 0 && (
+            <ul className="flex flex-col gap-3">
               {extras.voices.map((v) => {
                 const inner = (
                   <>
@@ -156,7 +128,7 @@ export function PostLessonBlocks({ slug, category }: { slug: string; category?: 
                   </>
                 );
                 return (
-                  <li key={v.name}>
+                  <li key={v._key ?? v.name}>
                     {v.url ? (
                       <a
                         href={v.url}
@@ -175,16 +147,20 @@ export function PostLessonBlocks({ slug, category }: { slug: string; category?: 
             </ul>
           )}
           {extras.alsoInvolves && extras.alsoInvolves.length > 0 && (
-            <p className="mt-3 text-sm text-muted-foreground">
-              <span className="font-mono text-xs tracking-wide uppercase">Also involves: </span>
-              {extras.alsoInvolves.join(" · ")}
-            </p>
+            <div className="mt-4 flex flex-wrap items-center gap-2">
+              <span className="font-mono text-xs tracking-wide text-muted-foreground uppercase">Also involves:</span>
+              {extras.alsoInvolves.map((name) => (
+                <span key={name} className="rounded-xs border border-brand-gold/25 bg-brand-gold/6 px-2.5 py-1 font-mono text-[0.68rem] text-brand-gold">
+                  {name}
+                </span>
+              ))}
+            </div>
           )}
         </div>
       )}
 
       {extras?.sinceWritten && (
-        <div className="rounded-md border border-border bg-secondary p-5">
+        <div className="border-l-[3px] border-brand-gold/50 bg-brand-gold/5 p-5">
           <p className="mb-2 font-mono text-xs tracking-widest text-brand-gold uppercase">Since this was written</p>
           <p className="font-heading text-lg font-semibold text-foreground">
             {extras.sinceWritten.url ? (

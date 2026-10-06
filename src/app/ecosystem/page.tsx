@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 // Ported from legacy client/src/pages/Ecosystem.tsx. Real content kept as-is.
 
@@ -42,23 +43,23 @@ function BulletList({ items }: { items: string[] }) {
 export default function EcosystemPage() {
   return (
     <div>
-      <section className="border-b border-border px-6 py-16 text-center sm:px-10">
-        <p className="mb-3 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
+      <section className="border-b border-border px-6 pt-16 pb-9 text-center sm:px-12">
+        <p className="mb-3 font-mono text-[0.72rem] tracking-[0.2em] text-brand-gold uppercase">
           The Ecosystem
         </p>
-        <h1 className="mb-3 font-heading text-4xl font-bold text-foreground sm:text-5xl">
+        <h1 className="mb-3 font-heading text-[2.25rem]/[1.15] font-bold text-foreground sm:text-[3.2rem]/[1.15]">
           The Ecosystem
         </h1>
-        <p className="mx-auto max-w-lg text-lg text-muted-foreground">
+        <p className="mx-auto max-w-[36.25rem] text-[1.15rem]/[1.65] text-muted-foreground">
           A curated network for people building what replaces what&apos;s broken.
         </p>
       </section>
 
-      <div className="mx-auto max-w-[39rem] px-5 py-12 text-[1.05rem]/[1.8] sm:px-10">
-        <p className="mb-2 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
+      <div className="mx-auto max-w-[39rem] px-6 py-8 text-[1.05rem]/[1.8] sm:px-10">
+        <p className="mb-2.5 font-mono text-[0.72rem] tracking-[0.2em] text-brand-gold uppercase">
           What It Is
         </p>
-        <h2 className="mb-4 font-heading text-2xl font-normal text-foreground">What It Is</h2>
+        <h2 className="mb-5 font-heading text-[1.8rem]/[1.3] font-normal text-foreground">What It Is</h2>
         <p className="mb-4 leading-relaxed text-foreground/80">
           The Ecosystem is a curated network of builders, investors, and thought leaders working
           at the intersection of consciousness-aligned capital, regenerative economics, and
@@ -71,30 +72,30 @@ export default function EcosystemPage() {
         </p>
       </div>
 
-      <div className="mx-auto max-w-[39rem] px-5 py-12 text-[1.05rem]/[1.8] sm:px-10">
-        <p className="mb-2 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
+      <div className="mx-auto max-w-[39rem] px-6 py-8 text-[1.05rem]/[1.8] sm:px-10">
+        <p className="mb-2.5 font-mono text-[0.72rem] tracking-[0.2em] text-brand-gold uppercase">
           Who It&apos;s For
         </p>
-        <h2 className="mb-4 font-heading text-2xl font-normal text-foreground">
+        <h2 className="mb-5 font-heading text-[1.8rem]/[1.3] font-normal text-foreground">
           Who It&apos;s For
         </h2>
         <BulletList items={WHO_ITS_FOR} />
       </div>
 
-      <div className="mx-auto max-w-[39rem] px-5 py-12 text-[1.05rem]/[1.8] sm:px-10">
-        <p className="mb-2 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
+      <div className="mx-auto max-w-[39rem] px-6 py-8 text-[1.05rem]/[1.8] sm:px-10">
+        <p className="mb-2.5 font-mono text-[0.72rem] tracking-[0.2em] text-brand-gold uppercase">
           What Members Receive
         </p>
-        <h2 className="mb-4 font-heading text-2xl font-normal text-foreground">
+        <h2 className="mb-5 font-heading text-[1.8rem]/[1.3] font-normal text-foreground">
           What Members Receive
         </h2>
         <BulletList items={WHAT_MEMBERS_RECEIVE} />
       </div>
 
-      <section className="border-t border-border px-6 py-12 text-center sm:px-10">
+      <section className="border-t border-border px-6 py-11 text-center sm:px-12">
         <a
           href="mailto:tony@tonygreenberg.com?subject=Ecosystem%20—%20Request%20an%20Invitation"
-          className="inline-block rounded-md bg-linear-to-br from-brand-gold to-brand-gold-light px-10 py-3.5 font-mono text-sm font-bold tracking-wide text-white uppercase"
+          className="inline-flex min-h-11 items-center rounded-md bg-linear-to-br from-brand-gold to-[#8B6914] px-10 py-3.5 font-mono text-sm font-bold tracking-[0.08em] text-white uppercase"
         >
           Request an Invitation
         </a>
@@ -103,9 +104,13 @@ export default function EcosystemPage() {
         </p>
       </section>
 
-      <div className="border-t border-border py-6 text-center">
-        <Link href="/find-my" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
-          Explore the Assessments →
+      <div className="pt-2 pb-10 text-center">
+        <Link
+          href="/find-my"
+          className="inline-flex min-h-11 items-center gap-1.5 border border-essay-red/40 px-6 py-2.5 font-mono text-[0.88rem] text-essay-red transition-colors hover:border-essay-red"
+        >
+          Explore the Assessments
+          <ArrowRight aria-hidden="true" className="size-3.5" />
         </Link>
       </div>
     </div>

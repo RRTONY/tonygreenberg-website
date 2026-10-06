@@ -1,18 +1,26 @@
 "use client";
 
-import { useState } from "react";
-import { Check, Copy, Mail } from "lucide-react";
+import { useState, useSyncExternalStore } from "react";
+import { Check, Copy, Mail, Share2 } from "lucide-react";
 import { SITE_URL } from "@/components/ai-summary-links";
 import { FacebookIcon, LinkedinIcon, XIcon } from "@/components/icons/brand-icons";
 
-// Icon-only square buttons (44px tap target); each keeps its full name as
-// aria-label and a hover tooltip.
+// Share buttons (legacy BlogPost.tsx ShareBar): X, LinkedIn, Facebook, More
+// (the device's share sheet, where there is one), Email, Copy link. Icons
+// only (owner asked, 2026-10-07): 44px squares, each named for screen
+// readers and in a hover tooltip.
 const PILL_CLASS =
-  "flex size-11 items-center justify-center rounded-md no-underline transition-[background-color,transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-md";
+  "flex size-11 items-center justify-center rounded-xs no-underline transition-[background-color,transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-md";
 const OUTLINE_CLASS = `${PILL_CLASS} border border-brand-gold/25 text-brand-gold hover:bg-brand-gold/6`;
 
 export function BlogShareBar({ path, title }: { path: string; title: string }) {
   const [copied, setCopied] = useState(false);
+  // The share sheet exists only in some browsers; known after hydration.
+  const canShare = useSyncExternalStore(
+    () => () => {},
+    () => typeof navigator.share === "function",
+    () => false,
+  );
   // Always the production URL: share targets and AI tools need a public
   // address, not localhost or a deploy preview.
   const url = `${SITE_URL}${path}`;
@@ -39,7 +47,7 @@ export function BlogShareBar({ path, title }: { path: string; title: string }) {
           title="Share on X"
           className={`${PILL_CLASS} bg-black text-white hover:bg-neutral-800`}
         >
-          <XIcon className="size-4" />
+          <XIcon aria-hidden="true" className="size-4" />
         </a>
         <a
           href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`}
@@ -49,7 +57,7 @@ export function BlogShareBar({ path, title }: { path: string; title: string }) {
           title="Share on LinkedIn"
           className={`${PILL_CLASS} bg-[#0A66C2] text-white hover:bg-[#004182]`}
         >
-          <LinkedinIcon className="size-4" />
+          <LinkedinIcon aria-hidden="true" className="size-4" />
         </a>
         <a
           href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`}
@@ -57,17 +65,28 @@ export function BlogShareBar({ path, title }: { path: string; title: string }) {
           rel="noopener noreferrer"
           aria-label="Share on Facebook"
           title="Share on Facebook"
-          className={OUTLINE_CLASS}
+          className={`${PILL_CLASS} bg-[#1877F2] text-white hover:bg-[#0f5fc9]`}
         >
-          <FacebookIcon className="size-4" />
+          <FacebookIcon aria-hidden="true" className="size-4" />
         </a>
+        {canShare && (
+          <button
+            type="button"
+            onClick={() => navigator.share({ title, url }).catch(() => {})}
+            aria-label="More ways to share"
+            title="More ways to share"
+            className={OUTLINE_CLASS}
+          >
+            <Share2 aria-hidden="true" className="size-4" />
+          </button>
+        )}
         <a
           href={`mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(`${title}\n\n${url}`)}`}
           aria-label="Share by email"
           title="Share by email"
           className={OUTLINE_CLASS}
         >
-          <Mail className="size-4" />
+          <Mail aria-hidden="true" className="size-4" />
         </a>
         <button
           type="button"
@@ -76,7 +95,7 @@ export function BlogShareBar({ path, title }: { path: string; title: string }) {
           title={copied ? "Link copied" : "Copy link"}
           className={OUTLINE_CLASS}
         >
-          {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
+          {copied ? <Check aria-hidden="true" className="size-4" /> : <Copy aria-hidden="true" className="size-4" />}
         </button>
         <span className="sr-only" aria-live="polite">
           {copied ? "Link copied" : ""}

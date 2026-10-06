@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { EditorialDivider } from "@/components/marketing/editorial-divider";
 import { EyebrowLabel } from "@/components/marketing/eyebrow-label";
 
 // Ported from legacy client/src/pages/DiamondCut.tsx ("The Diamond Cut").
@@ -50,7 +52,7 @@ const TIERS = [
     price: "$5,000",
     note: "floor",
     details: ["Diamond identification.", "CXO lens assessment.", "Written output: is there a product here?"],
-    cta: "Enter the Gate →",
+    cta: "Enter the Gate",
     href: "/engage",
     featured: false,
   },
@@ -59,7 +61,7 @@ const TIERS = [
     price: "$10,000",
     note: "floor",
     details: ["All 5 cuts.", "Product architecture map.", "3 BD introductions.", "Written deliverable."],
-    cta: "Enter the Gate →",
+    cta: "Enter the Gate",
     href: "/engage",
     featured: true,
   },
@@ -68,7 +70,7 @@ const TIERS = [
     price: "$15,000/mo",
     note: "per month",
     details: ["Ongoing product refinement.", "Active BD pipeline.", "CXO translation on demand.", "ImpactSoul alignment."],
-    cta: "Enter the Gate →",
+    cta: "Enter the Gate",
     href: "/engage",
     featured: false,
   },
@@ -77,49 +79,55 @@ const TIERS = [
     price: "Equity + Cash",
     note: "contact directly",
     details: ["Full strategic partnership.", "Board-level engagement.", "The diamond gets set."],
-    cta: "Make Your Case →",
+    cta: "Make Your Case",
     href: "mailto:tony@impactsoul.is?subject=Diamond%20Cut%20-%20The%20Setting",
     featured: false,
   },
 ];
 
+// Live's editorial layout: one narrow left-aligned column, wide-tracked
+// eyebrow labels and a short red rule between sections.
+const SECTION = "mx-auto max-w-[39rem] px-6 py-8 sm:px-10";
+const EYEBROW = "mb-6 font-mono text-[0.78rem] tracking-[0.35em] text-brand-gold uppercase";
+const BODY = "mb-4 text-[1.05rem]/[1.75] text-foreground/85";
+
 export default function DiamondCutPage() {
   return (
     <div>
-      <section className="bg-linear-to-br from-background to-secondary px-6 py-16 text-center sm:px-10 dark:from-[#0A0A10] dark:via-[#111118] dark:to-[#1a1a24]">
-        <div className="mx-auto max-w-3xl">
-          <p className="mb-5 font-mono text-[0.72rem]/[1.85] tracking-[0.25em] text-brand-gold uppercase">
+      <section className="bg-linear-170 from-[#0A0A10] via-[#111118] via-60% to-[#1A1A24] px-6 pt-16 pb-12 text-center">
+        <div className="mx-auto max-w-[45rem]">
+          <p className="mb-[1.2rem] font-mono text-[0.72rem]/[1.85] tracking-[0.25em] text-brand-gold-light uppercase">
             The Diamond Cut
           </p>
-          <h1 className="mb-5 font-heading text-[clamp(2rem,5vw,3.2rem)]/[1.15] font-bold text-foreground">
+          <h1 className="mb-[1.2rem] font-heading text-[2rem]/[1.15] font-bold text-[#F5F0E0] sm:text-[3.2rem]/[1.15]">
             Every services business has
             <br />
-            <span className="text-brand-gold">a product trapped inside it.</span>
+            <span className="text-brand-gold-light">a product trapped inside it.</span>
           </h1>
-          <p className="mx-auto mb-3 max-w-140 text-foreground/70">
+          <p className="mx-auto mb-4 max-w-[35rem] text-[1.05rem]/[1.7] text-[#F5F0E0]/65">
             Most founders cannot see it. They are too close. Tony has spent 25 years finding
             diamonds in rough — and cutting them into something Fortune 50 companies actually buy.
           </p>
-          <div className="font-mono text-xs text-muted-foreground">
+          <div className="font-mono text-[0.72rem] tracking-[0.08em] text-[#F5F0E0]/50">
             Engagements begin with a scoping conversation · tony@impactsoul.is
           </div>
         </div>
       </section>
 
-      <div className="mx-auto max-w-2xl px-6 py-14 sm:px-10">
-        <EyebrowLabel>An Honest Note</EyebrowLabel>
-        <p className="mb-4 leading-relaxed text-foreground/80">
+      <section className={SECTION}>
+        <EyebrowLabel className={EYEBROW}>An Honest Note</EyebrowLabel>
+        <p className={BODY}>
           Tony is not a great CEO. He is a magnificent number two. A consigliere. The person who
           has guided top CXOs at Fortune 50 companies for 25 years — not by running the company,
           but by seeing what they cannot see from inside it.
         </p>
-        <p className="mb-4 leading-relaxed text-foreground/80">
+        <p className={BODY}>
           His zone of genius is finding diamonds in rough. Translating what a services business
           actually does into something a CXO would pay for, integrate, and scale. That is a very
           specific skill. It is not coaching. It is not consulting. It is pattern recognition
           built on scar tissue from thousands of deals.
         </p>
-        <p className="mb-4 font-semibold text-foreground">
+        <p className="mb-4 text-[1.05rem]/[1.75] font-semibold text-foreground/90">
           If you are a technology company founder — go to{" "}
           <a
             href="https://mochary.com"
@@ -131,54 +139,54 @@ export default function DiamondCutPage() {
           </a>
           . He is the best in the world at that. This is not for you.
         </p>
-        <p className="text-sm text-muted-foreground italic">
+        <p className="text-[0.95rem]/[1.75] text-muted-foreground italic">
           The Diamond Cut is for services businesses that know they have something valuable — but
           have not yet figured out how to make it scale without the founder in every room.
         </p>
-      </div>
+      </section>
 
-      <hr className="border-border" />
+      <EditorialDivider />
 
-      <div className="mx-auto max-w-2xl px-6 py-14 sm:px-10">
-        <EyebrowLabel>The 5 Cuts</EyebrowLabel>
+      <section className={SECTION}>
+        <EyebrowLabel className={EYEBROW}>The 5 Cuts</EyebrowLabel>
         {FIVE_CUTS.map((c, i) => (
           <div
             key={c.num}
             className={`flex gap-5 py-5 ${i < FIVE_CUTS.length - 1 ? "border-b border-border/60" : ""}`}
           >
-            <div className="shrink-0 pt-0.5 font-mono text-xs tracking-wide text-brand-gold">
+            <div className="shrink-0 pt-1.5 font-mono text-[0.72rem] tracking-[0.1em] text-brand-gold">
               {c.num}
             </div>
             <div>
-              <h3 className="mb-1 font-heading text-lg font-bold text-foreground">{c.title}</h3>
-              <p className="leading-relaxed text-foreground/70">{c.desc}</p>
+              <h3 className="mb-1 font-heading text-[1.15rem] font-bold text-foreground">{c.title}</h3>
+              <p className="text-[0.95rem]/[1.7] text-foreground/80">{c.desc}</p>
             </div>
           </div>
         ))}
-      </div>
+      </section>
 
-      <hr className="border-border" />
+      <EditorialDivider />
 
-      <div className="mx-auto max-w-2xl px-6 py-14 sm:px-10">
+      <section className={SECTION}>
         <div className="rounded-md border border-brand-gold/20 bg-brand-gold/5 px-8 py-6 text-center">
-          <div className="mb-2 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
+          <div className="mb-2.5 font-mono text-[0.72rem] tracking-[0.2em] text-brand-gold uppercase">
             The 2× Guarantee
           </div>
-          <p className="mb-2 font-semibold text-foreground">
+          <p className="mb-2.5 text-[1.05rem]/[1.75] font-semibold text-foreground/90">
             Do the work. Show the receipts. Get 2x back — or Tony keeps working until you do.
           </p>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-[0.92rem]/[1.7] text-muted-foreground">
             Proof of work = completed preparation document + all session action items documented
             in writing. No proof, no guarantee.
           </p>
         </div>
-      </div>
+      </section>
 
-      <hr className="border-border" />
+      <EditorialDivider />
 
-      <div className="mx-auto max-w-4xl px-6 py-14 sm:px-10">
-        <EyebrowLabel>Tiers</EyebrowLabel>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <section className={SECTION}>
+        <EyebrowLabel className={EYEBROW}>Tiers</EyebrowLabel>
+        <div className="grid gap-4 pt-2 sm:grid-cols-2">
           {TIERS.map((t) => (
             <div
               key={t.tier}
@@ -189,20 +197,20 @@ export default function DiamondCutPage() {
               }`}
             >
               {t.featured && (
-                <div className="absolute top-0 right-4 -translate-y-1/2 rounded-sm bg-brand-gold px-2.5 py-1 font-mono text-[0.6rem] tracking-wide text-white uppercase">
+                <div className="absolute top-0 right-4 -translate-y-1/2 rounded-sm bg-brand-gold px-2.5 py-1 font-mono text-[0.6rem] tracking-[0.15em] text-white uppercase">
                   Recommended
                 </div>
               )}
-              <div className="mb-2 font-mono text-xs tracking-wide text-brand-gold uppercase">
+              <div className="mb-2 font-mono text-[0.68rem] tracking-[0.15em] text-brand-gold uppercase">
                 {t.tier}
               </div>
               <div className="mb-3">
                 <span className="font-heading text-2xl font-bold text-foreground">{t.price}</span>
-                <span className="ml-2 font-mono text-xs text-muted-foreground">{t.note}</span>
+                <span className="ml-2 font-mono text-[0.68rem] text-muted-foreground">{t.note}</span>
               </div>
               <div className="mb-4 flex-1">
                 {t.details.map((d) => (
-                  <p key={d} className="mb-0.5 text-sm text-foreground/70">
+                  <p key={d} className="mb-0.5 text-[0.88rem] text-foreground/75">
                     {d}
                   </p>
                 ))}
@@ -210,39 +218,46 @@ export default function DiamondCutPage() {
               {t.href.startsWith("/") ? (
                 <Link
                   href={t.href}
-                  className={`rounded-sm py-2.5 text-center font-mono text-xs tracking-wide uppercase ${
-                    t.featured ? "bg-brand-gold text-white" : "border border-brand-gold/30 text-brand-gold"
+                  className={`inline-flex min-h-11 items-center justify-center gap-1.5 rounded-sm px-6 py-3 font-mono text-xs tracking-[0.1em] uppercase ${
+                    t.featured
+                      ? "bg-brand-gold-light text-[#0A0A10]"
+                      : "border border-brand-gold/30 text-brand-gold"
                   }`}
                 >
                   {t.cta}
+                  <ArrowRight aria-hidden="true" className="size-3.5" />
                 </Link>
               ) : (
                 <a
                   href={t.href}
-                  className="rounded-sm border border-brand-gold/30 py-2.5 text-center font-mono text-xs tracking-wide text-brand-gold uppercase"
+                  className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-sm border border-brand-gold/30 px-6 py-3 font-mono text-xs tracking-[0.1em] text-brand-gold uppercase"
                 >
                   {t.cta}
+                  <ArrowRight aria-hidden="true" className="size-3.5" />
                 </a>
               )}
             </div>
           ))}
         </div>
-      </div>
+      </section>
 
-      <section className="bg-secondary px-6 py-12 text-center sm:px-10 dark:bg-[#0A0A10]">
-        <p className="mb-3 font-mono text-xs tracking-[0.25em] text-brand-gold uppercase">Book</p>
+      <section className="mt-6 bg-[#0A0A10] px-6 py-10 text-center">
+        <p className="mb-3 font-mono text-[0.72rem] tracking-[0.25em] text-brand-gold-light uppercase">
+          Book
+        </p>
         <p className="mb-3">
-          <a href="mailto:tony@impactsoul.is" className="text-brand-gold">
+          <a href="mailto:tony@impactsoul.is" className="text-brand-gold-light">
             tony@impactsoul.is
           </a>
         </p>
         <Link
           href="/engage"
-          className="mb-3 inline-block rounded-sm bg-brand-gold px-10 py-3 font-mono text-sm tracking-wide text-white uppercase"
+          className="mb-3 inline-flex min-h-11 items-center gap-1.5 rounded-sm bg-brand-gold-light px-12 py-3.5 font-mono text-[0.85rem] tracking-[0.15em] text-[#0A0A10] uppercase transition-opacity hover:opacity-90"
         >
-          Enter the Gate →
+          Enter the Gate
+          <ArrowRight aria-hidden="true" className="size-3.5" />
         </Link>
-        <div className="font-mono text-xs text-muted-foreground">
+        <div className="font-mono text-[0.65rem] tracking-[0.08em] text-[#F5F0E0]/50 uppercase">
           $5,000 minimum · preparation doc required · all sessions recorded via Fireflies
         </div>
       </section>

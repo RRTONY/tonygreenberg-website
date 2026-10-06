@@ -8,10 +8,16 @@
 // articles-discovery.ts's discovery-mode slug lists and thesis-threads.ts's
 // THESIS_CONNECTORS. All 7 slugs verified against the real migrated post
 // corpus before porting.
+// `teaser` is the line under a Featured card. Live's "All" list (checked
+// 2026-10-07) shows its own subtitle for the first three (`listTeaser`) and
+// shorter curated titles for four posts (`listTitle`); when a field is absent
+// the list falls back to `teaser` / the Sanity post title.
 export interface ImpactFuturismEntry {
   slug: string;
   tag: string;
   teaser: string;
+  listTeaser?: string;
+  listTitle?: string;
 }
 
 export const FEATURED_COUNT = 3;
@@ -22,18 +28,23 @@ export const IMPACT_FUTURISM_ENTRIES: ImpactFuturismEntry[] = [
     tag: "Health Systems",
     teaser:
       "Quest Diagnostics runs 600 million tests a year. 1.7 stars on Trustpilot. An $11B company that built a system hostile to the patient it serves. And what comes next.",
+    listTeaser: "The most broken vendor relationship in American healthcare — and the five-layer stack that replaces it.",
   },
   {
     slug: "energy-is-money-money-is-memory",
     tag: "AI & Energy",
     teaser:
       "The physics underneath the AI buildout — and why the largest act of memory-making in human history is happening right now.",
+    listTitle: "Energy Is Money. Money Is Memory.",
+    listTeaser:
+      "Soddy, Satoshi, and Kocherlakota walk into a data center. The AI buildout as the largest act of memory-making in human history.",
   },
   {
     slug: "when-healing-becomes-extraction",
     tag: "Psychedelic Medicine",
     teaser:
       "On the day Eli Lilly spent $2.8B validating psychedelic medicine, a woman named Tina died. The system that should have saved her failed her.",
+    listTeaser: "Capital is arriving in psychedelic medicine. The question is whether it arrives as healing or as extraction.",
   },
   {
     slug: "energy-as-impact",
@@ -43,6 +54,7 @@ export const IMPACT_FUTURISM_ENTRIES: ImpactFuturismEntry[] = [
   {
     slug: "greenberg-kurzweil-scientist-foundation-of-trust",
     tag: "Trust & Verification",
+    listTitle: "H+ Summit: Rise of the Citizen-Scientist",
     teaser:
       "On stage with Kurzweil. The case for citizen-scientists as the verification layer in a world drowning in misinformation.",
   },
@@ -54,6 +66,7 @@ export const IMPACT_FUTURISM_ENTRIES: ImpactFuturismEntry[] = [
   {
     slug: "google-verizon-walled-garden-plan",
     tag: "Infrastructure",
+    listTitle: "The Google/Verizon Walled Garden Plan",
     teaser: "Net neutrality as a trust problem, not a technical one. Why the compromise was always going to fail.",
   },
 ];

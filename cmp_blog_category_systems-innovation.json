@@ -1,0 +1,8 @@
+{
+ "live": {
+  "error": "TimeoutError: page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://tonygreenberg.com/blog/category/systems-innovation\", waiting until \"domcontentloaded\"\n"
+ },
+ "ours": {
+  "error": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3000/blog/category/systems-innovation\nCall log:\n  - navigating to \"http://localhost:3000/blog/category/systems-innovation\", waiting until \"domcontentloaded\"\n"
+ }
+}

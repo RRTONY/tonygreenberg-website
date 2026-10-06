@@ -87,7 +87,10 @@ export function legacyBodyLayout<T>(value: T, createdAt: string | undefined, tit
       // Live also keeps a line holding a web address as text.
       const startsFormatted = (b.children?.[0]?.marks?.length ?? 0) > 0;
       const hasUrl = /https?:\/\/|www\./i.test(text);
-      return !startsFormatted && !hasUrl && isPlainSectionTitle(text) ? { ...b, style: "h2" } : b;
+      // Legacy also made every line opening with "◆ " or "✴ " a section title,
+      // whatever its length or punctuation (extractTOCHeadings' tonyH2).
+      const tonyHeading = /^[◆✴]\s+\S/.test(text) && text.length < 140;
+      return tonyHeading || (!startsFormatted && !hasUrl && isPlainSectionTitle(text)) ? { ...b, style: "h2" } : b;
     });
   }) as T;
 }

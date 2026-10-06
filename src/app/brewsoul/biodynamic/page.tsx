@@ -50,7 +50,7 @@ export default function BrewSoulBiodynamicPage() {
     <div className="bg-[#f5efe0] text-[#2d1810]">
       <section className="relative flex min-h-[70vh] items-center justify-center overflow-hidden bg-linear-to-br from-[#1a0e08] via-[#2d1810] to-[#2d3a24] px-7 py-20 text-center">
         <div className="relative z-1 max-w-3xl">
-          <div className="mb-6 font-mono text-[11px] tracking-[0.3em] text-[#566650] uppercase">BrewSoul · Biodynamic Coffee</div>
+          <div className="mb-6 font-mono text-[11px] tracking-[6px] text-[#7A8C6E] uppercase">BrewSoul · Biodynamic Coffee</div>
           <h1 className="mb-5 font-heading text-[clamp(36px,6vw,68px)] leading-[1.05] font-bold text-[#f5efe0] italic">
             Every Farm on Earth
             <br />

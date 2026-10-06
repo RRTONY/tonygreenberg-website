@@ -29,5 +29,13 @@ export const metadata: Metadata = {
 export default async function ThesisThreadsPage() {
   const posts = await sanityFetch<ArchivePost[]>({ query: allPostsForArchiveQuery, tags: ["post"] });
 
-  return <ThesisThreadsExplorer posts={posts} />;
+  // Live sets this page's titles in the ui-serif system stack (h1 400 60px,
+  // measured 2026-10-07); remapping --font-display here points the
+  // explorer's font-heading at that stack without changing the shared
+  // component's default.
+  return (
+    <div className="[--font-display:ui-serif,Georgia,Cambria,serif]">
+      <ThesisThreadsExplorer posts={posts} />
+    </div>
+  );
 }

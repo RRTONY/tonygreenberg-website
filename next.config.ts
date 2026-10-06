@@ -67,21 +67,10 @@ const nextConfig: NextConfig = {
         destination: "https://flow.tonygreenberg.com",
         permanent: true,
       },
-      // /supplier-intake and /supplier-intake-long/:token were real lead
-      // capture forms backed by a tRPC vendor-onboarding flow
-      // (submitStage1/submitStage2, token-gated file uploads) that no
-      // longer exists — the Manus backend it ran on is fully dead. 5
-      // already-ported pages ("Become a Supply Partner") link to
-      // /supplier-intake, so leaving it 404 breaks real, live CTAs.
-      // BioChainCTA already established the real replacement: RampRate's
-      // own live supplier intake at ramprate.com/biochain (confirmed
-      // reachable) — redirecting here instead of rebuilding a form whose
-      // only working backend doesn't exist anymore.
-      {
-        source: "/supplier-intake",
-        destination: "https://ramprate.com/biochain/supplier-intake",
-        permanent: true,
-      },
+      // /supplier-intake is a real page again (2026-10-07, matching live's
+      // Stage 1 form; it posts to the same Google Apps Script intake as
+      // RampRate's own form). Legacy's token-gated Stage 2 pages and the old
+      // "vendor-intake" names still go to RampRate's live intake.
       {
         source: "/supplier-intake-long/:token",
         destination: "https://ramprate.com/biochain/supplier-intake",
@@ -149,7 +138,6 @@ const nextConfig: NextConfig = {
       // A real dedicated index page is a legitimate future content gap,
       // not silently equivalent to /search — tracked in Phase 12's own
       // TODO note, not solved by this redirect alone.
-      { source: "/the-index", destination: "/search", permanent: true },
       // /spamtoast and /youve-been-reported are the live half of legacy's
       // "report a spammer" confrontation flow — the same feature whose
       // other half (ReportSpammer.tsx) this migration already decided not
@@ -168,6 +156,13 @@ const nextConfig: NextConfig = {
       // redirects the internal-codename URL to it rather than shipping the
       // same content at two indexable addresses.
       { source: "/cheshire-grin", destination: "/alex-azzi", permanent: true },
+      // Live sends this essay's address to its full page, /akbar (done
+      // 2026-10-07 to match live; the post stays in Sanity, out of the
+      // sitemap, see REDIRECTED_POST_SLUGS in src/app/sitemap.ts).
+      { source: "/blog/akbar-cuisine-restoration-economics", destination: "/akbar", permanent: true },
+      // Live sends both of these to the homepage (checked 2026-10-07).
+      { source: "/seven-doors", destination: "/", permanent: true },
+      { source: "/projects", destination: "/", permanent: true },
     ];
   },
   images: {

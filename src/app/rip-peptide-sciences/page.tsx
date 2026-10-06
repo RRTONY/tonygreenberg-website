@@ -49,7 +49,7 @@ export default function RipPeptideSciencesPage() {
           <p className="mb-5 font-mono text-xs tracking-[0.25em] text-[#D3512E] uppercase">
             March 6, 2026 · 2:00 PM Eastern · Gone
           </p>
-          <h1 className="mb-5 font-heading text-4xl leading-tight font-bold sm:text-5xl">
+          <h1 className="mb-5 font-serif text-4xl leading-tight font-bold md:text-6xl">
             They Made $7.4 Million a Month.
             <br />
             <span className="text-[#C84B2A]">Then Posted Three Sentences and Disappeared.</span>
@@ -63,7 +63,7 @@ export default function RipPeptideSciencesPage() {
 
       <section className="px-6 py-16">
         <div className="mx-auto max-w-3xl">
-          <h2 className="mb-10 text-center font-heading text-2xl font-bold text-foreground sm:text-3xl">
+          <h2 className="mb-10 text-center font-serif text-2xl font-bold text-foreground sm:text-3xl">
             The Timeline
           </h2>
           <div className="ml-4 border-l-2 border-[#C84B2A]/30 md:ml-8">
@@ -83,7 +83,7 @@ export default function RipPeptideSciencesPage() {
 
       <section className="bg-card px-6 py-16">
         <div className="mx-auto max-w-5xl">
-          <h2 className="mb-2 text-center font-heading text-2xl font-bold text-foreground sm:text-3xl">
+          <h2 className="mb-2 text-center font-serif text-2xl font-bold text-foreground sm:text-3xl">
             Three Reasons. One of Them Is Probably the Real One.
           </h2>
           <p className="mb-10 text-center text-sm text-muted-foreground">
@@ -112,7 +112,7 @@ export default function RipPeptideSciencesPage() {
 
       <section className="px-6 py-16">
         <div className="mx-auto max-w-2xl">
-          <h2 className="mb-4 font-heading text-2xl font-bold text-foreground sm:text-3xl">
+          <h2 className="mb-4 font-serif text-2xl font-bold text-foreground sm:text-3xl">
             Their COA Problem (And What a Real COA Looks Like)
           </h2>
           <p className="mb-5 leading-relaxed text-foreground/80">
@@ -143,7 +143,7 @@ export default function RipPeptideSciencesPage() {
 
       <section className="bg-card px-6 py-16">
         <div className="mx-auto max-w-5xl">
-          <h2 className="mb-2 font-heading text-2xl font-bold text-foreground sm:text-3xl">
+          <h2 className="mb-2 font-serif text-2xl font-bold text-foreground sm:text-3xl">
             7 Vendors. Scored Without Bias. Or Paid Placements.
           </h2>
           <p className="mb-1 text-muted-foreground">(Yes, this is unusual. We know.)</p>

@@ -3,8 +3,9 @@
 import { useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { urlFor } from "@/lib/sanity/image";
-import { DEFAULT_OG_IMAGE } from "@/lib/content/default-image";
+import { DEFAULT_ESSAY_HERO } from "@/lib/content/default-image";
 import { FEATURED_COUNT, IMPACT_FUTURISM_ENTRIES, TAG_BADGE, type ImpactFuturismEntry } from "@/lib/content/impact-futurism";
 import type { ArchivePost } from "@/components/blog/articles-explorer";
 import { formatPostDate } from "@/lib/format-post-date";
@@ -42,7 +43,7 @@ function FeaturedCard({ post, entry }: { post: FuturismPost; entry: ImpactFuturi
           />
         ) : (
           <Image
-            src={DEFAULT_OG_IMAGE}
+            src={DEFAULT_ESSAY_HERO.src}
             alt=""
             fill
             sizes="(max-width: 768px) 100vw, 400px"
@@ -60,7 +61,10 @@ function FeaturedCard({ post, entry }: { post: FuturismPost; entry: ImpactFuturi
         </div>
         <h3 className="mb-2.5 flex-1 font-heading text-lg font-bold leading-snug text-foreground">{post.title}</h3>
         <p className="mb-4 text-sm leading-relaxed text-muted-foreground">{entry.teaser}</p>
-        <div className="font-mono text-xs tracking-wide text-brand-gold">Read →</div>
+        <div className="inline-flex items-center gap-1.5 font-mono text-xs tracking-wide text-brand-gold">
+          Read
+          <ArrowRight aria-hidden="true" className="size-3.5" />
+        </div>
       </div>
     </Link>
   );
@@ -78,10 +82,10 @@ function ArticleListRow({ post, entry, index }: { post: FuturismPost; entry: Imp
           <TagBadge tag={entry.tag} />
           <span className="font-mono text-[0.6rem] text-brand-gold">{formatPostDate(post.publishedAt, "monthYear")}</span>
         </div>
-        <h4 className="mb-1 font-heading text-base font-bold leading-snug text-foreground">{post.title}</h4>
-        <p className="text-sm leading-relaxed text-muted-foreground">{entry.teaser}</p>
+        <h4 className="mb-1 font-heading text-base font-bold leading-snug text-foreground">{entry.listTitle ?? post.title}</h4>
+        <p className="text-sm leading-relaxed text-muted-foreground">{entry.listTeaser ?? entry.teaser}</p>
       </div>
-      <div className="pt-0.5 font-mono text-xs whitespace-nowrap text-brand-gold">→</div>
+      <ArrowRight aria-hidden="true" className="mt-1 size-3.5 shrink-0 text-brand-gold" />
     </Link>
   );
 }

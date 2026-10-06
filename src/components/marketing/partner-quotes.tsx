@@ -32,17 +32,25 @@ const ALL_QUOTES: Quote[] = [
 export function PartnerQuotes({ count = 3, offset = 0 }: { count?: number; offset?: number }) {
   const quotes = Array.from({ length: count }, (_, i) => ALL_QUOTES[(offset + i) % ALL_QUOTES.length]);
 
+  // Card design matched to live /about's "What They Say" grid (2026-10-07):
+  // white card, thin gold border, 3px gold gradient bar on the left, italic
+  // quote, gold mono name, muted "title, company" line.
   return (
-    <div className="grid gap-5 sm:grid-cols-3">
+    <div className="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-6">
       {quotes.map((q) => (
-        <figure key={q.name} className="rounded-lg border border-border bg-muted/30 p-6">
-          <blockquote className="mb-4 text-sm text-foreground/80 italic">
+        <figure key={q.name} className="relative rounded-sm border border-brand-gold/12 bg-card p-6">
+          <div
+            aria-hidden="true"
+            className="absolute inset-y-0 left-0 w-0.75 rounded-l-sm bg-linear-to-b from-brand-gold-light to-brand-gold-light/20"
+          />
+          <blockquote className="mb-4 text-[0.95rem] leading-[1.7] text-foreground/85 italic">
             &ldquo;{q.quote}&rdquo;
           </blockquote>
-          <figcaption className="font-mono text-xs text-muted-foreground">
-            <span className="font-semibold text-foreground">{q.name}</span>
-            <br />
-            {q.title}, {q.company}
+          <figcaption>
+            <div className="font-mono text-[0.72rem] tracking-[0.04em] text-brand-gold dark:text-brand-gold-light">{q.name}</div>
+            <div className="text-[0.78rem] text-muted-foreground">
+              {q.title}, {q.company}
+            </div>
           </figcaption>
         </figure>
       ))}

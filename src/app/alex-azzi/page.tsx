@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { CaseShareButtons } from "@/components/marketing/case-share-buttons";
+import { ReportLock } from "@/components/alex-azzi/report-lock";
+import { hasUnlocked } from "@/lib/gated-posts";
 import { DownloadProtocolButton } from "@/components/alex-azzi/download-protocol-button";
 import {
   SUBJECT,
@@ -100,31 +102,18 @@ import {
 // flagged for Tony to supply a real photo if he has one.
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://tonygreenberg.com";
 
+// Locked like live since 2026-10-07: while locked, nothing about the report
+// goes in the page or its previews, and it stays out of search and the sitemap.
 export const metadata: Metadata = {
-  title: "Alex Azzi, CEO of XRWorkout — $137,000+ Documented in Unpaid Invoices",
-  description:
-    "Alex Azzi, CEO of XRWorkout and founder of Biohackers UAE, has $137,000+ in documented unpaid invoices and unfulfilled equity agreements spanning 6 years. Signed contracts, timestamped invoices, and a calculable path to resolution.",
+  title: "Restricted Access",
+  description: "This report is password-protected.",
   alternates: { canonical: "/alex-azzi" },
-  keywords: [
-    "Alex Azzi",
-    "Alex Azzi XRWorkout",
-    "Alex Azzi fraud",
-    "Alex Azzi Biohackers UAE",
-    "XRWorkout CEO",
-    "Biohackers UAE",
-    "VerifiedTribe community protection report",
-    "startup unpaid invoices",
-    "founder fraud red flags",
-  ],
-  openGraph: {
-    title: "Alex Azzi — XRWorkout CEO & Biohackers UAE Founder",
-    description:
-      "A documented VerifiedTribe community protection report: $137,000+ in unpaid invoices and unfulfilled equity agreements over 6 years.",
-    images: [IMG.ogImage],
-    type: "article",
-    siteName: "Tony Greenberg",
-  },
+  robots: { index: false, follow: false },
 };
+
+// The unlocked report's own title, description and keywords were removed
+// when it was locked (2026-10-07); restore them from git history if the lock
+// comes off.
 
 const TAG_HIGHLIGHT = "Unpaid Invoices";
 
@@ -239,7 +228,8 @@ const STRENGTH_BADGE: Record<string, string> = {
 const SHARE_TEXT =
   "VerifiedTribe Community Protection Report: Alex Azzi, CEO of XRWorkout, has $137,000+ documented in unpaid invoices and unfulfilled equity agreements over 6 years. Signed contracts, timestamped invoices, full documentation:";
 
-export default function AlexAzziPage() {
+export default async function AlexAzziPage() {
+  if (!(await hasUnlocked("alex-azzi"))) return <ReportLock gateKey="alex-azzi" />;
   return (
     <div>
       <div className="mx-auto max-w-3xl px-6 py-10 sm:px-10">

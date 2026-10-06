@@ -2,8 +2,9 @@
 
 import { useCallback, useMemo, useState } from "react";
 import Link from "next/link";
-import { BarChart3, RefreshCw, ShieldCheck, Target, Sparkles } from "lucide-react";
-import { DIM_LABELS, DIM_ICONS, type DimKey } from "@/lib/content/pri-data";
+import { ArrowRight, BarChart3, Loader2, RefreshCw, ShieldCheck, Target, Sparkles } from "lucide-react";
+import { saveCalibration } from "@/app/pri-calibration/actions";
+import { DIMS, DIM_LABELS, DIM_ICONS, type DimKey } from "@/lib/content/pri-data";
 import efficacyData from "@/lib/content/pri-efficacy-data.json";
 
 function DimIcon({ dim, className }: { dim: DimKey; className: string }) {
@@ -11,7 +12,6 @@ function DimIcon({ dim, className }: { dim: DimKey; className: string }) {
   return <Icon aria-hidden="true" className={className} />;
 }
 
-const DIMS: DimKey[] = ["medical", "pharmacological", "psychological", "intention", "setting", "integration"];
 
 function generatePairs(): [DimKey, DimKey][] {
   const pairs: [DimKey, DimKey][] = [];
@@ -61,7 +61,7 @@ function computeCalibratedScores(choices: { pair: [string, string]; chosen: stri
   return scores as Record<DimKey, number>;
 }
 
-type Phase = "intro" | "pairwise" | "ranking" | "results";
+type Phase = "intro" | "pairwise" | "ranking" | "research" | "results";
 
 // Ported from legacy client/src/pages/pri/PriCalibration.tsx — the real
 // forced-rank psychometric calibration (all 15 pairwise dimension
@@ -71,23 +71,19 @@ type Phase = "intro" | "pairwise" | "ranking" | "results";
 // unchanged. Kept as one client island — a phase state machine drives the
 // whole flow, same pattern as the other PRI assessments.
 //
-// **Real backend gap, handled honestly**: legacy's "Contribute to
-// Research?" opt-in phase posted the calibration to `trpc.priCalibration.
-// submit` (no backend built for this migration), and the results view's
-// "Community Data" section read a live `trpc.priCalibration.stats` query
-// showing other users' aggregated scores. Neither has an honest
-// backend-free equivalent — a cross-user aggregate can't be faked locally,
-// and a "your data helps research" opt-in with nothing behind it would be
-// dishonest UI (the same call already made dropping the PRI results page's
-// inert research-pool checkbox). Both are dropped; the flow goes straight
-// from ranking to results, which shows only the real, locally-computed
-// calibrated scores and the real static validation metrics.
+// The "Contribute to Research?" step (legacy's opt-in) was dropped while
+// there was no backend; restored 2026-10-06 now that calibrations save to
+// Supabase (`pri_calibrations`, via saveCalibration). Every calibration is
+// saved anonymously as legacy did; opting in marks it for /pri-research.
+// Legacy's live "Community Data" panel is still not ported.
 export function CalibrationAssessment() {
   const [phase, setPhase] = useState<Phase>("intro");
   const [pairIndex, setPairIndex] = useState(0);
   const [choices, setChoices] = useState<{ pair: [string, string]; chosen: string }[]>([]);
   const [rankings, setRankings] = useState<DimKey[]>([...DIMS]);
   const [draggedIdx, setDraggedIdx] = useState<number | null>(null);
+  const [researchOptIn, setResearchOptIn] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   const pairs = useMemo(() => generatePairs(), []);
   const calibratedScores = useMemo(() => computeCalibratedScores(choices), [choices]);
@@ -130,6 +126,15 @@ export function CalibrationAssessment() {
     setPairIndex(0);
     setChoices([]);
     setRankings([...DIMS]);
+    setResearchOptIn(false);
+  };
+
+  // Results show either way; a failed save doesn't block them.
+  const submitCalibration = async () => {
+    setSubmitting(true);
+    await saveCalibration({ rankings, pairwiseChoices: choices, dimScores: calibratedScores, researchOptIn }).catch(() => null);
+    setSubmitting(false);
+    setPhase("results");
   };
 
   return (
@@ -175,8 +180,9 @@ export function CalibrationAssessment() {
                 </div>
               </div>
               <p className="mb-6 text-[.8rem] text-pri-cream/60">Takes ~3 minutes. 15 forced choices + 1 full ranking.</p>
-              <button onClick={() => setPhase("pairwise")} className="w-full rounded-xl bg-pri-purple px-6 py-3 text-sm font-bold text-pri-cream">
-                Begin Calibration →
+              <button onClick={() => setPhase("pairwise")} className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-pri-purple px-6 py-3 text-sm font-bold text-pri-cream">
+                Begin Calibration
+                <ArrowRight aria-hidden="true" className="size-4" />
               </button>
             </div>
           </div>
@@ -240,8 +246,42 @@ export function CalibrationAssessment() {
                 </div>
               ))}
             </div>
-            <button onClick={() => setPhase("results")} className="w-full rounded-xl bg-pri-purple px-6 py-3 text-sm font-bold text-pri-cream">
-              See My Calibrated Profile →
+            <button onClick={() => setPhase("research")} className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-pri-purple px-6 py-3 text-sm font-bold text-pri-cream">
+              Continue
+              <ArrowRight aria-hidden="true" className="size-4" />
+            </button>
+          </div>
+        )}
+
+        {phase === "research" && (
+          <div className="rounded-2xl border border-pri-cream/10 bg-pri-cream/3 p-6 text-center sm:p-8">
+            <h2 className="mb-4 font-heading text-[1.3rem] text-pri-cream">Contribute to Research?</h2>
+            <p className="mb-6 text-[.88rem]/[1.7] text-pri-cream/60">
+              Your anonymized calibration data can help improve psychedelic readiness assessment science. No personal information is stored
+              &mdash; only dimension rankings and pairwise choices.
+            </p>
+            <label className="mb-6 inline-flex cursor-pointer items-center gap-3">
+              <input type="checkbox" checked={researchOptIn} onChange={(e) => setResearchOptIn(e.target.checked)} className="peer sr-only" />
+              <span
+                aria-hidden="true"
+                className="relative h-7 w-12 rounded-full bg-pri-cream/15 transition-colors peer-checked:bg-pri-purple peer-focus-visible:ring-2 peer-focus-visible:ring-pri-purple-light after:absolute after:top-0.75 after:left-0.75 after:size-5.5 after:rounded-full after:bg-pri-cream after:transition-transform peer-checked:after:translate-x-5"
+              />
+              <span className="text-[.85rem] font-semibold text-pri-cream">{researchOptIn ? "Yes, include my data" : "No thanks"}</span>
+            </label>
+            {researchOptIn && (
+              <p className="mb-4 rounded-lg bg-pri-purple/10 p-3 text-left text-[.75rem]/[1.6] text-pri-cream/60">
+                <strong>What&rsquo;s collected:</strong> Dimension rankings, pairwise choices, calibrated scores, timestamp.
+                <br />
+                <strong>What&rsquo;s NOT collected:</strong> Name, email, IP address, assessment answers, or any identifying information.
+              </p>
+            )}
+            <button
+              onClick={submitCalibration}
+              disabled={submitting}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-pri-purple px-6 py-3 text-sm font-bold text-pri-cream disabled:opacity-60"
+            >
+              {submitting && <Loader2 aria-hidden="true" className="size-4 animate-spin" />}
+              Submit Calibration
             </button>
           </div>
         )}

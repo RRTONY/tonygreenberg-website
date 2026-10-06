@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 import { PeptideShutdownBanner } from "@/components/marketing/peptide-shutdown-banner";
@@ -14,9 +15,9 @@ import { CRITERIA } from "@/lib/content/peptide-criteria";
 // (consumer-advocacy journalism, same genre as a Consumer Reports review),
 // not allegations about a private individual.
 //
-// The legacy hero background image (CloudFront-hosted) returns 403 — not a
-// Manus asset, but currently inaccessible regardless; dropped in favor of a
-// CSS gradient rather than a broken image, tracked as a real gap.
+// The hero background is live's own art, rescued into Sanity on 2026-10-07
+// (docs/ai/manus-media-rescue.md), shown at live's 15% opacity, blurred and
+// dimmed, over the dark gradient.
 export const metadata: Metadata = {
   title: "Peptide Assessment Hall of Shame — How 20 US Clinics Score",
   description:
@@ -73,8 +74,19 @@ export default function PeptideHallOfShamePage() {
         </p>
       </div>
 
-      <section className="bg-linear-to-br from-[#0A0A10] to-[#1a1a2e] px-6 py-24 text-center">
-        <div className="mx-auto max-w-2xl">
+      <section className="relative overflow-hidden bg-linear-to-br from-[#0A0A10] to-[#1a1a2e] px-6 py-24 text-center">
+        {/* Live's hero art, rescued from the old Manus host into Sanity (2026-10-07). */}
+        <div className="absolute inset-0 opacity-15">
+          <Image
+            src="https://cdn.sanity.io/images/a3q1cyqs/production/f76b0029de9df63f14c832719a17e68d260314a9-1200x509.webp"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover blur-[1px] brightness-60"
+          />
+        </div>
+        <div className="relative mx-auto max-w-2xl">
           <p className="mb-4 font-mono text-xs tracking-[0.25em] text-brand-gold/50 uppercase">
             Peptide Assessment Audit · 20 US Providers
           </p>

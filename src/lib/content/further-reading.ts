@@ -1,6 +1,6 @@
 // Ported unchanged from legacy client/src/data/furtherReading.ts: the
 // "Further Reading" list legacy BlogPost.tsx (and live) shows after every
-// essay, picked by the post's category and format tag (see post-extras.ts).
+// essay, picked by the post's category and format tag (the Sanity post's `formatTag`).
 
 /**
  * Further Reading recommendations keyed by category and format tag.

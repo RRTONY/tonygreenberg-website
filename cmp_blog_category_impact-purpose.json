@@ -1,0 +1,16 @@
+{
+ "live": {
+  "url": "https://tonygreenberg.com/",
+  "title": "Tony Greenberg — Only Time Buys Trust",
+  "heads": [
+   "H1: Tony Greenberg"
+  ],
+  "imgs": [],
+  "buttons": [],
+  "text": "Tony Greenberg\n\nI expose broken systems. Then I build what comes next.",
+  "status": 200
+ },
+ "ours": {
+  "error": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3000/blog/category/impact-purpose\nCall log:\n  - navigating to \"http://localhost:3000/blog/category/impact-purpose\", waiting until \"domcontentloaded\"\n"
+ }
+}
