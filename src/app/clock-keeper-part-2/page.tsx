@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { ClockKeeperForm } from "@/components/clock-keeper/clock-keeper-form";
-import { createServiceRoleClient } from "@/lib/supabase/service-role";
+import { createServiceRoleClient, isServiceRoleConfigured } from "@/lib/supabase/service-role";
 
 // The Clock Keeper Chronicles, Part II: a response form for the five
 // questions in Part I. Ported from legacy client/src/pages/ClockKeeperPartII.tsx
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 };
 
 async function responseCount(): Promise<number> {
-  if (!process.env.SUPABASE_SERVICE_ROLE_KEY) return 0;
+  if (!isServiceRoleConfigured()) return 0;
   const { count, error } = await createServiceRoleClient()
     .from("clock_keeper_responses")
     .select("id", { count: "exact", head: true });

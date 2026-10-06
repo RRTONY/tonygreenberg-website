@@ -2,7 +2,7 @@
 
 import { randomUUID } from "node:crypto";
 import { cookies } from "next/headers";
-import { createServiceRoleClient } from "@/lib/supabase/service-role";
+import { createServiceRoleClient, isServiceRoleConfigured } from "@/lib/supabase/service-role";
 import { getUser } from "@/lib/auth";
 import { esc, sendEmail } from "@/lib/email";
 
@@ -37,7 +37,7 @@ type Result = { ok: boolean; error?: string };
 const clip = (v: unknown, max: number) => (typeof v === "string" ? v.trim().slice(0, max) : "");
 const isSlug = (s: unknown): s is string => typeof s === "string" && /^[a-z0-9-]{1,200}$/.test(s);
 const isEmail = (s: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
-const configured = () => !!process.env.NEXT_PUBLIC_SUPABASE_URL && !!process.env.SUPABASE_SERVICE_ROLE_KEY;
+const configured = isServiceRoleConfigured;
 
 async function sessionId(create: boolean): Promise<string | null> {
   const jar = await cookies();
