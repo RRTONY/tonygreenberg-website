@@ -44,7 +44,7 @@ export function ArticleToc({ headings }: { headings: TocHeading[] }) {
   if (headings.length < 3) return null;
 
   return (
-    <aside className="sticky top-24 hidden w-55 shrink-0 self-start xl:block">
+    <aside className="sticky top-24 mt-10 hidden w-55 shrink-0 self-start xl:block">
       <nav
         aria-label="Contents"
         className="max-h-[calc(100vh-8rem)] overflow-y-auto rounded-sm border border-essay-brown/18 bg-essay-parchment px-4 pt-5 pb-6 shadow-[0_2px_16px_rgba(44,24,16,0.06)]"
