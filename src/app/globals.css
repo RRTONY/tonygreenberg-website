@@ -12,6 +12,17 @@
   --font-heading: var(--font-display);
   --color-brand-gold: var(--brand-gold);
   --color-brand-gold-light: var(--brand-gold-light);
+  --color-essay-ink: var(--essay-ink);
+  --color-essay-brown: var(--essay-brown);
+  --color-essay-sepia: var(--essay-sepia);
+  --color-essay-parchment: var(--essay-parchment);
+  --color-essay-red: var(--essay-red);
+  --font-essay: var(--font-libre-baskerville), Georgia, serif;
+  --font-essay-heading: var(--font-cormorant-face), var(--font-display), Georgia, serif;
+  --font-fell: var(--font-im-fell), Georgia, serif;
+  --font-fraunces: var(--font-fraunces-face), var(--font-display), serif;
+  --font-grotesk: var(--font-space-grotesk), var(--font-body), sans-serif;
+  --font-cormorant: var(--font-cormorant-face), var(--font-display), Georgia, serif;
   --color-crusade-red: var(--crusade-red);
   --color-crusade-crimson: var(--crusade-crimson);
   --color-crusade-ink: var(--crusade-ink);
@@ -265,6 +276,17 @@
   --brand-gold: #836311;
   --brand-gold-light: #d4b96a;
 
+  /* Blog essay palette, from live/legacy BlogPost.tsx: ink body text, the
+     brown of the contents sidebar and drop cap, sepia secondary text, the
+     parchment sidebar card and the red of in-text links and format badges.
+     Fonts for these pages are loaded only on /blog/[slug]
+     (src/lib/fonts/essay-fonts.ts). */
+  --essay-ink: #2c1810;
+  --essay-brown: #8b5a2b;
+  --essay-sepia: #7a5c3a;
+  --essay-parchment: #f2e8d5;
+  --essay-red: #8e1e25;
+
   /* /attention-theft's own "crusade" accent palette — a deliberate one-off
      sub-brand identity (same reasoning as BrewSoul's coffee-brown/gold
      palette), theme-independent since that page doesn't toggle dark mode. */
@@ -350,6 +372,11 @@
 }
 
 .dark {
+  --essay-ink: #f5f0e0;
+  --essay-brown: #d4b96a;
+  --essay-sepia: #c9b48a;
+  --essay-parchment: #1a1712;
+  --essay-red: #e0848a;
   --background: #0a0a10;
   --foreground: #f5f0e0;
   --card: #14141c;
@@ -404,13 +431,19 @@
    short or symbol-led lines, flagged in portable-text.tsx). Scoped to
    .article-body so it never leaks elsewhere. */
 .article-body > p:not([data-no-drop-cap]):not(p:not([data-no-drop-cap]) ~ p)::first-letter {
-  font-family: var(--font-display);
-  font-size: 3.5em;
-  font-weight: 700;
+  /* Live's essay drop cap (legacy BlogPost.tsx): IM Fell English, brown. */
+  font-family: var(--font-im-fell), var(--font-display), Georgia, serif;
+  font-size: 4em;
+  font-weight: 400;
   float: left;
-  line-height: 0.85;
+  line-height: 0.78;
   padding-right: 0.08em;
-  color: var(--brand-gold);
+  margin-top: 0.06em;
+  color: var(--essay-brown);
+}
+/* The drop-cap paragraph opens flush, without the essay's first-line indent. */
+.article-body > p:not([data-no-drop-cap]):not(p:not([data-no-drop-cap]) ~ p) {
+  text-indent: 0;
 }
 /* iPhone Safari zooms the whole page when a form field under 16px is tapped
    (2026-09-30 WebKit/iPhone pass found 8 pages). On phone widths, lift the

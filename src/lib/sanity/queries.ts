@@ -99,10 +99,32 @@ export const postBySlugQuery = groq`
     heroImage,
     readTime,
     body,
+    updatedBody,
     author->{name, slug, avatar, bio},
     category->{title, slug},
     tags,
-    seo
+    seo,
+    byline,
+    editorsNote,
+    provenanceNote,
+    formatTag,
+    validityScore,
+    validityLabel,
+    beforeYouRead,
+    lesson,
+    nextSteps,
+    voices,
+    alsoInvolves,
+    sinceWritten,
+    tryThis,
+    whereThisLeads,
+    closingRiddle,
+    "videoMoment": videoMoment{ caption, "url": file.asset->url, "mimeType": file.asset->mimeType },
+    goDeeper,
+    "readNext": readNext[defined(post->slug.current)]{
+      reason,
+      "post": post->{ _id, title, slug, publishedAt, excerpt, heroImage, formatTag, "categoryTitle": category->title }
+    }
   }
 `;
 
@@ -110,24 +132,13 @@ export const postBySlugQuery = groq`
 export const relatedPostsQuery = groq`
   *[_type == "post" && slug.current != $slug && category._ref == $categoryId]
     | order(publishedAt desc) [0...3]{
-    _id, title, slug, publishedAt, excerpt, heroImage
+    _id, title, slug, publishedAt, excerpt, heroImage, formatTag, "categoryTitle": category->title
   }
 `;
 
 export const recentPostsQuery = groq`
   *[_type == "post" && slug.current != $slug] | order(publishedAt desc) [0...3]{
-    _id, title, slug, publishedAt, excerpt, heroImage
-  }
-`;
-
-// Same slug-list lookup as postsBySlugsQuery above, but shaped to match
-// postBySlugQuery's PostDetail (object-form `slug.current`, `_id`,
-// `publishedAt`) for lib/content/reading-paths.ts's curated "read next"
-// picks on /blog/[slug] — GROQ's `in` doesn't preserve $slugs' order, so
-// callers re-sort by the original curated order after fetching.
-export const postsForReadingPathQuery = groq`
-  *[_type == "post" && slug.current in $slugs]{
-    _id, title, slug, publishedAt, excerpt, heroImage
+    _id, title, slug, publishedAt, excerpt, heroImage, formatTag, "categoryTitle": category->title
   }
 `;
 
@@ -185,4 +196,23 @@ export const allCategorySlugsQuery = groq`
 // Redirect map (Phase 12 — Manus/legacy URL -> Next.js URL)
 export const allRedirectsQuery = groq`
   *[_type == "redirect"]{ source, destination, permanent }
+`;
+
+// /the-index: every post's card fields (titles, excerpts, format tags,
+// category and tags feed its search and "three next reads").
+export const indexPostsQuery = groq`
+  *[_type == "post" && defined(slug.current)] | order(publishedAt desc){
+    "slug": slug.current, title, publishedAt, excerpt, heroImage, formatTag,
+    "category": category->title, tags
+  }
+`;
+
+// /the-index full-text search: each post's plain body text (original and
+// "Updated for today" versions), lowercased. ~1.3 MB, so it's only read on
+// the server (src/app/the-index/actions.ts), never sent to the browser.
+export const indexPostTextQuery = groq`
+  *[_type == "post" && defined(slug.current)]{
+    "slug": slug.current,
+    "text": lower(coalesce(pt::text(body), "") + " " + coalesce(pt::text(updatedBody), ""))
+  }
 `;

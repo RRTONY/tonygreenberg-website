@@ -40,7 +40,7 @@ export default function PriceTrackerPage() {
           <p className="mb-5 font-mono text-xs tracking-[0.25em] text-[#D3512E] uppercase">
             Price Intelligence · May 2026
           </p>
-          <h1 className="mb-5 font-heading text-4xl leading-tight font-bold sm:text-5xl">
+          <h1 className="mb-5 font-serif text-4xl leading-tight font-bold sm:text-5xl">
             Here Is What Peptides Actually Cost.
           </h1>
           <p className="mb-4 text-xl text-zinc-300">

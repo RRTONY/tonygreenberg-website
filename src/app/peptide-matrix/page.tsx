@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -101,18 +102,31 @@ export default function PeptideMatrixPage() {
         </p>
       </div>
 
-      <section className="bg-linear-to-b from-[#0A0A10] to-[#1a1a2e] px-6 py-16 text-center">
-        <p className="mb-4 font-mono text-xs tracking-[0.25em] text-brand-gold uppercase">
-          The Review-Evidence Matrix · Peptide Truth System
-        </p>
-        <h1 className="mx-auto mb-6 max-w-2xl font-heading text-4xl leading-tight font-black text-[#E8E4DC] sm:text-5xl">
-          5-Star Reviews <span className="text-[#C0392B]">≠</span> FDA-Approved Efficacy
-        </h1>
-        <p className="mx-auto max-w-xl leading-relaxed text-[#E8E4DC]/60">
-          Patient satisfaction and scientific validation are different metrics. This matrix maps
-          where every major peptide entity falls — and reveals the gap between what people love
-          and what science supports.
-        </p>
+      <section className="relative overflow-hidden bg-linear-to-b from-[#0A0A10] to-[#1a1a2e] px-6 py-16 text-center">
+        {/* Live's hero art, rescued from the old Manus host into Sanity (2026-10-07). */}
+        <div className="absolute inset-0 opacity-15">
+          <Image
+            src="https://cdn.sanity.io/images/a3q1cyqs/production/6e35eac72eced203da0889fe95617e0be7ac86f1-1200x509.webp"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover blur-[1px] brightness-60"
+          />
+        </div>
+        <div className="relative">
+          <p className="mb-4 font-mono text-[0.7rem] tracking-[0.25em] text-brand-gold uppercase">
+            The Review-Evidence Matrix · Peptide Truth System
+          </p>
+          <h1 className="mx-auto mb-6 max-w-175 font-heading text-[clamp(2rem,5vw,3.2rem)] leading-[1.1] font-black text-[#E8E4DC]">
+            5-Star Reviews <span className="text-[#C0392B]">≠</span> FDA-Approved Efficacy
+          </h1>
+          <p className="mx-auto max-w-xl leading-relaxed text-[#E8E4DC]/60">
+            Patient satisfaction and scientific validation are different metrics. This matrix maps
+            where every major peptide entity falls — and reveals the gap between what people love
+            and what science supports.
+          </p>
+        </div>
       </section>
 
       <div className="border-y-2 border-[#C0392B] bg-[#C0392B]/8 px-6 py-6 text-center">
@@ -137,7 +151,7 @@ export default function PeptideMatrixPage() {
         <PeptideMatrixExplorer />
 
         <section className="mb-12">
-          <h2 className="mb-6 font-heading text-2xl font-bold text-foreground">The Four Quadrants</h2>
+          <h2 className="mb-6 font-heading text-[1.6rem] font-normal text-foreground">The Four Quadrants</h2>
           <div className="grid gap-4 sm:grid-cols-2">
             {QUADRANTS.map((q) => (
               <div
@@ -164,7 +178,7 @@ export default function PeptideMatrixPage() {
         </section>
 
         <section className="mb-12">
-          <h2 className="mb-2 font-heading text-2xl font-bold text-foreground">
+          <h2 className="mb-2 font-heading text-[1.6rem] font-normal text-foreground">
             Why High Reviews + Low Evidence = Highest Risk
           </h2>
           <p className="mb-6 leading-relaxed text-muted-foreground">
@@ -191,7 +205,7 @@ export default function PeptideMatrixPage() {
         </section>
 
         <section className="mb-12 rounded-xl bg-linear-to-br from-[#0A0A10] to-[#1a1a2e] p-8">
-          <h2 className="mb-4 font-heading text-xl font-bold text-[#E8E4DC]">The Search Engine Problem</h2>
+          <h2 className="mb-4 font-heading text-[1.4rem] font-normal text-[#E8E4DC]">The Search Engine Problem</h2>
           <p className="mb-6 leading-relaxed text-[#E8E4DC]/60">
             Google &quot;peptides near me&quot; and the first page is dominated by sellers, not
             researchers. Paid ads and SEO appear first — not evidence-based information. The
@@ -212,7 +226,7 @@ export default function PeptideMatrixPage() {
         <PeptideMatrixMethodology />
 
         <section className="mb-12">
-          <h2 className="mb-6 font-heading text-xl font-bold text-foreground">
+          <h2 className="mb-6 font-heading text-[1.4rem] font-normal text-foreground">
             The Complete Peptide Truth System
           </h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -234,7 +248,7 @@ export default function PeptideMatrixPage() {
         </section>
 
         <section id="appeals" className="mb-12 scroll-mt-20 rounded-xl border border-brand-gold/10 bg-brand-gold/3 p-8">
-          <h2 className="mb-3 font-heading text-xl font-bold text-foreground">Appeals &amp; Corrections</h2>
+          <h2 className="mb-3 font-heading text-[1.3rem] font-normal text-foreground">Appeals &amp; Corrections</h2>
           <p className="mb-4 leading-relaxed text-foreground/80">
             Any practitioner, vendor, or entity listed on this page can submit corrections, context,
             or updated information. We are committed to accuracy and fairness. All appeals are

@@ -71,7 +71,7 @@ export default function HumanosHome() {
             System Status: Awakening
           </p>
 
-          <h1 className="mb-5 font-heading text-6xl leading-[0.95] font-bold text-white uppercase sm:text-7xl lg:text-8xl">
+          <h1 className="mb-5 font-heading text-[clamp(3.5rem,10vw,6rem)] leading-none font-bold tracking-[-0.02em] text-white uppercase">
             Human<br />
             <span className="text-violet-400">OS V2.0</span>
           </h1>
@@ -92,7 +92,7 @@ export default function HumanosHome() {
           <EyebrowLabel className="mb-3 font-mono text-xs tracking-[0.2em] text-violet-600 uppercase">
             The Core Question
           </EyebrowLabel>
-          <h2 className="mb-6 font-heading text-4xl leading-tight font-bold text-neutral-900 uppercase sm:text-5xl">
+          <h2 className="mb-6 font-heading text-[clamp(2rem,4.5vw,3rem)] leading-[1.15] font-bold text-neutral-900 uppercase">
             Are you a <span className="text-violet-600">Maximizer</span> or a{" "}
             <span className="text-violet-600">Satisficer</span>?
           </h2>
@@ -137,7 +137,7 @@ export default function HumanosHome() {
       {/* THE DIAGNOSTIC CTA */}
       <section className="bg-violet-50 px-6 py-20 text-center">
         <div className="mx-auto max-w-xl">
-          <h2 className="mb-4 font-heading text-3xl font-bold text-neutral-900 uppercase sm:text-4xl">
+          <h2 className="mb-4 font-heading text-[clamp(1.8rem,4vw,2.8rem)] leading-[1.2] font-bold text-neutral-900 uppercase">
             Take the <span className="text-violet-600 italic">Diagnostic</span>
           </h2>
           <p className="mb-2 text-lg text-neutral-600 italic">

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { PeptideShutdownBanner } from "@/components/marketing/peptide-shutdown-banner";
 import { BioChainCTA } from "@/components/marketing/biochain-cta";
@@ -51,12 +52,23 @@ export default function PeptideSupplyChainPage() {
         </p>
       </div>
 
-      <section className="bg-linear-to-br from-[#0A0A10] to-[#1a1a2e] px-6 py-24 text-center">
-        <div className="mx-auto max-w-2xl">
-          <p className="mb-4 font-mono text-xs tracking-[0.25em] text-brand-gold/50 uppercase">
+      <section className="relative overflow-hidden bg-linear-to-br from-[#0A0A10] to-[#1a1a2e] px-6 py-24 text-center">
+        {/* Live's hero art, rescued from the old Manus host into Sanity (2026-10-07). */}
+        <div className="absolute inset-0 opacity-18">
+          <Image
+            src="https://cdn.sanity.io/images/a3q1cyqs/production/39fd5977e53d37392aa091e7c15d381bd9980695-1200x509.webp"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover blur-[2px] brightness-70"
+          />
+        </div>
+        <div className="relative mx-auto max-w-2xl">
+          <p className="mb-4 font-mono text-[0.65rem] tracking-[0.25em] text-brand-gold/50 uppercase">
             Peptide Supply Chain Audit · 12 US Providers
           </p>
-          <h1 className="mb-6 font-heading text-4xl leading-tight text-[#E8E4DC] sm:text-5xl">
+          <h1 className="mb-6 font-heading text-[clamp(2rem,5vw,3.2rem)] leading-[1.15] font-normal text-[#E8E4DC]">
             Where Does Your
             <br />
             <span className="text-brand-gold">Peptide Dollar Go?</span>
@@ -81,7 +93,7 @@ export default function PeptideSupplyChainPage() {
       </section>
 
       <div className="mx-auto max-w-4xl px-6 py-12 sm:px-10">
-        <h2 className="mb-4 font-heading text-2xl font-bold text-foreground">How to Read This</h2>
+        <h2 className="mb-4 font-heading text-[1.6rem] font-normal text-foreground">How to Read This</h2>
         <p className="mb-6 leading-relaxed text-foreground/80">
           Every dollar you spend on peptides gets divided among seven categories. The distribution
           tells you what the company actually values. High manufacturing + high physician
@@ -137,7 +149,7 @@ export default function PeptideSupplyChainPage() {
         </div>
 
         <div className="mt-12 rounded-2xl bg-linear-to-br from-[#0A0A10] to-[#1a1a2e] px-6 py-16 text-center">
-          <h2 className="mb-4 font-heading text-2xl font-bold text-[#E8E4DC]">
+          <h2 className="mb-4 font-heading text-[1.8rem] font-normal text-[#E8E4DC]">
             Know What You&apos;re Buying
           </h2>
           <p className="mx-auto mb-8 max-w-md leading-relaxed text-[#E8E4DC]/60">

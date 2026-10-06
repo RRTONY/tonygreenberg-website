@@ -83,24 +83,26 @@ const FRAMEWORK_STEPS: FrameworkStep[] = [
 export default function FrameworkPage() {
   return (
     <div>
-      <div className="bg-linear-to-b from-background to-secondary px-6 py-20 text-center sm:px-10">
-        <p className="mb-4 font-mono text-xs tracking-[0.3em] text-brand-gold uppercase">
+      {/* Live's dark hero fades into the page background at the bottom; the
+          fade starts below the intro text so it stays on the dark part (AA). */}
+      <section className="bg-linear-to-b from-[#0A0A10] via-[#1A1A22] via-70% to-background px-6 pt-20 pb-36 text-center sm:px-10 sm:pb-44">
+        <p className="mb-6 font-mono text-[0.72rem]/[1.85] tracking-[0.35em] text-brand-gold-light uppercase">
           A Framework for Thinking
         </p>
-        <h1 className="mx-auto mb-5 max-w-2xl font-heading text-4xl leading-tight font-normal text-foreground sm:text-5xl">
-          How I&apos;d Approach <span className="text-brand-gold">Your Problem</span>
+        <h1 className="mx-auto mb-6 max-w-[43.75rem] font-heading text-[2.25rem]/[1.2] font-normal text-[#F5F0E0] sm:text-[3.2rem]/[1.2]">
+          How I&apos;d Approach <span className="text-brand-gold-light">Your Problem</span>
         </h1>
-        <p className="mx-auto max-w-xl text-lg text-foreground/70">
+        <p className="mx-auto max-w-[36.25rem] text-[1.15rem]/[1.8] text-[#F5F0E0]/70">
           Twenty-five years of pattern recognition distilled into five questions worth asking
           before you spend a dollar, hire a consultant, or make a decision you can&apos;t reverse.
         </p>
-      </div>
+      </section>
 
-      <div className="mx-auto max-w-3xl px-6 py-12 sm:px-10">
-        <p className="mb-1.5 font-mono text-xs tracking-wide text-brand-gold uppercase">
+      <div className="mx-auto max-w-[49.75rem] px-6 pt-10 pb-12 sm:px-10">
+        <p className="mb-2 font-mono text-[0.72rem] tracking-[0.2em] text-brand-gold uppercase">
           The Framework
         </p>
-        <h2 className="mb-3 font-heading text-3xl font-normal text-foreground">
+        <h2 className="mb-3 font-heading text-[1.75rem]/[1.25] font-normal text-foreground sm:text-[2.2rem]/[1.25]">
           Five Steps. Five Questions. One Diagnostic.
         </h2>
         <p className="mb-10 max-w-xl text-foreground/70">

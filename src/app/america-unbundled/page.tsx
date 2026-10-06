@@ -221,7 +221,7 @@ function H3({ children, id }: { children: React.ReactNode; id?: string }) {
   return (
     <h3
       id={id}
-      className="mt-4 scroll-mt-24 font-serif text-3xl leading-tight font-normal text-balance text-foreground sm:text-4xl"
+      className="mt-4 scroll-mt-24 font-serif text-3xl leading-[1.02] font-medium tracking-[-0.035em] text-balance text-foreground sm:text-[2.3rem]"
     >
       {children}
     </h3>
@@ -246,7 +246,9 @@ function Proposal({ children }: { children: React.ReactNode }) {
 
 export default function AmericaUnbundledPage() {
   return (
-    <div className="bg-background text-foreground">
+    // Live sets this page in an "Iowan Old Style" stack (titles 500,
+    // measured 2026-10-07), so font-serif is remapped for the whole page.
+    <div className="bg-background text-foreground [--font-serif:'Iowan_Old_Style',Baskerville,Georgia,serif]">
       <div className="mx-auto max-w-6xl px-4 pt-6 pb-16 sm:px-6">
         {/* Series masthead */}
         <nav
@@ -285,15 +287,15 @@ export default function AmericaUnbundledPage() {
 
         {/* Hero */}
         <header className="mt-14 sm:mt-20">
-          <div className="text-xs font-bold tracking-[0.2em] text-brand-gold uppercase">
+          <div className="font-[Arial,Helvetica,sans-serif] text-[0.72rem] font-bold tracking-[0.18em] text-[#80520F] uppercase dark:text-brand-gold">
             Part One of Two · The Opening Argument
           </div>
-          <h1 className="mt-4 font-serif text-5xl leading-[0.95] font-normal tracking-tight sm:text-7xl lg:text-8xl">
+          <h1 className="mt-4 font-serif text-[11.5vw] leading-[0.86] font-medium tracking-[-0.06em] sm:text-[clamp(3.7rem,7.4vw,6.8rem)]">
             <span>AI Does Not</span>
             <br />
             <em className="text-[#5b3ca8] not-italic dark:text-[#b3a1ec]">Have a Candidate.</em>
           </h1>
-          <p className="mt-5 max-w-2xl font-serif text-2xl leading-snug text-pretty text-foreground/80 sm:text-3xl">
+          <p className="mt-5 max-w-2xl font-serif text-2xl leading-[1.2] font-medium text-pretty text-foreground/80 sm:text-[1.8rem]">
             Why America needs an independent civic grid to govern AI, energy, and power.
           </p>
           <p className="mt-4 text-xs font-bold tracking-[0.14em] text-muted-foreground uppercase">
@@ -326,7 +328,7 @@ export default function AmericaUnbundledPage() {
         >
           <div>
             <Label>TL;DR · 30 seconds</Label>
-            <h2 className="mt-2 font-serif text-4xl leading-none font-normal tracking-tight uppercase">
+            <h2 className="mt-2 font-serif text-4xl leading-[0.94] font-medium tracking-[-0.045em] uppercase sm:text-[2.7rem]">
               AI is the warning.
             </h2>
           </div>

@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { sanityFetch } from "@/lib/sanity/client";
 import { postCountQuery } from "@/lib/sanity/queries";
 import { BREWSOUL_COFFEES } from "@/lib/content/brewsoul-coffees";
 import { FourDoors, type Door } from "@/components/marketing/four-doors";
 import { NewsletterSignupForm } from "@/components/marketing/newsletter-signup-form";
+import { DailyProvocation } from "@/components/marketing/daily-provocation";
+import { EditorialDivider } from "@/components/marketing/editorial-divider";
 
 // Ported from legacy client/src/pages/Home.tsx ("v2.0 Glass-Morphism Edition").
 // Real copy/links/data kept as-is; the bespoke visual effects (floating
@@ -210,6 +213,11 @@ const PROOF_TICKER = [
   "3× Guarantee on Every Retainer",
 ];
 
+// Live's narrow editorial column for the lower sections (2026-10 redesign).
+const EDITORIAL_SECTION = "mx-auto max-w-[39rem] px-6 py-8 sm:px-10";
+const EDITORIAL_EYEBROW =
+  "mb-6 font-mono text-[0.78rem] font-normal tracking-[0.35em] text-brand-gold uppercase";
+
 export default async function TheLetterPage() {
   const essayCount = await sanityFetch<number>({ query: postCountQuery, tags: ["post"] });
 
@@ -255,13 +263,8 @@ export default async function TheLetterPage() {
         </div>
       </div>
 
-      {/* Daily provocation */}
-      <div className="border-b border-border bg-muted/40 px-6 py-8 text-center sm:px-10">
-        <p className="mx-auto max-w-xl font-heading text-lg leading-relaxed text-foreground/80 italic">
-          &quot;Because &apos;trust us, the bill will make sense later&apos; isn&apos;t a business
-          model—it&apos;s a red flag.&quot;
-        </p>
-      </div>
+      {/* Daily provocation: today's line, share button, archive search */}
+      <DailyProvocation />
 
       {/* Three Visitor Pathways */}
       <div className="border-b border-border bg-background px-6 py-10 sm:px-10">
@@ -419,92 +422,90 @@ export default async function TheLetterPage() {
         </div>
       </div>
 
-      {/* How Tony Works in the World */}
-      <div className="px-6 py-12 sm:px-10">
-        <div className="mx-auto max-w-3xl">
-          <p className="mb-6 text-center font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
-            How Tony Works in the World
-          </p>
-          <div className="grid gap-6 sm:grid-cols-2">
-            <div className="flex flex-col rounded-xl border border-brand-gold/20 bg-brand-gold/5 p-7">
-              <p className="mb-2 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
-                The Amplifier
-              </p>
-              <h3 className="mb-2 font-heading text-lg font-bold text-foreground">
-                For companies already scaling who need the external layer no internal coach provides.
-              </h3>
-              <p className="mb-4 flex-1 text-sm text-muted-foreground">
-                Tony opens rooms. You walk through them. Engagements begin with a scoping conversation.
-              </p>
-              <p className="mb-4 font-mono text-xs font-semibold tracking-wide text-brand-gold uppercase">
-                2X on consulting return guarantee
-              </p>
-              <Link
-                href="/amplifier"
-                className="rounded-md bg-linear-to-br from-brand-gold-light to-[#C5A23C] py-2.5 text-center font-mono text-xs tracking-wide text-background uppercase"
-              >
-                Engagements begin with a scoping conversation →
-              </Link>
-            </div>
-            <div className="flex flex-col rounded-xl border border-border bg-card p-7">
-              <p className="mb-2 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
-                The Diamond Cut
-              </p>
-              <h3 className="mb-2 font-heading text-lg font-bold text-foreground">
-                For services businesses sitting on unproductized expertise.
-              </h3>
-              <p className="mb-4 flex-1 text-sm text-muted-foreground">
-                Tony finds the diamond. Together you cut it. Engagements begin with a scoping conversation.
-              </p>
-              <p className="mb-4 font-mono text-xs font-semibold tracking-wide text-brand-gold uppercase">
-                3X on sourcing return guarantee
-              </p>
-              <Link
-                href="/diamond-cut"
-                className="rounded-md border border-brand-gold/30 py-2.5 text-center font-mono text-xs tracking-wide text-brand-gold uppercase"
-              >
-                Engagements begin with a scoping conversation →
-              </Link>
-            </div>
+      {/* How Tony Works in the World (live's narrow editorial column) */}
+      <section className={EDITORIAL_SECTION}>
+        <h2 className={EDITORIAL_EYEBROW}>How Tony Works in the World</h2>
+        <div className="flex flex-col gap-5">
+          <div className="flex flex-col rounded-xl border border-brand-gold/20 bg-linear-to-br from-brand-gold-light/10 to-brand-gold-light/5 p-7">
+            <p className="mb-2.5 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
+              The Amplifier
+            </p>
+            <h3 className="mb-2.5 font-heading text-[1.2rem]/[1.3] font-bold text-foreground">
+              For companies already scaling who need the external layer no internal coach provides.
+            </h3>
+            <p className="mb-4 text-[0.95rem]/[1.7] text-foreground/75">
+              Tony opens rooms. You walk through them. Engagements begin with a scoping conversation.
+            </p>
+            <p className="mb-4 font-mono text-[0.72rem] font-bold tracking-[0.08em] text-brand-gold uppercase">
+              2X on consulting return guarantee
+            </p>
+            <Link
+              href="/amplifier"
+              className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-md bg-linear-to-br from-brand-gold-light to-[#C5A23C] px-6 py-2.5 text-center font-mono text-xs tracking-[0.1em] text-[#0A0A10] uppercase"
+            >
+              Engagements begin with a scoping conversation
+              <ArrowRight aria-hidden="true" className="size-3.5 shrink-0" />
+            </Link>
           </div>
-          <div className="mx-auto mt-5 max-w-xl rounded-lg border border-brand-gold-light/10 bg-muted/50 p-6 text-center">
-            <p className="border-l-4 border-[#C5A23C] pl-4 text-left font-heading text-lg font-extrabold text-foreground">
+          <div className="flex flex-col rounded-xl border border-border bg-card p-7">
+            <p className="mb-2.5 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
+              The Diamond Cut
+            </p>
+            <h3 className="mb-2.5 font-heading text-[1.2rem]/[1.3] font-bold text-foreground">
+              For services businesses sitting on unproductized expertise.
+            </h3>
+            <p className="mb-4 text-[0.95rem]/[1.7] text-foreground/75">
+              Tony finds the diamond. Together you cut it. Engagements begin with a scoping conversation.
+            </p>
+            <p className="mb-4 font-mono text-[0.72rem] font-bold tracking-[0.08em] text-brand-gold uppercase">
+              3X on sourcing return guarantee
+            </p>
+            <Link
+              href="/diamond-cut"
+              className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-md border border-brand-gold/30 px-6 py-2.5 text-center font-mono text-xs tracking-[0.1em] text-brand-gold uppercase"
+            >
+              Engagements begin with a scoping conversation
+              <ArrowRight aria-hidden="true" className="size-3.5 shrink-0" />
+            </Link>
+          </div>
+          <div className="rounded-lg bg-muted/50 p-6 text-center">
+            <p className="border-l-4 border-[#C5A23C] pl-4 text-left font-heading text-[1.3rem]/[1.45] font-extrabold text-foreground">
               Both engagements include a handpicked vertical domain expert. Tony does not show up alone.
             </p>
           </div>
         </div>
-      </div>
+      </section>
+
+      <EditorialDivider />
 
       {/* Investment Thesis */}
-      <div className="border-t border-border px-6 py-12 sm:px-10">
-        <div className="mx-auto max-w-2xl text-center">
-          <p className="mb-6 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
-            The Investment Thesis
+      <section className={EDITORIAL_SECTION}>
+        <h2 className={EDITORIAL_EYEBROW}>The Investment Thesis</h2>
+        <div className="rounded-xl border border-brand-gold-light/10 bg-muted/40 p-8">
+          <p className="mb-4 text-[1.05rem]/[1.75] text-foreground/85">
+            ImpactSoul Asset-Backed Impact Tokens (ABITs) launch Q1 2027. Tokenizing cultural,
+            regenerative, and natural assets that traditional capital markets cannot price.
           </p>
-          <div className="rounded-xl border border-brand-gold-light/10 bg-muted/40 p-8">
-            <p className="mb-4 text-foreground">
-              ImpactSoul Asset-Backed Impact Tokens (ABITs) launch Q1 2027. Tokenizing cultural,
-              regenerative, and natural assets that traditional capital markets cannot price.
-            </p>
-            <a
-              href="https://impactsoul.is"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block rounded-md border border-brand-gold/30 px-6 py-2.5 font-mono text-sm tracking-wide text-brand-gold uppercase"
-            >
-              Join the waitlist → impactsoul.is
-            </a>
-          </div>
+          <a
+            href="https://impactsoul.is"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex min-h-11 items-center gap-1.5 rounded-md border border-brand-gold/30 px-5 py-2.5 font-mono text-[0.78rem] tracking-[0.12em] text-brand-gold uppercase"
+          >
+            Join the waitlist
+            <ArrowRight aria-hidden="true" className="size-3.5" />
+            impactsoul.is
+          </a>
         </div>
-      </div>
+      </section>
 
       {/* Open Questions */}
-      <div className="border-y border-border bg-muted/40 px-6 py-10 sm:px-10">
-        <div className="mx-auto max-w-4xl">
-          <p className="mb-6 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
+      <section className="mt-10 border-y border-border bg-[#F5F0E8] px-6 py-10 sm:px-10 dark:bg-muted/40">
+        <div className="mx-auto max-w-[56.25rem]">
+          <h2 className="mb-6 font-mono text-[0.65rem] font-normal tracking-[0.2em] text-brand-gold uppercase">
             Still Figuring Out
-          </p>
-          <div className="grid gap-4 sm:grid-cols-2">
+          </h2>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {OPEN_QUESTIONS.map((item) => (
               <div key={item.q} className="rounded border border-brand-gold/10 bg-background/70 p-5">
                 <p className="mb-2 font-heading font-semibold text-foreground">{item.q}</p>
@@ -513,115 +514,109 @@ export default async function TheLetterPage() {
             ))}
           </div>
         </div>
-      </div>
+      </section>
 
       {/* What I Build */}
-      <div className="px-6 py-12 sm:px-10">
-        <div className="mx-auto max-w-4xl">
-          <p className="mb-6 text-center font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
-            What I Build
-          </p>
-          <div className="grid gap-5 sm:grid-cols-3">
-            {WHAT_I_BUILD.map((item) => {
-              const linkProps = item.external
-                ? { target: "_blank", rel: "noopener noreferrer" }
-                : {};
-              return (
-                <Link
-                  key={item.title}
-                  href={item.href}
-                  {...linkProps}
-                  className="block rounded-lg border border-border p-6 transition-colors hover:border-brand-gold/30"
-                >
-                  <p className="mb-2 font-mono text-[0.58rem] tracking-[0.18em] text-brand-gold uppercase">
-                    {item.tag}
-                  </p>
-                  <p className="mb-2 font-heading font-bold text-foreground">{item.title}</p>
-                  <p className="text-sm text-muted-foreground">{item.body}</p>
-                  <p className="mt-3 font-mono text-xs text-brand-gold">{item.linkLabel} →</p>
-                </Link>
-              );
-            })}
-          </div>
-          <p className="mt-5 border-t border-border pt-4 font-mono text-xs text-muted-foreground">
-            Also active in:{" "}
-            <Link href="/psychedelic-readiness-index" className="text-brand-gold">
-              Psychedelic Medicine
-            </Link>{" "}
-            ·{" "}
-            <Link href="/brewsoul" className="text-brand-gold">
-              BrewSoul
-            </Link>{" "}
-            ·{" "}
-            <Link href="/ecosystem" className="text-brand-gold">
-              Full Ecosystem →
-            </Link>
-          </p>
+      <section className={`${EDITORIAL_SECTION} mt-10`}>
+        <h2 className={EDITORIAL_EYEBROW}>What I Build</h2>
+        <div className="grid gap-5 sm:grid-cols-2">
+          {WHAT_I_BUILD.map((item) => {
+            const linkProps = item.external ? { target: "_blank", rel: "noopener noreferrer" } : {};
+            return (
+              <Link
+                key={item.title}
+                href={item.href}
+                {...linkProps}
+                className="block rounded-lg border border-border bg-background/60 p-6 transition-colors hover:border-brand-gold/30"
+              >
+                <p className="mb-2 font-mono text-[0.58rem] tracking-[0.18em] text-brand-gold uppercase">
+                  {item.tag}
+                </p>
+                <p className="mb-1.5 font-heading text-[1.1rem] font-bold text-foreground">{item.title}</p>
+                <p className="text-[0.85rem]/[1.6] text-muted-foreground">{item.body}</p>
+                <p className="mt-3 inline-flex items-center gap-1 font-mono text-xs text-brand-gold">
+                  {item.linkLabel}
+                  <ArrowRight aria-hidden="true" className="size-3" />
+                </p>
+              </Link>
+            );
+          })}
         </div>
-      </div>
+        <p className="mt-5 border-t border-border pt-4 font-mono text-xs text-muted-foreground">
+          Also active in:{" "}
+          <Link href="/psychedelic-readiness-index" className="text-brand-gold">
+            Psychedelic Medicine
+          </Link>{" "}
+          ·{" "}
+          <Link href="/brewsoul" className="text-brand-gold">
+            BrewSoul
+          </Link>{" "}
+          ·{" "}
+          <Link href="/ecosystem" className="inline-flex items-center gap-1 text-brand-gold">
+            Full Ecosystem
+            <ArrowRight aria-hidden="true" className="size-3" />
+          </Link>
+        </p>
+      </section>
+
+      <EditorialDivider />
 
       {/* Most Read */}
-      <div className="border-t border-border px-6 py-12 sm:px-10">
-        <div className="mx-auto max-w-2xl">
-          <p className="mb-6 text-center font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
-            Most Read
-          </p>
-          <div className="rounded-xl border border-brand-gold-light/10 bg-muted/30 px-4">
-            {MOST_READ.map((item, i) => (
-              <Link
-                key={item.num}
-                href={`/blog/${item.slug}`}
-                className={`flex items-baseline gap-4 py-3 transition-colors hover:bg-brand-gold/5 ${
-                  i < MOST_READ.length - 1 ? "border-b border-brand-gold-light/10" : ""
-                }`}
-              >
-                <span className="font-mono text-xs text-brand-gold dark:text-brand-gold-light">{item.num}</span>
-                <span>
-                  <span className="font-heading font-semibold text-foreground">{item.title}</span>
-                  {item.subtitle && (
-                    <span className="ml-2 font-mono text-xs text-muted-foreground">
-                      — {item.subtitle}
-                    </span>
-                  )}
-                </span>
-              </Link>
-            ))}
-          </div>
+      <section className={EDITORIAL_SECTION}>
+        <h2 className={EDITORIAL_EYEBROW}>Most Read</h2>
+        <div className="rounded-xl border border-brand-gold-light/10 bg-muted/30 px-6">
+          {MOST_READ.map((item, i) => (
+            <Link
+              key={item.num}
+              href={`/blog/${item.slug}`}
+              className={`flex items-baseline gap-4 py-4 transition-colors hover:bg-brand-gold/5 ${
+                i < MOST_READ.length - 1 ? "border-b border-brand-gold-light/10" : ""
+              }`}
+            >
+              <span className="font-mono text-xs text-brand-gold dark:text-brand-gold-light">{item.num}</span>
+              <span>
+                <span className="font-heading text-[1.05rem] font-semibold text-foreground">{item.title}</span>
+                {item.subtitle && (
+                  <span className="ml-2 font-mono text-xs text-muted-foreground">— {item.subtitle}</span>
+                )}
+              </span>
+            </Link>
+          ))}
         </div>
-      </div>
+      </section>
+
+      <EditorialDivider />
 
       {/* BrewSoul teaser */}
-      <div className="border-t border-border px-6 py-12 sm:px-10">
-        <div className="mx-auto max-w-2xl text-center">
-          <p className="mb-6 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
-            The Intelligence of Coffee
+      <section className={`${EDITORIAL_SECTION} mb-10`}>
+        <h2 className={EDITORIAL_EYEBROW}>The Intelligence of Coffee</h2>
+        <div className="rounded-xl border border-[#6F4E37]/15 bg-[#6F4E37]/5 p-8">
+          <p className="mb-5 text-[1.05rem]/[1.75] text-foreground/85">
+            {BREWSOUL_COFFEES.length} coffees scored. 100 chains ranked. 6 identity archetypes. The most opinionated
+            coffee intelligence platform on the internet — built on data, not vibes.
           </p>
-          <div className="rounded-xl border border-[#6F4E37]/15 bg-[#6F4E37]/5 p-8">
-            <p className="mb-5 text-foreground">
-              {BREWSOUL_COFFEES.length} coffees scored. 100 chains ranked. 6 identity archetypes. The most opinionated
-              coffee intelligence platform on the internet — built on data, not vibes.
-            </p>
-            <div className="flex flex-wrap justify-center gap-3">
-              <Link
-                href="/brewsoul"
-                className="rounded-md bg-linear-to-br from-[#6F4E37] to-[#A68B3C] px-5 py-2.5 font-mono text-xs tracking-wide text-white uppercase"
-              >
-                Enter BrewSoul →
-              </Link>
-              <Link
-                href="/brewsoul/chains"
-                className="rounded-md border border-[#6F4E37]/30 px-5 py-2.5 font-mono text-xs tracking-wide text-[#6F4E37] uppercase"
-              >
-                Chain Rankings →
-              </Link>
-            </div>
+          <div className="flex flex-wrap gap-3">
+            <Link
+              href="/brewsoul"
+              className="inline-flex min-h-11 items-center gap-1.5 rounded-md bg-linear-to-br from-[#6F4E37] to-[#A68B3C] px-5 py-2.5 font-mono text-xs tracking-wide text-white uppercase"
+            >
+              Enter BrewSoul
+              <ArrowRight aria-hidden="true" className="size-3.5" />
+            </Link>
+            <Link
+              href="/brewsoul/chains"
+              className="inline-flex min-h-11 items-center gap-1.5 rounded-md border border-[#6F4E37]/30 px-5 py-2.5 font-mono text-xs tracking-wide text-[#6F4E37] uppercase dark:text-[#C9A27E]"
+            >
+              Chain Rankings
+              <ArrowRight aria-hidden="true" className="size-3.5" />
+            </Link>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Sign-off */}
-      <div className="bg-[#0A0A10] px-6 py-16 text-center sm:px-10">
-        <p className="mx-auto mb-4 max-w-md font-heading text-xl leading-normal text-[#F5F0E0]/70 italic sm:text-2xl">
+      <section className="bg-[#0A0A10] px-6 py-10 text-center">
+        <p className="mx-auto mb-4 max-w-[31.25rem] font-heading text-xl/normal text-[#F5F0E0]/70 italic sm:text-[1.6rem]/normal">
           &quot;Only time buys trust.
           <br />
           The gold is in the cracks.&quot;
@@ -634,7 +629,7 @@ export default async function TheLetterPage() {
         <p className="font-mono text-xs tracking-[0.08em] text-[#F5F0E0]/65">
           tonygreenberg.com &nbsp;·&nbsp; impactsoul.is &nbsp;·&nbsp; ramprate.com
         </p>
-      </div>
+      </section>
 
       {/* The Dispatch */}
       <div className="px-6 py-10 sm:px-10">

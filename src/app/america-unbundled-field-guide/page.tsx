@@ -136,7 +136,9 @@ function Label({ children }: { children: React.ReactNode }) {
 
 export default function AmericaUnbundledFieldGuidePage() {
   return (
-    <div className="bg-background text-foreground">
+    // Live sets this page in an "Iowan Old Style" stack (titles 500,
+    // measured 2026-10-07), so font-serif is remapped for the whole page.
+    <div className="bg-background text-foreground [--font-serif:'Iowan_Old_Style',Baskerville,Georgia,serif]">
       <div className="mx-auto max-w-6xl px-4 pt-6 pb-16 sm:px-6">
         {/* Series masthead */}
         <nav
@@ -174,17 +176,17 @@ export default function AmericaUnbundledFieldGuidePage() {
 
         {/* Hero */}
         <header className="mt-14 sm:mt-20">
-          <div className="text-xs font-bold tracking-[0.2em] text-brand-gold uppercase">
+          <div className="font-[Arial,sans-serif] text-xs font-semibold tracking-[0.25em] text-[#80520F] uppercase dark:text-brand-gold">
             Part Two of Two · The Field Guide
           </div>
-          <h1 className="mt-4 font-serif text-5xl leading-[0.95] font-normal tracking-tight sm:text-7xl lg:text-8xl">
+          <h1 className="mt-4 font-serif text-[9vw] leading-[0.86] font-medium tracking-[-0.06em] sm:text-[clamp(3.7rem,7.4vw,6.8rem)]">
             <span>
               America Is <em className="text-[#5b3ca8] not-italic dark:text-[#b3a1ec]">Unbundled.</em>
             </span>
             <br />
             <span className="text-[#5b3ca8] dark:text-[#b3a1ec]">The Field Guide</span>
           </h1>
-          <p className="mt-5 max-w-2xl font-serif text-2xl leading-snug text-pretty text-foreground/80 sm:text-3xl">
+          <p className="mt-5 max-w-2xl font-serif text-2xl leading-[1.2] font-medium text-pretty text-foreground/80 sm:text-[1.8rem]">
             We have enough labels. Independence needs rules, receipts, and a way to take power back when it fails.
           </p>
           <p className="mt-4 text-xs font-bold tracking-[0.14em] text-muted-foreground uppercase">
@@ -234,7 +236,7 @@ export default function AmericaUnbundledFieldGuidePage() {
         <section id="storyline" className="mt-12 grid gap-4 border-t border-border pt-4 md:grid-cols-[13rem_1fr] md:gap-12">
           <Label>The proposition</Label>
           <div className="max-w-2xl font-serif text-lg leading-relaxed text-foreground/85 [&>p]:mt-5">
-            <h2 className="font-serif text-4xl leading-tight font-normal tracking-tight text-balance text-foreground sm:text-5xl">
+            <h2 className="font-serif text-4xl leading-[0.98] font-medium tracking-[-0.045em] text-balance text-foreground sm:text-[3.6rem]">
               Start with the objections.
             </h2>
             <p>
@@ -274,7 +276,7 @@ export default function AmericaUnbundledFieldGuidePage() {
 
             <div className="mt-12">
               <Label>Consensus instrument</Label>
-              <h3 className="mt-3 font-serif text-3xl leading-tight font-normal text-foreground">
+              <h3 className="mt-3 font-serif text-3xl leading-[1.1] font-medium text-foreground sm:text-[2.15rem]">
                 Representation needs a smaller room
               </h3>
               <p className="mt-3">
@@ -298,7 +300,7 @@ export default function AmericaUnbundledFieldGuidePage() {
 
             <div className="mt-12">
               <Label>Governance in practice</Label>
-              <h3 className="mt-3 font-serif text-3xl leading-tight font-normal text-foreground">
+              <h3 className="mt-3 font-serif text-3xl leading-[1.1] font-medium text-foreground sm:text-[2.15rem]">
                 Independent governance needs operating rules
               </h3>
               <p className="mt-3">
@@ -338,7 +340,7 @@ export default function AmericaUnbundledFieldGuidePage() {
                   America House <Bird aria-hidden="true" className="size-3.5" /> · Civic creator headquarters
                 </span>
               </Label>
-              <h3 className="mt-3 font-serif text-3xl leading-tight font-normal text-foreground">
+              <h3 className="mt-3 font-serif text-3xl leading-[1.1] font-medium text-foreground sm:text-[2.15rem]">
                 The house is the set. The people are the story.
               </h3>
               <p className="mt-3">
@@ -381,7 +383,7 @@ export default function AmericaUnbundledFieldGuidePage() {
                       <span aria-hidden className="size-3.5 rounded-full border border-brand-gold bg-brand-gold/10" />
                       {s.index}
                     </div>
-                    <h3 className="mt-4 font-serif text-3xl leading-none font-normal text-balance text-foreground">
+                    <h3 className="mt-4 font-serif text-3xl leading-[0.94] font-medium text-balance text-foreground sm:text-[2.55rem]">
                       {s.title}
                     </h3>
                     <p className="mt-3 font-serif text-lg leading-relaxed text-foreground/80">{s.body}</p>
@@ -412,7 +414,7 @@ export default function AmericaUnbundledFieldGuidePage() {
         >
           <Label>The decision point</Label>
           <div className="max-w-3xl">
-            <h2 className="font-serif text-4xl leading-tight font-normal tracking-tight text-balance sm:text-5xl">
+            <h2 className="font-serif text-4xl leading-[0.98] font-medium tracking-[-0.045em] text-balance sm:text-[3.6rem]">
               Do not ask who they vote for. Ask what they will protect.
             </h2>
             <p className="mt-5 max-w-2xl font-serif text-lg leading-relaxed text-foreground/85">
@@ -452,7 +454,7 @@ export default function AmericaUnbundledFieldGuidePage() {
         {/* Sources */}
         <section id="reading" className="mt-14 border-t-2 border-b border-t-foreground border-b-border pt-4 pb-10">
           <Label>Sources + further reading</Label>
-          <h2 className="mt-3 font-serif text-4xl leading-tight font-normal tracking-tight text-balance sm:text-5xl">
+          <h2 className="mt-3 font-serif text-4xl leading-[0.98] font-medium tracking-[-0.045em] text-balance sm:text-[3.6rem]">
             The receipts live with Part One.
           </h2>
           <p className="mt-3 max-w-2xl text-muted-foreground">
@@ -474,7 +476,7 @@ export default function AmericaUnbundledFieldGuidePage() {
             aria-hidden="true"
             className="absolute top-0 right-4 hidden size-20 fill-current text-brand-gold/25 sm:block"
           />
-          <h2 className="max-w-2xl font-serif text-4xl leading-tight font-normal tracking-tight text-balance sm:text-5xl">
+          <h2 className="max-w-2xl font-serif text-4xl leading-[0.98] font-medium tracking-[-0.045em] text-balance sm:text-[3.6rem]">
             Independents are not waiting for America to return.
           </h2>
           <p className="mt-6 max-w-2xl font-serif text-lg leading-relaxed text-pretty text-foreground/85">

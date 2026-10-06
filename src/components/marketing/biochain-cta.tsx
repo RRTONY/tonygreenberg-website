@@ -2,7 +2,7 @@
 // used on every peptide/biohacking/bio-sourcing page. Real, static outbound
 // links to RampRate's own BioChain business site (verified live); no
 // backend/form on this side at all, so nothing to reduce here.
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Sparkle } from "lucide-react";
 
 export type BioChainVariant = "supplier" | "buyer" | "both";
 
@@ -15,7 +15,8 @@ export function BioChainCTA({
 }) {
   return (
     <div className="my-10 border-l-4 border-[#8B5A2B] bg-linear-to-br from-[#F5F0E8] to-[#EDE4CC] p-8">
-      <div className="mb-2 font-mono text-xs tracking-[0.12em] text-[#8B5A2B] uppercase">
+      <div className="mb-2 flex items-center gap-1.5 font-mono text-xs tracking-[0.12em] text-[#8B5A2B] uppercase">
+        <Sparkle aria-hidden="true" className="size-3 fill-current" />
         Verified Bio-Sourcing — BioChain by RampRate
       </div>
       <div className="mb-3 font-heading text-xl leading-snug text-[#2C1810] italic">

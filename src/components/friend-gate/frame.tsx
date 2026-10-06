@@ -13,7 +13,7 @@ export function GateFrame({ children }: { children: ReactNode }) {
   );
 }
 
-export const gateH1 = "mb-2 text-[clamp(1.5rem,4vw,2rem)]/[1.25] font-bold text-[#1A1208]";
+export const gateH1 = "mb-2 font-[Georgia,serif] text-[clamp(1.5rem,4vw,2rem)]/[1.25] font-bold text-[#1A1208]";
 export const gateSub = "mb-6 text-[15px]/[1.7] text-[#78350F]";
 export const gateLabel = "mb-1.5 block text-xs font-semibold text-[#92400E]";
 export const gateInput =

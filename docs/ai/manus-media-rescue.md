@@ -172,3 +172,26 @@ The 65 images the code loaded from `d2xsxph8kpxj0f.cloudfront.net` (an S3 copy o
 | `opt_51_caapi_6bf8e23e.jpg` | `src/lib/content/pri-medicine-images.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/5701816b34b7b9f97aad02d518abd0e00813d79f-1200x1200.jpg |
 | `opt_54_soma_f973a3b5.jpg` | `src/lib/content/pri-medicine-images.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/a1ae484aa30f22306686c8d55362fedd9cc43dd6-1200x1200.jpg |
 | `opt_53_mapacho_197af3b7.jpg` | `src/lib/content/pri-medicine-images.ts` | https://cdn.sanity.io/images/a3q1cyqs/production/d49ec0394eb5396357baf1f6d71f1fba0a3aac6c-1200x1200.jpg |
+
+## Peptide page images rescued (2026-10-07)
+
+Live still served these from `/api/img/` only. Rescued by
+`scripts/rescue-2026-10-07-peptide-images.ts` (each one looked at first, all real art).
+
+| Legacy path (`/api/img/`) | Used in | Sanity URL |
+| --- | --- | --- |
+| `site-057-opt_27_0_JXknTuGM5jXLADVhzi2311_…_51be235d.webp` | `src/app/peptide-watch/page.tsx` (hero background) | https://cdn.sanity.io/images/a3q1cyqs/production/a285315b1cc22eaea951b0ac97011d8f9ed75228-1200x669.webp |
+| `site-072-opt_41_1_v2WYYfU57IwN06VnYMczhd_…_19528483.webp` | `src/app/peptide-watch/page.tsx` (Three Markets banner) | https://cdn.sanity.io/images/a3q1cyqs/production/a4afb163c3058b3de0efc67dc8d7ada0b5914e1e-1200x669.webp |
+| `site-050-opt_19_2_E8571TfuVcPpzA3l8sDtUG_…_2632b980.webp` | `src/app/peptide-watch/page.tsx` (Enforcement Timeline banner) | https://cdn.sanity.io/images/a3q1cyqs/production/f19965a128b15aabc8e5aabdb5484cfdccd37870-1200x669.webp |
+| `site-041-opt_1_3_MIYsdI7jUuNQa0NltDUgjn_…_bcd9044f.webp` | `src/app/peptide-watch/page.tsx` (Wall of Shame banner) | https://cdn.sanity.io/images/a3q1cyqs/production/f899bfb2cb10629c2d10368620614f1d09015b31-1200x669.webp |
+| `site-040-opt_0_4_MCkiwFGAzWiyKXzYmiwuBZ_…_2e6f4d55.webp` | `src/app/peptide-watch/page.tsx` (12 Fraud Patterns banner) | https://cdn.sanity.io/images/a3q1cyqs/production/3a4faa4f51390e877672f9c33e7e266b23d6a003-1200x669.webp |
+| `site-094-opt_8_5_uzz3yDoGjZ1TsSejER4qZC_…_2d7bc2e6.webp` | `src/app/peptide-watch/page.tsx` (Pick Your Checklist banner) | https://cdn.sanity.io/images/a3q1cyqs/production/b130b4de7cc7e67968a67284052852a904732b36-1200x669.webp |
+| `site-053-opt_22_6_9L4WV2g0hc1P2OWmepfvJd_…_4f1214cd.webp` | `src/app/peptide-watch/page.tsx` (10-Question Test banner) | https://cdn.sanity.io/images/a3q1cyqs/production/794fca42cbfb4a11db5638a1d09b0f0deff98a54-1200x669.webp |
+| `site-045-opt_13_7_C1fQmXkqFMlvJ032C4qvEY_…_2de75538.webp` | `src/app/peptide-watch/page.tsx` (Vendor Scorecard banner) | https://cdn.sanity.io/images/a3q1cyqs/production/6c24979910de3dce5c605e384fb1434f2f3d707c-1200x669.webp |
+| `site-066-opt_35_8_fW9NqUzYD9g7z7SGoJBLLT_…_443eaaa5.webp` | `src/app/peptide-watch/page.tsx` (Finnrick banner) | https://cdn.sanity.io/images/a3q1cyqs/production/8f6be6789e870c478ccb65d612e3be9c79ba7bc1-1200x669.webp |
+| `site-047-opt_15_9_yJslhilC8rx2UAMMgYdWcm_…_034c7b8a.webp` | `src/app/peptide-watch/page.tsx` (Consumer Organization banner) | https://cdn.sanity.io/images/a3q1cyqs/production/e45982607158f80415eb6165279cb2f11e6ab528-1200x669.webp |
+| `site-056-opt_26_10_jdNQ9z5VMCRzCSnTvLtYCx_…_36096a86.webp` | `src/app/peptide-watch/page.tsx` (Whistleblower banner) | https://cdn.sanity.io/images/a3q1cyqs/production/50f2c9b0652e477a517b636be20e3afb5322ddc1-1200x669.webp |
+| `site-048-opt_16_11_ecMRcv6t898oag7yBTl2HK_…_6d54f0a7.webp` | `src/app/peptide-watch/page.tsx` (Protocol banner) | https://cdn.sanity.io/images/a3q1cyqs/production/5e9b076c4c7ea7bffe14507e9111de85b85eecd2-1200x669.webp |
+| `site-090-opt_66_peptide-hero-matrix-TUP48rggCiaJdBFdZh9eMF_…_aa8d491e.webp` | `src/app/peptide-matrix/page.tsx` (hero background) | https://cdn.sanity.io/images/a3q1cyqs/production/6e35eac72eced203da0889fe95617e0be7ac86f1-1200x509.webp |
+| `site-098-peptide-hero-shame-F3CU4ffRKBb77JgiCsFgmX_fb1ebaec57_1008dba4.webp` | `/peptide-hall-of-shame` hero background (**not wired yet**) | https://cdn.sanity.io/images/a3q1cyqs/production/f76b0029de9df63f14c832719a17e68d260314a9-1200x509.webp |
+| `site-099-peptide-hero-supply-PYCPqN9umsL4js9C6nUkYD_04fc7bf50c_8b06680b.webp` | `src/app/peptide-supply-chain/page.tsx` (hero background) | https://cdn.sanity.io/images/a3q1cyqs/production/39fd5977e53d37392aa091e7c15d381bd9980695-1200x509.webp |

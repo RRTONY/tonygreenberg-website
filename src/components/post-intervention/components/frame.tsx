@@ -15,7 +15,7 @@ export function Frame({ eyebrow, title, sub, done = false, children }: { eyebrow
         <p className={done ? "mb-3 font-mono text-[11px] tracking-[0.2em] text-[#A7F3D0] uppercase" : "mb-3 font-mono text-[11px] tracking-[0.2em] text-[#FDE68A] uppercase"}>
           {eyebrow}
         </p>
-        <h1 className="mb-3 text-[clamp(26px,5vw,40px)]/[1.2] font-normal text-[#FFFDF7]">{title}</h1>
+        <h1 className="mb-3 font-[Georgia,serif] text-[clamp(26px,5vw,40px)]/[1.2] font-normal text-[#FFFDF7]">{title}</h1>
         <p className="mx-auto max-w-130 text-[15px]/[1.6] text-[#FDE68A]">{sub}</p>
       </header>
       <div className="mx-auto max-w-160 px-6 py-10">{children}</div>

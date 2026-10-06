@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { sanityFetch } from "@/lib/sanity/client";
 import { postsBySlugsQuery } from "@/lib/sanity/queries";
 import { MIRROR_ARTICLE_SLUGS } from "@/lib/content/mirror-data";
-import { TheMirrorQuiz } from "@/components/assessments/the-mirror-quiz";
+import { TheMirrorQuiz } from "@/components/assessments/the-mirror-quiz/the-mirror-quiz";
 
 // Legacy registered this exact component at both `/life-assessment` and
 // `/the-mirror` (see `_legacy-manus-app/client/src/App.tsx` lines 488-489 —

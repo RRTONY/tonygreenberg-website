@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
-import { EyebrowLabel } from "@/components/marketing/eyebrow-label";
+import { pageFontVariables } from "@/lib/fonts/page-fonts";
 import { BlueprintForm } from "./blueprint-form";
 
 // Ported from legacy client/src/pages/Manifesto.tsx ("A Living Declaration
@@ -161,16 +161,66 @@ const ECOSYSTEM_MAP = [
   },
 ];
 
-function PullQuote({ quote, attribution }: { quote: string; attribution: string }) {
+// 2026-10-07: restyled to live's current editorial design (measured on
+// tonygreenberg.com at 1440 and 375): cream page, Cormorant Garamond titles,
+// red letter-spaced eyebrows (#8E1E25, 7.5:1 on the cream), red hairline
+// dividers, and full-width near-black bands for the stats, the hand image,
+// every pull quote and "The Next Step". The bands stay dark in both themes,
+// like live. Live's gold section numerals (#D4B96A) fail contrast on cream, so
+// they keep the darker brand gold here.
+
+const SECTION = "mx-auto max-w-[39.125rem] px-6 py-8 sm:px-10";
+const SECTION_PT10 = "mx-auto max-w-[39.125rem] px-6 pt-10 pb-8 sm:px-10";
+const SECTION_PT12 = "mx-auto max-w-[39.125rem] px-6 pt-12 pb-8 sm:px-10";
+const SECTION_PT14 = "mx-auto max-w-[39.125rem] px-6 pt-14 pb-8 sm:px-10";
+const PROSE = "text-[1.15rem]/[1.95] text-[#222] dark:text-foreground/85 [&>p]:mb-5";
+const EYEBROW =
+  "mb-6 font-mono text-[0.78rem] tracking-[0.35em] text-[#8E1E25] uppercase dark:text-[#E07A80]";
+const H2 = "font-cormorant text-[2rem]/[1.3] font-normal text-[#111] dark:text-foreground";
+const H2_LG =
+  "font-cormorant text-[2.4rem]/[1.2] font-normal text-[#111] dark:text-foreground";
+const H3 = "font-cormorant text-[1.2rem]/[1.85] font-semibold text-[#111] dark:text-foreground";
+const LINK = "text-brand-gold underline underline-offset-2";
+
+function Divider() {
   return (
-    <div className="bg-secondary px-6 py-14 text-center sm:px-10 dark:bg-[#0A0A10]">
-      <blockquote className="mx-auto max-w-2xl font-heading text-xl leading-relaxed text-foreground italic sm:text-2xl">
+    <div
+      aria-hidden="true"
+      className="mx-auto my-10 h-px w-48 bg-linear-to-r from-transparent via-[#8E1E25] to-transparent"
+    />
+  );
+}
+
+function PullQuote({
+  quote,
+  attribution,
+  large = false,
+}: {
+  quote: string;
+  attribution: string;
+  large?: boolean;
+}) {
+  return (
+    <figure
+      className={
+        large
+          ? "bg-[#0A0A10] px-6 py-20 text-center sm:px-16"
+          : "bg-[#0A0A10] px-6 py-16 text-center sm:px-16"
+      }
+    >
+      <blockquote
+        className={
+          large
+            ? "mx-auto max-w-175 font-heading text-[1.5rem]/[1.6] text-[#F5F0E0] italic sm:text-[2rem]/[1.6]"
+            : "mx-auto max-w-175 font-heading text-[1.4rem]/[1.6] text-[#F5F0E0] italic sm:text-[1.8rem]/[1.6]"
+        }
+      >
         &quot;{quote}&quot;
       </blockquote>
-      <p className="mt-5 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
-        — {attribution}
-      </p>
-    </div>
+      <figcaption className="mt-5 font-mono text-[0.72rem] tracking-[0.2em] text-brand-gold-light uppercase">
+        {attribution.startsWith("Principle") ? attribution : `— ${attribution}`}
+      </figcaption>
+    </figure>
   );
 }
 
@@ -181,133 +231,140 @@ const CLARISSE_ART_IMG = `${IMG_BASE}d8e3526e3f1115dbeaf0b0e85435c5ce0614bb86-81
 
 export default function LivingDeclarationPage() {
   return (
-    <div>
-      {/* Live's 90vh hero sits under its header; ours starts below the header, so the
-          min-height drops the header (~4.2rem) and the larger bottom padding keeps the
-          text centered where live centers it. */}
-      <div className="relative isolate flex min-h-[calc(90vh-4.2rem)] flex-col items-center justify-center overflow-hidden bg-[#0A0A10] px-6 pt-16 pb-33 text-center sm:px-10">
+    <div className={`${pageFontVariables} bg-[#F1EBDD] dark:bg-background`}>
+      {/* Live: 90vh hero, text centered inside an 800px left column over the
+          photo. Ours starts below the header, so the min-height drops it. */}
+      <div className="relative isolate flex min-h-[calc(90vh-4.2rem)] flex-col justify-center overflow-hidden bg-[#111] py-16">
         <Image src={HERO_IMG} alt="" fill fetchPriority="high" loading="eager" sizes="100vw" className="-z-20 object-cover brightness-35 saturate-80" />
         <div
           aria-hidden="true"
           className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,rgba(139,105,20,0.15)_0%,transparent_70%)]"
         />
-        <p className="mb-6 font-mono text-[0.72rem]/[1.85] tracking-[0.3em] text-brand-gold-light uppercase">
-          A Living Declaration
-        </p>
-        <h1 className="mx-auto mb-6 max-w-2xl font-heading text-[clamp(2.4rem,6vw,4.5rem)]/[1.08] font-normal text-[#F5F0E8]">
-          The Measurement <span className="text-brand-gold-light">of Becoming</span>
-        </h1>
-        <p className="mx-auto mb-8 max-w-155 text-[1.2rem]/[1.8] text-[#F5F0E8]/75">
-          This is a working declaration, not a new religion. I am interested in a simple
-          question: how do we help people get closer to the life they know they could live? The
-          answers live in the body, in our relationships, in our habits, and in the systems we
-          choose to build.
-        </p>
-        <a
-          href="#your-turn"
-          className="inline-flex min-h-11 items-center gap-1.5 rounded-md bg-brand-gold-light px-10 py-3.5 font-mono text-xs tracking-[0.15em] text-[#0A0A10] uppercase transition-colors hover:bg-[#F5F0E0]"
-        >
-          Add Your Voice <ArrowRight aria-hidden="true" className="size-3.5" />
-        </a>
+        <div className="w-full max-w-200 px-6 text-center sm:px-16">
+          <p className="mb-6 font-mono text-[0.72rem]/[1.85] tracking-[0.3em] text-brand-gold-light uppercase">
+            A Living Declaration
+          </p>
+          <h1 className="mx-auto mb-6 font-cormorant text-[clamp(2.75rem,8vw,4.5rem)]/[1.08] font-normal text-[#F5F0E0]">
+            The Measurement <span className="text-brand-gold-light">of Becoming</span>
+          </h1>
+          <p className="mx-auto mb-8 max-w-155 text-[1.1rem]/[1.8] text-[#F5F0E8]/75 sm:text-[1.2rem]/[1.8]">
+            This is a working declaration, not a new religion. I am interested in a simple
+            question: how do we help people get closer to the life they know they could live? The
+            answers live in the body, in our relationships, in our habits, and in the systems we
+            choose to build.
+          </p>
+          <a
+            href="#your-turn"
+            className="inline-flex min-h-11 items-center gap-1.5 rounded-md bg-brand-gold-light px-10 py-3.5 font-mono text-xs tracking-[0.15em] text-[#0A0A10] uppercase transition-colors hover:bg-[#F5F0E0]"
+          >
+            Add Your Voice <ArrowRight aria-hidden="true" className="size-3.5" />
+          </a>
+        </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-6 border-y border-brand-gold/20 bg-secondary px-6 py-10 text-center sm:grid-cols-3 sm:px-10 lg:grid-cols-6 dark:bg-[#0A0A10]">
+      <div className="grid grid-cols-2 gap-6 border-t border-[#8E1E25]/40 bg-[#0A0A10] px-6 py-10 text-center sm:grid-cols-3 sm:px-16 lg:grid-cols-6">
         {STATS.map((s) => (
           <div key={s.label}>
-            <div className="font-heading text-2xl font-bold text-brand-gold">{s.value}</div>
-            <div className="mt-1 font-mono text-xs tracking-wide text-muted-foreground uppercase">
+            <div className="font-heading text-[2.2rem]/[1.2] font-bold text-brand-gold-light">{s.value}</div>
+            <div className="mt-1 font-mono text-[0.65rem] tracking-[0.1em] text-white/50 uppercase">
               {s.label}
             </div>
           </div>
         ))}
       </div>
 
-      <div className="article-body mx-auto max-w-2xl px-6 py-14 leading-[1.9] sm:px-10 [&>p]:mb-4">
-        <EyebrowLabel>The Premise</EyebrowLabel>
-        <p>
-          For twenty-five years, I have built companies, picked apart bad incentives, invested in
-          difficult ideas, and written about what happens when you refuse to accept the world
-          exactly as it is handed to you. Some of that work has involved enterprise contracts,
-          some has involved medicine, some has involved fossils and oceans. It has all been an
-          attempt to find the people and systems worth betting on.
-        </p>
-        <p>
-          Underneath all of it is one question:{" "}
-          <strong>
-            What helps a person live with more clarity, more agency, and more room to become who
-            they are?
-          </strong>
-        </p>
-        <p>
-          This is not my final answer. It is a set of working principles, and I expect it to
-          change when somebody smarter than me shows me a better way to think about it. The best
-          work I have done has always been improved by people willing to take me to school.
-        </p>
+      <div className={SECTION_PT10}>
+        <div className={EYEBROW}>The Premise</div>
+        <div className={PROSE}>
+          <p>
+            For twenty-five years, I have built companies, picked apart bad incentives, invested in
+            difficult ideas, and written about what happens when you refuse to accept the world
+            exactly as it is handed to you. Some of that work has involved enterprise contracts,
+            some has involved medicine, some has involved fossils and oceans. It has all been an
+            attempt to find the people and systems worth betting on.
+          </p>
+          <p>
+            Underneath all of it is one question:{" "}
+            <strong>
+              What helps a person live with more clarity, more agency, and more room to become who
+              they are?
+            </strong>
+          </p>
+          <p>
+            This is not my final answer. It is a set of working principles, and I expect it to
+            change when somebody smarter than me shows me a better way to think about it. The best
+            work I have done has always been improved by people willing to take me to school.
+          </p>
+        </div>
       </div>
 
-      <hr className="border-border" />
+      <Divider />
 
-      <div className="article-body mx-auto max-w-2xl px-6 py-14 leading-[1.9] sm:px-10 [&>p]:mb-4">
-        <EyebrowLabel>Boiling the Human Revisited</EyebrowLabel>
-        <h2 className="mb-6 font-heading text-2xl font-bold text-foreground sm:text-3xl">
-          The Talk That Started It All
-        </h2>
-        <p>
-          At a Humanity+ conference at Harvard in 2010, I shared a stage with{" "}
-          <strong>Ray Kurzweil</strong> during the high-water mark of tech optimism. I was
-          excited by the possibility too. I was also already worried about what happened when
-          the business model was to keep people staring at the machine.
-        </p>
-        <p>
-          I warned about the slow drift toward smaller print, worse products, and another dollar
-          squeezed from every interaction. The danger was not one dramatic betrayal. It was the
-          thousand tiny tradeoffs that make life meaner while we are busy admiring the
-          convenience.
-        </p>
-        <p>
-          Two years later, I wrote about the <strong>Human Operating System</strong>. My point was
-          blunt: artificial intelligence is no match for natural stupidity, and technology should
-          fit human beings like a glove, not a cast. That still feels like a useful test.
-        </p>
-        <p>
-          I am less interested in claiming prophecy than in noticing what is right in front of
-          us. The tools have become startlingly powerful. That does not automatically make us
-          wiser, kinder, or less lonely. It means we have work to do.
-        </p>
+      <div className={SECTION}>
+        <div className={EYEBROW}>Boiling the Human Revisited</div>
+        <h2 className={`${H2_LG} mb-6`}>The Talk That Started It All</h2>
+        <div className={PROSE}>
+          <p>
+            At a Humanity+ conference at Harvard in 2010, I shared a stage with{" "}
+            <strong>Ray Kurzweil</strong> during the high-water mark of tech optimism. I was
+            excited by the possibility too. I was also already worried about what happened when
+            the business model was to keep people staring at the machine.
+          </p>
+          <p>
+            I warned about the slow drift toward smaller print, worse products, and another dollar
+            squeezed from every interaction. The danger was not one dramatic betrayal. It was the
+            thousand tiny tradeoffs that make life meaner while we are busy admiring the
+            convenience.
+          </p>
+          <p>
+            Two years later, I wrote about the <strong>Human Operating System</strong>. My point was
+            blunt: artificial intelligence is no match for natural stupidity, and technology should
+            fit human beings like a glove, not a cast. That still feels like a useful test.
+          </p>
+          <p>
+            I am less interested in claiming prophecy than in noticing what is right in front of
+            us. The tools have become startlingly powerful. That does not automatically make us
+            wiser, kinder, or less lonely. It means we have work to do.
+          </p>
+        </div>
         <div className="my-8 text-center">
           <Link
             href="/blog/boiling-the-human-summit-harvard-kurzweil"
-            className="inline-flex items-center gap-1.5 rounded-md border border-brand-gold/30 px-6 py-2.5 font-mono text-xs tracking-wide text-brand-gold uppercase"
+            className="inline-flex min-h-11 items-center gap-1.5 rounded-xs border border-brand-gold/30 px-6 py-2.5 font-mono text-xs tracking-wide text-brand-gold uppercase"
           >
             Read the Original &quot;Boiling the Human&quot; Essay <ArrowRight aria-hidden="true" className="size-3.5" />
           </Link>
         </div>
+      </div>
 
+      <div className="bg-[#0A0A10] sm:px-16">
         <Image
           src={HAND_IMG}
           alt="A hand breaking through the algorithmic grid — organic energy and golden flowers bursting through the machine"
           width={1200}
           height={669}
-          sizes="(max-width: 768px) 100vw, 672px"
-          className="my-12 h-auto w-full rounded-sm opacity-90"
+          sizes="(max-width: 768px) 100vw, 720px"
+          className="mx-auto h-auto w-full max-w-180"
         />
+      </div>
 
-        <EyebrowLabel>The World Waking Up</EyebrowLabel>
-        <h2 className="mb-6 font-heading text-xl font-bold text-foreground sm:text-2xl">
-          The Frog Was Boiled Too Fast — and Can Still Jump
-        </h2>
-        <p>
-          The speed of change has at least made the problem harder to ignore.{" "}
-          <strong>Tristan Harris</strong>, former Design Ethicist at Google, calls it &quot;human
-          downgrading&quot;: products tuned for engagement instead of attention, judgment, or
-          peace. <strong>Aza Raskin</strong>, who helped create the infinite scroll, has spoken
-          openly about the cost. Their warning is simple: we should not confuse a tool that
-          captures us with a tool that serves us.
-        </p>
-        <p>
-          I know Tristan and Aza, and I am glad their work is getting a wider hearing. It gives
-          the rest of us a chance to stop pretending that convenience is neutral.
-        </p>
+      <div className={SECTION_PT14}>
+        <div className={EYEBROW}>The World Waking Up</div>
+        <h2 className={`${H2} mb-6`}>The Frog Was Boiled Too Fast — and Can Still Jump</h2>
+        <div className={PROSE}>
+          <p>
+            The speed of change has at least made the problem harder to ignore.{" "}
+            <strong>Tristan Harris</strong>, former Design Ethicist at Google, calls it &quot;human
+            downgrading&quot;: products tuned for engagement instead of attention, judgment, or
+            peace. <strong>Aza Raskin</strong>, who helped create the infinite scroll, has spoken
+            openly about the cost. Their warning is simple: we should not confuse a tool that
+            captures us with a tool that serves us.
+          </p>
+          <p>
+            I know Tristan and Aza, and I am glad their work is getting a wider hearing. It gives
+            the rest of us a chance to stop pretending that convenience is neutral.
+          </p>
+        </div>
       </div>
 
       <PullQuote
@@ -315,36 +372,36 @@ export default function LivingDeclarationPage() {
         attribution="Tristan Harris, Reclaiming Human Agency (2026)"
       />
 
-      <div className="article-body mx-auto max-w-2xl px-6 py-14 leading-[1.9] sm:px-10 [&>p]:mb-4">
-        <EyebrowLabel>An Algorithm for Human Scale Agency</EyebrowLabel>
-        <p>
-          I did not write this to make anxiety into another product. Fear is easy to sell. It
-          keeps people scrolling, arguing, and handing over their attention. I am more interested
-          in what we can do with the piece of life directly in front of us.
-        </p>
-        <p>
-          I offer something smaller and harder: <strong>agency at human scale</strong>. Know what
-          you value. Put your attention there. Build enough steadiness to make your own
-          decisions. Then help somebody else do the same.
-        </p>
-        <h3 className="mt-8 mb-2 font-heading text-lg font-bold text-foreground">
-          Old Ideas, Still Useful
-        </h3>
-        <p>
-          The traditions that lasted tend to return to the same unglamorous things: moderation,
-          community, presence, and enough. The Stoics wrote about it. Buddhists wrote about it
-          earlier. You do not need a new app to understand the basic assignment.
-        </p>
-        <p>
-          <strong>Alvin Toffler</strong> warned about too much choice. Later,{" "}
-          <strong>Barry Schwartz</strong> gave the problem a name in{" "}
-          <em>The Paradox of Choice</em>: maximizers keep searching for perfect, while{" "}
-          <Link href="/the-territory" className="text-brand-gold underline underline-offset-2">
-            satisficers
-          </Link>{" "}
-          know when good enough is genuinely enough. That is not laziness. It is a way of keeping
-          your life from becoming a series of browser tabs.
-        </p>
+      <div className={SECTION_PT10}>
+        <div className={EYEBROW}>An Algorithm for Human Scale Agency</div>
+        <div className={PROSE}>
+          <p>
+            I did not write this to make anxiety into another product. Fear is easy to sell. It
+            keeps people scrolling, arguing, and handing over their attention. I am more interested
+            in what we can do with the piece of life directly in front of us.
+          </p>
+          <p>
+            I offer something smaller and harder: <strong>agency at human scale</strong>. Know what
+            you value. Put your attention there. Build enough steadiness to make your own
+            decisions. Then help somebody else do the same.
+          </p>
+          <h3 className="mt-8 mb-2 font-cormorant text-[1.3rem]/[1.85] font-semibold text-[#111] dark:text-foreground">Old Ideas, Still Useful</h3>
+          <p>
+            The traditions that lasted tend to return to the same unglamorous things: moderation,
+            community, presence, and enough. The Stoics wrote about it. Buddhists wrote about it
+            earlier. You do not need a new app to understand the basic assignment.
+          </p>
+          <p>
+            <strong>Alvin Toffler</strong> warned about too much choice. Later,{" "}
+            <strong>Barry Schwartz</strong> gave the problem a name in{" "}
+            <em>The Paradox of Choice</em>: maximizers keep searching for perfect, while{" "}
+            <Link href="/the-territory" className={LINK}>
+              satisficers
+            </Link>{" "}
+            know when good enough is genuinely enough. That is not laziness. It is a way of keeping
+            your life from becoming a series of browser tabs.
+          </p>
+        </div>
       </div>
 
       <PullQuote
@@ -352,30 +409,28 @@ export default function LivingDeclarationPage() {
         attribution="Alvin Toffler"
       />
 
-      <div className="mx-auto max-w-2xl px-6 py-14 sm:px-10">
-        <EyebrowLabel>The Original Six Principles</EyebrowLabel>
-        <h2 className="mb-2 font-heading text-2xl font-bold text-foreground sm:text-3xl">
-          Not Commandments. Invitations.
-        </h2>
-        <p className="mb-8 text-muted-foreground">
+      <div className={SECTION_PT10}>
+        <div className={EYEBROW}>The Original Six Principles</div>
+        <h2 className={`${H2} mb-2`}>Not Commandments. Invitations.</h2>
+        <p className="mb-8 text-base/[1.7] text-[#222]/75 dark:text-muted-foreground">
           For those who feel they can&apos;t get their head above water, here&apos;s an imperfect
           start.
         </p>
         {NUMBERED_PRACTICES.map((p) => (
-          <div key={p.num} className="mb-8 grid grid-cols-[2.5rem_1fr] gap-4">
-            <div className="pt-1 font-heading text-2xl text-brand-gold">{p.num}</div>
+          <div key={p.num} className="mb-8 grid grid-cols-[2.8rem_1fr] gap-5">
+            <div className="pt-0.5 font-heading text-[1.8rem]/none text-brand-gold">{p.num}</div>
             <div>
-              <h3 className="mb-1.5 font-heading text-lg font-bold text-foreground">{p.title}</h3>
-              <p className="leading-relaxed text-foreground/80">{p.body}</p>
+              <h3 className="mb-1.5 font-cormorant text-[1.2rem]/[1.3] font-semibold text-[#111] dark:text-foreground">
+                {p.title}
+              </h3>
+              <p className="text-base/[1.7] text-[#222]/80 dark:text-foreground/80">{p.body}</p>
             </div>
           </div>
         ))}
 
-        <div className="mt-8 border-t border-border pt-8">
-          <h3 className="mb-2 font-heading text-lg font-bold text-foreground">
-            For Every Rule, There Are Exceptions
-          </h3>
-          <p className="leading-relaxed text-foreground/80">
+        <div className="mt-8 border-t border-black/10 pt-6 dark:border-border">
+          <h3 className={`${H3} mb-2`}>For Every Rule, There Are Exceptions</h3>
+          <p className="text-base/[1.7] text-[#222]/80 dark:text-foreground/80">
             This framework assumes baseline security. If you&apos;re in survival mode, meet basic
             needs first. Satisficing is not settling. The satisficer chooses sufficiency from
             clarity. The settler accepts inadequacy from exhaustion. Know when to maximize.
@@ -386,65 +441,56 @@ export default function LivingDeclarationPage() {
         </div>
 
         <div className="mt-8">
-          <h3 className="mb-3 font-heading text-lg font-bold text-foreground">
-            Specific Steps to Take Today
-          </h3>
+          <h3 className={`${H3} mb-3`}>Specific Steps to Take Today</h3>
           {STEPS.map((step) => (
-            <p key={step.label} className="mb-3 leading-relaxed text-foreground/80">
-              <strong className="text-foreground">{step.label}:</strong> {step.text}
+            <p key={step.label} className="mb-3 text-base/[1.7] text-[#222]/80 dark:text-foreground/80">
+              <strong className="text-[#111] dark:text-foreground">{step.label}:</strong> {step.text}
             </p>
           ))}
         </div>
       </div>
 
-      <hr className="border-border" />
-
-      <div className="article-body mx-auto max-w-2xl px-6 py-14 leading-[1.9] sm:px-10 [&>p]:mb-4">
-        <EyebrowLabel>Phase 2: Rebuilding the Systems</EyebrowLabel>
-        <p>
-          Start by getting yourself a little steadier. Like the oxygen-mask instruction, it is
-          hard to help anyone else if you cannot breathe. Then bring what you have learned into
-          the systems around you.
-        </p>
-        <p>
-          When I build{" "}
-          <a
-            href="https://impactsoul.is"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-brand-gold underline underline-offset-2"
-          >
-            ImpactSoul
-          </a>
-          , I am trying to prove that making a living and doing some good do not have to
-          be enemies. The work is messy. That is fine. It is better than waiting for a clean
-          theory.
-        </p>
-        <p>
-          <strong>Balaji Srinivasan</strong> — crypto-philosopher and architect of{" "}
-          <em>The Network State</em> — offers the maximizer&apos;s complement to this framework.
-          He&apos;s building a startup society prototype near Singapore, arguing technology
-          should &quot;reduce the barrier to exit&quot; by giving people alternatives to broken
-          systems. But we converge on a crucial point: a startup society must be &quot;about
-          community culture first, and technological innovation second.&quot; Technology serves
-          values, not the reverse.
-        </p>
-        <p>
-          Balaji is building a new airplane. I am asking you to secure your oxygen mask first.
-          Find your center. Then build something worth sharing.
-        </p>
-        <div className="mt-8 border-t border-border pt-8">
-          <h3 className="mb-2 font-heading text-lg font-bold text-foreground">
-            Recommended Reading
-          </h3>
+      <div className={SECTION_PT12}>
+        <div className={EYEBROW}>Phase 2: Rebuilding the Systems</div>
+        <div className={PROSE}>
           <p>
+            Start by getting yourself a little steadier. Like the oxygen-mask instruction, it is
+            hard to help anyone else if you cannot breathe. Then bring what you have learned into
+            the systems around you.
+          </p>
+          <p>
+            When I build{" "}
+            <a href="https://impactsoul.is" target="_blank" rel="noopener noreferrer" className={LINK}>
+              ImpactSoul
+            </a>
+            , I am trying to prove that making a living and doing some good do not have to
+            be enemies. The work is messy. That is fine. It is better than waiting for a clean
+            theory.
+          </p>
+          <p>
+            <strong>Balaji Srinivasan</strong> — crypto-philosopher and architect of{" "}
+            <em>The Network State</em> — offers the maximizer&apos;s complement to this framework.
+            He&apos;s building a startup society prototype near Singapore, arguing technology
+            should &quot;reduce the barrier to exit&quot; by giving people alternatives to broken
+            systems. But we converge on a crucial point: a startup society must be &quot;about
+            community culture first, and technological innovation second.&quot; Technology serves
+            values, not the reverse.
+          </p>
+          <p>
+            Balaji is building a new airplane. I am asking you to secure your oxygen mask first.
+            Find your center. Then build something worth sharing.
+          </p>
+        </div>
+        <div className="mt-8 border-t border-black/10 pt-6 dark:border-border">
+          <h3 className={`${H3} mb-2`}>Recommended Reading</h3>
+          <p className="text-[1.15rem]/[1.95] text-[#222] dark:text-foreground/85">
             For those who want to understand the man racing to build the future before we&apos;ve
             decided what it should look like, read{" "}
             <a
               href="https://www.amazon.com/Optimist-Sam-Altman-OpenAI-Invent/dp/1668066920"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-gold underline underline-offset-2"
+              className={LINK}
             >
               <em>The Optimist: Sam Altman, OpenAI, and the Race to Invent the Future</em>
             </a>{" "}
@@ -461,110 +507,120 @@ export default function LivingDeclarationPage() {
         attribution="Yuval Noah Harari"
       />
 
-      <div className="article-body mx-auto max-w-2xl px-6 py-14 text-center leading-[1.9] sm:px-10 [&>p]:mb-4">
-        <EyebrowLabel>Coda</EyebrowLabel>
-        <p>
-          The weather is already rough in plenty of places. You cannot control all of it. You can
-          decide what you pay attention to, what you make, and who you stand beside. Get steady
-          enough to be useful. Then make the road a little easier for the next person.
-        </p>
-        <p className="font-heading text-lg font-bold text-foreground">Start where your feet are.</p>
+      <div className={`${SECTION_PT10} text-center`}>
+        <div className={EYEBROW}>Coda</div>
+        <div className={PROSE}>
+          <p>
+            The weather is already rough in plenty of places. You cannot control all of it. You can
+            decide what you pay attention to, what you make, and who you stand beside. Get steady
+            enough to be useful. Then make the road a little easier for the next person.
+          </p>
+          <p className="font-cormorant text-[1.4rem] font-semibold text-[#111] dark:text-foreground">
+            Start where your feet are.
+          </p>
+        </div>
       </div>
 
-      <hr className="border-border" />
+      <Divider />
 
-      <div className="article-body mx-auto max-w-2xl px-6 py-14 leading-[1.9] sm:px-10 [&>p]:mb-4">
-        <EyebrowLabel>The Puzzle Pieces</EyebrowLabel>
-        <p>
-          Most of the decent things I believe were smuggled in through conversations: an argument
-          over coffee, an advisor who called bullshit, a friend who did not let me off the hook.
-          Even the people who signed up for my bag of cookies have had a hand in this.
-        </p>
-        <p>
-          These ideals are belief systems: thoughts attached to feelings. This construct was
-          brought out by{" "}
-          <Link href="/the-territory" className="text-brand-gold underline underline-offset-2">
-            Arnold Patent
-          </Link>{" "}
-          in his seminal book <em>You Can Have It All</em> — do buy and read it. I&apos;m also
-          shaped by{" "}
-          <Link href="/the-territory" className="text-brand-gold underline underline-offset-2">
-            Ram Dass
-          </Link>
-          , after studying with him for much time in Maui. And I&apos;m profoundly influenced by
-          my partner and glorious artist Clarisse Abelarde, whose work is shown here as a
-          constant inspiration to my creativity and my love for humankind.
-        </p>
-        <figure className="my-10">
-          <Image
-            src={CLARISSE_ART_IMG}
-            alt="Artwork by Clarisse Abelarde — mixed media collage portrait"
-            width={817}
-            height={800}
-            sizes="(max-width: 640px) 100vw, 520px"
-            className="h-auto w-full max-w-130 rounded-md shadow-[0_8px_32px_rgba(0,0,0,0.15)]"
-          />
-          <figcaption className="mt-3 font-mono text-[0.72rem] tracking-[0.12em] text-brand-gold uppercase">
-            Artwork by Clarisse Abelarde
-          </figcaption>
-        </figure>
-        <p>
-          Advisors, skeptics, artists, and people who saw something before I could name it have
-          all left fingerprints here. The Human OS is not a finished system and it is not mine
-          alone. It is a pile of useful questions, gathered from people willing to argue in good
-          faith.
-        </p>
-        <p>
-          No one gets through a strange century by themselves. We will need the patience to
-          learn, the courage to change our minds, and enough humility to admit we do not have the
-          formula yet.
-        </p>
-        <p className="font-semibold text-foreground italic">
-          To everyone who contributed — whether you know it or not — thank you. You are the
-          operating system behind the Operating System.
-        </p>
+      <div className={SECTION}>
+        <div className={EYEBROW}>The Puzzle Pieces</div>
+        <div className={PROSE}>
+          <p>
+            Most of the decent things I believe were smuggled in through conversations: an argument
+            over coffee, an advisor who called bullshit, a friend who did not let me off the hook.
+            Even the people who signed up for my bag of cookies have had a hand in this.
+          </p>
+          <p>
+            These ideals are belief systems: thoughts attached to feelings. This construct was
+            brought out by{" "}
+            <Link href="/the-territory" className={LINK}>
+              Arnold Patent
+            </Link>{" "}
+            in his seminal book <em>You Can Have It All</em> — do buy and read it. I&apos;m also
+            shaped by{" "}
+            <Link href="/the-territory" className={LINK}>
+              Ram Dass
+            </Link>
+            , after studying with him for much time in Maui. And I&apos;m profoundly influenced by
+            my partner and glorious artist Clarisse Abelarde, whose work is shown here as a
+            constant inspiration to my creativity and my love for humankind.
+          </p>
+          <figure className="my-10">
+            <Image
+              src={CLARISSE_ART_IMG}
+              alt="Artwork by Clarisse Abelarde — mixed media collage portrait"
+              width={817}
+              height={800}
+              sizes="(max-width: 640px) 100vw, 520px"
+              className="h-auto w-full max-w-130 rounded-md shadow-[0_8px_32px_rgba(0,0,0,0.15)]"
+            />
+            <figcaption className="mt-3 font-mono text-[0.72rem] tracking-[0.12em] text-brand-gold uppercase">
+              Artwork by Clarisse Abelarde
+            </figcaption>
+          </figure>
+          <p>
+            Advisors, skeptics, artists, and people who saw something before I could name it have
+            all left fingerprints here. The Human OS is not a finished system and it is not mine
+            alone. It is a pile of useful questions, gathered from people willing to argue in good
+            faith.
+          </p>
+          <p>
+            No one gets through a strange century by themselves. We will need the patience to
+            learn, the courage to change our minds, and enough humility to admit we do not have the
+            formula yet.
+          </p>
+          <p className="font-semibold text-[#111] italic dark:text-foreground">
+            To everyone who contributed — whether you know it or not — thank you. You are the
+            operating system behind the Operating System.
+          </p>
+        </div>
       </div>
 
-      <hr className="border-border" />
+      <Divider />
 
-      <div className="mx-auto max-w-2xl px-6 py-14 sm:px-10">
-        <EyebrowLabel>The Six Principles</EyebrowLabel>
-        <h2 className="mb-8 font-heading text-2xl font-bold text-foreground sm:text-3xl">
+      <div className={SECTION}>
+        <div className={EYEBROW}>The Six Principles</div>
+        <h2 className={`${H2_LG} mb-8`}>
           What We Believe. What We Build. <em className="text-brand-gold not-italic">What We Measure.</em>
         </h2>
         {PRINCIPLES.map((p) => (
-          <div key={p.num} className="mb-9 grid grid-cols-[3rem_1fr] gap-5">
-            <div className="pt-1 font-heading text-3xl text-brand-gold">{p.num}</div>
+          <div key={p.num} className="mb-9 grid grid-cols-[3.75rem_1fr] gap-6">
+            <div className="pt-0.5 font-heading text-[2.4rem]/none text-brand-gold">{p.num}</div>
             <div>
-              <h3 className="mb-2 font-heading text-xl font-bold text-foreground">{p.title}</h3>
-              <p className="leading-relaxed text-foreground/80">{p.body}</p>
+              <h3 className="mb-2 font-cormorant text-[1.35rem]/[1.3] font-semibold text-[#111] dark:text-foreground">
+                {p.title}
+              </h3>
+              <p className="text-base/[1.75] text-[#222]/80 dark:text-foreground/80">{p.body}</p>
             </div>
           </div>
         ))}
       </div>
 
       <PullQuote
+        large
         quote="The goal is not more GDP. The goal is less. Less extraction. Less waste. Less of the frantic production-consumption cycle that's cooking the planet and hollowing out the species."
         attribution="Principle III — Shrink the Footprint, Expand the Soul"
       />
 
-      <div className="mx-auto max-w-4xl px-6 py-14 sm:px-10">
-        <EyebrowLabel>The Living Proof</EyebrowLabel>
-        <h2 className="mb-3 font-heading text-2xl font-bold text-foreground sm:text-3xl">
-          This Isn&apos;t Theory. It&apos;s Already Being Built.
-        </h2>
-        <p className="mb-8 max-w-2xl text-foreground/70">
+      <div className={SECTION_PT10}>
+        <div className={EYEBROW}>The Living Proof</div>
+        <h2 className={`${H2} mb-3`}>This Isn&apos;t Theory. It&apos;s Already Being Built.</h2>
+        <p className="mb-8 text-base/[1.75] text-[#222]/75 dark:text-foreground/70">
           These ideas are not just words on a page. They show up in projects, essays,
           investments, experiments, and conversations that are already underway. Some will work.
           Some will need to be dismantled. All of them are open to scrutiny.
         </p>
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4">
           {ECOSYSTEM_MAP.map((item) => (
-            <div key={item.principle} className="flex flex-col rounded-md border border-border bg-card p-6">
-              <div className="mb-2 font-mono text-xs tracking-wide text-brand-gold uppercase">
+            <div
+              key={item.principle}
+              className="flex flex-col rounded-md border border-black/6 bg-white p-6 dark:border-border dark:bg-card"
+            >
+              <div className="mb-2 font-mono text-[0.68rem] tracking-[0.15em] text-brand-gold uppercase">
                 {item.principle}
               </div>
-              <p className="mb-4 flex-1 text-sm leading-relaxed text-foreground/70">
+              <p className="mb-4 flex-1 text-sm/relaxed text-[#222]/75 dark:text-foreground/70">
                 {item.proof}
               </p>
               <div className="flex flex-wrap gap-2">
@@ -575,7 +631,7 @@ export default function LivingDeclarationPage() {
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 rounded-sm border border-brand-gold/20 px-2.5 py-1 font-mono text-[0.65rem] tracking-wide text-brand-gold uppercase"
+                      className="inline-flex items-center gap-1.5 rounded-xs border border-brand-gold/20 px-2.5 py-1 font-mono text-[0.65rem] tracking-wide text-brand-gold uppercase"
                     >
                       {link.label} <ArrowUpRight aria-hidden="true" className="size-3" />
                     </a>
@@ -583,7 +639,7 @@ export default function LivingDeclarationPage() {
                     <Link
                       key={link.label}
                       href={link.href}
-                      className="rounded-sm border border-brand-gold/20 px-2.5 py-1 font-mono text-[0.65rem] tracking-wide text-brand-gold uppercase"
+                      className="rounded-xs border border-brand-gold/20 px-2.5 py-1 font-mono text-[0.65rem] tracking-wide text-brand-gold uppercase"
                     >
                       {link.label}
                     </Link>
@@ -595,45 +651,45 @@ export default function LivingDeclarationPage() {
         </div>
       </div>
 
+      <div className="h-10" />
+
       <PullQuote
         quote="The old world is falling apart. The new world is being born. In between, there is a great deal of confusion and suffering. But this is also a time of tremendous opportunity — to let go of what no longer serves us and to create something beautiful."
         attribution="Charles Eisenstein"
       />
 
-      <div className="mx-auto max-w-2xl px-6 py-14 text-center sm:px-10">
-        <EyebrowLabel>Discover Your Operating System</EyebrowLabel>
-        <h2 className="mb-4 font-heading text-2xl font-bold text-foreground sm:text-3xl">
-          Are You a Conscious Satisficer?
-        </h2>
-        <p className="mb-8 text-foreground/70">
+      <div className={`${SECTION_PT14} text-center`}>
+        <div className={EYEBROW}>Discover Your Operating System</div>
+        <h2 className={`${H2} mb-4`}>Are You a Conscious Satisficer?</h2>
+        <p className="mb-8 text-base/[1.75] text-[#222]/75 dark:text-foreground/70">
           This is not a personality label. It is a chance to notice how you make decisions, what
           technology is doing to your attention, and where you might be making life harder than
           it needs to be. Take it if that sounds useful. Leave it if it does not.
         </p>
         <Link
           href="/assessment"
-          className="mb-4 inline-flex items-center gap-1.5 rounded-md bg-foreground px-8 py-3 font-mono text-sm tracking-wide text-background uppercase"
+          className="mb-4 inline-flex min-h-11 items-center gap-1.5 rounded-xs bg-[#0A0A10] px-8 py-3.5 font-mono text-xs tracking-[0.15em] text-[#F5F0E0] uppercase dark:bg-brand-gold-light dark:text-[#0A0A10]"
         >
           Take the Assessment <ArrowRight aria-hidden="true" className="size-3.5" />
         </Link>
         <div>
           <Link
             href="/humanos"
-            className="inline-flex items-center gap-1.5 rounded-md border border-red-800/30 px-6 py-2.5 font-mono text-xs tracking-wide text-red-800 uppercase"
+            className="inline-flex min-h-11 items-center gap-1.5 rounded-xs border border-[#8E1E25]/30 px-6 py-2.5 font-mono text-xs tracking-wide text-[#8E1E25] uppercase dark:text-[#E07A80]"
           >
             Or Explore Human OS V2.0 <ArrowRight aria-hidden="true" className="size-3.5" />
           </Link>
         </div>
       </div>
 
-      <hr className="border-border" />
+      <Divider />
 
-      <div id="your-turn" className="mx-auto max-w-2xl scroll-mt-20 px-6 py-14 sm:px-10">
-        <EyebrowLabel>Your Turn</EyebrowLabel>
-        <h2 className="mb-3 font-heading text-2xl font-bold text-foreground sm:text-3xl">
+      <div id="your-turn" className="mx-auto max-w-[39.125rem] scroll-mt-20 px-6 pt-8 pb-16 sm:px-10">
+        <div className={EYEBROW}>Your Turn</div>
+        <h2 className={`${H2_LG} mb-3`}>
           Tell Me Where <em className="text-brand-gold not-italic">I Have This Wrong</em>
         </h2>
-        <p className="mb-10 text-foreground/70">
+        <p className="mb-10 text-base/[1.75] text-[#222]/75 dark:text-foreground/70">
           This is an open notebook, not a survey. Answer one question or all six. Tell me what
           you are trying to solve, what you wish existed, or where this whole thing gets too
           precious. Honest answers are useful, especially the inconvenient ones.
@@ -641,28 +697,28 @@ export default function LivingDeclarationPage() {
         <BlueprintForm />
       </div>
 
-      <div className="bg-secondary px-6 py-16 text-center sm:px-10 dark:bg-[#0A0A10]">
-        <p className="mb-4 font-mono text-xs tracking-[0.3em] text-brand-gold uppercase">
+      <div className="bg-[#0A0A10] px-6 py-20 text-center sm:px-16">
+        <p className="mb-4 font-mono text-[0.72rem] tracking-[0.3em] text-brand-gold-light uppercase">
           The Next Step
         </p>
-        <h2 className="mx-auto mb-4 max-w-lg font-heading text-2xl font-normal text-foreground sm:text-3xl">
+        <h2 className="mx-auto mb-5 max-w-150 font-cormorant text-[2.5rem]/[1.2] font-normal text-[#F5F0E0]">
           Bring Your People Into the Room.
         </h2>
-        <p className="mx-auto mb-8 max-w-lg text-foreground/70">
+        <p className="mx-auto mb-8 max-w-130 text-[1.1rem]/[1.7] text-white/65">
           Invite the people you care about. There may be a conversation, a collaborator, or an
           unexpected connection worth making. At minimum, it is better to build with people you
           trust than to shout into the void alone.
         </p>
         <Link
           href="/community"
-          className="mb-5 inline-flex items-center gap-1.5 rounded-md bg-brand-gold px-8 py-3 font-mono text-sm tracking-wide text-white uppercase"
+          className="mb-6 inline-flex min-h-11 items-center gap-1.5 rounded-xs bg-brand-gold-light px-10 py-3.5 font-mono text-[0.78rem] tracking-[0.15em] text-[#0A0A10] uppercase"
         >
           Enter the Community <ArrowRight aria-hidden="true" className="size-3.5" />
         </Link>
         <div className="mb-3">
           <Link
             href="/assessment"
-            className="inline-flex items-center gap-1.5 rounded-md border border-brand-gold/40 px-6 py-2.5 font-mono text-xs tracking-wide text-brand-gold uppercase"
+            className="inline-flex min-h-11 items-center gap-1.5 px-8 py-2.5 font-mono text-[0.72rem] tracking-[0.12em] text-brand-gold-light uppercase"
           >
             Or Take the Assessment First <ArrowRight aria-hidden="true" className="size-3.5" />
           </Link>
@@ -670,16 +726,19 @@ export default function LivingDeclarationPage() {
         <div>
           <Link
             href="/humanos"
-            className="inline-flex items-center gap-1.5 rounded-md border border-red-800/30 px-6 py-2.5 font-mono text-xs tracking-wide text-red-800 uppercase"
+            className="inline-flex min-h-11 items-center gap-1.5 px-8 py-2.5 font-mono text-[0.72rem] tracking-[0.12em] text-[#E53E3E] uppercase"
           >
             Explore Human OS V2.0 <ArrowRight aria-hidden="true" className="size-3.5" />
           </Link>
         </div>
       </div>
 
-      <div className="border-t border-border py-6 text-center">
-        <Link href="/community" className="inline-flex items-center gap-1.5 font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
-          Continue to The Community <ArrowRight aria-hidden="true" className="size-3.5" />
+      <div className="py-8 text-center">
+        <Link
+          href="/community"
+          className="inline-flex min-h-11 items-center gap-1.5 rounded-xs border border-[#8E1E25]/40 px-5 py-2 font-mono text-sm text-[#8E1E25] dark:text-[#E07A80]"
+        >
+          The Community <ArrowRight aria-hidden="true" className="size-3.5" />
         </Link>
       </div>
     </div>

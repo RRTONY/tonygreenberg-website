@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { WhereNext } from "@/components/where-next";
 import { SiteChrome } from "@/components/site-chrome";
 import { NavProgressBar } from "@/components/nav-progress-bar";
 import { getWebsiteJsonLd, getPersonJsonLd } from "@/lib/structured-data";
@@ -92,6 +93,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
               {children}
             </main>
             <SiteChrome>
+              <WhereNext />
               <SiteFooter />
             </SiteChrome>
             <Toaster />

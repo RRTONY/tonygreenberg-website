@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 
 const CONTACT_EMAIL = "tony@impactsoul.is";
 
@@ -122,9 +122,9 @@ export function BlueprintForm() {
       )}
       <button
         type="submit"
-        className="inline-block min-h-11 rounded-md bg-brand-gold px-8 py-3 font-mono text-sm tracking-wide text-white uppercase"
+        className="inline-flex min-h-11 items-center gap-1.5 rounded-xs bg-[#0A0A10] px-8 py-3.5 font-mono text-xs tracking-[0.15em] text-[#F5F0E0] uppercase dark:bg-brand-gold-light dark:text-[#0A0A10]"
       >
-        Submit My Blueprint →
+        Submit My Blueprint <ArrowRight aria-hidden="true" className="size-3.5" />
       </button>
       <p className="mt-3 text-sm text-muted-foreground">
         Your responses are read personally. They shape what gets built. Nothing is sold or shared.

@@ -45,7 +45,7 @@ export function IbogaCompassSection() {
             <span className="block h-0.5 w-6 bg-pri-purple" />
             The Iboga Compass
           </div>
-          <h2 className="mb-4 font-heading text-[clamp(1.8rem,4.5vw,3rem)] text-pri-ink">Assessment — v2</h2>
+          <h2 className="mb-4 font-heading font-extrabold text-[clamp(1.8rem,4.5vw,3rem)] text-pri-ink">Assessment — v2</h2>
           <p className="mb-6 max-w-200 text-[1.2rem] text-pri-brown italic">{COMPASS_INTRO.tagline}</p>
           <p className="mb-8 max-w-200 text-[1.05rem] leading-[1.75] text-pri-brown">{COMPASS_INTRO.description}</p>
           <p className="text-[.95rem] text-[#6B5B3E]">
@@ -143,7 +143,7 @@ export function IbogaCompassSection() {
             <span className="block h-0.5 w-6 bg-pri-purple-light" />
             The 28 Questions
           </div>
-          <h2 className="mb-8 font-heading text-[clamp(1.6rem,4vw,2.5rem)] text-pri-cream">Full Question Set</h2>
+          <h2 className="mb-8 font-heading font-extrabold text-[clamp(1.6rem,4vw,2.5rem)] text-pri-cream">Full Question Set</h2>
 
           {COMPASS_QUESTIONS.map((section) => {
             const isOpen = expandedSection === section.sectionNum;
@@ -208,7 +208,7 @@ export function IbogaCompassSection() {
             <span className="block h-0.5 w-6 bg-pri-purple" />
             Substance-to-Facility Routing
           </div>
-          <h2 className="mb-4 font-heading text-[clamp(1.4rem,3.5vw,2.2rem)] text-pri-ink">How Substance Selections Route to Facilities</h2>
+          <h2 className="mb-4 font-heading font-extrabold text-[clamp(1.4rem,3.5vw,2.2rem)] text-pri-ink">How Substance Selections Route to Facilities</h2>
           <p className="mb-6 max-w-200 text-[1.05rem] leading-[1.75] text-pri-brown">Additive boosts — selecting multiple substances compounds all routing bonuses.</p>
           <div className="relative overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
             <table className="w-full min-w-175 border-collapse">

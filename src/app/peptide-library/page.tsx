@@ -50,7 +50,7 @@ export default function PeptideLibraryPage() {
           <p className="mb-5 font-mono text-xs tracking-[0.25em] text-[#D3512E] uppercase">
             Compound Profiles · May 2026
           </p>
-          <h1 className="mb-5 font-heading text-4xl leading-tight font-bold sm:text-5xl">
+          <h1 className="mb-5 font-serif text-4xl leading-tight font-bold sm:text-5xl">
             The Complete <span className="text-brand-gold-light">Peptide Library</span>
           </h1>
           <p className="mb-4 max-w-3xl leading-relaxed text-zinc-300">

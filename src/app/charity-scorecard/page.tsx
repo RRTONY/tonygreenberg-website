@@ -31,7 +31,7 @@ export default function CharityScorecardPage() {
           <p className="mb-4 font-mono text-xs tracking-[0.3em] text-brand-gold uppercase">
             The Grand Impact Accountability Index
           </p>
-          <h1 className="mb-6 font-heading text-4xl leading-tight font-bold text-[#E8E4DC] md:text-6xl">
+          <h1 className="mb-6 font-serif text-4xl leading-tight font-bold text-[#E8E4DC] md:text-6xl">
             Where Does Your Dollar
             <br className="hidden md:block" /> Actually Go?
           </h1>

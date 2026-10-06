@@ -10,8 +10,8 @@ import { SERIES } from "@/lib/content/essay-series";
 // client/src/data/seriesData.ts. Real content kept as-is (12 real curated
 // essay series, all real post slugs). Episode titles/images now come live
 // from Sanity instead of the legacy blogData.json import. The legacy
-// "Search All Essays" next-page link pointed at "/the-index", a route that
-// doesn't exist anywhere in this app or its nav — redirected to "/search"
+// "Search All Essays" next-page link pointed at "/the-index", rebuilt from
+// live on 2026-10-07 and linked again (it briefly pointed at "/search"
 // instead, which is this app's actual planned search page and matches the
 // link's own label.
 
@@ -129,7 +129,7 @@ export default async function SeriesPage() {
       </div>
 
       <div className="border-t border-border py-6 text-center">
-        <Link href="/search" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
+        <Link href="/the-index" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
           Search All Essays →
         </Link>
       </div>

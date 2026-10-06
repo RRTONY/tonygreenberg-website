@@ -149,7 +149,6 @@ const nextConfig: NextConfig = {
       // A real dedicated index page is a legitimate future content gap,
       // not silently equivalent to /search — tracked in Phase 12's own
       // TODO note, not solved by this redirect alone.
-      { source: "/the-index", destination: "/search", permanent: true },
       // /spamtoast and /youve-been-reported are the live half of legacy's
       // "report a spammer" confrontation flow — the same feature whose
       // other half (ReportSpammer.tsx) this migration already decided not
@@ -168,6 +167,13 @@ const nextConfig: NextConfig = {
       // redirects the internal-codename URL to it rather than shipping the
       // same content at two indexable addresses.
       { source: "/cheshire-grin", destination: "/alex-azzi", permanent: true },
+      // Live sends this essay's address to its full page, /akbar (done
+      // 2026-10-07 to match live; the post stays in Sanity, out of the
+      // sitemap, see REDIRECTED_POST_SLUGS in src/app/sitemap.ts).
+      { source: "/blog/akbar-cuisine-restoration-economics", destination: "/akbar", permanent: true },
+      // Live sends both of these to the homepage (checked 2026-10-07).
+      { source: "/seven-doors", destination: "/", permanent: true },
+      { source: "/projects", destination: "/", permanent: true },
     ];
   },
   images: {

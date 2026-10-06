@@ -1,6 +1,7 @@
 // Ported from legacy client/src/pages/SkippyMap.tsx — Skippy's personalized
 // "site compass". Real copy, unchanged, with these link updates:
-// - `/the-index` → `/search` and `/cheshire-grin` → `/alex-azzi` (their
+// - `/cheshire-grin` → `/alex-azzi` (/the-index is a real page again since
+//   2026-10-07) (their
 //   next.config.ts redirect targets), `/life-assessment` → `/the-mirror`
 //   (its canonical route), so every link lands without a redirect hop.
 // - Stops whose route doesn't exist in this app yet carry `href: null` and
@@ -56,7 +57,7 @@ export const TENTACLES: Tentacle[] = [
     theme: "indigo",
     stops: [
       { id: "essays", label: "Essays", href: "/essays", description: "119 essays on systems, trust, capital, and consciousness.", time: "∞" },
-      { id: "the-index", label: "The Index", href: "/search", description: "Searchable idea database across all essays.", time: "10 min" },
+      { id: "the-index", label: "The Index", href: "/the-index", description: "Searchable idea database across all essays.", time: "10 min" },
       { id: "series", label: "Series", href: "/series", description: "Multi-part deep dives on specific themes.", time: "varies" },
       { id: "manifesto", label: "Living Declaration", href: "/living-declaration", description: "The manifesto. What Tony stands for.", time: "5 min" },
       { id: "thought-cloud", label: "Thought Cloud", href: null, description: "10 magic prompts showing what the ecosystem does.", time: "10 min" },

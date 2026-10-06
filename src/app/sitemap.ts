@@ -16,7 +16,6 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tonygreenberg.com";
 const STATIC_ROUTES = [
   "/about",
   "/akbar",
-  "/alex-azzi",
   "/america-unbundled",
   "/america-unbundled-field-guide",
   "/amplifier",
@@ -130,6 +129,7 @@ const STATIC_ROUTES = [
   "/recent-creations",
   "/rip-peptide-sciences",
   "/search",
+  "/the-index",
   "/self-portrait",
   "/series",
   "/soulscore",
@@ -151,6 +151,9 @@ const STATIC_ROUTES = [
   "/whats-legal",
 ] as const;
 
+// Posts whose address redirects elsewhere (next.config.ts), so not listed.
+const REDIRECTED_POST_SLUGS = new Set(["akbar-cuisine-restoration-economics"]);
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [posts, categories] = await Promise.all([
     client.fetch<{ slug: string; _updatedAt: string }[]>(allPostSlugsQuery),
@@ -164,7 +167,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly" as const,
       priority: 0.7,
     })),
-    ...posts.map((post) => ({
+    ...posts.filter((post) => !REDIRECTED_POST_SLUGS.has(post.slug)).map((post) => ({
       url: `${siteUrl}/blog/${post.slug}`,
       lastModified: post._updatedAt,
       changeFrequency: "monthly" as const,

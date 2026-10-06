@@ -7,7 +7,7 @@ import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ARCHETYPES, type ArchetypeKey } from "@/lib/content/archetypes";
-import { DEFAULT_OG_IMAGE } from "@/lib/content/default-image";
+import { DEFAULT_ESSAY_HERO } from "@/lib/content/default-image";
 import { urlFor } from "@/lib/sanity/image";
 
 type Post = {
@@ -124,7 +124,7 @@ export function EssaysList({ posts }: { posts: Post[] }) {
           >
             <div className="relative size-18 shrink-0 overflow-hidden rounded-md">
               <Image
-                src={post.heroImage ? urlFor(post.heroImage).width(144).height(144).url() : DEFAULT_OG_IMAGE}
+                src={post.heroImage ? urlFor(post.heroImage).width(144).height(144).url() : DEFAULT_ESSAY_HERO.src}
                 alt=""
                 fill
                 className="object-cover"

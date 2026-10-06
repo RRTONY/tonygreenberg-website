@@ -2,7 +2,8 @@ import "server-only";
 import { createHash, timingSafeEqual } from "node:crypto";
 import { cookies, headers } from "next/headers";
 
-// Password-protected essays (live and legacy gate these behind a password).
+// Password-protected essays and pages (live and legacy gate these behind a
+// password).
 // Unlike legacy's browser-side check, the password is compared on the server
 // and the essay body is only rendered after a correct entry, so it never
 // reaches the page HTML before that. The password lives in the
@@ -10,11 +11,24 @@ import { cookies, headers } from "next/headers";
 // stay locked for everyone. Note: the Sanity dataset itself is readable by
 // anyone with the project id, so this protects the website, not the raw data.
 const GATED_POST_SLUGS = new Set(["you-are-the-moat"]);
+// Whole pages behind the same password (key -> its path; the unlock cookie is
+// scoped to that path). /alex-azzi: live locked the report in October 2026,
+// owner said match it (2026-10-07).
+const GATED_PAGES: Record<string, string> = { "alex-azzi": "/alex-azzi" };
 const COOKIE_PREFIX = "tg_unlocked_";
 const UNLOCK_MAX_AGE = 60 * 60 * 24 * 30; // 30 days
 
 export function isGatedPost(slug: string): boolean {
   return GATED_POST_SLUGS.has(slug);
+}
+
+export function isGatedPage(key: string): boolean {
+  return key in GATED_PAGES;
+}
+
+// Where an unlock cookie lives and where to send the reader after unlocking.
+export function gatedPath(key: string): string {
+  return GATED_PAGES[key] ?? `/blog/${key}`;
 }
 
 // The cookie holds a hash of slug + current password, so changing the
@@ -50,7 +64,7 @@ export async function rememberUnlock(slug: string): Promise<void> {
     httpOnly: true,
     secure: proto === "https",
     sameSite: "lax",
-    path: `/blog/${slug}`,
+    path: gatedPath(slug),
     maxAge: UNLOCK_MAX_AGE,
   });
 }

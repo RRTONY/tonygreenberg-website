@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { pageFontVariables } from "@/lib/fonts/page-fonts";
 
 // Ported from legacy client/src/pages/AkbarEssay.tsx ("Los Angeles Is
 // Losing Its Memory — Akbar Cuisine Refuses to Forget"). Real essay prose
@@ -141,7 +142,7 @@ function SquareStrip({ images, className }: { images: string[]; className: strin
 
 export default function AkbarPage() {
   return (
-    <div className="bg-[#0A0A0F] text-[#F4EDD8]">
+    <div className={`${pageFontVariables} bg-[#0A0A0F] text-[#F4EDD8]`}>
       <div className="relative isolate flex min-h-[600px] flex-col items-center justify-end overflow-hidden px-6 pt-32 pb-16 text-center sm:h-screen sm:px-10">
         <div aria-hidden="true" className="absolute inset-0 -z-20 grid grid-cols-[1fr_1.2fr_1fr] grid-rows-2 gap-1 p-1">
           {HERO_TILES.map((tile) => (
@@ -170,10 +171,10 @@ export default function AkbarPage() {
           aria-hidden="true"
           className="absolute inset-0 -z-10 bg-linear-to-b from-[#0A0A0F]/30 via-[#0A0A0F]/50 to-[#0A0A0F]/95"
         />
-        <p className="mb-6 font-mono text-xs tracking-[0.2em] text-[#C9A84C] uppercase">
+        <p className="mb-6 font-mono text-[0.65rem] tracking-[0.2em] text-[#C9A84C] uppercase">
           A Field Report on Restoration Economics
         </p>
-        <h1 className="mx-auto mb-6 max-w-3xl font-heading text-3xl leading-tight font-bold sm:text-5xl">
+        <h1 className="mx-auto mb-6 max-w-3xl font-fraunces text-[clamp(2rem,5vw,3.5rem)] leading-[1.1] font-black">
           Los Angeles Is Losing Its Memory — <span className="text-[#C8362A]">Akbar Cuisine</span>{" "}
           Refuses to Forget
         </h1>
@@ -199,7 +200,7 @@ export default function AkbarPage() {
       <FullBleedImage src={IMG.gallery1} caption="Akbar Cuisine of India · Washington Boulevard · Venice, Los Angeles" />
 
       <div className="article-body mx-auto max-w-2xl px-6 py-10 leading-[1.85] sm:px-10 [&>p]:mb-6">
-        <h2 className="mb-6 font-heading text-2xl font-bold sm:text-3xl">The Nervous System</h2>
+        <h2 className="mb-6 font-fraunces text-[clamp(1.6rem,3vw,2.2rem)] leading-[1.2] font-black">The Nervous System</h2>
         <p>
           Restaurants do not actually run on food. They run on nervous systems. And at Akbar, the
           nervous system has a name: JC. He stands exactly where friction becomes hospitality —
@@ -268,7 +269,7 @@ export default function AkbarPage() {
       </div>
 
       <div className="article-body mx-auto max-w-2xl px-6 py-10 leading-[1.85] sm:px-10 [&>p]:mb-6">
-        <h2 className="mb-6 mb-6 font-heading text-2xl font-bold sm:text-3xl">
+        <h2 className="mb-6 font-fraunces text-[clamp(1.6rem,3vw,2.2rem)] leading-[1.2] font-black">
           3.8 Stars and the Death of Memory
         </h2>
         <p>
@@ -309,7 +310,7 @@ export default function AkbarPage() {
       <FullBleedImage src={IMG.gallery6} />
 
       <div className="article-body mx-auto max-w-2xl px-6 py-10 leading-[1.85] sm:px-10 [&>p]:mb-6">
-        <h2 className="mb-6 mb-6 font-heading text-2xl font-bold sm:text-3xl">
+        <h2 className="mb-6 font-fraunces text-[clamp(1.6rem,3vw,2.2rem)] leading-[1.2] font-black">
           The Night the eBay Deal Almost Killed Us
         </h2>
         <p>
@@ -347,7 +348,7 @@ export default function AkbarPage() {
       />
 
       <div className="mx-auto max-w-4xl px-6 py-14 sm:px-10">
-        <h2 className="mb-2 text-center font-heading text-2xl font-bold sm:text-3xl">
+        <h2 className="mb-2 text-center font-fraunces text-[clamp(1.6rem,3vw,2.2rem)] leading-[1.2] font-black">
           The Liquid Treasure Chest
         </h2>
         <p className="mx-auto mb-10 max-w-lg text-center text-[#9A9080] italic">
@@ -372,7 +373,7 @@ export default function AkbarPage() {
 
       <div className="mx-auto max-w-2xl px-6 py-10 sm:px-10">
         <div className="border-l-4 border-[#00C9B1] bg-[#00C9B1]/5 p-8">
-          <h2 className="mb-4 font-heading text-xl font-bold sm:text-2xl">
+          <h2 className="mb-4 font-fraunces text-[clamp(1.4rem,2.5vw,1.8rem)] leading-[1.2] font-black">
             What Akbar Could Become
           </h2>
           <p className="mb-4 leading-relaxed">
@@ -397,7 +398,7 @@ export default function AkbarPage() {
 
       <div className="mx-auto max-w-2xl px-6 py-16 text-center sm:px-10">
         <MughalDivider />
-        <h2 className="mb-6 font-heading text-3xl font-bold sm:text-4xl">
+        <h2 className="mb-6 font-fraunces text-[clamp(1.8rem,3.5vw,2.5rem)] leading-[1.2] font-black">
           The Question That Remains
         </h2>
         <p className="mb-8 font-heading text-xl text-[#D74B3F]">

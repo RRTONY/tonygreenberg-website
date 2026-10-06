@@ -82,7 +82,7 @@ export default function TestYourPeptidesPage() {
           <p className="mb-5 font-mono text-xs tracking-[0.25em] text-[#D3512E] uppercase">
             Verification Resources
           </p>
-          <h1 className="mb-5 font-heading text-4xl leading-tight font-bold sm:text-5xl">
+          <h1 className="mb-5 font-serif text-4xl leading-tight font-bold sm:text-5xl">
             Don&apos;t Trust. <span className="text-[#C84B2A]">Verify.</span>
           </h1>
           <p className="mb-4 text-xl text-zinc-300">
@@ -107,7 +107,7 @@ export default function TestYourPeptidesPage() {
                   {opt.number}
                 </span>
                 <div>
-                  <h2 className="font-heading text-2xl font-bold text-foreground">{opt.title}</h2>
+                  <h2 className="font-serif text-2xl font-bold text-foreground">{opt.title}</h2>
                   <p className="text-sm font-medium text-[#C84B2A]">{opt.subtitle}</p>
                 </div>
               </div>

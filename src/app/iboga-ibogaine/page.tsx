@@ -220,7 +220,7 @@ export default function IbogaIbogainePage() {
             <span className="block h-0.5 w-6 bg-[#D4B96A]" />
             The Plant vs The Isolate
           </div>
-          <h1 className="mb-4 font-heading text-[clamp(2.2rem,6vw,4rem)] text-[#FAFAF7]">Iboga vs Ibogaine</h1>
+          <h1 className="mb-4 font-heading font-extrabold text-[clamp(2.2rem,6vw,4rem)] text-[#FAFAF7]">Iboga vs Ibogaine</h1>
           <p className="max-w-175 text-[clamp(1.1rem,2.5vw,1.35rem)] leading-[1.6] text-[#E8E2D8]">
             Twelve companion alkaloids in sacred synergy — or one purified molecule under cardiac monitoring. The Bwiti have known for centuries what
             Western medicine is only now beginning to measure.
@@ -242,7 +242,7 @@ export default function IbogaIbogainePage() {
           <Image src={IBOGA_IMAGES.alkaloidComparison} alt="Alkaloid comparison visualization" fill sizes="100vw" className="object-cover brightness-90 contrast-110" />
         </div>
         <PriEyebrow>Alkaloid Profiles</PriEyebrow>
-        <h2 className="mb-4 font-heading text-[clamp(1.6rem,4vw,2.5rem)] text-pri-ink">The Entourage Effect</h2>
+        <h2 className="mb-4 font-heading font-extrabold text-[clamp(1.6rem,4vw,2.5rem)] text-pri-ink">The Entourage Effect</h2>
         <p className="mb-6 max-w-200 text-[1.05rem] leading-[1.75] text-pri-brown">
           Tabernanthe iboga root bark contains at least twelve identified indole alkaloids — approximately 6% of the dried bark by weight. Ibogaine is the
           most abundant (50–80% of total alkaloid content), but the companion alkaloids — ibogamine, tabernanthine, voacangine, coronaridine, ibogaline,
@@ -289,7 +289,7 @@ export default function IbogaIbogainePage() {
           <Image src={IBOGA_IMAGES.pharmacology} alt="Receptor pharmacology" fill sizes="100vw" className="object-cover brightness-85 contrast-115" />
         </div>
         <PriEyebrow>Receptor Pharmacology</PriEyebrow>
-        <h2 className="mb-4 font-heading text-[clamp(1.6rem,4vw,2.5rem)] text-pri-cream">Multi-Target Mechanism</h2>
+        <h2 className="mb-4 font-heading font-extrabold text-[clamp(1.6rem,4vw,2.5rem)] text-pri-cream">Multi-Target Mechanism</h2>
         <p className="mb-6 max-w-200 text-[1.05rem] leading-[1.75] text-pri-cream/80">
           Ibogaine is pharmacologically unique among psychedelics — it simultaneously engages opioid, glutamate, serotonin, dopamine, and nicotinic systems.
           No other known compound hits this many addiction-relevant targets in a single dose. Its primary metabolite, noribogaine, extends the therapeutic
@@ -341,7 +341,7 @@ export default function IbogaIbogainePage() {
           </div>
         </div>
         <PriEyebrow>Head-to-Head</PriEyebrow>
-        <h2 className="mb-4 font-heading text-[clamp(1.6rem,4vw,2.5rem)] text-pri-ink">Sacred Bark vs Clinical Isolate</h2>
+        <h2 className="mb-4 font-heading font-extrabold text-[clamp(1.6rem,4vw,2.5rem)] text-pri-ink">Sacred Bark vs Clinical Isolate</h2>
         <p className="mb-6 max-w-200 text-[1.05rem] leading-[1.75] text-pri-brown">
           The Bwiti tradition and Western ibogaine clinics approach the same plant from opposite ends of the epistemological spectrum. One treats the root
           bark as a living intelligence — a teacher plant that communicates through visions, purging, and ancestor contact. The other isolates the most
@@ -382,7 +382,7 @@ export default function IbogaIbogainePage() {
       {/* ── OUTCOMES ── */}
       <PriSection id="outcomes" dark>
         <PriEyebrow>Clinical Outcomes</PriEyebrow>
-        <h2 className="mb-4 font-heading text-[clamp(1.6rem,4vw,2.5rem)] text-pri-cream">What the Data Shows</h2>
+        <h2 className="mb-4 font-heading font-extrabold text-[clamp(1.6rem,4vw,2.5rem)] text-pri-cream">What the Data Shows</h2>
         <p className="mb-6 max-w-200 text-[1.05rem] leading-[1.75] text-pri-cream/80">
           Most clinical data is on ibogaine HCl, not whole iboga — because clinical trials require standardized dosing. The Bwiti tradition has thousands of
           years of observational evidence but limited Western-style controlled studies. What exists is compelling: single-dose ibogaine eliminates opioid
@@ -421,7 +421,7 @@ export default function IbogaIbogainePage() {
       {/* ── PHARMA ALTERNATIVES ── */}
       <PriSection id="pharma-alternatives">
         <PriEyebrow>Pharma → Plant Alternatives</PriEyebrow>
-        <h2 className="mb-4 font-heading text-[clamp(1.6rem,4vw,2.5rem)] text-pri-ink">What Iboga Replaces</h2>
+        <h2 className="mb-4 font-heading font-extrabold text-[clamp(1.6rem,4vw,2.5rem)] text-pri-ink">What Iboga Replaces</h2>
         <p className="mb-6 max-w-200 text-[1.05rem] leading-[1.75] text-pri-brown">
           Ibogaine&apos;s multi-receptor profile means it mechanistically overlaps with several pharmaceutical categories — opioid agonists, antagonists,
           NMDA modulators, SSRIs, and smoking cessation agents. A single ibogaine session can address what would otherwise require 3–5 separate
@@ -433,7 +433,7 @@ export default function IbogaIbogainePage() {
       {/* ── SUPPLEMENT STACKS ── */}
       <PriSection id="supplements" dark>
         <PriEyebrow>Supplement Protocol</PriEyebrow>
-        <h2 className="mb-4 font-heading text-[clamp(1.6rem,4vw,2.5rem)] text-pri-cream">Preparation &amp; Integration Stacks</h2>
+        <h2 className="mb-4 font-heading font-extrabold text-[clamp(1.6rem,4vw,2.5rem)] text-pri-cream">Preparation &amp; Integration Stacks</h2>
         <p className="mb-6 max-w-200 text-[1.05rem] leading-[1.75] text-pri-cream/80">
           Ibogaine preparation is more medically intensive than any other psychedelic. Cardiac support (CoQ10, magnesium, potassium) is non-negotiable. The
           4–8 week pre-treatment window is critical for building physiological resilience. Post-integration extends longer than most medicines due to
@@ -441,7 +441,7 @@ export default function IbogaIbogainePage() {
         </p>
         {IBOGA_SUPPLEMENT_STACKS.map((phase) => (
           <div key={phase.phase} className="mb-8">
-            <h3 className="mb-0.5 font-heading text-xl text-[#D4B96A]">{phase.phase}</h3>
+            <h3 className="mb-0.5 font-heading font-extrabold text-xl text-[#D4B96A]">{phase.phase}</h3>
             <p className="mb-3 text-[.9rem] text-pri-cream/70">{phase.timing}</p>
             <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-3">
               {phase.items.map((item) => (
@@ -464,7 +464,7 @@ export default function IbogaIbogainePage() {
       {/* ── DIMENSION SCORES ── */}
       <PriSection id="dimensions">
         <PriEyebrow>PRI Dimension Thresholds</PriEyebrow>
-        <h2 className="mb-4 font-heading text-[clamp(1.6rem,4vw,2.5rem)] text-pri-ink">Readiness Requirements</h2>
+        <h2 className="mb-4 font-heading font-extrabold text-[clamp(1.6rem,4vw,2.5rem)] text-pri-ink">Readiness Requirements</h2>
         <p className="mb-6 max-w-200 text-[1.05rem] leading-[1.75] text-pri-brown">
           Iboga and ibogaine demand the highest readiness thresholds of any medicine in the PRI. The 24–72 hour duration, cardiac risk profile, and
           intensity of the visionary experience mean that every dimension must be at or near maximum before proceeding.
@@ -500,7 +500,7 @@ export default function IbogaIbogainePage() {
       {/* ── MEDICINE SELECTOR ── */}
       <PriSection id="selector" dark>
         <PriEyebrow>Medicine Comparison</PriEyebrow>
-        <h2 className="mb-4 font-heading text-[clamp(1.6rem,4vw,2.5rem)] text-pri-cream">Where Iboga Fits</h2>
+        <h2 className="mb-4 font-heading font-extrabold text-[clamp(1.6rem,4vw,2.5rem)] text-pri-cream">Where Iboga Fits</h2>
         <p className="mb-6 max-w-200 text-[1.05rem] leading-[1.75] text-pri-cream/80">
           Ibogaine is the strongest evidence-based medicine for opioid addiction interruption. For depression, ketamine acts faster. For PTSD, MDMA has the
           strongest trial data. For spiritual development, iboga (whole plant) in Bwiti context is unmatched in depth and duration. Know what you need
@@ -556,7 +556,7 @@ export default function IbogaIbogainePage() {
       {/* ── FIRST-HAND ACCOUNT & RESEARCH ── */}
       <PriSection id="research-narrative">
         <PriEyebrow>First-Hand Account</PriEyebrow>
-        <h2 className="mb-4 font-heading text-[clamp(1.6rem,4vw,2.5rem)] text-pri-ink">I Sat Ibogaine at The Mission Within</h2>
+        <h2 className="mb-4 font-heading font-extrabold text-[clamp(1.6rem,4vw,2.5rem)] text-pri-ink">I Sat Ibogaine at The Mission Within</h2>
         <p className="mb-6 max-w-200 text-[1.05rem] leading-[1.75] text-pri-brown">
           I sat Ibogaine at The Mission Within in Baja California alongside Navy SEALs. Men trained to feel nothing wept. Men who had spent years cycling
           through VA medications, residential rehab, and every approved protocol the United States government offers — undone and rebuilt by a molecule in
@@ -580,7 +580,7 @@ export default function IbogaIbogainePage() {
         <p className="mb-8 max-w-200 text-[1.05rem] leading-[1.75] font-bold text-pri-brown">No paid placements. No ads. No bullshit.</p>
 
         <PriEyebrow>The Numbers</PriEyebrow>
-        <h3 className="mb-4 font-heading text-[clamp(1.3rem,3vw,1.8rem)] text-pri-ink">Updated Research Data (2024–2026)</h3>
+        <h3 className="mb-4 font-heading font-extrabold text-[clamp(1.3rem,3vw,1.8rem)] text-pri-ink">Updated Research Data (2024–2026)</h3>
         <div className="relative overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
           <table className="w-full min-w-162.5 border-collapse">
             <thead>
@@ -617,12 +617,12 @@ export default function IbogaIbogainePage() {
           <span className="block h-0.5 w-6 bg-[#E57373]" />
           Hard Stops
         </div>
-        <h2 className="mb-4 font-heading text-[clamp(1.6rem,4vw,2.5rem)] text-pri-cream">Who Should Not Do This</h2>
+        <h2 className="mb-4 font-heading font-extrabold text-[clamp(1.6rem,4vw,2.5rem)] text-pri-cream">Who Should Not Do This</h2>
         <p className="mb-6 max-w-200 text-[1.05rem] leading-[1.75] text-pri-cream/80">
           These are absolute contraindications. Not risk factors to manage. Hard stops. If any apply, ibogaine is not your path right now.
         </p>
 
-        <h3 className="mb-3 font-heading text-xl text-[#E57373]">Cardiac — Non-Negotiable</h3>
+        <h3 className="mb-3 font-heading font-extrabold text-xl text-[#E57373]">Cardiac — Non-Negotiable</h3>
         <ul className="mb-6 list-disc space-y-2 pl-6 text-[1.05rem] leading-[1.75] text-pri-cream/80">
           <li>
             <strong>Long QT Syndrome or QTc above 450ms on any EKG.</strong> In a 14-patient Dutch clinical study, 50% reached QTc above 500ms during
@@ -641,7 +641,7 @@ export default function IbogaIbogainePage() {
           </p>
         </div>
 
-        <h3 className="mb-3 font-heading text-xl text-[#E57373]">Medical</h3>
+        <h3 className="mb-3 font-heading font-extrabold text-xl text-[#E57373]">Medical</h3>
         <ul className="mb-6 list-disc space-y-2 pl-6 text-[1.05rem] leading-[1.75] text-pri-cream/80">
           <li>
             <strong>Severe liver disease or liver enzymes above 2.5× normal.</strong> Ibogaine is metabolized via CYP450-2D6. Compromised liver means
@@ -656,7 +656,7 @@ export default function IbogaIbogainePage() {
           </li>
         </ul>
 
-        <h3 className="mb-3 font-heading text-xl text-[#E57373]">Psychiatric</h3>
+        <h3 className="mb-3 font-heading font-extrabold text-xl text-[#E57373]">Psychiatric</h3>
         <ul className="mb-6 list-disc pl-6 text-[1.05rem] leading-[1.75] text-pri-cream/80">
           <li>
             <strong>Active psychosis. Acute bipolar mania. Schizophrenia or schizoaffective disorder (active).</strong> Ibogaine is an oneirogen — a waking
@@ -664,7 +664,7 @@ export default function IbogaIbogainePage() {
           </li>
         </ul>
 
-        <h3 className="mt-8 mb-3 font-heading text-xl text-[#FFB74D]">The Medications Problem</h3>
+        <h3 className="mt-8 mb-3 font-heading font-extrabold text-xl text-[#FFB74D]">The Medications Problem</h3>
         <p className="mb-4 max-w-200 text-[1.05rem] leading-[1.75] text-pri-cream/80">Most people reading this have more preparation work to do than they realize.</p>
         <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4">
           <div className="rounded-lg border border-[#E57373]/30 bg-[#C62828]/10 p-4">
@@ -694,7 +694,7 @@ export default function IbogaIbogainePage() {
       {/* ── FACILITIES ── */}
       <PriSection id="facilities">
         <PriEyebrow>The Facilities</PriEyebrow>
-        <h2 className="mb-6 font-heading text-[clamp(1.6rem,4vw,2.5rem)] text-pri-ink">Who&apos;s Doing It Right</h2>
+        <h2 className="mb-6 font-heading font-extrabold text-[clamp(1.6rem,4vw,2.5rem)] text-pri-ink">Who&apos;s Doing It Right</h2>
         <p className="mb-6 max-w-200 text-[1.05rem] leading-[1.75] text-pri-brown">
           Twenty-two years of due diligence across $10 billion in restructured deals taught me one thing: the difference between a good deal and a
           catastrophic one is almost always the quality of the people managing it, not the underlying asset. Same principle applies here. The medicine is
@@ -709,7 +709,7 @@ export default function IbogaIbogainePage() {
           <div key={f.name} className="mb-10 border-b border-pri-border pb-10">
             <div className="mb-3 flex flex-wrap items-start gap-4">
               <div>
-                <h3 className="mb-1 flex items-center gap-2 font-heading text-xl text-pri-ink">
+                <h3 className="mb-1 flex items-center gap-2 font-heading font-extrabold text-xl text-pri-ink">
                   {f.star && <Star className="size-4 text-[#D4B96A]" fill="currentColor" />} {f.name}
                 </h3>
                 <p className="m-0 text-[.9rem] text-[#6B5A4E]">
@@ -734,7 +734,7 @@ export default function IbogaIbogainePage() {
           </div>
         ))}
 
-        <h3 className="mt-8 mb-4 font-heading text-xl text-pri-ink">Additional Verified Facilities</h3>
+        <h3 className="mt-8 mb-4 font-heading font-extrabold text-xl text-pri-ink">Additional Verified Facilities</h3>
         <div className="relative overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
           <table className="w-full min-w-150 border-collapse">
             <thead>
@@ -773,7 +773,7 @@ export default function IbogaIbogainePage() {
           </p>
         </div>
 
-        <h3 className="mt-8 mb-4 font-heading text-xl text-pri-ink">Quick Reference</h3>
+        <h3 className="mt-8 mb-4 font-heading font-extrabold text-xl text-pri-ink">Quick Reference</h3>
         <div className="relative overflow-x-auto" tabIndex={0} role="region" aria-label="Table (scrolls sideways)">
           <table className="w-full min-w-175 border-collapse">
             <thead>
@@ -814,7 +814,7 @@ export default function IbogaIbogainePage() {
       {/* ── EXTRACTIVE CAPITALISM ── */}
       <PriSection id="extractive-capitalism" dark>
         <PriEyebrow>The Extractive Capitalism Problem</PriEyebrow>
-        <h2 className="mb-4 font-heading text-[clamp(1.6rem,4vw,2.5rem)] text-pri-cream">Who Benefits From This Plant?</h2>
+        <h2 className="mb-4 font-heading font-extrabold text-[clamp(1.6rem,4vw,2.5rem)] text-pri-cream">Who Benefits From This Plant?</h2>
         <p className="mb-6 max-w-200 text-[1.05rem] leading-[1.75] text-pri-cream/80">
           Of the seven biggest companies currently developing ibogaine as a pharmaceutical, none had made any public mention of following the Nagoya
           Protocol at the time of my research. The Nagoya Protocol governs access to genetic resources and traditional knowledge from indigenous
@@ -842,7 +842,7 @@ export default function IbogaIbogainePage() {
       {/* ── US LEGAL STATUS ── */}
       <PriSection id="legal-status">
         <PriEyebrow>US Legal Status (2026)</PriEyebrow>
-        <h2 className="mb-4 font-heading text-[clamp(1.6rem,4vw,2.5rem)] text-pri-ink">The Regulatory Landscape</h2>
+        <h2 className="mb-4 font-heading font-extrabold text-[clamp(1.6rem,4vw,2.5rem)] text-pri-ink">The Regulatory Landscape</h2>
         <p className="mb-6 max-w-200 text-[1.05rem] leading-[1.75] text-pri-brown">
           Ibogaine is Schedule I in the United States. US and Canadian citizens traveling to Mexico for treatment face zero domestic legal consequences.
         </p>
@@ -862,7 +862,7 @@ export default function IbogaIbogainePage() {
       {/* ── SOURCES ── */}
       <PriSection id="sources">
         <PriEyebrow>Sources &amp; References</PriEyebrow>
-        <h2 className="mb-6 font-heading text-[clamp(1.4rem,3vw,2rem)] text-pri-ink">Peer-Reviewed Literature</h2>
+        <h2 className="mb-6 font-heading font-extrabold text-[clamp(1.4rem,3vw,2rem)] text-pri-ink">Peer-Reviewed Literature</h2>
         <ol className="max-w-200 list-decimal space-y-2 pl-6">
           {IBOGA_SOURCES.map((s) => (
             <li key={s} className="text-[.95rem] text-pri-brown">

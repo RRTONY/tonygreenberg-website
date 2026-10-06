@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { EditorialDivider } from "@/components/marketing/editorial-divider";
 import { EyebrowLabel } from "@/components/marketing/eyebrow-label";
 
 // Ported from legacy client/src/pages/Amplifier.tsx ("The Amplifier").
@@ -48,7 +50,7 @@ const TIERS = [
     price: "$5,000",
     note: "floor",
     details: ["Donate true value after.", "Full pattern match.", "One network activation.", "One vendor benchmark."],
-    cta: "Enter the Gate →",
+    cta: "Enter the Gate",
     href: "/engage",
     featured: false,
   },
@@ -57,7 +59,7 @@ const TIERS = [
     price: "$10,000",
     note: "floor",
     details: ["Deep diagnostic.", "Written output.", "3 targeted introductions."],
-    cta: "Enter the Gate →",
+    cta: "Enter the Gate",
     href: "/engage",
     featured: true,
   },
@@ -66,7 +68,7 @@ const TIERS = [
     price: "$15,000–$25,000",
     note: "per month",
     details: ["Continuous BD activation.", "Deal flow access.", "ImpactSoul pipeline visibility."],
-    cta: "Enter the Gate →",
+    cta: "Enter the Gate",
     href: "/engage",
     featured: false,
   },
@@ -75,7 +77,7 @@ const TIERS = [
     price: "Equity + Cash",
     note: "contact directly",
     details: ["Full strategic alignment.", "Board-level engagement.", "Contact directly."],
-    cta: "Make Your Case →",
+    cta: "Make Your Case",
     href: "mailto:tony@impactsoul.is?subject=Board%20/%20Advisory%20Inquiry",
     featured: false,
   },
@@ -89,31 +91,37 @@ const WONT_DO = [
   "Send follow-up summary emails (that is what Fireflies is for)",
 ];
 
+// Live's editorial layout: one narrow left-aligned column, wide-tracked
+// eyebrow labels and a short red rule between sections.
+const SECTION = "mx-auto max-w-[39rem] px-6 py-8 sm:px-10";
+const EYEBROW = "mb-6 font-mono text-[0.78rem] tracking-[0.35em] text-brand-gold uppercase";
+const BODY = "mb-4 text-[1.05rem]/[1.75] text-foreground/85";
+
 export default function AmplifierPage() {
   return (
     <div>
-      <section className="bg-linear-to-br from-background to-secondary px-6 py-16 text-center sm:px-10 dark:from-[#0A0A10] dark:via-[#111118] dark:to-[#1a1a24]">
-        <div className="mx-auto max-w-3xl">
-          <p className="mb-5 font-mono text-[0.72rem]/[1.85] tracking-[0.25em] text-brand-gold uppercase">
+      <section className="bg-linear-170 from-[#0A0A10] via-[#111118] via-60% to-[#1A1A24] px-6 pt-16 pb-12 text-center">
+        <div className="mx-auto max-w-[45rem]">
+          <p className="mb-[1.2rem] font-mono text-[0.72rem]/[1.85] tracking-[0.25em] text-brand-gold-light uppercase">
             The Amplifier
           </p>
-          <h1 className="mb-5 font-heading text-[clamp(2rem,5vw,3.2rem)]/[1.15] font-bold text-foreground">
+          <h1 className="mb-[1.2rem] font-heading text-[2rem]/[1.15] font-bold text-[#F5F0E0] sm:text-[3.2rem]/[1.15]">
             Matt builds the CEO.
             <br />
-            <span className="text-brand-gold">I expand the arena the CEO gets to play in.</span>
+            <span className="text-brand-gold-light">I expand the arena the CEO gets to play in.</span>
           </h1>
-          <p className="mx-auto mb-3 max-w-lg text-foreground/70">
+          <p className="mx-auto mb-4 max-w-[35rem] text-[1.05rem]/[1.7] text-[#F5F0E0]/65">
             If you can get both — get both.
           </p>
-          <div className="font-mono text-xs text-muted-foreground">
+          <div className="font-mono text-[0.72rem] tracking-[0.08em] text-[#F5F0E0]/50">
             Engagements begin with a scoping conversation · tony@impactsoul.is
           </div>
         </div>
       </section>
 
-      <div className="mx-auto max-w-[39rem] px-6 py-14 sm:px-10">
-        <EyebrowLabel>A Personal Note on Matt Mochary</EyebrowLabel>
-        <p className="mb-4 leading-relaxed text-foreground/80">
+      <section className={SECTION}>
+        <EyebrowLabel className={EYEBROW}>A Personal Note on Matt Mochary</EyebrowLabel>
+        <p className={BODY}>
           I have known{" "}
           <a
             href="https://mochary.com"
@@ -126,25 +134,25 @@ export default function AmplifierPage() {
           for 25 years. He was my neighbor in Kauai. I have been coached by him personally. I love
           him like a brother.
         </p>
-        <p className="mb-4 leading-relaxed text-foreground/80">
+        <p className={BODY}>
           His honor and integrity are above almost anyone I have encountered in 25 years across
           hundreds of companies. What he has built — becoming genuinely the best in the world at
           what he does — I hold in complete awe.
         </p>
-        <p className="mb-4 font-semibold text-foreground">
+        <p className="mb-4 text-[1.05rem]/[1.75] font-semibold text-foreground/90">
           Follow his method to the letter. Not selectively. To the letter. Then call me.
         </p>
-        <p className="text-sm text-muted-foreground italic">
+        <p className="text-[0.95rem]/[1.75] text-muted-foreground italic">
           He probably just thinks I am a funny guy. I will take it. I am just glad he lets me make
           him laugh.
         </p>
-      </div>
+      </section>
 
-      <hr className="border-border" />
+      <EditorialDivider />
 
-      <div className="mx-auto max-w-[39rem] px-6 py-14 sm:px-10">
-        <EyebrowLabel>What The Amplifier Is</EyebrowLabel>
-        <p className="mb-4 leading-relaxed text-foreground/80">
+      <section className={SECTION}>
+        <EyebrowLabel className={EYEBROW}>What The Amplifier Is</EyebrowLabel>
+        <p className={BODY}>
           Matt Mochary builds your internal operating system. What he does not — and cannot —
           provide is the external surface:
         </p>
@@ -155,82 +163,86 @@ export default function AmplifierPage() {
             "The capital pattern that tells you why your raise is structured wrong.",
             "The introduction that changes everything.",
           ].map((line) => (
-            <p key={line} className="mb-1.5 text-foreground/70">
+            <p key={line} className="mb-1.5 text-foreground/80">
               {line}
             </p>
           ))}
         </div>
-        <p className="font-semibold text-foreground">That is The Amplifier.</p>
-      </div>
+        <p className="text-[1.05rem]/[1.75] font-semibold text-foreground/90">
+          That is The Amplifier.
+        </p>
+      </section>
 
-      <hr className="border-border" />
+      <EditorialDivider />
 
-      <div className="mx-auto max-w-[39rem] px-6 py-14 sm:px-10">
-        <EyebrowLabel>The Unfair Advantage</EyebrowLabel>
-        <p className="mb-4 text-lg font-semibold text-foreground">Tony does not show up alone.</p>
-        <p className="mb-4 leading-relaxed text-foreground/80">Every Amplifier engagement includes:</p>
+      <section className={SECTION}>
+        <EyebrowLabel className={EYEBROW}>The Unfair Advantage</EyebrowLabel>
+        <p className="mb-4 text-[1.15rem] font-semibold text-foreground/90">
+          Tony does not show up alone.
+        </p>
+        <p className={BODY}>Every Amplifier engagement includes:</p>
         <div className="mb-4 pl-6">
           {[
             "Tony's 12-person core team",
             "Hundreds of vetted specialist resources",
             "One handpicked domain expert from your specific vertical — someone Tony has a deep personal relationship with, built on a value exchange model",
           ].map((line) => (
-            <p key={line} className="mb-1.5 text-foreground/70">
+            <p key={line} className="mb-1.5 text-foreground/80">
               — {line}
             </p>
           ))}
         </div>
-        <p className="mb-2 text-foreground/80">
+        <p className="mb-2.5 text-[1.05rem]/[1.75] text-foreground/85">
           This is not a referral. Not a warm intro on LinkedIn. Your vertical expert shows up
           invested.
         </p>
-        <p className="text-sm text-muted-foreground italic">
+        <p className="text-[0.95rem]/[1.75] text-muted-foreground italic">
           Very few people in the world can convene a room this way.
         </p>
-      </div>
+      </section>
 
-      <hr className="border-border" />
+      <EditorialDivider />
 
-      <div className="mx-auto max-w-[39rem] px-6 py-14 sm:px-10">
-        <EyebrowLabel>The 5 Pillars</EyebrowLabel>
+      <section className={SECTION}>
+        <EyebrowLabel className={EYEBROW}>The 5 Pillars</EyebrowLabel>
         {PILLARS.map((p, i) => (
           <div
             key={p.num}
             className={`flex gap-5 py-5 ${i < PILLARS.length - 1 ? "border-b border-border/60" : ""}`}
           >
-            <div className="shrink-0 pt-0.5 font-mono text-xs tracking-wide text-brand-gold">
+            <div className="shrink-0 pt-1.5 font-mono text-[0.72rem] tracking-[0.1em] text-brand-gold">
               {p.num}
             </div>
             <div>
-              <h3 className="mb-1 font-heading text-lg font-bold text-foreground">{p.title}</h3>
-              <p className="leading-relaxed text-foreground/70">{p.desc}</p>
+              <h3 className="mb-1 font-heading text-[1.15rem] font-bold text-foreground">{p.title}</h3>
+              <p className="text-[0.95rem]/[1.7] text-foreground/80">{p.desc}</p>
             </div>
           </div>
         ))}
-      </div>
+      </section>
 
-      <hr className="border-border" />
+      <EditorialDivider />
 
-      <div className="mx-auto max-w-[39rem] px-6 py-14 sm:px-10">
+      <section className={SECTION}>
         <div className="rounded-md border border-brand-gold/20 bg-brand-gold/5 px-8 py-6 text-center">
-          <div className="mb-2 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
+          <div className="mb-2.5 font-mono text-[0.72rem] tracking-[0.2em] text-brand-gold uppercase">
             The 2× Guarantee
           </div>
-          <p className="mb-2 font-semibold text-foreground">
+          <p className="mb-2.5 text-[1.05rem]/[1.75] font-semibold text-foreground/90">
             Do the work. Show the receipts. Get 2x back — or Tony keeps working until you do.
           </p>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-[0.92rem]/[1.7] text-muted-foreground">
             Proof of work = completed preparation document + all session action items documented
             in writing. No proof, no guarantee. Simple.
           </p>
         </div>
-      </div>
+      </section>
 
-      <hr className="border-border" />
+      <EditorialDivider />
 
-      <div className="mx-auto max-w-4xl px-6 py-14 sm:px-10">
-        <EyebrowLabel>Tiers</EyebrowLabel>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <section className={SECTION}>
+        <EyebrowLabel className={EYEBROW}>Tiers</EyebrowLabel>
+        <div className="grid gap-4 pt-2 sm:grid-cols-2">
           {TIERS.map((t) => (
             <div
               key={t.tier}
@@ -241,20 +253,20 @@ export default function AmplifierPage() {
               }`}
             >
               {t.featured && (
-                <div className="absolute top-0 right-4 -translate-y-1/2 rounded-sm bg-brand-gold px-2.5 py-1 font-mono text-[0.6rem] tracking-wide text-white uppercase">
+                <div className="absolute top-0 right-4 -translate-y-1/2 rounded-sm bg-brand-gold px-2.5 py-1 font-mono text-[0.6rem] tracking-[0.15em] text-white uppercase">
                   Most Popular
                 </div>
               )}
-              <div className="mb-2 font-mono text-xs tracking-wide text-brand-gold uppercase">
+              <div className="mb-2 font-mono text-[0.68rem] tracking-[0.15em] text-brand-gold uppercase">
                 {t.tier}
               </div>
               <div className="mb-3">
                 <span className="font-heading text-2xl font-bold text-foreground">{t.price}</span>
-                <span className="ml-2 font-mono text-xs text-muted-foreground">{t.note}</span>
+                <span className="ml-2 font-mono text-[0.68rem] text-muted-foreground">{t.note}</span>
               </div>
               <div className="mb-4 flex-1">
                 {t.details.map((d) => (
-                  <p key={d} className="mb-0.5 text-sm text-foreground/70">
+                  <p key={d} className="mb-0.5 text-[0.88rem] text-foreground/75">
                     {d}
                   </p>
                 ))}
@@ -262,37 +274,41 @@ export default function AmplifierPage() {
               {t.href.startsWith("/") ? (
                 <Link
                   href={t.href}
-                  className={`rounded-sm py-2.5 text-center font-mono text-xs tracking-wide uppercase ${
-                    t.featured ? "bg-brand-gold text-white" : "border border-brand-gold/30 text-brand-gold"
+                  className={`inline-flex min-h-11 items-center justify-center gap-1.5 rounded-sm px-6 py-3 font-mono text-xs tracking-[0.1em] uppercase ${
+                    t.featured
+                      ? "bg-brand-gold-light text-[#0A0A10]"
+                      : "border border-brand-gold/30 text-brand-gold"
                   }`}
                 >
                   {t.cta}
+                  <ArrowRight aria-hidden="true" className="size-3.5" />
                 </Link>
               ) : (
                 <a
                   href={t.href}
-                  className="rounded-sm border border-brand-gold/30 py-2.5 text-center font-mono text-xs tracking-wide text-brand-gold uppercase"
+                  className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-sm border border-brand-gold/30 px-6 py-3 font-mono text-xs tracking-[0.1em] text-brand-gold uppercase"
                 >
                   {t.cta}
+                  <ArrowRight aria-hidden="true" className="size-3.5" />
                 </a>
               )}
             </div>
           ))}
         </div>
-      </div>
+      </section>
 
-      <hr className="border-border" />
+      <EditorialDivider />
 
-      <div className="mx-auto max-w-[39rem] px-6 py-14 sm:px-10">
-        <EyebrowLabel>How to Prepare</EyebrowLabel>
-        <p className="mb-4 leading-relaxed text-foreground/80">
+      <section className={SECTION}>
+        <EyebrowLabel className={EYEBROW}>How to Prepare</EyebrowLabel>
+        <p className={BODY}>
           Complete the preparation document and send to{" "}
           <a href="mailto:tony@impactsoul.is" className="border-b border-brand-gold/30 text-brand-gold">
             tony@impactsoul.is
           </a>{" "}
           48 hours before your session.
         </p>
-        <p className="mb-2 text-foreground/80">The document asks you to quantify:</p>
+        <p className="mb-2.5 text-foreground/80">The document asks you to quantify:</p>
         <div className="mb-4 pl-6">
           {[
             "The single decision worth the most if you get it right",
@@ -300,49 +316,54 @@ export default function AmplifierPage() {
             "The door you need opened and what you offer in return",
             "What you would do if this conversation did not exist",
           ].map((line) => (
-            <p key={line} className="mb-1 text-sm text-foreground/70">
+            <p key={line} className="mb-1 text-[0.95rem] text-foreground/75">
               — {line}
             </p>
           ))}
         </div>
-        <p className="mb-2 font-semibold text-foreground">
+        <p className="mb-2.5 font-semibold text-foreground/90">
           Vague questions produce general answers. Specific high-stakes questions produce specific
           high-value answers.
         </p>
-        <p className="text-sm text-muted-foreground italic">
+        <p className="text-[0.92rem] text-muted-foreground italic">
           All sessions recorded via Fireflies. Transcript delivered within 24 hours.
         </p>
-      </div>
+      </section>
 
-      <hr className="border-border" />
+      <EditorialDivider />
 
-      <div className="mx-auto max-w-[39rem] px-6 py-14 sm:px-10">
-        <EyebrowLabel>What Tony Will Not Do</EyebrowLabel>
+      <section className={SECTION}>
+        <EyebrowLabel className={EYEBROW}>What Tony Will Not Do</EyebrowLabel>
         {WONT_DO.map((item, i) => (
           <div
             key={item}
             className={`flex items-start gap-3 py-2.5 ${i < WONT_DO.length - 1 ? "border-b border-border/50" : ""}`}
           >
-            <span className="shrink-0 text-red-800">—</span>
-            <p className="text-foreground/70">{item}</p>
+            <span aria-hidden="true" className="shrink-0 text-red-700 dark:text-red-400">
+              —
+            </span>
+            <p className="text-[0.95rem] text-foreground/80">{item}</p>
           </div>
         ))}
-      </div>
+      </section>
 
-      <section className="bg-secondary px-6 py-12 text-center sm:px-10 dark:bg-[#0A0A10]">
-        <p className="mb-3 font-mono text-xs tracking-[0.25em] text-brand-gold uppercase">Book</p>
+      <section className="mt-6 bg-[#0A0A10] px-6 py-10 text-center">
+        <p className="mb-3 font-mono text-[0.72rem] tracking-[0.25em] text-brand-gold-light uppercase">
+          Book
+        </p>
         <p className="mb-3">
-          <a href="mailto:tony@impactsoul.is" className="text-brand-gold">
+          <a href="mailto:tony@impactsoul.is" className="text-brand-gold-light">
             tony@impactsoul.is
           </a>
         </p>
         <Link
           href="/engage"
-          className="mb-3 inline-block rounded-sm bg-brand-gold px-10 py-3 font-mono text-sm tracking-wide text-white uppercase"
+          className="mb-3 inline-flex min-h-11 items-center gap-1.5 rounded-sm bg-brand-gold-light px-12 py-3.5 font-mono text-[0.85rem] tracking-[0.15em] text-[#0A0A10] uppercase transition-opacity hover:opacity-90"
         >
-          Enter the Gate →
+          Enter the Gate
+          <ArrowRight aria-hidden="true" className="size-3.5" />
         </Link>
-        <div className="font-mono text-xs text-muted-foreground">
+        <div className="font-mono text-[0.65rem] tracking-[0.08em] text-[#F5F0E0]/50 uppercase">
           $5,000 minimum · preparation doc required · all sessions recorded via Fireflies
         </div>
       </section>

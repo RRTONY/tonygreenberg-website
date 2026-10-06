@@ -216,8 +216,8 @@ export default function AboutPage() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-[39rem] px-5 py-8 text-[1.1875rem]/[1.8] sm:px-10 sm:text-lg/[1.85]">
-        <p className="mb-6 text-center font-mono text-xs tracking-[0.2em] text-brand-gold uppercase dark:text-brand-gold-light">
+      <div className="mx-auto max-w-215 px-6 py-16">
+        <p className="mb-6 text-center font-mono text-[0.72rem] tracking-[0.2em] text-brand-gold uppercase dark:text-brand-gold-light">
           What They Say
         </p>
         <PartnerQuotes count={3} />

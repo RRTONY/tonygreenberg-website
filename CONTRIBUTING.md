@@ -30,6 +30,8 @@ incidents: [`docs/ai/`](docs/ai/README.md).
    what you completed (date + what you verified), add anything new you found to the right phase,
    and refresh the status block (date, done/open counts, done this session, waiting on a
    decision, next up). The file is large: open the phase you need, not the whole thing.
+   Then regenerate the team's spreadsheet copy: `python3 scripts/build-migration-status-report.py`
+   (writes `Migration-Status-Report.xlsx`; needs `openpyxl`).
 
 ## Talking to the Team
 

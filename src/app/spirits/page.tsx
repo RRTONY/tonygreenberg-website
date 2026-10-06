@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowUpRight, Wine, Flame, Droplets, Sparkles, type LucideIcon } from "lucide-react";
+import { pageFontVariables } from "@/lib/fonts/page-fonts";
+import { ArrowRight, ArrowUpRight, Wine, Flame, Droplets, Sparkles, type LucideIcon } from "lucide-react";
 
 // Ported from legacy client/src/pages/Spirits.tsx ("The Liquid Library").
 // Real content, unchanged. Two of the five external companion sites
@@ -194,24 +195,29 @@ const CATEGORIES: Category[] = [
   },
 ];
 
+// 2026-10-07: restyled to live's current design: a near-black hero, red
+// letter-spaced subtitles (#8E1E25), 53rem content column, a cream Cormorant
+// pull-quote box with a red rule, near-black companion-site cards and a
+// near-black "Throughline" band. On that band live's #8E1E25 eyebrow is under
+// 3:1, so it uses the lighter #E07A80 (6.8:1) instead.
 export default function SpiritsPage() {
   return (
-    <div>
-      <div className="bg-linear-to-b from-background to-secondary px-6 py-24 text-center sm:px-10 dark:from-[#1A0E08] dark:to-background">
-        <p className="mb-6 font-mono text-xs/[1.85] tracking-[0.2em] text-brand-gold uppercase">
+    <div className={pageFontVariables}>
+      <section className="bg-linear-to-b from-[#1A0E08] via-[#0A0A10] via-40% to-[#0A0A10] px-6 pt-24 pb-16 text-center sm:px-8">
+        <p className="mb-6 font-mono text-xs/[1.85] tracking-[0.2em] text-[#C5A23C] uppercase">
           The Liquid Library
         </p>
-        <h1 className="mx-auto mb-6 max-w-2xl font-heading text-[clamp(2.5rem,6vw,4rem)]/[1.1] font-bold text-foreground">
+        <h1 className="mx-auto mb-6 max-w-[34.5rem] font-heading text-[clamp(2.5rem,6vw,4rem)]/[1.1] font-bold text-[#F0E8D8]">
           Wine, Sake, Spirits
           <br />
-          <span className="text-brand-gold italic">&amp; Mezcal</span>
+          <span className="text-[#C5A23C] italic">&amp; Mezcal</span>
         </h1>
-        <p className="mx-auto max-w-lg text-lg text-foreground/70">
+        <p className="mx-auto max-w-130 text-[1.15rem]/[1.7] text-[#999]">
           What enters the mouth must speak to the mind and stay with the heart. These are the
           bottles, the brewers, the distillers, and the philosophies that earned a permanent place
           at the table.
         </p>
-      </div>
+      </section>
 
       {CATEGORIES.map((cat, idx) => {
         const Icon = cat.icon;
@@ -220,27 +226,27 @@ export default function SpiritsPage() {
         return (
           <section
             key={cat.id}
-            className={`border-b border-brand-gold/10 ${isEven ? "bg-background" : "bg-secondary"}`}
+            className={isEven ? "bg-[#FAFAF7] dark:bg-background" : "bg-[#F5F0E6] dark:bg-secondary"}
           >
-            <div className="mx-auto max-w-3xl px-6 py-16 sm:px-10 md:py-20">
+            <div className="mx-auto max-w-[53rem] px-6 py-16 sm:px-0 md:py-20">
               <div className="mb-8 flex items-start gap-4">
                 <div className={`flex size-12 shrink-0 items-center justify-center rounded-xl ${c.iconBg}`}>
-                  <Icon size={24} className={c.text} />
+                  <Icon aria-hidden="true" size={24} className={c.text} />
                 </div>
                 <div>
-                  <p className="mb-1 font-mono text-xs tracking-wide text-brand-gold uppercase">
+                  <p className="mb-6 font-mono text-[0.78rem] tracking-[0.35em] text-[#8E1E25] uppercase dark:text-[#E07A80]">
                     {cat.subtitle}
                   </p>
-                  <h2 className="font-heading text-3xl leading-tight font-bold text-foreground sm:text-4xl">
+                  <h2 className="font-heading text-[2.5rem]/[1.15] font-bold text-[#0A0A10] dark:text-foreground">
                     {cat.title}
                   </h2>
                 </div>
               </div>
 
-              <p className="mb-8 leading-relaxed text-foreground/80">{cat.philosophy}</p>
+              <p className="mb-8 text-[1.1rem]/[1.8] text-[#444] dark:text-foreground/80">{cat.philosophy}</p>
 
-              <div className="mb-8 rounded-lg border border-border bg-card px-8 py-6">
-                <div className={`mb-4 font-mono text-xs tracking-wide uppercase ${c.text}`}>
+              <div className="mb-8 rounded-lg border border-black/6 bg-white px-8 py-6 dark:border-border dark:bg-card">
+                <div className={`mb-4 font-mono text-[0.72rem] tracking-[0.12em] uppercase ${c.text}`}>
                   Current Obsessions
                 </div>
                 <ul className="m-0 list-none p-0">
@@ -251,32 +257,30 @@ export default function SpiritsPage() {
                         i < cat.obsessions.length - 1 ? "border-b border-border/50" : ""
                       }`}
                     >
-                      <span className={`text-xs ${c.text}`}>&#9670;</span>
+                      <span aria-hidden="true" className={`text-xs ${c.text}`}>&#9670;</span>
                       {obs}
                     </li>
                   ))}
                 </ul>
               </div>
 
-              <blockquote className="mb-8 border-l-4 border-brand-gold-light pl-6 font-heading text-lg text-foreground/80 italic">
+              <blockquote className="my-10 max-w-[44.5rem] border-l-2 border-[#8E1E25] bg-[#F1EBDD] px-6 py-8 font-cormorant text-[1.28rem]/[1.75] text-[#111] sm:px-11 dark:border-[#E07A80] dark:bg-card dark:text-foreground">
                 {cat.pullquote}
               </blockquote>
 
               {cat.site &&
                 (cat.site.offline ? (
-                  <div className="mb-6 rounded-lg border border-dashed border-border bg-secondary px-8 py-6">
-                    <div className="mb-3 font-mono text-xs tracking-wide text-muted-foreground uppercase">
-                      Companion Site — No Longer Live
+                  <div className="mb-6 rounded-lg bg-[#0A0A10] p-8">
+                    <div className="mb-3 font-mono text-[0.7rem] tracking-[0.15em] text-white/60 uppercase">
+                      Companion Site, No Longer Live
                     </div>
-                    <h3 className="mb-1 font-heading text-2xl font-bold text-foreground">
+                    <h3 className="mb-1 font-heading text-[1.6rem] font-bold text-[#F0E8D8]">
                       {cat.site.title}
                     </h3>
-                    <div className={`mb-3 font-heading text-base italic ${c.text}`}>
+                    <div className="mb-4 font-heading text-base text-[#C5A23C] italic">
                       {cat.site.tagline}
                     </div>
-                    <p className="m-0 leading-relaxed text-muted-foreground">
-                      {cat.site.description}
-                    </p>
+                    <p className="m-0 text-[0.95rem]/[1.7] text-[#999]">{cat.site.description}</p>
                   </div>
                 ) : (
                   <a
@@ -285,27 +289,28 @@ export default function SpiritsPage() {
                     className="group mb-6 block rounded-lg bg-[#0A0A10] p-8"
                   >
                     <div className="mb-3 flex items-center justify-between">
-                      <div className={`font-mono text-xs tracking-wide uppercase ${c.onDark}`}>
-                        Explore the Site →
+                      <div className={`inline-flex items-center gap-1.5 font-mono text-[0.7rem] tracking-[0.15em] uppercase ${c.onDark}`}>
+                        Explore the Site <ArrowRight aria-hidden="true" className="size-3" />
                       </div>
                       <ArrowUpRight
+                        aria-hidden="true"
                         size={16}
                         className="text-brand-gold-light opacity-40 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
                       />
                     </div>
-                    <h3 className="mb-1 font-heading text-2xl font-bold text-[#F0E8D8]">
+                    <h3 className="mb-1 font-heading text-[1.6rem] font-bold text-[#F0E8D8]">
                       {cat.site.title}
                     </h3>
-                    <div className="mb-4 font-heading text-base text-brand-gold-light italic">
+                    <div className="mb-4 font-heading text-base text-[#C5A23C] italic">
                       {cat.site.tagline}
                     </div>
-                    <p className="m-0 leading-relaxed text-white/60">{cat.site.description}</p>
+                    <p className="m-0 text-[0.95rem]/[1.7] text-[#999]">{cat.site.description}</p>
                   </a>
                 ))}
 
               {cat.digest && (
-                <div className="mb-6 rounded-lg border border-border bg-card px-8 py-6">
-                  <div className={`mb-5 font-mono text-xs tracking-wide uppercase ${c.text}`}>
+                <div className="mb-6 rounded-lg border border-black/6 bg-white px-8 py-6 dark:border-border dark:bg-card">
+                  <div className={`mb-5 font-mono text-[0.72rem] tracking-[0.12em] uppercase ${c.text}`}>
                     Latest from {cat.digest.source}
                   </div>
                   {cat.digest.items.map((item, di) => (
@@ -316,7 +321,7 @@ export default function SpiritsPage() {
                       <div className={`mb-1 font-mono text-[0.65rem] tracking-wide uppercase ${c.text}`}>
                         {item.tag}
                       </div>
-                      <div className="mb-1 font-heading text-base leading-tight font-semibold text-foreground">
+                      <div className="mb-1 font-heading text-[1.05rem] leading-tight font-semibold text-[#0A0A10] dark:text-foreground">
                         {item.title}
                       </div>
                       <p className="m-0 text-sm leading-relaxed text-muted-foreground">
@@ -329,7 +334,7 @@ export default function SpiritsPage() {
 
               {cat.comingSoon && (
                 <div className={`mb-6 rounded-lg border border-dashed px-6 py-5 ${c.dashedBorder} ${c.dashedBg}`}>
-                  <div className={`mb-1.5 font-mono text-xs tracking-wide uppercase ${c.text}`}>
+                  <div className={`mb-1.5 font-mono text-[0.72rem] tracking-wide uppercase ${c.text}`}>
                     Coming Soon
                   </div>
                   <p className="m-0 text-sm leading-relaxed text-muted-foreground italic">
@@ -338,21 +343,26 @@ export default function SpiritsPage() {
                 </div>
               )}
 
-              {idx < CATEGORIES.length - 1 && <hr className="border-border/50" />}
+              {idx < CATEGORIES.length - 1 && (
+                <div
+                  aria-hidden="true"
+                  className="mx-auto mt-10 h-px w-48 bg-linear-to-r from-transparent via-[#8E1E25] to-transparent"
+                />
+              )}
             </div>
           </section>
         );
       })}
 
-      <section className="bg-[#0A0A10] px-6 py-20 text-center sm:px-10">
-        <div className="mx-auto max-w-2xl">
-          <p className="mb-3 font-mono text-xs tracking-[0.2em] text-brand-gold-light uppercase">
+      <section className="bg-[#0A0A10] px-6 py-20 text-center sm:px-8">
+        <div className="mx-auto max-w-3xl">
+          <p className="mb-6 font-mono text-[0.78rem] tracking-[0.35em] text-[#E07A80] uppercase">
             The Throughline
           </p>
-          <h2 className="mb-5 font-heading text-2xl leading-snug font-bold text-[#F0E8D8] sm:text-3xl">
+          <h2 className="mb-5 font-heading text-[clamp(1.6rem,4vw,2rem)]/[1.3] font-bold text-[#F0E8D8]">
             Every great bottle is a trust document.
           </h2>
-          <p className="mx-auto mb-8 max-w-lg leading-relaxed text-white/60">
+          <p className="mx-auto mb-10 max-w-140 text-[1.05rem]/[1.8] text-[#999]">
             A mezcalero who tends an agave for 25 years before harvest. A toji who checks koji by
             touch at 3am. A winemaker who lets the grapes speak instead of the marketing
             department. The common thread isn&apos;t the liquid — it&apos;s the refusal to cut
@@ -360,16 +370,19 @@ export default function SpiritsPage() {
           </p>
           <Link
             href="/the-letter"
-            className="inline-block rounded-md bg-brand-gold px-8 py-3 font-mono text-xs tracking-wide text-white uppercase"
+            className="inline-flex min-h-11 items-center gap-1.5 rounded-sm bg-[#8B6914] px-8 py-3 font-mono text-[0.78rem] tracking-[0.1em] text-white uppercase"
           >
-            Read the Letter →
+            Read the Letter <ArrowRight aria-hidden="true" className="size-3.5" />
           </Link>
         </div>
       </section>
 
-      <div className="border-t border-border py-6 text-center">
-        <Link href="/recent-creations" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
-          Continue to Recent Creations →
+      <div className="py-8 text-center">
+        <Link
+          href="/recent-creations"
+          className="inline-flex min-h-11 items-center gap-1.5 border border-[#8E1E25]/40 px-6 py-2.5 font-mono text-sm text-[#8E1E25] dark:text-[#E07A80]"
+        >
+          Recent Creations <ArrowRight aria-hidden="true" className="size-3.5" />
         </Link>
       </div>
     </div>

@@ -108,6 +108,7 @@ export function EngageAudit() {
   const [currentQ, setCurrentQ] = useState(0);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [organization, setOrganization] = useState("");
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [outcome, setOutcome] = useState<"qualified" | "not-ready" | "wrong-fit" | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -126,14 +127,14 @@ export function EngageAudit() {
   return (
     <>
       {step === "intro" && (
-        <div className="mx-auto max-w-2xl px-6 py-16 sm:px-10">
-          <p className="mb-2 font-mono text-xs tracking-wide text-brand-gold uppercase">
+        <div className="mx-auto max-w-[39rem] px-6 py-8 sm:px-10">
+          <p className="mb-6 font-mono text-[0.78rem] tracking-[0.35em] text-brand-gold uppercase">
             Before You Book
           </p>
-          <h2 className="mb-4 font-heading text-3xl font-bold text-foreground">
+          <h2 className="mb-4 font-heading text-[1.8rem]/[1.3] font-bold text-foreground">
             The Engagement Audit
           </h2>
-          <p className="mb-6 leading-relaxed text-foreground/80">
+          <p className="mb-6 text-[1.05rem]/[1.75] text-foreground/85">
             Five questions. No right answers — but there are wrong ones. Vague aspirations,
             generic flattery, and &quot;exploring options&quot; won&apos;t get you through. What
             will: specificity, evidence of action, and clarity about what you&apos;re building
@@ -152,33 +153,57 @@ export function EngageAudit() {
             </p>
           </div>
 
-          <div className="mb-8 rounded-md bg-secondary p-6">
-            <div className="mb-4 font-mono text-xs tracking-wide text-brand-gold uppercase">
+          <div className="mb-8 rounded-md bg-[#0A0A10] p-6">
+            <div className="mb-4 font-mono text-xs tracking-[0.15em] text-brand-gold-light uppercase">
               Your Information
             </div>
             <div className="grid gap-4">
               <div>
-                <label className="mb-1 block font-mono text-xs tracking-wide text-muted-foreground uppercase">
+                <label
+                  htmlFor="engage-name"
+                  className="mb-1 block font-mono text-xs tracking-[0.08em] text-[#F5F0E0]/60 uppercase"
+                >
                   Name *
                 </label>
                 <input
+                  id="engage-name"
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Full name"
-                  className="w-full rounded-sm border border-brand-gold/20 bg-background px-4 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring focus:border-brand-gold"
+                  className="w-full rounded-sm border border-white/15 bg-white/5 px-4 py-3 text-base text-[#F5F0E0] outline-none placeholder:text-[#F5F0E0]/50 focus-visible:ring-2 focus-visible:ring-brand-gold-light/50 focus:border-brand-gold-light"
                 />
               </div>
               <div>
-                <label className="mb-1 block font-mono text-xs tracking-wide text-muted-foreground uppercase">
+                <label
+                  htmlFor="engage-email"
+                  className="mb-1 block font-mono text-xs tracking-[0.08em] text-[#F5F0E0]/60 uppercase"
+                >
                   Email *
                 </label>
                 <input
+                  id="engage-email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="your@email.com"
-                  className="w-full rounded-sm border border-brand-gold/20 bg-background px-4 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring focus:border-brand-gold"
+                  className="w-full rounded-sm border border-white/15 bg-white/5 px-4 py-3 text-base text-[#F5F0E0] outline-none placeholder:text-[#F5F0E0]/50 focus-visible:ring-2 focus-visible:ring-brand-gold-light/50 focus:border-brand-gold-light"
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="engage-organization"
+                  className="mb-1 block font-mono text-xs tracking-[0.08em] text-[#F5F0E0]/60 uppercase"
+                >
+                  Organization
+                </label>
+                <input
+                  id="engage-organization"
+                  type="text"
+                  value={organization}
+                  onChange={(e) => setOrganization(e.target.value)}
+                  placeholder="Company or initiative name (optional)"
+                  className="w-full rounded-sm border border-white/15 bg-white/5 px-4 py-3 text-base text-[#F5F0E0] outline-none placeholder:text-[#F5F0E0]/50 focus-visible:ring-2 focus-visible:ring-brand-gold-light/50 focus:border-brand-gold-light"
                 />
               </div>
             </div>
@@ -196,7 +221,7 @@ export function EngageAudit() {
               }
               setStep("audit");
             }}
-            className="mx-auto block rounded-sm border border-brand-gold/30 bg-background px-10 py-3 font-mono text-xs tracking-wide text-foreground uppercase transition-colors hover:border-brand-gold"
+            className="mx-auto block min-h-11 rounded-sm bg-[#0A0A10] px-10 py-3.5 font-mono text-[0.82rem] tracking-[0.12em] text-[#F5F0E0] uppercase transition-opacity hover:opacity-90 dark:bg-brand-gold-light dark:text-[#0A0A10]"
           >
             <span className="inline-flex items-center gap-1.5">
               Begin the Audit <ArrowRight aria-hidden="true" className="size-3.5" />
