@@ -166,6 +166,9 @@ const nextConfig: NextConfig = {
     ];
   },
   images: {
+    // Images are resized by Sanity's (and Unsplash's) own CDN, not /_next/image; see the loader.
+    loader: "custom",
+    loaderFile: "./src/lib/images/image-loader.ts",
     remotePatterns: [
       { protocol: "https", hostname: "cdn.sanity.io" },
       // Real, live Unsplash stock photos used as BrewSoul city hero
