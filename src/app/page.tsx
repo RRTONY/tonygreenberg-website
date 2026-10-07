@@ -11,7 +11,7 @@ import { CoreThemes } from "@/components/marketing/core-themes";
 import { EcosystemCTA } from "@/components/marketing/ecosystem-cta";
 import { HomeArchive } from "@/components/blog/home-archive";
 import { RecentUpdates } from "@/components/marketing/recent-updates";
-import { NewsletterPopup } from "@/components/marketing/newsletter-popup";
+import { NewsletterPopupLazy } from "@/components/marketing/newsletter-popup-lazy";
 import { ReturningVisitorHero } from "@/components/marketing/returning-visitor-hero";
 import Link from "next/link";
 
@@ -136,7 +136,7 @@ export default async function Home() {
       <EcosystemCTA essayCount={posts.length} />
 
       <HomeArchive posts={posts} />
-      <NewsletterPopup />
+      <NewsletterPopupLazy />
     </div>
   );
 }

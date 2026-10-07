@@ -3,6 +3,7 @@
 import { useCallback, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { Heart, X, AlertTriangle, Ban, Star, FileText, CheckCircle2, Target } from "lucide-react";
 import {
   MEDICINES,
@@ -22,7 +23,9 @@ import {
 import { MEDICINE_IMAGES } from "@/lib/content/pri-medicine-images";
 import { getMedicineWithSafety, computeScores, TAG_CLASS, DEFAULT_TAG_CLASS } from "@/lib/content/pri-shared";
 import { DisclaimerGate } from "@/components/pri/disclaimer-gate";
-import { MedicineModal } from "@/components/pri/medicine-modal";
+// Opens only when a medicine is tapped; loading it then keeps it (and its correction form) out of
+// the page's first load (Lighthouse, 2026-10-08).
+const MedicineModal = dynamic(() => import("@/components/pri/medicine-modal").then((m) => m.MedicineModal), { ssr: false });
 import { PriShareBar } from "@/components/pri/share-bar";
 import { CinematicBand } from "@/components/pri/cinematic-band";
 

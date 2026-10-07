@@ -1,17 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import { IBOGA_PHARMA_ALTERNATIVES } from "@/lib/content/pri-iboga-module";
+import type { PharmaAltRow } from "@/lib/content/pri-iboga-module";
 
 const thClass = "border-b-2 border-[#D4CFC5] bg-[#E8E2D8] px-3 py-2.5 text-left text-xs font-extrabold tracking-[0.08em] whitespace-nowrap text-pri-ink uppercase";
 const tdClass = "border-b border-[#E8E2D8] px-3 py-2.5 align-top text-[.85rem] leading-[1.5] text-pri-brown";
 
 // Ported from legacy's `PharmaTable` (IbogaDeepDive.tsx) — the real 8-row
 // ibogaine-specific pharma-to-plant alternatives table, unchanged.
-// Show-all/collapse toggle is the only interactive piece.
-export function IbogaPharmaTable() {
+// Show-all/collapse toggle is the only interactive piece. The rows come in as
+// a prop from the (server) page, so the rest of the data module stays out of
+// the browser bundle.
+export function IbogaPharmaTable({ rows: allRows }: { rows: PharmaAltRow[] }) {
   const [expanded, setExpanded] = useState(false);
-  const rows = expanded ? IBOGA_PHARMA_ALTERNATIVES : IBOGA_PHARMA_ALTERNATIVES.slice(0, 5);
+  const rows = expanded ? allRows : allRows.slice(0, 5);
 
   return (
     <div>
@@ -39,9 +41,9 @@ export function IbogaPharmaTable() {
           </tbody>
         </table>
       </div>
-      {IBOGA_PHARMA_ALTERNATIVES.length > 5 && (
+      {allRows.length > 5 && (
         <button onClick={() => setExpanded(!expanded)} className="inline-flex items-center mt-4 rounded-md bg-pri-purple px-6 py-2.5 text-sm font-bold text-white min-h-11 md:min-h-6">
-          {expanded ? "Show fewer" : `Show all ${IBOGA_PHARMA_ALTERNATIVES.length}`}
+          {expanded ? "Show fewer" : `Show all ${allRows.length}`}
         </button>
       )}
     </div>

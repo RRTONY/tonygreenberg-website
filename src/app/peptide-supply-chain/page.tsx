@@ -59,7 +59,8 @@ export default function PeptideSupplyChainPage() {
             src="https://cdn.sanity.io/images/a3q1cyqs/production/39fd5977e53d37392aa091e7c15d381bd9980695-1200x509.webp"
             alt=""
             fill
-            priority
+            fetchPriority="high"
+            loading="eager"
             sizes="100vw"
             className="object-cover blur-[2px] brightness-70"
           />

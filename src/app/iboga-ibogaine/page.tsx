@@ -13,6 +13,7 @@ import {
   IBOGA_MEDICINE_SELECTOR,
   IBOGA_SOURCES,
   IBOGA_DISCLAIMER,
+  IBOGA_PHARMA_ALTERNATIVES,
 } from "@/lib/content/pri-iboga-module";
 import { PriSection, PriEyebrow } from "@/components/pri/pri-section";
 import { IbogaPharmaTable } from "@/components/pri/iboga-pharma-table";
@@ -427,7 +428,7 @@ export default function IbogaIbogainePage() {
           NMDA modulators, SSRIs, and smoking cessation agents. A single ibogaine session can address what would otherwise require 3–5 separate
           prescriptions with their respective side-effect profiles.
         </p>
-        <IbogaPharmaTable />
+        <IbogaPharmaTable rows={IBOGA_PHARMA_ALTERNATIVES} />
       </PriSection>
 
       {/* ── SUPPLEMENT STACKS ── */}

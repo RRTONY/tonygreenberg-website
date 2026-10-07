@@ -88,7 +88,8 @@ export function BrowseExplorer() {
           src="https://cdn.sanity.io/images/a3q1cyqs/production/1c8cf85cb4a89e17203b371252c9e86ccecff53a-1200x670.webp"
           alt=""
           fill
-          priority
+          fetchPriority="high"
+          loading="eager"
           sizes="100vw"
           className="-z-20 scale-110 object-cover object-[center_40%] brightness-105 saturate-115"
         />

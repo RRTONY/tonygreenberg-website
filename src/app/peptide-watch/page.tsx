@@ -92,7 +92,8 @@ export default function PeptideWatchPage() {
             src="https://cdn.sanity.io/images/a3q1cyqs/production/a285315b1cc22eaea951b0ac97011d8f9ed75228-1200x669.webp"
             alt=""
             fill
-            priority
+            fetchPriority="high"
+            loading="eager"
             sizes="100vw"
             className="object-cover brightness-50 contrast-120"
           />

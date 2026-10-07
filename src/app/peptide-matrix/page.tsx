@@ -109,7 +109,8 @@ export default function PeptideMatrixPage() {
             src="https://cdn.sanity.io/images/a3q1cyqs/production/6e35eac72eced203da0889fe95617e0be7ac86f1-1200x509.webp"
             alt=""
             fill
-            priority
+            fetchPriority="high"
+            loading="eager"
             sizes="100vw"
             className="object-cover blur-[1px] brightness-60"
           />
