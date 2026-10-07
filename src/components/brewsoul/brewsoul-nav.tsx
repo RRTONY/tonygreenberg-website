@@ -81,12 +81,12 @@ export function BrewSoulNav() {
           </span>
         </Link>
 
-        <div className="hidden max-w-[50vw] gap-1 overflow-auto md:flex [scrollbar-width:none]">
-          {NAV_SECTIONS.slice(0, 8).map((s) => (
+        <div className="hidden items-center gap-1 lg:flex">
+          {NAV_SECTIONS.slice(0, 8).map((s, i) => (
             <Link
               key={s.path}
               href={s.path}
-              className={`inline-flex items-center gap-1.5 rounded-sm px-2.5 py-1.5 font-sans text-[0.78rem] whitespace-nowrap ${
+              className={`${i < 5 ? "inline-flex" : "hidden xl:inline-flex"} items-center gap-1.5 rounded-sm px-2.5 py-1.5 font-sans text-[0.78rem] whitespace-nowrap ${
                 isActive(s.path) ? "bg-[#6F4E37]/8 font-semibold text-[#6F4E37]" : "text-[#6B5B4F]"
               }`}
             >
@@ -94,20 +94,24 @@ export function BrewSoulNav() {
               {s.label}
             </Link>
           ))}
-          <button onClick={() => setMenuOpen(!menuOpen)} className="inline-flex items-center gap-1 px-2.5 py-1.5 font-mono text-[0.72rem] text-[#86691c]">
-            More <Plus aria-hidden="true" className="size-3.5" />
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-expanded={menuOpen}
+            className="inline-flex min-h-11 items-center gap-1 px-2.5 py-1.5 font-mono text-[0.72rem] whitespace-nowrap text-[#86691c]"
+          >
+            More {menuOpen ? <X aria-hidden="true" className="size-3.5" /> : <Plus aria-hidden="true" className="size-3.5" />}
           </button>
         </div>
 
         <div className="flex items-center gap-3">
-          <Link href="/" className="hidden items-center gap-1 font-mono text-[0.6rem] tracking-wide text-[#6b6b6b] uppercase lg:flex">
+          <Link href="/" className="hidden items-center gap-1 font-mono text-[0.6rem] tracking-wide whitespace-nowrap text-[#6b6b6b] uppercase 2xl:flex">
             Part of Find Your Me
           </Link>
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
-            className="flex size-11 items-center justify-center text-[#6F4E37] md:hidden"
+            className="flex size-11 items-center justify-center text-[#6F4E37] lg:hidden"
           >
             {menuOpen ? <X aria-hidden="true" className="size-5" /> : <Menu aria-hidden="true" className="size-5" />}
           </button>

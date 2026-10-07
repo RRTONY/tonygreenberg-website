@@ -4,6 +4,8 @@ import { allPostSlugsQuery, categoriesQuery, MIN_INDEXABLE_CATEGORY_POSTS } from
 import { CITIES } from "@/lib/content/brewsoul-cities";
 import { BREWSOUL_COFFEES } from "@/lib/content/brewsoul-coffees";
 import { CHARITIES } from "@/lib/content/charity-data";
+import { isGatedPost } from "@/lib/gated-posts";
+import { POST_REDIRECTS } from "@/lib/content/post-redirects";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tonygreenberg.com";
 
@@ -151,8 +153,10 @@ const STATIC_ROUTES = [
   "/whats-legal",
 ] as const;
 
-// Posts whose address redirects elsewhere (next.config.ts), so not listed.
-const REDIRECTED_POST_SLUGS = new Set(["akbar-cuisine-restoration-economics"]);
+// Password-gated posts are noindex; listing a noindex page in the sitemap is a Search Console
+// warning, so they're left out too.
+// Posts whose address redirects elsewhere (POST_REDIRECTS) aren't listed either.
+const isUnlisted = (slug: string) => slug in POST_REDIRECTS || isGatedPost(slug);
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [posts, categories] = await Promise.all([
@@ -167,7 +171,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly" as const,
       priority: 0.7,
     })),
-    ...posts.filter((post) => !REDIRECTED_POST_SLUGS.has(post.slug)).map((post) => ({
+    ...posts.filter((post) => !isUnlisted(post.slug)).map((post) => ({
       url: `${siteUrl}/blog/${post.slug}`,
       lastModified: post._updatedAt,
       changeFrequency: "monthly" as const,

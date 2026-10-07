@@ -93,7 +93,7 @@ export function ClientsGrid({ clients }: { clients: Client[] }) {
         ))}
       </div>
 
-      <div className="grid gap-4" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))" }}>
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-4">
         {filtered.map((client) => {
           const level = hawkinsLevel(client.hawkins);
           const indColor = INDUSTRY_COLORS[client.industry] || "#555";

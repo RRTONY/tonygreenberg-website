@@ -22,6 +22,7 @@ import {
   type Dimension,
   type WoundCard,
 } from "@/lib/content/find-your-me";
+import { postHref } from "@/lib/content/post-redirects";
 
 type LinkType = WoundCard["links"][number]["type"];
 
@@ -536,7 +537,7 @@ export function FindYourMeQuiz({ articleTitles }: { articleTitles: Record<string
           <h3 className="mb-5 font-mono text-[0.75rem] tracking-[0.25em] text-brand-gold-light/50 uppercase">Rabbit Holes Worth Falling Into</h3>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {archetype.articles.map((slug, idx) => (
-              <Link key={slug} href={`/blog/${slug}`}>
+              <Link key={slug} href={postHref(slug)}>
                 <GlassPanel className="h-full p-5 transition-colors hover:border-brand-gold-light/30">
                   <span className="font-mono text-[0.65rem] text-brand-gold-light/40">{String(idx + 1).padStart(2, "0")}</span>
                   <p className="mt-1 font-heading text-[0.95rem] leading-[1.4] text-[#F5F0E0]/85">{articleTitles[slug] ?? slug}</p>

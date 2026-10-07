@@ -14,6 +14,7 @@ import {
   CATEGORY_DESCRIPTIONS,
 } from "@/lib/content/articles-discovery";
 import { formatPostDate } from "@/lib/format-post-date";
+import { postHref } from "@/lib/content/post-redirects";
 
 export type ArchivePost = {
   _id: string;
@@ -45,7 +46,7 @@ function ArticleList({ posts }: { posts: ArchivePost[] }) {
               {formatPostDate(post.publishedAt, "short")}
             </span>
             <div className="min-w-50 flex-1">
-              <Link href={`/blog/${post.slug}`} className="inline-flex items-center font-heading text-base font-semibold text-foreground hover:text-brand-gold min-h-11 md:min-h-6">
+              <Link href={postHref(post.slug)} className="inline-flex items-center font-heading text-base font-semibold text-foreground hover:text-brand-gold min-h-11 md:min-h-6">
                 {post.title}
               </Link>
               {post.subtitle && <span className="mt-0.5 block text-sm text-muted-foreground">{post.subtitle}</span>}

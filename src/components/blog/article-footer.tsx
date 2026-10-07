@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, Diamond } from "lucide-react";
+import { resolveInternalHref } from "@/lib/content/post-redirects";
 
 export type ArticleFooterData = {
   tryThis?: { title?: string; description?: string; steps?: string[] };
@@ -42,7 +43,7 @@ function RelatedLinkRow({ link }: { link: NonNullable<ArticleFooterData["whereTh
   const reason = link.reason ?? "";
   const meta = RELATED_META[classifyReason(reason)];
   return (
-    <Link href={link.href} className="block rounded-md border border-border p-4 transition-colors hover:bg-secondary">
+    <Link href={resolveInternalHref(link.href)} className="block rounded-md border border-border p-4 transition-colors hover:bg-secondary">
       <div className="mb-1 flex items-center gap-2">
         <span className={`shrink-0 rounded-sm px-2 py-0.5 font-mono text-[0.6rem] tracking-wide uppercase ${meta.badge}`}>
           {meta.label}

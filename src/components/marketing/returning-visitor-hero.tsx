@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import Link from "next/link";
+import { postHref } from "@/lib/content/post-redirects";
 
 // Ported from legacy client/src/components/ReturningVisitorHero.tsx — the
 // "Welcome back" strip shown to returning visitors (2+ visits) with a
@@ -34,7 +35,7 @@ export async function ReturningVisitorHero() {
           <span className="shrink-0 font-heading text-[0.82rem] text-brand-gold dark:text-brand-gold-light">Welcome back.</span>
           {lastSlug && truncTitle && (
             <Link
-              href={`/blog/${lastSlug}`}
+              href={postHref(lastSlug)}
               className="truncate border-b border-brand-gold-light/15 pb-px font-mono text-[0.6rem] tracking-[0.04em] text-brand-gold dark:text-brand-gold-light/55"
             >
               Continue: {truncTitle}

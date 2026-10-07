@@ -29,13 +29,13 @@ export function BrewSoulHomeSection() {
       <Image src={HERO_IMAGE} alt="Steaming glass cup of coffee surrounded by coffee beans" fill sizes="100vw" className="-z-30 object-cover opacity-45" />
       <div className="absolute inset-0 -z-20 bg-[radial-gradient(ellipse_at_25%_30%,rgba(196,132,29,0.15)_0%,transparent_55%),radial-gradient(ellipse_at_75%_70%,rgba(111,78,55,0.12)_0%,transparent_50%),radial-gradient(ellipse_at_50%_50%,rgba(61,139,110,0.06)_0%,transparent_60%)]" />
       <div aria-hidden="true" className="absolute inset-0 -z-20 overflow-hidden opacity-60">
-        <div className="absolute -inset-1/2 animate-jewel-aurora-rotate bg-[conic-gradient(from_0deg_at_50%_50%,#C4841D15,#6F4E3715,#3D8B6E15,#C4841D15,#D4B96A15,#C4841D15)] blur-[60px]" />
+        <div className="absolute -inset-1/2 animate-jewel-aurora-rotate will-change-transform motion-reduce:animate-none bg-[conic-gradient(from_0deg_at_50%_50%,#C4841D15,#6F4E3715,#3D8B6E15,#C4841D15,#D4B96A15,#C4841D15)] blur-[60px]" />
       </div>
       <svg
         aria-hidden="true"
         viewBox="0 0 200 200"
         fill="none"
-        className="pointer-events-none absolute top-1/2 left-1/2 -z-10 size-150 animate-jewel-geo-rotate opacity-8"
+        className="pointer-events-none absolute top-1/2 left-1/2 -z-10 size-150 animate-jewel-geo-rotate opacity-8 will-change-transform motion-reduce:animate-none"
       >
         <circle cx="100" cy="100" r="90" stroke="url(#bshGrad)" strokeWidth="0.4" />
         <circle cx="100" cy="55" r="45" stroke="url(#bshGrad)" strokeWidth="0.25" />
@@ -77,7 +77,7 @@ export function BrewSoulHomeSection() {
           {STATS.map((s) => (
             <div
               key={s.label}
-              className="rounded-2xl border border-[#F5EDE0]/6 bg-linear-165 from-[#F5EDE0]/6 to-[#0D0B0A]/60 px-2 py-6 shadow-[0_4px_20px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(245,237,224,0.05)] backdrop-blur-md transition-all duration-300 hover:border-[#C4841D]/25 hover:shadow-[0_12px_40px_rgba(196,132,29,0.15),inset_0_1px_0_rgba(245,237,224,0.1)] sm:py-7"
+              className="rounded-2xl border border-[#F5EDE0]/6 bg-linear-165 from-[#F5EDE0]/6 to-[#0D0B0A]/60 px-2 py-6 shadow-[0_4px_20px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(245,237,224,0.05)] transition-all duration-300 hover:border-[#C4841D]/25 hover:shadow-[0_12px_40px_rgba(196,132,29,0.15),inset_0_1px_0_rgba(245,237,224,0.1)] sm:py-7"
             >
               <div className="bg-linear-135 from-[#C4841D] via-[#F5EDE0] to-[#D4B96A] bg-clip-text font-mono text-4xl font-bold text-transparent sm:text-5xl">
                 {s.value}
@@ -98,13 +98,13 @@ export function BrewSoulHomeSection() {
           </Link>
           <Link
             href="/brewsoul/browse"
-            className="rounded-lg border border-[#C4841D]/25 bg-[#F5EDE0]/4 px-8 py-4 font-mono text-xs tracking-[0.18em] text-[#D4B96A]/80 uppercase backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-[#C4841D]/50 hover:bg-[#C4841D]/10"
+            className="rounded-lg border border-[#C4841D]/25 bg-[#F5EDE0]/4 px-8 py-4 font-mono text-xs tracking-[0.18em] text-[#D4B96A]/80 uppercase transition-all duration-300 hover:-translate-y-0.5 hover:border-[#C4841D]/50 hover:bg-[#C4841D]/10"
           >
             Browse Top QPR →
           </Link>
           <Link
             href="/brewsoul/chains"
-            className="rounded-lg border border-[#6F4E37]/20 bg-[#F5EDE0]/4 px-8 py-4 font-mono text-xs tracking-[0.18em] text-[#F5EDE0]/50 uppercase backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-[#6F4E37]/40 hover:bg-[#6F4E37]/10 hover:text-[#F5EDE0]/70"
+            className="rounded-lg border border-[#6F4E37]/20 bg-[#F5EDE0]/4 px-8 py-4 font-mono text-xs tracking-[0.18em] text-[#F5EDE0]/50 uppercase transition-all duration-300 hover:-translate-y-0.5 hover:border-[#6F4E37]/40 hover:bg-[#6F4E37]/10 hover:text-[#F5EDE0]/70"
           >
             Chain Rankings →
           </Link>

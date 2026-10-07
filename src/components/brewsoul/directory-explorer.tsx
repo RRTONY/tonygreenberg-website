@@ -30,12 +30,10 @@ export function DirectoryExplorer() {
             <button
               key={cat.title}
               onClick={() => setFilter(active ? null : cat.title)}
-              className="rounded-full border px-4 py-1.5 font-mono text-[0.68rem] tracking-[0.1em] uppercase"
-              style={{
-                borderColor: CAT_COLORS[cat.title].border,
-                background: active ? CAT_COLORS[cat.title].badge : "transparent",
-                color: active ? CAT_COLORS[cat.title].badgeText : CAT_COLORS[cat.title].badge,
-              }}
+              aria-pressed={active}
+              className={`rounded-full border px-4 py-1.5 font-mono text-[0.68rem] tracking-[0.1em] uppercase ${
+                active ? CAT_COLORS[cat.title].chipActive : CAT_COLORS[cat.title].chip
+              }`}
             >
               <span className="inline-flex items-center gap-1.5">
                 <cat.icon aria-hidden="true" className="size-3.5 shrink-0" />
@@ -50,7 +48,7 @@ export function DirectoryExplorer() {
         const c = CAT_COLORS[cat.title];
         return (
           <div key={cat.title} className="mb-12">
-            <div className="mb-4 flex items-center gap-3 border-b-2 pb-3" style={{ borderColor: c.border }}>
+            <div className={`mb-4 flex items-center gap-3 border-b-2 pb-3 ${c.rule}`}>
               <cat.icon aria-hidden="true" className="size-6 shrink-0 text-[#6F4E37]" />
               <div>
                 <div className="font-heading text-xl font-bold text-[#2C1810]">{cat.title}</div>
@@ -63,23 +61,21 @@ export function DirectoryExplorer() {
                 <Link
                   key={page.path}
                   href={page.path}
-                  className="flex h-full flex-col rounded-xl border p-5 transition-transform hover:-translate-y-0.5"
-                  style={{ background: c.bg, borderColor: c.border }}
+                  className={`flex h-full flex-col rounded-xl border p-5 transition-transform hover:-translate-y-0.5 ${c.card}`}
                 >
                   <div className="mb-3 flex items-center justify-between">
                     <span className="flex size-11 items-center justify-center rounded-[10px] bg-white/60 text-[#6F4E37]">
                       <page.icon aria-hidden="true" className="size-6" />
                     </span>
                     <span
-                      className="rounded-sm px-2 py-1 font-mono text-[0.58rem] tracking-[0.1em] uppercase"
-                      style={{ background: c.badge, color: c.badgeText }}
+                      className={`rounded-sm px-2 py-1 font-mono text-[0.58rem] tracking-[0.1em] uppercase ${c.badge}`}
                     >
                       {cat.title}
                     </span>
                   </div>
                   <div className="mb-1.5 font-heading text-[1.05rem] leading-snug font-bold text-[#2C1810]">{page.label}</div>
                   <div className="flex-1 text-[0.85rem] leading-relaxed text-[#6B5B4F]">{page.desc}</div>
-                  <div className="mt-3 inline-flex items-center gap-1.5 font-mono text-xs" style={{ color: c.badge }}>
+                  <div className={`mt-3 inline-flex items-center gap-1.5 font-mono text-xs ${c.accent}`}>
                     Explore
                     <ArrowRight aria-hidden="true" className="size-3.5" />
                   </div>

@@ -3,6 +3,7 @@ import type React from "react";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Sparkle } from "lucide-react";
 import { getFurtherReading } from "@/lib/content/further-reading";
 import { getSeriesForPost } from "@/lib/content/essay-series";
+import { postHref } from "@/lib/content/post-redirects";
 
 // Ported from legacy client/src/pages/BlogPost.tsx: the per-post blocks
 // around the essay body that live still shows ("Before You Read", then "The
@@ -224,7 +225,7 @@ export function SeriesReadingList({
                 </span>
               ) : (
                 <Link
-                  href={`/blog/${s}`}
+                  href={postHref(s)}
                   className="flex min-h-11 items-center gap-2 text-foreground/80 hover:text-brand-gold md:min-h-8"
                 >
                   <span className="font-mono text-xs text-brand-gold">{n}.</span>
@@ -237,7 +238,7 @@ export function SeriesReadingList({
       </ol>
       {nextSlug && titlesBySlug[nextSlug] && (
         <Link
-          href={`/blog/${nextSlug}`}
+          href={postHref(nextSlug)}
           className="mt-4 inline-flex min-h-11 items-center gap-1.5 rounded-sm bg-brand-gold px-5 font-mono text-xs tracking-wide text-white uppercase"
         >
           Next <ArrowRight aria-hidden="true" className="size-3.5 shrink-0" /> {titlesBySlug[nextSlug]}

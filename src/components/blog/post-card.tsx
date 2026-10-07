@@ -3,6 +3,7 @@ import Image from "next/image";
 import { urlFor } from "@/lib/sanity/image";
 import { DEFAULT_ESSAY_HERO } from "@/lib/content/default-image";
 import { formatPostDate } from "@/lib/format-post-date";
+import { postHref } from "@/lib/content/post-redirects";
 
 type PostCardData = {
   _id: string;
@@ -38,7 +39,7 @@ export function PostCard({
           and screen readers instead of being a second, unnamed link (axe
           link-name, on posts with no hero image). */}
       <Link
-        href={`/blog/${post.slug.current}`}
+        href={postHref(post.slug.current)}
         aria-hidden="true"
         tabIndex={-1}
         className="relative block aspect-video bg-muted"
@@ -73,7 +74,7 @@ export function PostCard({
           </Link>
         )}
         <Heading className="font-heading text-lg font-bold leading-snug text-foreground">
-          <Link href={`/blog/${post.slug.current}`} className="hover:text-brand-gold">
+          <Link href={postHref(post.slug.current)} className="hover:text-brand-gold">
             {post.title}
           </Link>
         </Heading>

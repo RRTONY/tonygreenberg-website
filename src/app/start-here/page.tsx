@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { postHref } from "@/lib/content/post-redirects";
 
 // Ported from legacy client/src/pages/StartHere.tsx. Real content kept as-is.
 // All 5 essays here are ALSO among the 99 blog posts with no real hero image
@@ -47,7 +48,7 @@ function EssayCard({ essay, index }: { essay: Essay; index: number }) {
 
   return (
     <Link
-      href={`/blog/${essay.slug}`}
+      href={postHref(essay.slug)}
       className="mb-8 grid overflow-hidden rounded-md bg-card shadow-sm transition-shadow hover:shadow-lg sm:grid-cols-2"
     >
       {isEven && numberPanel}

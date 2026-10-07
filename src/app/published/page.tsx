@@ -104,7 +104,7 @@ export default function PublishedPage() {
         <ArrowLeft aria-hidden="true" className="size-3.5" /> Back to the Broadsheet
       </Link>
 
-      <p className="mt-3 mb-8 font-mono text-xs tracking-[0.15em] text-brand-gold uppercase md:mt-8">
+      <p className="mt-3 mb-8 font-mono text-[0.78rem] tracking-[0.35em] text-essay-red uppercase md:mt-8 dark:text-[#E07A80]">
         The Bylines
       </p>
       <h1 className="mb-6 font-heading text-[clamp(2.4rem,5vw,3.8rem)]/[1.1] font-bold text-foreground">

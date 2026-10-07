@@ -7,6 +7,7 @@ import { allPostsForArchiveQuery } from "@/lib/sanity/queries";
 import { urlFor } from "@/lib/sanity/image";
 import { ARCHETYPES, AUTHORITY_ITEMS, type ArchetypeKey } from "@/lib/content/archetypes";
 import { PathSubscribeForm } from "@/components/marketing/path-subscribe-form";
+import { postHref } from "@/lib/content/post-redirects";
 
 // Ported from legacy client/src/pages/PathPage.tsx — a per-archetype
 // landing page reached after `/assessment`'s Builder/Crusader/Investor
@@ -98,7 +99,7 @@ export default async function PathPage({ params }: PageProps<"/path/[archetype]"
             {essentialReading.map((post) => (
               <Link
                 key={post._id}
-                href={`/blog/${post.slug}`}
+                href={postHref(post.slug)}
                 className="flex gap-4 rounded-md border border-border bg-card p-4 transition-colors hover:border-brand-gold/40"
               >
                 {post.heroImage && (

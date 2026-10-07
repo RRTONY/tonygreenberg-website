@@ -9,6 +9,7 @@ import { DEFAULT_ESSAY_HERO } from "@/lib/content/default-image";
 import { FEATURED_COUNT, IMPACT_FUTURISM_ENTRIES, TAG_BADGE, type ImpactFuturismEntry } from "@/lib/content/impact-futurism";
 import type { ArchivePost } from "@/components/blog/articles-explorer";
 import { formatPostDate } from "@/lib/format-post-date";
+import { postHref } from "@/lib/content/post-redirects";
 
 // allPostsForArchiveQuery also selects heroImage/readTime, but the
 // ArchivePost type (defined for articles-explorer's narrower needs) omits
@@ -29,7 +30,7 @@ function TagBadge({ tag }: { tag: string }) {
 function FeaturedCard({ post, entry }: { post: FuturismPost; entry: ImpactFuturismEntry }) {
   return (
     <Link
-      href={`/blog/${post.slug}`}
+      href={postHref(post.slug)}
       className="group flex h-full flex-col overflow-hidden rounded-lg border border-brand-gold/15 bg-card transition-shadow hover:shadow-lg"
     >
       <div className="relative aspect-video bg-muted">
@@ -73,7 +74,7 @@ function FeaturedCard({ post, entry }: { post: FuturismPost; entry: ImpactFuturi
 function ArticleListRow({ post, entry, index }: { post: FuturismPost; entry: ImpactFuturismEntry; index: number }) {
   return (
     <Link
-      href={`/blog/${post.slug}`}
+      href={postHref(post.slug)}
       className="grid grid-cols-[auto_1fr_auto] items-start gap-4 rounded-sm border-b border-brand-gold/10 px-2 py-5 transition-colors hover:bg-brand-gold/4"
     >
       <div className="min-w-6 pt-0.5 font-mono text-xs text-brand-gold">{String(index + 1).padStart(2, "0")}</div>

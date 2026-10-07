@@ -42,6 +42,8 @@ Tailwind v4 + shadcn/ui, Sanity for editorial content, deployed on Netlify from 
 - **Port the real legacy copy and design.** Every page matches its legacy source
   (`ROUTES-INVENTORY.md` maps route → legacy file) and the live site's style. No placeholder
   content. Changing Tony's copy, SEO titles/descriptions, or claims needs the owner's yes.
+  Where live itself looks broken or is hard to read, pick the clearer version that works on
+  phone, tablet and laptop (CONTRIBUTING rule 20).
 - **Server Components by default**; `"use client"` only for state, effects or browser APIs.
 - **Tailwind + shadcn/ui only.** No inline `style={}` (except a runtime-computed number like a
   progress width), no framer-motion, `next/image` never `<img>`, canonical Tailwind classes, full

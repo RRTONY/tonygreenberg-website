@@ -5,8 +5,10 @@ export interface Kavalactone {
   mechanisms: string[];
   priRelevance: string;
   // 700-weight shades: used as text on white and behind white text, so they
-  // must pass WCAG AA (the original 500 shades failed, 2026-10-02).
-  colorHex: string;
+  // must pass WCAG AA (the original 500 shades failed, 2026-10-02). Full
+  // literal Tailwind classes per colour (CONTRIBUTING: never build a class
+  // from fragments), so no inline `style={}` is needed to apply them.
+  tone: { solid: string; text: string; border: string; panel: string };
 }
 
 // Ported from legacy client/src/pages/kava/KavaScience.tsx's real 6
@@ -16,12 +18,12 @@ export interface Kavalactone {
 // for the static kavalactone grid — same RSC-boundary lesson already
 // learned porting /brewsoul/decaf.
 export const KAVALACTONES: Kavalactone[] = [
-  { num: 1, name: "Desmethoxyyangonin", abbrev: "DMY", mechanisms: ["Increases dopamine", "Reversible MAO-B inhibitor"], priRelevance: "Elevates mood, openness, sociability; reduces resistance to experience; fights effects of low dopamine.", colorHex: "#B45309" },
-  { num: 2, name: "Dihydrokavain", abbrev: "DHK", mechanisms: ["GABA-A potentiation — the strongest anxiolytic kavalactone"], priRelevance: "Core anxiety reduction; dissolves the fear that blocks readiness; the therapeutic workhorse of the kava bowl.", colorHex: "#1D4ED8" },
-  { num: 3, name: "Yangonin", abbrev: "Y", mechanisms: ["CB1 receptor affinity — endocannabinoid system engagement", "CNS calming"], priRelevance: "Endocannabinoid bridge; produces warm, grounded sensory receptivity; the body-warmth kavalactone.", colorHex: "#047857" },
-  { num: 4, name: "Kavain", abbrev: "K", mechanisms: ["Sodium and calcium channel blockade", "Acts on limbic system and amygdala"], priRelevance: "Physical relaxation without cognitive fog; the ideal carrier state. Chemotypes with 4 as first number are most desirable for ceremony. Kavain and dihydrokavain are the most permeable to the blood-brain barrier.", colorHex: "#6D28D9" },
-  { num: 5, name: "Dihydromethysticin", abbrev: "DHM", mechanisms: ["Increases serotonin", "MAO-B inhibition", "Activates glutamatergic NMDA receptors"], priRelevance: "Serotonergic priming; may sensitize 5-HT2A pathway for subsequent medicines; neuroprotective via Nrf2/HO1 pathway.", colorHex: "#BE185D" },
-  { num: 6, name: "Methysticin", abbrev: "M", mechanisms: ["Serotonin modulation", "Nrf2 and HO1 pathway activation (neuroprotective)", "NF-kB inhibition (anti-inflammatory)"], priRelevance: "Anti-neuroinflammatory; protects the nervous system entering altered states; the guardian kavalactone.", colorHex: "#B91C1C" },
+  { num: 1, name: "Desmethoxyyangonin", abbrev: "DMY", mechanisms: ["Increases dopamine", "Reversible MAO-B inhibitor"], priRelevance: "Elevates mood, openness, sociability; reduces resistance to experience; fights effects of low dopamine.", tone: { solid: "bg-[#B45309]", text: "text-[#B45309]", border: "border-[#B45309]", panel: "border-l-3 border-l-[#B45309] bg-[#B45309]/6" } },
+  { num: 2, name: "Dihydrokavain", abbrev: "DHK", mechanisms: ["GABA-A potentiation — the strongest anxiolytic kavalactone"], priRelevance: "Core anxiety reduction; dissolves the fear that blocks readiness; the therapeutic workhorse of the kava bowl.", tone: { solid: "bg-[#1D4ED8]", text: "text-[#1D4ED8]", border: "border-[#1D4ED8]", panel: "border-l-3 border-l-[#1D4ED8] bg-[#1D4ED8]/6" } },
+  { num: 3, name: "Yangonin", abbrev: "Y", mechanisms: ["CB1 receptor affinity — endocannabinoid system engagement", "CNS calming"], priRelevance: "Endocannabinoid bridge; produces warm, grounded sensory receptivity; the body-warmth kavalactone.", tone: { solid: "bg-[#047857]", text: "text-[#047857]", border: "border-[#047857]", panel: "border-l-3 border-l-[#047857] bg-[#047857]/6" } },
+  { num: 4, name: "Kavain", abbrev: "K", mechanisms: ["Sodium and calcium channel blockade", "Acts on limbic system and amygdala"], priRelevance: "Physical relaxation without cognitive fog; the ideal carrier state. Chemotypes with 4 as first number are most desirable for ceremony. Kavain and dihydrokavain are the most permeable to the blood-brain barrier.", tone: { solid: "bg-[#6D28D9]", text: "text-[#6D28D9]", border: "border-[#6D28D9]", panel: "border-l-3 border-l-[#6D28D9] bg-[#6D28D9]/6" } },
+  { num: 5, name: "Dihydromethysticin", abbrev: "DHM", mechanisms: ["Increases serotonin", "MAO-B inhibition", "Activates glutamatergic NMDA receptors"], priRelevance: "Serotonergic priming; may sensitize 5-HT2A pathway for subsequent medicines; neuroprotective via Nrf2/HO1 pathway.", tone: { solid: "bg-[#BE185D]", text: "text-[#BE185D]", border: "border-[#BE185D]", panel: "border-l-3 border-l-[#BE185D] bg-[#BE185D]/6" } },
+  { num: 6, name: "Methysticin", abbrev: "M", mechanisms: ["Serotonin modulation", "Nrf2 and HO1 pathway activation (neuroprotective)", "NF-kB inhibition (anti-inflammatory)"], priRelevance: "Anti-neuroinflammatory; protects the nervous system entering altered states; the guardian kavalactone.", tone: { solid: "bg-[#B91C1C]", text: "text-[#B91C1C]", border: "border-[#B91C1C]", panel: "border-l-3 border-l-[#B91C1C] bg-[#B91C1C]/6" } },
 ];
 
 export const COMBINED_PROFILE = [

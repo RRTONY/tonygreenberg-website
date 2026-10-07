@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { X } from "lucide-react";
 import {
@@ -119,7 +120,15 @@ export function CitiesExplorer({ cities, nationalStats }: { cities: CityData[]; 
   return (
     <div className="min-h-screen overflow-x-hidden bg-linear-to-b from-[#1a1208] via-[#0f0d08] to-[#0a0806] text-amber-50">
       <section className="relative flex h-[70vh] min-h-125 items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 scale-110 bg-cover bg-center" style={{ backgroundImage: "url(https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1920)" }} />
+        <Image
+          src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1920"
+          alt=""
+          fill
+          fetchPriority="high"
+          loading="eager"
+          sizes="100vw"
+          className="scale-110 object-cover"
+        />
         <div className="absolute inset-0 bg-linear-to-b from-[#1a1208]/70 via-[#0f0d08]/80 to-[#0a0806]" />
 
         <div className="relative z-1 max-w-4xl px-6 text-center">

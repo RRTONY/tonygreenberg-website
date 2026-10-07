@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowLeft, ArrowRight, Microscope } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { getPriLiveStats, type PriLiveStats } from "@/lib/pri-research";
 import simData from "@/lib/content/pri-efficacy-data.json";
 
 // Ported from legacy client/src/pages/pri/PriEfficacy.tsx — the real Monte
@@ -10,20 +13,18 @@ import simData from "@/lib/content/pri-efficacy-data.json";
 // unchanged and verbatim, reading from the same `pri-efficacy-data.json`
 // also used by `/pri-calibration`.
 //
-// **Real backend gap, handled honestly**: legacy's "Live Calibrations" tab
-// read a live `trpc.priCalibration.stats` query — a backend this migration
-// never built, and since `/pri-calibration`'s own submit call was already
-// dropped for the same reason (see that page's port note), this tab would
-// permanently render "0 total calibrations, no data yet" — a dead feature
-// masquerading as a live one. Dropped entirely rather than ship a
-// perpetually-empty tab; only the real, fully-populated Simulation view
-// ships, which also means this page is fully static now (no tab-switch
-// state left), so it's a plain Server Component.
+// Legacy's "Simulation / Live Calibrations" switch is back (2026-10-08): /pri-calibration now
+// saves to Supabase (`pri_calibrations`), so the Live tab shows real aggregate numbers, read on
+// the server and refreshed every 10 minutes. Until the database script has been run it says the
+// numbers aren't available yet rather than showing a fake zero. Both tab panels stay in the
+// server HTML (`forceMount`) so the research is crawlable.
 export const metadata: Metadata = {
   title: "PRI Efficacy — Research and Evidence",
   description: "The Monte Carlo simulation research and psychometric evidence base behind the Psychedelic Readiness Index.",
   alternates: { canonical: "/pri-efficacy" },
 };
+
+export const revalidate = 600;
 
 const DIM_LABELS: Record<string, string> = {
   Medical: "Medical Readiness",
@@ -73,7 +74,48 @@ function StatCard({ title, value, subtitle, color }: { title: string; value: str
   );
 }
 
-export default function PriEfficacyPage() {
+const TAB_TRIGGER =
+  "h-auto flex-none rounded-md border border-pri-purple/40 px-5 py-2.5 text-[.85rem] text-pri-cream hover:text-pri-cream data-[state=active]:bg-[#6B21A8] data-[state=active]:text-pri-cream dark:text-pri-cream dark:data-[state=active]:bg-[#6B21A8]";
+
+// Calibration scores are stored per lowercase dimension key (lib/content/pri-data.ts DIMS).
+const liveLabel = (dim: string) => DIM_LABELS[dim.charAt(0).toUpperCase() + dim.slice(1)] ?? dim;
+const liveColor = (dim: string) => DIM_COLORS[dim.charAt(0).toUpperCase() + dim.slice(1)] ?? "#A855F7";
+
+function LiveCalibrations({ live }: { live: PriLiveStats | null }) {
+  const scores = Object.entries(live?.avgScores ?? {});
+  return (
+    <>
+      <div className="mb-10 grid grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-4">
+        <StatCard title="Total Calibrations" value={live ? live.total.toLocaleString("en-US") : "—"} subtitle="completed sessions" />
+        <StatCard title="Research Opt-Ins" value={live ? live.optIn.toLocaleString("en-US") : "—"} subtitle="contributing to science" />
+        <StatCard title="Opt-In Rate" value={live?.total ? `${Math.round((live.optIn / live.total) * 100)}%` : "—"} subtitle="participation rate" />
+      </div>
+
+      {!live || live.total === 0 || scores.length === 0 ? (
+        <div className="rounded-xl border border-pri-cream/8 bg-pri-cream/3 px-6 py-12 text-center">
+          <Microscope aria-hidden="true" className="mx-auto mb-4 size-8 text-pri-purple-light" />
+          <p className="text-pri-cream/70">
+            {live ? "No live calibration data yet." : "Live calibration numbers aren't available just now."} Complete the{" "}
+            <Link href="/pri-calibration" className="text-pri-purple-light underline underline-offset-2">
+              Deep Calibration
+            </Link>{" "}
+            to contribute.
+          </p>
+        </div>
+      ) : (
+        <div className="rounded-xl border border-pri-cream/8 bg-pri-cream/3 p-6">
+          <h2 className="mb-5 font-heading text-xl text-pri-cream">Live Average Scores by Dimension</h2>
+          {scores.map(([dim, score]) => (
+            <BarChart key={dim} label={liveLabel(dim)} value={score} max={100} color={liveColor(dim)} />
+          ))}
+        </div>
+      )}
+    </>
+  );
+}
+
+export default async function PriEfficacyPage() {
+  const live = await getPriLiveStats();
   const dims = Object.keys(DIM_LABELS);
   const { classification_accuracy, entropy, test_retest_reliability, role_distribution, first_role_inflation, simulation } = simData;
 
@@ -88,99 +130,114 @@ export default function PriEfficacyPage() {
         </p>
       </header>
 
-      <div className="mx-auto max-w-225 px-6 pb-16">
-        <div className="mb-10 grid grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-4">
-          <StatCard title="Classification Accuracy" value={`${classification_accuracy.forced_rank}%`} subtitle="forced-rank method" color="#10B981" />
-          <StatCard title="Test-Retest Reliability" value={test_retest_reliability.forced_rank.toFixed(2)} subtitle="forced-rank r-value" />
-          <StatCard title="Entropy (Normalized)" value={entropy.forced_rank_normalized.toFixed(2)} subtitle="distribution uniformity" />
-          <StatCard title="Improvement" value={`+${classification_accuracy.improvement}%`} subtitle="vs. Likert alone" color="#F59E0B" />
-        </div>
+      <Tabs defaultValue="simulation" className="mx-auto max-w-225 gap-0 px-6 pb-16">
+        <TabsList className="mx-auto mb-8 h-auto flex-wrap gap-2 bg-transparent p-0">
+          <TabsTrigger value="simulation" className={TAB_TRIGGER}>
+            Simulation (n={simulation.n_respondents.toLocaleString("en-US")})
+          </TabsTrigger>
+          <TabsTrigger value="live" className={TAB_TRIGGER}>
+            Live Calibrations
+          </TabsTrigger>
+        </TabsList>
 
-        <div className="mb-8 rounded-xl border border-pri-cream/8 bg-pri-cream/3 p-6">
-          <h3 className="mb-5 font-heading text-xl text-pri-cream">Classification Accuracy: Likert vs. Forced-Rank</h3>
-          <p className="mb-4 text-[.8rem] text-pri-cream/60">
-            Forced-rank calibration nearly doubles classification accuracy by eliminating acquiescence bias and social desirability effects.
-          </p>
-          <BarChart label="Likert Self-Report" value={classification_accuracy.likert} max={100} color="#EF4444" suffix="%" />
-          <BarChart label="Forced-Rank Calibrated" value={classification_accuracy.forced_rank} max={100} color="#10B981" suffix="%" />
-        </div>
-
-        <div className="mb-8 rounded-xl border border-pri-cream/8 bg-pri-cream/3 p-6">
-          <h3 className="mb-5 font-heading text-xl text-pri-cream">Dimension Priority Distribution</h3>
-          <p className="mb-4 text-[.8rem] text-pri-cream/60">
-            Likert scoring inflates &ldquo;{first_role_inflation.role}&rdquo; by {first_role_inflation.inflation_pct}%. Forced-rank produces near-uniform
-            distribution.
-          </p>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-            <div>
-              <div className="mb-3 text-xs tracking-[0.08em] text-pri-cream/60 uppercase">Likert (biased)</div>
-              {dims.map((d) => (
-                <BarChart key={d} label={d} value={(role_distribution.likert as Record<string, number>)[d] / 100} max={((simulation.n_respondents / 100 / 6) * 2)} color={DIM_COLORS[d]} />
-              ))}
-            </div>
-            <div>
-              <div className="mb-3 text-xs tracking-[0.08em] text-pri-cream/60 uppercase">Forced-Rank (calibrated)</div>
-              {dims.map((d) => (
-                <BarChart key={d} label={d} value={(role_distribution.forced_rank as Record<string, number>)[d] / 100} max={((simulation.n_respondents / 100 / 6) * 2)} color={DIM_COLORS[d]} />
-              ))}
-            </div>
+        <TabsContent value="simulation" forceMount className="text-base data-[state=inactive]:hidden">
+          <div className="mb-10 grid grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-4">
+            <StatCard title="Classification Accuracy" value={`${classification_accuracy.forced_rank}%`} subtitle="forced-rank method" color="#10B981" />
+            <StatCard title="Test-Retest Reliability" value={test_retest_reliability.forced_rank.toFixed(2)} subtitle="forced-rank r-value" />
+            <StatCard title="Entropy (Normalized)" value={entropy.forced_rank_normalized.toFixed(2)} subtitle="distribution uniformity" />
+            <StatCard title="Improvement" value={`+${classification_accuracy.improvement}%`} subtitle="vs. Likert alone" color="#F59E0B" />
           </div>
-        </div>
 
-        <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <div className="rounded-xl border border-pri-cream/8 bg-pri-cream/3 p-6">
-            <h3 className="mb-4 font-heading text-lg text-pri-cream">Test-Retest Reliability</h3>
-            <BarChart label="Likert" value={test_retest_reliability.likert} max={1} color="#EF4444" />
-            <BarChart label="Forced-Rank" value={test_retest_reliability.forced_rank} max={1} color="#10B981" />
-            <p className="mt-2 text-xs text-pri-cream/60">Correlation between first and second administration (n={simulation.n_retest.toLocaleString("en-US")} retested)</p>
-          </div>
-          <div className="rounded-xl border border-pri-cream/8 bg-pri-cream/3 p-6">
-            <h3 className="mb-4 font-heading text-lg text-pri-cream">Distribution Entropy</h3>
-            <BarChart label="Likert" value={entropy.likert} max={entropy.max_possible} color="#F59E0B" />
-            <BarChart label="Forced-Rank" value={entropy.forced_rank} max={entropy.max_possible} color="#10B981" />
-            <p className="mt-2 text-xs text-pri-cream/60">Higher entropy = more uniform distribution across dimensions (max: {entropy.max_possible})</p>
-          </div>
-        </div>
-
-        <div className="rounded-xl border border-pri-cream/8 bg-pri-cream/3 p-6">
-          <h3 className="mb-4 font-heading text-xl text-pri-cream">Methodology</h3>
-          <div className="space-y-3 text-[.85rem] leading-[1.7] text-pri-cream/60">
-            <p>
-              The PRI validation uses a Monte Carlo simulation with {simulation.n_respondents.toLocaleString("en-US")} synthetic respondents across{" "}
-              {simulation.roles.length} readiness dimensions. Each respondent&apos;s answers are generated using dimension-specific trait distributions
-              that model real-world response patterns including acquiescence bias and social desirability effects.
+          <div className="mb-8 rounded-xl border border-pri-cream/8 bg-pri-cream/3 p-6">
+            <h2 className="mb-5 font-heading text-xl text-pri-cream">Classification Accuracy: Likert vs. Forced-Rank</h2>
+            <p className="mb-4 text-[.8rem] text-pri-cream/60">
+              Forced-rank calibration nearly doubles classification accuracy by eliminating acquiescence bias and social desirability effects.
             </p>
-            <p>Key validation metrics:</p>
-            <ul className="list-disc space-y-1 pl-5">
-              <li>
-                <strong>Classification Accuracy:</strong> Percentage of respondents correctly assigned to their true primary readiness dimension.
-              </li>
-              <li>
-                <strong>Test-Retest Reliability:</strong> Stability of rankings across repeated administrations (n={simulation.n_retest.toLocaleString("en-US")}).
-              </li>
-              <li>
-                <strong>Faking Resistance:</strong> Tested with {simulation.n_faking.toLocaleString("en-US")} simulated fakers attempting to inflate scores.
-              </li>
-              <li>
-                <strong>Distribution Entropy:</strong> Measures how uniformly respondents are classified across dimensions (max = log2(
-                {simulation.roles.length}) = {entropy.max_possible}).
-              </li>
-            </ul>
-            <p>
-              The forced-rank calibration module eliminates first-dimension inflation bias ({first_role_inflation.likert_pct}% →{" "}
-              {first_role_inflation.forced_rank_pct}%) by requiring explicit trade-off comparisons between dimensions.
-            </p>
+            <BarChart label="Likert Self-Report" value={classification_accuracy.likert} max={100} color="#EF4444" suffix="%" />
+            <BarChart label="Forced-Rank Calibrated" value={classification_accuracy.forced_rank} max={100} color="#10B981" suffix="%" />
           </div>
-        </div>
-      </div>
+
+          <div className="mb-8 rounded-xl border border-pri-cream/8 bg-pri-cream/3 p-6">
+            <h2 className="mb-5 font-heading text-xl text-pri-cream">Dimension Priority Distribution</h2>
+            <p className="mb-4 text-[.8rem] text-pri-cream/60">
+              Likert scoring inflates &ldquo;{first_role_inflation.role}&rdquo; by {first_role_inflation.inflation_pct}%. Forced-rank produces near-uniform
+              distribution.
+            </p>
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+              <div>
+                <div className="mb-3 text-xs tracking-[0.08em] text-pri-cream/60 uppercase">Likert (biased)</div>
+                {dims.map((d) => (
+                  <BarChart key={d} label={d} value={(role_distribution.likert as Record<string, number>)[d] / 100} max={((simulation.n_respondents / 100 / 6) * 2)} color={DIM_COLORS[d]} />
+                ))}
+              </div>
+              <div>
+                <div className="mb-3 text-xs tracking-[0.08em] text-pri-cream/60 uppercase">Forced-Rank (calibrated)</div>
+                {dims.map((d) => (
+                  <BarChart key={d} label={d} value={(role_distribution.forced_rank as Record<string, number>)[d] / 100} max={((simulation.n_respondents / 100 / 6) * 2)} color={DIM_COLORS[d]} />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div className="rounded-xl border border-pri-cream/8 bg-pri-cream/3 p-6">
+              <h2 className="mb-4 font-heading text-lg text-pri-cream">Test-Retest Reliability</h2>
+              <BarChart label="Likert" value={test_retest_reliability.likert} max={1} color="#EF4444" />
+              <BarChart label="Forced-Rank" value={test_retest_reliability.forced_rank} max={1} color="#10B981" />
+              <p className="mt-2 text-xs text-pri-cream/60">Correlation between first and second administration (n={simulation.n_retest.toLocaleString("en-US")} retested)</p>
+            </div>
+            <div className="rounded-xl border border-pri-cream/8 bg-pri-cream/3 p-6">
+              <h2 className="mb-4 font-heading text-lg text-pri-cream">Distribution Entropy</h2>
+              <BarChart label="Likert" value={entropy.likert} max={entropy.max_possible} color="#F59E0B" />
+              <BarChart label="Forced-Rank" value={entropy.forced_rank} max={entropy.max_possible} color="#10B981" />
+              <p className="mt-2 text-xs text-pri-cream/60">Higher entropy = more uniform distribution across dimensions (max: {entropy.max_possible})</p>
+            </div>
+          </div>
+
+          <div className="rounded-xl border border-pri-cream/8 bg-pri-cream/3 p-6">
+            <h2 className="mb-4 font-heading text-xl text-pri-cream">Methodology</h2>
+            <div className="space-y-3 text-[.85rem] leading-[1.7] text-pri-cream/60">
+              <p>
+                The PRI validation uses a Monte Carlo simulation with {simulation.n_respondents.toLocaleString("en-US")} synthetic respondents across{" "}
+                {simulation.roles.length} readiness dimensions. Each respondent&apos;s answers are generated using dimension-specific trait distributions
+                that model real-world response patterns including acquiescence bias and social desirability effects.
+              </p>
+              <p>Key validation metrics:</p>
+              <ul className="list-disc space-y-1 pl-5">
+                <li>
+                  <strong>Classification Accuracy:</strong> Percentage of respondents correctly assigned to their true primary readiness dimension.
+                </li>
+                <li>
+                  <strong>Test-Retest Reliability:</strong> Stability of rankings across repeated administrations (n={simulation.n_retest.toLocaleString("en-US")}).
+                </li>
+                <li>
+                  <strong>Faking Resistance:</strong> Tested with {simulation.n_faking.toLocaleString("en-US")} simulated fakers attempting to inflate scores.
+                </li>
+                <li>
+                  <strong>Distribution Entropy:</strong> Measures how uniformly respondents are classified across dimensions (max = log2(
+                  {simulation.roles.length}) = {entropy.max_possible}).
+                </li>
+              </ul>
+              <p>
+                The forced-rank calibration module eliminates first-dimension inflation bias ({first_role_inflation.likert_pct}% →{" "}
+                {first_role_inflation.forced_rank_pct}%) by requiring explicit trade-off comparisons between dimensions.
+              </p>
+            </div>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="live" forceMount className="text-base data-[state=inactive]:hidden">
+          <LiveCalibrations live={live} />
+        </TabsContent>
+      </Tabs>
 
       <div className="px-6 pt-8 pb-16 text-center">
-        <Link href="/psychedelic-readiness-index" className="text-[.9rem] text-pri-purple-light">
-          ← Take the PRI Assessment
+        <Link href="/psychedelic-readiness-index" className="inline-flex min-h-11 items-center gap-1.5 text-[.9rem] text-pri-purple-light">
+          <ArrowLeft aria-hidden="true" className="size-3.5" /> Take the PRI Assessment
         </Link>
         <span className="mx-4 text-pri-cream/20">|</span>
-        <Link href="/pri-calibration" className="text-[.9rem] text-pri-purple-light">
-          Deep Calibration →
+        <Link href="/pri-calibration" className="inline-flex min-h-11 items-center gap-1.5 text-[.9rem] text-pri-purple-light">
+          Deep Calibration <ArrowRight aria-hidden="true" className="size-3.5" />
         </Link>
       </div>
     </div>

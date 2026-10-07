@@ -118,6 +118,8 @@ export function freshnessColor(f: ComputedScores["freshness"]): string {
   return { green: "#22c55e", yellow: "#eab308", red: "#ef4444", unknown: "#9ca3af" }[f];
 }
 
-export function gradeColor(g: string): string {
-  return ({ A: "#22c55e", B: "#84cc16", C: "#eab308", D: "#f97316", F: "#ef4444" } as Record<string, string>)[g] ?? "#9ca3af";
+// Text class for a transparency grade: legacy's hues, at the 700 shade so the letter passes
+// WCAG AA on the light card (legacy's 500 shades, e.g. yellow on white, did not).
+export function gradeClass(g: string): string {
+  return ({ A: "text-green-700", B: "text-lime-700", C: "text-yellow-700", D: "text-orange-700", F: "text-red-700" } as Record<string, string>)[g] ?? "text-gray-600";
 }

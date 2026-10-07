@@ -48,10 +48,9 @@ export function ChemotypeDecoder() {
           {decodedResult.map((kl, i) => (
             <div
               key={kl.num}
-              className={`flex items-center gap-3 rounded-lg bg-white p-3 ${i === 0 ? "border-2" : "border"}`}
-              style={{ borderColor: i === 0 ? kl.colorHex : "var(--kava-sand-muted)" }}
+              className={`flex items-center gap-3 rounded-lg bg-white p-3 ${i === 0 ? `border-2 ${kl.tone.border}` : "border border-kava-sand-muted"}`}
             >
-              <div className="flex size-8 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white" style={{ backgroundColor: kl.colorHex }}>
+              <div className={`flex size-8 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white ${kl.tone.solid}`}>
                 {kl.num}
               </div>
               <div className="flex-1">

@@ -185,7 +185,7 @@ export function SoulScoreTool() {
       <div className="relative z-1 min-h-screen font-sans text-[#2C1810]">
         <ThemedBackground theme="soulscore" />
         <div className="relative z-1 flex min-h-[calc(100svh-3.5rem)] flex-col items-center justify-center px-6 py-8 text-center">
-          <p className={`mb-4 ${MONO_LABEL}`}>by ImpactSoul</p>
+          <p className="mb-4 font-mono text-[0.7rem] tracking-[0.3em] text-brand-gold uppercase">by ImpactSoul</p>
           <h1 className="mb-4 font-heading text-[clamp(2.5rem,7vw,4.5rem)] leading-[1.05] font-bold">
             Soul<span className={PALETTE.gold.text}>Score</span>
             <span className={`align-super text-[0.5em] ${PALETTE.goldLight.text}`}>™</span>

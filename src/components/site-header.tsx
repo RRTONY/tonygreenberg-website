@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, Search } from "lucide-react";
 import { FaLinkedinIn, FaXTwitter } from "react-icons/fa6";
-import { SearchModal } from "@/components/search-modal";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -13,27 +13,21 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { NavItemLink } from "@/components/nav-item-link";
 import {
   primaryNavLinks,
   navCategories,
   findYourMeGroups,
   socialLinks,
 } from "@/components/site-nav-data";
+
+// The search window (with its whole page index) and the phone menu are only
+// downloaded once someone opens them, so they don't weigh on every page's
+// first load (Lighthouse, 2026-10-08).
+const SearchModal = dynamic(() => import("@/components/search-modal").then((m) => m.SearchModal), { ssr: false });
+const MobileMenu = dynamic(() => import("@/components/site-mobile-menu").then((m) => m.MobileMenu), { ssr: false });
 
 const SOCIAL_ICONS: Record<string, typeof FaXTwitter> = { X: FaXTwitter, LinkedIn: FaLinkedinIn };
 
@@ -59,36 +53,37 @@ function AskTonyButton({ onClick }: { onClick: () => void }) {
   );
 }
 
-function NavItemLink({
-  href,
-  label,
-  active,
-  onNavigate,
-  compact,
-}: {
-  href: string;
-  label: string;
-  active: boolean;
-  onNavigate?: () => void;
-  compact?: boolean;
-}) {
-  return (
-    <Link
-      href={href}
-      onClick={onNavigate}
-      className={`block font-mono uppercase tracking-wide transition-colors hover:text-brand-gold ${
-        compact ? "text-[0.68rem] py-1" : "text-xs py-1.5"
-      } ${active ? "text-brand-gold dark:text-brand-gold-light" : "text-muted-foreground"}`}
-    >
-      {label}
-    </Link>
-  );
-}
-
 export function SiteHeader() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  // Mount each lazy panel the first time it's opened, then keep it mounted so
+  // it closes with its animation and reopens instantly.
+  const [searchLoaded, setSearchLoaded] = useState(false);
+  const [menuLoaded, setMenuLoaded] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+
+  const openSearch = () => {
+    setSearchLoaded(true);
+    setSearchOpen(true);
+  };
+  const openMenu = () => {
+    setMenuLoaded(true);
+    setMobileOpen(true);
+  };
+
+  // Global Cmd/Ctrl+K shortcut for the search window.
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setSearchLoaded(true);
+        setSearchOpen(true);
+      }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, []);
 
   // Close the mobile menu on route change. Adjusted during render (React's
   // documented pattern for "reset state when a prop changes") rather than in
@@ -194,7 +189,7 @@ export function SiteHeader() {
         </NavigationMenu>
 
         <div className="ml-2 hidden items-center gap-3 border-l border-[#4A1D6B]/20 pl-3 xl:flex">
-          <AskTonyButton onClick={() => setSearchOpen(true)} />
+          <AskTonyButton onClick={openSearch} />
           {socialLinks.map((s) => {
             const Icon = SOCIAL_ICONS[s.label];
             return (
@@ -215,83 +210,34 @@ export function SiteHeader() {
 
         {/* Mobile menu */}
         <div className="flex items-center gap-1 xl:hidden">
-          <Button variant="ghost" size="icon" className="size-11" aria-label="Search" onClick={() => setSearchOpen(true)}>
+          <Button variant="ghost" size="icon" className="size-11" aria-label="Search" onClick={openSearch}>
             <Search className="size-5" />
           </Button>
           <ThemeToggle />
-          <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="size-11" aria-label="Open menu">
-                <Menu className="size-5" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-full overflow-y-auto sm:max-w-sm">
-              <SheetHeader>
-                <SheetTitle className="font-heading">
-                  Tony<span className="text-brand-gold">G</span>
-                </SheetTitle>
-              </SheetHeader>
-              <div className="flex flex-col gap-1 px-4 pb-8">
-                {primaryNavLinks.map((link) => (
-                  <NavItemLink
-                    key={link.href}
-                    href={link.href}
-                    label={link.label}
-                    active={isActive(link.href)}
-                    onNavigate={() => setMobileOpen(false)}
-                  />
-                ))}
-
-                <Accordion type="multiple" className="mt-2">
-                  <AccordionItem value="find-my">
-                    <AccordionTrigger className="font-heading text-xs uppercase tracking-widest text-brand-gold">
-                      Fix Myself
-                    </AccordionTrigger>
-                    <AccordionContent>
-                      {findYourMeGroups.map((group) => (
-                        <div key={group.category} className="mb-3">
-                          <p className="mb-1 font-mono text-[0.6rem] uppercase tracking-widest text-muted-foreground">
-                            {group.category}
-                          </p>
-                          {group.items.map((item) => (
-                            <NavItemLink
-                              key={item.href}
-                              href={item.href}
-                              label={item.label}
-                              active={isActive(item.href)}
-                              onNavigate={() => setMobileOpen(false)}
-                            />
-                          ))}
-                        </div>
-                      ))}
-                    </AccordionContent>
-                  </AccordionItem>
-                  {navCategories.map((cat) => (
-                    <AccordionItem key={cat.title} value={cat.title}>
-                      <AccordionTrigger className="font-heading text-xs uppercase tracking-widest text-brand-gold">
-                        {cat.title}
-                      </AccordionTrigger>
-                      <AccordionContent>
-                        {cat.items.map((item) => (
-                          <NavItemLink
-                            key={item.href}
-                            href={item.href}
-                            label={item.label}
-                            active={isActive(item.href)}
-                            onNavigate={() => setMobileOpen(false)}
-                          />
-                        ))}
-                      </AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
-              </div>
-            </SheetContent>
-          </Sheet>
+          <Button
+            ref={menuButtonRef}
+            variant="ghost"
+            size="icon"
+            className="size-11"
+            aria-label="Open menu"
+            aria-expanded={mobileOpen}
+            aria-haspopup="dialog"
+            onClick={openMenu}
+          >
+            <Menu className="size-5" />
+          </Button>
         </div>
       </div>
     </header>
-    <SearchModal open={searchOpen} onOpenChange={setSearchOpen} />
+    {searchLoaded && <SearchModal open={searchOpen} onOpenChange={setSearchOpen} />}
+    {menuLoaded && (
+      <MobileMenu
+        open={mobileOpen}
+        onOpenChange={setMobileOpen}
+        pathname={pathname}
+        returnFocusTo={menuButtonRef}
+      />
+    )}
     </>
   );
 }
