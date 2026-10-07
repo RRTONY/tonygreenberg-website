@@ -32,5 +32,14 @@ Goal from the owner: Lighthouse performance 90+ on mobile, accessibility/best pr
   BrewSoul aurora. Removed the invisible 1px backdrop blur and the card frosting, gave the animated
   shapes `will-change-transform`, and stopped all of them for `prefers-reduced-motion`.
   Rule of thumb: never put `backdrop-blur` over something that animates.
+- **Supabase on every request:** `proxy.ts` called `supabase.auth.getUser()` for every page view,
+  signed in or not. Now it only does that when an `sb-...-auth-token` cookie exists.
+- **Homepage rendered per request:** the returning-visitor strip read cookies on the server, which
+  made `/` dynamic. It now reads them in the browser, so `/` is pre-built again. Keep shared
+  layout/home code free of `cookies()`/`headers()`.
+- **Where you test from matters:** from India a plain static file on Netlify takes ~1 s to start
+  arriving (0.25 s just to connect), and Lighthouse folds that into LCP. Google's PageSpeed
+  (pagespeed.web.dev, US servers) is the fairer number; its API needs `GOOGLE_API_KEY` (the free
+  shared quota is usually exhausted).
 - **Not code:** Netlify's response time (0.8 to 1.5 s even on a cache hit, "Netlify Durable" hit
   but edge miss) is a large part of LCP and can't be fixed in the app.
