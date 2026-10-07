@@ -48,6 +48,18 @@ export async function proxy(request: NextRequest) {
     return response;
   }
 
+  // Only signed-in visitors have a session to refresh. Without this check
+  // every anonymous page view waited on a round trip to Supabase before the
+  // page (even a cached, pre-built one) could be served: about 0.9 s of
+  // server time per page on Netlify (Lighthouse, 2026-10-08). Supabase's
+  // session cookies are named `sb-<project>-auth-token` (possibly chunked
+  // as `.0`, `.1`).
+  const hasSession = request.cookies.getAll().some((c) => c.name.startsWith("sb-") && c.name.includes("-auth-token"));
+  if (!hasSession) {
+    applyVisitCookie();
+    return response;
+  }
+
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
