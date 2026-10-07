@@ -7,7 +7,8 @@ interface Island {
   id: string;
   name: string;
   localName: string;
-  colorHex: string;
+  // Accent panel: full literal classes (no inline style), same colour as bgClass.
+  panelClass: string;
   colorClass: string;
   bgClass: string;
   activeBgClass: string;
@@ -24,7 +25,7 @@ interface Island {
 // expand extracted into this client island.
 export const ISLANDS: Island[] = [
   {
-    id: "vanuatu", name: "Vanuatu", localName: "Origin Nation", colorHex: "#C84B2A", colorClass: "text-kava-terracotta", bgClass: "bg-kava-terracotta", activeBgClass: "bg-kava-terracotta", year: "~3000 BCE",
+    id: "vanuatu", name: "Vanuatu", localName: "Origin Nation", panelClass: "border-l-3 border-l-kava-terracotta bg-kava-terracotta/6", colorClass: "text-kava-terracotta", bgClass: "bg-kava-terracotta", activeBgClass: "bg-kava-terracotta", year: "~3000 BCE",
     facts: [
       "Domesticated ~3,000 years ago on island of Maewo from wild Piper wichmannii",
       "80+ named cultivars — most diversity of any nation on earth",
@@ -36,7 +37,7 @@ export const ISLANDS: Island[] = [
     safety: "Non-noble (tudei) cultivars originate here — always specify noble-only sourcing from Vanuatu suppliers.",
   },
   {
-    id: "fiji", name: "Fiji", localName: "Yaqona — National Drink", colorHex: "#2A5AA0", colorClass: "text-kava-cobalt", bgClass: "bg-kava-cobalt", activeBgClass: "bg-kava-cobalt", year: "~2500 BCE",
+    id: "fiji", name: "Fiji", localName: "Yaqona — National Drink", panelClass: "border-l-3 border-l-kava-cobalt bg-kava-cobalt/6", colorClass: "text-kava-cobalt", bgClass: "bg-kava-cobalt", activeBgClass: "bg-kava-cobalt", year: "~2500 BCE",
     facts: [
       "Called yaqona — appears on Fijian currency (tanoa bowl on coins)",
       "Sevusevu: mandatory kava gifting ceremony when entering any Fijian village — without it you are not a guest, with it you are family",
@@ -48,7 +49,7 @@ export const ISLANDS: Island[] = [
     cultivar: { name: "Loa Waka", note: "Strongest Fijian kava, powerful mind-body relaxation" },
   },
   {
-    id: "tonga", name: "Tonga", localName: "Royal Constitutional Kava", colorHex: "#B86A28", colorClass: "text-kava-saffron", bgClass: "bg-kava-saffron", activeBgClass: "bg-kava-saffron", year: "~2000 BCE",
+    id: "tonga", name: "Tonga", localName: "Royal Constitutional Kava", panelClass: "border-l-3 border-l-kava-saffron bg-kava-saffron/6", colorClass: "text-kava-saffron", bgClass: "bg-kava-saffron", activeBgClass: "bg-kava-saffron", year: "~2000 BCE",
     facts: [
       "The word 'kava' comes from Tongan and Marquesan — means bitter",
       "No Tongan king is constitutionally installed without kava ceremony — this is law",
@@ -58,7 +59,7 @@ export const ISLANDS: Island[] = [
     ceremony: "Origin legend: daughter named Kava was sacrificed to honor a king; two plants grew on her grave — kava and sugar cane. Kava offered to kings of Tonga ever since.",
   },
   {
-    id: "samoa", name: "Samoa", localName: "'Ava — Chiefly System", colorHex: "#6B7280", colorClass: "text-[#6B7280]", bgClass: "bg-[#6B7280]", activeBgClass: "bg-[#6B7280]", year: "~1500 BCE",
+    id: "samoa", name: "Samoa", localName: "'Ava — Chiefly System", panelClass: "border-l-3 border-l-[#6B7280] bg-[#6B7280]/6", colorClass: "text-[#6B7280]", bgClass: "bg-[#6B7280]", activeBgClass: "bg-[#6B7280]", year: "~1500 BCE",
     facts: [
       "Every gathering of chiefs (matai system) begins with 'ava ceremony",
       "Serving order reflects social hierarchy — a political act as much as a beverage ritual",
@@ -67,7 +68,7 @@ export const ISLANDS: Island[] = [
     ceremony: "Kava represents respect for elders and chiefs, continuity of ancestral tradition, and chiefly sovereignty.",
   },
   {
-    id: "hawaii", name: "Hawaii", localName: "'Awa — Sacred to Chiefs", colorHex: "#059669", colorClass: "text-[#059669]", bgClass: "bg-[#059669]", activeBgClass: "bg-[#059669]", year: "~1000 CE",
+    id: "hawaii", name: "Hawaii", localName: "'Awa — Sacred to Chiefs", panelClass: "border-l-3 border-l-[#059669] bg-[#059669]/6", colorClass: "text-[#059669]", bgClass: "bg-[#059669]", activeBgClass: "bg-[#059669]", year: "~1000 CE",
     facts: [
       "Sacred drink of chiefs, priests, and medicine men (kahunas)",
       "13+ unique cultivars on the islands",
@@ -79,7 +80,7 @@ export const ISLANDS: Island[] = [
     cultivar: { name: "Mo'i", note: "Royal cultivar — finest Hawaiian 'awa, cleanest heady profile, PRI ceremony grade" },
   },
   {
-    id: "pohnpei", name: "Pohnpei / FSM", localName: "Sakau — World's Strongest", colorHex: "#6d28d9", colorClass: "text-[#6d28d9]", bgClass: "bg-[#6d28d9]", activeBgClass: "bg-[#6d28d9]", year: "~1000 BCE",
+    id: "pohnpei", name: "Pohnpei / FSM", localName: "Sakau — World's Strongest", panelClass: "border-l-3 border-l-[#6d28d9] bg-[#6d28d9]/6", colorClass: "text-[#6d28d9]", bgClass: "bg-[#6d28d9]", activeBgClass: "bg-[#6d28d9]", year: "~1000 BCE",
     facts: [
       "Called sakau — prepared fresh on flat basalt stone called pwehl",
       "Kavalactone profile uniquely intense — fastest onset, most pronounced physical effects of any kava tradition",
@@ -133,7 +134,7 @@ export function OriginsExplorer() {
             ))}
           </div>
 
-          <div className="mb-4 rounded-lg p-4" style={{ backgroundColor: `${active.colorHex}10`, borderLeft: `3px solid ${active.colorHex}` }}>
+          <div className={`mb-4 rounded-lg p-4 ${active.panelClass}`}>
             <p className={`mb-1 text-xs font-bold tracking-wide uppercase ${active.colorClass}`}>Ceremony</p>
             <p className="text-sm leading-[1.75] text-kava-ink">{active.ceremony}</p>
           </div>

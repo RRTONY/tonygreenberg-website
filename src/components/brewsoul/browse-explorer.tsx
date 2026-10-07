@@ -88,16 +88,20 @@ export function BrowseExplorer() {
           src="https://cdn.sanity.io/images/a3q1cyqs/production/1c8cf85cb4a89e17203b371252c9e86ccecff53a-1200x670.webp"
           alt=""
           fill
-          priority
+          fetchPriority="high"
+          loading="eager"
           sizes="100vw"
           className="-z-20 scale-110 object-cover object-[center_40%] brightness-105 saturate-115"
         />
         <div aria-hidden="true" className="absolute inset-x-0 bottom-0 -z-10 h-[70%] bg-linear-to-t from-[#F0E8D8] via-[#F0E8D8]/85 to-transparent" />
         <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(240,232,216,0.3)_100%)]" />
+        {/* Cream glow behind the text so the title and labels stay readable over the photo's
+            bright centre (live has the same photo and is hard to read; CONTRIBUTING rule 20). */}
+        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_65%_60%_at_50%_45%,rgba(240,232,216,0.9)_0%,rgba(240,232,216,0.7)_45%,transparent_80%)]" />
         <div className="mx-auto max-w-225 px-6 pt-[clamp(3rem,8vh,5rem)] pb-8">
-          <div className="mb-3 font-mono text-[0.68rem]/[1.85] tracking-[0.3em] text-[#836311] uppercase">The Catalog</div>
+          <div className="mb-3 font-mono text-[0.68rem]/[1.85] tracking-[0.3em] text-[#6b500e] uppercase">The Catalog</div>
           <h1 className="mb-3 font-heading text-[clamp(1.8rem,5vw,3rem)]/[1.15] font-bold text-[#2C1810]">Browse All Coffees</h1>
-          <p className="mx-auto mb-6 max-w-150 text-[clamp(0.92rem,1.5vw,1.1rem)]/[1.6] text-[#6B5B4F]">
+          <p className="mx-auto mb-6 max-w-150 text-[clamp(0.92rem,1.5vw,1.1rem)]/[1.6] text-[#4a3c32]">
             {BREWSOUL_COFFEES.length} coffees scored, tested, and traced. Filter by what matters to you.
           </p>
           <div className="flex flex-wrap justify-center gap-3">
@@ -106,9 +110,9 @@ export function BrowseExplorer() {
               { val: String(ORIGINS.length), label: "Origins" },
               { val: String(ROASTERS.length), label: "Roasters" },
             ].map((s) => (
-              <div key={s.label} className="rounded-xl border border-[#836311]/15 bg-white/60 px-5 py-2.5 backdrop-blur-md">
+              <div key={s.label} className="rounded-xl border border-[#836311]/15 bg-white/80 px-5 py-2.5 backdrop-blur-md">
                 <span className="font-heading text-[1.3rem] font-bold text-[#836311]">{s.val}</span>
-                <span className="ml-2 font-mono text-[0.58rem] tracking-[0.15em] text-[#5A4A20]/50 uppercase">
+                <span className="ml-2 font-mono text-[0.58rem] tracking-[0.15em] text-[#5A4A20] uppercase">
                   {s.label}
                 </span>
               </div>

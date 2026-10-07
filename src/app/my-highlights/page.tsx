@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import { sanityFetch } from "@/lib/sanity/client";
 import { postsBySlugsQuery } from "@/lib/sanity/queries";
 import { deleteHighlight } from "./actions";
+import { postHref } from "@/lib/content/post-redirects";
 
 // "Your Commonplace Book": passages a member saved while reading (select text
 // in any essay). Ported from legacy client/src/pages/MyHighlights.tsx; live
@@ -66,7 +67,7 @@ export default async function MyHighlightsPage() {
           slugs.map((slug) => (
             <section key={slug} className="mb-10">
               <h2>
-                <Link href={`/blog/${slug}`} className="font-heading text-xl text-[#0A0A10] underline-offset-4 hover:underline">
+                <Link href={postHref(slug)} className="font-heading text-xl text-[#0A0A10] underline-offset-4 hover:underline">
                   {titleBySlug[slug] ?? slug.replace(/-/g, " ")}
                 </Link>
               </h2>

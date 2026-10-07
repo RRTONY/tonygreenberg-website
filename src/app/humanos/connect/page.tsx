@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { EyebrowLabel } from "@/components/marketing/eyebrow-label";
 import { CONNECT_CHANNELS } from "@/lib/content/humanos-content";
@@ -33,7 +34,7 @@ export default function HumanosConnect() {
         </p>
       </section>
 
-      <section className="mx-auto max-w-3xl px-6 pt-8 pb-20">
+      <section className="mx-auto max-w-200 px-6 pt-8 pb-20">
         <div className="flex flex-col gap-5">
           {CONNECT_CHANNELS.map((ch) => (
             <Link
@@ -43,8 +44,8 @@ export default function HumanosConnect() {
             >
               <h3 className="mb-2 font-heading text-xl font-semibold text-neutral-900">{ch.title}</h3>
               <p className="mb-3 text-base leading-relaxed text-neutral-600">{ch.desc}</p>
-              <span className="font-mono text-[0.65rem] tracking-[0.1em] text-violet-600 uppercase">
-                {ch.cta} &rarr;
+              <span className="inline-flex items-center gap-1.5 font-mono text-[0.65rem] tracking-[0.2em] text-violet-600 uppercase">
+                {ch.cta} <ArrowRight aria-hidden="true" className="size-3.5" />
               </span>
             </Link>
           ))}

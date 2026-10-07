@@ -40,7 +40,9 @@ how to handle a request is in [`TASK_GUIDE.md`](TASK_GUIDE.md). Last checked 202
   Further Reading (`lib/content/further-reading.ts`), series (`lib/content/essay-series.ts`),
   The Mirror reflections (`lib/content/mirror-data.ts`, shared with the quiz), legacy's
   Previous/Next order (`lib/content/post-order.ts`) and the Elixir product block
-  (`components/blog/elixir-collection.tsx`).
+  (`components/blog/elixir-collection.tsx`). Link to a post with `postHref(slug)` and pass
+  Sanity-stored hrefs through `resolveInternalHref()` (`lib/content/post-redirects.ts`), so
+  posts that moved (e.g. the Akbar essay → `/akbar`) are linked directly, not through a redirect.
 - **Live-only pages** (on the live site but not in `_legacy-manus-app/`, listed at the end of
   `ROUTES-INVENTORY.md`): e.g. `/america-unbundled-field-guide`, text in its `page.tsx`, the
   question form in `src/components/america-unbundled/`.

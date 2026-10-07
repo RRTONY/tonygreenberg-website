@@ -53,10 +53,10 @@ export default function ImpactDashboardPage() {
           className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,transparent_40%,color-mix(in_oklab,var(--background)_35%,transparent)_100%)]"
         />
         <div className="mx-auto w-full max-w-3xl rounded-b-2xl border border-t-0 border-brand-gold/20 bg-card/90 px-7 pt-10 pb-8 shadow-xl backdrop-blur-md sm:rounded-2xl sm:border-t sm:px-10 sm:py-10">
-          <p className="mb-4 font-mono text-xs tracking-[0.3em] text-brand-gold uppercase">
+          <p className="mb-4 font-mono text-[0.7rem] tracking-[0.35em] text-brand-gold uppercase">
             ImpactSoul Target Representation · 30-Day Refinement
           </p>
-          <h1 className="mx-auto mb-5 max-w-2xl font-heading text-4xl leading-tight font-bold text-foreground sm:text-6xl">
+          <h1 className="mx-auto mb-5 max-w-2xl font-heading text-4xl leading-tight font-bold text-essay-ink sm:text-[4rem] dark:text-foreground">
             The Model <span className="text-brand-gold italic">We&rsquo;re Building</span>
           </h1>
           <p className="mx-auto mb-8 max-w-xl text-lg leading-relaxed text-foreground/70">

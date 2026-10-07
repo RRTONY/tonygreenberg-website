@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { PortableText, type PortableTextBlock, type PortableTextBlockComponent, type PortableTextComponents } from "@portabletext/react";
 import { urlFor } from "./image";
 import { GemSparkCard } from "@/components/blog/gem-spark-card";
+import { resolveInternalHref } from "@/lib/content/post-redirects";
 
 function dimsFromRef(ref: string): { width: number; height: number } {
   const match = ref?.match(/-(\d+)x(\d+)-/);
@@ -181,7 +182,7 @@ export const portableTextComponents: PortableTextComponents = {
       <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-sm">{children}</code>
     ),
     link: ({ children, value }) => {
-      const href = value?.href;
+      let href: string | undefined = value?.href;
       // A real content-data issue found across ~8 migrated posts: their
       // original source markdown has `[text]()` links with an empty URL
       // (predates this migration — the href was already lost before the
@@ -189,6 +190,9 @@ export const portableTextComponents: PortableTextComponents = {
       // silently created a fake dead link; render the marked text plain
       // instead of pretending it points somewhere.
       if (!href) return <>{children}</>;
+      // A few imported essays link to addresses that only redirect (old /assessments/<quiz>,
+      // a post that moved to a full page); link to the final page and skip the hop.
+      href = resolveInternalHref(href);
       const isExternal = /^https?:\/\//.test(href);
       return isExternal ? (
         <a

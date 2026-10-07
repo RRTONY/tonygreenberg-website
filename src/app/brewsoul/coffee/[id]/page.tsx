@@ -8,7 +8,7 @@ import {
   computeScarcity,
   computeWow,
   computeTier,
-  gradeColor,
+  gradeClass,
 } from "@/lib/intelligence-engine/scoring";
 import { JourneyBar } from "@/components/brewsoul/journey-bar";
 import { TierIcons } from "@/components/brewsoul/coffee-card";
@@ -185,7 +185,7 @@ export default async function BrewSoulCoffeeDetailPage({ params }: PageProps<"/b
               <div className="mb-1 font-mono text-[0.62rem] tracking-[0.15em] text-[#6E6E6E] uppercase">
                 Transparency Grade
               </div>
-              <div className="font-mono text-2xl font-bold" style={{ color: gradeColor(coffee.producerTransparencyGrade) }}>
+              <div className={`font-mono text-2xl font-bold ${gradeClass(coffee.producerTransparencyGrade)}`}>
                 {coffee.producerTransparencyGrade}
               </div>
             </div>

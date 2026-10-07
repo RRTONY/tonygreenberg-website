@@ -32,6 +32,7 @@ import { LegalArsenal } from "@/components/manifesto/legal-arsenal";
 import { BlockerFinderQuiz } from "@/components/manifesto/blocker-finder-quiz";
 import { ReportSpammerForm } from "@/components/manifesto/report-spammer-form";
 import { ECONOMICS_DATA, ECONOMICS_SOURCES, WEAPONS, CRUSADE_ARTICLES, TRUST_ARTICLES } from "@/lib/content/attention-theft";
+import { postHref } from "@/lib/content/post-redirects";
 
 // Ported from legacy client/src/pages/manifesto/AttentionTheft.tsx — the
 // consolidated Attention Theft mega-page (the migration todo explicitly
@@ -426,7 +427,7 @@ export default async function AttentionTheftPage({ searchParams }: PageProps<"/a
               {CRUSADE_ARTICLES.map((a) => (
                 <Link
                   key={a.slug}
-                  href={`/blog/${a.slug}`}
+                  href={postHref(a.slug)}
                   className="flex items-start gap-3 rounded-xl border border-crusade-red/10 bg-crusade-red/4 p-4 transition-transform hover:-translate-y-0.5"
                 >
                   <Skull size={16} className="mt-1 shrink-0 text-crusade-red" />
@@ -442,7 +443,7 @@ export default async function AttentionTheftPage({ searchParams }: PageProps<"/a
               {TRUST_ARTICLES.map((a) => (
                 <Link
                   key={a.slug}
-                  href={`/blog/${a.slug}`}
+                  href={postHref(a.slug)}
                   className="flex items-start gap-3 rounded-xl border border-crusade-teal/8 bg-crusade-teal/4 p-4 transition-transform hover:-translate-y-0.5"
                 >
                   <BookOpen size={16} className="mt-1 shrink-0 text-crusade-teal" />

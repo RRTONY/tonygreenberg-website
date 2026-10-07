@@ -1,18 +1,23 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 // Ported from legacy client/src/pages/brewsoul/GuestSeriesIndex.tsx —
 // "The People Reshaping Coffee." Real single guest entry (Shanita
 // Nicholas) with real headline/teaser/tags, unchanged, plus the real
-// "more guests coming soon" note. Legacy's guest photo was the same dead
-// Manus proxy confirmed 404 throughout this migration — dropped for a
-// plain initial avatar rather than a broken headshot. Zero client-side
+// "more guests coming soon" note. Legacy's guest headshot was a dead
+// Manus proxy; live now shows the BrewSoul photo on the card instead. Zero client-side
 // state (only CSS-able hover) — ships as a Server Component.
 export const metadata: Metadata = {
   title: "Guest Series — BrewSoul",
   description: "Expert voices in specialty coffee: farmers, roasters, scientists, and educators.",
   alternates: { canonical: "/brewsoul/guest" },
 };
+
+// Live's BrewSoul photo (rescued into Sanity, docs/ai/manus-media-rescue.md); live shows it
+// on the guest card in place of a headshot.
+const BREWSOUL_PHOTO =
+  "https://cdn.sanity.io/images/a3q1cyqs/production/1c8cf85cb4a89e17203b371252c9e86ccecff53a-1200x670.webp";
 
 const GUESTS = [
   {
@@ -29,11 +34,11 @@ export default function BrewSoulGuestPage() {
   return (
     <div>
       <section className="border-b-3 border-[#8b4c2a] bg-linear-to-br from-[#3B2F1E] to-[#2E4A3A] px-6 py-[clamp(48px,8vw,80px)] pb-12 text-center">
-        <div className="mb-4 font-mono text-[11px] tracking-[0.2em] text-[#836311]">Tony G Guest Series</div>
+        <div className="mb-4 font-mono text-[11px] tracking-[0.36em] text-[#836311] uppercase">Tony G Guest Series</div>
         <h1 className="mx-auto mb-4 max-w-175 font-heading text-[clamp(28px,5vw,44px)] leading-[1.2] font-bold text-[#FAF8F2] italic">
           The People Reshaping Coffee
         </h1>
-        <p className="mx-auto max-w-140 text-[clamp(14px,2vw,18px)] text-[#f5efe0]/80">
+        <p className="mx-auto max-w-140 text-[clamp(14px,2vw,18px)]/[1.85] text-[#f5efe0]/80">
           Long-form interviews with the scientists, farmers, lawyers, and builders who refuse to let the industry stay comfortable.
         </p>
       </section>
@@ -45,20 +50,17 @@ export default function BrewSoulGuestPage() {
             href={g.slug}
             className="mb-8 flex overflow-hidden rounded-xl bg-white shadow-[0_4px_20px_rgba(0,0,0,0.08)] transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)]"
           >
-            <div className="flex w-30 shrink-0 items-center justify-center bg-[#3B2F1E] font-heading text-4xl text-[#D4AF37] sm:w-45">
-              {g.name
-                .split(" ")
-                .map((n) => n[0])
-                .join("")}
+            <div className="relative w-30 shrink-0 bg-[#3B2F1E] sm:w-50">
+              <Image src={BREWSOUL_PHOTO} alt="" fill sizes="(min-width: 640px) 200px, 120px" className="object-cover" />
             </div>
             <div className="flex-1 p-6 sm:p-8">
-              <div className="mb-2 font-mono text-[10px] tracking-[0.15em] text-[#A0522D]">Guest Interview</div>
+              <div className="mb-2 font-mono text-[10px] tracking-[0.2em] text-[#A0522D] uppercase">Guest Interview</div>
               <h2 className="mb-1 font-heading text-[clamp(18px,3vw,26px)] leading-[1.25] font-bold text-[#3B2F1E]">{g.name}</h2>
               <p className="mb-3 font-heading text-[clamp(14px,2vw,18px)] text-[#836311] italic">{g.headline}</p>
-              <p className="mb-3 text-sm leading-relaxed text-[#5C4A32]">{g.teaser}</p>
+              <p className="mb-3 text-sm/[1.7] text-[#5C4A32]">{g.teaser}</p>
               <div className="flex flex-wrap gap-1.5">
                 {g.tags.map((t) => (
-                  <span key={t} className="rounded-sm bg-[#f5f1e8] px-2 py-1 font-mono text-[10px] tracking-wide text-[#5C4A32]">
+                  <span key={t} className="rounded-sm bg-[#f5f1e8] px-2 py-1 font-mono text-[10px] tracking-[0.1em] text-[#5C4A32]">
                     {t}
                   </span>
                 ))}

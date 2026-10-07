@@ -15,6 +15,7 @@ import {
 } from "@/lib/content/thesis-threads";
 import type { ArchivePost } from "@/components/blog/articles-explorer";
 import { formatPostDate } from "@/lib/format-post-date";
+import { postHref } from "@/lib/content/post-redirects";
 
 const THREAD_ACCENT: Record<string, { border: string; text: string; wash: string }> = {
   "opacity-tax": { border: "border-red-500/30", text: "text-red-400", wash: "bg-red-500/10" },
@@ -73,7 +74,7 @@ function ArticleRow({ post }: { post: ArchivePost }) {
   const connector = THESIS_CONNECTORS[post.slug];
   return (
     <Link
-      href={`/blog/${post.slug}`}
+      href={postHref(post.slug)}
       className="block rounded-xl border border-white/5 p-4 transition-colors hover:border-brand-gold/30 hover:bg-white/5"
     >
       <div className="flex items-start justify-between gap-4">

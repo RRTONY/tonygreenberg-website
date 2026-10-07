@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { ClientsGrid, type Client } from "@/components/marketing/clients-grid";
 
@@ -116,25 +117,27 @@ export default function ClientsPage() {
 
   return (
     <div>
-      <div className="bg-linear-to-b from-background to-secondary px-6 pt-16 pb-12 sm:px-10">
-        <Link href="/" className="inline-flex items-center mb-6 font-mono text-xs tracking-wide text-brand-gold uppercase min-h-11 md:min-h-6">
-          ← Back to The Broadsheet
-        </Link>
-        <h1 className="mb-4 font-heading text-4xl font-bold text-foreground sm:text-5xl">
-          The Rolodex
-        </h1>
-        <p className="max-w-xl text-lg text-foreground/70">
-          {CLIENTS.length} companies across 25 years. Every engagement measured, every
-          relationship maintained. This is who trusts RampRate with their infrastructure.
-        </p>
+      <div className="bg-linear-to-b from-background to-secondary px-6 pt-16 pb-20 sm:px-10">
+        <div className="mx-auto max-w-[34.125rem]">
+          <Link href="/" className="mb-6 inline-flex min-h-11 items-center gap-1.5 font-mono text-xs tracking-[0.15em] text-brand-gold uppercase md:min-h-6">
+            <ArrowLeft aria-hidden="true" className="size-3.5" /> Back to The Broadsheet
+          </Link>
+          <h1 className="mb-4 font-heading text-4xl font-bold text-foreground sm:text-[3.5rem]">
+            The Rolodex
+          </h1>
+          <p className="text-lg/[1.75] text-foreground/70">
+            {CLIENTS.length} companies across 25 years. Every engagement measured, every
+            relationship maintained. This is who trusts RampRate with their infrastructure.
+          </p>
+        </div>
       </div>
 
-      <div className="bg-[#0A0A10] px-6 py-6 sm:px-10">
-        <div className="grid gap-6 text-center" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))" }}>
+      <div className="bg-[#0A0A10] px-6 py-16 sm:px-10">
+        <div className="mx-auto grid max-w-[34.125rem] grid-cols-[repeat(auto-fit,minmax(130px,1fr))] gap-x-6 gap-y-10 text-center sm:grid-cols-[repeat(auto-fit,minmax(160px,1fr))]">
           {stats.map((stat) => (
             <div key={stat.label}>
-              <p className="font-heading text-2xl font-bold text-brand-gold-light">{stat.value}</p>
-              <p className="mt-1 font-mono text-xs tracking-wide text-white/50 uppercase">
+              <p className="font-heading text-[1.6rem] font-bold text-brand-gold-light">{stat.value}</p>
+              <p className="mt-2 font-mono text-[0.72rem] tracking-[0.1em] text-white/60 uppercase">
                 {stat.label}
               </p>
             </div>
@@ -142,7 +145,7 @@ export default function ClientsPage() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-6xl px-6 py-12 sm:px-10">
+      <div className="mx-auto max-w-[39rem] px-6 py-12 sm:px-10">
         <ClientsGrid clients={CLIENTS} />
       </div>
 

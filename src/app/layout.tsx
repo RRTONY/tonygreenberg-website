@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import { preconnect } from "react-dom";
 import { Playfair_Display, DM_Mono, Source_Sans_3 } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { Toaster } from "@/components/ui/sonner";
+import { LazyToaster } from "@/components/lazy-toaster";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { WhereNext } from "@/components/where-next";
@@ -49,6 +50,9 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
+  // Every content image comes straight from Sanity's CDN (src/lib/images/image-loader.ts); open
+  // that connection while the HTML is still arriving so the hero photo starts sooner.
+  preconnect("https://cdn.sanity.io");
   const [websiteJsonLd, personJsonLd] = await Promise.all([
     getWebsiteJsonLd(),
     getPersonJsonLd(),
@@ -96,7 +100,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
               <WhereNext />
               <SiteFooter />
             </SiteChrome>
-            <Toaster />
+            <LazyToaster />
           </TooltipProvider>
         </ThemeProvider>
       </body>

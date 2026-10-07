@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight, Mail, Phone } from "lucide-react";
 import { urlFor } from "@/lib/sanity/image";
 import { DEFAULT_ESSAY_HERO } from "@/lib/content/default-image";
+import { postHref } from "@/lib/content/post-redirects";
 
 // The blocks legacy BlogPost.tsx shows after the essay's engagement section,
 // in live's order, copy unchanged: the diagnostic-tool and ImpactSoul CTAs,
@@ -72,7 +73,7 @@ export function PostClosing({ originalUrl, prev, next }: { originalUrl?: string;
       {(prev || next) && (
         <nav aria-label="More essays" className="grid grid-cols-1 gap-6 py-6 sm:grid-cols-2">
           {prev ? (
-            <Link href={`/blog/${prev.slug}`} className="block no-underline">
+            <Link href={postHref(prev.slug)} className="block no-underline">
               <span className="mb-1.5 inline-flex items-center gap-1.5 font-mono text-xs tracking-widest text-muted-foreground uppercase">
                 <ArrowLeft aria-hidden="true" className="size-3" />
                 Previous
@@ -83,7 +84,7 @@ export function PostClosing({ originalUrl, prev, next }: { originalUrl?: string;
             <span />
           )}
           {next && (
-            <Link href={`/blog/${next.slug}`} className="block text-left no-underline sm:text-right">
+            <Link href={postHref(next.slug)} className="block text-left no-underline sm:text-right">
               <span className="mb-1.5 inline-flex items-center gap-1.5 font-mono text-xs tracking-widest text-muted-foreground uppercase">
                 Next
                 <ArrowRight aria-hidden="true" className="size-3" />
@@ -222,7 +223,7 @@ export function ThreadContinues({ posts, reasons }: { posts: ThreadPost[]; reaso
           return (
             <li key={p._id}>
               <Link
-                href={`/blog/${p.slug.current}`}
+                href={postHref(p.slug.current)}
                 className="group flex h-full flex-col overflow-hidden rounded-md border border-brand-gold/12 bg-[#FEFCF7] no-underline transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1 hover:border-brand-gold/30 hover:shadow-[0_8px_32px_rgba(139,105,20,0.1)] dark:bg-background"
               >
                 <div className="relative aspect-[1/0.52] shrink-0 overflow-hidden">

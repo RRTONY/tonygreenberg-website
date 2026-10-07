@@ -9,6 +9,7 @@ import { FourDoors, type Door } from "@/components/marketing/four-doors";
 import { NewsletterSignupForm } from "@/components/marketing/newsletter-signup-form";
 import { DailyProvocation } from "@/components/marketing/daily-provocation";
 import { EditorialDivider } from "@/components/marketing/editorial-divider";
+import { postHref } from "@/lib/content/post-redirects";
 
 // Ported from legacy client/src/pages/Home.tsx ("v2.0 Glass-Morphism Edition").
 // Real copy/links/data kept as-is; the bespoke visual effects (floating
@@ -305,7 +306,7 @@ export default async function TheLetterPage() {
             {START_HERE_ESSAYS.map((essay) => (
               <Link
                 key={essay.slug}
-                href={`/blog/${essay.slug}`}
+                href={postHref(essay.slug)}
                 className="grid grid-cols-[2rem_1fr_auto] gap-4 border-t border-border py-4 transition-colors hover:bg-brand-gold/5"
               >
                 <span className="font-mono text-xs text-brand-gold">{essay.num}</span>
@@ -568,7 +569,7 @@ export default async function TheLetterPage() {
           {MOST_READ.map((item, i) => (
             <Link
               key={item.num}
-              href={`/blog/${item.slug}`}
+              href={postHref(item.slug)}
               className={`flex items-baseline gap-4 py-4 transition-colors hover:bg-brand-gold/5 ${
                 i < MOST_READ.length - 1 ? "border-b border-brand-gold-light/10" : ""
               }`}

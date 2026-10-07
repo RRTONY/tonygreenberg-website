@@ -1,30 +1,42 @@
-import { cookies } from "next/headers";
+"use client";
+
+import { useSyncExternalStore } from "react";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { postHref } from "@/lib/content/post-redirects";
 
 // Ported from legacy client/src/components/ReturningVisitorHero.tsx — the
-// "Welcome back" strip shown to returning visitors (2+ visits) with a
-// link back to whatever essay they last read. Real copy/gating logic
-// unchanged (`visitCount < 2` → render nothing). Rebuilt as a Server
-// Component reading real cookies (`tg_visit_count` incremented in
-// `proxy.ts`, `tg_last_blog_slug`/`tg_last_blog_title` written by
-// `components/blog/track-last-blog-visit.tsx`) instead of legacy's
-// localStorage + client effect — a cookie is visible to the server on the
-// very next request, so this renders the correct final markup in the
-// initial HTML with no client JS and no post-hydration flash. Legacy's
-// `assessmentCount` CTA branch ("N done → Continue") depended on a
-// separate `AssessmentProgress` localStorage store this migration hasn't
-// ported (a different tracker than `journey-tracker.tsx`'s) — rather than
-// build a second, unrelated completed-assessments store just for this one
-// CTA label, this always shows the real fallback copy legacy itself used
-// when nothing was completed yet ("Pick up where you left off →"), which
-// is also the honest state for every visitor migrating from the old site.
-export async function ReturningVisitorHero() {
-  const cookieStore = await cookies();
-  const visitCount = Number(cookieStore.get("tg_visit_count")?.value ?? "0");
-  if (visitCount < 2) return null;
+// "Welcome back" strip shown to returning visitors with a link back to the
+// essay they last read. Cookies: `tg_visit_count` (incremented on `/` in
+// `proxy.ts`), `tg_last_blog_slug`/`tg_last_blog_title` (written by
+// `components/blog/track-last-blog-visit.tsx`). Legacy's `assessmentCount`
+// CTA branch isn't ported (see git history); the fallback copy is shown.
+//
+// Read in the browser, not on the server (2026-10-08): reading cookies on the
+// server made `/` render on every request (no CDN cache), the biggest cost in
+// the homepage's Lighthouse score. The server renders nothing; the strip
+// appears after hydration for returning visitors only. The browser sees the
+// count *after* proxy.ts incremented it, so "2+ earlier visits" is >= 3 here.
 
-  const lastSlug = cookieStore.get("tg_last_blog_slug")?.value;
-  const lastTitle = cookieStore.get("tg_last_blog_title")?.value;
+function readCookie(name: string): string | undefined {
+  const match = document.cookie.split("; ").find((c) => c.startsWith(`${name}=`));
+  return match ? decodeURIComponent(match.slice(name.length + 1)) : undefined;
+}
+
+// Cookies don't change while the page is open in a way this strip cares about.
+const subscribe = () => () => {};
+const getSnapshot = () => document.cookie;
+const getServerSnapshot = () => "";
+
+export function ReturningVisitorHero() {
+  const cookieString = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  if (!cookieString) return null;
+
+  const visitCount = Number(readCookie("tg_visit_count") ?? "0");
+  if (visitCount < 3) return null;
+
+  const lastSlug = readCookie("tg_last_blog_slug");
+  const lastTitle = readCookie("tg_last_blog_title");
   const truncTitle = lastTitle && lastTitle.length > 30 ? `${lastTitle.slice(0, 30)}…` : lastTitle;
 
   return (
@@ -34,7 +46,7 @@ export async function ReturningVisitorHero() {
           <span className="shrink-0 font-heading text-[0.82rem] text-brand-gold dark:text-brand-gold-light">Welcome back.</span>
           {lastSlug && truncTitle && (
             <Link
-              href={`/blog/${lastSlug}`}
+              href={postHref(lastSlug)}
               className="truncate border-b border-brand-gold-light/15 pb-px font-mono text-[0.6rem] tracking-[0.04em] text-brand-gold dark:text-brand-gold-light/55"
             >
               Continue: {truncTitle}
@@ -43,9 +55,9 @@ export async function ReturningVisitorHero() {
         </div>
         <Link
           href="/find-my"
-          className="shrink-0 rounded-sm bg-brand-gold-light/10 px-2 py-0.5 font-mono text-[0.58rem] tracking-[0.06em] text-brand-gold dark:text-brand-gold-light uppercase"
+          className="inline-flex shrink-0 items-center gap-1 rounded-sm bg-brand-gold-light/10 px-2 py-0.5 font-mono text-[0.58rem] tracking-[0.06em] text-brand-gold uppercase dark:text-brand-gold-light"
         >
-          Pick up where you left off →
+          Pick up where you left off <ArrowRight aria-hidden="true" className="size-3" />
         </Link>
       </div>
     </div>

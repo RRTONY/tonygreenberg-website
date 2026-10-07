@@ -57,21 +57,6 @@ export function SearchModal({
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
 
-  // Global Cmd/Ctrl+K shortcut — mounted once at the header's top level
-  // regardless of whether the dialog is currently open, cleaned up on
-  // unmount (this component only ever unmounts on a full page teardown,
-  // since `SiteHeader` renders it site-wide).
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
-        e.preventDefault();
-        onOpenChange(true);
-      }
-    };
-    window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
-  }, [onOpenChange]);
-
   // Reset transient state each time the modal opens/closes. Adjusted during
   // render (React's documented pattern for "reset state when a prop
   // changes", same idiom `site-header.tsx` already uses for its mobile-menu

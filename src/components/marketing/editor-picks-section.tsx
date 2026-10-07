@@ -4,6 +4,7 @@ import { sanityFetch } from "@/lib/sanity/client";
 import { postsBySlugsQuery } from "@/lib/sanity/queries";
 import { urlFor } from "@/lib/sanity/image";
 import { EDITOR_PICK_SLUGS } from "@/lib/content/editor-picks";
+import { postHref } from "@/lib/content/post-redirects";
 
 type Post = {
   title: string;
@@ -17,7 +18,7 @@ function PickCard({ post, size }: { post: Post; size: "large" | "medium" }) {
   const isLarge = size === "large";
   return (
     <Link
-      href={`/blog/${post.slug}`}
+      href={postHref(post.slug)}
       className={`group relative block overflow-hidden rounded-md bg-[#111] ${
         isLarge ? "h-[clamp(280px,40vw,420px)]" : "h-[clamp(130px,15vw,195px)]"
       }`}

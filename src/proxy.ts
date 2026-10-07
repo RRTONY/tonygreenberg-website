@@ -25,7 +25,12 @@ export async function proxy(request: NextRequest) {
   // actually returned — the Supabase block further down reassigns
   // `response` to a fresh `NextResponse`, which would silently drop this
   // cookie if it were set before that reassignment instead of after.
-  const isHome = request.nextUrl.pathname === "/";
+  // Count real page loads only. Link prefetches and client navigations to "/"
+  // (the header logo, RSC/_rsc requests) would otherwise add up to 3 per visit.
+  // Browsers label a real page load `Sec-Fetch-Dest: document`.
+  const fetchDest = request.headers.get("sec-fetch-dest");
+  const isPageLoad = fetchDest ? fetchDest === "document" : !request.headers.has("rsc") && !request.nextUrl.searchParams.has("_rsc");
+  const isHome = request.nextUrl.pathname === "/" && isPageLoad;
   const nextVisitCount = isHome ? Number(request.cookies.get("tg_visit_count")?.value ?? "0") + 1 : null;
   const applyVisitCookie = () => {
     if (nextVisitCount !== null) {
@@ -39,6 +44,18 @@ export async function proxy(request: NextRequest) {
   // Supabase isn't provisioned yet (Phase 2) — don't take the whole site
   // down over auth session refresh for routes that don't need it yet.
   if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    applyVisitCookie();
+    return response;
+  }
+
+  // Only signed-in visitors have a session to refresh. Without this check
+  // every anonymous page view waited on a round trip to Supabase before the
+  // page (even a cached, pre-built one) could be served: about 0.9 s of
+  // server time per page on Netlify (Lighthouse, 2026-10-08). Supabase's
+  // session cookies are named `sb-<project>-auth-token` (possibly chunked
+  // as `.0`, `.1`).
+  const hasSession = request.cookies.getAll().some((c) => c.name.startsWith("sb-") && c.name.includes("-auth-token"));
+  if (!hasSession) {
     applyVisitCookie();
     return response;
   }

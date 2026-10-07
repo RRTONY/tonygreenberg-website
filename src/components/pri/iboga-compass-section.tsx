@@ -1,6 +1,4 @@
-"use client";
-
-import { useState } from "react";
+import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { AlertTriangle } from "lucide-react";
 import {
@@ -32,11 +30,10 @@ function SubSection({ children, dark }: { children: React.ReactNode; dark?: bool
 // notice, required reading) that's embedded inline within
 // `/iboga-ibogaine`, unchanged and verbatim. The actual interactive
 // assessment lives at `/iboga-compass`; this section documents it and
-// links there. Expand/collapse on each question section is the only
-// interactive piece.
+// links there. Each question section expands with native <details> (one
+// open at a time via a shared `name`), so this is a Server Component and all
+// 28 questions are in the server HTML for search engines (2026-10-08).
 export function IbogaCompassSection() {
-  const [expandedSection, setExpandedSection] = useState<number | null>(null);
-
   return (
     <>
       <section id="compass" className="bg-pri-cream px-5 py-16 text-pri-ink">
@@ -145,54 +142,45 @@ export function IbogaCompassSection() {
           </div>
           <h2 className="mb-8 font-heading font-extrabold text-[clamp(1.6rem,4vw,2.5rem)] text-pri-cream">Full Question Set</h2>
 
-          {COMPASS_QUESTIONS.map((section) => {
-            const isOpen = expandedSection === section.sectionNum;
-            return (
-              <div key={section.sectionNum} className="mb-8">
-                <button
-                  onClick={() => setExpandedSection(isOpen ? null : section.sectionNum)}
-                  className={`flex w-full items-center gap-4 rounded-lg border px-5 py-4 text-left transition-colors ${isOpen ? "border-pri-purple-light bg-pri-purple-light/12" : "border-[#3A3530] bg-white/4"}`}
-                >
-                  <span className="min-w-10 font-mono text-[.85rem] font-bold text-pri-purple-light">{String(section.sectionNum).padStart(2, "0")}</span>
-                  <span className="flex-1 text-[1.05rem] font-bold text-pri-cream">{section.sectionTitle}</span>
-                  <span className="text-[.85rem] text-pri-cream/60">
-                    {section.questions.length} question{section.questions.length > 1 ? "s" : ""}
-                  </span>
-                  <span className={`text-xl text-pri-purple-light transition-transform ${isOpen ? "rotate-180" : ""}`}>▾</span>
-                </button>
-
-                {isOpen && (
-                  <div className="rounded-b-lg border border-t-0 border-[#3A3530] bg-white/2 px-5 py-6">
-                    {section.questions.map((q) => (
-                      <div key={q.id} className="mb-6">
-                        <p className="mb-2 text-base font-bold text-pri-cream">
-                          <span className="mr-2 font-mono text-pri-purple-light">{q.id}.</span>
-                          {q.text}
-                        </p>
-                        {q.note && <p className="mb-2 text-[.9rem] text-pri-cream/60 italic">{q.note}</p>}
-                        <ul className="m-0 list-disc space-y-1 pl-6">
-                          {q.options.map((opt) => (
-                            <li key={opt} className="text-[.95rem] leading-[1.7] text-pri-cream/80">
-                              {opt.includes("→") ? (
-                                <>
-                                  {opt.split("→")[0]}
-                                  <span className="font-semibold text-pri-purple-light">→ {opt.split("→")[1]}</span>
-                                </>
-                              ) : opt.includes("EXCLUDES") ? (
-                                <span className="font-bold text-[#EF4444]">{opt}</span>
-                              ) : (
-                                opt
-                              )}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
+          {COMPASS_QUESTIONS.map((section) => (
+            <details key={section.sectionNum} name="iboga-compass-questions" className="group mb-8">
+              <summary className="flex w-full cursor-pointer list-none items-center gap-4 rounded-lg border border-[#3A3530] bg-white/4 px-5 py-4 text-left transition-colors group-open:border-pri-purple-light group-open:bg-pri-purple-light/12 [&::-webkit-details-marker]:hidden">
+                <span className="min-w-10 font-mono text-[.85rem] font-bold text-pri-purple-light">{String(section.sectionNum).padStart(2, "0")}</span>
+                <span className="flex-1 text-[1.05rem] font-bold text-pri-cream">{section.sectionTitle}</span>
+                <span className="text-[.85rem] text-pri-cream/60">
+                  {section.questions.length} question{section.questions.length > 1 ? "s" : ""}
+                </span>
+                <ChevronDown aria-hidden="true" className="size-5 text-pri-purple-light transition-transform group-open:rotate-180" />
+              </summary>
+              <div className="rounded-b-lg border border-t-0 border-[#3A3530] bg-white/2 px-5 py-6">
+                {section.questions.map((q) => (
+                  <div key={q.id} className="mb-6">
+                    <p className="mb-2 text-base font-bold text-pri-cream">
+                      <span className="mr-2 font-mono text-pri-purple-light">{q.id}.</span>
+                      {q.text}
+                    </p>
+                    {q.note && <p className="mb-2 text-[.9rem] text-pri-cream/60 italic">{q.note}</p>}
+                    <ul className="m-0 list-disc space-y-1 pl-6">
+                      {q.options.map((opt) => (
+                        <li key={opt} className="text-[.95rem] leading-[1.7] text-pri-cream/80">
+                          {opt.includes("→") ? (
+                            <>
+                              {opt.split("→")[0]}
+                              <span className="font-semibold text-pri-purple-light">→ {opt.split("→")[1]}</span>
+                            </>
+                          ) : opt.includes("EXCLUDES") ? (
+                            <span className="font-bold text-[#EF4444]">{opt}</span>
+                          ) : (
+                            opt
+                          )}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                )}
+                ))}
               </div>
-            );
-          })}
+            </details>
+          ))}
 
           <p className="mt-8 text-[.95rem] text-pri-cream/60">
             <strong className="text-pri-purple-light">Final Step — Priority Rank:</strong> After 28 questions, the user sees their pre-ranked 10 dimensions.

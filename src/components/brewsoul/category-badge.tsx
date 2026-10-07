@@ -22,14 +22,15 @@ const BADGE_CLASS: Record<string, string> = {
 // colored badge shown at the top of any BrewSoul page, auto-detected from
 // the current path via PAGE_CATEGORY_MAP, linking back to the directory
 // filtered to that category (filter param wired up once /brewsoul/directory
-// itself is built). Real content/behavior, unchanged.
+// itself is built). Floats over the top-left corner of the page, lined up
+// with the BrewSoul logo, rather than sitting in its own strip above the hero.
 export function CategoryBadge() {
   const pathname = usePathname();
   const info = PAGE_CATEGORY_MAP[pathname];
   if (!info) return null;
 
   return (
-    <div className="flex justify-center pt-4">
+    <div className="absolute top-16 left-4 z-10 sm:left-8">
       <Link
         href="/brewsoul/directory"
         className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 font-mono text-[0.6rem] tracking-wide text-white uppercase transition-opacity hover:opacity-85 ${

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { formatPostDate } from "@/lib/format-post-date";
+import { postHref } from "@/lib/content/post-redirects";
 
 // Rebuilt from the live tonygreenberg.com homepage's "Recent Updates" band
 // (its source is a newer Blog.tsx than the snapshot in _legacy-manus-app/,
@@ -94,7 +95,7 @@ export function RecentUpdates({ posts }: { posts: RecentUpdatePost[] }) {
               <p className="bg-[#F8F5EE] p-6 text-[#343434]">No essays in this topic yet.</p>
             ) : (
               shown.map((post) => (
-                <Link key={post._id} href={`/blog/${post.slug}`} className="group block h-full">
+                <Link key={post._id} href={postHref(post.slug)} className="group block h-full">
                   <article className="flex h-full flex-col justify-between bg-[#F8F5EE] p-6 transition-colors duration-150 group-hover:bg-[#FCFAF5]">
                     <div>
                       {post.publishedAt && (

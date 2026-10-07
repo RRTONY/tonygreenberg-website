@@ -133,7 +133,7 @@ export const WHERE_NEXT: Record<string, WhereNextSuggestion[]> = {
   "/assessments": [
     { href: "/find-my", label: "Find Your...", teaser: "Full assessments hub" },
     { href: "/psychedelic-readiness-index", label: "Psychedelic Readiness", teaser: "PRI assessment" },
-    { href: "/life-assessment", label: "Life Assessment", teaser: "The Mirror" },
+    { href: "/the-mirror", label: "Life Assessment", teaser: "The Mirror" },
   ],
   "/find-my": [
     { href: "/assessments", label: "Assessments", teaser: "More assessments" },

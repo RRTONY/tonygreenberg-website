@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { ARCHETYPES, type ArchetypeKey } from "@/lib/content/archetypes";
 import { DEFAULT_ESSAY_HERO } from "@/lib/content/default-image";
 import { urlFor } from "@/lib/sanity/image";
+import { postHref } from "@/lib/content/post-redirects";
 
 type Post = {
   _id: string;
@@ -119,7 +120,7 @@ export function EssaysList({ posts }: { posts: Post[] }) {
         {filtered.map((post) => (
           <Link
             key={post._id}
-            href={`/blog/${post.slug}`}
+            href={postHref(post.slug)}
             className="flex gap-4 rounded-md border border-border bg-card p-4 transition-colors hover:border-brand-gold/40"
           >
             <div className="relative size-18 shrink-0 overflow-hidden rounded-md">

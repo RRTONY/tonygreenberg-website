@@ -2,7 +2,7 @@
 
 import { useCallback, useMemo, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, BarChart3, Loader2, RefreshCw, ShieldCheck, Target, Sparkles } from "lucide-react";
+import { ArrowLeft, ArrowRight, BarChart3, Loader2, RefreshCw, ShieldCheck, Target, Sparkles } from "lucide-react";
 import { saveCalibration } from "@/app/pri-calibration/actions";
 import { DIMS, DIM_LABELS, DIM_ICONS, type DimKey } from "@/lib/content/pri-data";
 import efficacyData from "@/lib/content/pri-efficacy-data.json";
@@ -141,10 +141,10 @@ export function CalibrationAssessment() {
     <div className="min-h-screen bg-pri-ink font-body text-pri-cream">
       <div className="mx-auto max-w-180 px-5 py-8">
         <div className="mb-8 text-center">
-          <Link href="/psychedelic-readiness-index" className="text-[.8rem] text-pri-cream/60">
-            ← Back to PRI
+          <Link href="/psychedelic-readiness-index" className="inline-flex min-h-11 items-center gap-1.5 text-[.8rem] text-pri-cream/60 md:min-h-6">
+            <ArrowLeft aria-hidden="true" className="size-3.5" /> Back to PRI
           </Link>
-          <h1 className="my-3 bg-linear-to-br from-pri-purple to-pri-purple-light bg-clip-text font-heading text-[clamp(1.8rem,5vw,2.5rem)] text-transparent">Deep Calibration</h1>
+          <h1 className="my-3 font-heading text-[clamp(1.8rem,5vw,2.5rem)] font-black text-pri-cream">Deep Calibration</h1>
           <p className="mx-auto max-w-125 text-[.9rem] text-pri-cream/50">Forced-rank psychometric validation for your Readiness Profile</p>
         </div>
 

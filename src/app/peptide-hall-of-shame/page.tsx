@@ -81,21 +81,22 @@ export default function PeptideHallOfShamePage() {
             src="https://cdn.sanity.io/images/a3q1cyqs/production/f76b0029de9df63f14c832719a17e68d260314a9-1200x509.webp"
             alt=""
             fill
-            priority
+            fetchPriority="high"
+            loading="eager"
             sizes="100vw"
             className="object-cover blur-[1px] brightness-60"
           />
         </div>
         <div className="relative mx-auto max-w-2xl">
-          <p className="mb-4 font-mono text-xs tracking-[0.25em] text-brand-gold/50 uppercase">
+          <p className="mb-4 font-mono text-[0.65rem] tracking-[0.25em] text-brand-gold-light/80 uppercase">
             Peptide Assessment Audit · 20 US Providers
           </p>
-          <h1 className="mb-6 font-heading text-4xl leading-tight text-[#E8E4DC] sm:text-5xl">
+          <h1 className="mb-6 font-heading text-4xl leading-tight text-[#E8E4DC] sm:text-[3.2rem]">
             The Peptide Assessment
             <br />
             <span className="text-[#B22222]">Hall of Shame</span>
           </h1>
-          <p className="mx-auto mb-8 max-w-lg leading-relaxed text-[#E8E4DC]/60">
+          <p className="mx-auto mb-10 max-w-xl text-lg/[1.75] text-[#E8E4DC]/75">
             We audited every peptide questionnaire we could find across the United States. Most
             aren&apos;t assessments at all — they&apos;re lead generation forms wearing a lab
             coat.
@@ -103,11 +104,11 @@ export default function PeptideHallOfShamePage() {
           <div className="flex flex-wrap justify-center gap-8">
             {stats.map((stat) => (
               <div key={stat.label} className="min-w-30">
-                <div className="font-heading text-3xl font-bold text-brand-gold">{stat.value}</div>
-                <div className="font-mono text-xs tracking-wide text-[#E8E4DC]/40 uppercase">
+                <div className="mb-2 font-heading text-3xl font-bold text-brand-gold-light">{stat.value}</div>
+                <div className="font-mono text-[0.6rem] tracking-[0.1em] text-[#E8E4DC]/70 uppercase">
                   {stat.label}
                 </div>
-                {stat.sub && <div className="text-xs text-[#E8E4DC]/30">{stat.sub}</div>}
+                {stat.sub && <div className="mt-1 text-xs text-[#E8E4DC]/60">{stat.sub}</div>}
               </div>
             ))}
           </div>

@@ -3,6 +3,7 @@ import { Sparkles } from "lucide-react";
 import { sanityFetch } from "@/lib/sanity/client";
 import { gemSparkPostsQuery } from "@/lib/sanity/queries";
 import { GEM_SPARK_SUBTITLES } from "@/lib/content/gem-sparks";
+import { postHref } from "@/lib/content/post-redirects";
 
 type Post = { title: string; slug: string };
 
@@ -38,7 +39,7 @@ export async function GemSparkStrip() {
             return (
               <Link
                 key={post.slug}
-                href={`/blog/${post.slug}`}
+                href={postHref(post.slug)}
                 className="flex min-w-0 items-center gap-3 rounded-md border border-[#C8860A]/20 bg-white/70 px-4 py-3 transition-colors hover:border-[#C8860A]/50 dark:bg-white/5"
               >
                 <Sparkles className="size-4 shrink-0 text-[#C8860A]" />

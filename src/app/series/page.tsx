@@ -5,6 +5,7 @@ import { sanityFetch } from "@/lib/sanity/client";
 import { postsBySlugsQuery } from "@/lib/sanity/queries";
 import { urlFor } from "@/lib/sanity/image";
 import { SERIES } from "@/lib/content/essay-series";
+import { postHref } from "@/lib/content/post-redirects";
 
 // Ported from legacy client/src/pages/Series.tsx ("The Collections") +
 // client/src/data/seriesData.ts. Real content kept as-is (12 real curated
@@ -102,7 +103,7 @@ export default async function SeriesPage() {
                     {seriesPosts.map((post, i) => (
                       <Link
                         key={post.slug}
-                        href={`/blog/${post.slug}`}
+                        href={postHref(post.slug)}
                         className="flex items-center gap-2 rounded-sm px-2 py-1.5 transition-colors hover:bg-brand-gold/5 min-h-11 md:min-h-6"
                       >
                         <span className="min-w-6 font-mono text-xs font-semibold text-muted-foreground">
@@ -115,7 +116,7 @@ export default async function SeriesPage() {
 
                   {seriesPosts[0] && (
                     <Link
-                      href={`/blog/${seriesPosts[0].slug}`}
+                      href={postHref(seriesPosts[0].slug)}
                       className="mt-4 inline-block border-b border-brand-gold-light font-mono text-xs tracking-wide text-brand-gold uppercase"
                     >
                       Start Reading →

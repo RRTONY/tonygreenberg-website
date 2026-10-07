@@ -59,13 +59,58 @@ export interface BrewSoulCategory {
 
 // Badge colours match CategoryBadge's darker shades (WCAG AA on cream and
 // as text on the tinted cards; the original 500-weight hues failed, 2026-10-02).
-export const CAT_COLORS: Record<string, { bg: string; border: string; badge: string; badgeText: string }> = {
-  "Start Here": { bg: "rgba(197,162,60,0.06)", border: "rgba(197,162,60,0.18)", badge: "#836311", badgeText: "#FAFAF7" },
-  "The Intelligence Engine": { bg: "rgba(59,130,246,0.05)", border: "rgba(59,130,246,0.15)", badge: "#2563EB", badgeText: "#FAFAF7" },
-  "Deep Research": { bg: "rgba(139,92,246,0.05)", border: "rgba(139,92,246,0.15)", badge: "#7C3AED", badgeText: "#FAFAF7" },
-  "Reference Library": { bg: "rgba(16,185,129,0.05)", border: "rgba(16,185,129,0.15)", badge: "#047857", badgeText: "#FAFAF7" },
-  "Tools & Discovery": { bg: "rgba(249,115,22,0.05)", border: "rgba(249,115,22,0.15)", badge: "#C2410C", badgeText: "#FAFAF7" },
-  "Guest Series": { bg: "rgba(139,69,19,0.06)", border: "rgba(139,69,19,0.18)", badge: "#8B4513", badgeText: "#FAFAF7" },
+// Per-category classes, full literal strings (no inline style; Tailwind only sees complete
+// class names). `chip`/`chipActive` are the filter buttons, `card` the page cards, `rule` the
+// category heading underline, `badge` the small label, `accent` the "Explore" link text.
+export const CAT_COLORS: Record<string, { card: string; rule: string; badge: string; accent: string; chip: string; chipActive: string }> = {
+  "Start Here": {
+    card: "border-[#C5A23C]/18 bg-[#C5A23C]/6",
+    rule: "border-[#C5A23C]/18",
+    badge: "bg-[#836311] text-[#FAFAF7]",
+    accent: "text-[#836311]",
+    chip: "border-[#C5A23C]/18 text-[#836311]",
+    chipActive: "border-[#C5A23C]/18 bg-[#836311] text-[#FAFAF7]",
+  },
+  "The Intelligence Engine": {
+    card: "border-[#3B82F6]/15 bg-[#3B82F6]/5",
+    rule: "border-[#3B82F6]/15",
+    badge: "bg-[#2563EB] text-[#FAFAF7]",
+    accent: "text-[#2563EB]",
+    chip: "border-[#3B82F6]/15 text-[#2563EB]",
+    chipActive: "border-[#3B82F6]/15 bg-[#2563EB] text-[#FAFAF7]",
+  },
+  "Deep Research": {
+    card: "border-[#8B5CF6]/15 bg-[#8B5CF6]/5",
+    rule: "border-[#8B5CF6]/15",
+    badge: "bg-[#7C3AED] text-[#FAFAF7]",
+    accent: "text-[#7C3AED]",
+    chip: "border-[#8B5CF6]/15 text-[#7C3AED]",
+    chipActive: "border-[#8B5CF6]/15 bg-[#7C3AED] text-[#FAFAF7]",
+  },
+  "Reference Library": {
+    card: "border-[#10B981]/15 bg-[#10B981]/5",
+    rule: "border-[#10B981]/15",
+    badge: "bg-[#047857] text-[#FAFAF7]",
+    accent: "text-[#047857]",
+    chip: "border-[#10B981]/15 text-[#047857]",
+    chipActive: "border-[#10B981]/15 bg-[#047857] text-[#FAFAF7]",
+  },
+  "Tools & Discovery": {
+    card: "border-[#F97316]/15 bg-[#F97316]/5",
+    rule: "border-[#F97316]/15",
+    badge: "bg-[#C2410C] text-[#FAFAF7]",
+    accent: "text-[#C2410C]",
+    chip: "border-[#F97316]/15 text-[#C2410C]",
+    chipActive: "border-[#F97316]/15 bg-[#C2410C] text-[#FAFAF7]",
+  },
+  "Guest Series": {
+    card: "border-[#8B4513]/18 bg-[#8B4513]/6",
+    rule: "border-[#8B4513]/18",
+    badge: "bg-[#8B4513] text-[#FAFAF7]",
+    accent: "text-[#8B4513]",
+    chip: "border-[#8B4513]/18 text-[#8B4513]",
+    chipActive: "border-[#8B4513]/18 bg-[#8B4513] text-[#FAFAF7]",
+  },
 };
 
 export const BREWSOUL_CATEGORIES: BrewSoulCategory[] = [

@@ -43,28 +43,21 @@ export function HomeHero({ essayCount }: { essayCount: number }) {
         sizes="100vw"
         className="object-cover object-[center_40%]"
       />
+      {/* The glows animate transform/opacity only, on their own layer (will-change), so the
+          browser moves them without repainting; they hold still for reduced-motion users. */}
       <div
-        className="absolute top-[20%] right-[15%] size-[420px] animate-bowl-pulse rounded-full blur-[40px]"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(123,63,160,0.35) 0%, rgba(123,63,160,0.15) 30%, rgba(180,140,50,0.08) 55%, transparent 75%)",
-        }}
+        aria-hidden="true"
+        className="absolute top-[20%] right-[15%] size-[420px] animate-bowl-pulse rounded-full bg-[radial-gradient(circle,rgba(123,63,160,0.35)_0%,rgba(123,63,160,0.15)_30%,rgba(180,140,50,0.08)_55%,transparent_75%)] blur-[40px] will-change-transform motion-reduce:animate-none"
       />
       <div
-        className="absolute top-[32%] right-[22%] size-[200px] animate-bowl-pulse-inner rounded-full blur-[25px] [animation-delay:0.5s]"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(255,220,130,0.4) 0%, rgba(123,63,160,0.2) 40%, transparent 70%)",
-        }}
+        aria-hidden="true"
+        className="absolute top-[32%] right-[22%] size-[200px] animate-bowl-pulse-inner rounded-full bg-[radial-gradient(circle,rgba(255,220,130,0.4)_0%,rgba(123,63,160,0.2)_40%,transparent_70%)] blur-[25px] will-change-transform [animation-delay:0.5s] motion-reduce:animate-none"
       />
       <div
-        className="absolute top-[20%] right-[14%] size-[500px] animate-rays-spin rounded-full blur-[20px]"
-        style={{
-          background:
-            "conic-gradient(from 0deg, transparent 0deg, rgba(123,63,160,0.06) 15deg, transparent 30deg, transparent 60deg, rgba(123,63,160,0.04) 75deg, transparent 90deg, transparent 120deg, rgba(123,63,160,0.05) 135deg, transparent 150deg, transparent 180deg, rgba(123,63,160,0.06) 195deg, transparent 210deg, transparent 240deg, rgba(123,63,160,0.04) 255deg, transparent 270deg, transparent 300deg, rgba(123,63,160,0.05) 315deg, transparent 330deg, transparent 360deg)",
-        }}
+        aria-hidden="true"
+        className="absolute top-[20%] right-[14%] size-[500px] animate-rays-spin rounded-full bg-[conic-gradient(from_0deg,transparent_0deg,rgba(123,63,160,0.06)_15deg,transparent_30deg,transparent_60deg,rgba(123,63,160,0.04)_75deg,transparent_90deg,transparent_120deg,rgba(123,63,160,0.05)_135deg,transparent_150deg,transparent_180deg,rgba(123,63,160,0.06)_195deg,transparent_210deg,transparent_240deg,rgba(123,63,160,0.04)_255deg,transparent_270deg,transparent_300deg,rgba(123,63,160,0.05)_315deg,transparent_330deg,transparent_360deg)] blur-[20px] will-change-transform motion-reduce:animate-none"
       />
-      <div className="absolute inset-0 bg-linear-to-br from-black/45 via-black/20 to-black/35 backdrop-blur-[1px]" />
+      <div className="absolute inset-0 bg-linear-to-br from-black/45 via-black/20 to-black/35" />
       <div className="relative z-10 mx-auto w-full max-w-225 px-5 py-10 sm:px-12">
         <div className="mb-4 font-mono text-base tracking-[0.25em] text-brand-gold-light uppercase">
           Tony Greenberg
@@ -76,7 +69,7 @@ export function HomeHero({ essayCount }: { essayCount: number }) {
         <p className="mb-3 font-heading text-[2rem] leading-[1.1] font-normal text-white [text-shadow:0_2px_12px_rgba(0,0,0,0.4)] sm:text-[3.5rem]">
           I expose broken systems.
           <br />
-          <em className="animate-gold-shimmer bg-[length:200%_auto] bg-linear-to-r from-[#836311] via-[#F5E6A3] to-[#836311] bg-clip-text not-italic text-transparent">
+          <em className="animate-gold-shimmer bg-[length:200%_auto] motion-reduce:animate-none bg-linear-to-r from-[#836311] via-[#F5E6A3] to-[#836311] bg-clip-text not-italic text-transparent">
             Then I build what comes next.
           </em>
         </p>
@@ -87,7 +80,7 @@ export function HomeHero({ essayCount }: { essayCount: number }) {
 
         <Link
           href="/find-my"
-          className="mb-5 inline-block animate-cta-glow rounded-sm bg-linear-to-br from-brand-gold to-brand-gold-light px-8 py-3 font-mono text-base font-bold tracking-wide text-white uppercase transition-shadow hover:animate-none hover:shadow-[0_4px_20px_rgba(139,105,20,0.3)]"
+          className="mb-5 inline-block animate-cta-glow rounded-sm motion-reduce:animate-none bg-linear-to-br from-brand-gold to-brand-gold-light px-8 py-3 font-mono text-base font-bold tracking-wide text-white uppercase transition-shadow hover:animate-none hover:shadow-[0_4px_20px_rgba(139,105,20,0.3)]"
         >
           Find Your Fit
         </Link>

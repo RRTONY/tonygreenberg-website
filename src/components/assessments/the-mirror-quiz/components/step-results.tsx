@@ -19,6 +19,7 @@ import {
   theMirrorData,
 } from "../data/the-mirror.data";
 import type { StepProps } from "../the-mirror-quiz";
+import { postHref } from "@/lib/content/post-redirects";
 
 // Step 4: results. Scoring lives in the hook; the article and satellite-site
 // picks (from the three weakest dimensions) and sharing are only used here.
@@ -138,7 +139,7 @@ export function StepResults({ quiz, articleTitles }: StepProps) {
             {recommendedArticles.map((article, i) => {
               const dim = MIRROR_DIMENSIONS.find((d) => d.id === article.dimension);
               return (
-                <Link key={article.slug} href={`/blog/${article.slug}`} className="block rounded-lg border border-black/8 bg-white/40 p-5">
+                <Link key={article.slug} href={postHref(article.slug)} className="block rounded-lg border border-black/8 bg-white/40 p-5">
                   <div className="flex items-start gap-4">
                     <span className="font-heading text-2xl font-bold text-brand-gold-light/40">{String(i + 1).padStart(2, "0")}</span>
                     <div className="flex-1">

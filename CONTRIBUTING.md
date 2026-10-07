@@ -133,6 +133,13 @@ incidents: [`docs/ai/`](docs/ai/README.md).
       string literals in the step files.
     The owner asked for this (2026-10-06). Existing quizzes still in the old shape get moved over
     when they're next touched.
+20. **Match live's design, but not live's flaws.** When live looks broken or hard to use (text you
+    can't read, a dark label on a dark background, a button squeezed against a banner, an empty
+    strip, a menu that gets cut off), use the version that is clearer and works on phone (375px),
+    tablet (~820px) and laptop (1280px), and say what you changed and why. Copy and claims still
+    follow live (or need the owner's yes). Check all three widths before calling it done. The
+    owner asked for this (2026-10-08). Examples: red labels on dark bands use `#E07A80` instead of
+    live's `#8E1E25`; BrewSoul's category badge floats in the corner instead of live's doubled gap.
 
 ## Next.js (App Router, v16)
 

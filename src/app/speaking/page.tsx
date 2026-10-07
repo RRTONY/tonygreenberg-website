@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
 // Ported from legacy client/src/pages/Speaking.tsx. Real content kept as-is.
@@ -32,10 +33,10 @@ export default function SpeakingPage() {
     <div>
       <section className="bg-[#0A0A10] text-[#F5F0E0]">
         <div className="mx-auto max-w-295 px-[clamp(1.35rem,5vw,4rem)] pt-[clamp(4rem,10vw,7.5rem)] pb-[clamp(3.25rem,7vw,5.5rem)]">
-          <Link href="/about" className="inline-flex items-center font-mono text-xs tracking-wide text-brand-gold-light uppercase min-h-11 md:min-h-6">
-            ← The Story
+          <Link href="/about" className="inline-flex items-center gap-1.5 font-mono text-xs tracking-wide text-brand-gold-light uppercase min-h-11 md:min-h-6">
+            <ArrowLeft aria-hidden="true" className="size-3.5" /> The Story
           </Link>
-          <p className="mt-9 mb-8 font-mono text-xs tracking-[0.2em] text-brand-gold-light uppercase">
+          <p className="mt-9 mb-8 font-mono text-[0.78rem] tracking-[0.35em] text-[#E07A80] uppercase">
             Speaking and Conversations
           </p>
           <h1 className="mb-6 max-w-212.5 font-heading text-[clamp(2.65rem,7vw,5.6rem)]/[0.98] font-normal text-balance">
@@ -50,7 +51,7 @@ export default function SpeakingPage() {
             {ROOMS.map((room) => (
               <span
                 key={room}
-                className="rounded-full border border-brand-gold-light/30 px-3 py-1.5 font-mono text-xs tracking-wide text-[#F5F0E0]/80 uppercase"
+                className="rounded-full border border-brand-gold-light/30 px-3 py-1.5 font-mono text-[0.69rem] tracking-[0.08em] text-[#F5F0E0]/80 uppercase"
               >
                 {room}
               </span>
@@ -62,7 +63,7 @@ export default function SpeakingPage() {
       <div className="mx-auto max-w-4xl px-6 py-14 sm:px-10">
         <div className="grid gap-10 md:grid-cols-[0.78fr_1.22fr]">
           <div>
-            <p className="mb-3 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
+            <p className="mb-3 font-mono text-[0.78rem] tracking-[0.35em] text-essay-red uppercase dark:text-[#E07A80]">
               What the room gets
             </p>
             <h2 className="mb-4 font-heading text-3xl leading-tight font-normal text-foreground sm:text-4xl">
@@ -98,7 +99,7 @@ export default function SpeakingPage() {
 
       <section className="border-y border-border bg-muted/40 px-6 py-16 sm:px-10">
         <div className="mx-auto max-w-4xl">
-          <p className="mb-4 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
+          <p className="mb-4 font-mono text-[0.78rem] tracking-[0.35em] text-essay-red uppercase dark:text-[#E07A80]">
             Formats
           </p>
           <div className="grid gap-3.5 sm:grid-cols-2">
@@ -115,7 +116,7 @@ export default function SpeakingPage() {
       </section>
 
       <div className="mx-auto max-w-2xl px-6 py-16 text-center sm:px-10">
-        <p className="mb-3 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
+        <p className="mb-3 font-mono text-[0.78rem] tracking-[0.35em] text-essay-red uppercase dark:text-[#E07A80]">
           The First Question
         </p>
         <h2 className="mb-4 font-heading text-3xl leading-tight font-normal text-foreground sm:text-5xl">

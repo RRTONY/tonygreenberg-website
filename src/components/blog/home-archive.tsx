@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { CURATED_JOURNEYS } from "@/lib/content/curated-journeys";
 import { socialLinks } from "@/components/site-nav-data";
 import { urlFor } from "@/lib/sanity/image";
+import { postHref } from "@/lib/content/post-redirects";
 
 type Post = {
   _id: string;
@@ -196,7 +197,7 @@ export function HomeArchive({ posts, eagerFirstCard = false }: { posts: Post[]; 
               <ol>
                 {list.posts.map((post, i) => (
                   <li key={post.slug} className="border-b border-border/50">
-                    <Link href={`/blog/${post.slug}`} className="flex items-baseline gap-2.5 py-2">
+                    <Link href={postHref(post.slug)} className="flex items-baseline gap-2.5 py-2">
                       <span className="font-mono text-xs text-brand-gold">{i + 1}</span>
                       <span className="font-heading text-sm leading-snug font-semibold text-foreground">
                         {post.title}

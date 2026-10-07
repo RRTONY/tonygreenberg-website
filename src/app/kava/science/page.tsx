@@ -25,12 +25,12 @@ export default function KavaSciencePage() {
           {KAVALACTONES.map((kl) => (
             <KavaCard key={kl.num}>
               <div className="mb-3 flex items-center gap-3">
-                <div className="flex size-10 items-center justify-center rounded-full text-lg font-bold text-white" style={{ backgroundColor: kl.colorHex }}>
+                <div className={`flex size-10 items-center justify-center rounded-full text-lg font-bold text-white ${kl.tone.solid}`}>
                   {kl.num}
                 </div>
                 <div>
                   <h3 className="font-heading text-base font-bold text-kava-ink">{kl.name}</h3>
-                  <p className="text-xs font-bold" style={{ color: kl.colorHex }}>
+                  <p className={`text-xs font-bold ${kl.tone.text}`}>
                     {kl.abbrev}
                   </p>
                 </div>
@@ -38,13 +38,13 @@ export default function KavaSciencePage() {
               <div className="mb-3 space-y-1">
                 {kl.mechanisms.map((m) => (
                   <div key={m} className="flex gap-2">
-                    <div className="mt-2 size-1.5 shrink-0 rounded-full" style={{ backgroundColor: kl.colorHex }} />
+                    <div className={`mt-2 size-1.5 shrink-0 rounded-full ${kl.tone.solid}`} />
                     <p className="text-sm leading-[1.75] text-kava-ink">{m}</p>
                   </div>
                 ))}
               </div>
-              <div className="rounded-lg p-3" style={{ backgroundColor: `${kl.colorHex}10`, borderLeft: `3px solid ${kl.colorHex}` }}>
-                <p className="mb-1 text-xs font-bold tracking-wide uppercase" style={{ color: kl.colorHex }}>
+              <div className={`rounded-lg p-3 ${kl.tone.panel}`}>
+                <p className={`mb-1 text-xs font-bold tracking-wide uppercase ${kl.tone.text}`}>
                   PRI Relevance
                 </p>
                 <p className="text-sm leading-[1.75] text-kava-ink">{kl.priRelevance}</p>
