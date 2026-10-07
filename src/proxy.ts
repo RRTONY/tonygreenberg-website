@@ -25,7 +25,12 @@ export async function proxy(request: NextRequest) {
   // actually returned — the Supabase block further down reassigns
   // `response` to a fresh `NextResponse`, which would silently drop this
   // cookie if it were set before that reassignment instead of after.
-  const isHome = request.nextUrl.pathname === "/";
+  // Count real page loads only. Link prefetches and client navigations to "/"
+  // (the header logo, RSC/_rsc requests) would otherwise add up to 3 per visit.
+  // Browsers label a real page load `Sec-Fetch-Dest: document`.
+  const fetchDest = request.headers.get("sec-fetch-dest");
+  const isPageLoad = fetchDest ? fetchDest === "document" : !request.headers.has("rsc") && !request.nextUrl.searchParams.has("_rsc");
+  const isHome = request.nextUrl.pathname === "/" && isPageLoad;
   const nextVisitCount = isHome ? Number(request.cookies.get("tg_visit_count")?.value ?? "0") + 1 : null;
   const applyVisitCookie = () => {
     if (nextVisitCount !== null) {

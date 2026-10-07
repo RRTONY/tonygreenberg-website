@@ -33,6 +33,7 @@ connected session sees them on its first call.
 ## Feature history, incidents and decisions
 
 - [project_mcp_server](project_mcp_server.md): the `/api/mcp` server (2026-09-29): how it works, env vars, connecting Claude, what was ported from ramprate-ui (Google Analytics, Search Console and Lighthouse tools added 2026-10-02), gotchas
+- [project_performance_lighthouse](project_performance_lighthouse.md): Lighthouse 90+ work (2026-10-08): measure on a Netlify draft not localhost, image loader straight to Sanity, lazy header panels, animation/backdrop-blur cost, never build twice at once
 - [project_next16_loading_404_bug](project_next16_loading_404_bug.md): root `loading.tsx` made every invalid dynamic URL return 200 (fixed 2026-09-29), plus the stale-server testing trap
 - [project_tonygreenberg_migration](project_tonygreenberg_migration.md): why Manus → Next.js/Sanity/Netlify, who signs off, which deploy is which
 - [project_production_restoration_branch](project_production_restoration_branch.md): the Manus branch audited 2026-09-29: what was carried over, what wasn't, and 8 owner decisions it surfaced
