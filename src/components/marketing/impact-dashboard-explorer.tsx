@@ -241,7 +241,9 @@ function PathwayMetrics({ token }: { token: TokenEcosystem }) {
 const TAB_NAMES = ["Overview", "Project Pathways", "Portfolio Model", "SoulScore", "Accountability Model", "iRR Framework"] as const;
 type TabName = (typeof TAB_NAMES)[number];
 
-export function ImpactDashboardExplorer() {
+// charityCount comes from the page (charity-data STATS), so the browser
+// doesn't load the whole charity list just for a number.
+export function ImpactDashboardExplorer({ charityCount }: { charityCount: number }) {
   const [activeTab, setActiveTab] = useState<TabName>("Overview");
   const [expandedToken, setExpandedToken] = useState<string | null>(null);
 
@@ -332,7 +334,7 @@ export function ImpactDashboardExplorer() {
               <GlassCard className="p-5" interactive>
                 <BarChart3 className="mb-2 size-6 text-brand-gold" />
                 <div className="mb-1 font-heading text-base font-bold text-foreground">Charity Scorecard</div>
-                <div className="text-sm text-muted-foreground">100 charities, 8 evaluators unified</div>
+                <div className="text-sm text-muted-foreground">{charityCount} charities, 8 evaluators unified</div>
               </GlassCard>
             </Link>
             <Link href="/intel">

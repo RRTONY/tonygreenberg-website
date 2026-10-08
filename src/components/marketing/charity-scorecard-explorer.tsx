@@ -15,7 +15,7 @@ import {
 import { GradeBadge, CloakBadge, ScoreBar, EvaluatorBadges } from "@/components/marketing/charity-badges";
 
 // Ported from legacy client/src/pages/CharityScorecard.tsx. Real content,
-// unchanged — 98 real named charities, 3 tabs (Rankings/Scorecard/
+// unchanged — 103 real named charities, 3 tabs (Rankings/Scorecard/
 // Evaluators), search/filter/sort/expand. No backend dependency at all in
 // the legacy source (fully client-side data), so this ports directly.
 

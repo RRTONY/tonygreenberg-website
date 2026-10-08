@@ -15,6 +15,12 @@ function dimsFromRef(ref: string): { width: number; height: number } {
 // Imported headings often open with a decorative glyph ("◆ What the Fine
 // Print Says", "✦ GemSpark of the Day"). Keep it visible, but hide it from
 // screen readers so the heading is announced (and outlined) by its words.
+// In-site addresses essays link to that have no page and never will. Their
+// links render as plain text (the words stay). /blog/the-case-file-dr-samuel-lee:
+// the case file linked four times from when-healing-becomes-extraction was never
+// published (404 on live too); owner said remove the link, 2026-10-09.
+const DEAD_INTERNAL_LINKS = new Set(["/blog/the-case-file-dr-samuel-lee"]);
+
 const HEADING_ORNAMENT = /^\s*([◆◇✦✧✴⟶→•★☆]+)\s*/;
 function hideHeadingOrnament(children: ReactNode) {
   const nodes = Array.isArray(children) ? children : [children];
@@ -190,6 +196,9 @@ export const portableTextComponents: PortableTextComponents = {
       // silently created a fake dead link; render the marked text plain
       // instead of pretending it points somewhere.
       if (!href) return <>{children}</>;
+      if (DEAD_INTERNAL_LINKS.has(href.replace(/^https?:\/\/(www\.)?tonygreenberg\.com/, "").replace(/\/$/, ""))) {
+        return <>{children}</>;
+      }
       // A few imported essays link to addresses that only redirect (old /assessments/<quiz>,
       // a post that moved to a full page); link to the final page and skip the hop.
       href = resolveInternalHref(href);

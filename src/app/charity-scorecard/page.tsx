@@ -12,7 +12,7 @@ import { CharityScorecardExplorer } from "@/components/marketing/charity-scoreca
 export const metadata: Metadata = {
   title: "The Grand Impact Accountability Index — Charity Scorecard",
   description:
-    "98 charities. Eight existing scorecards unified. Seven new dimensions measured. Where does your donation dollar actually go?",
+    `${STATS.totalCharities} charities. Eight existing scorecards unified. Seven new dimensions measured. Where does your donation dollar actually go?`,
   alternates: { canonical: "/charity-scorecard" },
 };
 
@@ -36,7 +36,7 @@ export default function CharityScorecardPage() {
             <br className="hidden md:block" /> Actually Go?
           </h1>
           <p className="mb-4 max-w-2xl text-lg leading-relaxed text-[#E8E4DC]/80 md:text-xl">
-            Ninety-eight charities. Eight existing scorecards unified. Seven new dimensions
+            {STATS.totalCharities} charities. Eight existing scorecards unified. Seven new dimensions
             measured. The first accountability framework that asks the question every donor
             deserves answered: <em className="text-brand-gold">what actually happened with my money?</em>
           </p>
