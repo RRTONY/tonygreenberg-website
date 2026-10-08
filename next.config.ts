@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 import { LEGACY_POST_REDIRECTS } from "./src/lib/content/legacy-post-redirects";
+import { SEARCH_CONSOLE_REDIRECTS } from "./src/lib/content/search-console-redirects";
 
 const nextConfig: NextConfig = {
   // The MCP server's check_code_quality tool (and the review's own lint of a
@@ -55,6 +56,8 @@ const nextConfig: NextConfig = {
         destination: `/blog/${slug}`,
         permanent: true,
       })),
+      // Old addresses Google still sends visitors to (see search-console-redirects.ts).
+      ...SEARCH_CONSOLE_REDIRECTS.map(([source, destination]) => ({ source, destination, permanent: true })),
       // Legacy registers "/find-my-tribe" as a second path to the same
       // Community component — same duplicate-route pattern as /blog above.
       { source: "/find-my-tribe", destination: "/community", permanent: true },

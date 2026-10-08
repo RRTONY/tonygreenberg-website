@@ -78,3 +78,9 @@ deferral/cancellation in `NEXTJS-MIGRATION-TODO.md` (19 × 404: admin pages, aut
 |---|---|---|
 | `/blog/the-tollbooth-and-the-alternative`, `/blog/what-quest-could-fix` | real posts | Not in Sanity yet; importing them is waiting on the owner. Heroes already in Sanity (see Phase 13) |
 | `/seven-doors`, `/projects`, `/impact`, `/heroes`, `/built-on-manus`, `/library`, `/health` | in live's sitemap, but render live's own "404" page | Nothing to port. Don't list them in our sitemap |
+
+**Checked 2026-10-09** against Search Console (every tonygreenberg.com address with impressions in
+the last 16 months, 429): 409 end on a working page, 3 go to other sites on purpose, 17 stay 404 on
+purpose (the live-only 404s above, `/shop`, `/fauxtony`, `/members`, `/terms`...). Redirects for
+the rest: `src/lib/content/search-console-redirects.ts`. Re-run with
+`scripts/check-search-console-urls.ts` at cutover.
