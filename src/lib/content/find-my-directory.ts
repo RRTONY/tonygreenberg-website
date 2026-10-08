@@ -41,7 +41,7 @@
 // already trusted throughout this migration, e.g. Find Your Partner/
 // Chemistry/Water/Mezcal/Tequila/Capital).
 import { DIRECTORY, type DirectorySection } from "@/lib/content/find-your-me";
-import { Bird, Brain, Car, ChartColumn, CircleDot, Coffee, Compass, CookingPot, Dna, Footprints, Handshake, Heart, Link, MessageCircle, Microscope, Moon, Rainbow, Salad, ScanFace, Shirt, Sparkles, Target, Triangle, Wine, type LucideIcon } from "lucide-react";
+import { Bird, Brain, Car, ChartColumn, CircleDot, Coffee, Compass, CookingPot, Dna, Footprints, Handshake, Heart, Link, MessageCircle, Moon, Rainbow, Salad, ScanFace, Shirt, Sparkles, Target, Triangle, Wine, type LucideIcon } from "lucide-react";
 
 function fromEcosystem(url: string) {
   for (const section of DIRECTORY as DirectorySection[]) {
@@ -62,7 +62,6 @@ export interface FindMyLink {
 
 export const FEATURED: FindMyLink[] = [
   { title: "Find My Me", tagline: "Clarity on identity & direction", href: "/find-your-me", icon: ScanFace, color: "#D4B96A", status: "live" },
-  { title: "Find My Love", tagline: "Relational alignment framework", href: "https://intimacyassess-tcir3hon.manus.space", icon: Heart, color: "#C97B7B", status: fromEcosystem("https://intimacyassess-tcir3hon.manus.space").status },
   { title: "Find My Car", tagline: "Decision tool for major purchases", href: "/find-your-ev", icon: Car, color: "#4682B4", status: "coming" },
 ];
 
@@ -78,7 +77,6 @@ export const CATEGORIES: FindMyCategory[] = [
     label: "Body & Health",
     items: [
       { title: "Find My Peptide", tagline: "7-axis clinical assessment · 16 archetypes", href: "/find-your-peptide", icon: Dna, color: "#2E8B57", status: fromEcosystem("/find-your-peptide").status },
-      { title: "Find My Stem Cells", tagline: "22-question clinic-risk assessment · pricing, red flags, and provider scoring", href: "https://findmystem-s3lknc4h.manus.space/", icon: Microscope, color: "#6B8F71", status: "live" },
       { title: "Find My Diet", tagline: "Food philosophy matching", href: "/find-your-diet", icon: Salad, color: "#7BC9A4", status: fromEcosystem("/find-your-diet").status },
       { title: "Find My Movement", tagline: "Exercise & fitness style", href: "/find-your-movement", icon: Footprints, color: "#4682B4", status: fromEcosystem("/find-your-movement").status },
       { title: "Find My Sleep", tagline: "Sleep optimization assessment", href: "/find-your-sleep", icon: Moon, color: "#6A5ACD", status: fromEcosystem("/find-your-sleep").status },

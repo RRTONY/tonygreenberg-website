@@ -21,6 +21,19 @@ function dimsFromRef(ref: string): { width: number; height: number } {
 // published (404 on live too); owner said remove the link, 2026-10-09.
 const DEAD_INTERNAL_LINKS = new Set(["/blog/the-case-file-dr-samuel-lee"]);
 
+// Essay links to *.manus.space (owner: no Manus links anywhere, 2026-10-09).
+// This site's old Manus address goes to the same path here; Clarisse's art
+// site moved to her own domain (same paths); any other Manus app has no
+// replacement, so its link renders as plain text (returns null).
+function rewriteManusHref(href: string): string | null | undefined {
+  const m = href.match(/^https?:\/\/([a-z0-9-]+)\.manus\.space(\/[^\s]*)?$/i);
+  if (!m) return undefined;
+  const path = m[2] && m[2] !== "/" ? m[2] : "/";
+  if (m[1] === "tonygreenberg") return path;
+  if (m[1] === "clarisseart") return `https://clarisseartist.com${path === "/" ? "/" : path}`;
+  return null;
+}
+
 const HEADING_ORNAMENT = /^\s*([◆◇✦✧✴⟶→•★☆]+)\s*/;
 function hideHeadingOrnament(children: ReactNode) {
   const nodes = Array.isArray(children) ? children : [children];
@@ -196,6 +209,9 @@ export const portableTextComponents: PortableTextComponents = {
       // silently created a fake dead link; render the marked text plain
       // instead of pretending it points somewhere.
       if (!href) return <>{children}</>;
+      const fromManus = rewriteManusHref(href);
+      if (fromManus === null) return <>{children}</>;
+      if (fromManus) href = fromManus;
       if (DEAD_INTERNAL_LINKS.has(href.replace(/^https?:\/\/(www\.)?tonygreenberg\.com/, "").replace(/\/$/, ""))) {
         return <>{children}</>;
       }

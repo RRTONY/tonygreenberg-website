@@ -197,13 +197,15 @@ export default function AboutPage() {
           Abelarde — artist, partner, constant source of inspiration for creativity and love for
           humankind. Her work is a permanent influence on everything here.
         </p>
+        {/* Her own site (owner gave the address, 2026-10-09); live still links an old
+            *.manus.space copy. */}
         <a
-          href="https://clarisseart-jyfqwtnv.manus.space/"
+          href="https://clarisseartist.com/"
           target="_blank"
           rel="noopener noreferrer"
           className="border-b border-brand-gold/30 text-brand-gold"
         >
-          clarisseart.manus.space
+          clarisseartist.com
         </a>
       </div>
 

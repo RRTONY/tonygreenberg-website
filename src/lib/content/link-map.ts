@@ -11,12 +11,9 @@
 // into a fresh 404, at a much larger scale than this migration's one
 // deliberate forward-reference exception (`/find-my`, already used
 // elsewhere in this app and tracked as a real upcoming page). Revisit
-// once each target page actually exists. Two `.manus.space` external
-// links (Clarisse Abelarde's and Aqueous's own portfolio sites, built on
-// Manus's page-builder product) were checked live (200 OK) and kept —
-// this migration's Zero-Manus-dependency rule is about this project's own
-// dead CDN/proxy paths, not about linking out to a third party's site
-// that happens to be hosted on a page-builder.
+// once each target page actually exists. No *.manus.space links (owner,
+// 2026-10-09): Clarisse Abelarde points at her own clarisseartist.com, and
+// Aqueous (a Manus-hosted app) is no longer linked.
 export const LINK_MAP: Record<string, string> = {
   "RampRate": "https://ramprate.com",
   "ImpactSoul": "https://impactsoul.is",
@@ -107,11 +104,11 @@ export const LINK_MAP: Record<string, string> = {
   "Tim Ferriss": "https://tim.blog",
   "Naval Ravikant": "https://nav.al",
   "Balaji Srinivasan": "https://balajis.com",
+  "Clarisse Abelarde": "https://clarisseartist.com/",
   "Vitalik Buterin": "https://vitalik.eth.limo",
   "Amanda Feilding": "https://www.beckleyfoundation.org",
   "Robin Carhart-Harris": "https://en.wikipedia.org/wiki/Robin_Carhart-Harris",
   "Matthew Johnson": "https://www.hopkinsmedicine.org/profiles/details/matthew-johnson",
-  "Clarisse Abelarde": "https://clarisseart-jyfqwtnv.manus.space/",
   "Bill Clinton": "https://en.wikipedia.org/wiki/Bill_Clinton",
   "Clinton Global Initiative": "https://www.clintonfoundation.org/programs/cgi",
   "Elon Musk": "https://en.wikipedia.org/wiki/Elon_Musk",
@@ -177,7 +174,6 @@ export const LINK_MAP: Record<string, string> = {
   "The Rolodex": "/clients",
   "Built by Tony G": "/recent-creations",
   "Enter The Gate": "/engage",
-  "Aqueous": "https://aqwaterqpr-wvzsc3ph.manus.space",
   "Ethereum": "https://ethereum.org",
   "Bitcoin": "https://bitcoin.org",
   "Kusaki": "https://www.kusakivegan.com",

@@ -22,7 +22,9 @@ type Project = {
   title: string;
   tagline: string;
   description: string;
-  url: string;
+  // No url: the project lived on a *.manus.space app that goes away with Manus
+  // (owner: drop every Manus link, 2026-10-09). The card stays, unlinked.
+  url?: string;
   category: string;
   accent: string;
   icon: LucideIcon;
@@ -51,7 +53,6 @@ const PROJECTS: Project[] = [
     title: "The Gem Spark",
     tagline: "When serendipity meets synchronicity.",
     description: "A long-form narrative essay exploring the intersection of chance encounters and meaningful coincidence. The kind of piece that makes you reconsider every accident in your life.",
-    url: "https://serensynch-2agjfwhe.manus.space",
     category: "Narrative Essay",
     accent: "#AC5F05",
     icon: BookOpen,
@@ -83,7 +84,6 @@ const PROJECTS: Project[] = [
     title: "SoulSmoke",
     tagline: "The Alchemy of Agave.",
     description: "A deep dive into mezcal — not the drink, the culture. From the jimador's machete to the copper still, from the terroir of Oaxaca to the ritual of the copita.",
-    url: "https://mezcalagave-ahru9fq8.manus.space",
     category: "Agave Education",
     accent: "#92400E",
     icon: Wine,
@@ -92,7 +92,6 @@ const PROJECTS: Project[] = [
     title: "LiquidSun",
     tagline: "Tequila, illuminated.",
     description: "A visual guide to tequila that treats the spirit with the reverence it deserves. From highland agave fields to the barrel. Not a buying guide. A love letter.",
-    url: "https://tequilaazul-fxqrr3js.manus.space",
     category: "Tequila Guide",
     accent: "#B45309",
     icon: Wine,
@@ -101,7 +100,6 @@ const PROJECTS: Project[] = [
     title: "Aqueous",
     tagline: "Know what flows through your life.",
     description: "The world's first personalized water rating. The AWI scores every bottled water on Quality, Purity, and Resonance — weighted to your priorities. Tap water lookup, Wall of Shame, and a filter guide that actually helps.",
-    url: "https://aqwaterqpr-wvzsc3ph.manus.space",
     category: "Water Intelligence",
     accent: "#0369A1",
     icon: Droplets,
@@ -110,7 +108,6 @@ const PROJECTS: Project[] = [
     title: "Regenerative Protocol",
     tagline: "The body knows how to heal. You just forgot.",
     description: "A restricted-access portal for regenerative health protocols — biohacking meets ancient wisdom. Serious science behind a password.",
-    url: "https://regenhealth-4nns6jnd.manus.space",
     category: "Regenerative Health",
     accent: "#047857",
     icon: Heart,
@@ -119,7 +116,6 @@ const PROJECTS: Project[] = [
     title: "Vancefolio",
     tagline: "Family office intelligence, enforced.",
     description: "A password-protected portfolio enforcement dashboard built for a family office. Tiered access controls, session management, and confidential analytics.",
-    url: "https://portfoliofamilyoffice.manus.space",
     category: "Family Office / DD",
     accent: "#7C3AED",
     icon: Briefcase,
@@ -128,7 +124,6 @@ const PROJECTS: Project[] = [
     title: "Intimacy Intelligence (UIIA)",
     tagline: "The science of sacred partnership.",
     description: "A 15-question assessment mapping your intimacy intelligence across five dimensions — presence, vulnerability, attunement, repair, and sacred play. Built from the research behind Love as Dharma.",
-    url: "https://intimacyassess-tcir3hon.manus.space",
     category: "Relationship Assessment",
     accent: "#C04860",
     icon: Heart,
@@ -179,15 +174,8 @@ export default function RecentCreationsPage() {
         <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-2">
           {PROJECTS.map((project) => {
             const Icon = project.icon;
-            const isExternal = project.url.startsWith("http");
-            const linkProps = isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {};
-            return (
-              <Link
-                key={project.title}
-                href={project.url}
-                {...linkProps}
-                className="group block overflow-hidden rounded-lg border border-border bg-card transition-shadow hover:shadow-lg"
-              >
+            const body = (
+              <>
                 <div
                   className="flex items-center justify-between border-b border-border p-4"
                   style={{ background: `linear-gradient(135deg, ${project.accent}14 0%, transparent 100%)` }}
@@ -206,11 +194,13 @@ export default function RecentCreationsPage() {
                       {project.category}
                     </span>
                   </div>
+                  {project.url && (
                   <ArrowUpRight
                     size={16}
                     className="opacity-30 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:opacity-100"
                     style={{ color: project.accent }}
                   />
+                  )}
                 </div>
                 <div className="p-6">
                   <h3 className="mb-1.5 font-heading text-xl font-bold text-foreground">
@@ -220,13 +210,30 @@ export default function RecentCreationsPage() {
                     {project.tagline}
                   </p>
                   <p className="text-sm text-muted-foreground">{project.description}</p>
-                  <div
-                    className="mt-4 flex items-center gap-1.5 font-mono text-xs tracking-wide opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                    style={{ color: project.accent }}
-                  >
-                    VISIT SITE <ArrowUpRight size={12} />
-                  </div>
+                  {project.url && (
+                    <div
+                      className="mt-4 flex items-center gap-1.5 font-mono text-xs tracking-wide opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                      style={{ color: project.accent }}
+                    >
+                      VISIT SITE <ArrowUpRight size={12} />
+                    </div>
+                  )}
                 </div>
+              </>
+            );
+            const cardClass = "group block overflow-hidden rounded-lg border border-border bg-card transition-shadow hover:shadow-lg";
+            if (!project.url) {
+              return (
+                <div key={project.title} className="overflow-hidden rounded-lg border border-border bg-card">
+                  {body}
+                </div>
+              );
+            }
+            const isExternal = project.url.startsWith("http");
+            const linkProps = isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {};
+            return (
+              <Link key={project.title} href={project.url} {...linkProps} className={cardClass}>
+                {body}
               </Link>
             );
           })}
