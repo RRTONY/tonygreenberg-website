@@ -49,7 +49,7 @@ export default function AboutPage() {
             <p className="mb-4 font-mono text-xs tracking-[0.25em] text-brand-gold-light uppercase">
               The Story
             </p>
-            <h1 className="mb-5 font-heading text-4xl leading-tight font-normal text-white sm:text-5xl">
+            <h1 className="mb-5 font-heading text-[clamp(2rem,4.5vw,3.2rem)]/[1.15] font-normal text-white">
               The broken things
               <br />
               <em className="text-brand-gold-light not-italic">taught me everything.</em>

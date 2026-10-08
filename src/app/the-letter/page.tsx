@@ -239,7 +239,7 @@ export default async function TheLetterPage() {
           <p className="mb-3 font-mono text-xs tracking-[0.15em] text-brand-gold-light uppercase">
             A Living Document · Updated Continuously
           </p>
-          <h1 className="mb-2 font-heading text-4xl leading-tight text-white sm:text-6xl">
+          <h1 className="mb-2 font-heading text-[clamp(2.4rem,5.5vw,4.2rem)]/[1.08] text-white">
             I expose broken systems.
             <br />
             <span className="text-brand-gold-light">Then I build what comes next.</span>

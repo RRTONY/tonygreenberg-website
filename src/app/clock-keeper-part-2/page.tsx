@@ -38,7 +38,7 @@ export default async function ClockKeeperPartTwoPage() {
         />
         <div className="relative max-w-170">
           <p className="mb-6 font-mono text-[0.75rem] tracking-[0.25em] text-brand-gold-light uppercase">The Clock Keeper Chronicles</p>
-          <h1 className="mb-6 font-heading text-[clamp(2.5rem,6vw,4.25rem)]/[1.1] font-bold text-[#F5F0E6]">
+          <h1 className="mb-6 font-heading text-[clamp(2.2rem,5.5vw,4rem)]/[1.15] font-bold text-[#F5F0E6]">
             Part II: <em className="text-brand-gold-light">The Offering</em>
           </h1>
           <p className="mx-auto mb-10 max-w-140 text-lg/[1.9] text-[#F5F0E6]/70">
