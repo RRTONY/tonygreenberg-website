@@ -114,8 +114,10 @@ incidents: [`docs/ai/`](docs/ai/README.md).
 18. **Arrows and symbols in buttons and links are icons, not text characters.** Use lucide-react
     (`<ArrowRight aria-hidden="true" className="size-3.5" />`, `ArrowLeft`, `ChevronRight`...) inside
     an `inline-flex items-center gap-1.5` element, never a typed `→`, `←`, `⟶` or `»` in new UI.
-    The owner asked for this (2026-10-06). Arrows inside Tony's copy (essay text, data strings) are
-    content: leave them unless asked.
+    The owner asked for this (2026-10-06), and on 2026-10-09 said yes to switching the existing
+    button/link arrows too (done). Arrows inside Tony's copy (essay text, data strings, process
+    flows like "A → B") are content: leave them unless asked. Size the icon to the text with
+    `size-[1em]` when one pattern has to fit many label sizes.
     **Same for emoji:** no emoji as UI icons (option buttons, cards, badges, labels, nav). Use a
     lucide-react icon (`aria-hidden="true"` when text sits next to it), and store the icon
     component in data files (`icon: Coffee`, typed `LucideIcon`), not an emoji string.

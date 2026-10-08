@@ -3,7 +3,7 @@
 import { useCallback, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { AlertTriangle, Brain, CheckCircle2, ChevronLeft, ChevronRight, DollarSign, GripVertical, Heart, Leaf, MapPin, Shield, Star, Users } from "lucide-react";
+import { AlertTriangle, Brain, CheckCircle2, ChevronLeft, ChevronRight, DollarSign, GripVertical, Heart, Leaf, MapPin, Shield, Star, Users, ArrowRight } from "lucide-react";
 import {
   type CompassAnswers,
   type DimensionKey,
@@ -510,7 +510,10 @@ export function IbogaCompassAssessment() {
           </div>
 
           <Button type="submit" disabled={!gateName.trim() || !gateEmail.trim() || !gateSituation.trim() || !gateConsent} className="w-full bg-brand-gold py-4 text-base font-semibold text-white hover:bg-brand-gold/90">
-            Show My Matches →
+            <span className="inline-flex items-center gap-1.5">
+              Show My Matches
+              <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+            </span>
           </Button>
 
           <p className="text-center text-xs leading-relaxed text-muted-foreground">
@@ -795,7 +798,10 @@ function FacilityCard({ result, rank }: { result: FacilityResult; rank: number }
 
         <div className="mt-4 border-t border-border pt-4">
           <a href={facility.website} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-brand-gold hover:underline">
-            Visit {facility.shortName} →
+            <span className="inline-flex items-center gap-1.5">
+              Visit {facility.shortName}
+              <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+            </span>
           </a>
         </div>
       </div>

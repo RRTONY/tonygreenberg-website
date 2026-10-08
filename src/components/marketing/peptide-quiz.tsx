@@ -3,23 +3,7 @@
 import { useCallback, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  FlaskConical,
-  Flag,
-  Building2,
-  Scale,
-  Shield,
-  Trophy,
-  BarChart3,
-  BookOpen,
-  AlertTriangle,
-  Siren,
-  Check,
-  X,
-  Download,
-  Dna,
-  type LucideIcon,
-} from "lucide-react";
+import { FlaskConical, Flag, Building2, Scale, Shield, Trophy, BarChart3, BookOpen, AlertTriangle, Siren, Check, X, Download, Dna, type LucideIcon, ArrowRight } from "lucide-react";
 
 const HERO_IMAGE =
   "https://cdn.sanity.io/images/a3q1cyqs/production/3dd72753a22143cd9f344ad47be4a30f209b1c44-1200x509.webp";
@@ -410,7 +394,10 @@ export function PeptideQuiz() {
               onClick={() => setPhase("quiz")}
               className="rounded-sm bg-brand-gold px-10 py-3.5 font-mono text-sm font-bold tracking-wide text-white uppercase"
             >
-              Begin the Quiz →
+              <span className="inline-flex items-center gap-1.5">
+                Begin the Quiz
+                <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+              </span>
             </button>
           </div>
 
@@ -419,7 +406,10 @@ export function PeptideQuiz() {
             questions are based on publicly available FDA communications, peer-reviewed
             literature, and established medical standards. Protected under Fair Comment doctrine.{" "}
             <Link href="/peptide-matrix" className="text-brand-gold underline underline-offset-2">
-              View our methodology →
+              <span className="inline-flex items-center gap-1.5">
+                View our methodology
+                <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+              </span>
             </Link>
           </p>
         </div>
@@ -520,7 +510,10 @@ export function PeptideQuiz() {
                 onClick={handleNext}
                 className="rounded-sm bg-brand-gold px-8 py-3 font-mono text-sm font-bold tracking-wide text-white uppercase"
               >
-                {currentQ < QUESTIONS.length - 1 ? "Next Question →" : "See My Results →"}
+                <span className="inline-flex items-center gap-1.5">
+                  {currentQ < QUESTIONS.length - 1 ? "Next Question" : "See My Results"}
+                  <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+                </span>
               </button>
               <p className="mt-3 font-mono text-xs text-muted-foreground">
                 +{q.choices[selectedChoice ?? 0]?.points ?? 0} / 4 points ({DIMENSIONS[q.dimension].label})

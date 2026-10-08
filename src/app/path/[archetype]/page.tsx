@@ -8,6 +8,7 @@ import { urlFor } from "@/lib/sanity/image";
 import { ARCHETYPES, AUTHORITY_ITEMS, type ArchetypeKey } from "@/lib/content/archetypes";
 import { PathSubscribeForm } from "@/components/marketing/path-subscribe-form";
 import { postHref } from "@/lib/content/post-redirects";
+import { ArrowRight } from "lucide-react";
 
 // Ported from legacy client/src/pages/PathPage.tsx — a per-archetype
 // landing page reached after `/assessment`'s Builder/Crusader/Investor
@@ -140,7 +141,10 @@ export default async function PathPage({ params }: PageProps<"/path/[archetype]"
           href="/assessment"
           className="inline-block rounded-md bg-brand-gold px-8 py-3.5 font-mono text-xs tracking-[0.15em] text-white uppercase"
         >
-          Take the Assessment →
+          <span className="inline-flex items-center gap-1.5">
+            Take the Assessment
+            <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+          </span>
         </Link>
       </div>
 
@@ -155,7 +159,10 @@ export default async function PathPage({ params }: PageProps<"/path/[archetype]"
           rel="noopener noreferrer"
           className="font-mono text-xs tracking-wide text-brand-gold"
         >
-          Explore ImpactSoul →
+          <span className="inline-flex items-center gap-1.5">
+            Explore ImpactSoul
+            <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+          </span>
         </a>
       </div>
     </div>

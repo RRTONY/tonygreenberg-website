@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { PartnerQuotes } from "@/components/marketing/partner-quotes";
+import { ArrowRight } from "lucide-react";
 
 // Ported from legacy client/src/pages/About.tsx ("The Story"). Real content
 // kept as-is. Reuses the Tony headshot and homepage hero image already
@@ -176,7 +177,10 @@ export default function AboutPage() {
             href="/blog/energy-is-money-money-is-memory"
             className="inline-block border-b border-brand-gold-light/50 font-mono text-xs tracking-wide text-brand-gold-light uppercase"
           >
-            Read the field note →
+            <span className="inline-flex items-center gap-1.5">
+              Read the field note
+              <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+            </span>
           </Link>
         </div>
       </div>
@@ -255,7 +259,10 @@ export default function AboutPage() {
 
       <div className="border-t border-border py-6 text-center">
         <Link href="/" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
-          Back to the Essays →
+          <span className="inline-flex items-center gap-1.5">
+            Back to the Essays
+            <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+          </span>
         </Link>
       </div>
     </div>

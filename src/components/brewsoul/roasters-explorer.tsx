@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { ProducerEntry } from "@/lib/intelligence-engine/types";
+import { ArrowRight } from "lucide-react";
 
 const GRADE_TAG_CLASS: Record<string, string> = {
   A: "bg-[#C5A23C]/10 text-[#836311]",
@@ -66,7 +67,10 @@ export function RoastersExplorer({ roasters }: { roasters: ProducerEntry[] }) {
             </div>
             {r.url && (
               <a href={r.url} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block font-mono text-[0.68rem] text-[#836311]">
-                Visit →
+                <span className="inline-flex items-center gap-1.5">
+                  Visit
+                  <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+                </span>
               </a>
             )}
           </div>

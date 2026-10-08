@@ -1,18 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import {
-  ArrowUpRight,
-  Globe,
-  Zap,
-  BookOpen,
-  Shield,
-  Wine,
-  Droplets,
-  Heart,
-  Briefcase,
-  Gamepad2,
-  type LucideIcon,
-} from "lucide-react";
+import { ArrowUpRight, Globe, Zap, BookOpen, Shield, Wine, Droplets, Heart, Briefcase, Gamepad2, type LucideIcon, ArrowLeft } from "lucide-react";
 
 // Ported from legacy client/src/pages/Portfolio.tsx ("Built by Tony G").
 // Real content kept as-is. Per-card accent colors are genuinely dynamic
@@ -153,7 +141,10 @@ export default function RecentCreationsPage() {
       <div className="border-b border-border bg-muted/30 px-8 pt-12 pb-8">
         <div className="mx-auto max-w-4xl">
           <Link href="/the-letter" className="inline-flex items-center font-mono text-xs tracking-wide text-brand-gold uppercase min-h-11 md:min-h-6">
-            ← Back to The Broadsheet
+            <span className="inline-flex items-center gap-1.5">
+              <ArrowLeft aria-hidden="true" className="size-[1em] shrink-0" />
+              Back to The Broadsheet
+            </span>
           </Link>
           <h1 className="mt-6 mb-4 font-heading text-4xl font-bold text-foreground sm:text-5xl">
             Built by Tony G

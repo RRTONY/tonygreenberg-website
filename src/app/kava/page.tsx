@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Globe, AlertTriangle, FlaskConical, ClipboardCheck, Palmtree, ShieldQuestion, Coffee, ShoppingBag, GraduationCap } from "lucide-react";
+import { Globe, AlertTriangle, FlaskConical, ClipboardCheck, Palmtree, ShieldQuestion, Coffee, ShoppingBag, GraduationCap, ArrowRight } from "lucide-react";
 import { KavaHero, KavaSection, KavaSectionTitle, KavaCard, KavaDivider, KavaDisclaimer } from "@/components/kava/kava-ui";
 
 // Ported from legacy client/src/pages/kava/KavaHome.tsx — real 9 module
@@ -89,9 +89,9 @@ export default function KavaHomePage() {
         </div>
         <div className="mt-4 hidden items-center justify-center gap-2 md:flex">
           <span className="text-2xl text-kava-terracotta">Mezcal</span>
-          <span className="text-xl text-kava-sand-muted">→</span>
+          <ArrowRight aria-hidden="true" className="size-5 shrink-0 text-kava-sand-muted" />
           <span className="text-2xl font-bold text-kava-saffron">Kava</span>
-          <span className="text-xl text-kava-sand-muted">→</span>
+          <ArrowRight aria-hidden="true" className="size-5 shrink-0 text-kava-sand-muted" />
           <span className="text-2xl text-kava-cobalt">Peyote</span>
         </div>
       </KavaSection>

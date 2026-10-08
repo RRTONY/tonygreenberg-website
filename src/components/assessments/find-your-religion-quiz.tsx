@@ -9,6 +9,7 @@ import { WhatsNext } from "@/components/assessments/whats-next";
 import { AssessmentRadarChart } from "@/components/assessments/radar-chart";
 import { AssessmentResultActions } from "@/components/assessments/result-actions";
 import { JourneyTracker, useJourneyProgress } from "@/components/assessments/journey-tracker";
+import { ArrowLeft } from "lucide-react";
 
 // Ported from legacy client/src/pages/FindYourReligion.tsx — a real
 // 20-question assessment across 8 dimensions (transcendence/structure/
@@ -338,7 +339,10 @@ export function FindYourReligionQuiz() {
             />
           </div>
           <div className="flex justify-between px-6 py-3 font-mono text-[0.65rem] tracking-[0.1em] text-[#4A3A2A]">
-            <button onClick={() => setPhase("landing")}>← EXIT</button>
+            <button onClick={() => setPhase("landing")} className="inline-flex items-center gap-1.5">
+              <ArrowLeft aria-hidden="true" className="size-[1em] shrink-0" />
+              EXIT
+            </button>
             <span>
               {currentQ + 1} / {QUESTIONS.length}
             </span>
@@ -366,7 +370,10 @@ export function FindYourReligionQuiz() {
 
           {currentQ > 0 && (
             <button onClick={() => setCurrentQ(currentQ - 1)} className="mt-6 font-mono text-[0.65rem] tracking-[0.1em] text-[#4A3A2A]">
-              ← PREVIOUS
+              <span className="inline-flex items-center gap-1.5">
+                <ArrowLeft aria-hidden="true" className="size-[1em] shrink-0" />
+                PREVIOUS
+              </span>
             </button>
           )}
         </div>
@@ -393,7 +400,10 @@ export function FindYourReligionQuiz() {
 
       <div className="border-b border-brand-gold/10 p-6 text-center">
         <Link href="/find-my" className="font-mono text-[0.65rem] tracking-[0.1em] text-[#4A3A2A]">
-          ← Back to Find My
+          <span className="inline-flex items-center gap-1.5">
+            <ArrowLeft aria-hidden="true" className="size-[1em] shrink-0" />
+            Back to Find My
+          </span>
         </Link>
       </div>
 

@@ -2,35 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import {
-  Waves,
-  Bone,
-  Satellite,
-  Brain,
-  Zap,
-  Target,
-  FlaskConical,
-  Gem,
-  Link2,
-  Building2,
-  Lock,
-  Heart,
-  HandHeart,
-  CircleDot,
-  Globe,
-  Scale,
-  Landmark,
-  Users,
-  Recycle,
-  ShieldCheck,
-  Dna,
-  Eye,
-  ChevronDown,
-  BarChart3,
-  TrendingUp,
-  Microscope,
-  type LucideIcon,
-} from "lucide-react";
+import { Waves, Bone, Satellite, Brain, Zap, Target, FlaskConical, Gem, Link2, Building2, Lock, Heart, HandHeart, CircleDot, Globe, Scale, Landmark, Users, Recycle, ShieldCheck, Dna, Eye, ChevronDown, BarChart3, TrendingUp, Microscope, type LucideIcon, ArrowRight } from "lucide-react";
 import {
   TOKEN_ECOSYSTEMS,
   AGGREGATE,
@@ -131,7 +103,10 @@ function SoulScoreLink({ label }: { label: string }) {
       href="/soulscore"
       className="inline-flex items-center gap-1.5 font-mono text-xs tracking-wide text-brand-gold uppercase transition-colors hover:text-brand-gold-light"
     >
-      {label} →
+      <span className="inline-flex items-center gap-1.5">
+        {label}
+        <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+      </span>
     </Link>
   );
 }
@@ -499,7 +474,10 @@ export function ImpactDashboardExplorer() {
               research surface and should not be read as proof of current ImpactSoul performance.
             </p>
             <Link href="/intel" className="border-b border-brand-gold/30 font-mono text-xs tracking-wide text-brand-gold uppercase">
-              View Portfolio Research →
+              <span className="inline-flex items-center gap-1.5">
+                View Portfolio Research
+                <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+              </span>
             </Link>
           </GlassCard>
         </div>
@@ -646,7 +624,10 @@ export function ImpactDashboardExplorer() {
               score is published as a decision-useful finding.
             </p>
             <Link href="/charity-scorecard" className="border-b border-brand-gold/30 font-mono text-xs tracking-wide text-brand-gold uppercase">
-              View Research Prototype →
+              <span className="inline-flex items-center gap-1.5">
+                View Research Prototype
+                <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+              </span>
             </Link>
           </GlassCard>
         </div>

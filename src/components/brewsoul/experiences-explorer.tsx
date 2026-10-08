@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { ExperienceEntry } from "@/lib/intelligence-engine/types";
+import { ArrowRight } from "lucide-react";
 
 // Ported from legacy client/src/pages/brewsoul/BrewSoulContent.tsx's
 // `BrewSoulExperiences` — real country filter buttons, extracted into a
@@ -40,7 +41,10 @@ export function ExperiencesExplorer({ experiences }: { experiences: ExperienceEn
               {exp.price && <span className="font-mono text-[0.72rem] text-[#3B6548]">{exp.price}</span>}
               {exp.url && (
                 <a href={exp.url} target="_blank" rel="noopener noreferrer" className="font-mono text-[0.68rem] text-[#6F4E37]">
-                  Visit →
+                  <span className="inline-flex items-center gap-1.5">
+                    Visit
+                    <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+                  </span>
                 </a>
               )}
             </div>

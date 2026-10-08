@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 // Ported from legacy client/src/pages/WalkThrough.tsx ("The Folio"). Real
 // content kept as-is. Not reproduced: AutoLinkedText's automatic entity
@@ -38,7 +39,7 @@ const DOORS: Door[] = [
     entities: [{ name: "RampRate", role: "Founder & CEO, 25 years", url: "https://ramprate.com" }],
     ask: "Strategic sourcing, vendor negotiation, data center infrastructure, AI compute procurement",
     deeperLink: "/engine-room",
-    deeperLabel: "See the full operation →",
+    deeperLabel: "See the full operation",
   },
   {
     num: "02",
@@ -56,7 +57,7 @@ const DOORS: Door[] = [
     ],
     ask: "Asset-backed impact tokens, community-driven philanthropy, B Corp certification, impact venture",
     deeperLink: "/invest",
-    deeperLabel: "See the full portfolio →",
+    deeperLabel: "See the full portfolio",
   },
   {
     num: "03",
@@ -71,7 +72,7 @@ const DOORS: Door[] = [
     ],
     ask: "Psychedelic therapeutics, FDA pathways, consciousness research, investment opportunities",
     deeperLink: "/the-body",
-    deeperLabel: "See the health protocols →",
+    deeperLabel: "See the health protocols",
   },
   {
     num: "04",
@@ -80,7 +81,7 @@ const DOORS: Door[] = [
     entities: [{ name: "The Corridor", role: "Investor & Operator", note: "Four companies — details under NDA" }],
     ask: "Payment processing, stablecoin settlement, cross-border remittance, gaming payments",
     deeperLink: "/engine-room",
-    deeperLabel: "See the engine room →",
+    deeperLabel: "See the engine room",
   },
   {
     num: "05",
@@ -93,7 +94,7 @@ const DOORS: Door[] = [
     ],
     ask: "Peptides, regenerative medicine, biometric-driven wellness, alt therapy protocols",
     deeperLink: "/the-body",
-    deeperLabel: "See the full health deep-dive →",
+    deeperLabel: "See the full health deep-dive",
   },
   {
     num: "06",
@@ -102,7 +103,7 @@ const DOORS: Door[] = [
     entities: [{ name: "Homeaglow Exposed", role: "Investigator & Publisher", url: "https://homeaglowexposed.com", note: "Filed with CA AG and FTC" }],
     ask: "Consumer protection, dark pattern investigations, regulatory filings",
     deeperLink: "/engine-room",
-    deeperLabel: "See the full operation →",
+    deeperLabel: "See the full operation",
   },
   {
     num: "07",
@@ -124,7 +125,7 @@ const DOORS: Door[] = [
     ],
     ask: "Self-sovereign identity, decentralized governance, healthcare data ownership, Web3 infrastructure, blockchain investments",
     deeperLink: "/invest",
-    deeperLabel: "See the full portfolio →",
+    deeperLabel: "See the full portfolio",
   },
 ];
 
@@ -186,9 +187,10 @@ export default function WalkThroughPage() {
               </p>
               <Link
                 href={door.deeperLink}
-                className="inline-flex items-center border-b border-brand-gold/30 font-mono text-xs tracking-wide text-brand-gold min-h-11 md:min-h-6"
+                className="inline-flex min-h-11 items-center gap-1.5 border-b border-brand-gold/30 font-mono text-xs tracking-wide text-brand-gold md:min-h-6"
               >
                 {door.deeperLabel}
+                <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
               </Link>
             </div>
           </div>
@@ -229,7 +231,10 @@ export default function WalkThroughPage() {
 
       <div className="border-t border-border py-8 text-center">
         <Link href="/the-territory" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
-          Continue to The Territory →
+          <span className="inline-flex items-center gap-1.5">
+            Continue to The Territory
+            <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+          </span>
         </Link>
       </div>
     </div>

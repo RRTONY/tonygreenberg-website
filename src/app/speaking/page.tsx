@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 // Ported from legacy client/src/pages/Speaking.tsx. Real content kept as-is.
@@ -130,7 +130,10 @@ export default function SpeakingPage() {
           href="mailto:tony@tonygreenberg.com?subject=Speaking%20Invitation"
           className="inline-flex min-h-11 items-center justify-center rounded-sm bg-brand-gold-light px-5 font-mono text-xs tracking-wide text-[#0A0A10] uppercase"
         >
-          Start a conversation →
+          <span className="inline-flex items-center gap-1.5">
+            Start a conversation
+            <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+          </span>
         </a>
       </div>
     </div>

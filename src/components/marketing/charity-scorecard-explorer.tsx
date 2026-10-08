@@ -2,25 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import {
-  Search,
-  Filter,
-  ArrowUpDown,
-  ChevronDown,
-  ChevronUp,
-  ExternalLink,
-  Shield,
-  Eye,
-  Award,
-  Star,
-  TrendingUp,
-  BarChart3,
-  Users,
-  Lightbulb,
-  Scale,
-  Info,
-  type LucideIcon,
-} from "lucide-react";
+import { Search, Filter, ArrowUpDown, ChevronDown, ChevronUp, ExternalLink, Shield, Eye, Award, Star, TrendingUp, BarChart3, Users, Lightbulb, Scale, Info, type LucideIcon, ArrowRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -288,7 +270,10 @@ function RankingsTab() {
                       <div className="flex gap-2 pt-2">
                         <Link href={`/charity-scorecard/${c.slug}`}>
                           <Button variant="outline" size="sm" className="text-xs">
-                            Full Profile →
+                            <span className="inline-flex items-center gap-1.5">
+                              Full Profile
+                              <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+                            </span>
                           </Button>
                         </Link>
                         <a href={c.website} target="_blank" rel="noopener noreferrer">

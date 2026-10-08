@@ -20,7 +20,7 @@ export function NewsletterSignupForm({
   className = "mx-auto flex max-w-md flex-col gap-3 sm:flex-row",
 }: {
   source?: string;
-  buttonLabel?: string;
+  buttonLabel?: React.ReactNode;
   placeholder?: string;
   className?: string;
 }) {

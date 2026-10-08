@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 // Ported from legacy client/src/components/WhatsNext.tsx — the "what's
 // next" CTA block at the bottom of every assessment page, so no
@@ -21,9 +22,10 @@ export function WhatsNext() {
           <Link
             key={l.href}
             href={l.href}
-            className="w-75 max-w-full rounded-none border border-brand-gold/25 bg-brand-gold/6 px-8 py-3 text-center font-mono text-[0.82rem] tracking-[0.1em] text-[#5A4510] uppercase transition-colors hover:bg-brand-gold/12"
+            className="inline-flex w-75 max-w-full items-center justify-center gap-1.5 rounded-none border border-brand-gold/25 bg-brand-gold/6 px-8 py-3 text-center font-mono text-[0.82rem] tracking-[0.1em] text-[#5A4510] uppercase transition-colors hover:bg-brand-gold/12"
           >
-            → {l.label}
+            <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+            {l.label}
           </Link>
         ))}
       </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { ChevronDown, Flag } from "lucide-react";
+import { ChevronDown, Flag, ArrowRight } from "lucide-react";
 import type { CostBreakdown, Provider } from "@/lib/content/supply-chain-providers";
 import { COST_CATEGORIES } from "@/lib/content/supply-chain-providers";
 
@@ -206,7 +206,10 @@ export function SupplyChainRankings({ providers }: { providers: Provider[] }) {
                     rel="noopener noreferrer"
                     className="font-mono text-xs text-brand-gold underline"
                   >
-                    Visit {provider.name} →
+                    <span className="inline-flex items-center gap-1.5">
+                      Visit {provider.name}
+                      <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+                    </span>
                   </a>
                 </div>
               )}
