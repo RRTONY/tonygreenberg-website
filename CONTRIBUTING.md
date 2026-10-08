@@ -452,4 +452,7 @@ Plain words. Leave out a line only if it truly doesn't apply.
 **Needs you:** decisions or approvals, or "Nothing"
 
 **Still pending:** unfinished items, or "Nothing"
+
+**Other pending changes:** (MCP sessions only) every website change still waiting to be published
+or discarded, one line each: what it is, when it was asked, status. Or "No other pending changes."
 ```

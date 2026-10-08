@@ -33,12 +33,15 @@ export const ACCESS_TOKEN_TTL_S = 60 * 60;
 export const REFRESH_TOKEN_TTL_S = 30 * 24 * 60 * 60;
 export const AUTH_CODE_TTL_S = 5 * 60;
 
-type Kind = "client" | "code" | "at" | "rt";
+// "upload": a short-lived link to drop one file into one change
+// (binary-upload.ts).
+type Kind = "client" | "code" | "at" | "rt" | "upload";
 const PREFIX: Record<Kind, string> = {
   client: "tgmcp_client",
   code: "tgmcp_code",
   at: "tgmcp_at",
   rt: "tgmcp_rt",
+  upload: "tgmcp_up",
 };
 
 function b64url(buf: Buffer | string): string {

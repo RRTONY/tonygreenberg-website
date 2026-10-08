@@ -73,15 +73,28 @@ Tailwind v4 + shadcn/ui, Sanity for editorial content, deployed on Netlify from 
 
 - Call `get_project_rules` first. Every write tool needs its `rulesVersion` as `rules_version`; it
   changes whenever this file or `CONTRIBUTING.md` changes, so re-read when told the rules changed.
-- **One request = one change.** `start_change` first, pass its `change_id` on every edit, then
-  `submit_for_review` with a plain summary and `list_pending_changes` with that `change_id` to show
-  the review (what goes live, before/after, site check). Code lands on that change's own
-  `admin/mcp-*` branch and pull request, never straight to `main`; Sanity edits are drafts.
-- Nothing goes live except `publish_changes` for that one change, with its `reviewToken`, and only
+- This server only ever edits **tonygreenberg.com** (`RRTONY/tonygreenberg-website`, previews on
+  `deploy-preview-N--tonygreenberg-website.netlify.app`).
+- **One request = one change.** `start_change` first (with `understood_as`: what you will change,
+  in plain words; `needs_confirmation: true` whenever the request could mean more than one thing),
+  pass its `change_id` on every edit, then `submit_for_review` with a plain summary and
+  `list_pending_changes` with that `change_id` to show the review card (one status and next step,
+  Build / Type check / Lint / Phone and laptop checks, what goes live and what doesn't,
+  before/after, Preview | Discard | Publish). Code lands on that change's own `admin/mcp-*` branch
+  and pull request, never straight to `main`; Sanity edits are drafts.
+- **Unclear request:** the change waits as "Waiting for your OK" and every edit is refused until
+  the person says yes (`confirm_change`). Ask them "I understand your request as: ... Is that right?"
+- Nothing goes live except `publish_changes` for that one change, with its `review_token`, and only
   after you show what goes live and the person says yes. `discard_change` rejects a change;
   `list_change_history` and `undo_change` restore an earlier version.
+- **Files the person attaches:** you only see a picture, you can't turn it into base64. In ChatGPT
+  pass it as `file` to `github_write_binary_file`; anywhere else call `request_upload_link` and give
+  the person the private link (30 minutes, one change, one path). Content images still belong in
+  Sanity (Studio), not the repo.
+- **End every MCP reply with "Other pending changes"**: the `otherPending` list every change result
+  carries (one line each: what, when, status), or "No other pending changes."
 - Can't be done through MCP: env vars, `package.json`/lockfiles, `netlify.toml`, `src/proxy.ts`,
-  CI, DNS, image uploads, or the MCP server's own code. Tell the person who can.
+  CI, DNS, uploading images into Sanity, or the MCP server's own code. Tell the person who can.
 - Details: [`docs/ai/project_mcp_server.md`](docs/ai/project_mcp_server.md).
 
 <!-- BEGIN:nextjs-agent-rules -->

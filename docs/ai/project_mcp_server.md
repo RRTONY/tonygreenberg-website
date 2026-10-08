@@ -2,8 +2,10 @@
 
 Added 2026-09-29. Ported from ramprate-ui's admin MCP server (`src/lib/admin/`,
 `src/app/api/mcp/`), cut down to its core. There is **no admin page or chat UI**. AI tools
-(Claude Code, Claude Desktop, the Claude.ai org connector) connect straight to `/api/mcp`, and
-their own agent loop drives the tools.
+(Claude Code, Claude Desktop, the Claude.ai org connector, ChatGPT) connect straight to `/api/mcp`,
+and their own agent loop drives the tools. It only ever edits tonygreenberg.com
+(`RRTONY/tonygreenberg-website`). Hosts that support MCP Apps (ChatGPT, Claude.ai) show the
+review as a card (`mcp-ui-widgets.ts`, since 2026-10-09); others get the same result as JSON.
 
 History: an earlier, smaller version was built 2026-09-09 and removed 2026-09-10 (Phase 11 in
 `NEXTJS-MIGRATION-TODO.md`). Rebuilt on the owner's request on 2026-09-29, this time with ramprate's
@@ -94,7 +96,7 @@ ChatGPT by just adding `<site-origin>/api/mcp` and signing in, with no token to 
 | Tool | Role needed | Rules-gated |
 | --- | --- | --- |
 | `get_project_rules`, `list_pending_changes`, `list_change_history` | read | |
-| `preview_on_devices` (phone + laptop screenshots of a change's preview; needs `GOOGLE_API_KEY`) | read | |
+| `preview_on_devices` (phone + laptop screenshots, before = live tonygreenberg.com, after = the change's preview) | read | |
 | `github_list_dir`, `github_read_file` | read | |
 | `check_code_quality` (ESLint + CONTRIBUTING.md house-rule patterns) | read | |
 | `check_pr_status`, `get_check_log_excerpt` | read | |
@@ -105,16 +107,16 @@ ChatGPT by just adding `<site-origin>/api/mcp` and signing in, with no token to 
 | `lighthouse_check_page` (PageSpeed Insights scores + top failing audits) | read | |
 | `github_write_file`, `github_write_binary_file`, `github_delete_file` | edit | yes |
 | `sanity_patch_document`, `sanity_create_document` | edit | yes |
-| `start_change`, `submit_for_review`, `discard_change`, `undo_change` | edit | yes |
+| `start_change`, `confirm_change`, `submit_for_review`, `discard_change`, `undo_change` | edit | yes |
+| `request_upload_link` (private 30-minute page to drop a file into one change) | edit | yes |
 | `publish_changes` (one change, with its `review_token`) | write | yes |
 
 GA4, Search Console and Lighthouse were ported 2026-10-02 (`google-auth.ts`, `ga4-client.ts`,
 `gsc-client.ts`, `lighthouse-check.ts`), all read-only: unlike ramprate-ui, `search_console_sitemaps`
 can't submit or delete. Still not ported: ClickUp and email (need `CLICKUP_API_TOKEN` /
 `RESEND_API_KEY` and a verified sender, none set up for this site), PDF reports (a new dependency,
-`@react-pdf/renderer`), `check_deploy` (would need a Netlify account token in Netlify's own env),
-and the ChatGPT/MCP Apps review-card widget (the review is plain JSON the AI turns into words;
-`preview_on_devices` returns its screenshots as ordinary image blocks). Prettier formatting is also left out, because this repo doesn't use Prettier.
+`@react-pdf/renderer`), `check_deploy` (Netlify API; the review already reads Netlify's build from
+GitHub's checks). Prettier formatting is also left out, because this repo doesn't use Prettier.
 
 ## Env vars (set in Netlify's dashboard, not just `.env.local`)
 
@@ -197,3 +199,49 @@ Discarded; publishing it afterwards refused. 28 tools listed for a write user.
 is on the `migration/...` branch, not on `main`. Until that is merged, every MCP change fails its
 site check and can't be published. Not yet exercised: a real publish and `undo_change` (they need a
 passing check), and `preview_on_devices` (needs `GOOGLE_API_KEY`).
+
+## Synced with ramprate-ui (2026-10-09)
+
+ramprate-ui's three MCP updates since our 2026-10-02 copy (its #46, "attached files" and "Other
+Pending Changes"), plus the review card we had left out, were merged in: a three-way merge per file
+(base = ramprate-ui `39bc3da`, the version we copied), keeping every tonygreenberg.com difference.
+`mcp-server.ts` was taken from ramprate-ui and re-adapted (our rules text, `migrationStatus`, no
+`check_deploy`/ClickUp/email).
+
+- **One status, one next step, one button row:** `reviewOutcome` in `change-describe.ts` gives each
+  change a single state (Waiting for your OK, Working, Checking, Ready for review, Failed, Stuck,
+  Published, Discarded) and `nextStep`. Checks are listed separately: Build and Type check
+  (Netlify's preview build, which runs `next build`), Lint (the server lints the changed files
+  itself, stored as `lint` on the record; errors block, warnings don't), GitHub checks (the
+  `pr-lint.yml` jobs), Phone and laptop preview (optional). `getPRChecksDetail` tells Netlify's
+  checks apart by the `" - tonygreenberg-website"` suffix of its check runs (`NETLIFY_RUN` in
+  `github-client.ts`; must match the Netlify site name).
+- **Confirm before unclear changes:** `start_change` needs `understood_as` and
+  `needs_confirmation`, takes `applies_to` (both/desktop/mobile) and an optional
+  `conversation_url` (chatgpt.com / claude.ai only). Unclear changes wait for `confirm_change`;
+  every edit is refused until then.
+- **Screenshots:** before (live `https://tonygreenberg.com`, which is the old app until DNS
+  cutover) and after (the preview), phone and laptop, shown in the card (images travel in `_meta`,
+  not the model's text). 45 s cap; warmed up in the background with `after()` once the build
+  passes; Retry re-takes only what's missing. Works without `GOOGLE_API_KEY` at Google's low
+  anonymous quota; the key raises it.
+- **Attached files:** `github_write_binary_file` takes `file` (ChatGPT's attachment),
+  `source_url` (public https) or `base64Content`; `request_upload_link` gives a signed 30-minute
+  page at `/api/mcp/upload` for one change and one path (signed with `MCP_OAUTH_SECRET`, user
+  re-checked against `MCP_ADMIN_USERS`). Size limits 4 MB (page) / 8 MB (download) and the bytes
+  must match the file's extension. `binary-upload.ts`, `src/app/api/mcp/upload/route.ts`.
+- **Other Pending Changes:** every change result carries `otherPending` + `otherPendingNote`, and
+  the AI ends its reply with that list (CONTRIBUTING.md's Status Report has the line). New
+  `conversationUrl` field on `adminChange`.
+- **Lint inside the deployed function:** `next.config.ts` lists `eslint` and `eslint-config-next`
+  in `serverExternalPackages` (ramprate saw "Cannot find module 'fast-glob'" live). ramprate's
+  `outputFileTracingIncludes` globs are **not** used: with pnpm they match linked package folders
+  and Turbopack panics ("Is a directory"). Checked in `.next/server/app/api/mcp/route.js.nft.json`:
+  eslint, its config, plugins and fast-glob are all traced.
+- **Card URI** `ui://tonygreenberg-admin/pending-changes-v5.html`. ChatGPT caches a card's HTML by
+  URI, so bump the version whenever `mcp-ui-widgets.ts` changes.
+- **Verified locally (production build, 2026-10-09, read-only calls):** 30 tools for a write user,
+  the card resource is served and its script is valid JavaScript, `get_project_rules` returns
+  `migrationStatus`, `list_pending_changes` returns `otherPending`, `check_code_quality` runs
+  ESLint, `/api/mcp/upload` refuses a missing or bad link (401). Not yet run: a full change on a
+  deploy preview (start, confirm, edit, review card, screenshots, publish/discard).
