@@ -41,15 +41,26 @@ personal data:
   `next.config.ts`. 196 land on a working page; `f9n4eq` (`/blog/blood-is-the-api`) and `jwd9jx`
   (`/movement-signup`) point at pages that don't exist on live either.
 
+## Done on 2026-10-09 (owner said yes)
+
+- **Email subscribers → Kit, with no email sent:** 5 of the 36 were already in Kit (the old site
+  synced them). The other 31 were added through a brand-new tag, `Legacy site import 2026-10-09`
+  (id 24416119; Kit sends no confirmation for tag subscriptions, and a new tag has no automations).
+  Kit accepted 27; it silently drops the other 4 (addresses on its suppression list, e.g. past
+  bounces or complaints). They stay in the backup only. Do not retry through a form: forms send
+  the confirmation email.
+- **Supplier intake forms → Supabase** (owner's choice; the rest stays in the backup only): table
+  `legacy_vendor_intake` (`supabase/migrations/0003_legacy_vendor_intake.sql`, each legacy row kept
+  whole in `data`) and `scripts/import-legacy-vendor-intake.ts` (upsert on `legacy_id`, reads
+  `vendor_intake.json` from the backup). **Not run yet: the Supabase project was paused** (its
+  address stopped resolving on 2026-10-09); restore it in the dashboard, run 0001 to 0003, then the
+  script.
+- **Daily Provocations:** the one legacy line missing here (2026-10-07) added to
+  `src/lib/content/daily-provocations.ts`.
+
 ## Still to decide (owner)
 
-- The 36 **email subscribers** belong in Kit (the newsletter), not Supabase. Adding them may send
-  Kit's confirmation emails: needs a yes.
-- The few real rows that have a home in Supabase (reactions, ratings, micro-commitment) can be
-  copied after `supabase/migrations/0001` and `0002` are run. Account-linked rows only match new
-  accounts by email.
-- The rest (assessment results, PRI consents, manifesto responses, vendor intake, Cheshire
-  submission): keep in the backup only, or build tables for them.
+- The few real reactions / ratings / micro-commitment (copy after 0002 is run, or leave).
 
 Reading it again: a throwaway Python venv with `pymysql` + `certifi` (TLS is required), outside
 the project, so no new package. Only `SHOW`/`SELECT`; TiDB has no real read-only session mode.
