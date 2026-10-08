@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { preconnect } from "react-dom";
 import { Playfair_Display, DM_Mono, Source_Sans_3 } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import { LazyToaster } from "@/components/lazy-toaster";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
@@ -82,26 +81,24 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
             ThemeContext (`defaultTheme="light"`, no system detection) and the
             live site. The toggle still switches and remembers the choice. */}
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} disableTransitionOnChange>
-          <TooltipProvider>
-            <NavProgressBar />
-            <a
-              href="#main-content"
-              className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-9999 focus:rounded focus:bg-brand-gold focus:px-4 focus:py-2 focus:text-sm focus:text-white"
-            >
-              Skip to main content
-            </a>
-            <SiteChrome>
-              <SiteHeader />
-            </SiteChrome>
-            <main id="main-content" role="main" className="flex-1">
-              {children}
-            </main>
-            <SiteChrome>
-              <WhereNext />
-              <SiteFooter />
-            </SiteChrome>
-            <LazyToaster />
-          </TooltipProvider>
+          <NavProgressBar />
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-9999 focus:rounded focus:bg-brand-gold focus:px-4 focus:py-2 focus:text-sm focus:text-white"
+          >
+            Skip to main content
+          </a>
+          <SiteChrome>
+            <SiteHeader />
+          </SiteChrome>
+          <main id="main-content" role="main" className="flex-1">
+            {children}
+          </main>
+          <SiteChrome>
+            <WhereNext />
+            <SiteFooter />
+          </SiteChrome>
+          <LazyToaster />
         </ThemeProvider>
       </body>
     </html>

@@ -69,6 +69,9 @@ how to handle a request is in [`TASK_GUIDE.md`](TASK_GUIDE.md). Last checked 202
 | Member features (Supabase tables in `supabase/migrations/0001_member_features.sql`) | `/my-highlights` (+ `components/blog/highlight-save-button.tsx`), `/my-impact` (`lib/referrals.ts`), `/clock-keeper-part-2`, `/post-intervention`, `/friend-gate` + `/friend-survey/[token]` (`lib/friend-gate.ts`, email via `lib/email.ts` / Resend), `/pri-research` (admin; `lib/pri-research.ts`), password-gated essays (`lib/gated-posts.ts`) |
 | Theme (light/dark via `.dark` class) | `src/components/theme-provider.tsx`, tokens in `src/app/globals.css` |
 | Redirects | `next.config.ts` `redirects()` |
+| Error pages | 404: `src/app/not-found.tsx` (title) + `src/components/not-found-redirect.tsx` (live's 3-second redirect home); page errors: `src/app/error.tsx` (inside the header/footer, "Try again" re-fetches); root layout failures: `src/app/global-error.tsx` (own `<html>`, no header). Never add a `loading.tsx` above a dynamic route (404s become 200s) |
+| Essay archive on `/` and `/blog` (search, category filters, Show all) | `src/components/blog/home-archive.tsx`; the page sends 12 posts (`summarizeArchive`, `src/lib/content/essay-archive.ts`), the full list is the static `/essays-archive.json` (`src/app/essays-archive.json/route.ts`), loaded on first use |
+| Homepage "Recent Updates" band | `src/components/marketing/recent-updates.tsx`, topic pills and `pickRecentUpdatePosts` in `src/lib/content/recent-updates.ts` |
 
 ## API routes (`src/app/api/`)
 
