@@ -56,6 +56,16 @@ const nextConfig: NextConfig = {
         destination: `/blog/${slug}`,
         permanent: true,
       })),
+      // Category pages used ?page=N until 2026-10-09; now /page/N, so each page is
+      // pre-built (src/components/blog/category-listing.tsx). Pages 2+ only:
+      // ?page=1 just shows page 1, and /page/1 goes back to the plain address.
+      {
+        source: "/blog/category/:slug",
+        has: [{ type: "query", key: "page", value: "(?<n>[2-9]|[1-9]\\d+)" }],
+        destination: "/blog/category/:slug/page/:n",
+        permanent: true,
+      },
+      { source: "/blog/category/:slug/page/1", destination: "/blog/category/:slug", permanent: true },
       // Old addresses Google still sends visitors to (see search-console-redirects.ts).
       ...SEARCH_CONSOLE_REDIRECTS.map(([source, destination]) => ({ source, destination, permanent: true })),
       // Legacy registers "/find-my-tribe" as a second path to the same

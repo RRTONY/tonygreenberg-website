@@ -192,8 +192,11 @@ export function JourneyBar() {
   // Don't show on the welcome/identity quiz page — it has its own flow
   if (pathname === "/brewsoul") return null;
 
+  // Solid, not live's 92% + backdrop blur: where the blur isn't drawn (seen in
+  // WebKit) page text showed through, and blurring the page under a fixed bar
+  // repaints on every scroll. Same colour (CONTRIBUTING rule 20).
   return (
-    <div className="fixed inset-x-0 bottom-0 z-[9990] border-t border-[#C5A23C]/20 bg-[#2C1810]/92 px-3 py-2.5 backdrop-blur-md sm:px-8">
+    <div className="fixed inset-x-0 bottom-0 z-9990 border-t border-[#C5A23C]/20 bg-[#2C1810] px-3 py-2.5 sm:px-8">
       <div className="mb-2 flex items-center justify-center gap-1.5">
         {JOURNEY_STEPS.map((step) => {
           const isCurrent = currentStep?.id === step.id;

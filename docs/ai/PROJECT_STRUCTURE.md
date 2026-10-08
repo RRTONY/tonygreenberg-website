@@ -71,6 +71,7 @@ how to handle a request is in [`TASK_GUIDE.md`](TASK_GUIDE.md). Last checked 202
 | Redirects | `next.config.ts` `redirects()`; old WordPress essay addresses in `src/lib/content/legacy-post-redirects.ts`, old addresses Google still sends people to in `src/lib/content/search-console-redirects.ts` (re-check with `scripts/check-search-console-urls.ts`) |
 | Error pages | 404: `src/app/not-found.tsx` (title) + `src/components/not-found-redirect.tsx` (live's 3-second redirect home); page errors: `src/app/error.tsx` (inside the header/footer, "Try again" re-fetches); root layout failures: `src/app/global-error.tsx` (own `<html>`, no header). Never add a `loading.tsx` above a dynamic route (404s become 200s) |
 | Essay archive on `/` and `/blog` (search, category filters, Show all) | `src/components/blog/home-archive.tsx`; the page sends 12 posts (`summarizeArchive`, `src/lib/content/essay-archive.ts`), the full list is the static `/essays-archive.json` (`src/app/essays-archive.json/route.ts`), loaded on first use |
+| Essay category pages (`/blog/category/<slug>`, `/page/<n>` for page 2+) | `src/components/blog/category-listing.tsx`, routes in `src/app/blog/category/[slug]/`; old `?page=N` links redirect in `next.config.ts` |
 | Homepage "Recent Updates" band | `src/components/marketing/recent-updates.tsx`, topic pills and `pickRecentUpdatePosts` in `src/lib/content/recent-updates.ts` |
 
 ## API routes (`src/app/api/`)
