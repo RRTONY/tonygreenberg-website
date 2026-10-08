@@ -52,11 +52,16 @@ personal data:
 - **Supplier intake forms → Supabase** (owner's choice; the rest stays in the backup only): table
   `legacy_vendor_intake` (`supabase/migrations/0003_legacy_vendor_intake.sql`, each legacy row kept
   whole in `data`) and `scripts/import-legacy-vendor-intake.ts` (upsert on `legacy_id`, reads
-  `vendor_intake.json` from the backup). **Not run yet: the Supabase project was paused** (its
-  address stopped resolving on 2026-10-09); restore it in the dashboard, run 0001 to 0003, then the
-  script.
+  `vendor_intake.json` from the backup). Done 2026-10-09: the 8 forms are in the table.
 - **Daily Provocations:** the one legacy line missing here (2026-10-07) added to
   `src/lib/content/daily-provocations.ts`.
+
+- **Everything else → Supabase** (owner: "add all data in old db to new supabase"): all 55 data
+  tables copied into a private `legacy` schema (75,089 rows, counts verified; `__drizzle_migrations`
+  skipped), same columns with Postgres types (int → bigint, timestamps → timestamptz, json → jsonb),
+  row-level security on, schema not in PostgREST's exposed list and no anon/authenticated usage.
+  Done through the Management API (`POST /v1/projects/<ref>/database/query`) with a personal access
+  token, not the site's keys. Readable in the dashboard's Table Editor (schema `legacy`).
 
 ## Still to decide (owner)
 
