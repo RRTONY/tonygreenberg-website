@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Square } from "lucide-react";
+import { ArrowLeft, Square } from "lucide-react";
 import { CaseShareButtons } from "@/components/marketing/case-share-buttons";
+import { StoryForm } from "@/components/cheshire/story-form";
+import { RelatedPages } from "@/components/marketing/related-pages";
 
 // Ported from legacy client/src/pages/ProtectingYourBusiness.tsx — a
 // documented fraud case file (Kristi Klawiter, convicted of theft and
@@ -15,10 +17,10 @@ import { CaseShareButtons } from "@/components/marketing/case-share-buttons";
 // framing this as protected speech on a matter of public concern. Ported
 // verbatim, preserving the fact/opinion separation and every citation.
 //
-// Not ported: the "Submit Your Story" form (a `trpc.cheshire.submit`
-// mutation with no client-side logic of its own — a lead-intake backend
-// feature out of scope) — replaced with a real mailto invitation. Also
-// dropped the closing SEO keyword-stuffing footer (a bare list of the
+// The "Submit Your Story" form (legacy `trpc.cheshire.submit`) was a
+// mailto button at first; since 2026-10-10 it's the real form again
+// (components/cheshire/story-form.tsx), saving to Supabase and emailing
+// Tony. Not ported: the closing SEO keyword-stuffing footer (a bare list of the
 // subject's name repeated many times with no informational content) —
 // that pattern is actively penalized by modern search engines, so
 // removing it is a real SEO improvement, not a content cut; the same
@@ -33,17 +35,6 @@ export const metadata: Metadata = {
   description:
     "Kristi Klawiter, convicted of theft and forgery in New Jersey (Monmouth County 17-005347, Morris County 16-002436), embezzled $46,795 through 11 unauthorized invoices. Full documented case with court records, FBI report, and signed admissions.",
   alternates: { canonical: "/protecting-your-business" },
-  keywords: [
-    "Kristi Klawiter",
-    "Kristi Klawiter convicted",
-    "Kristi Klawiter embezzlement",
-    "Kristi Klawiter fraud",
-    "Kris Management LLC fraud",
-    "embezzlement case study",
-    "contractor fraud",
-    "invoice fraud",
-    "fraud red flags",
-  ],
 };
 
 const TOC = [
@@ -703,12 +694,7 @@ export default function ProtectingYourBusinessPage() {
             If you have been defrauded by a contractor, employee, or business partner, your story
             matters. The silence that protects thieves creates their next victim.
           </p>
-          <a
-            href="mailto:tony@ramprate.com?subject=Fraud%20Story%20Submission"
-            className="inline-flex items-center gap-1.5 rounded-md bg-red-800 px-6 py-2.5 font-mono text-xs font-semibold tracking-wide text-white uppercase"
-          >
-            Share Your Story <ArrowRight aria-hidden="true" className="size-3.5" />
-          </a>
+          <StoryForm sourcePage="protecting-your-business" fallbackEmail="tony@ramprate.com" fallbackSubject="Fraud Story Submission" />
         </div>
 
         <Section id="reading" num="12" title="Further Reading">
@@ -792,6 +778,8 @@ export default function ProtectingYourBusinessPage() {
           </div>
         </div>
       </div>
+
+      <RelatedPages path="/protecting-your-business" tone="light" />
 
       <div className="border-t border-border py-6 text-center">
         <Link href="/" className="inline-flex items-center gap-1.5 font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">

@@ -75,7 +75,7 @@ export const HOME_DOORS: HomeDoor[] = [
   {
     num: "04",
     title: "Verify",
-    sub: "COA checks, testing & vendor scoring",
+    sub: "Certificate of Analysis (COA) checks, lab testing and vendor scoring",
     href: "/verify-your-coa",
     icon: Microscope,
     img: "https://cdn.sanity.io/images/a3q1cyqs/production/305e817d671e9a50f85d064760e1e01f5a7bb73e-1200x1607.webp",

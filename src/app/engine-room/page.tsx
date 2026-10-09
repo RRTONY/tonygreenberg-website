@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { RelatedPages } from "@/components/marketing/related-pages";
 
 // Ported from legacy client/src/pages/EngineRoom.tsx ("The Folio" —
 // Projects & Ventures). Real content kept as-is.
@@ -138,6 +139,8 @@ export default function EngineRoomPage() {
           optional extras.
         </p>
       </div>
+
+      <RelatedPages path="/engine-room" tone="light" className="px-0 pt-8 pb-10 sm:px-0" />
 
       <div className="border-t border-border py-6 text-center">
         <Link href="/under-nda" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">

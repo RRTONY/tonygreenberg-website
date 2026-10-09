@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { RelatedPages } from "@/components/marketing/related-pages";
 
 // Ported from legacy client/src/pages/PickUp.tsx ("The Folio" — Connect).
 // Real content kept as-is. No phone number published, by design — funnels
@@ -143,6 +144,8 @@ export default function PickUpThePhonePage() {
           you&apos;ve already done about it. That&apos;s how you earn the meeting.
         </p>
       </div>
+
+      <RelatedPages path="/pick-up-the-phone" tone="light" className="mt-10 px-0 pt-8 pb-0 sm:px-0" />
     </div>
   );
 }

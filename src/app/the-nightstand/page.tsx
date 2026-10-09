@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { RelatedPages } from "@/components/marketing/related-pages";
 
 // Ported from legacy client/src/pages/Nightstand.tsx ("The Folio" —
 // Library). Real content kept as-is. Hero image rescued from the still-live
@@ -97,6 +98,8 @@ export default function TheNightstandPage() {
             ruthlessly. The wrong book at the right time can change everything.
           </p>
         </div>
+
+        <RelatedPages path="/the-nightstand" tone="light" className="px-0 pt-8 pb-10 sm:px-0" />
 
         <div className="border-t border-border py-6 text-center">
           <Link href="/the-web" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">

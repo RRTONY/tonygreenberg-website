@@ -26,16 +26,6 @@ const DESCRIPTION =
 export const metadata: Metadata = {
   title: { absolute: TITLE },
   description: DESCRIPTION,
-  keywords: [
-    "AI governance",
-    "independent AI governance",
-    "decentralized governance",
-    "Wulf Kaal",
-    "Menagerie.is",
-    "DAO governance",
-    "AI political accountability",
-    "civic infrastructure",
-  ],
   alternates: { canonical: "/america-unbundled" },
   openGraph: {
     type: "article",

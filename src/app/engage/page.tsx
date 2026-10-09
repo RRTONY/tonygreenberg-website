@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { EngageAudit } from "@/components/marketing/engage-audit";
+import { RelatedPages } from "@/components/marketing/related-pages";
 
 // Ported from legacy client/src/pages/Engage.tsx ("The Gate"). See
 // engage-audit.tsx for what was and wasn't carried over.
@@ -28,6 +29,8 @@ export default function EngagePage() {
       </section>
 
       <EngageAudit />
+
+      <RelatedPages path="/engage" tone="light" />
     </div>
   );
 }

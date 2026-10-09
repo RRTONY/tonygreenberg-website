@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SoulScoreTool } from "@/components/assessments/soulscore-tool";
+import { defaultOpenGraph } from "@/lib/seo-defaults";
 
 // Real metadata written fresh for this page's actual content — see the
 // port-note in `soulscore-tool.tsx` for why: legacy's own `<SEO>` block on
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
     "An interactive impact measurement engine by ImpactSoul. Score consciousness, not just carbon, across 12 weighted dimensions for any entity — benchmark against Fortune 500, B Corp, and Patagonia, explore a 6-tier supply chain model, and calculate Consciousness-Adjusted NPV in real time.",
   alternates: { canonical: "/soulscore" },
   openGraph: {
+    ...defaultOpenGraph,
     title: "SoulScore™ — 12-Dimension Impact Measurement Engine",
     description:
       "Score consciousness, not just carbon. An interactive 12-dimension impact measurement engine by ImpactSoul — any entity, real-time.",

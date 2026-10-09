@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { CalibrationAssessment } from "@/components/pri/calibration-assessment";
+import { RelatedPages } from "@/components/marketing/related-pages";
 
 // Ported from legacy client/src/pages/pri/PriCalibration.tsx — see that
 // component file for the full port note. Fully stateful (a phase state
@@ -12,5 +13,10 @@ export const metadata: Metadata = {
 };
 
 export default function PriCalibrationPage() {
-  return <CalibrationAssessment />;
+  return (
+    <>
+      <CalibrationAssessment />
+      <RelatedPages path="/pri-calibration" tone="dark" className="border-pri-cream/10 bg-pri-ink" />
+    </>
+  );
 }

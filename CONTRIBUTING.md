@@ -324,6 +324,11 @@ Two specific Next.js App Router pitfalls to check for, since they're easy to int
   skill/agent family available (`seo`, `seo-audit`, `seo-technical`, `seo-schema`, `seo-geo`, etc.),
   use that for an actual audit rather than reinventing one inline; otherwise write metadata/schema
   by hand following this file's other rules.
+- **A page that sets its own `openGraph` or `twitter` spreads the shared defaults first**
+  (`...defaultOpenGraph` / `...defaultTwitter` from `src/lib/seo-defaults.ts`). Next.js merges
+  metadata shallowly, so a page's own `openGraph` replaces the layout's whole object and the page
+  loses the share image (165 of 171 pages had none until 2026-10-10). No `keywords`: Google
+  ignores the tag and the SEO pack asked for it gone.
 - Baseline expectations for every ported page regardless: real per-page `generateMetadata`
   (title/description/OG), a canonical URL, and — for anything CMS-backed — a Sanity `seo`/`pageSeo`
   document rather than hardcoded metadata that an editor can't change without a deploy.

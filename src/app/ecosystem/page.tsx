@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { RelatedPages } from "@/components/marketing/related-pages";
 
 // Ported from legacy client/src/pages/Ecosystem.tsx. Real content kept as-is.
 
@@ -113,6 +114,8 @@ export default function EcosystemPage() {
           <ArrowRight aria-hidden="true" className="size-3.5" />
         </Link>
       </div>
+
+      <RelatedPages path="/ecosystem" tone="light" />
     </div>
   );
 }

@@ -31,7 +31,9 @@ import {
   ECOSYSTEM_LINKS,
   LEGAL_NOTICES,
 } from "@/lib/content/alex-azzi";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
+import { StoryForm } from "@/components/cheshire/story-form";
+import { RelatedPages } from "@/components/marketing/related-pages";
 
 // Ported from legacy client/src/pages/CheshireGrin.tsx (2608 lines) — the
 // "VerifiedTribe Community Protection Report" on Alex Azzi, CEO of
@@ -69,9 +71,9 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 //   Tony to confirm in the human-review notes.
 // - The Byron Katie Verification Gate (modal) and the "Submission Form +
 //   Community Collection" — both existed to gate/power a
-//   `trpc.cheshire.submit` mutation this migration has no backend for.
-//   Replaced with a real `mailto:` invitation, identical in spirit to
-//   protecting-your-business's own "Share Your Story" mailto CTA.
+//   `trpc.cheshire.submit` mutation. The submission form is back since
+//   2026-10-10 (components/cheshire/story-form.tsx, shared with
+//   protecting-your-business), saving to Supabase and emailing Tony.
 // - The Endorsement/"Ring the Bell" system (`trpc.endorsement.count` /
 //   `.submit`) — a live community-verification counter with no backend to
 //   back it. Legacy's hero copy asserted "7 testimonials received" as
@@ -728,15 +730,7 @@ export default async function AlexAzziPage() {
               Your identity is never published without explicit written consent. Every account
               strengthens the evidentiary record and protects the next person.
             </p>
-            <a
-              href="mailto:tony@ramprate.com?subject=Alex%20Azzi%20Report%20Submission"
-              className="inline-block rounded-md bg-red-800 px-6 py-2.5 font-mono text-xs font-semibold tracking-wide text-white uppercase"
-            >
-              <span className="inline-flex items-center gap-1.5">
-                Share Your Story
-                <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
-              </span>
-            </a>
+            <StoryForm sourcePage="alex-azzi" fallbackEmail="tony@ramprate.com" fallbackSubject="Alex Azzi Report Submission" />
           </div>
         </Section>
 
@@ -882,6 +876,8 @@ export default async function AlexAzziPage() {
           <CaseShareButtons filled path="/alex-azzi" shareText={SHARE_TEXT} />
         </div>
       </div>
+
+      <RelatedPages path="/alex-azzi" tone="light" />
 
       <div className="border-t border-border py-6 text-center">
         <Link href="/" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">

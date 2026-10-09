@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { IntelPortfolio, type PortCo } from "@/components/marketing/intel-portfolio";
 import { ArrowRight } from "lucide-react";
+import { RelatedPages } from "@/components/marketing/related-pages";
 
 // Ported from legacy client/src/pages/Intel.tsx. Real content kept as-is
 // (9 portfolio companies, full investment thesis / gates / compass scores /
@@ -247,6 +248,8 @@ export default function IntelPage() {
           not idealism — that&apos;s the only strategy that survives the next twenty years.
         </p>
       </div>
+
+      <RelatedPages path="/intel" tone="light" className="px-0 pt-8 pb-10 sm:px-0" />
 
       <div className="border-t border-border py-6 text-center">
         <Link href="/blog" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">

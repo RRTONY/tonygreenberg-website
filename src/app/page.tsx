@@ -13,53 +13,48 @@ import { HomeArchive } from "@/components/blog/home-archive";
 import { summarizeArchive, type ArchivePost } from "@/lib/content/essay-archive";
 import { RecentUpdates } from "@/components/marketing/recent-updates";
 import { pickRecentUpdatePosts } from "@/lib/content/recent-updates";
+import { HomeEntityStatement } from "@/components/marketing/home-entity-statement";
+import { HomeNewsletterCapture } from "@/components/marketing/home-newsletter-capture";
 import { NewsletterPopupLazy } from "@/components/marketing/newsletter-popup-lazy";
 import { ReturningVisitorHero } from "@/components/marketing/returning-visitor-hero";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
-// Matches legacy client/src/pages/Blog.tsx's <SEO> block for path="/" — the
-// legacy router renders that Blog component at "/" (and, identically, at
-// "/blog" — app/blog/page.tsx is its own real page here, reusing the same
-// HomeArchive component rather than duplicating this whole file). Home.tsx,
-// despite the name, is actually routed at /the-letter, already ported
-// separately.
-export const metadata: Metadata = {
-  title: "Tony Greenberg | Strategist, Author & Systems Thinker",
-  description:
-    "Tony Greenberg — strategist, author, and systems thinker. 25 years exposing broken systems and building replacements. Essays on business, AI, trust, and culture.",
-  keywords: [
-    "Tony Greenberg",
-    "systems thinking",
-    "enterprise strategy",
-    "impact investing",
-    "AI ethics",
-    "trust economy",
-    "essays",
-    "regenerative capital",
-  ],
-  alternates: { canonical: "/" },
-  // A page-level openGraph replaces the layout's whole openGraph object, so
-  // type and siteName are repeated here.
-  openGraph: {
-    type: "website",
-    siteName: "Tony Greenberg",
-    title: "Tony Greenberg | Strategist, Author & Systems Thinker",
-    description:
-      "Tony Greenberg — strategist, author, and systems thinker. 25 years exposing broken systems and building replacements. Essays on business, AI, trust, and culture.",
-    url: "/",
-    // Cropped to the standard 1200x630 social card size and served as JPEG
-    // (the source is 1200x670 WebP, which some link previews crop or skip).
-    images: [
-      {
-        url: "https://cdn.sanity.io/images/a3q1cyqs/production/4b0c5b229fd4f51c9134a30943d369cadbceab70-1200x670.webp?w=1200&h=630&fit=crop&fm=jpg",
-        width: 1200,
-        height: 630,
-        alt: "Kintsugi bowl mended with gold, on a windowsill at sunset",
-      },
-    ],
-  },
-};
+// Title and description: the owner's yes (2026-10-10) to the "SEO and UX
+// Implementation Pack" (2026-10-05) copy. The essay count is the real number
+// of published posts (same query the page renders from, so Next dedupes the
+// fetch), not a typed number that goes stale. No `keywords`: Google ignores
+// the meta keywords tag, and the pack asked for it to be dropped.
+const HOME_TITLE = "Tony Greenberg | Strategist, Author & CEO of RampRate";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const posts = await sanityFetch<Post[]>({ query: allPostsForArchiveQuery, tags: ["post"] });
+  const description = `Tony Greenberg, CEO of RampRate and founder of ImpactSoul. ${posts.length} essays on enterprise tech, AI, impact investing and trust, plus the BrewSoul coffee scores.`;
+  return {
+    title: HOME_TITLE,
+    description,
+    alternates: { canonical: "/" },
+    // A page-level openGraph replaces the layout's whole openGraph object, so
+    // type and siteName are repeated here.
+    openGraph: {
+      type: "website",
+      siteName: "Tony Greenberg",
+      title: HOME_TITLE,
+      description,
+      url: "/",
+      // Cropped to the standard 1200x630 social card size and served as JPEG
+      // (the source is 1200x670 WebP, which some link previews crop or skip).
+      images: [
+        {
+          url: "https://cdn.sanity.io/images/a3q1cyqs/production/4b0c5b229fd4f51c9134a30943d369cadbceab70-1200x670.webp?w=1200&h=630&fit=crop&fm=jpg",
+          width: 1200,
+          height: 630,
+          alt: "Kintsugi bowl mended with gold, on a windowsill at sunset",
+        },
+      ],
+    },
+  };
+}
 
 type Post = ArchivePost;
 
@@ -74,6 +69,7 @@ export default async function Home() {
     <div>
       <ReturningVisitorHero />
       <HomeHero essayCount={posts.length} />
+      <HomeEntityStatement />
 
       <section className="bg-[#0E0C09] px-4 py-10 sm:px-6 sm:py-12">
         <div className="mx-auto max-w-250">
@@ -95,6 +91,8 @@ export default async function Home() {
       </section>
 
       <EditorPicksSection />
+
+      <HomeNewsletterCapture />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-14">
         <Link

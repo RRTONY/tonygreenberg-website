@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { EditorialDivider } from "@/components/marketing/editorial-divider";
+import { RelatedPages } from "@/components/marketing/related-pages";
 
 // Ported from legacy client/src/pages/Invest.tsx ("Invest in the Thesis").
 // Real content, unchanged — 6 real portfolio categories, 32 real named
@@ -200,6 +201,8 @@ export default function InvestPage() {
           </p>
         </div>
       </section>
+
+      <RelatedPages path="/invest" tone="light" />
     </div>
   );
 }

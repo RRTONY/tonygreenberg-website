@@ -3,15 +3,17 @@ import type React from "react";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Sparkle } from "lucide-react";
 import { getFurtherReading } from "@/lib/content/further-reading";
 import { getSeriesForPost } from "@/lib/content/essay-series";
-import { postHref } from "@/lib/content/post-redirects";
+import { postHref, resolveInternalHref } from "@/lib/content/post-redirects";
+import { readingKey, type BodyFurtherReading, type FurtherReadingItem } from "@/lib/sanity/further-reading-body";
 
 // Ported from legacy client/src/pages/BlogPost.tsx: the per-post blocks
 // around the essay body that live still shows ("Before You Read", then "The
 // Lesson", "Next Steps", "Further Reading", "Voices in This Space", "Since
 // this was written", and the series reading list after the body). The
 // per-post copy lives on each Sanity post ("Essay extras" fields, moved there
-// 2026-10-07); Further Reading is per category (further-reading.ts) and the
-// series list comes from essay-series.ts. "Reveal"/"Hint" use <details>, so
+// 2026-10-07); Further Reading is per category (further-reading.ts), merged
+// with any list the essay body carries (further-reading-body.ts, so the
+// heading shows once), and the series list comes from essay-series.ts. "Reveal"/"Hint" use <details>, so
 // the answer is in the server HTML and no client JS is needed.
 
 export type EssayExtras = {
@@ -53,8 +55,38 @@ export function BeforeYouRead({ riddle }: { riddle?: EssayExtras["beforeYouRead"
   );
 }
 
-export function PostLessonBlocks({ extras, category, afterNextSteps }: { extras: EssayExtras; category?: string; afterNextSteps?: React.ReactNode }) {
-  const furtherReading = getFurtherReading(category ?? "", extras?.formatTag ?? "");
+// tonygreenberg.com addresses in essay bodies open here, like other site links.
+function siteHref(url: string): string | null {
+  const m = url.match(/^https?:\/\/(?:www\.)?tonygreenberg\.com(\/[^\s]*)?$/i);
+  if (m) return m[1] || "/";
+  return url.startsWith("/") ? url : null;
+}
+
+function mergeReading(bodyItems: FurtherReadingItem[], categoryItems: FurtherReadingItem[]) {
+  const seen = new Set<string>();
+  return [...bodyItems, ...categoryItems].filter((item) => {
+    const key = readingKey(item.url);
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+export function PostLessonBlocks({
+  extras,
+  category,
+  afterNextSteps,
+  bodyReading,
+}: {
+  extras: EssayExtras;
+  category?: string;
+  afterNextSteps?: React.ReactNode;
+  bodyReading?: BodyFurtherReading;
+}) {
+  // A body section that stayed in the essay already is this post's Further
+  // Reading, so the category list is left out rather than shown as a second one.
+  const categoryReading = bodyReading?.keptInBody ? [] : getFurtherReading(category ?? "", extras?.formatTag ?? "");
+  const furtherReading = mergeReading(bodyReading?.items ?? [], categoryReading);
 
   return (
     <div className="mt-12 space-y-8">
@@ -90,22 +122,32 @@ export function PostLessonBlocks({ extras, category, afterNextSteps }: { extras:
           <h2 className="mb-3 border-b border-border pb-2 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
             Further Reading
           </h2>
+          {bodyReading?.intro && <p className="mb-3 font-essay text-[0.95rem] text-essay-ink/85">{bodyReading.intro}</p>}
           <div className="flex flex-col gap-3">
-            {furtherReading.map((item) => (
-              <a
-                key={item.url}
-                href={item.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block rounded-xs border border-border bg-card px-4 py-3.5 transition-colors hover:border-brand-gold/40"
-              >
-                <span className="flex flex-wrap items-baseline justify-between gap-x-4">
-                  <span className="font-essay text-[0.95rem] font-bold text-essay-ink italic">{item.title}</span>
-                  <span className="font-mono text-[0.65rem] tracking-wide text-muted-foreground uppercase">{item.source}</span>
-                </span>
-                <span className="mt-1 block font-essay text-sm text-essay-ink/85">{item.why}</span>
-              </a>
-            ))}
+            {furtherReading.map((item) => {
+              const inner = (
+                <>
+                  <span className="flex flex-wrap items-baseline justify-between gap-x-4">
+                    <span className="font-essay text-[0.95rem] font-bold text-essay-ink italic">{item.title}</span>
+                    {item.source && (
+                      <span className="font-mono text-[0.65rem] tracking-wide text-muted-foreground uppercase">{item.source}</span>
+                    )}
+                  </span>
+                  {item.why && <span className="mt-1 block font-essay text-sm text-essay-ink/85">{item.why}</span>}
+                </>
+              );
+              const cardClass = "block rounded-xs border border-border bg-card px-4 py-3.5 transition-colors hover:border-brand-gold/40";
+              const internal = siteHref(item.url);
+              return internal ? (
+                <Link key={item.url} href={resolveInternalHref(internal)} className={cardClass}>
+                  {inner}
+                </Link>
+              ) : (
+                <a key={item.url} href={item.url} target="_blank" rel="noopener noreferrer" className={cardClass}>
+                  {inner}
+                </a>
+              );
+            })}
           </div>
         </div>
       )}

@@ -167,12 +167,12 @@ const PHILOSOPHY_PARAGRAPHS = [
 // Real simplifications from legacy, each an honest-degradation call
 // consistent with the rest of this migration:
 // - `trpc.pri.submitConsent` / `trpc.pri.submitCorrection` /
-//   `trpc.assessments.submit` (three backend mutations never built) are all
-//   dropped. Consent is still recorded locally via `sessionStorage`
-//   (matching legacy's own actual gating behavior — the mutation's failure
-//   was already silently ignored in legacy). The correction form and
-//   referral form use real `mailto:` fallbacks instead (see
-//   `correction-form.tsx` and this file's referral card) rather than
+//   `trpc.assessments.submit` (three backend mutations never built) were all
+//   dropped at first. Since 2026-10-10 consent and corrections save to Supabase
+//   again (`disclaimer-gate.tsx` and `correction-form.tsx`, through
+//   src/app/forms/actions.ts); consent is still kept in `sessionStorage`
+//   for the page's gating too. The referral form still uses a real
+//   `mailto:` fallback (this file's referral card) rather than
 //   reproducing a submit call with nothing behind it — legacy's correction
 //   form's error path was a real fake-success bug ("still show success for
 //   UX" even when the mutation threw), not reproduced here.

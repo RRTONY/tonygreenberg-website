@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { EditorialDivider } from "@/components/marketing/editorial-divider";
 import { EyebrowLabel } from "@/components/marketing/eyebrow-label";
+import { RelatedPages } from "@/components/marketing/related-pages";
 
 // Ported from legacy client/src/pages/Amplifier.tsx ("The Amplifier").
 // Real content, unchanged — pricing tiers, the 2x guarantee, the Matt
@@ -367,6 +368,8 @@ export default function AmplifierPage() {
           $5,000 minimum · preparation doc required · all sessions recorded via Fireflies
         </div>
       </section>
+
+      <RelatedPages path="/amplifier" tone="dark" />
     </div>
   );
 }

@@ -40,6 +40,10 @@ import { formatPostDate } from "@/lib/format-post-date";
 import { hasUnlocked, isGatedPost } from "@/lib/gated-posts";
 import { PostPasswordGate } from "@/components/blog/post-password-gate";
 import { HighlightSaveButton } from "@/components/blog/highlight-save-button";
+import { HealthDisclaimer } from "@/components/blog/health-disclaimer";
+import { PostFaq, ShortAnswer, POST_FAQ_ID, POST_FAQ_TITLE, type PostFaqItem } from "@/components/blog/post-answers";
+import { extractFurtherReading, type BodyFurtherReading } from "@/lib/sanity/further-reading-body";
+import type { TocHeading } from "@/lib/sanity/essay-body";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
 type PostDetail = {
@@ -50,6 +54,7 @@ type PostDetail = {
   subtitle?: string;
   slug: { current: string };
   publishedAt: string;
+  lastUpdated?: string;
   excerpt?: string;
   pullQuote?: string;
   heroImage?: Parameters<typeof urlFor>[0];
@@ -70,6 +75,8 @@ type PostDetail = {
   editorsNote?: { label?: string; text?: string; provenance?: string };
   provenanceNote?: boolean;
   videoMoment?: { caption?: string; url?: string; mimeType?: string };
+  shortAnswer?: string;
+  faq?: PostFaqItem[];
 } & EssayExtras &
   ArticleFooterData;
 
@@ -113,7 +120,6 @@ export async function generateMetadata({
   return {
     title,
     description,
-    keywords: post.seo?.keywords,
     alternates: { canonical: `/blog/${post.slug.current}` },
     // Page-level openGraph/twitter replace the layout's objects, so siteName
     // and the @ThinkTony handles are repeated here.
@@ -124,7 +130,7 @@ export async function generateMetadata({
       siteName: "Tony Greenberg",
       url: `/blog/${post.slug.current}`,
       publishedTime: post.publishedAt,
-      modifiedTime: post._updatedAt,
+      modifiedTime: post.lastUpdated || post._updatedAt,
       authors: [post.author?.name || "Tony Greenberg"],
       section: post.category?.title,
       images: [{ url: ogImage, width: 1200, height: 630, alt: post.title }],
@@ -162,6 +168,34 @@ function validityDotClass(value: number | string) {
 
 const ARTICLE_BODY_CLASS =
   "article-body relative text-foreground lg:before:absolute lg:before:inset-y-2 lg:before:-left-8 lg:before:w-px lg:before:bg-essay-red/35 lg:before:content-['']";
+
+// "Updated <date>" shows only for a real revision: the post's "Last updated"
+// field set more than a day after it was published. (_updatedAt isn't used:
+// every post was touched by the 2026-10-06 import scripts.)
+function updatedLabel(publishedAt: string, lastUpdated?: string) {
+  if (!lastUpdated) return null;
+  const gap = new Date(lastUpdated).getTime() - new Date(publishedAt).getTime();
+  if (!(gap > 24 * 60 * 60 * 1000)) return null;
+  const text = formatPostDate(lastUpdated);
+  return text && text !== formatPostDate(publishedAt) ? text : null;
+}
+
+// Body pipeline: live's line layout, the body's own "Further Reading" pulled
+// out (shown once, merged, after the essay), auto-links, then anchors/TOC.
+function prepareBody(value: PostDetail["body"], post: PostDetail, idPrefix?: string) {
+  const { body, reading } = extractFurtherReading(legacyBodyLayout(value, post._createdAt, post.title));
+  return { ...essayBody(autoLinkBody(body), idPrefix), reading };
+}
+
+function mergeBodyReading(a: BodyFurtherReading, b?: BodyFurtherReading): BodyFurtherReading {
+  if (!b) return a;
+  const urls = new Set(a.items.map((i) => i.url));
+  return {
+    items: [...a.items, ...b.items.filter((i) => !urls.has(i.url))],
+    intro: a.intro ?? b.intro,
+    keptInBody: a.keptInBody || b.keptInBody,
+  };
+}
 
 // Legacy's reading time: words / 230, at least 1.
 function readingMinutes(body: unknown): number {
@@ -232,12 +266,17 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
   const nextPost = pick(after);
 
   const date = formatPostDate(post.publishedAt);
+  const updatedDate = updatedLabel(post.publishedAt, post.lastUpdated);
   const extras: EssayExtras = post;
   const minutes = post.readTime || readingMinutes(post.body);
-  const { body, toc } = essayBody(autoLinkBody(legacyBodyLayout(post.body, post._createdAt, post.title)));
-  const updated = Array.isArray(post.updatedBody) && post.updatedBody.length > 0
-    ? essayBody(autoLinkBody(legacyBodyLayout(post.updatedBody, post._createdAt, post.title)), "updated-")
-    : null;
+  const original = prepareBody(post.body, post);
+  const updated = Array.isArray(post.updatedBody) && post.updatedBody.length > 0 ? prepareBody(post.updatedBody, post, "updated-") : null;
+  const body = original.body;
+  const bodyReading = mergeBodyReading(original.reading, updated?.reading);
+  // The visible Q&A section (outside the body) joins the Contents list.
+  const hasFaq = !!post.faq?.some((q) => q.question?.trim() && q.answer?.trim());
+  const withFaq = (list: TocHeading[]): TocHeading[] => (hasFaq ? [...list, { id: POST_FAQ_ID, text: POST_FAQ_TITLE, level: 2 }] : list);
+  const toc = withFaq(original.toc);
   const heroSrc = post.heroImage ? urlFor(post.heroImage).width(2000).height(900).url() : DEFAULT_ESSAY_HERO.src;
 
   const articleJsonLd = getArticleJsonLd({
@@ -245,7 +284,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
     excerpt: post.excerpt,
     slug: post.slug,
     publishedAt: post.publishedAt,
-    updatedAt: post._updatedAt,
+    updatedAt: post.lastUpdated || post._updatedAt,
     heroImage: post.heroImage,
     authorName: post.author?.name,
     authorAvatar: post.author?.avatar,
@@ -297,10 +336,20 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
                 {extras.formatTag}
               </span>
             )}
-            <span className="font-mono text-xs leading-relaxed tracking-[0.06em] text-muted-foreground">
+            <span className="inline-flex min-w-0 flex-wrap items-center font-mono text-xs leading-relaxed tracking-[0.06em] text-muted-foreground">
               <time dateTime={post.publishedAt} className="whitespace-nowrap">
                 {date}
               </time>
+              {updatedDate && post.lastUpdated && (
+                <>
+                  <span aria-hidden="true" className="mx-1">
+                    ·
+                  </span>
+                  <span className="whitespace-nowrap">
+                    Updated <time dateTime={post.lastUpdated}>{updatedDate}</time>
+                  </span>
+                </>
+              )}
               {post.category && (
                 <>
                   <span aria-hidden="true" className="mx-1">
@@ -343,6 +392,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
               {post.excerpt}
             </p>
           )}
+          <ShortAnswer text={post.shortAnswer} />
 
           {updated && <EssayVersionToggle slug={post.slug.current} />}
 
@@ -373,6 +423,8 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
               </div>
             )}
             <HighlightSaveButton postSlug={post.slug.current} />
+            <PostFaq items={post.faq} />
+            <HealthDisclaimer tags={post.tags} />
 
             <div aria-hidden="true" className="my-10 flex items-center justify-center gap-4">
               <span className="h-px w-12 bg-linear-to-r from-transparent to-essay-brown/35" />
@@ -383,6 +435,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
             <PostLessonBlocks
               extras={post}
               category={post.category?.title}
+              bodyReading={bodyReading}
               afterNextSteps={post.slug.current === "elixir-of-life-device-and-journey" ? <ElixirCollection /> : null}
             />
 
@@ -444,7 +497,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
           </div>
         </article>
         {updated ? (
-          <EssayVersionToc slug={post.slug.current} original={toc} updated={updated.toc} />
+          <EssayVersionToc slug={post.slug.current} original={toc} updated={withFaq(updated.toc)} />
         ) : (
           <ArticleToc headings={toc} />
         )}

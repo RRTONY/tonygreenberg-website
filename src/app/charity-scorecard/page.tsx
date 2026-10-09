@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { STATS } from "@/lib/content/charity-data";
 import { CharityScorecardExplorer } from "@/components/marketing/charity-scorecard-explorer";
+import { RelatedPages } from "@/components/marketing/related-pages";
 
 // Ported from legacy client/src/pages/CharityScorecard.tsx ("The Grand
 // Impact Accountability Index"). Real content, unchanged — 98 real named
@@ -81,6 +82,8 @@ export default function CharityScorecardPage() {
       </section>
 
       <CharityScorecardExplorer />
+
+      <RelatedPages path="/charity-scorecard" tone="light" />
     </div>
   );
 }
