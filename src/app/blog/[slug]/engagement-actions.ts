@@ -1,9 +1,8 @@
 "use server";
 
-import { randomUUID } from "node:crypto";
-import { cookies } from "next/headers";
 import { createServiceRoleClient, isServiceRoleConfigured } from "@/lib/supabase/service-role";
 import { getUser } from "@/lib/auth";
+import { visitorSessionId } from "@/lib/visitor-session";
 import { esc, sendEmail } from "@/lib/email";
 
 // Reader engagement under each essay, ported from legacy's comments /
@@ -15,7 +14,6 @@ import { esc, sendEmail } from "@/lib/email";
 // comment and direct question, as on live.
 
 const OWNER_EMAIL = "tony@tonygreenberg.com";
-const SESSION_COOKIE = "tg_sid";
 const SITE = "https://tonygreenberg.com";
 const UNAVAILABLE = "This isn't available just now. Please try again later.";
 
@@ -39,15 +37,7 @@ const isSlug = (s: unknown): s is string => typeof s === "string" && /^[a-z0-9-]
 const isEmail = (s: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
 const configured = isServiceRoleConfigured;
 
-async function sessionId(create: boolean): Promise<string | null> {
-  const jar = await cookies();
-  const existing = jar.get(SESSION_COOKIE)?.value;
-  if (existing && /^[0-9a-f-]{36}$/.test(existing)) return existing;
-  if (!create) return null;
-  const id = randomUUID();
-  jar.set(SESSION_COOKIE, id, { httpOnly: true, sameSite: "lax", secure: true, path: "/", maxAge: 60 * 60 * 24 * 365 });
-  return id;
-}
+const sessionId = visitorSessionId;
 
 const EMPTY: PostEngagement = {
   available: false,

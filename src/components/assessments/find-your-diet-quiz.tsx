@@ -178,8 +178,8 @@ export function FindYourDietQuiz() {
   const { markComplete } = useJourneyProgress();
 
   useEffect(() => {
-    if (phase === "results") markComplete("find-your-diet");
-  }, [phase, markComplete]);
+    if (phase === "results") markComplete("find-your-diet", { summary: archetype });
+  }, [phase, archetype, markComplete]);
 
   return (
     <div className="relative z-1 min-h-screen font-sans text-[#2C1810]">

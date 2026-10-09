@@ -1,10 +1,11 @@
 "use client";
 
-import { useCallback, useMemo, useRef, useState, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { Heart, X, AlertTriangle, Ban, Star, FileText, CheckCircle2, Target, ArrowLeft, ArrowRight } from "lucide-react";
+import { saveAssessmentResult } from "@/lib/assessments/result-log";
 import {
   MEDICINES,
   QUESTIONS,
@@ -230,6 +231,13 @@ export function PsychedelicReadinessIndex() {
     if (state !== "results") return null;
     return computeScores(answers);
   }, [state, answers]);
+
+  // Saves the finish once per result shown (Supabase + /self-portrait log).
+  const resultScore = results?.overall;
+  const resultSummary = results ? `${results.level.label}; Top matches: ${results.topMatches.map((m) => m.name).join(", ")}` : undefined;
+  useEffect(() => {
+    if (resultSummary) saveAssessmentResult("psychedelic-readiness-index", { summary: resultSummary, score: resultScore });
+  }, [resultSummary, resultScore]);
 
   const exportPDF = useCallback(() => {
     if (!results) return;

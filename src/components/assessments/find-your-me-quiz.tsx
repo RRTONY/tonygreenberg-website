@@ -625,7 +625,7 @@ export function FindYourMeQuiz({ articleTitles }: { articleTitles: Record<string
         </div>
 
         <div className="text-center">
-          <AssessmentResultActions accentColor={ACCENT} resultSlug="find-your-me" />
+          <AssessmentResultActions accentColor={ACCENT} resultSlug="find-your-me" resultSummary={archetype.name} />
           <div className="mt-4 flex flex-wrap justify-center gap-8">
             <button
               onClick={() => {

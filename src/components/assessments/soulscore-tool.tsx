@@ -300,7 +300,7 @@ export function SoulScoreTool() {
         {activeTab === "GIG ECONOMY" && <GigTab />}
 
         <div className="mt-8 text-center">
-          <AssessmentResultActions accentColor={ACCENT} resultSlug="soulscore" />
+          <AssessmentResultActions accentColor={ACCENT} resultSlug="soulscore" saveToDatabase={false} />
         </div>
 
         <div className="mt-4">

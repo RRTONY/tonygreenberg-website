@@ -1,9 +1,10 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { FlaskConical, Flag, Building2, Scale, Shield, Trophy, BarChart3, BookOpen, AlertTriangle, Siren, Check, X, Download, Dna, type LucideIcon, ArrowRight } from "lucide-react";
+import { saveAssessmentResult } from "@/lib/assessments/result-log";
 
 const HERO_IMAGE =
   "https://cdn.sanity.io/images/a3q1cyqs/production/3dd72753a22143cd9f344ad47be4a30f209b1c44-1200x509.webp";
@@ -285,6 +286,11 @@ export function PeptideQuiz() {
     () => PROFILES.find((p) => totalScore >= p.range[0] && totalScore <= p.range[1]) ?? PROFILES[PROFILES.length - 1],
     [totalScore],
   );
+
+  // Saves the finish once when the results are shown (Supabase + /self-portrait log).
+  useEffect(() => {
+    if (phase === "results") saveAssessmentResult("quiz_25q", { summary: profile.name, score: totalScore });
+  }, [phase, profile.name, totalScore]);
 
   const handleSelect = useCallback(
     (choiceIdx: number) => {

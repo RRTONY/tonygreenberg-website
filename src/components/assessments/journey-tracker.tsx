@@ -1,7 +1,9 @@
 "use client";
 
-import { useCallback, useMemo, useState, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { ArrowUpRight, ChevronDown, ChevronUp } from "lucide-react";
+import { setJourneyStep, syncJourneyProgress } from "@/app/assessments/actions";
+import { recordFinish } from "@/lib/assessments/record-finish";
 
 // Ported from legacy client/src/components/JourneyTracker.tsx — a
 // universal progress tracker across every real "Find Your X" experience
@@ -11,12 +13,12 @@ import { ArrowUpRight, ChevronDown, ChevronUp } from "lucide-react";
 // chemistry/partner/capital tools on their own manus.space subdomains,
 // same "real external sibling product" treatment already established for
 // SoulSmoke/LiquidSun in `brewsoul-config.ts`; all 6 confirmed live
-// before porting). Legacy's `trpc.journey.*` DB sync (mark-complete,
-// toggle, cross-device sync via `useAuth`) isn't ported — there's no
-// auth/backend for it yet in this migration, same honest-degradation
-// pattern used throughout (progress still tracks correctly per-browser
-// via localStorage, it just doesn't sync across devices until Supabase
-// auth exists).
+// before porting). Legacy's `trpc.journey.*` DB sync is back on Supabase
+// (2026-10-10, src/app/assessments/actions.ts): every finish is saved to
+// `assessment_results`, and a signed-in member's progress is stored in
+// `journey_progress` and merged with this browser's on first use, so it
+// follows them across devices. Visitors who aren't signed in keep the
+// per-browser localStorage list, as before.
 export interface JourneyExperience {
   id: string;
   name: string;
@@ -87,6 +89,33 @@ function writeStore(next: Set<string>) {
   storeListeners.forEach((listener) => listener());
 }
 
+// The quiz's page address without the slash, the name assessment_results
+// uses (the same one result-log.ts's slugs use, so a finish logged by both
+// helpers is saved once).
+function assessmentKey(id: string): string {
+  const exp = JOURNEY_MAP.find((e) => e.id === id);
+  return exp && !exp.isExternal ? exp.url.replace(/^\//, "") : id;
+}
+
+// Supabase's session cookie (sb-<project>-auth-token, readable by the
+// browser) tells us someone may be signed in; visitors without it never call
+// the server for journey sync.
+function maybeSignedIn(): boolean {
+  return /(?:^|; )sb-[^=]+-auth-token/.test(document.cookie);
+}
+
+let syncStarted = false;
+function syncWithAccountOnce() {
+  if (syncStarted || !maybeSignedIn()) return;
+  syncStarted = true;
+  void syncJourneyProgress(Array.from(readStore())).then((ids) => {
+    if (!ids) return;
+    const current = readStore();
+    if (ids.every((id) => current.has(id))) return;
+    writeStore(new Set([...current, ...ids]));
+  });
+}
+
 function subscribeStore(listener: () => void) {
   storeListeners.add(listener);
   return () => storeListeners.delete(listener);
@@ -104,17 +133,27 @@ function subscribeStore(listener: () => void) {
 export function useJourneyProgress() {
   const completed = useSyncExternalStore(subscribeStore, readStore, () => EMPTY_SET as Set<string>);
 
-  const markComplete = useCallback((id: string) => {
+  // Syncing with the member's account is a one-time side effect against an
+  // outside system (the merged list lands in the external store, not React
+  // state), so an effect is the right tool.
+  useEffect(syncWithAccountOnce, []);
+
+  // `result` is the outcome in words (archetype, level) and/or a number,
+  // when the quiz has one; it's saved with the finish in assessment_results.
+  const markComplete = useCallback((id: string, result?: { summary?: string; score?: number }) => {
     const next = new Set(readStore());
     next.add(id);
     writeStore(next);
+    recordFinish({ assessment: assessmentKey(id), journeyId: id, ...result });
   }, []);
 
   const toggleComplete = useCallback((id: string) => {
     const next = new Set(readStore());
-    if (next.has(id)) next.delete(id);
-    else next.add(id);
+    const done = !next.has(id);
+    if (done) next.add(id);
+    else next.delete(id);
     writeStore(next);
+    if (maybeSignedIn()) void setJourneyStep(id, done);
   }, []);
 
   const stats = useMemo(() => {

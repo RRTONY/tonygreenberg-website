@@ -233,7 +233,7 @@ export function AssessmentQuiz() {
               <ArrowRight aria-hidden="true" className="size-3.5" />
             </a>
 
-            <AssessmentResultActions resultSlug="assessment" />
+            <AssessmentResultActions resultSlug="assessment" resultSummary={arch?.name} />
           </div>
         )}
       </div>

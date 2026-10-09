@@ -67,6 +67,7 @@ how to handle a request is in [`TASK_GUIDE.md`](TASK_GUIDE.md). Last checked 202
 | Live's editorial look on marketing pages (narrow column, short red divider) | `src/components/marketing/editorial-divider.tsx`, used by `/invest`, `/amplifier`, `/diamond-cut`, `/the-letter` |
 | Member accounts (Supabase Auth, email + password) | `src/app/(auth)/` (login, signup, forgot/reset password, `actions.ts`), `src/app/auth/callback/`, `src/lib/auth.ts` (`getUser`, `requireUser`, `isAdmin` via `ADMIN_EMAILS`) |
 | Member features (Supabase tables in `supabase/migrations/0001_member_features.sql`) | `/my-highlights` (+ `components/blog/highlight-save-button.tsx`), `/my-impact` (`lib/referrals.ts`), `/clock-keeper-part-2`, `/post-intervention`, `/friend-gate` + `/friend-survey/[token]` (`lib/friend-gate.ts`, email via `lib/email.ts` / Resend), `/pri-research` (admin; `lib/pri-research.ts`), password-gated essays (`lib/gated-posts.ts`) |
+| Quiz results + journey progress (Supabase, `supabase/migrations/0005_assessments.sql`) | server actions `src/app/assessments/actions.ts`, called from `components/assessments/journey-tracker.tsx` (`markComplete`, members' cross-device sync) and `lib/assessments/result-log.ts` (`saveAssessmentResult`), both through `lib/assessments/record-finish.ts` (one call per finish); anonymous visitor id `lib/visitor-session.ts` (`tg_sid`, shared with essays). Old site's data: `docs/ai/project_legacy_database.md` |
 | Theme (light/dark via `.dark` class) | `src/components/theme-provider.tsx`, tokens in `src/app/globals.css` |
 | Redirects | `next.config.ts` `redirects()`; old WordPress essay addresses in `src/lib/content/legacy-post-redirects.ts`, old addresses Google still sends people to in `src/lib/content/search-console-redirects.ts` (re-check with `scripts/check-search-console-urls.ts`) |
 | Error pages | 404: `src/app/not-found.tsx` (title) + `src/components/not-found-redirect.tsx` (live's 3-second redirect home); page errors: `src/app/error.tsx` (inside the header/footer, "Try again" re-fetches); root layout failures: `src/app/global-error.tsx` (own `<html>`, no header). Never add a `loading.tsx` above a dynamic route (404s become 200s) |
@@ -95,4 +96,4 @@ and Lighthouse data (`ga4-client.ts`, `gsc-client.ts`, `lighthouse-check.ts`). F
 
 - Netlify site settings and env vars, DNS for tonygreenberg.com
 - Sanity project settings / API tokens (content itself is editable via MCP, as drafts)
-- Supabase project (not provisioned yet, Phase 2), Kit newsletter account
+- Supabase project `tonygreenberg` (tables are created by pasting `supabase/migrations/*.sql` into its SQL Editor, in order; the old site's tables are archived in its private `legacy` schema), Kit newsletter account

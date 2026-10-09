@@ -456,7 +456,7 @@ export function FindYourCoffeeQuiz() {
         </div>
 
         <div className="mb-4 flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <AssessmentResultActions accentColor={ACCENT} resultSlug="find-your-coffee" />
+          <AssessmentResultActions accentColor={ACCENT} resultSlug="find-your-coffee" resultSummary={archetype} />
           <button
             onClick={() => {
               setPhase("landing");

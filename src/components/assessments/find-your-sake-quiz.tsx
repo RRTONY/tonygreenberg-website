@@ -498,7 +498,7 @@ export function FindYourSakeQuiz() {
         </div>
 
         <div className="mb-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <AssessmentResultActions accentColor={ACCENT} resultSlug="find-your-sake" />
+          <AssessmentResultActions accentColor={ACCENT} resultSlug="find-your-sake" resultSummary={topProfile.name} />
           <button
             onClick={() => {
               setPhase("landing");

@@ -639,7 +639,11 @@ export function FindYourSpiritQuiz() {
       <WhatsNext />
 
       <section className="mx-auto max-w-3xl px-6 pt-8 pb-16 text-center">
-        <AssessmentResultActions accentColor={ACCENT} resultSlug="find-your-spirit" />
+        <AssessmentResultActions
+          accentColor={ACCENT}
+          resultSlug="find-your-spirit"
+          resultSummary={secondResult ? `Primary: ${topResult.name}; Secondary: ${secondResult.name}` : topResult.name}
+        />
         <button
           onClick={() => {
             setPhase("landing");

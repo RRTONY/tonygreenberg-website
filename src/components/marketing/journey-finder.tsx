@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Check, Circle, Hexagon, Infinity as InfinityIcon, Gem, Target, Swords, RotateCcw, type LucideIcon } from "lucide-react";
 import { postHref } from "@/lib/content/post-redirects";
+import { saveAssessmentResult } from "@/lib/assessments/result-log";
 
 // Ported from legacy client/src/pages/JourneyFinder.tsx. Real content,
 // unchanged — all 5 questions with real weighted choices, all 6 journey
@@ -238,6 +239,12 @@ export function JourneyFinder() {
     setAnswers({});
     setSelectedChoice(null);
   };
+
+  // Saves the finish once when the mapped path is shown (Supabase + /self-portrait log).
+  const resultTitle = step > totalQuestions ? (score(answers)[0]?.journey ?? JOURNEYS.thinker).title : undefined;
+  useEffect(() => {
+    if (resultTitle) saveAssessmentResult("find-your-journey", { summary: resultTitle });
+  }, [resultTitle]);
 
   if (step === 0) {
     return (

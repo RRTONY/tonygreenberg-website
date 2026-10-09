@@ -210,8 +210,8 @@ type Answers = Record<string, number>;
 // recommendation bands, unchanged. Legacy's `AssessmentResultActions` took
 // sessionId/answers props that fed a `trpc.assessments.submit` mutation
 // this migration never built; this version uses the already-simplified
-// print-only `AssessmentResultActions` (see result-actions.tsx) instead of
-// reproducing a submit call with no backend.
+// `AssessmentResultActions` (see result-actions.tsx), whose `resultSlug`
+// saves the finish to Supabase, instead of a legacy tRPC submit call.
 export function AssessmentQuiz() {
   const [currentDomain, setCurrentDomain] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
@@ -290,7 +290,13 @@ export function AssessmentQuiz() {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-4">
-            <AssessmentResultActions printTargetRef={resultsRef} accentColor="#b86a28" />
+            <AssessmentResultActions
+              printTargetRef={resultsRef}
+              accentColor="#b86a28"
+              resultSlug="kava-assessment"
+              resultSummary={recommendation}
+              resultScore={totalScore}
+            />
             <button onClick={reset} className="flex items-center gap-2 rounded-lg bg-kava-saffron px-6 py-3 text-sm font-bold text-white">
               <RotateCcw size={16} />
               Start Over

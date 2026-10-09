@@ -611,7 +611,12 @@ export function ConsciousnessScaleQuiz() {
       <WhatsNext />
 
       <section className="mx-auto max-w-3xl px-6 pt-8 pb-16 text-center">
-        <AssessmentResultActions accentColor={ACCENT} resultSlug="consciousness-scale" />
+        <AssessmentResultActions
+          accentColor={ACCENT}
+          resultSlug="consciousness-scale"
+          resultSummary={`${level.name} (${level.emotion})`}
+          resultScore={totalScore}
+        />
         <button
           onClick={() => {
             setPhase("quiz");

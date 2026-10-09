@@ -1,9 +1,10 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { AlertTriangle, Brain, CheckCircle2, ChevronLeft, ChevronRight, DollarSign, GripVertical, Heart, Leaf, MapPin, Shield, Star, Users, ArrowRight } from "lucide-react";
+import { saveAssessmentResult } from "@/lib/assessments/result-log";
 import {
   type CompassAnswers,
   type DimensionKey,
@@ -674,6 +675,14 @@ function QuestionCard({
 function ResultsView({ results, onReset }: { results: FacilityResult[]; onReset: () => void }) {
   const eligible = results.filter((r) => !r.eliminated);
   const eliminated = results.filter((r) => r.eliminated);
+  const top = eligible[0];
+  const resultSummary = top ? `Top match: ${top.facility.name} (${top.matchPercent}% match)` : "No facilities matched";
+  const resultScore = top?.matchPercent;
+
+  // Saves the finish once when the results are shown (Supabase + /self-portrait log).
+  useEffect(() => {
+    saveAssessmentResult("iboga-compass", { summary: resultSummary, score: resultScore });
+  }, [resultSummary, resultScore]);
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">

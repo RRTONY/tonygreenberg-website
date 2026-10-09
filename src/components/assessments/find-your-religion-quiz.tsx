@@ -513,6 +513,9 @@ export function FindYourReligionQuiz() {
       <WhatsNext />
 
       <section className="mx-auto max-w-3xl px-6 pt-8 pb-16 text-center">
+        {/* Only the finish is saved, not the result: religious belief is
+            sensitive personal data, kept out of the database until the owner
+            says yes. */}
         <AssessmentResultActions accentColor={ACCENT} resultSlug="find-your-religion" />
         <button
           onClick={() => {

@@ -2,9 +2,9 @@
 
 The legacy app kept its data in a MySQL-compatible TiDB database on Manus (schema:
 `_legacy-manus-app/drizzle/schema.ts`). It goes away with Manus. The owner shared the connection
-details on 2026-10-09; they live only in `.env.local` as `LEGACY_DATABASE_URL` (never commit,
-never paste in docs). **The password was also pasted into a chat, so rotate it after the copy is
-finished**, then delete `LEGACY_DATABASE_URL`.
+details on 2026-10-09. `LEGACY_DATABASE_URL` was removed from `.env.local` on 2026-10-10 (owner:
+"remove the old db"; everything is backed up and copied into Supabase). **The password was also
+pasted into a chat: rotate it on Manus, or simply let it die with Manus at shutdown.**
 
 ## Backup
 
@@ -63,9 +63,57 @@ personal data:
   Done through the Management API (`POST /v1/projects/<ref>/database/query`) with a personal access
   token, not the site's keys. Readable in the dashboard's Table Editor (schema `legacy`).
 
-## Still to decide (owner)
+## Where the archived data is used on the site (checked 2026-10-10)
 
-- The few real reactions / ratings / micro-commitment (copy after 0002 is run, or leave).
+Every site feature that stores data already reads Supabase (`grep -rn '\.from("' src`). Mapped
+each `legacy` table to them:
+
+- **Used:** `post_reactions`, `blog_ratings`, `micro_commitments` → `public.blog_reactions`,
+  `blog_ratings`, `blog_commitments` (shown on every essay). Copy script:
+  `supabase/migrations/0004_copy_legacy_engagement.sql` (inside the database, idempotent, reads
+  rows via `to_jsonb()` so the archive's column-name case doesn't matter). Owner asked
+  ("use it in the Supabase db"); **run 2026-10-10** through the Management API (4 / 2 / 1 rows). A row whose old essay address was
+  later renamed stays in the table but won't show on the essay.
+- **Empty in the old site, nothing to copy:** comments, highlights, PRI calibrations, Clock
+  Keeper, post-intervention, friend gate.
+- **Quiz results and journey progress (built 2026-10-10, owner chose):** `public.assessment_results`
+  (every finish, anonymous allowed, result in words + score) and `public.journey_progress`
+  (signed-in members, synced across devices); `supabase/migrations/0005_assessments.sql` also copies
+  the 24 real legacy results (test sessions `^test` skipped, legacy names mapped to page addresses).
+  Code: `src/app/assessments/actions.ts`, called from `journey-tracker.tsx`'s `markComplete` and
+  `result-log.ts`'s `saveAssessmentResult` through `lib/assessments/record-finish.ts`, which merges
+  both calls for one finish into a single server call (they used to queue, ~2.7 s each, and the
+  result text was lost if the visitor left within ~5 s). The server also skips a repeat for the same
+  visitor + quiz within 30 minutes. **Run 2026-10-10** (24 old results copied) and tested in a browser. Visitor id: the `tg_sid` cookie shared with essays
+  (`src/lib/visitor-session.ts`). Tony reads results in Supabase's Table Editor (no admin page).
+- **No matching feature, stays in `legacy` only:** `users` and the one `referral_codes` row (old
+  accounts can't move to Supabase Auth without new passwords), `pri_consents`, `manifesto_responses`,
+  `community_contacts`, `page_views`, `search_queries` and the rest.
 
 Reading it again: a throwaway Python venv with `pymysql` + `certifi` (TLS is required), outside
 the project, so no new package. Only `SHOW`/`SELECT`; TiDB has no real read-only session mode.
+
+## Everything the old database did, for the Manus shutdown (checked 2026-10-10)
+
+Every legacy tRPC procedure that touched the database (`_legacy-manus-app/server/routers.ts` and
+`server/routers/*`), against the new site:
+
+- **On the new site already:** email signups (Kit, `src/app/api/subscribe/route.ts`), essay
+  comments / reactions / ratings / micro-commitments / Ask Tony, highlights, invites, Clock Keeper,
+  post-intervention, friend gate, PRI calibrations (all Supabase), supplier forms (RampRate's Apps
+  Script; stage 2 redirects to ramprate.com), accounts (Supabase Auth), short links (fixed list),
+  quiz results and journey progress (2026-10-10).
+- **Simplified to a pre-filled email or the browser only:** PRI consent (`sessionStorage`, ~17
+  real legacy rows: the biggest gap), Living Declaration / manifesto, PRI corrections, Cheshire
+  stories, facilitator submissions, spam reports, Engage audit (dropped). Each could save to
+  Supabase like the quizzes if the owner wants; until Resend is set up, saved entries would only
+  be visible in the Table Editor.
+- **Not ported on purpose:** FauxTony + shared chats (cancelled), reading streaks, notifications,
+  read counters, search logging, guest edits, community directory, AI features that used Manus's
+  LLM (coffee prescription AI, AI search, daily provocation generator, next-read), Stripe, spam
+  tracking, admin dashboards.
+- **Manus services with no replacement:** in-app owner alerts (`notifyOwner`, ~20 calls; only
+  comments, Ask Tony and friend gate email Tony, through Resend), the new-subscriber alert.
+- **Found: no Google Analytics tag on the new site.** Legacy loads GA4 `G-4GVW40S47N` in
+  `client/index.html`; nothing in `src/` does, so visitor stats would stop at cutover. Tracked in
+  `NEXTJS-MIGRATION-TODO.md` Phase 12.
