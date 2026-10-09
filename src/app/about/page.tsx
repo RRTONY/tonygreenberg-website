@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { PartnerQuotes } from "@/components/marketing/partner-quotes";
+import { ArrowRight } from "lucide-react";
 
 // Ported from legacy client/src/pages/About.tsx ("The Story"). Real content
 // kept as-is. Reuses the Tony headshot and homepage hero image already
@@ -49,7 +50,7 @@ export default function AboutPage() {
             <p className="mb-4 font-mono text-xs tracking-[0.25em] text-brand-gold-light uppercase">
               The Story
             </p>
-            <h1 className="mb-5 font-heading text-4xl leading-tight font-normal text-white sm:text-5xl">
+            <h1 className="mb-5 font-heading text-[clamp(2rem,4.5vw,3.2rem)]/[1.15] font-normal text-white">
               The broken things
               <br />
               <em className="text-brand-gold-light not-italic">taught me everything.</em>
@@ -176,7 +177,10 @@ export default function AboutPage() {
             href="/blog/energy-is-money-money-is-memory"
             className="inline-block border-b border-brand-gold-light/50 font-mono text-xs tracking-wide text-brand-gold-light uppercase"
           >
-            Read the field note →
+            <span className="inline-flex items-center gap-1.5">
+              Read the field note
+              <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+            </span>
           </Link>
         </div>
       </div>
@@ -193,13 +197,15 @@ export default function AboutPage() {
           Abelarde — artist, partner, constant source of inspiration for creativity and love for
           humankind. Her work is a permanent influence on everything here.
         </p>
+        {/* Her own site (owner gave the address, 2026-10-09); live still links an old
+            *.manus.space copy. */}
         <a
-          href="https://clarisseart-jyfqwtnv.manus.space/"
+          href="https://clarisseartist.com/"
           target="_blank"
           rel="noopener noreferrer"
           className="border-b border-brand-gold/30 text-brand-gold"
         >
-          clarisseart.manus.space
+          clarisseartist.com
         </a>
       </div>
 
@@ -255,7 +261,10 @@ export default function AboutPage() {
 
       <div className="border-t border-border py-6 text-center">
         <Link href="/" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
-          Back to the Essays →
+          <span className="inline-flex items-center gap-1.5">
+            Back to the Essays
+            <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+          </span>
         </Link>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { postHref } from "@/lib/content/post-redirects";
+import { ArrowRight } from "lucide-react";
 
 // Ported from legacy client/src/pages/StartHere.tsx. Real content kept as-is.
 // All 5 essays here are ALSO among the 99 blog posts with no real hero image
@@ -70,7 +71,10 @@ function EssayCard({ essay, index }: { essay: Essay; index: number }) {
         </p>
         <p className="mb-5 text-foreground/70">{essay.why}</p>
         <span className="font-mono text-xs tracking-wide" style={{ color: tagColor }}>
-          Read this essay →
+          <span className="inline-flex items-center gap-1.5">
+            Read this essay
+            <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+          </span>
         </span>
       </div>
       {!isEven && numberPanel}
@@ -123,13 +127,19 @@ export default function StartHerePage() {
               href="/"
               className="inline-flex items-center rounded-sm bg-brand-gold-light px-7 py-3 font-mono text-xs tracking-wide text-[#0A0A10] uppercase min-h-11 md:min-h-6"
             >
-              Explore All Essays →
+              <span className="inline-flex items-center gap-1.5">
+                Explore All Essays
+                <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+              </span>
             </Link>
             <Link
               href="/ecosystem"
               className="inline-flex items-center rounded-sm border border-white/20 px-7 py-3 font-mono text-xs tracking-wide text-white/70 uppercase min-h-11 md:min-h-6"
             >
-              Join the Ecosystem →
+              <span className="inline-flex items-center gap-1.5">
+                Join the Ecosystem
+                <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+              </span>
             </Link>
           </div>
         </div>

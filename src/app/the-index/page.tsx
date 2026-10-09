@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { TheIndexExplorer } from "@/components/the-index/the-index-explorer";
+import { STATS } from "@/lib/content/charity-data";
 import { INDEX_STATS_CONCEPTS, INDEX_STATS_YEARS } from "@/lib/content/the-index";
 import { loadIndexItems } from "./index-data";
 
@@ -48,7 +49,7 @@ export default async function TheIndexPage() {
           Each result opens a short orientation and three useful next reads before you leave the Index.
         </p>
 
-        <TheIndexExplorer items={items} />
+        <TheIndexExplorer items={items} charityCount={STATS.totalCharities} />
 
         <div aria-hidden="true" className="mx-auto mt-12 h-px max-w-xs bg-linear-to-r from-transparent via-essay-red to-transparent" />
 

@@ -113,7 +113,12 @@ export function StepResults({ quiz }: StepProps) {
           </Link>
         </div>
 
-        <AssessmentResultActions accentColor={ACCENT} resultSlug="grant-study" />
+        <AssessmentResultActions
+          accentColor={ACCENT}
+          resultSlug="grant-study"
+          resultSummary={`Overall: ${overall}%; Strength: ${strongest.name}; Growth edge: ${growthEdge.name}`}
+          resultScore={overall}
+        />
 
         <p className="mt-4 text-center font-mono text-[0.7rem] tracking-widest text-[#999]">
           Based on the Harvard Grant Study (1938–present) · Curated by Tony Greenberg

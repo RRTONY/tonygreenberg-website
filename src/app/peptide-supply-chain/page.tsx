@@ -5,6 +5,7 @@ import { PeptideShutdownBanner } from "@/components/marketing/peptide-shutdown-b
 import { BioChainCTA } from "@/components/marketing/biochain-cta";
 import { SupplyChainRankings } from "@/components/marketing/supply-chain-rankings";
 import { PROVIDERS, COST_CATEGORIES } from "@/lib/content/supply-chain-providers";
+import { ArrowRight } from "lucide-react";
 
 // Ported from legacy client/src/pages/PeptideSupplyChain.tsx. Real content,
 // unchanged — a supply-chain transparency audit of 12 real, named peptide
@@ -163,31 +164,46 @@ export default function PeptideSupplyChainPage() {
               href="/find-your-peptide"
               className="rounded-lg bg-linear-to-br from-brand-gold to-brand-gold-light px-6 py-3 font-mono text-xs font-bold tracking-wide text-[#0A0A10] uppercase"
             >
-              Take the Assessment →
+              <span className="inline-flex items-center gap-1.5">
+                Take the Assessment
+                <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+              </span>
             </Link>
             <Link
               href="/peptide-hall-of-shame"
               className="rounded-lg border border-brand-gold/30 px-6 py-3 font-mono text-xs font-bold tracking-wide text-brand-gold uppercase"
             >
-              See the Hall of Shame →
+              <span className="inline-flex items-center gap-1.5">
+                See the Hall of Shame
+                <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+              </span>
             </Link>
             <Link
               href="/peptide-matrix"
               className="rounded-lg border border-brand-gold/30 px-6 py-3 font-mono text-xs font-bold tracking-wide text-brand-gold uppercase"
             >
-              Review vs Evidence Matrix →
+              <span className="inline-flex items-center gap-1.5">
+                Review vs Evidence Matrix
+                <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+              </span>
             </Link>
             <Link
               href="/quiz_25q"
               className="rounded-lg border border-brand-gold/30 px-6 py-3 font-mono text-xs font-bold tracking-wide text-brand-gold uppercase"
             >
-              25-Question Quiz →
+              <span className="inline-flex items-center gap-1.5">
+                25-Question Quiz
+                <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+              </span>
             </Link>
             <Link
               href="/peptide-watch"
               className="rounded-lg border border-[#C84B2A]/40 px-6 py-3 font-mono text-xs font-bold tracking-wide text-[#C84B2A] uppercase"
             >
-              PeptideWatch Safety Guide →
+              <span className="inline-flex items-center gap-1.5">
+                PeptideWatch Safety Guide
+                <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+              </span>
             </Link>
           </div>
         </div>
@@ -208,7 +224,10 @@ export default function PeptideSupplyChainPage() {
             href="/supplier-intake"
             className="inline-block rounded-lg bg-brand-gold px-8 py-3 font-mono text-xs font-bold tracking-wide text-white uppercase"
           >
-            Become a Supply Partner →
+            <span className="inline-flex items-center gap-1.5">
+              Become a Supply Partner
+              <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+            </span>
           </Link>
         </div>
 

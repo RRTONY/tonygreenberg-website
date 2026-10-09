@@ -1,12 +1,13 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { BREWSOUL_COFFEES } from "@/lib/content/brewsoul-coffees";
 import { computeQPR, computeTier } from "@/lib/intelligence-engine/scoring";
 import { TierIcons } from "@/components/brewsoul/coffee-card";
 import type { CatalogItem } from "@/lib/intelligence-engine/types";
+import { saveAssessmentResult } from "@/lib/assessments/result-log";
 import { quizData } from "../data/brewsoul-quiz.data";
 import type { StepProps } from "../brewsoul-quiz";
 
@@ -37,6 +38,12 @@ export function StepResults({ quiz }: StepProps) {
         .slice(0, 8),
     [answers],
   );
+
+  // Saves the finish once with the top match (Supabase + /self-portrait log).
+  const topMatch = matches[0]?.coffee.name;
+  useEffect(() => {
+    saveAssessmentResult("brewsoul-quiz", { summary: topMatch ? `Top match: ${topMatch}` : undefined });
+  }, [topMatch]);
 
   return (
     <div className="relative z-10 flex min-h-screen flex-col items-center px-6 pt-24 pb-12 text-center">

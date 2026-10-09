@@ -30,8 +30,6 @@ export interface EcosystemLink {
 // for /find-my, tracked as a real upcoming page rather than a mistake.
 export const BREWSOUL_ECOSYSTEM: EcosystemLink[] = [
   { label: "Tony Greenberg", url: "/" },
-  { label: "SoulSmoke (Mezcal)", url: "https://mezcalagave-ahru9fq8.manus.space", badge: "Live" },
-  { label: "LiquidSun (Tequila)", url: "https://tequilaazul-fxqrr3js.manus.space", badge: "Live" },
   { label: "Find Your Sake", url: "/find-your-sake" },
 ];
 

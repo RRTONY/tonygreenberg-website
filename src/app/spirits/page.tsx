@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 type CompanionSite = {
   title: string;
   tagline: string;
-  url: string;
+  url?: string;
   description: string;
   offline?: boolean;
 };
@@ -69,7 +69,6 @@ const CATEGORIES: Category[] = [
     site: {
       title: "SoulSmoke",
       tagline: "The Miracle of Mezcal",
-      url: "https://mezcalagave-ahru9fq8.manus.space",
       description:
         "A deep-dive education site with 25 US bottles, 25 Mexico legends, a scent-to-agave flavor finder, an agave encyclopedia covering 27 species, and a scroll-driven journey through the ancestral distillation process.",
       offline: true,
@@ -94,7 +93,6 @@ const CATEGORIES: Category[] = [
     site: {
       title: "LiquidSun",
       tagline: "Tequila, Illuminated",
-      url: "https://tequilaazul-fxqrr3js.manus.space",
       description:
         "A visual guide that treats tequila with the reverence it deserves. From highland agave fields to the barrel room. Not a buying guide — a love letter to the spirit and the people who make it.",
       offline: true,
@@ -269,7 +267,7 @@ export default function SpiritsPage() {
               </blockquote>
 
               {cat.site &&
-                (cat.site.offline ? (
+                (cat.site.offline || !cat.site.url ? (
                   <div className="mb-6 rounded-lg bg-[#0A0A10] p-8">
                     <div className="mb-3 font-mono text-[0.7rem] tracking-[0.15em] text-white/60 uppercase">
                       Companion Site, No Longer Live

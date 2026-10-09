@@ -22,7 +22,7 @@ const RECENT_COUNT = 18;
 // newest 18 items or the results, each opening a TLDR with three next reads.
 // Title/summary/tag matching is instant here; essay body matches arrive from
 // the server a moment later (searchIndexBodies) and merge into the same list.
-export function TheIndexExplorer({ items }: { items: IndexItem[] }) {
+export function TheIndexExplorer({ items, charityCount }: { items: IndexItem[]; charityCount: number }) {
   const [query, setQuery] = useState("");
   const [conceptKey, setConceptKey] = useState<string | null>(null);
   const [openId, setOpenId] = useState<string | null>(null);
@@ -244,7 +244,7 @@ export function TheIndexExplorer({ items }: { items: IndexItem[] }) {
             </span>
             <span className="mb-1 block font-mono text-[0.7rem] tracking-[0.06em] text-brand-gold">INTERACTIVE TOOL</span>
             <span className="block font-serif text-[0.98rem]/normal text-foreground/65">
-              103 charities scored across 7 dimensions from 8 evaluators. Where does your dollar actually go?
+              {charityCount} charities scored across 7 dimensions from 8 evaluators. Where does your dollar actually go?
             </span>
           </span>
         </Link>

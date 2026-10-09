@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PeptideShutdownBanner } from "@/components/marketing/peptide-shutdown-banner";
 import { PriceTrackerTable, type PriceEntry } from "@/components/marketing/price-tracker-table";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 // Ported from legacy client/src/pages/PriceTracker.tsx. Real content,
 // unchanged — 13 real compounds with real research-vendor vs. telehealth
@@ -60,7 +61,10 @@ export default function PriceTrackerPage() {
       <section className="bg-secondary px-6 py-12">
         <div className="mx-auto flex max-w-3xl flex-wrap justify-center gap-4">
           <Link href="/rip-peptide-sciences" className="inline-flex items-center rounded-md border border-border bg-card px-5 py-2 text-sm font-medium min-h-11 md:min-h-6">
-            ← RIP Peptide Sciences
+            <span className="inline-flex items-center gap-1.5">
+              <ArrowLeft aria-hidden="true" className="size-[1em] shrink-0" />
+              RIP Peptide Sciences
+            </span>
           </Link>
           <Link href="/whats-legal" className="inline-flex items-center rounded-md border border-border bg-card px-5 py-2 text-sm font-medium min-h-11 md:min-h-6">
             What&apos;s Legal
@@ -69,7 +73,10 @@ export default function PriceTrackerPage() {
             Verify Your COA
           </Link>
           <Link href="/test-your-peptides" className="inline-flex items-center rounded-md border border-border bg-card px-5 py-2 text-sm font-medium min-h-11 md:min-h-6">
-            Test Your Peptides →
+            <span className="inline-flex items-center gap-1.5">
+              Test Your Peptides
+              <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+            </span>
           </Link>
         </div>
       </section>

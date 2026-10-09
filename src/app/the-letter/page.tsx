@@ -239,7 +239,7 @@ export default async function TheLetterPage() {
           <p className="mb-3 font-mono text-xs tracking-[0.15em] text-brand-gold-light uppercase">
             A Living Document · Updated Continuously
           </p>
-          <h1 className="mb-2 font-heading text-4xl leading-tight text-white sm:text-6xl">
+          <h1 className="mb-2 font-heading text-[clamp(2.4rem,5.5vw,4.2rem)]/[1.08] text-white">
             I expose broken systems.
             <br />
             <span className="text-brand-gold-light">Then I build what comes next.</span>
@@ -252,13 +252,19 @@ export default async function TheLetterPage() {
               href="/find-my"
               className="inline-flex items-center justify-center rounded-sm bg-brand-gold-light px-4 py-2.5 font-mono text-xs tracking-wide text-[#0A0A10] uppercase shadow-[0_0_20px_rgba(212,185,106,0.3)] transition-transform hover:scale-105"
             >
-              Find Your Fit →
+              <span className="inline-flex items-center gap-1.5">
+                Find Your Fit
+                <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+              </span>
             </Link>
             <Link
               href="/blog"
               className="inline-flex items-center justify-center rounded-sm border border-brand-gold-light/50 bg-brand-gold-light/10 px-4 py-2.5 font-mono text-xs tracking-wide text-brand-gold-light uppercase backdrop-blur-md transition-transform hover:scale-105"
             >
-              {essayCount} Essays →
+              <span className="inline-flex items-center gap-1.5">
+                {essayCount} Essays
+                <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+              </span>
             </Link>
           </div>
         </div>
@@ -285,7 +291,10 @@ export default async function TheLetterPage() {
                 <p className="text-sm text-muted-foreground">
                   {path.body.replace("{count}", String(essayCount))}
                 </p>
-                <p className="mt-3 font-mono text-xs tracking-wide text-brand-gold">{path.cta} →</p>
+                <p className="mt-3 inline-flex items-center gap-1.5 font-mono text-xs tracking-wide text-brand-gold">
+                  {path.cta}
+                  <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+                </p>
               </Link>
             ))}
           </div>
@@ -326,7 +335,10 @@ export default async function TheLetterPage() {
             ))}
           </div>
           <Link href="/articles" className="mt-4 inline-block border-t border-border pt-3 font-mono text-xs tracking-wide text-brand-gold uppercase">
-            All {essayCount} essays →
+            <span className="inline-flex items-center gap-1.5">
+              All {essayCount} essays
+              <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+            </span>
           </Link>
         </div>
       </div>
@@ -346,7 +358,10 @@ export default async function TheLetterPage() {
             href="/blog/energy-is-money-money-is-memory"
             className="inline-flex min-h-11 shrink-0 items-center font-mono text-[0.6rem] tracking-[0.12em] text-brand-gold-light uppercase md:min-h-6"
           >
-            Read the essay →
+            <span className="inline-flex items-center gap-1.5">
+              Read the essay
+              <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+            </span>
           </Link>
         </div>
       </div>
@@ -416,7 +431,10 @@ export default async function TheLetterPage() {
                 July 2026 · 22 min read · Investor Disclosure Included
               </p>
               <p className="font-mono text-xs tracking-wide text-brand-gold-light uppercase">
-                Read the Letter →
+                <span className="inline-flex items-center gap-1.5">
+                  Read the Letter
+                  <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+                </span>
               </p>
             </div>
           </Link>
@@ -647,7 +665,12 @@ export default async function TheLetterPage() {
           </p>
           <NewsletterSignupForm
             source="homepage"
-            buttonLabel="I'm in →"
+            buttonLabel={
+              <>
+                I&apos;m in
+                <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+              </>
+            }
             placeholder="your@email.com"
             className="flex flex-col gap-3 sm:flex-row"
           />

@@ -76,7 +76,7 @@ export default function ThePhilosophyPage() {
         <p className="mb-6 font-mono text-[0.6rem] tracking-[0.3em] text-[#c9a84c] uppercase">
           Tony Greenberg
         </p>
-        <h1 className="mb-4 text-4xl leading-tight font-extrabold tracking-tight text-[#F4F0E8] sm:text-5xl">
+        <h1 className="mb-4 text-[clamp(2rem,6vw,3.5rem)]/[1.15] font-extrabold tracking-[-0.02em] text-[#F4F0E8]">
           The Diode of Perception
         </h1>
         <p className="mx-auto max-w-md font-mono text-sm tracking-wide text-[#F4F0E8]/45">

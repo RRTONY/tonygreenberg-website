@@ -1,7 +1,9 @@
 "use client";
 
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react";
+import { saveAssessmentResult } from "@/lib/assessments/result-log";
 import { welcomeQuizData } from "../data/brewsoul-welcome-quiz.data";
 import type { StepProps } from "../brewsoul-welcome-quiz";
 
@@ -9,6 +11,13 @@ import type { StepProps } from "../brewsoul-welcome-quiz";
 export function StepIdentity({ quiz }: StepProps) {
   const router = useRouter();
   const { identity, visible } = quiz.state;
+  const identityName = identity?.name;
+
+  // Saves the finish once when the identity is shown (Supabase + /self-portrait log).
+  useEffect(() => {
+    if (identityName) saveAssessmentResult("brewsoul", { summary: identityName });
+  }, [identityName]);
+
   if (!identity) return null;
   const copy = welcomeQuizData.identity;
 

@@ -24,17 +24,27 @@ export function AssessmentResultActions({
   printTargetRef,
   accentColor = "#836311",
   resultSlug,
+  resultSummary,
+  resultScore,
+  saveToDatabase = true,
 }: {
   printTargetRef?: React.RefObject<HTMLElement | null>;
   accentColor?: string;
   resultSlug?: string;
+  // The result in words / as a number, saved with the finish in Supabase
+  // (see result-log.ts) so Tony can see how people score.
+  resultSummary?: string;
+  resultScore?: number;
+  // False for always-on calculators (SoulScore), where showing this bar
+  // doesn't mean anyone finished anything.
+  saveToDatabase?: boolean;
 }) {
   // Logging a completion is a real one-time side effect (not derived render
   // state), so an effect is the right tool here — this isn't the
   // effect-mirrors-a-prop anti-pattern CONTRIBUTING.md warns about.
   useEffect(() => {
-    if (resultSlug) saveAssessmentResult(resultSlug);
-  }, [resultSlug]);
+    if (resultSlug) saveAssessmentResult(resultSlug, { summary: resultSummary, score: resultScore }, { saveToDatabase });
+  }, [resultSlug, resultSummary, resultScore, saveToDatabase]);
 
   const handleDownloadPDF = useCallback(() => {
     const target = printTargetRef?.current;

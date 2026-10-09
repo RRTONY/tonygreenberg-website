@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ImpactDashboardExplorer } from "@/components/marketing/impact-dashboard-explorer";
+import { STATS } from "@/lib/content/charity-data";
 
 // Ported from legacy client/src/pages/ImpactDashboard.tsx, then updated
 // 2026-10 to the live site's rewrite: "The Model We're Building", a pro
@@ -123,7 +124,7 @@ export default function ImpactDashboardPage() {
       </section>
 
       <div className="pt-10">
-        <ImpactDashboardExplorer />
+        <ImpactDashboardExplorer charityCount={STATS.totalCharities} />
       </div>
 
       <footer className="bg-linear-to-br from-[#3D2E14] to-[#5A4020] px-6 py-10 text-center sm:px-10">

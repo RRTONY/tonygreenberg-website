@@ -143,18 +143,8 @@ export default function FrameworkPage() {
         </p>
       </div>
 
-      <div className="px-6 py-12 text-center sm:px-10">
-        <p className="mx-auto mb-4 max-w-lg text-foreground/70">
-          Want to walk through this framework with your specific situation?
-        </p>
-        <Link
-          href="/fauxtony"
-          className="inline-flex items-center gap-2 rounded-md bg-linear-to-br from-brand-gold to-brand-gold-light px-8 py-3 font-mono text-sm tracking-wide text-white uppercase"
-        >
-          Ask FauxTony
-          <ArrowRight size={14} />
-        </Link>
-      </div>
+      {/* Live ends with an "Ask FauxTony" button; the chatbot was cancelled (Phase 10),
+          so the button and its lead-in line were removed on the owner's call (2026-10-09). */}
     </div>
   );
 }

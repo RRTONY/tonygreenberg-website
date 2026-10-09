@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 // Ported from legacy client/src/pages/UnderNDA.tsx ("The Folio" — The
 // Corridor / payments). Real content kept as-is.
@@ -77,7 +78,10 @@ export default function UnderNdaPage() {
 
       <div className="border-t border-border py-6 text-center">
         <Link href="/the-body" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
-          Continue to The Body →
+          <span className="inline-flex items-center gap-1.5">
+            Continue to The Body
+            <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+          </span>
         </Link>
       </div>
     </div>

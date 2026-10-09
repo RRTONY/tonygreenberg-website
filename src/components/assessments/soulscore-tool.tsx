@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, ChartColumn, CircleDot, Link2, Sparkle, TriangleAlert, Zap } from "lucide-react";
+import { ArrowRight, ChartColumn, CircleDot, Link2, Sparkle, TriangleAlert, Zap, ArrowLeft } from "lucide-react";
 import { ThemedBackground } from "@/components/assessments/themed-background";
 import { WhatsNext } from "@/components/assessments/whats-next";
 import { AssessmentRadarChart } from "@/components/assessments/radar-chart";
@@ -300,7 +300,7 @@ export function SoulScoreTool() {
         {activeTab === "GIG ECONOMY" && <GigTab />}
 
         <div className="mt-8 text-center">
-          <AssessmentResultActions accentColor={ACCENT} resultSlug="soulscore" />
+          <AssessmentResultActions accentColor={ACCENT} resultSlug="soulscore" saveToDatabase={false} />
         </div>
 
         <div className="mt-4">
@@ -317,7 +317,10 @@ export function SoulScoreTool() {
           Architecture: 50+ meeting transcripts, 100+ research conversations, 25 years of Fortune 500 impact advisory
         </p>
         <Link href="/find-my" className="mt-4 inline-block text-[#D4B96A]">
-          ← Back to Find My
+          <span className="inline-flex items-center gap-1.5">
+            <ArrowLeft aria-hidden="true" className="size-[1em] shrink-0" />
+            Back to Find My
+          </span>
         </Link>
       </footer>
     </div>
@@ -697,7 +700,10 @@ function FailuresTab() {
                 </span>
               </div>
               <div className={`rounded-sm ${PALETTE.green.bgSoft} px-2 py-1.5 text-[0.8rem] leading-snug ${PALETTE.green.text}`}>
-                <span className="mr-1 font-mono text-[0.6rem] font-bold">FIX →</span>
+                <span className="mr-1 inline-flex items-center gap-1 font-mono text-[0.6rem] font-bold">
+                  FIX
+                  <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+                </span>
                 {f.fix}
               </div>
             </div>

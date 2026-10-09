@@ -190,12 +190,12 @@ export function FindYourAttachmentStyleQuiz() {
     else setPhase("results");
   };
 
-  useEffect(() => {
-    if (phase === "results") markComplete("find-your-attachment");
-  }, [phase, markComplete]);
-
   const archetypeKey = calculateArchetype(scores);
   const archetype = ARCHETYPES[archetypeKey];
+
+  useEffect(() => {
+    if (phase === "results") markComplete("find-your-attachment", { summary: archetype.name });
+  }, [phase, archetype.name, markComplete]);
   const chartMax = Math.max(...Object.values(scores), 1);
 
   return (

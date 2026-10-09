@@ -255,7 +255,12 @@ export function StepResults({ quiz, articleTitles }: StepProps) {
       <WhatsNext />
 
       <section className="mx-auto max-w-3xl px-6 pt-8 pb-8 text-center">
-        <AssessmentResultActions accentColor={ACCENT} resultSlug="the-mirror" />
+        <AssessmentResultActions
+          accentColor={ACCENT}
+          resultSlug="the-mirror"
+          resultSummary={getFlowLabel(overallScore)}
+          resultScore={overallScore}
+        />
       </section>
 
       <section className="mx-auto max-w-3xl px-6 pb-16">

@@ -175,8 +175,8 @@ export function FindYourStyleQuiz() {
   const archetype = useMemo(() => (phase === "results" ? pickArchetype(scores) : null), [phase, scores]);
 
   useEffect(() => {
-    if (phase === "results") markComplete("find-your-style");
-  }, [phase, markComplete]);
+    if (phase === "results") markComplete("find-your-style", { summary: archetype?.name });
+  }, [phase, archetype?.name, markComplete]);
 
   const chartMax = Math.max(...Object.values(scores), 1);
 

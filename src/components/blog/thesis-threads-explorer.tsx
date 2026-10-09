@@ -16,6 +16,7 @@ import {
 import type { ArchivePost } from "@/components/blog/articles-explorer";
 import { formatPostDate } from "@/lib/format-post-date";
 import { postHref } from "@/lib/content/post-redirects";
+import { ArrowRight } from "lucide-react";
 
 const THREAD_ACCENT: Record<string, { border: string; text: string; wash: string }> = {
   "opacity-tax": { border: "border-red-500/30", text: "text-red-400", wash: "bg-red-500/10" },
@@ -88,7 +89,7 @@ function ArticleRow({ post }: { post: ArchivePost }) {
           </div>
           {connector && <p className="mt-2 text-xs leading-relaxed text-brand-gold-light/80 italic">Thesis: {connector}</p>}
         </div>
-        <span className="mt-1 shrink-0 text-sm text-white/60">→</span>
+        <ArrowRight aria-hidden="true" className="mt-1 size-3.5 shrink-0 text-white/60" />
       </div>
     </Link>
   );

@@ -4,6 +4,11 @@ import { useState } from "react";
 import Link from "next/link";
 import { formatPostDate } from "@/lib/format-post-date";
 import { postHref } from "@/lib/content/post-redirects";
+import {
+  RECENT_UPDATE_FILTERS as FILTERS,
+  RECENT_UPDATES_MAX_POSTS as MAX_POSTS,
+  type RecentUpdatePost,
+} from "@/lib/content/recent-updates";
 
 // Rebuilt from the live tonygreenberg.com homepage's "Recent Updates" band
 // (its source is a newer Blog.tsx than the snapshot in _legacy-manus-app/,
@@ -13,27 +18,8 @@ import { postHref } from "@/lib/content/post-redirects";
 // numbers are hardcoded on live too (a dated observation, not a counter).
 // Replaces the older "Latest Thinking" pair, which live no longer shows.
 // The first render (All Categories) is in the server HTML; the filter is
-// the only reason this is a Client Component.
-
-export type RecentUpdatePost = {
-  _id: string;
-  title: string;
-  slug: string;
-  publishedAt?: string;
-  excerpt?: string;
-  category?: { title: string; slug: string };
-};
-
-const FILTERS = [
-  { label: "All Categories", slug: null },
-  { label: "Business & Capital", slug: "business-capital" },
-  { label: "Enterprise Technology & AI", slug: "enterprise-technology-ai" },
-  { label: "Psychedelic Medicine", slug: "psychedelic-medicine" },
-  { label: "Conscious Capital", slug: "conscious-capital" },
-  { label: "Systems & Innovation", slug: "systems-innovation" },
-] as const;
-
-const MAX_POSTS = 3;
+// the only reason this is a Client Component. The page passes only the posts
+// a pill can show (pickRecentUpdatePosts in src/lib/content/recent-updates.ts).
 
 export function RecentUpdates({ posts }: { posts: RecentUpdatePost[] }) {
   const [active, setActive] = useState<string | null>(null);

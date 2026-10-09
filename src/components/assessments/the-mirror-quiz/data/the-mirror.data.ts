@@ -24,13 +24,13 @@ export const ECOSYSTEM_PILLS: EcosystemPill[] = [
   { label: "Human OS", href: "/humanos" },
 ];
 
+// "Explore further" on the results screen. Live also lists four *.manus.space
+// apps here (Find Your Partner, Water, Mezcal, Chemistry); dropped on the
+// owner's call (2026-10-09): two were already 404 and all four go away with
+// Manus. The section hides itself when no site matches the weakest areas.
 export const SATELLITE_SITES: { name: string; url: string; dimension: MirrorDimensionId; desc: string }[] = [
-  { name: "Find Your Partner", url: "https://intimacyassess-tcir3hon.manus.space", dimension: "relationships", desc: "15-question deep dive into your intimacy patterns" },
   { name: "Find Your Team", url: "/flow-circuit", dimension: "consciousness", desc: "Measure your flow state across work, play, and presence" },
-  { name: "Find Your Water", url: "https://aqwaterqpr-wvzsc3ph.manus.space", dimension: "body", desc: "The biochemistry of water and its role in your biology" },
-  { name: "Find Your Mezcal", url: "https://mezcalagave-ahru9fq8.manus.space", dimension: "consciousness", desc: "Sacred ceremony meets artisanal craft" },
   { name: "Human OS", url: "/humanos", dimension: "purpose", desc: "The operating system for human potential" },
-  { name: "Find Your Chemistry", url: "https://regenhealth-4nns6jnd.manus.space", dimension: "body", desc: "Biochemistry optimization for your best self" },
 ];
 
 export const JOURNEY_CONTINUES = [

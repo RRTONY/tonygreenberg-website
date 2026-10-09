@@ -10,10 +10,13 @@ import { GemSparkStrip } from "@/components/marketing/gem-spark-strip";
 import { CoreThemes } from "@/components/marketing/core-themes";
 import { EcosystemCTA } from "@/components/marketing/ecosystem-cta";
 import { HomeArchive } from "@/components/blog/home-archive";
+import { summarizeArchive, type ArchivePost } from "@/lib/content/essay-archive";
 import { RecentUpdates } from "@/components/marketing/recent-updates";
+import { pickRecentUpdatePosts } from "@/lib/content/recent-updates";
 import { NewsletterPopupLazy } from "@/components/marketing/newsletter-popup-lazy";
 import { ReturningVisitorHero } from "@/components/marketing/returning-visitor-hero";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 // Matches legacy client/src/pages/Blog.tsx's <SEO> block for path="/" — the
 // legacy router renders that Blog component at "/" (and, identically, at
@@ -58,7 +61,7 @@ export const metadata: Metadata = {
   },
 };
 
-type Post = Parameters<typeof HomeArchive>[0]["posts"][number];
+type Post = ArchivePost;
 
 export default async function Home() {
   const posts = await sanityFetch<Post[]>({ query: allPostsForArchiveQuery, tags: ["post"] });
@@ -105,22 +108,13 @@ export default async function Home() {
             She Had Two Theft Convictions. I Hired Her Anyway. She Stole $46,795. — Kristi
             Klawiter, documented.
           </span>
-          <span className="font-mono text-xs text-red-800">→</span>
+          <ArrowRight aria-hidden="true" className="size-3.5 shrink-0 text-red-800" />
         </Link>
       </div>
 
       <GemSparkStrip />
 
-      <RecentUpdates
-        posts={posts.map(({ _id, title, slug, publishedAt, excerpt, category }) => ({
-          _id,
-          title,
-          slug,
-          publishedAt,
-          excerpt,
-          category,
-        }))}
-      />
+      <RecentUpdates posts={pickRecentUpdatePosts(posts)} />
 
       <div className="border-y border-brand-gold/10 px-4 py-6 text-center sm:px-6">
         <p className="mx-auto max-w-lg text-sm text-muted-foreground italic">
@@ -135,7 +129,7 @@ export default async function Home() {
 
       <EcosystemCTA essayCount={posts.length} />
 
-      <HomeArchive posts={posts} />
+      <HomeArchive archive={summarizeArchive(posts)} />
       <NewsletterPopupLazy />
     </div>
   );

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { FAME } from "@/lib/content/brewsoul-decaf";
+import { ArrowRight } from "lucide-react";
 
 // Ported from legacy client/src/pages/brewsoul/BrewSoulDecaf.tsx's
 // click-to-expand "Hall of Fame" clean-decaf cards — real behavior,
@@ -45,7 +46,10 @@ export function DecafFame() {
                 onClick={(e) => e.stopPropagation()}
                 className="mt-3 inline-block rounded-sm bg-[#4a5e3c] px-4 py-2 font-mono text-[11px] tracking-wide text-white"
               >
-                Buy →
+                <span className="inline-flex items-center gap-1.5">
+                  Buy
+                  <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+                </span>
               </a>
             </div>
           )}

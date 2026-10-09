@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 import { LEGACY_POST_REDIRECTS } from "./src/lib/content/legacy-post-redirects";
+import { SEARCH_CONSOLE_REDIRECTS } from "./src/lib/content/search-console-redirects";
+import { SHORT_LINKS } from "./src/lib/content/short-links";
 
 const nextConfig: NextConfig = {
   // The MCP server's check_code_quality tool (and the review's own lint of a
@@ -55,6 +57,20 @@ const nextConfig: NextConfig = {
         destination: `/blog/${slug}`,
         permanent: true,
       })),
+      // Category pages used ?page=N until 2026-10-09; now /page/N, so each page is
+      // pre-built (src/components/blog/category-listing.tsx). Pages 2+ only:
+      // ?page=1 just shows page 1, and /page/1 goes back to the plain address.
+      {
+        source: "/blog/category/:slug",
+        has: [{ type: "query", key: "page", value: "(?<n>[2-9]|[1-9]\\d+)" }],
+        destination: "/blog/category/:slug/page/:n",
+        permanent: true,
+      },
+      { source: "/blog/category/:slug/page/1", destination: "/blog/category/:slug", permanent: true },
+      // The old site's short share links /s/<code> (see short-links.ts).
+      ...SHORT_LINKS.map(([code, target]) => ({ source: `/s/${code}`, destination: target, permanent: true })),
+      // Old addresses Google still sends visitors to (see search-console-redirects.ts).
+      ...SEARCH_CONSOLE_REDIRECTS.map(([source, destination]) => ({ source, destination, permanent: true })),
       // Legacy registers "/find-my-tribe" as a second path to the same
       // Community component — same duplicate-route pattern as /blog above.
       { source: "/find-my-tribe", destination: "/community", permanent: true },

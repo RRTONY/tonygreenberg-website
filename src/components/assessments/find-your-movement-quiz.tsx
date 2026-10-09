@@ -135,9 +135,11 @@ export function FindYourMovementQuiz() {
   const topDimension = Object.entries(scores).sort((a, b) => b[1] - a[1])[0];
   const { markComplete } = useJourneyProgress();
 
+  const pathSummary = `The ${topDimension?.[0] ?? "Explorer"} Path`;
+
   useEffect(() => {
-    if (phase === "results") markComplete("find-your-movement");
-  }, [phase, markComplete]);
+    if (phase === "results") markComplete("find-your-movement", { summary: pathSummary });
+  }, [phase, pathSummary, markComplete]);
 
   return (
     <div className="relative z-1 flex min-h-screen flex-col items-center justify-center font-sans text-[#2C1810]">

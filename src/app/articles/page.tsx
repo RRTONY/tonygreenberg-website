@@ -29,7 +29,7 @@ export default async function ArticlesPage() {
       <div className="bg-[#0A0A10] px-6 pt-12 sm:px-10">
         <div className="mx-auto max-w-3xl">
           <p className="mb-4 font-mono text-xs tracking-[0.25em] text-brand-gold-light uppercase">Complete Archive</p>
-          <h1 className="mb-4 font-heading text-4xl font-bold text-white/95 sm:text-5xl">All Articles</h1>
+          <h1 className="mb-4 font-heading text-[clamp(2rem,5vw,3.2rem)]/[1.2] font-bold text-white/95">All Articles</h1>
           <p className="mb-8 max-w-xl leading-relaxed text-white/55">
             {posts.length} essays on enterprise technology, psychedelic medicine, impact investing,
             systems thinking, and the uncommon sense. Every piece is indexed and searchable.

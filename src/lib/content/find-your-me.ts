@@ -149,15 +149,13 @@ export const ARCHETYPES: MeArchetype[] = [
       "the-molecule-as-mirror-what-psychedelics-reveal-about-consciousness",
     ],
     sites: [
-      { name: "Find Your Partner", url: "https://intimacyassess-tcir3hon.manus.space", why: "15 questions. 5 domains. The invisible architecture of your intimacy, mapped." },
       { name: "Find Your Team", url: "/flow-circuit", why: "The neurochemistry of connection — who you build with, measured not guessed." },
-      { name: "Find Your Water", url: "https://aqwaterqpr-wvzsc3ph.manus.space", why: "The element that teaches you to flow, not force." },
     ],
     deeperAssessments: [
       { label: "Find Your Score", path: "/grant-study", why: "85 years of Harvard data says relationships predict everything. Let's see yours." },
       { label: "Find Your Mirror", path: "/the-mirror", why: "6 dimensions. 18 questions. A radar chart that doesn't care about your feelings." },
     ],
-    nextStep: { label: "Find Your Partner", path: "https://intimacyassess-tcir3hon.manus.space" },
+    nextStep: { label: "Find Your Score", path: "/grant-study" },
     shareText: "Turns out I'm a Magnetic Partner — my deepest work is relational truth. 5 questions, zero BS. What are you?",
   },
   {
@@ -175,7 +173,6 @@ export const ARCHETYPES: MeArchetype[] = [
     ],
     sites: [
       { name: "Find Your Blueprint", url: "/living-declaration", why: "The operating system for what comes after extraction." },
-      { name: "Find Your Capital", url: "https://portfoliofamilyoffice.manus.space", why: "How aligned money actually moves." },
     ],
     deeperAssessments: [
       { label: "Find Your Purpose", path: "/dharma-finder", why: "25 questions stolen from Schmachtenberger. Not what you should do — what you can't stop doing." },
@@ -198,15 +195,12 @@ export const ARCHETYPES: MeArchetype[] = [
       "the-longevity-paradox-why-living-longer-means-nothing-if-you-dont-live-deeper",
     ],
     sites: [
-      { name: "Find Your Chemistry", url: "https://regenhealth-4nns6jnd.manus.space", why: "Your biochemistry decoded — not as a problem, as a language." },
-      { name: "Find Your Water", url: "https://aqwaterqpr-wvzsc3ph.manus.space", why: "Water as medicine, not commodity." },
-      { name: "Find Your Mezcal", url: "https://mezcalagave-ahru9fq8.manus.space", why: "The sacred in the everyday ritual." },
     ],
     deeperAssessments: [
       { label: "Find Your Level", path: "/consciousness-scale", why: "Hawkins calibrated 17 levels from Shame to Enlightenment. Your body already knows which one." },
       { label: "Find Your Mirror", path: "/the-mirror", why: "6 dimensions including the body you've been negotiating with. Time to listen." },
     ],
-    nextStep: { label: "Find Your Chemistry", path: "https://regenhealth-4nns6jnd.manus.space" },
+    nextStep: { label: "Find Your Level", path: "/consciousness-scale" },
     shareText: "So I'm a Temple Keeper — my body's been talking and I finally listened. 5 questions, no hacks. What does your mirror say?",
   },
   {
@@ -248,8 +242,6 @@ export const ARCHETYPES: MeArchetype[] = [
       "love-as-dharma-a-science-based-playbook-for-magnetic-partnership",
     ],
     sites: [
-      { name: "Find Your Partner", url: "https://intimacyassess-tcir3hon.manus.space", why: "Understand how you connect before you connect." },
-      { name: "Find Your Capital", url: "https://portfoliofamilyoffice.manus.space", why: "Aligned capital builds aligned communities." },
     ],
     deeperAssessments: [
       { label: "Find Your Score", path: "/grant-study", why: "You build tribes. But how deep are the ones you're already in? Harvard wants to know." },
@@ -273,8 +265,6 @@ export const ARCHETYPES: MeArchetype[] = [
     ],
     sites: [
       { name: "Find Your Team", url: "/flow-circuit", why: "Consciousness as measurable team dynamics." },
-      { name: "Find Your Water", url: "https://aqwaterqpr-wvzsc3ph.manus.space", why: "The element that teaches presence." },
-      { name: "Find Your Chemistry", url: "https://regenhealth-4nns6jnd.manus.space", why: "Optimize the vessel for the signal." },
     ],
     deeperAssessments: [
       { label: "Find Your Level", path: "/consciousness-scale", why: "17 levels. Shame to Enlightenment. You've glimpsed the edge — now get coordinates." },
@@ -313,7 +303,6 @@ export const WOUND_CARDS: WoundCard[] = [
     icon: Heart,
     color: "#C97B7B",
     links: [
-      { label: "Find Your Partner", path: "https://intimacyassess-tcir3hon.manus.space", type: "assessment" },
       { label: "Find Your Score", path: "/grant-study", type: "assessment" },
       { label: "Find Your Mirror", path: "/the-mirror", type: "assessment" },
     ],
@@ -335,8 +324,6 @@ export const WOUND_CARDS: WoundCard[] = [
     icon: Activity,
     color: "#7BC9A4",
     links: [
-      { label: "Find Your Chemistry", path: "https://regenhealth-4nns6jnd.manus.space", type: "tool" },
-      { label: "Find Your Water", path: "https://aqwaterqpr-wvzsc3ph.manus.space", type: "tool" },
       { label: "Find Your Team", path: "/flow-circuit", type: "tool" },
     ],
   },
@@ -359,7 +346,6 @@ export const WOUND_CARDS: WoundCard[] = [
     links: [
       { label: "Find Your Score", path: "/grant-study", type: "assessment" },
       { label: "Find Your Tribe", path: "/community", type: "community" },
-      { label: "Find Your Partner", path: "https://intimacyassess-tcir3hon.manus.space", type: "assessment" },
     ],
   },
   {
@@ -379,8 +365,6 @@ export const WOUND_CARDS: WoundCard[] = [
     icon: Flower2,
     color: "#A4C97B",
     links: [
-      { label: "Find Your Chemistry", path: "https://regenhealth-4nns6jnd.manus.space", type: "tool" },
-      { label: "Find Your Mezcal", path: "https://mezcalagave-ahru9fq8.manus.space", type: "tool" },
       { label: "Find Your Mirror", path: "/the-mirror", type: "assessment" },
     ],
   },
@@ -390,7 +374,6 @@ export const WOUND_CARDS: WoundCard[] = [
     icon: Landmark,
     color: "#C9A87B",
     links: [
-      { label: "Find Your Capital", path: "https://portfoliofamilyoffice.manus.space", type: "tool" },
       { label: "Find Your Blueprint", path: "/living-declaration", type: "tool" },
       { label: "Find Your Purpose", path: "/dharma-finder", type: "assessment" },
     ],
@@ -430,7 +413,6 @@ export const DIRECTORY: DirectorySection[] = [
     subtitle: "The people work",
     color: "#B75050",
     items: [
-      { name: "Find Your Partner", hook: "15 questions across 5 domains. The invisible architecture of your intimacy, mapped.", status: "live", url: "https://intimacyassess-tcir3hon.manus.space" },
       { name: "Find Your Tribe", hook: "The people who think like you do at 2am.", status: "live", url: "/community" },
       { name: "Find Your Team", hook: "The neurochemistry of connection — who you build with, measured not guessed.", status: "coming", url: "/flow-circuit" },
       { name: "Find Your Attachment Style", hook: "Why you cling, why you run, and what to do about it.", status: "live", url: "/find-your-attachment-style" },
@@ -443,8 +425,6 @@ export const DIRECTORY: DirectorySection[] = [
     subtitle: "The vessel that carries everything else",
     color: "#337D5A",
     items: [
-      { name: "Find Your Chemistry", hook: "Your body is a lab. Time to read the results.", status: "live", url: "https://regenhealth-4nns6jnd.manus.space" },
-      { name: "Find Your Water", hook: "The element that teaches you to flow, not force.", status: "live", url: "https://aqwaterqpr-wvzsc3ph.manus.space" },
       { name: "Find Your Diet", hook: "Not a meal plan. A metabolic philosophy matched to your biology.", status: "live", url: "/find-your-diet" },
       { name: "Find Your Movement", hook: "The exercise your nervous system is actually asking for.", status: "live", url: "/find-your-movement" },
       { name: "Find Your Sleep", hook: "The architecture of rest you've been negotiating with instead of honoring.", status: "live", url: "/find-your-sleep" },
@@ -456,8 +436,6 @@ export const DIRECTORY: DirectorySection[] = [
     subtitle: "What touches your mouth should touch your mind and heart",
     color: "#8F6B3B",
     items: [
-      { name: "Find Your Mezcal", hook: "The agave that matches your soul — not your Instagram.", status: "live", url: "https://mezcalagave-ahru9fq8.manus.space" },
-      { name: "Find Your Tequila", hook: "Highland or lowland. Blanco or añejo. A love letter in liquid form.", status: "live", url: "https://tequilaazul-fxqrr3js.manus.space" },
       { name: "Find Your Sake", hook: "Rice, water, koji, time. The most honest drink on earth.", status: "live", url: "/find-your-sake" },
       { name: "Find Your Coffee", hook: "Single origin isn't a flex. It's a relationship.", status: "live", url: "/find-your-coffee" },
       { name: "Find Your Kitchen", hook: "The restaurant that feeds who you actually are, not who you're performing.", status: "live", url: "/find-your-kitchen" },
@@ -469,7 +447,6 @@ export const DIRECTORY: DirectorySection[] = [
     color: "#40769E",
     items: [
       { name: "Find Your Blueprint", hook: "The operating system for what comes after extraction.", status: "live", url: "/living-declaration" },
-      { name: "Find Your Capital", hook: "How aligned money actually moves.", status: "live", url: "https://portfoliofamilyoffice.manus.space" },
       { name: "Find Your Therapy", hook: "CBT, IFS, somatic, psychedelic-assisted — matched to your wiring, not a waitlist.", status: "live", url: "/find-your-therapy" },
       { name: "Find Your Religion", hook: "Not which one is right. Which one is yours — or none at all. 20 questions mapping your worldview across 8 dimensions to 8 spiritual archetypes.", status: "live", url: "/find-your-religion" },
       { name: "Find Your Style", hook: "Clothing as identity architecture. What you wear is what you're saying without speaking.", status: "live", url: "/find-your-style" },

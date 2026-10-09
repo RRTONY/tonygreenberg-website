@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 // Ported from legacy client/src/pages/PickUp.tsx ("The Folio" — Connect).
 // Real content kept as-is. No phone number published, by design — funnels
@@ -68,7 +69,10 @@ export default function PickUpThePhonePage() {
           href="/engage"
           className="inline-block rounded-sm bg-brand-gold-light px-8 py-3 font-mono text-sm tracking-wide text-[#0A0A10] uppercase"
         >
-          Enter The Gate →
+          <span className="inline-flex items-center gap-1.5">
+            Enter The Gate
+            <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+          </span>
         </Link>
         <p className="mt-5 font-mono text-xs tracking-wide text-brand-gold-light">
           2× MONEY-BACK GUARANTEE — Do the work we specify. Document it. Zero results? Fee

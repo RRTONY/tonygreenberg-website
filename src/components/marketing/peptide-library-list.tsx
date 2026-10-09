@@ -2,18 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import {
-  ChevronDown,
-  Zap,
-  Wrench,
-  BatteryCharging,
-  Dna,
-  Brain,
-  Shield,
-  Heart,
-  Sparkles,
-  type LucideIcon,
-} from "lucide-react";
+import { ChevronDown, Zap, Wrench, BatteryCharging, Dna, Brain, Shield, Heart, Sparkles, type LucideIcon, ArrowRight } from "lucide-react";
 
 export type SafetyTier = "green" | "yellow" | "red";
 export type Category =
@@ -149,7 +138,10 @@ export function PeptideLibraryList({ peptides }: { peptides: PeptideProfile[] })
                           </p>
                           <p className="text-sm text-foreground/80">{peptide.regulatoryStatus}</p>
                           <Link href="/whats-legal" className="text-xs text-[#C84B2A] underline">
-                            Full regulatory details →
+                            <span className="inline-flex items-center gap-1.5">
+                              Full regulatory details
+                              <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+                            </span>
                           </Link>
                         </div>
                         <div>
@@ -158,7 +150,10 @@ export function PeptideLibraryList({ peptides }: { peptides: PeptideProfile[] })
                           </p>
                           <p className="text-sm text-foreground/80">{peptide.priceRange}</p>
                           <Link href="/price-tracker" className="text-xs text-[#C84B2A] underline">
-                            Compare all prices →
+                            <span className="inline-flex items-center gap-1.5">
+                              Compare all prices
+                              <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+                            </span>
                           </Link>
                         </div>
                       </div>

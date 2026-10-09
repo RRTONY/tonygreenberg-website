@@ -1,38 +1,30 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { Search, X } from "lucide-react";
+import { Loader2, Search, X, ArrowRight } from "lucide-react";
 import { FaLinkedin, FaXTwitter } from "react-icons/fa6";
 import { PostCard } from "@/components/blog/post-card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { CURATED_JOURNEYS } from "@/lib/content/curated-journeys";
 import { socialLinks } from "@/components/site-nav-data";
-import { urlFor } from "@/lib/sanity/image";
 import { postHref } from "@/lib/content/post-redirects";
-
-type Post = {
-  _id: string;
-  title: string;
-  subtitle?: string;
-  slug: string;
-  publishedAt: string;
-  excerpt?: string;
-  heroImage?: Parameters<typeof urlFor>[0];
-  readTime?: number;
-  tags?: string[];
-  category?: { title: string; slug: string };
-};
-
-const PAGE_SIZE = 12;
+import {
+  ARCHIVE_JSON_PATH,
+  ARCHIVE_PAGE_SIZE as PAGE_SIZE,
+  type ArchivePost as Post,
+  type ArchiveSummary,
+} from "@/lib/content/essay-archive";
 
 // Ported from legacy client/src/pages/Blog.tsx's search/filter bar + full
 // archive + sidebar. Legacy loaded its entire post corpus client-side for
-// search/category/theme filtering rather than paging server-side — same
-// approach here (all posts are fetched server-side once in page.tsx and
-// passed in as a prop; ~120 posts is small enough that this is simpler and
-// snappier than a server round-trip per filter change).
+// search/category/theme filtering rather than paging server-side. Same idea
+// here, but the page only carries the first PAGE_SIZE posts and the counts
+// (summarizeArchive); the full list is the static ARCHIVE_JSON_PATH, fetched
+// once when someone points at, focuses or uses the search/filter controls
+// or "Show all" (2026-10-09: every post inside the page tripled the
+// homepage's HTML). Filtering itself stays in the browser.
 //
 // "Most Read" and "Most Provocative" — legacy's other two sidebar widgets —
 // ranked posts by a `reads` count that defaulted to a flat 500 for any post
@@ -62,20 +54,37 @@ const RANKED_LISTS = [
 ];
 // `eagerFirstCard`: on /blog the first card is the largest image on screen,
 // so it loads right away; on the homepage the archive is far below the fold.
-export function HomeArchive({ posts, eagerFirstCard = false }: { posts: Post[]; eagerFirstCard?: boolean }) {
+export function HomeArchive({
+  archive,
+  eagerFirstCard = false,
+}: {
+  archive: ArchiveSummary;
+  eagerFirstCard?: boolean;
+}) {
+  const { firstPosts, total, categories } = archive;
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [showAll, setShowAll] = useState(false);
+  const [allPosts, setAllPosts] = useState<Post[] | null>(null);
+  const [loadFailed, setLoadFailed] = useState(false);
+  const loading = useRef(false);
 
-  const categories = useMemo(() => {
-    const seen = new Map<string, number>();
-    for (const p of posts) {
-      if (!p.category) continue;
-      seen.set(p.category.title, (seen.get(p.category.title) ?? 0) + 1);
-    }
-    return Array.from(seen.entries());
-  }, [posts]);
+  // Called from event handlers only (pointer/focus on the controls, typing,
+  // a filter or "Show all"), so nothing is fetched for readers who just scroll.
+  function loadAll() {
+    if (allPosts || loading.current) return;
+    loading.current = true;
+    setLoadFailed(false);
+    fetch(ARCHIVE_JSON_PATH)
+      .then((r) => (r.ok ? (r.json() as Promise<Post[]>) : Promise.reject(new Error(String(r.status)))))
+      .then(setAllPosts)
+      .catch(() => setLoadFailed(true))
+      .finally(() => {
+        loading.current = false;
+      });
+  }
 
+  const posts = allPosts ?? firstPosts;
   const filtered = useMemo(() => {
     const q = searchQuery.toLowerCase();
     return posts.filter((p) => {
@@ -91,8 +100,12 @@ export function HomeArchive({ posts, eagerFirstCard = false }: { posts: Post[]; 
   }, [posts, activeCategory, searchQuery]);
 
   const isSearching = searchQuery.length > 0 || activeCategory !== "All";
+  // Until the full list arrives, a search, filter or "Show all" can only be
+  // answered from the first page, so show a spinner (or a retry) instead.
+  const waiting = !allPosts && (isSearching || showAll);
   const visiblePosts = showAll ? filtered : filtered.slice(0, PAGE_SIZE);
-  const hasMore = filtered.length > PAGE_SIZE && !showAll;
+  const matchCount = allPosts ? filtered.length : total;
+  const hasMore = !waiting && matchCount > PAGE_SIZE && !showAll;
 
   return (
     <div>
@@ -100,7 +113,12 @@ export function HomeArchive({ posts, eagerFirstCard = false }: { posts: Post[]; 
           fixed site header instead of competing with it at the same top-0
           position (both being sticky at top-0 made this row render behind/
           overlapping the header instead of stacking under it). */}
-      <div id="essays-archive" className="sticky top-14 z-40 scroll-mt-14 border-b border-border bg-secondary/95 px-4 py-4 backdrop-blur sm:px-6">
+      <div
+        id="essays-archive"
+        onPointerEnter={loadAll}
+        onFocusCapture={loadAll}
+        className="sticky top-14 z-40 scroll-mt-14 border-b border-border bg-secondary/95 px-4 py-4 backdrop-blur sm:px-6"
+      >
         <div className="mx-auto max-w-6xl">
           <div className="mb-3 flex flex-wrap items-center gap-2">
             <div className="relative min-w-45 flex-1">
@@ -109,7 +127,10 @@ export function HomeArchive({ posts, eagerFirstCard = false }: { posts: Post[]; 
                 type="text"
                 placeholder="Search essays..."
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) => {
+                  loadAll();
+                  setSearchQuery(e.target.value);
+                }}
                 className="h-9 bg-background pl-8"
               />
             </div>
@@ -121,7 +142,7 @@ export function HomeArchive({ posts, eagerFirstCard = false }: { posts: Post[]; 
               onClick={() => setActiveCategory("All")}
               className="shrink-0 font-mono text-xs tracking-wide uppercase"
             >
-              All ({posts.length})
+              All ({total})
             </Button>
             {categories.map(([title, count]) => {
               const isActive = activeCategory === title;
@@ -131,7 +152,10 @@ export function HomeArchive({ posts, eagerFirstCard = false }: { posts: Post[]; 
                   variant={isActive ? "default" : "outline"}
                   size="sm"
                   aria-pressed={isActive}
-                  onClick={() => setActiveCategory(isActive ? "All" : title)}
+                  onClick={() => {
+                    loadAll();
+                    setActiveCategory(isActive ? "All" : title);
+                  }}
                   className="shrink-0 gap-1.5 font-mono text-xs tracking-wide uppercase"
                 >
                   {title} ({count})
@@ -149,11 +173,27 @@ export function HomeArchive({ posts, eagerFirstCard = false }: { posts: Post[]; 
             <h2 className="sr-only">Matching essays</h2>
           ) : (
             <h2 className="mb-5 border-b-2 border-brand-gold pb-1.5 font-mono text-xs tracking-[0.12em] text-brand-gold uppercase">
-              Full Archive — All {posts.length} Essays
+              Full Archive — All {total} Essays
             </h2>
           )}
 
-          {visiblePosts.length > 0 ? (
+          {waiting ? (
+            <div role="status" className="flex items-center justify-center gap-2 py-8 font-mono text-sm text-muted-foreground">
+              {loadFailed ? (
+                <>
+                  Couldn&apos;t load the full archive.
+                  <Button variant="outline" size="sm" onClick={loadAll}>
+                    Try again
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Loader2 aria-hidden="true" className="size-4 animate-spin" />
+                  Loading all essays
+                </>
+              )}
+            </div>
+          ) : visiblePosts.length > 0 ? (
             <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
               {visiblePosts.map((post, i) => (
                 <PostCard
@@ -179,10 +219,16 @@ export function HomeArchive({ posts, eagerFirstCard = false }: { posts: Post[]; 
             <div className="py-6 text-center">
               <Button
                 variant="outline"
-                onClick={() => setShowAll(true)}
+                onClick={() => {
+                  loadAll();
+                  setShowAll(true);
+                }}
                 className="border-brand-gold/30 px-8 font-mono text-sm tracking-wide text-brand-gold uppercase hover:bg-brand-gold/5 hover:text-brand-gold"
               >
-                Show all {filtered.length} essays →
+                <span className="inline-flex items-center gap-1.5">
+                  Show all {matchCount} essays
+                  <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+                </span>
               </Button>
             </div>
           )}
@@ -241,7 +287,10 @@ export function HomeArchive({ posts, eagerFirstCard = false }: { posts: Post[]; 
               href="mailto:tony@joyandwoe.com?subject=Tip%20for%20TonyG"
               className="inline-block rounded-sm border border-brand-gold/25 px-3 py-1.5 font-mono text-xs tracking-wide text-brand-gold uppercase"
             >
-              Send a Tip →
+              <span className="inline-flex items-center gap-1.5">
+                Send a Tip
+                <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+              </span>
             </a>
           </div>
 

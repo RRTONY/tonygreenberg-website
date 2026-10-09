@@ -299,11 +299,13 @@ export function FindYourSexualityQuiz() {
     else setPhase("results");
   };
 
-  useEffect(() => {
-    if (phase === "results") markComplete("find-your-sexuality");
-  }, [phase, markComplete]);
-
   const archetype = getArchetype(scores);
+
+  useEffect(() => {
+    // Only the finish is saved, not the result: orientation is sensitive
+    // personal data, kept out of the database until the owner says yes.
+    if (phase === "results") markComplete("find-your-sexuality");
+  }, [phase, archetype.name, markComplete]);
   const progress = QUESTIONS.length > 0 ? Math.round((step / QUESTIONS.length) * 100) : 0;
 
   return (

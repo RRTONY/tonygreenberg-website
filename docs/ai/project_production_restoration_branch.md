@@ -1,5 +1,10 @@
 # The Manus "production-restoration" branch (reviewed 2026-09-29)
 
+> **Deleted from GitHub 2026-10-09 (owner said yes).** Full backup on the webmaster's Mac:
+> `~/Desktop/tonyg-site-backups/manus-production-restoration-2026-09-10.bundle`; restore with
+> `git fetch <bundle> manus/production-restoration-2026-09-10`. It still holds the rewrites in
+> decision 6 below.
+
 > `origin/manus/production-restoration-2026-09-10` was a 57-commit branch made by the Manus agent (2026-09-09 to 09-22). It shares no git history with `main`. It was audited, the useful parts were carried over by hand, and the rest was deliberately left out.
 
 **What it was:** Manus re-bootstrapped its own copy of this app on 2026-09-09 and kept working on

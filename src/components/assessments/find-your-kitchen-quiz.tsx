@@ -180,11 +180,13 @@ export function FindYourKitchenQuiz() {
     if (Object.keys(next).length === QUESTIONS.length) setPhase("results");
   };
 
-  useEffect(() => {
-    if (phase === "results") markComplete("find-your-kitchen");
-  }, [phase, markComplete]);
-
   const results = phase === "results" ? calculateResults(answers) : null;
+  const resultArchetype = results?.archetype;
+
+  useEffect(() => {
+    if (phase === "results") markComplete("find-your-kitchen", { summary: resultArchetype });
+  }, [phase, resultArchetype, markComplete]);
+
   const chartMax = results ? Math.max(...Object.values(results.scores).map((v) => v ?? 0), 1) : 1;
 
   return (
