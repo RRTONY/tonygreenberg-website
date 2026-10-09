@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 // Ported from legacy client/src/pages/EngineRoom.tsx ("The Folio" —
 // Projects & Ventures). Real content kept as-is.
@@ -140,7 +141,10 @@ export default function EngineRoomPage() {
 
       <div className="border-t border-border py-6 text-center">
         <Link href="/under-nda" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
-          Continue to Under NDA →
+          <span className="inline-flex items-center gap-1.5">
+            Continue to Under NDA
+            <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+          </span>
         </Link>
       </div>
     </div>

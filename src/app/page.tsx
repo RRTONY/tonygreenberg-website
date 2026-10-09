@@ -16,6 +16,7 @@ import { pickRecentUpdatePosts } from "@/lib/content/recent-updates";
 import { NewsletterPopupLazy } from "@/components/marketing/newsletter-popup-lazy";
 import { ReturningVisitorHero } from "@/components/marketing/returning-visitor-hero";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 // Matches legacy client/src/pages/Blog.tsx's <SEO> block for path="/" — the
 // legacy router renders that Blog component at "/" (and, identically, at
@@ -107,7 +108,7 @@ export default async function Home() {
             She Had Two Theft Convictions. I Hired Her Anyway. She Stole $46,795. — Kristi
             Klawiter, documented.
           </span>
-          <span className="font-mono text-xs text-red-800">→</span>
+          <ArrowRight aria-hidden="true" className="size-3.5 shrink-0 text-red-800" />
         </Link>
       </div>
 

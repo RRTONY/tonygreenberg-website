@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 import { LEGACY_POST_REDIRECTS } from "./src/lib/content/legacy-post-redirects";
 import { SEARCH_CONSOLE_REDIRECTS } from "./src/lib/content/search-console-redirects";
+import { SHORT_LINKS } from "./src/lib/content/short-links";
 
 const nextConfig: NextConfig = {
   // The MCP server's check_code_quality tool (and the review's own lint of a
@@ -66,6 +67,8 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       { source: "/blog/category/:slug/page/1", destination: "/blog/category/:slug", permanent: true },
+      // The old site's short share links /s/<code> (see short-links.ts).
+      ...SHORT_LINKS.map(([code, target]) => ({ source: `/s/${code}`, destination: target, permanent: true })),
       // Old addresses Google still sends visitors to (see search-console-redirects.ts).
       ...SEARCH_CONSOLE_REDIRECTS.map(([source, destination]) => ({ source, destination, permanent: true })),
       // Legacy registers "/find-my-tribe" as a second path to the same

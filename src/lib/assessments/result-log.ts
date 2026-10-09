@@ -8,6 +8,8 @@
 // of how many assessments exist; `/self-portrait` resolves display copy by
 // looking the slug up in the real ecosystem directory
 // (`lib/content/find-your-me.ts`'s `ECOSYSTEM_CATEGORIES`).
+import { recordFinish } from "@/lib/assessments/record-finish";
+
 export const RESULT_LOG_COOKIE = "tg_assessment_results";
 const RESULT_LOG_MAX_AGE = 60 * 60 * 24 * 365; // 1 year, matches the blog-visit cookies
 
@@ -32,8 +34,14 @@ export function parseResultLogCookie(raw: string | undefined | null): CompletedA
 
 // Client-only — call from a "use client" component's effect (see
 // AssessmentResultActions). A retake overwrites its slug's entry rather
-// than duplicating it.
-export function saveAssessmentResult(slug: string): void {
+// than duplicating it. Also saves the finish to Supabase
+// (assessment_results), fire-and-forget, so Tony can see how people score.
+export function saveAssessmentResult(
+  slug: string,
+  result?: { summary?: string; score?: number },
+  { saveToDatabase = true }: { saveToDatabase?: boolean } = {},
+): void {
+  if (saveToDatabase) recordFinish({ assessment: slug, ...result });
   const match = document.cookie.match(/(?:^|; )tg_assessment_results=([^;]*)/);
   const existing = parseResultLogCookie(match ? decodeURIComponent(match[1]) : null);
   const next = [...existing.filter((e) => e.slug !== slug), { slug, completedAt: new Date().toISOString() }];

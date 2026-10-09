@@ -265,10 +265,7 @@ const SAKE_PROFILES: SakeProfile[] = [
 ];
 
 const JOURNEY_CONTINUES = [
-  { name: "Find Your Mezcal", url: "https://mezcalagave-ahru9fq8.manus.space", hook: "The agave that matches your soul." },
-  { name: "Find Your Tequila", url: "https://tequilaazul-fxqrr3js.manus.space", hook: "Highland or lowland. A love letter in liquid form." },
   { name: "Find Your Therapy", url: "/find-your-therapy", hook: "CBT, IFS, somatic — matched to your wiring." },
-  { name: "Find Your Water", url: "https://aqwaterqpr-wvzsc3ph.manus.space", hook: "The element that teaches you to flow." },
   { name: "Find Your Purpose", url: "/dharma-finder", hook: "What you can't stop doing — even when nobody's paying." },
   { name: "Find My", url: "/find-my", hook: "The master assessment. Five questions. One reckoning." },
 ];
@@ -501,7 +498,7 @@ export function FindYourSakeQuiz() {
         </div>
 
         <div className="mb-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <AssessmentResultActions accentColor={ACCENT} resultSlug="find-your-sake" />
+          <AssessmentResultActions accentColor={ACCENT} resultSlug="find-your-sake" resultSummary={topProfile.name} />
           <button
             onClick={() => {
               setPhase("landing");

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { pageFontVariables } from "@/lib/fonts/page-fonts";
+import { ArrowLeft } from "lucide-react";
 
 // Ported from legacy client/src/pages/AkbarEssay.tsx ("Los Angeles Is
 // Losing Its Memory — Akbar Cuisine Refuses to Forget"). Real essay prose
@@ -426,7 +427,10 @@ export default function AkbarPage() {
 
       <div className="border-t border-[#C9A84C]/15 px-6 py-6 text-center">
         <Link href="/" className="inline-flex items-center font-mono text-sm tracking-wide text-[#C9A84C] min-h-11 md:min-h-6">
-          ← Back to the Essays
+          <span className="inline-flex items-center gap-1.5">
+            <ArrowLeft aria-hidden="true" className="size-[1em] shrink-0" />
+            Back to the Essays
+          </span>
         </Link>
       </div>
     </div>

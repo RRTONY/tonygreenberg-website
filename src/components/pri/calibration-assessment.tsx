@@ -332,7 +332,10 @@ export function CalibrationAssessment() {
 
             <div className="mt-6 flex flex-wrap justify-center gap-4">
               <Link href="/psychedelic-readiness-index" className="rounded-xl bg-pri-purple px-6 py-3 text-sm font-bold text-pri-cream">
-                ← Back to PRI
+                <span className="inline-flex items-center gap-1.5">
+                  <ArrowLeft aria-hidden="true" className="size-[1em] shrink-0" />
+                  Back to PRI
+                </span>
               </Link>
               <button onClick={reset} className="rounded-xl border border-pri-cream/20 px-6 py-3 text-sm font-bold text-pri-cream">
                 Retake Calibration

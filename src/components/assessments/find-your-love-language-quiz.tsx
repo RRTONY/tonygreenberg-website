@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ThemedBackground } from "@/components/assessments/themed-background";
 import { AssessmentIntro } from "@/components/assessments/assessment-intro";
 import { EmailGate } from "@/components/assessments/email-gate";
 import { WhatsNext } from "@/components/assessments/whats-next";
 import { AssessmentRadarChart } from "@/components/assessments/radar-chart";
+import { useJourneyProgress } from "@/components/assessments/journey-tracker";
 
 // Ported from legacy client/src/pages/FindYourLoveLanguage.tsx — the
 // 15-question, 5-dimension (based on Dr. Gary Chapman's "The 5 Love
@@ -18,10 +19,10 @@ import { AssessmentRadarChart } from "@/components/assessments/radar-chart";
 // already caught on `/find-your-diet`) isn't reproduced; the real shared
 // `WhatsNext` block already covers that spot. Legacy's inline `RadarChart`
 // replaced with the shared `AssessmentRadarChart` (same normalization —
-// `max(scores, 10)` — just componentized). The dead
-// `JourneyTracker`/`useJourneyProgress`/`markComplete` call and the
-// `localStorage.setItem("lovelanguage_results", ...)` write (both for a
-// journey-tracking system not built in this migration) aren't ported.
+// `max(scores, 10)` — just componentized). Legacy's `markComplete` call is
+// back now that the shared journey tracker exists (it also saves the finish
+// to Supabase); legacy's `localStorage.setItem("lovelanguage_results", ...)`
+// write has no reader here and isn't ported.
 type Dimension = "Words of Affirmation" | "Acts of Service" | "Receiving Gifts" | "Quality Time" | "Physical Touch";
 const INITIAL_SCORES: Record<Dimension, number> = { "Words of Affirmation": 0, "Acts of Service": 0, "Receiving Gifts": 0, "Quality Time": 0, "Physical Touch": 0 };
 const ACCENT = "#C62828";
@@ -165,6 +166,12 @@ export function FindYourLoveLanguageQuiz() {
   const primary = sorted[0]?.[0] as Dimension;
   const secondary = sorted[1]?.[0] as Dimension;
   const chartMax = Math.max(...Object.values(scores), 10);
+  const { markComplete } = useJourneyProgress();
+  const resultSummary = `Primary: ${primary}; Secondary: ${secondary}`;
+
+  useEffect(() => {
+    if (phase === "results") markComplete("find-your-love-language", { summary: resultSummary });
+  }, [phase, resultSummary, markComplete]);
 
   return (
     <div className="relative z-1 min-h-screen font-sans text-[#2C1810]">

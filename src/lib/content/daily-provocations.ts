@@ -7,6 +7,7 @@
 export type Provocation = { date: string; text: string };
 
 export const DAILY_PROVOCATIONS: Provocation[] = [
+  { date: "2026-10-07", text: "Only time buys trust, and the machine sells the simulation of depth at the speed of a swipe." },
   { date: "2026-10-06", text: "If your strategy doesn't make at least one mediocre competitor cry, you're just sharing stationery." },
   { date: "2026-10-05", text: "Only time buys trust. The gold is in the cracks." },
   { date: "2026-10-04", text: "Most people do not actually want freedom; they want a well-padded cage with an illusion of control." },

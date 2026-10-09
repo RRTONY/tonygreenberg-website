@@ -99,7 +99,11 @@ export function StepResults({ quiz }: StepProps) {
       <WhatsNext />
 
       <section className="mx-auto max-w-3xl px-6 pt-8 pb-16 text-center">
-        <AssessmentResultActions accentColor={ACCENT} resultSlug="dharma-finder" />
+        <AssessmentResultActions
+          accentColor={ACCENT}
+          resultSlug="dharma-finder"
+          resultSummary={`Roles: ${archetypes.join(", ")}; Values: ${coreValues.join(", ")}`}
+        />
         <div className="flex flex-wrap justify-center gap-4">
           <button
             onClick={quiz.retake}

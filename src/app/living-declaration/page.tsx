@@ -244,7 +244,7 @@ export default function LivingDeclarationPage() {
           <p className="mb-6 font-mono text-[0.72rem]/[1.85] tracking-[0.3em] text-brand-gold-light uppercase">
             A Living Declaration
           </p>
-          <h1 className="mx-auto mb-6 font-cormorant text-[clamp(2.75rem,8vw,4.5rem)]/[1.08] font-normal text-[#F5F0E0]">
+          <h1 className="mx-auto mb-6 font-cormorant text-[clamp(2.4rem,6vw,4.5rem)]/[1.08] font-normal text-[#F5F0E0]">
             The Measurement <span className="text-brand-gold-light">of Becoming</span>
           </h1>
           <p className="mx-auto mb-8 max-w-155 text-[1.1rem]/[1.8] text-[#F5F0E8]/75 sm:text-[1.2rem]/[1.8]">

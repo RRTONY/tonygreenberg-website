@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { BioChainCTA } from "@/components/marketing/biochain-cta";
 import { VendorScorecard, type Vendor } from "@/components/marketing/vendor-scorecard";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 // Ported from legacy client/src/pages/RipPeptideSciences.tsx. Real content,
 // unchanged — the timeline, the 3 reasons, the vendor scorecard (9 real
@@ -136,7 +137,10 @@ export default function RipPeptideSciencesPage() {
             href="/verify-your-coa"
             className="inline-block rounded-md bg-foreground px-6 py-3 font-mono text-sm tracking-wide text-background uppercase"
           >
-            Learn How to Verify Any COA Yourself →
+            <span className="inline-flex items-center gap-1.5">
+              Learn How to Verify Any COA Yourself
+              <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+            </span>
           </Link>
         </div>
       </section>
@@ -185,19 +189,34 @@ export default function RipPeptideSciencesPage() {
       <section className="bg-secondary px-6 py-12">
         <div className="mx-auto flex max-w-3xl flex-wrap justify-center gap-4">
           <Link href="/whats-legal" className="inline-flex items-center rounded-md border border-border bg-card px-5 py-2 text-sm font-medium min-h-11 md:min-h-6">
-            What&apos;s Legal →
+            <span className="inline-flex items-center gap-1.5">
+              What&apos;s Legal
+              <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+            </span>
           </Link>
           <Link href="/verify-your-coa" className="inline-flex items-center rounded-md border border-border bg-card px-5 py-2 text-sm font-medium min-h-11 md:min-h-6">
-            Verify Your COA →
+            <span className="inline-flex items-center gap-1.5">
+              Verify Your COA
+              <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+            </span>
           </Link>
           <Link href="/price-tracker" className="inline-flex items-center rounded-md border border-border bg-card px-5 py-2 text-sm font-medium min-h-11 md:min-h-6">
-            Price Tracker →
+            <span className="inline-flex items-center gap-1.5">
+              Price Tracker
+              <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+            </span>
           </Link>
           <Link href="/test-your-peptides" className="inline-flex items-center rounded-md border border-border bg-card px-5 py-2 text-sm font-medium min-h-11 md:min-h-6">
-            Test Your Peptides →
+            <span className="inline-flex items-center gap-1.5">
+              Test Your Peptides
+              <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+            </span>
           </Link>
           <Link href="/peptide-watch" className="inline-flex items-center rounded-md border border-border bg-card px-5 py-2 text-sm font-medium min-h-11 md:min-h-6">
-            ← Back to Peptide Watch
+            <span className="inline-flex items-center gap-1.5">
+              <ArrowLeft aria-hidden="true" className="size-[1em] shrink-0" />
+              Back to Peptide Watch
+            </span>
           </Link>
         </div>
       </section>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { ArrowRight } from "lucide-react";
 
 // Ported from legacy client/src/pages/brewsoul/BrewSoulHome.tsx's inline
 // health-fact cycler — pulled into its own tiny client island so the rest
@@ -28,7 +29,10 @@ export function HealthTicker() {
         onClick={() => setIdx((idx + 1) % HEALTH_FACTS.length)}
         className="rounded-md border border-[#836311]/20 bg-white/60 px-6 py-3 font-mono text-xs tracking-wide text-[#836311] uppercase backdrop-blur-xl transition-transform hover:-translate-y-0.5"
       >
-        Next Fact →
+        <span className="inline-flex items-center gap-1.5">
+          Next Fact
+          <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+        </span>
       </button>
     </div>
   );

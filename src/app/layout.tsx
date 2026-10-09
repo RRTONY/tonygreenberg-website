@@ -8,6 +8,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { WhereNext } from "@/components/where-next";
 import { SiteChrome } from "@/components/site-chrome";
 import { NavProgressBar } from "@/components/nav-progress-bar";
+import { GoogleAnalytics } from "@/components/google-analytics";
 import { getWebsiteJsonLd, getPersonJsonLd } from "@/lib/structured-data";
 import "./globals.css";
 
@@ -100,6 +101,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
           </SiteChrome>
           <LazyToaster />
         </ThemeProvider>
+        <GoogleAnalytics />
       </body>
     </html>
   );

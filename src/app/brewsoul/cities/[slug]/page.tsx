@@ -4,6 +4,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { CITIES, getCityBySlug } from "@/lib/content/brewsoul-cities";
 import { CityDetailTabs, GlassCard, GradeBadge } from "@/components/brewsoul/city-detail-tabs";
+import { ArrowLeft } from "lucide-react";
 
 // Ported from legacy client/src/pages/brewsoul/BrewSoulCityDetail.tsx —
 // real per-city hero, live stats, and verdict for all 25 cities, plus
@@ -44,7 +45,10 @@ export default async function BrewSoulCityDetailPage({ params }: PageProps<"/bre
 
         <div className="relative z-1 mx-auto w-full max-w-6xl px-6 pb-8">
           <Link href="/brewsoul/cities" className="inline-flex items-center mb-4 text-sm text-amber-400/60 hover:text-amber-400 min-h-11 md:min-h-6">
-            ← All Cities
+            <span className="inline-flex items-center gap-1.5">
+              <ArrowLeft aria-hidden="true" className="size-[1em] shrink-0" />
+              All Cities
+            </span>
           </Link>
           <div className="flex items-end justify-between gap-4">
             <div>
@@ -117,7 +121,10 @@ export default async function BrewSoulCityDetailPage({ params }: PageProps<"/bre
                 compiled.
               </p>
               <Link href="/brewsoul/cities" className="inline-block rounded-xl bg-linear-to-r from-amber-600 to-amber-500 px-6 py-3 font-semibold text-white">
-                ← Back to All Cities
+                <span className="inline-flex items-center gap-1.5">
+                  <ArrowLeft aria-hidden="true" className="size-[1em] shrink-0" />
+                  Back to All Cities
+                </span>
               </Link>
             </GlassCard>
           </div>
@@ -127,7 +134,10 @@ export default async function BrewSoulCityDetailPage({ params }: PageProps<"/bre
       <section className="border-t border-white/5 px-6 py-8">
         <div className="mx-auto flex max-w-6xl flex-wrap justify-center gap-3">
           <Link href="/brewsoul/cities" className="inline-flex items-center rounded-lg border border-amber-500/30 px-4 py-2 text-sm text-amber-400 min-h-11 md:min-h-6">
-            ← All Cities
+            <span className="inline-flex items-center gap-1.5">
+              <ArrowLeft aria-hidden="true" className="size-[1em] shrink-0" />
+              All Cities
+            </span>
           </Link>
           <Link href="/brewsoul/browse" className="inline-flex items-center rounded-lg border border-amber-500/30 px-4 py-2 text-sm text-amber-400 min-h-11 md:min-h-6">
             Browse Catalog

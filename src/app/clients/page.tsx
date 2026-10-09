@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { ClientsGrid, type Client } from "@/components/marketing/clients-grid";
 
@@ -190,13 +190,19 @@ export default function ClientsPage() {
           rel="noopener noreferrer"
           className="border-b border-brand-gold-light font-mono text-xs tracking-wide text-brand-gold-light uppercase"
         >
-          Visit RampRate →
+          <span className="inline-flex items-center gap-1.5">
+            Visit RampRate
+            <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+          </span>
         </a>
       </div>
 
       <div className="border-t border-border py-6 text-center">
         <Link href="/recent-creations" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
-          Recent Creations →
+          <span className="inline-flex items-center gap-1.5">
+            Recent Creations
+            <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+          </span>
         </Link>
       </div>
     </div>

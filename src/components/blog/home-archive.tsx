@@ -2,7 +2,7 @@
 
 import { useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { Loader2, Search, X } from "lucide-react";
+import { Loader2, Search, X, ArrowRight } from "lucide-react";
 import { FaLinkedin, FaXTwitter } from "react-icons/fa6";
 import { PostCard } from "@/components/blog/post-card";
 import { Input } from "@/components/ui/input";
@@ -225,7 +225,10 @@ export function HomeArchive({
                 }}
                 className="border-brand-gold/30 px-8 font-mono text-sm tracking-wide text-brand-gold uppercase hover:bg-brand-gold/5 hover:text-brand-gold"
               >
-                Show all {matchCount} essays →
+                <span className="inline-flex items-center gap-1.5">
+                  Show all {matchCount} essays
+                  <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+                </span>
               </Button>
             </div>
           )}
@@ -284,7 +287,10 @@ export function HomeArchive({
               href="mailto:tony@joyandwoe.com?subject=Tip%20for%20TonyG"
               className="inline-block rounded-sm border border-brand-gold/25 px-3 py-1.5 font-mono text-xs tracking-wide text-brand-gold uppercase"
             >
-              Send a Tip →
+              <span className="inline-flex items-center gap-1.5">
+                Send a Tip
+                <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+              </span>
             </a>
           </div>
 

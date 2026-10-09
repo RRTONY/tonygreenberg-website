@@ -36,7 +36,7 @@ export default function SupplierIntakePage() {
             <Building2 aria-hidden="true" className="size-6 text-[#D4B96A]" />
             <span className="font-mono text-xs tracking-[0.2em] text-[#D4B96A] uppercase">Supplier Application</span>
           </div>
-          <h1 className="mb-3 font-heading text-3xl text-neutral-100 md:text-4xl">Stage 1: Supplier Profile</h1>
+          <h1 className="mb-3 font-serif text-3xl text-neutral-100 md:text-4xl">Stage 1: Supplier Profile</h1>
           <p className="max-w-xl leading-relaxed text-neutral-400">
             A short qualification form — about 2–3 minutes. No uploads required at this stage. If we decide to pursue
             a relationship, you&apos;ll receive a private link to complete the full supplier profile.

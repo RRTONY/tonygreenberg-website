@@ -31,6 +31,7 @@ import {
   ECOSYSTEM_LINKS,
   LEGAL_NOTICES,
 } from "@/lib/content/alex-azzi";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 // Ported from legacy client/src/pages/CheshireGrin.tsx (2608 lines) — the
 // "VerifiedTribe Community Protection Report" on Alex Azzi, CEO of
@@ -731,7 +732,10 @@ export default async function AlexAzziPage() {
               href="mailto:tony@ramprate.com?subject=Alex%20Azzi%20Report%20Submission"
               className="inline-block rounded-md bg-red-800 px-6 py-2.5 font-mono text-xs font-semibold tracking-wide text-white uppercase"
             >
-              Share Your Story →
+              <span className="inline-flex items-center gap-1.5">
+                Share Your Story
+                <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+              </span>
             </a>
           </div>
         </Section>
@@ -881,7 +885,10 @@ export default async function AlexAzziPage() {
 
       <div className="border-t border-border py-6 text-center">
         <Link href="/" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
-          ← Back to the Essays
+          <span className="inline-flex items-center gap-1.5">
+            <ArrowLeft aria-hidden="true" className="size-[1em] shrink-0" />
+            Back to the Essays
+          </span>
         </Link>
       </div>
 

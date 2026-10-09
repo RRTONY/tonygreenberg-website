@@ -1,7 +1,7 @@
 import { Cormorant_Garamond, Fraunces, Space_Grotesk } from "next/font/google";
 
 // Title faces live uses outside the essays (measured on tonygreenberg.com
-// 2026-10-07): Fraunces on Kava and /akbar, Space Grotesk on HumanOS,
+// 2026-10-07): Fraunces on Kava, /akbar and /attention-theft (2026-10-09), Space Grotesk on HumanOS,
 // Cormorant Garamond on /living-declaration. A page opts in by putting
 // `pageFontVariables` on its wrapper and using font-fraunces / font-grotesk /
 // font-cormorant; pages that don't import this file never load these fonts.

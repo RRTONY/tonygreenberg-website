@@ -165,7 +165,7 @@ export function FindYourSleepQuiz() {
   const archetype = useMemo(() => calculateArchetype(scores), [scores]);
 
   useEffect(() => {
-    if (phase === "results") markComplete("find-your-sleep");
+    if (phase === "results") markComplete("find-your-sleep", { summary: archetype });
   }, [phase, archetype, markComplete]);
 
   const handleAnswer = (optionScores: Partial<Record<Dimension, number>>) => {

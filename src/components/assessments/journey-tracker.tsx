@@ -1,7 +1,9 @@
 "use client";
 
-import { useCallback, useMemo, useState, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { ArrowUpRight, ChevronDown, ChevronUp } from "lucide-react";
+import { setJourneyStep, syncJourneyProgress } from "@/app/assessments/actions";
+import { recordFinish } from "@/lib/assessments/record-finish";
 
 // Ported from legacy client/src/components/JourneyTracker.tsx — a
 // universal progress tracker across every real "Find Your X" experience
@@ -11,12 +13,12 @@ import { ArrowUpRight, ChevronDown, ChevronUp } from "lucide-react";
 // chemistry/partner/capital tools on their own manus.space subdomains,
 // same "real external sibling product" treatment already established for
 // SoulSmoke/LiquidSun in `brewsoul-config.ts`; all 6 confirmed live
-// before porting). Legacy's `trpc.journey.*` DB sync (mark-complete,
-// toggle, cross-device sync via `useAuth`) isn't ported — there's no
-// auth/backend for it yet in this migration, same honest-degradation
-// pattern used throughout (progress still tracks correctly per-browser
-// via localStorage, it just doesn't sync across devices until Supabase
-// auth exists).
+// before porting). Legacy's `trpc.journey.*` DB sync is back on Supabase
+// (2026-10-10, src/app/assessments/actions.ts): every finish is saved to
+// `assessment_results`, and a signed-in member's progress is stored in
+// `journey_progress` and merged with this browser's on first use, so it
+// follows them across devices. Visitors who aren't signed in keep the
+// per-browser localStorage list, as before.
 export interface JourneyExperience {
   id: string;
   name: string;
@@ -35,24 +37,18 @@ export const JOURNEY_MAP: JourneyExperience[] = [
   { id: "find-your-score", name: "Find Your Score", category: "know", url: "/grant-study", estimatedMinutes: 12, isExternal: false, questionCount: 25 },
   { id: "soulscore", name: "SoulScore", category: "know", url: "/soulscore", estimatedMinutes: 10, isExternal: false },
   { id: "find-your-spirit", name: "Find Your Spirit", category: "know", url: "/find-your-spirit", estimatedMinutes: 18, isExternal: false, questionCount: 35 },
-  { id: "find-your-partner", name: "Find Your Partner", category: "love", url: "https://intimacyassess-tcir3hon.manus.space", estimatedMinutes: 10, isExternal: true, questionCount: 15 },
   { id: "find-your-tribe", name: "Find Your Tribe", category: "love", url: "/community", estimatedMinutes: 5, isExternal: false },
   { id: "find-your-team", name: "Find Your Team", category: "love", url: "/flow-circuit", estimatedMinutes: 8, isExternal: false },
   { id: "find-your-attachment", name: "Find Your Attachment Style", category: "love", url: "/find-your-attachment-style", estimatedMinutes: 10, isExternal: false, questionCount: 18 },
   { id: "find-your-love-language", name: "Find Your Love Language", category: "love", url: "/find-your-love-language", estimatedMinutes: 8, isExternal: false, questionCount: 15 },
   { id: "find-your-religion", name: "Find Your Religion", category: "mind", url: "/find-your-religion", estimatedMinutes: 20, isExternal: false, questionCount: 20 },
-  { id: "find-your-chemistry", name: "Find Your Chemistry", category: "body", url: "https://regenhealth-4nns6jnd.manus.space", estimatedMinutes: 8, isExternal: true },
-  { id: "find-your-water", name: "Find Your Water", category: "body", url: "https://aqwaterqpr-wvzsc3ph.manus.space", estimatedMinutes: 5, isExternal: true },
   { id: "find-your-diet", name: "Find Your Diet", category: "body", url: "/find-your-diet", estimatedMinutes: 8, isExternal: false, questionCount: 15 },
   { id: "find-your-movement", name: "Find Your Movement", category: "body", url: "/find-your-movement", estimatedMinutes: 8, isExternal: false, questionCount: 15 },
   { id: "find-your-sleep", name: "Find Your Sleep", category: "body", url: "/find-your-sleep", estimatedMinutes: 8, isExternal: false, questionCount: 15 },
-  { id: "find-your-mezcal", name: "Find Your Mezcal", category: "taste", url: "https://mezcalagave-ahru9fq8.manus.space", estimatedMinutes: 5, isExternal: true },
-  { id: "find-your-tequila", name: "Find Your Tequila", category: "taste", url: "https://tequilaazul-fxqrr3js.manus.space", estimatedMinutes: 5, isExternal: true },
   { id: "find-your-sake", name: "Find Your Sake", category: "taste", url: "/find-your-sake", estimatedMinutes: 8, isExternal: false, questionCount: 20 },
   { id: "find-your-coffee", name: "Find Your Coffee", category: "taste", url: "/find-your-coffee", estimatedMinutes: 8, isExternal: false, questionCount: 15 },
   { id: "find-your-kitchen", name: "Find Your Kitchen", category: "taste", url: "/find-your-kitchen", estimatedMinutes: 8, isExternal: false, questionCount: 15 },
   { id: "find-your-blueprint", name: "Find Your Blueprint", category: "mind", url: "/living-declaration", estimatedMinutes: 8, isExternal: false },
-  { id: "find-your-capital", name: "Find Your Capital", category: "mind", url: "https://portfoliofamilyoffice.manus.space", estimatedMinutes: 5, isExternal: true },
   { id: "find-your-therapy", name: "Find Your Therapy", category: "mind", url: "/find-your-therapy", estimatedMinutes: 12, isExternal: false, questionCount: 25 },
   { id: "find-your-style", name: "Find Your Style", category: "mind", url: "/find-your-style", estimatedMinutes: 8, isExternal: false, questionCount: 15 },
   { id: "find-your-peptide", name: "Find Your Peptide", category: "body", url: "/find-your-peptide", estimatedMinutes: 8, isExternal: false, questionCount: 10 },
@@ -93,6 +89,33 @@ function writeStore(next: Set<string>) {
   storeListeners.forEach((listener) => listener());
 }
 
+// The quiz's page address without the slash, the name assessment_results
+// uses (the same one result-log.ts's slugs use, so a finish logged by both
+// helpers is saved once).
+function assessmentKey(id: string): string {
+  const exp = JOURNEY_MAP.find((e) => e.id === id);
+  return exp && !exp.isExternal ? exp.url.replace(/^\//, "") : id;
+}
+
+// Supabase's session cookie (sb-<project>-auth-token, readable by the
+// browser) tells us someone may be signed in; visitors without it never call
+// the server for journey sync.
+function maybeSignedIn(): boolean {
+  return /(?:^|; )sb-[^=]+-auth-token/.test(document.cookie);
+}
+
+let syncStarted = false;
+function syncWithAccountOnce() {
+  if (syncStarted || !maybeSignedIn()) return;
+  syncStarted = true;
+  void syncJourneyProgress(Array.from(readStore())).then((ids) => {
+    if (!ids) return;
+    const current = readStore();
+    if (ids.every((id) => current.has(id))) return;
+    writeStore(new Set([...current, ...ids]));
+  });
+}
+
 function subscribeStore(listener: () => void) {
   storeListeners.add(listener);
   return () => storeListeners.delete(listener);
@@ -110,17 +133,27 @@ function subscribeStore(listener: () => void) {
 export function useJourneyProgress() {
   const completed = useSyncExternalStore(subscribeStore, readStore, () => EMPTY_SET as Set<string>);
 
-  const markComplete = useCallback((id: string) => {
+  // Syncing with the member's account is a one-time side effect against an
+  // outside system (the merged list lands in the external store, not React
+  // state), so an effect is the right tool.
+  useEffect(syncWithAccountOnce, []);
+
+  // `result` is the outcome in words (archetype, level) and/or a number,
+  // when the quiz has one; it's saved with the finish in assessment_results.
+  const markComplete = useCallback((id: string, result?: { summary?: string; score?: number }) => {
     const next = new Set(readStore());
     next.add(id);
     writeStore(next);
+    recordFinish({ assessment: assessmentKey(id), journeyId: id, ...result });
   }, []);
 
   const toggleComplete = useCallback((id: string) => {
     const next = new Set(readStore());
-    if (next.has(id)) next.delete(id);
-    else next.add(id);
+    const done = !next.has(id);
+    if (done) next.add(id);
+    else next.delete(id);
     writeStore(next);
+    if (maybeSignedIn()) void setJourneyStep(id, done);
   }, []);
 
   const stats = useMemo(() => {

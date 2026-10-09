@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 // Shared across every peptide page in legacy — real, unchanged.
 export function PeptideShutdownBanner() {
@@ -11,7 +12,10 @@ export function PeptideShutdownBanner() {
         <span className="text-sm text-red-300">
           Peptide Sciences shut down by FDA.{" "}
           <Link href="/rip-peptide-sciences" className="font-semibold text-red-600 underline">
-            Full breakdown →
+            <span className="inline-flex items-center gap-1.5">
+              Full breakdown
+              <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+            </span>
           </Link>
         </span>
       </div>

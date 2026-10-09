@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { BREWSOUL_COFFEES } from "@/lib/content/brewsoul-coffees";
 import { CHAIN_RANKINGS } from "@/lib/content/brewsoul-chains";
+import { ArrowRight } from "lucide-react";
 
 // Ported from legacy client/src/components/BrewSoulHero.tsx — the full-width
 // "The Intelligence Engine" BrewSoul band legacy's homepage (Blog.tsx) shows
@@ -100,13 +101,19 @@ export function BrewSoulHomeSection() {
             href="/brewsoul/browse"
             className="rounded-lg border border-[#C4841D]/25 bg-[#F5EDE0]/4 px-8 py-4 font-mono text-xs tracking-[0.18em] text-[#D4B96A]/80 uppercase transition-all duration-300 hover:-translate-y-0.5 hover:border-[#C4841D]/50 hover:bg-[#C4841D]/10"
           >
-            Browse Top QPR →
+            <span className="inline-flex items-center gap-1.5">
+              Browse Top QPR
+              <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+            </span>
           </Link>
           <Link
             href="/brewsoul/chains"
             className="rounded-lg border border-[#6F4E37]/20 bg-[#F5EDE0]/4 px-8 py-4 font-mono text-xs tracking-[0.18em] text-[#F5EDE0]/50 uppercase transition-all duration-300 hover:-translate-y-0.5 hover:border-[#6F4E37]/40 hover:bg-[#6F4E37]/10 hover:text-[#F5EDE0]/70"
           >
-            Chain Rankings →
+            <span className="inline-flex items-center gap-1.5">
+              Chain Rankings
+              <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+            </span>
           </Link>
         </div>
 

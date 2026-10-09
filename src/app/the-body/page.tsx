@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 // Ported from legacy client/src/pages/TheBody.tsx ("The Folio" — Health &
 // Longevity). Real content kept as-is. Hero image rescued from the still-
@@ -138,7 +139,10 @@ export default function TheBodyPage() {
 
         <div className="border-t border-border py-6 text-center">
           <Link href="/the-nightstand" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
-            Continue to The Nightstand →
+            <span className="inline-flex items-center gap-1.5">
+              Continue to The Nightstand
+              <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+            </span>
           </Link>
         </div>
       </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Copy, CheckCircle, Filter, Globe, Megaphone, Scale, FileText } from "lucide-react";
+import { Copy, CheckCircle, Filter, Globe, Megaphone, Scale, FileText, ArrowRight } from "lucide-react";
 import { GlassCard, PullQuote } from "@/components/manifesto/manifesto-ui";
 import { LAWS, LETTER_TEMPLATE, type LawStatus } from "@/lib/content/attention-theft";
 
@@ -79,7 +79,10 @@ export function LegalArsenal() {
                     onClick={() => setExpanded(isExpanded ? null : law.title)}
                     className={`mt-3 text-sm font-medium hover:underline ${s.iconClass}`}
                   >
-                    {isExpanded ? "Show less" : "Read full analysis →"}
+                    <span className="inline-flex items-center gap-1.5">
+                      {isExpanded ? "Show less" : "Read full analysis"}
+                      {!isExpanded && <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />}
+                    </span>
                   </button>
                   {isExpanded && (
                     <div className="mt-4 border-t border-black/6 pt-4">

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { IntelPortfolio, type PortCo } from "@/components/marketing/intel-portfolio";
+import { ArrowRight } from "lucide-react";
 
 // Ported from legacy client/src/pages/Intel.tsx. Real content kept as-is
 // (9 portfolio companies, full investment thesis / gates / compass scores /
@@ -249,7 +250,10 @@ export default function IntelPage() {
 
       <div className="border-t border-border py-6 text-center">
         <Link href="/blog" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
-          Read the Blog →
+          <span className="inline-flex items-center gap-1.5">
+            Read the Blog
+            <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+          </span>
         </Link>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Sparkles } from "lucide-react";
+import { Sparkles, ArrowRight } from "lucide-react";
 import { sanityFetch } from "@/lib/sanity/client";
 import { gemSparkPostsQuery } from "@/lib/sanity/queries";
 import { GEM_SPARK_SUBTITLES } from "@/lib/content/gem-sparks";
@@ -53,7 +53,7 @@ export async function GemSparkStrip() {
                     </div>
                   )}
                 </div>
-                <span className="ml-auto shrink-0 font-mono text-xs text-[#C8860A]">→</span>
+                <ArrowRight aria-hidden="true" className="ml-auto size-3.5 shrink-0 text-[#C8860A]" />
               </Link>
             );
           })}

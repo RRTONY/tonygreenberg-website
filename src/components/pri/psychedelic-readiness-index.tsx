@@ -1,10 +1,11 @@
 "use client";
 
-import { useCallback, useMemo, useRef, useState, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { Heart, X, AlertTriangle, Ban, Star, FileText, CheckCircle2, Target } from "lucide-react";
+import { Heart, X, AlertTriangle, Ban, Star, FileText, CheckCircle2, Target, ArrowLeft, ArrowRight } from "lucide-react";
+import { saveAssessmentResult } from "@/lib/assessments/result-log";
 import {
   MEDICINES,
   QUESTIONS,
@@ -230,6 +231,13 @@ export function PsychedelicReadinessIndex() {
     if (state !== "results") return null;
     return computeScores(answers);
   }, [state, answers]);
+
+  // Saves the finish once per result shown (Supabase + /self-portrait log).
+  const resultScore = results?.overall;
+  const resultSummary = results ? `${results.level.label}; Top matches: ${results.topMatches.map((m) => m.name).join(", ")}` : undefined;
+  useEffect(() => {
+    if (resultSummary) saveAssessmentResult("psychedelic-readiness-index", { summary: resultSummary, score: resultScore });
+  }, [resultSummary, resultScore]);
 
   const exportPDF = useCallback(() => {
     if (!results) return;
@@ -490,7 +498,10 @@ export function PsychedelicReadinessIndex() {
 
           <div className="flex flex-wrap gap-3">
             <button onClick={startQuiz} className="bg-pri-purple px-8 py-3.5 font-mono text-sm font-bold tracking-[0.05em] text-pri-cream uppercase transition-colors hover:bg-pri-purple-mid">
-              Begin Assessment →
+              <span className="inline-flex items-center gap-1.5">
+                Begin Assessment
+                <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+              </span>
             </button>
             <a href="#medicines" className="border-[1.5px] border-pri-ink px-8 py-3.5 font-mono text-sm font-bold tracking-[0.05em] text-pri-ink uppercase">
               Explore Medicines
@@ -997,11 +1008,17 @@ export function PsychedelicReadinessIndex() {
                 </p>
               </div>
               <button onClick={() => setState("intro")} className="bg-linear-to-br from-[#b45309] to-[#d97706] px-10 py-4 text-[clamp(1rem,2.5vw,1.1rem)] font-bold text-white uppercase">
-                See Where You Actually Stand →
+                <span className="inline-flex items-center gap-1.5">
+                  See Where You Actually Stand
+                  <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+                </span>
               </button>
               <div className="mt-6">
                 <Link href="/the-philosophy" className="text-[.75rem] tracking-[0.1em] text-brand-gold-light">
-                  Read the full philosophy →
+                  <span className="inline-flex items-center gap-1.5">
+                    Read the full philosophy
+                    <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+                  </span>
                 </Link>
               </div>
             </div>
@@ -1025,7 +1042,10 @@ export function PsychedelicReadinessIndex() {
                 ))}
               </div>
               <button onClick={startQuiz} className="bg-pri-ink px-8 py-3.5 text-sm font-bold tracking-wide text-pri-cream uppercase ring-1 ring-pri-cream/20">
-                Begin {QUESTIONS.length}-Question Assessment →
+                <span className="inline-flex items-center gap-1.5">
+                  Begin {QUESTIONS.length}-Question Assessment
+                  <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+                </span>
               </button>
             </div>
           )}
@@ -1080,10 +1100,16 @@ export function PsychedelicReadinessIndex() {
                   disabled={currentQ === 0}
                   className={`border-[1.5px] px-5 py-3 text-sm font-bold ${currentQ === 0 ? "border-pri-cream/10 text-pri-cream/30" : "border-pri-cream/20 text-pri-cream"}`}
                 >
-                  ← Back
+                  <span className="inline-flex items-center gap-1.5">
+                    <ArrowLeft aria-hidden="true" className="size-[1em] shrink-0" />
+                    Back
+                  </span>
                 </button>
                 <button onClick={nextQuestion} className="max-w-60 flex-1 justify-center bg-pri-purple px-6 py-3 text-sm font-bold text-pri-cream">
-                  {currentQ === QUESTIONS.length - 1 ? "A Few More Questions →" : "Next →"}
+                  <span className="inline-flex items-center gap-1.5">
+                    {currentQ === QUESTIONS.length - 1 ? "A Few More Questions" : "Next"}
+                    <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+                  </span>
                 </button>
               </div>
             </div>
@@ -1130,10 +1156,16 @@ export function PsychedelicReadinessIndex() {
               </div>
               <div className="mt-6 flex justify-between gap-3">
                 <button onClick={prevPathwayQuestion} className="border-[1.5px] border-pri-cream/20 px-5 py-3 text-sm font-bold text-pri-cream">
-                  ← Back
+                  <span className="inline-flex items-center gap-1.5">
+                    <ArrowLeft aria-hidden="true" className="size-[1em] shrink-0" />
+                    Back
+                  </span>
                 </button>
                 <button onClick={nextPathwayQuestion} className="max-w-60 flex-1 justify-center bg-pri-purple px-6 py-3 text-sm font-bold text-pri-cream">
-                  {currentPathwayQ === PATHWAY_QUESTIONS.length - 1 ? "See My Results →" : "Next →"}
+                  <span className="inline-flex items-center gap-1.5">
+                    {currentPathwayQ === PATHWAY_QUESTIONS.length - 1 ? "See My Results" : "Next"}
+                    <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+                  </span>
                 </button>
               </div>
             </div>
@@ -1344,7 +1376,10 @@ export function PsychedelicReadinessIndex() {
             rel="noopener noreferrer"
             className="inline-block rounded bg-linear-to-br from-pri-purple to-[#9b59b6] px-10 py-4 text-[.85rem] font-bold tracking-[0.1em] text-pri-cream uppercase shadow-[0_4px_24px_rgba(107,33,168,0.4)]"
           >
-            Get Your ImpactSoul Score →
+            <span className="inline-flex items-center gap-1.5">
+              Get Your ImpactSoul Score
+              <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+            </span>
           </a>
           <div className="mt-5 text-xs tracking-[0.04em] text-pri-cream/60">Free · 8 minutes · No account required</div>
         </div>

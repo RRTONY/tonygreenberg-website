@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PeptideLegalTable, type PeptideRegEntry } from "@/components/marketing/peptide-legal-table";
 import { PeptideShutdownBanner } from "@/components/marketing/peptide-shutdown-banner";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 // Ported from legacy client/src/pages/WhatsLegal.tsx. Real content,
 // unchanged — 17 real compounds with real regulatory status across 3
@@ -111,16 +112,28 @@ export default function WhatsLegalPage() {
       <section className="bg-secondary px-6 py-12">
         <div className="mx-auto flex max-w-3xl flex-wrap justify-center gap-4">
           <Link href="/rip-peptide-sciences" className="inline-flex items-center rounded-md border border-border bg-card px-5 py-2 text-sm font-medium min-h-11 md:min-h-6">
-            ← RIP Peptide Sciences
+            <span className="inline-flex items-center gap-1.5">
+              <ArrowLeft aria-hidden="true" className="size-[1em] shrink-0" />
+              RIP Peptide Sciences
+            </span>
           </Link>
           <Link href="/verify-your-coa" className="inline-flex items-center rounded-md border border-border bg-card px-5 py-2 text-sm font-medium min-h-11 md:min-h-6">
-            Verify Your COA →
+            <span className="inline-flex items-center gap-1.5">
+              Verify Your COA
+              <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+            </span>
           </Link>
           <Link href="/price-tracker" className="inline-flex items-center rounded-md border border-border bg-card px-5 py-2 text-sm font-medium min-h-11 md:min-h-6">
-            Price Tracker →
+            <span className="inline-flex items-center gap-1.5">
+              Price Tracker
+              <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+            </span>
           </Link>
           <Link href="/test-your-peptides" className="inline-flex items-center rounded-md border border-border bg-card px-5 py-2 text-sm font-medium min-h-11 md:min-h-6">
-            Test Your Peptides →
+            <span className="inline-flex items-center gap-1.5">
+              Test Your Peptides
+              <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+            </span>
           </Link>
         </div>
       </section>

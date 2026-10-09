@@ -547,19 +547,23 @@ export function FindYourMeQuiz({ articleTitles }: { articleTitles: Record<string
           </div>
         </div>
 
-        <div className="mb-12">
-          <h3 className="mb-5 font-mono text-[0.75rem] tracking-[0.25em] text-brand-gold-light/50 uppercase">Find Your ___</h3>
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {archetype.sites.map((site) => (
-              <a key={site.url} href={site.url} target="_blank" rel="noopener noreferrer">
-                <GlassPanel className="h-full p-5 transition-colors hover:border-brand-gold-light/30">
-                  <p className="mb-1.5 font-heading text-base text-brand-gold-light">{site.name}</p>
-                  <p className="text-[0.85rem] leading-relaxed text-[#F5F0E0]/50">{site.why}</p>
-                </GlassPanel>
-              </a>
-            ))}
+        {/* Hidden when an archetype has no sites left (its *.manus.space apps were
+            removed, 2026-10-09). */}
+        {archetype.sites.length > 0 && (
+          <div className="mb-12">
+            <h3 className="mb-5 font-mono text-[0.75rem] tracking-[0.25em] text-brand-gold-light/50 uppercase">Find Your ___</h3>
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {archetype.sites.map((site) => (
+                <a key={site.url} href={site.url} target="_blank" rel="noopener noreferrer">
+                  <GlassPanel className="h-full p-5 transition-colors hover:border-brand-gold-light/30">
+                    <p className="mb-1.5 font-heading text-base text-brand-gold-light">{site.name}</p>
+                    <p className="text-[0.85rem] leading-relaxed text-[#F5F0E0]/50">{site.why}</p>
+                  </GlassPanel>
+                </a>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         <div className="mb-12">
           <h3 className="mb-5 font-mono text-[0.75rem] tracking-[0.25em] text-brand-gold-light/50 uppercase">Go Deeper</h3>
@@ -621,7 +625,7 @@ export function FindYourMeQuiz({ articleTitles }: { articleTitles: Record<string
         </div>
 
         <div className="text-center">
-          <AssessmentResultActions accentColor={ACCENT} resultSlug="find-your-me" />
+          <AssessmentResultActions accentColor={ACCENT} resultSlug="find-your-me" resultSummary={archetype.name} />
           <div className="mt-4 flex flex-wrap justify-center gap-8">
             <button
               onClick={() => {

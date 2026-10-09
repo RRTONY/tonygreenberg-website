@@ -6,6 +6,7 @@ import { postsBySlugsQuery } from "@/lib/sanity/queries";
 import { urlFor } from "@/lib/sanity/image";
 import { SERIES } from "@/lib/content/essay-series";
 import { postHref } from "@/lib/content/post-redirects";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 // Ported from legacy client/src/pages/Series.tsx ("The Collections") +
 // client/src/data/seriesData.ts. Real content kept as-is (12 real curated
@@ -49,7 +50,10 @@ export default async function SeriesPage() {
       <div className="bg-linear-to-b from-background to-secondary px-5 pt-23 pb-20 sm:px-10">
         <div className="mx-auto max-w-[34.125rem]">
           <Link href="/" className="inline-flex items-center mb-8 font-mono text-xs tracking-wide text-brand-gold uppercase min-h-11 md:min-h-6">
-            ← Back to The Blog
+            <span className="inline-flex items-center gap-1.5">
+              <ArrowLeft aria-hidden="true" className="size-[1em] shrink-0" />
+              Back to The Blog
+            </span>
           </Link>
           <p className="mb-6 font-mono text-xs/[1.8] tracking-[0.3em] text-brand-gold uppercase">
             The Collections
@@ -119,7 +123,10 @@ export default async function SeriesPage() {
                       href={postHref(seriesPosts[0].slug)}
                       className="mt-4 inline-block border-b border-brand-gold-light font-mono text-xs tracking-wide text-brand-gold uppercase"
                     >
-                      Start Reading →
+                      <span className="inline-flex items-center gap-1.5">
+                        Start Reading
+                        <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+                      </span>
                     </Link>
                   )}
                 </div>
@@ -131,7 +138,10 @@ export default async function SeriesPage() {
 
       <div className="border-t border-border py-6 text-center">
         <Link href="/the-index" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
-          Search All Essays →
+          <span className="inline-flex items-center gap-1.5">
+            Search All Essays
+            <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+          </span>
         </Link>
       </div>
     </div>

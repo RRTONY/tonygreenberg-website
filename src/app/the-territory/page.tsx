@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 // Ported from legacy client/src/pages/Territory.tsx ("The Folio" — Heroes &
 // Gratitude). Real content kept as-is. AutoLinkedText's auto-hyperlinking
@@ -92,7 +93,10 @@ export default function TheTerritoryPage() {
 
       <div className="border-t border-border py-6 text-center">
         <Link href="/engine-room" className="inline-flex items-center font-mono text-sm tracking-wide text-brand-gold min-h-11 md:min-h-6">
-          Continue to The Engine Room →
+          <span className="inline-flex items-center gap-1.5">
+            Continue to The Engine Room
+            <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
+          </span>
         </Link>
       </div>
     </div>
