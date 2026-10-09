@@ -1,25 +1,33 @@
 "use client";
 
 import { useState } from "react";
-import { AlertTriangle } from "lucide-react";
+import { AlertTriangle, Loader2 } from "lucide-react";
+import { submitPriConsent } from "@/app/forms/actions";
 
 // Ported from legacy client/src/pages/pri/PsychedelicReadinessIndex.tsx's
 // `DisclaimerGate` — the real full legal/harm-reduction disclaimer text and
-// Tony's real personal note, unchanged and verbatim. Legacy's
-// `trpc.pri.submitConsent` mutation (a consent-logging call to a backend
-// this migration never built, whose failure was already silently ignored
-// in legacy itself — "Still allow access even if DB save fails") is
-// dropped; consent is recorded locally via `sessionStorage` only, same as
-// legacy's actual gating behavior.
+// Tony's real personal note, unchanged and verbatim. Since 2026-10-10 the
+// initials are saved to Supabase again (`submitPriConsent` in
+// src/app/forms/actions.ts → pri_consents), like legacy's
+// `trpc.pri.submitConsent`; consent is also kept in `sessionStorage` for the
+// page's own gating. As on legacy ("Still allow access even if DB save
+// fails"), a failed save never blocks the visitor.
 export function DisclaimerGate({ onConsent }: { onConsent: () => void }) {
   const [initials, setInitials] = useState("");
   const [agreed, setAgreed] = useState(false);
+  const [saving, setSaving] = useState(false);
 
-  const canProceed = initials.length >= 2 && agreed;
+  const canProceed = initials.length >= 2 && agreed && !saving;
 
-  const handleConsent = () => {
+  const handleConsent = async () => {
     if (!canProceed) return;
-    sessionStorage.setItem("pri-consent", "true");
+    setSaving(true);
+    await submitPriConsent({ initials }).catch(() => null);
+    try {
+      sessionStorage.setItem("pri-consent", "true");
+    } catch {
+      // private mode: the page's own state still lets them through
+    }
     onConsent();
   };
 
@@ -107,8 +115,9 @@ export function DisclaimerGate({ onConsent }: { onConsent: () => void }) {
           <button
             onClick={handleConsent}
             disabled={!canProceed}
-            className={`w-full px-8 py-4 text-center text-sm font-bold tracking-[0.05em] uppercase transition-colors ${canProceed ? "bg-pri-purple text-pri-cream" : "bg-pri-border text-pri-tan"}`}
+            className={`inline-flex w-full items-center justify-center gap-2 px-8 py-4 text-center text-sm font-bold tracking-[0.05em] uppercase transition-colors ${canProceed || saving ? "bg-pri-purple text-pri-cream" : "bg-pri-border text-pri-tan"}`}
           >
+            {saving && <Loader2 aria-hidden="true" className="size-4 animate-spin" />}
             I Understand — Proceed
           </button>
         </div>

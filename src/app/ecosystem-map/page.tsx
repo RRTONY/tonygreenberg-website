@@ -10,7 +10,6 @@ export const metadata: Metadata = {
   title: "The Ecosystem Map",
   description:
     "Tony Greenberg's map of the regenerative economy — companies, people, and movements building what comes after extraction.",
-  keywords: ["Tony Greenberg", "regenerative economy", "impact investing", "conscious capitalism"],
   alternates: { canonical: "/ecosystem-map" },
 };
 

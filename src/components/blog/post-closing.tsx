@@ -126,6 +126,17 @@ export function PostClosing({ originalUrl, prev, next }: { originalUrl?: string;
           <p className="font-mono text-xs tracking-[0.04em] text-muted-foreground">
             Systems thinker. Impact builder. Corporate accountability crusader.
           </p>
+          {/* Author box copy from the SEO pack (owner's yes 2026-10-10). */}
+          <p className="mt-2 text-[0.95rem] leading-normal text-foreground/85">
+            Tony Greenberg is the CEO of RampRate and founder of ImpactSoul.{" "}
+            <Link
+              href="/about"
+              className="inline-flex min-h-11 items-center gap-1 font-mono text-xs tracking-[0.06em] text-brand-gold uppercase no-underline hover:underline md:min-h-6"
+            >
+              About Tony
+              <ArrowRight aria-hidden="true" className="size-3" />
+            </Link>
+          </p>
         </div>
       </div>
 

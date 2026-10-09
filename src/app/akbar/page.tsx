@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { pageFontVariables } from "@/lib/fonts/page-fonts";
 import { ArrowLeft } from "lucide-react";
+import { RelatedPages } from "@/components/marketing/related-pages";
 
 // Ported from legacy client/src/pages/AkbarEssay.tsx ("Los Angeles Is
 // Losing Its Memory — Akbar Cuisine Refuses to Forget"). Real essay prose
@@ -424,6 +425,8 @@ export default function AkbarPage() {
       </div>
 
       <SquareStrip images={FOOTER_GALLERY} className="mt-16 grid grid-cols-3 gap-2 px-2 sm:grid-cols-6 sm:px-6" />
+
+      <RelatedPages path="/akbar" tone="dark" className="mt-16 border-[#C9A84C]/15 bg-transparent" />
 
       <div className="border-t border-[#C9A84C]/15 px-6 py-6 text-center">
         <Link href="/" className="inline-flex items-center font-mono text-sm tracking-wide text-[#C9A84C] min-h-11 md:min-h-6">

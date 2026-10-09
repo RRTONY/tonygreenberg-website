@@ -5,6 +5,8 @@ import { ArrowLeft, ExternalLink, Award, BarChart3, Users, MapPin, Calendar, Dol
 import { Button } from "@/components/ui/button";
 import { CHARITIES, SCORE_DIMENSIONS } from "@/lib/content/charity-data";
 import { GradeBadge, CloakPanel, ScoreBar, RadarChart } from "@/components/marketing/charity-badges";
+import { RelatedPages } from "@/components/marketing/related-pages";
+import { CHARITY_PROFILE_PATH } from "@/lib/content/related-pages";
 
 // Ported from legacy client/src/pages/CharityProfile.tsx. Real content,
 // unchanged. No client-side state at all in the legacy source (purely
@@ -206,6 +208,8 @@ export default async function CharityProfilePage({ params }: PageProps<"/charity
             </div>
           </div>
         )}
+
+        <RelatedPages path={CHARITY_PROFILE_PATH} tone="light" className="mt-12 px-0 pb-0 sm:px-0" innerClassName="max-w-none" />
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Building2 } from "lucide-react";
 import { BioChainCTA } from "@/components/marketing/biochain-cta";
 import { SupplierIntakeForm } from "@/components/supplier-intake/supplier-intake";
+import { defaultOpenGraph } from "@/lib/seo-defaults";
 
 // Stage 1 supplier application, ported from legacy
 // client/src/pages/SupplierIntakeForm.tsx and checked against live
@@ -18,6 +19,7 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   alternates: { canonical: "/supplier-intake" },
   openGraph: {
+    ...defaultOpenGraph,
     title: "Supplier Application — Peptide Supply Partner (Stage 1)",
     description: DESCRIPTION,
     url: "/supplier-intake",

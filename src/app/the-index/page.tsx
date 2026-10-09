@@ -3,6 +3,7 @@ import { TheIndexExplorer } from "@/components/the-index/the-index-explorer";
 import { STATS } from "@/lib/content/charity-data";
 import { INDEX_STATS_CONCEPTS, INDEX_STATS_YEARS } from "@/lib/content/the-index";
 import { loadIndexItems } from "./index-data";
+import { defaultOpenGraph, defaultTwitter } from "@/lib/seo-defaults";
 
 // Ported from live tonygreenberg.com/the-index (2026-10-07), which is newer
 // than legacy client/src/pages/TheIndex.tsx. Concept map, related terms and
@@ -17,11 +18,13 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   alternates: { canonical: "/the-index" },
   openGraph: {
+    ...defaultOpenGraph,
     title: "The Index — Searchable Idea Database | Tony Greenberg",
     description: DESCRIPTION,
     url: "/the-index",
   },
   twitter: {
+    ...defaultTwitter,
     title: "The Index — Searchable Idea Database | Tony Greenberg",
     description: DESCRIPTION,
   },

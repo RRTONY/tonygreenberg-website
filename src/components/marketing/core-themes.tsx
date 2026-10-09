@@ -12,6 +12,10 @@ const THEME_TEXT_CLASSES: Record<string, string> = {
   "The Crusades": "text-[#B22222]",
 };
 
+// The intro's count follows the cards actually shown (legacy said "Six" over
+// four cards).
+const LENS_WORDS: Record<number, string> = { 2: "Two", 3: "Three", 4: "Four", 5: "Five", 6: "Six", 7: "Seven", 8: "Eight" };
+
 // Ported from legacy client/src/pages/Blog.tsx's "Core Themes". Legacy set a
 // filter on the archive below; here each card links to the theme's real
 // category page (crawlable, and the count is that category's actual post
@@ -23,7 +27,7 @@ export function CoreThemes({ categoryCounts }: { categoryCounts: Record<string, 
       <div className="mb-5">
         <h2 className="font-heading text-3xl font-bold text-foreground">Core Themes</h2>
         <p className="text-muted-foreground">
-          Six lenses on a life spent building bridges between what is and what could be
+          {LENS_WORDS[FEATURED_THEMES.length] ?? FEATURED_THEMES.length} lenses on a life spent building bridges between what is and what could be
         </p>
         <div className="mt-2 h-0.75 w-10 bg-brand-gold" />
       </div>

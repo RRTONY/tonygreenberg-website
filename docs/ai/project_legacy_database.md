@@ -103,7 +103,7 @@ Every legacy tRPC procedure that touched the database (`_legacy-manus-app/server
   post-intervention, friend gate, PRI calibrations (all Supabase), supplier forms (RampRate's Apps
   Script; stage 2 redirects to ramprate.com), accounts (Supabase Auth), short links (fixed list),
   quiz results and journey progress (2026-10-10).
-- **Simplified to a pre-filled email or the browser only:** PRI consent (`sessionStorage`, ~17
+- **Simplified, then restored 2026-10-10 (owner said yes):** these save to Supabase and email Tony again (`src/app/forms/actions.ts`, migration 0006, run). Before that they were simplified to a pre-filled email or the browser only: PRI consent (`sessionStorage`, ~17
   real legacy rows: the biggest gap), Living Declaration / manifesto, PRI corrections, Cheshire
   stories, facilitator submissions, spam reports, Engage audit (dropped). Each could save to
   Supabase like the quizzes if the owner wants; until Resend is set up, saved entries would only

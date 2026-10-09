@@ -1,11 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { Field, Form, Formik } from "formik";
+import * as Yup from "yup";
+import { ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
+import { submitBlueprint, type BlueprintKey } from "@/app/forms/actions";
+import { FormError, mailtoHref } from "@/components/forms/form-error";
 
 const CONTACT_EMAIL = "tony@impactsoul.is";
 
-const QUESTIONS = [
+const QUESTIONS: { key: BlueprintKey; label: string; placeholder: string }[] = [
   {
     key: "biggestChallenge",
     label: "What's the biggest obstacle between you and your best self right now?",
@@ -42,93 +46,136 @@ const FIELD_CLASS =
   "w-full rounded-sm border border-border bg-background px-4 py-3 text-base leading-relaxed text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring transition-colors focus:border-brand-gold-light";
 
 // The live page's six-question "blueprint" form (legacy Manifesto.tsx's
-// QUESTIONS, same labels and placeholders). Legacy posted to
-// `trpc.manifesto.submit`, which has no backend in this migration, so
-// submitting opens a pre-filled email to Tony instead (same honest pattern
-// as `pri/correction-form.tsx` and `facilitator/quick-intake.tsx`). Fields
-// are uncontrolled and read from FormData on submit, so there's no
-// per-field state; every field is optional, so no validation library.
+// QUESTIONS, same labels and placeholders). Since 2026-10-10 it saves to
+// Supabase (`submitBlueprint` in src/app/forms/actions.ts →
+// manifesto_responses) and emails Tony, like legacy's `trpc.manifesto.submit`.
+// Every field is optional, but at least one question needs an answer. If
+// saving fails, the error offers a pre-filled email to Tony instead.
+const schema = Yup.object({
+  biggestChallenge: Yup.string().max(5000),
+  whatToMeasure: Yup.string().max(5000),
+  referenceSites: Yup.string().max(5000),
+  newIndices: Yup.string().max(5000),
+  howToParticipate: Yup.string().max(5000),
+  abundantLife: Yup.string().max(5000),
+  name: Yup.string().trim().max(256),
+  email: Yup.string().trim().email("That email address doesn't look right.").max(320),
+  website: Yup.string(),
+}).test("one-answer", function (v) {
+  return QUESTIONS.some((q) => !!v[q.key]?.trim()) || this.createError({ path: "biggestChallenge", message: "Answer at least one question first." });
+});
+
+type Values = Yup.InferType<typeof schema>;
+
+const INITIAL: Values = {
+  biggestChallenge: "",
+  whatToMeasure: "",
+  referenceSites: "",
+  newIndices: "",
+  howToParticipate: "",
+  abundantLife: "",
+  name: "",
+  email: "",
+  website: "",
+};
+
 export function BlueprintForm() {
   const [submitted, setSubmitted] = useState(false);
-  const [empty, setEmpty] = useState(false);
-
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const data = new FormData(e.currentTarget);
-    const get = (k: string) => String(data.get(k) ?? "").trim();
-    const answered = QUESTIONS.filter((q) => get(q.key));
-    if (answered.length === 0) {
-      setEmpty(true);
-      return;
-    }
-    const body = [
-      ...answered.map((q) => `${q.label}\n${get(q.key)}\n`),
-      get("name") ? `From: ${get("name")}` : "",
-      get("email") ? `Reply to: ${get("email")}` : "",
-    ]
-      .filter(Boolean)
-      .join("\n");
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("My Blueprint for the Living Declaration")}&body=${encodeURIComponent(body)}`;
-    setSubmitted(true);
-  }
+  const [error, setError] = useState<string | null>(null);
+  const [fallback, setFallback] = useState("");
 
   if (submitted) {
     return (
       <div className="rounded-md border border-brand-gold/30 bg-card p-8 text-center">
         <CheckCircle2 className="mx-auto mb-3 size-8 text-brand-gold" />
-        <p className="mb-2 font-heading text-xl font-bold text-foreground">Your email is ready to send.</p>
+        <p className="mb-2 font-heading text-xl font-bold text-foreground">Received. Thank you.</p>
         <p className="text-foreground/70">
-          Your answers should now be open in your email app, addressed to Tony. Send it, and your
-          voice becomes part of the architecture.
+          Your voice is now part of the architecture. Every response shapes what gets built next.
         </p>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      {QUESTIONS.map((q) => (
-        <div key={q.key} className="mb-8">
-          <label
-            htmlFor={`blueprint-${q.key}`}
-            className="mb-2 block font-heading text-lg leading-snug font-semibold text-foreground"
+    <Formik<Values>
+      initialValues={INITIAL}
+      validationSchema={schema}
+      validateOnBlur={false}
+      validateOnChange={false}
+      onSubmit={async (v) => {
+        setError(null);
+        const answers = Object.fromEntries(QUESTIONS.map((q) => [q.key, v[q.key] ?? ""])) as Record<BlueprintKey, string>;
+        const labels = Object.fromEntries(QUESTIONS.map((q) => [q.key, q.label])) as Record<BlueprintKey, string>;
+        const res = await submitBlueprint({ answers, labels, name: v.name, email: v.email, website: v.website }).catch(() => ({
+          ok: false,
+          error: "This couldn't be saved just now.",
+        }));
+        if (res.ok) return setSubmitted(true);
+        setError(res.error ?? "Something went wrong.");
+        setFallback(
+          mailtoHref(CONTACT_EMAIL, "My Blueprint for the Living Declaration", [
+            ...QUESTIONS.filter((q) => answers[q.key].trim()).map((q) => `${q.label}\n${answers[q.key].trim()}\n`),
+            v.name?.trim() && `From: ${v.name.trim()}`,
+            v.email?.trim() && `Reply to: ${v.email.trim()}`,
+          ]),
+        );
+      }}
+    >
+      {({ isSubmitting, errors }) => (
+        <Form noValidate>
+          {QUESTIONS.map((q) => (
+            <div key={q.key} className="mb-8">
+              <label
+                htmlFor={`blueprint-${q.key}`}
+                className="mb-2 block font-heading text-lg leading-snug font-semibold text-foreground"
+              >
+                {q.label}
+              </label>
+              <Field
+                as="textarea"
+                id={`blueprint-${q.key}`}
+                name={q.key}
+                rows={4}
+                maxLength={5000}
+                placeholder={q.placeholder}
+                className={`${FIELD_CLASS} resize-y`}
+              />
+            </div>
+          ))}
+
+          <div role="group" aria-labelledby="blueprint-follow-up" className="mb-8 border-t border-border pt-6">
+            <p id="blueprint-follow-up" className="mb-4 font-mono text-xs tracking-[0.15em] text-brand-gold uppercase">
+              Optional — So We Can Follow Up
+            </p>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <Field type="text" name="name" autoComplete="name" maxLength={256} placeholder="Your name" aria-label="Your name" className={FIELD_CLASS} />
+              <div>
+                <Field type="email" name="email" autoComplete="email" maxLength={320} placeholder="Your email" aria-label="Your email" className={FIELD_CLASS} />
+                {errors.email && <p className="mt-1 text-sm text-destructive">{errors.email}</p>}
+              </div>
+            </div>
+            <Field name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
+          </div>
+
+          {errors.biggestChallenge && (
+            <p role="alert" className="mb-4 text-sm text-foreground">
+              {errors.biggestChallenge}
+            </p>
+          )}
+          {error && <FormError error={error} mailto={fallback} className="mb-4 text-sm text-foreground" />}
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="inline-flex min-h-11 items-center gap-1.5 rounded-xs bg-[#0A0A10] px-8 py-3.5 font-mono text-xs tracking-[0.15em] text-[#F5F0E0] uppercase disabled:opacity-70 dark:bg-brand-gold-light dark:text-[#0A0A10]"
           >
-            {q.label}
-          </label>
-          <textarea
-            id={`blueprint-${q.key}`}
-            name={q.key}
-            rows={4}
-            placeholder={q.placeholder}
-            className={`${FIELD_CLASS} resize-y`}
-          />
-        </div>
-      ))}
-
-      <div role="group" aria-labelledby="blueprint-follow-up" className="mb-8 border-t border-border pt-6">
-        <p id="blueprint-follow-up" className="mb-4 font-mono text-xs tracking-[0.15em] text-brand-gold uppercase">
-          Optional — So We Can Follow Up
-        </p>
-        <div className="grid gap-4 sm:grid-cols-2">
-          <input type="text" name="name" autoComplete="name" placeholder="Your name" aria-label="Your name" className={FIELD_CLASS} />
-          <input type="email" name="email" autoComplete="email" placeholder="Your email" aria-label="Your email" className={FIELD_CLASS} />
-        </div>
-      </div>
-
-      {empty && (
-        <p role="alert" className="mb-4 text-sm text-foreground">
-          Answer at least one question first.
-        </p>
+            {isSubmitting && <Loader2 aria-hidden="true" className="size-4 animate-spin" />}
+            Submit My Blueprint {!isSubmitting && <ArrowRight aria-hidden="true" className="size-3.5" />}
+          </button>
+          <p className="mt-3 text-sm text-muted-foreground">
+            Your responses are read personally. They shape what gets built. Nothing is sold or shared.
+          </p>
+        </Form>
       )}
-      <button
-        type="submit"
-        className="inline-flex min-h-11 items-center gap-1.5 rounded-xs bg-[#0A0A10] px-8 py-3.5 font-mono text-xs tracking-[0.15em] text-[#F5F0E0] uppercase dark:bg-brand-gold-light dark:text-[#0A0A10]"
-      >
-        Submit My Blueprint <ArrowRight aria-hidden="true" className="size-3.5" />
-      </button>
-      <p className="mt-3 text-sm text-muted-foreground">
-        Your responses are read personally. They shape what gets built. Nothing is sold or shared.
-      </p>
-    </form>
+    </Formik>
   );
 }

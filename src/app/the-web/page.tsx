@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { pageFontVariables } from "@/lib/fonts/page-fonts";
+import { RelatedPages } from "@/components/marketing/related-pages";
 
 // Ported from legacy client/src/pages/TheWeb.tsx ("The Folio" — Ecosystem).
 // Real content kept as-is. Client badges no longer link out via `linkMap` —
@@ -136,6 +137,8 @@ export default function TheWebPage() {
           </p>
         </div>
       </section>
+
+      <RelatedPages path="/the-web" tone="light" />
 
       <div className="py-8 text-center">
         <Link

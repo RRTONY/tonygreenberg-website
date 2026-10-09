@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Mic, type LucideIcon } from "lucide-react";
+import { RelatedPages } from "@/components/marketing/related-pages";
 
 // Ported from legacy client/src/pages/Published.tsx. Real content kept
 // as-is (30 real bylines with real external URLs across HuffPost, Medium,
@@ -203,6 +204,8 @@ export default function PublishedPage() {
           Enter the Broadsheet <ArrowRight aria-hidden="true" className="size-3.5" />
         </Link>
       </div>
+
+      <RelatedPages path="/published" tone="light" className="mt-10 border-t-0 px-0 pt-0 pb-0 sm:px-0" />
     </div>
   );
 }

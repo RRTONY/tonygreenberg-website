@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { RelatedPages } from "@/components/marketing/related-pages";
 
 // Ported from legacy client/src/pages/Speaking.tsx. Real content kept as-is.
 
@@ -8,7 +9,6 @@ export const metadata: Metadata = {
   title: "Speaking and Conversations",
   description:
     "Keynotes, firesides, offsites, and working sessions with Tony Greenberg on trust, capital, technology, and the human operating system.",
-  keywords: ["Tony Greenberg speaker", "keynote speaker", "trust infrastructure", "impact futurist", "technology speaker", "capital and impact"],
   alternates: { canonical: "/speaking" },
 };
 
@@ -136,6 +136,8 @@ export default function SpeakingPage() {
           </span>
         </a>
       </div>
+
+      <RelatedPages path="/speaking" tone="light" />
     </div>
   );
 }

@@ -26,15 +26,6 @@ export const metadata: Metadata = {
   title: { absolute: "America, Unbundled | Independent Political Infrastructure & INC 2026" },
   description:
     "America, Unbundled is Tony Greenberg’s field guide to independent political infrastructure, decentralized governance, civic accountability, and the Independent National Convention 2026.",
-  keywords: [
-    "independent political movement",
-    "Independent National Convention 2026",
-    "independent governance",
-    "decentralized governance",
-    "civic infrastructure",
-    "political accountability",
-    "ranked-choice voting",
-  ],
   alternates: { canonical: "/america-unbundled-field-guide" },
   openGraph: {
     type: "article",

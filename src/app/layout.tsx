@@ -10,6 +10,7 @@ import { SiteChrome } from "@/components/site-chrome";
 import { NavProgressBar } from "@/components/nav-progress-bar";
 import { GoogleAnalytics } from "@/components/google-analytics";
 import { getWebsiteJsonLd, getPersonJsonLd } from "@/lib/structured-data";
+import { defaultOpenGraph, defaultTwitter } from "@/lib/seo-defaults";
 import "./globals.css";
 
 const playfairDisplay = Playfair_Display({
@@ -33,20 +34,14 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tonygreenberg.com";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Tony Greenberg",
+    default: "Tony Greenberg | Strategist, Author & CEO of RampRate",
     template: "%s | Tony Greenberg",
   },
   description:
     "Essays, frameworks, and tools from Tony Greenberg — CEO of RampRate, Founder of ImpactSoul.",
-  openGraph: {
-    type: "website",
-    siteName: "Tony Greenberg",
-  },
-  twitter: {
-    card: "summary_large_image",
-    site: "@ThinkTony",
-    creator: "@ThinkTony",
-  },
+  // Shared fallbacks for every page (image included); see seo-defaults.ts.
+  openGraph: defaultOpenGraph,
+  twitter: defaultTwitter,
 };
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {

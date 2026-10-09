@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { ArrowLeft, ArrowRight, CheckCircle2, CircleDot, Gem, Hexagon, Loader2 } from "lucide-react";
 import { QUICK_QUESTIONS, SCALE_LABELS, deriveArchetype } from "@/lib/content/facilitator-index-data";
+import { submitFacilitatorIndex } from "@/app/forms/actions";
+import { FormError, mailtoHref } from "@/components/forms/form-error";
 
 const CONTACT_EMAIL = "tony@tonygreenberg.com";
 
@@ -66,9 +68,12 @@ type Step = "intro" | "quiz" | "revealing" | "reveal" | "form" | "done";
 // practitioners mapped so far" etc. — are fabricated, not real) is dropped
 // entirely rather than ported as fake community stats, same principle
 // applied to BrewSoul's stale "reads" counts elsewhere in this migration.
-// The final "Log My Responses" step posted to `trpc.facilitatorIndex.
-// submit` (no backend built for this migration) — replaced with a real
-// `mailto:` to Tony, same honest-degradation pattern used throughout.
+// The final "Log My Responses" step posts to `trpc.facilitatorIndex.
+// submit` on legacy; since 2026-10-10 it saves to Supabase again
+// (`submitFacilitatorIndex` in src/app/forms/actions.ts →
+// facilitator_submissions, kind 'quick') and emails Tony. If saving fails,
+// the error offers a pre-filled email to Tony instead. Two optional fields,
+// so plain state rather than Formik.
 export function QuickIntake({ onGoDeeper }: { onGoDeeper: () => void }) {
   const [step, setStep] = useState<Step>("intro");
   const [current, setCurrent] = useState(0);
@@ -76,6 +81,9 @@ export function QuickIntake({ onGoDeeper }: { onGoDeeper: () => void }) {
   const [name, setName] = useState("");
   const [contact, setContact] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [fallback, setFallback] = useState("");
 
   const q = QUICK_QUESTIONS[current];
   const val = answers[q?.id] ?? 5;
@@ -103,21 +111,39 @@ export function QuickIntake({ onGoDeeper }: { onGoDeeper: () => void }) {
     if (current > 0) setCurrent((c) => c - 1);
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (saving) return;
     const lines = QUICK_QUESTIONS.map((qq) => `${qq.band} — ${qq.q}: ${answers[qq.id] ?? 5}/10`).join("\n");
-    const bodyLines = [
-      `Archetype: ${archetype.title}`,
-      name.trim() ? `Code: ${name.trim()}` : "",
-      contact.trim() ? `Contact for introduction: ${contact.trim()}` : "",
-      "",
-      "QUICK INTAKE",
-      "",
-      lines,
-    ].filter(Boolean);
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("Facilitator Index — Quick Intake")}&body=${encodeURIComponent(bodyLines.join("\n"))}`;
-    setSubmitted(true);
-    setStep("done");
+    setSaving(true);
+    setError(null);
+    const res = await submitFacilitatorIndex({
+      kind: "quick",
+      codedIdentity: name,
+      archetype: archetype.title,
+      responses: `QUICK INTAKE\n\n${lines}`,
+      referralConsent: !!contact.trim(),
+      referralContact: contact,
+      locale: typeof navigator !== "undefined" ? navigator.language : undefined,
+    }).catch(() => ({ ok: false, error: "This couldn't be saved just now." }));
+    setSaving(false);
+    if (res.ok) {
+      setSubmitted(true);
+      setStep("done");
+      return;
+    }
+    setError(res.error ?? "Something went wrong.");
+    setFallback(
+      mailtoHref(CONTACT_EMAIL, "Facilitator Index — Quick Intake", [
+        `Archetype: ${archetype.title}`,
+        name.trim() && `Code: ${name.trim()}`,
+        contact.trim() && `Contact for introduction: ${contact.trim()}`,
+        "",
+        "QUICK INTAKE",
+        "",
+        lines,
+      ]),
+    );
   }
 
   if (step === "intro") {
@@ -190,8 +216,8 @@ export function QuickIntake({ onGoDeeper }: { onGoDeeper: () => void }) {
         <CheckCircle2 className="mx-auto mb-3 size-9 text-[#059669]" />
         <h3 className="mb-2 font-heading text-xl text-facilitator-ink">You&apos;re in the record.</h3>
         <p className="mx-auto mb-4 max-w-105 text-[.9rem] leading-[1.6] text-facilitator-ink/60">
-          Your email client should be open with your archetype — <strong className="text-facilitator-amber-deep">{archetype.title}</strong> — pre-filled.
-          Send it, and when you&apos;re ready to go deeper, the full 108-item instrument is waiting.
+          Your archetype — <strong className="text-facilitator-amber-deep">{archetype.title}</strong> — is now part of the index. When you&apos;re ready to
+          go deeper, the full 108-item instrument is waiting.
         </p>
         <button onClick={onGoDeeper} className="mt-2 rounded-[10px] bg-linear-to-br from-facilitator-amber via-facilitator-amber-deep to-facilitator-amber-light px-10 py-3.5 text-sm font-bold tracking-[0.06em] text-[#FFFBF2] uppercase shadow-[0_4px_20px_rgba(180,83,9,.2)]">
           <span className="inline-flex items-center gap-1.5">
@@ -228,8 +254,14 @@ export function QuickIntake({ onGoDeeper }: { onGoDeeper: () => void }) {
           onChange={(e) => setContact(e.target.value)}
           className="mb-6 w-full rounded-md border border-facilitator-amber-light/30 bg-white/85 px-3.5 py-2.5 text-[.9rem] text-facilitator-ink outline-none focus-visible:ring-2 focus-visible:ring-ring"
         />
+        {error && <FormError error={error} mailto={fallback} className="mb-4 text-[.88rem] text-facilitator-ink" />}
         <div className="flex flex-wrap gap-4">
-          <button type="submit" className="rounded-lg bg-linear-to-br from-facilitator-amber-deep to-facilitator-amber-light px-8 py-3.5 text-sm font-bold tracking-[0.06em] text-facilitator-ink uppercase">
+          <button
+            type="submit"
+            disabled={saving}
+            className="inline-flex items-center gap-2 rounded-lg bg-linear-to-br from-facilitator-amber-deep to-facilitator-amber-light px-8 py-3.5 text-sm font-bold tracking-[0.06em] text-facilitator-ink uppercase disabled:opacity-70"
+          >
+            {saving && <Loader2 aria-hidden="true" className="size-4 animate-spin" />}
             Submit &amp; Log
           </button>
           <button type="button" onClick={() => setStep("reveal")} className="rounded-lg border border-facilitator-amber-light/35 px-7 py-3.5 text-[.88rem] text-facilitator-amber-deep">

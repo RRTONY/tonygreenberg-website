@@ -33,6 +33,13 @@ export default defineType({
     defineField({ name: "tags", title: "Tags", type: "array", of: [{ type: "string" }], options: { layout: "tags" } }),
     defineField({ name: "publishedAt", title: "Published At", type: "datetime", validation: (r) => r.required() }),
     defineField({
+      name: "lastUpdated",
+      title: "Last updated",
+      type: "datetime",
+      description:
+        'Set when the essay itself is meaningfully revised. Shows "Updated <date>" next to the published date (when it is more than a day later) and tells search engines the essay changed. Leave blank for small fixes.',
+    }),
+    defineField({
       name: "readTime",
       title: "Read Time (minutes)",
       type: "number",
@@ -58,6 +65,32 @@ export default defineType({
       of: [{ type: "block" }, { type: "image", options: { hotspot: true } }, { type: "dataTable" }],
     }),
     defineField({ name: "seo", title: "SEO", type: "seo", group: "seo" }),
+    defineField({
+      name: "shortAnswer",
+      title: "Short answer",
+      type: "text",
+      rows: 4,
+      group: "seo",
+      description: "Optional. A 2 to 3 sentence answer to the essay's main question, shown in a box near the top of the essay.",
+    }),
+    defineField({
+      name: "faq",
+      title: "Questions and answers",
+      type: "array",
+      group: "seo",
+      description: "Optional. Shown as a visible Q&A section after the essay. Use only facts the essay itself states.",
+      of: [
+        {
+          type: "object",
+          name: "faqItem",
+          fields: [
+            defineField({ name: "question", title: "Question", type: "string", validation: (r) => r.required() }),
+            defineField({ name: "answer", title: "Answer", type: "text", rows: 3, validation: (r) => r.required() }),
+          ],
+          preview: { select: { title: "question", subtitle: "answer" } },
+        },
+      ],
+    }),
 
     // ── Essay extras: the blocks around the essay on its page (moved here
     // from src/lib/content/post-extras.ts, article-footers.ts and

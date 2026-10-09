@@ -26,7 +26,6 @@ export const metadata: Metadata = {
   title: "Swiss Water Decaf: Paint Stripper or Pure Water? — BrewSoul",
   description: "Swiss Water, EA, CO2: the truth about decaf processing and what it means for your cup. 13 clean brands, 10+ brands using methylene chloride.",
   alternates: { canonical: "/brewsoul/decaf" },
-  keywords: ["Swiss Water decaf", "Swiss Water Process", "chemical-free decaf", "decaffeinated coffee", "methylene chloride coffee", "CO2 decaf", "supercritical CO2 decaf", "clean decaf brands", "best decaf coffee", "organic decaf"],
 };
 
 export default function BrewSoulDecafPage() {
