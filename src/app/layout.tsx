@@ -9,6 +9,7 @@ import { WhereNext } from "@/components/where-next";
 import { SiteChrome } from "@/components/site-chrome";
 import { NavProgressBar } from "@/components/nav-progress-bar";
 import { GoogleAnalytics } from "@/components/google-analytics";
+import { GaEvents } from "@/components/ga-events";
 import { getWebsiteJsonLd, getPersonJsonLd } from "@/lib/structured-data";
 import { defaultOpenGraph, defaultTwitter } from "@/lib/seo-defaults";
 import "./globals.css";
@@ -97,6 +98,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
           <LazyToaster />
         </ThemeProvider>
         <GoogleAnalytics />
+        <GaEvents />
       </body>
     </html>
   );
