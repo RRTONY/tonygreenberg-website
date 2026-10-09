@@ -1,6 +1,7 @@
 import { WebStandardStreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js";
 import type { McpUser } from "@/lib/admin/mcp-auth";
 import { createAdminMcpServer } from "@/lib/admin/mcp-server";
+import { publicOrigin } from "@/lib/admin/mcp-oauth";
 
 export function jsonError(status: number, error: string): Response {
   return new Response(JSON.stringify({ error }), {
@@ -38,7 +39,7 @@ export async function respondToMcp(
       },
     );
   }
-  const server = createAdminMcpServer(user);
+  const server = createAdminMcpServer(user, publicOrigin(req));
   const transport = new WebStandardStreamableHTTPServerTransport({
     sessionIdGenerator: undefined,
     enableJsonResponse: true,

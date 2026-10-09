@@ -478,6 +478,24 @@ export interface PRChecksDetail {
   status: PRCheckState;
   previewUrl: string | null;
   failingChecks: FailingCheck[];
+  // The same checks split the way the review shows them: Netlify's preview
+  // build (its deploy status plus its own "... - tonygreenberg-website" check runs) vs
+  // GitHub Actions jobs (tests, lint and format of changed files).
+  build?: PRCheckState;
+  ci?: PRCheckState;
+  ciWaiting?: string[];
+  ciFailing?: string[];
+}
+
+// Netlify's deploy status context and its own check runs ("Redirect rules -
+// tonygreenberg-website", "Header rules - tonygreenberg-website", ...).
+const NETLIFY_RUN = / - tonygreenberg-website$/;
+
+function combine(states: PRCheckState[]): PRCheckState {
+  if (!states.length) return "unknown";
+  if (states.includes("failure")) return "failure";
+  if (states.includes("pending")) return "pending";
+  return "success";
 }
 
 // Richer version of getPRCombinedStatus for the UI: also surfaces the
@@ -494,7 +512,7 @@ export async function getPRChecksDetail(
   if (!pr) return { status: "unknown", previewUrl: null, failingChecks: [] };
 
   const [statusResult, checkRunsResult, comments] = await Promise.all([
-    gh<{ state: string }>(
+    gh<{ state: string; statuses?: Array<{ context: string; state: string }> }>(
       `/repos/${OWNER}/${REPO}/commits/${pr.head.sha}/status`,
     ).catch(() => null),
     gh<{
@@ -515,6 +533,19 @@ export async function getPRChecksDetail(
 
   const states: PRCheckState[] = [];
   const failingChecks: FailingCheck[] = [];
+  const buildStates: PRCheckState[] = [];
+  const ciStates: PRCheckState[] = [];
+  const ciWaiting: string[] = [];
+  const ciFailing: string[] = [];
+  for (const st of statusResult?.statuses ?? []) {
+    const state: PRCheckState =
+      st.state === "success"
+        ? "success"
+        : st.state === "pending"
+          ? "pending"
+          : "failure";
+    (st.context.startsWith("netlify/") ? buildStates : ciStates).push(state);
+  }
 
   if (
     statusResult?.state === "success" ||
@@ -524,18 +555,24 @@ export async function getPRChecksDetail(
     states.push(statusResult.state);
   }
   for (const run of checkRunsResult?.check_runs || []) {
+    const isNetlify = NETLIFY_RUN.test(run.name);
+    let state: PRCheckState;
     if (run.status !== "completed") {
-      states.push("pending");
+      state = "pending";
+      if (!isNetlify) ciWaiting.push(run.name);
     } else if (
       run.conclusion === "success" ||
       run.conclusion === "neutral" ||
       run.conclusion === "skipped"
     ) {
-      states.push("success");
+      state = "success";
     } else {
-      states.push("failure");
+      state = "failure";
       failingChecks.push({ id: run.id, name: run.name, url: run.html_url });
+      if (!isNetlify) ciFailing.push(run.name);
     }
+    states.push(state);
+    (isNetlify ? buildStates : ciStates).push(state);
   }
 
   let previewUrl: string | null = null;
@@ -556,7 +593,15 @@ export async function getPRChecksDetail(
     else status = "success";
   }
 
-  return { status, previewUrl, failingChecks };
+  return {
+    status,
+    previewUrl,
+    failingChecks,
+    build: combine(buildStates),
+    ci: combine(ciStates),
+    ciWaiting,
+    ciFailing,
+  };
 }
 
 // GitHub Actions job logs run to hundreds of KB, but the actual failing

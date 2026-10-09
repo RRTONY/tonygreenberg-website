@@ -17,6 +17,11 @@ import {
   listSitemaps,
   listSites,
 } from "@/lib/admin/gsc-client";
+import {
+  checkFileMatchesPath,
+  OPENAI_FILE_SCHEMA,
+  resolveBinaryInput,
+} from "@/lib/admin/binary-upload";
 
 // Core tool set ported from ramprate-ui's src/lib/admin/tools.ts: repo file
 // tools (always on an admin/mcp-* branch, never the default branch), Sanity
@@ -84,15 +89,28 @@ export const ADMIN_TOOLS = [
   {
     name: "github_write_binary_file",
     description:
-      "Write a binary file to the repo from base64 content. Committed to the pending change's working branch, never the default branch. Content images belong in Sanity, not the repo — public/ is for site-chrome assets only (favicon, brand marks).",
+      "Write an image, PDF or other binary file into this change. Send the file ONE of these ways: `file` (ChatGPT: the file the person attached, ChatGPT fills it in), `source_url` (a public https link to the file), or `base64Content` (only if you truly have the file's bytes). You cannot turn a picture you can see in the chat into base64, so never try: if the person attached a file and `file` isn't available (e.g. in Claude), call request_upload_link and give them the link instead. The file's name ending must match what it really is (.png, .jpg, .webp, .svg, .pdf...). Content images belong in Sanity, not the repo: public/ is for site-chrome assets only (favicon, brand marks).",
     input_schema: {
       type: "object" as const,
       properties: {
-        path: { type: "string" },
-        base64Content: { type: "string" },
+        path: {
+          type: "string",
+          description:
+            "Where to save it in the repo, e.g. public/images/tsi-hero.png",
+        },
+        file: OPENAI_FILE_SCHEMA,
+        source_url: {
+          type: "string",
+          description: "A public https link straight to the file.",
+        },
+        base64Content: {
+          type: "string",
+          description:
+            "The file's real bytes as base64. Not for attached files.",
+        },
         message: { type: "string" },
       },
-      required: ["path", "base64Content", "message"],
+      required: ["path", "message"],
     },
   },
   {
@@ -384,7 +402,7 @@ function denied(path: string): ToolCallResult {
 // for the repo root. Normalize all of it to a clean repo-relative path
 // (`""` === root) before it reaches the GitHub API — a literal `""` was
 // getting URL-encoded to `%22%22` and 404ing.
-function normalizeRepoPath(raw: unknown): string {
+export function normalizeRepoPath(raw: unknown): string {
   let p = String(raw ?? "").trim();
   while (
     p.length >= 2 &&
@@ -490,14 +508,27 @@ export async function runAdminTool(
 
     case "github_write_binary_file": {
       const path = normalizeRepoPath(input.path);
-      const base64Content = String(input.base64Content ?? "");
       const message = String(input.message ?? "MCP binary upload");
       if (!path) return pathRequired();
       if (isPathDenied(path)) return denied(path);
+      const file = await resolveBinaryInput(input);
+      const problem = file.ok
+        ? checkFileMatchesPath(path, file.bytes)
+        : file.error;
+      if (!file.ok || problem) {
+        return { output: { error: problem }, isError: true };
+      }
       const branch = await ctx.ensureWriteBranch();
-      await gh.putFileBase64(path, base64Content, message, branch);
+      await gh.putFileBase64(
+        path,
+        file.bytes.toString("base64"),
+        message,
+        branch,
+      );
       ctx.log(`Wrote binary file ${path} on ${branch}: ${message}`);
-      return { output: { ok: true, path, branch } };
+      return {
+        output: { ok: true, path, branch, sizeBytes: file.bytes.length },
+      };
     }
 
     case "seo_check_page": {

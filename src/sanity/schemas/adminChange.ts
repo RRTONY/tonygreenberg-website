@@ -117,6 +117,7 @@ export default defineType({
     defineField({ name: "publishedBy", title: "Published by", type: "string" }),
     defineField({ name: "discardedAt", title: "Discarded", type: "datetime" }),
     defineField({ name: "discardedBy", title: "Discarded by", type: "string" }),
+    defineField({ name: "conversationUrl", title: "Original conversation", type: "url" }),
     defineField({ name: "undoes", title: "Undoes change", type: "string" }),
     defineField({
       name: "undoneBy",

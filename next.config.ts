@@ -2,6 +2,17 @@ import type { NextConfig } from "next";
 import { LEGACY_POST_REDIRECTS } from "./src/lib/content/legacy-post-redirects";
 
 const nextConfig: NextConfig = {
+  // The MCP server's check_code_quality tool (and the review's own lint of a
+  // change's files) runs ESLint programmatically (src/lib/admin/code-check.ts).
+  // ESLint resolves some internals through dynamic requires that Next's file
+  // tracing doesn't follow, so the deployed function failed with "Cannot find
+  // module" (seen on ramprate-ui, same server). code-check.ts imports
+  // eslint.config.mjs so tracing follows the config's plugins; bundling them
+  // fails, so they stay external node_modules packages, still traced and
+  // copied into the function. Ported from ramprate-ui 2026-10-09, minus its
+  // outputFileTracingIncludes globs: with pnpm those match linked package
+  // folders and Turbopack panics ("Is a directory").
+  serverExternalPackages: ["eslint", "eslint-config-next"],
   // Keep the Netlify copies (the main *.netlify.app URL and every deploy
   // preview) out of search results so Google doesn't index a duplicate of
   // tonygreenberg.com. Host-based, so the real domain stays indexable after

@@ -13,13 +13,13 @@
 - UI: Tailwind CSS v4 + shadcn/ui (Radix base) — same design-system convention the team already uses elsewhere. `next/image` for all images. No framer-motion — CSS transitions / `tailwindcss-animate` only.
 
 
-## Current status — 2026-10-08
+## Current status — 2026-10-09
 
 > Update this block at the end of each working session. Checkbox counts are from this file. The team's
 > spreadsheet copy (`Migration-Status-Report.xlsx`) is regenerated from it by
 > `scripts/build-migration-status-report.py`.
 
-**Overall:** 287 items done, 20 open. Phases 0, 1, 3, 5, 6, 7, 8 and 9 are complete. **Nothing from
+**Overall:** 288 items done, 21 open. Phases 0, 1, 3, 5, 6, 7, 8 and 9 are complete. **Nothing from
 this rebuild is live on tonygreenberg.com yet** (it still serves the old app until DNS cutover);
 `main` deploys to the Netlify copy. Most of what's open needs a setting or account outside the code
 (Supabase scripts, Resend), a decision, new artwork, or the launch steps.
@@ -29,12 +29,17 @@ this rebuild is live on tonygreenberg.com yet** (it still serves the old app unt
 | 2 Supabase | 8 | 2 | **Run the 2 database scripts** (0001 member features, 0002 essay comments/reactions) and set up Resend for email |
 | 4 Marketing | 63 | 1 | Only `/shop` + payment pages left (Stripe, on hold by owner's choice) |
 | 5 Blog | 26 | 0 | Done: live's essay design, Contents sidebar, comments and reactions, essay extras in Sanity |
-| 11 MCP server | 15 | 3 | Netlify vars already set; left: connect Claude.ai for real, publish/undo test, Lighthouse key, team `.mcp.json` |
+| 11 MCP server | 16 | 4 | 2026-10-09: synced with ramprate-ui (review card, confirm step, uploads, other pending changes); left: test it on a deploy preview, connect Claude.ai for real, publish/undo test, Lighthouse key, team `.mcp.json` |
 | 12 SEO & cutover | 33 | 5 | 2026-10-08: redesign group 2, BrewSoul badge and menu, `/pri-efficacy` switch, link check and sitemap clean, live comparisons closed; left: 3 decisions, Lighthouse on the preview, Search Console at cutover |
 | 13 Images | 16 | 3 | Logo, ~92 unique blog heroes (live uses the same default art), quiz result backgrounds (need new art) |
 | 14 QA & launch | 1 | 6 | Accessibility pass done 2026-10-08; left: real iPhone, dead-end pages (content yes), sign-off, noindex check, DNS cutover |
 
-**Done this session (2026-10-08):**
+**Done this session (2026-10-09), branch `mcp-sync-ramprate-2026-10-09`:**
+- **MCP server brought up to date with ramprate-ui** (owner asked; review card included by their choice). Assistants connected to `/api/mcp` now get: a review card with one status, a next step, separate checks and Preview / Discard / Publish buttons; a "Is this what you meant?" step for unclear requests; before (live) and after (preview) screenshots on phone and laptop; a private upload link for images and files the person attaches; and a list of the other waiting changes at the end of every answer. Everything points at tonygreenberg.com only. Also fixed: the lint tool would have failed on Netlify (ESLint's files weren't copied into the function). See Phase 11 and `docs/ai/project_mcp_server.md`.
+- **Rules:** AGENTS.md's MCP section explains the confirm step, uploads and the "Other pending changes" list; CONTRIBUTING.md's Status Report has the new line.
+- **Checks:** type check, lint, production build; on a fresh local server: 30 tools, card served (valid script), rules include this status block, upload page refuses bad links. Not yet: a real change on a deploy preview (needs a yes).
+
+**Previous session (2026-10-08):**
 - **Live's redesign, second group, finished:** re-measured 18 pages on live vs a fresh build. Fixed titles, labels and layout on `/find-your-journey`, `/impact-dashboard`, `/published`, `/speaking`, `/soulscore`, `/pri-calibration`, `/clients` (live's narrow column), `/brewsoul/guest` (live's BrewSoul photo on the card), `/humanos/connect`, `/peptide-hall-of-shame` (stats readable). The rest already matched. See Phase 12.
 - **Owner's new rule (CONTRIBUTING rule 20):** match live's design but not its flaws; where live is unreadable or looks broken, use the clearer version that works on phone, tablet and laptop. Applied: lighter red labels on dark bands, darker readable labels on `/recent-creations`.
 - **BrewSoul (owner reported):** the category badge no longer sits centred in an empty strip at the top; it floats in the top-left corner. Tablet menu was cut off with no way to open it; now fixed at every width.
@@ -126,7 +131,7 @@ post (121) with the new site, text and images, on a production build.
 18. `/blog`: live shows the homepage there; ours is a separate essay archive. Keep ours?
 19. The Tollbooth essay's 5 in-body pictures are broken on live too; new art needed (`BLOG-IMAGE-BRIEFS.md`).
 
-**Next up (no decision needed):** once the setup in item 1 is done, test a real comment, the `/pri-efficacy` Live tab, reaction, sign-up, highlight, invite, Clock Keeper/post-intervention save and a friend-gate email end to end; check the draft on pagespeed.web.dev (US test servers) and keep going on the 4 to 6 pages under 90 (next lever: split the 58 KB stylesheet per section); after cutover, re-check Search Console's sitemap warnings against the new sitemap.
+**Next up (no decision needed):** merge the MCP sync pull request, then (with a yes) run one throwaway change through the new review card on its deploy preview and discard it; once the setup in item 1 is done, test a real comment, the `/pri-efficacy` Live tab, reaction, sign-up, highlight, invite, Clock Keeper/post-intervention save and a friend-gate email end to end; check the draft on pagespeed.web.dev (US test servers) and keep going on the 4 to 6 pages under 90 (next lever: split the 58 KB stylesheet per section); after cutover, re-check Search Console's sitemap warnings against the new sitemap.
 
 ---
 
@@ -443,7 +448,9 @@ Logic (questions, scoring, branching) stays as code per the CMS-boundary decisio
 - [x] **Per-request change system ported from ramprate-ui (2026-10-02, owner said yes)**, covering the 10 review points the team raised for RampRate's setup: (1) `discard_change`; (2) one request = one change with its own branch, PR and drafts, so publishing never takes another request live; (3) a review with pages affected, a server-written "what's included" line and preview links; (4) publish needs the review's `reviewToken`, and the rules make the AI ask "You are about to publish these changes to the live tonygreenberg.com website. Are you sure you want to continue?"; (5) `list_change_history`, also visible read-only in Studio under "Website change history" (new `adminChange` type); (6) `undo_change`; (7) before/after (automatic for Sanity, given by the AI for code); (8) `preview_on_devices` phone + laptop screenshots (needs `GOOGLE_API_KEY`); (9) the AI's plain summary plus the server's facts line; (10) Draft → Ready for review → Published / Discarded. Files: `change-sets.ts`, `change-describe.ts`, `device-preview.ts`, `mcp-tool-context.ts`, `mcp-server.ts`, `github-client.ts` (RampRate's full version), `src/sanity/schemas/adminChange.ts`, `sanity.config.ts`. Tested end to end with a real throwaway change, then discarded (see `docs/ai/project_mcp_server.md`).
 - [x] **Merge the CI fix into `main`** (done with PR #3; checked 2026-10-06: `main`'s `pr-lint.yml` runs Node 22 and `next typegen` before the type check). The test change's GitHub check failed because `main` still has the old `pr-lint.yml` (Node 20 crash). Every MCP change will fail its site check, and so can't be published, until this branch's work (or at least `.github/workflows/pr-lint.yml`) is on `main`. Then test a real publish and `undo_change`.
 - [ ] **Blocked on you (Google):** create a `GOOGLE_API_KEY` in Google Cloud (project of the `vcos-ga4-reader` service account, where the PageSpeed Insights API is already on), restricted to the PageSpeed Insights API, then add it to `.env.local` and Netlify. Creating it from here was blocked by the session's safety check (it would use the service account's credentials to change the Cloud project). Note `lighthouse_check_page` may time out on Netlify (10 s function limit on the free plan).
-- Still not ported on purpose: ClickUp, Slack, email, PDF reports, `check_deploy`, ramprate's per-request change sets, MCP Apps/ChatGPT widget (reasons in `docs/ai/project_mcp_server.md`).
+- [x] **Synced with ramprate-ui's MCP server (2026-10-09, owner asked; card included by their choice):** the review card for ChatGPT/Claude (one status and next step, Build / Type check / Lint / GitHub / phone-and-laptop checks, "what goes live" and what doesn't, Preview / Discard / Publish / Retry, history with Restore); `start_change` restates the request (`understood_as`) and unclear ones wait for the person's OK (`confirm_change`); before (live) / after (preview) screenshots on phone and laptop; attached images and files (ChatGPT `file`, or `request_upload_link`, a private 30-minute upload page at `/api/mcp/upload`, size and real-type checked); every change result lists the other waiting changes and the AI ends its reply with them (new Status Report line); the server lints changed files itself; ESLint now traced into the deployed function (`serverExternalPackages`; ramprate's tracing globs crash Turbopack under pnpm, left out). Everything named for tonygreenberg.com only (Netlify `tonygreenberg-website`, live `tonygreenberg.com`, card `ui://tonygreenberg-admin/...`). Verified on a local production build: type check, lint, build; 30 tools listed; card served and its script valid; rules include `migrationStatus`; `list_pending_changes` returns other pending changes; `check_code_quality` runs ESLint; upload page refuses bad links (401). See `docs/ai/project_mcp_server.md`.
+- [ ] **Test the new review end to end on a deploy preview** (needs a yes, it opens a real pull request): one throwaway change from Claude.ai or ChatGPT: start (unclear request, so the confirm step shows), confirm, edit, review card, screenshots, upload link, then discard.
+- Still not ported on purpose: ClickUp, Slack, email, PDF reports, `check_deploy`, Prettier (reasons in `docs/ai/project_mcp_server.md`).
 
 ### Earlier: CANCELLED, built code removed (2026-09-10) — superseded by the rebuild above
 
