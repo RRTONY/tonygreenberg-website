@@ -163,7 +163,7 @@ post (121) with the new site, text and images, on a production build.
 4. `/self-portrait`: live counts 27 experiences, our catalog has 13. **Owner 2026-10-13: yes, new assessments were added on live.** Next: list live's 27 and port the missing ones.
 5. ~~Typed arrows in buttons and links~~ **Decided 2026-10-09: switch to icons.** Done (see Phase 12).
 6. `/protecting-your-business`: live has much more about the named person (new sections, demands, a form, a name keyword list). Owner said keep ours for now (2026-10-07); needs Tony/legal.
-7. `/impact-dashboard`: title and description now match live (SEO copy, needs a yes).
+7. ~~`/impact-dashboard`: title and description now match live~~ **Approved 2026-10-13 (owner: yes).** No change needed.
 8. ~~Live disagrees with itself~~ **Decided 2026-10-09:** real counts (done); ABIT date: keep each page as live has it (owner), and ours already matches (`/amplifier` "Q3 2026", `/invest` and `/the-letter` "Q1 2027"). No change.
 9. ~~`/the-open-door` shows Tony@joyandwoe.com~~ **Decided 2026-10-13 (owner): use tony@tonygreenberg.com.** Changed there and in the homepage archive's "send a tip" link.
 10. ~~Equator/Olympia "B Corp" notes~~ **Resolved 2026-10-09 (owner: check live):** neither live nor our coffee pages display those notes (they only feed the catalog search), so visitors see no B Corp claim on either site. Text left unchanged.
