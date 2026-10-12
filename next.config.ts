@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 import { LEGACY_POST_REDIRECTS } from "./src/lib/content/legacy-post-redirects";
-import { SEARCH_CONSOLE_REDIRECTS } from "./src/lib/content/search-console-redirects";
+import { SEARCH_CONSOLE_REDIRECTS, SEARCH_CONSOLE_TEMPORARY_REDIRECTS } from "./src/lib/content/search-console-redirects";
 import { SHORT_LINKS } from "./src/lib/content/short-links";
 
 const nextConfig: NextConfig = {
@@ -71,6 +71,7 @@ const nextConfig: NextConfig = {
       ...SHORT_LINKS.map(([code, target]) => ({ source: `/s/${code}`, destination: target, permanent: true })),
       // Old addresses Google still sends visitors to (see search-console-redirects.ts).
       ...SEARCH_CONSOLE_REDIRECTS.map(([source, destination]) => ({ source, destination, permanent: true })),
+      ...SEARCH_CONSOLE_TEMPORARY_REDIRECTS.map(([source, destination]) => ({ source, destination, permanent: false })),
       // Legacy registers "/find-my-tribe" as a second path to the same
       // Community component — same duplicate-route pattern as /blog above.
       { source: "/find-my-tribe", destination: "/community", permanent: true },

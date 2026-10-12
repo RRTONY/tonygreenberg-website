@@ -68,6 +68,7 @@ tonygreenberg.com instead of a legacy `.tsx` file.
 | `/america-unbundled-field-guide` | `src/app/america-unbundled-field-guide/page.tsx` | Part Two of "America, Unbundled". Ported 2026-10-01 |
 | `/america-unbundled` | `src/app/america-unbundled/page.tsx` | Part One of "America, Unbundled", "AI Does Not Have a Candidate". Ported 2026-10-01 |
 | `/connect` | redirect | 308 to `/`, same as live |
+| `/the-stack` | `src/app/the-stack/page.tsx` (data: `src/lib/content/the-stack.ts`) | "Private review draft" health-testing guide. Ported 2026-10-13 (owner). Like live: noindex/noarchive, not in the sitemap, listed in `/the-index` |
 
 **Checked 2026-10-01** against live's `sitemap.xml` (285 URLs) and every legacy route in `App.tsx`
 (197): every legacy route is ported (200), redirected to a working page (33 × 308), or a documented
@@ -84,3 +85,5 @@ the last 16 months, 429): 409 end on a working page, 3 go to other sites on purp
 purpose (the live-only 404s above, `/shop`, `/fauxtony`, `/members`, `/terms`...). Redirects for
 the rest: `src/lib/content/search-console-redirects.ts`. Re-run with
 `scripts/check-search-console-urls.ts` at cutover.
+
+**2026-10-13 (owner: fix the errors):** 430 addresses, **423 now end on a working page**, 3 go to other sites, 4 stay 404 on purpose (`/terms`, the removed Dr. Lee case file, two `/assets/*.js` addresses from live's script errors). The others go to the closest page: `/library` → `/blog`, `/impact` → `/impact-dashboard`, `/members` → `/login`, `/the-right-numbers-supplier` → `/supplier-intake`, `/portfolio` → `/engine-room`, `/fauxtony` → `/the-index`, `/health` → `/the-body`, `/request-a-password` → `/forgot-password`, `/built-on-manus` → `/about`, and `/shop` → `/subscribe` as a temporary (307) redirect until the shop exists.

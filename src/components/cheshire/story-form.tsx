@@ -55,10 +55,12 @@ export function StoryForm({
   sourcePage,
   fallbackEmail,
   fallbackSubject,
+  submitLabel = "Share Your Story",
 }: {
   sourcePage: "protecting-your-business" | "alex-azzi";
   fallbackEmail: string;
   fallbackSubject: string;
+  submitLabel?: string;
 }) {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -193,7 +195,7 @@ export function StoryForm({
               className="inline-flex min-h-11 items-center gap-1.5 rounded-md bg-red-800 px-6 py-2.5 font-mono text-xs font-semibold tracking-wide text-white uppercase disabled:opacity-70"
             >
               {isSubmitting && <Loader2 aria-hidden="true" className="size-4 animate-spin" />}
-              Share Your Story
+              {submitLabel}
               {!isSubmitting && <ArrowRight aria-hidden="true" className="size-3.5" />}
             </button>
           </div>

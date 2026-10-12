@@ -4,9 +4,12 @@
 // sends the visitor home; these send them to the page they were looking for.
 // Essays were matched by title (same essay, shorter WordPress-era address);
 // old WordPress category, tag and paging addresses go to the essay archive.
-// Left as 404 on purpose (no matching page): /library, /impact, /health,
-// /shop, /fauxtony, /built-on-manus, /portfolio, /terms, /members,
-// /request-a-password, /the-right-numbers-supplier, /blog/the-case-file-dr-samuel-lee.
+// 2026-10-13 (owner: "fix that error"): the old addresses first left as 404
+// now go to the closest real page (end of the list), and /shop goes to
+// /subscribe temporarily (SEARCH_CONSOLE_TEMPORARY_REDIRECTS) until the shop
+// is built. Still 404 on purpose: /terms (no terms page, on live either),
+// /blog/the-case-file-dr-samuel-lee (removed, owner 2026-10-09) and two
+// /assets/*.js addresses Google picked up from live's script errors.
 // Read by next.config.ts, after LEGACY_POST_REDIRECTS (legacy-post-redirects.ts).
 export const SEARCH_CONSOLE_REDIRECTS: [source: string, destination: string][] = [
   // Searches for "tony greenberg" land here (808 impressions): the old About page.
@@ -56,4 +59,22 @@ export const SEARCH_CONSOLE_REDIRECTS: [source: string, destination: string][] =
   ["/:category(uncategorized|technology|personal|featured|trust|cloud|finances|science|wine-spirits)/page/:n", "/blog"],
   ["/blog/page/:n", "/blog"],
   ["/tag/:tag", "/blog"],
+  // 2026-10-13: closest real page for the old addresses that were 404.
+  ["/library", "/blog"],
+  ["/impact", "/impact-dashboard"],
+  ["/members", "/login"],
+  ["/the-right-numbers-supplier", "/supplier-intake"],
+  ["/portfolio", "/engine-room"],
+  ["/fauxtony", "/the-index"],
+  ["/health", "/the-body"],
+  ["/health/page/:n", "/the-body"],
+  ["/request-a-password", "/forgot-password"],
+  ["/built-on-manus", "/about"],
+];
+
+// Temporary (307), so nothing remembers them once the real page exists.
+export const SEARCH_CONSOLE_TEMPORARY_REDIRECTS: [source: string, destination: string][] = [
+  // The shop is on hold until there's a Stripe account (Phase 4); /subscribe
+  // shows the paid tiers in the meantime.
+  ["/shop", "/subscribe"],
 ];
