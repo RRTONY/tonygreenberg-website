@@ -50,6 +50,7 @@ this rebuild is live on tonygreenberg.com yet** (it still serves the old app unt
 - **iPhone check (owner: "you can check in iPhone"):** 14 key pages in Apple's iPhone Simulator (real iPhone Safari, iOS 26.5): all fine. Phase 14's two iPhone items closed.
 - **Google speed test dropped (owner):** `GOOGLE_API_KEY` and the US PageSpeed run removed from the list.
 - **Sign-off given (webmaster, 2026-10-13)** and Google indexing needs no change: it turns on by itself when DNS points at Netlify. Phase 14.
+- **Team report files removed (owner):** `REPORT-2026-08-22/10-01/10-06/10-07/10-10.md` deleted (nothing linked to them; they stay in git history). This status block and `Migration-Status-Report.xlsx` remain the team's record.
 - **Merging today's work (owner: yes):** checks passed on the branch merged with `main` (type check, lint, Manus grep, build, key pages 200, missing page 404), but `main` is protected and GitHub CLI isn't signed in on this Mac, so it needs a pull request opened in the browser: https://github.com/RRTONY/tonygreenberg-website/compare/main...analytics-reports-2026-10-10?expand=1
 
 **Previous session (2026-10-10), branch `design-2026-10-09`:**
