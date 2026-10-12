@@ -55,7 +55,9 @@ import { Badge } from "@/components/ui/badge";
 // than carried forward — /pick-up-the-phone (this page's real next-page
 // target) is this migration's canonical contact CTA and already uses a
 // current address (tony@impactsoul.is); this page links onward to it
-// instead of duplicating a second, possibly-stale contact email.
+// instead of duplicating a second, possibly-stale contact email. (Live later
+// showed Tony@joyandwoe.com in the closing line; the owner chose
+// tony@tonygreenberg.com instead, 2026-10-13.)
 //
 // 2026-10-01 live-sync pass: live now shows the full "Published Articles"
 // list (Forbes, Business Insider and HuffPost up front, the rest behind
@@ -713,8 +715,8 @@ export default function TheOpenDoorPage() {
           </p>
           <p className="mt-6 text-white/50">
             Tony Greenberg &bull; Santa Monica, CA &bull;{" "}
-            <a href="mailto:Tony@joyandwoe.com" className="text-brand-gold-light">
-              Tony@joyandwoe.com
+            <a href="mailto:tony@tonygreenberg.com" className="text-brand-gold-light">
+              tony@tonygreenberg.com
             </a>
           </p>
         </div>

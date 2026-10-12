@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Copy, CheckCircle, Filter, Globe, Megaphone, Scale, FileText, ArrowRight } from "lucide-react";
+import { Copy, CheckCircle, Filter, Globe, Megaphone, Scale, ArrowRight } from "lucide-react";
 import { GlassCard, PullQuote } from "@/components/manifesto/manifesto-ui";
 import { LAWS, LETTER_TEMPLATE, type LawStatus } from "@/lib/content/attention-theft";
 
@@ -12,13 +12,11 @@ import { LAWS, LETTER_TEMPLATE, type LawStatus } from "@/lib/content/attention-t
 const FILTERS: { label: string; value: LawStatus | "all" }[] = [
   { label: "All", value: "all" },
   { label: "Existing Law", value: "existing" },
-  { label: "Proposed", value: "proposed" },
   { label: "Take Action", value: "action" },
 ];
 
 const STATUS_STYLES: Record<LawStatus, { badgeClass: string; iconClass: string; label: string; icon: typeof Scale }> = {
   existing: { badgeClass: "bg-crusade-teal/10 text-crusade-teal border border-crusade-teal/30", iconClass: "text-crusade-teal", label: "Existing Law", icon: Scale },
-  proposed: { badgeClass: "bg-brand-gold/10 text-brand-gold border border-brand-gold/30", iconClass: "text-brand-gold", label: "Proposed", icon: FileText },
   action: { badgeClass: "bg-crusade-red/6 text-crusade-red border border-crusade-red/30", iconClass: "text-crusade-red", label: "Take Action", icon: Megaphone },
 };
 

@@ -334,7 +334,7 @@ export function PeptideMatrixExplorer() {
                       selected.gap > 50 ? "text-[#C0392B]" : selected.gap > 0 ? "text-[#F1C40F]" : "text-[#2E8B57]"
                     }`}
                   >
-                    {selected.gap > 0 ? `+${selected.gap}` : selected.gap}
+                    {selected.reviews === 0 ? "N/A" : selected.gap > 0 ? `+${selected.gap}` : selected.gap}
                   </p>
                   <p className="font-mono text-[0.65rem] text-[#E8E4DC]/40 uppercase">Gap</p>
                 </div>
@@ -400,7 +400,7 @@ export function PeptideMatrixExplorer() {
                     entity.gap > 50 ? "text-[#A93226]" : entity.gap > 0 ? "text-[#9B5212]" : "text-[#246C44]"
                   }`}
                 >
-                  {entity.gap > 0 ? `+${entity.gap}` : entity.gap}
+                  {entity.reviews === 0 ? "N/A" : entity.gap > 0 ? `+${entity.gap}` : entity.gap}
                 </td>
                 <td className="px-2 py-2.5">
                   <span className={`rounded px-1.5 py-0.5 font-mono text-xs ${RISK_BADGE_CLASSES[entity.riskLevel]}`}>

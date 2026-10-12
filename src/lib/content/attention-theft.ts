@@ -44,14 +44,13 @@ export const WEAPONS = [
   { num: "10", title: "Change Your Email", subtitle: "The Nuclear Option", desc: "If your current email is beyond saving, start fresh. Migrate to a new address with strict alias protocols from day one.", action: "Consider Hey.com or Proton Mail for a fresh start." },
 ];
 
-export type LawStatus = "existing" | "proposed" | "action";
+// The two invented "(Proposed)" federal bills were removed 2026-10-13 (owner).
+export type LawStatus = "existing" | "action";
 export const LAWS: { title: string; jurisdiction: string; status: LawStatus; summary: string; detail: string; actionUrl?: string }[] = [
   { title: "CAN-SPAM Act (2003)", jurisdiction: "United States", status: "existing", summary: "Requires opt-out mechanism, honest headers, physical address. Penalties up to $51,744 per violation.", detail: "The CAN-SPAM Act sets rules for commercial email but does NOT require prior consent (opt-in), making it one of the weakest anti-spam laws among developed nations." },
   { title: "GDPR (2018)", jurisdiction: "European Union", status: "existing", summary: "Requires explicit prior consent. Fines up to €20M or 4% of global revenue.", detail: "Requires affirmative, unambiguous consent before sending marketing communications. The gold standard — and the model the U.S. should adopt." },
   { title: "CCPA / CPRA (2020/2023)", jurisdiction: "California, USA", status: "existing", summary: "Right to know, delete, and opt-out of data sales. Fines up to $7,500 per intentional violation.", detail: "Gives consumers the right to know what data is collected, delete it, and opt out of its sale. Provides tools to cut off the data brokers who fuel spam." },
   { title: "CASL (2014)", jurisdiction: "Canada", status: "existing", summary: "Requires express consent. Penalties up to $10M per violation.", detail: "One of the strictest in the world. Requires express consent (opt-in) for commercial electronic messages with severe penalties." },
-  { title: "Attention Theft Prevention Act (Proposed)", jurisdiction: "United States (Federal)", status: "proposed", summary: "Would classify unsolicited email as economic theft with damages based on recipient's hourly rate.", detail: "Damages calculated based on professional hourly rate × 23-minute recovery time. At $200/hr, each spam email = $77 liability." },
-  { title: "AI Transparency in Communications Act (Proposed)", jurisdiction: "United States (Federal)", status: "proposed", summary: "Would require AI-generated emails to be labeled, with criminal penalties for AI-powered spam at scale.", detail: "Sending 1,000+ AI-generated unsolicited emails per day would constitute a federal offense. AI providers bear joint liability." },
   { title: "Contact Your Representatives", jurisdiction: "United States", status: "action", summary: "Write to your congressional representatives demanding stronger anti-spam legislation.", detail: "The CAN-SPAM Act is 20+ years old. It needs to be replaced with legislation that treats attention theft as the economic crime it is.", actionUrl: "https://www.congress.gov/members/find-your-member" },
 ];
 

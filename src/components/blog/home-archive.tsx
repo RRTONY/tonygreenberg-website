@@ -284,7 +284,7 @@ export function HomeArchive({
             </div>
             <p className="mb-2 text-sm text-muted-foreground">See an injustice worth exposing?</p>
             <a
-              href="mailto:tony@joyandwoe.com?subject=Tip%20for%20TonyG"
+              href="mailto:tony@tonygreenberg.com?subject=Tip%20for%20TonyG"
               className="inline-block rounded-sm border border-brand-gold/25 px-3 py-1.5 font-mono text-xs tracking-wide text-brand-gold uppercase"
             >
               <span className="inline-flex items-center gap-1.5">

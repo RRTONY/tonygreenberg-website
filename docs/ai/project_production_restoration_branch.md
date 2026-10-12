@@ -34,7 +34,9 @@ already serves from Sanity (visually identical, re-encoded). Sanity's copies are
 `.webp` name, which is harmless because `next/image` re-encodes. Nothing to rescue there. The real
 rescue was separate: see `manus-media-rescue.md`.
 
-**Needs the owner's decision (not done):** every content-policy edit the branch made to Tony's
+**Decided 2026-10-13 (owner: "remove the risky ones"):** 1, 2, 3 and 5 removed; 4 and 8 were already fixed; 6 kept as Tony wrote it; 7 settled by the redirect map. See NEXTJS-MIGRATION-TODO.md decision 13. The original list:
+
+**Needed the owner's decision:** every content-policy edit the branch made to Tony's
 copy. main still has all the originals, matching legacy:
 1. Quotes attributed to a named clinician (Dr. Beverly Reader, with her phone number) in the PRI
    medicine modal. Confirm permission or remove.
