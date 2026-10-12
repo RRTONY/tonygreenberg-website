@@ -959,7 +959,7 @@ export function PsychedelicReadinessIndex() {
       </section>
 
       {/* ── ASSESSMENT SECTION ── */}
-      <section ref={assessmentRef} className="bg-pri-ink pb-16 text-pri-cream">
+      <section ref={assessmentRef} className="bg-linear-to-b from-pri-ink via-[#2B1B10] to-[#22152A] pb-16 text-pri-cream">
         <CinematicBand
           src="https://cdn.sanity.io/images/a3q1cyqs/production/41677b830bcaf5a36daa30f55dd3346df3163dcb-1200x669.jpg"
           alt=""

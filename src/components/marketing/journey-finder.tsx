@@ -389,7 +389,7 @@ export function JourneyFinder() {
   const ResultIcon = result.icon;
 
   return (
-    <div className="bg-[#0A0A10]">
+    <div className="bg-linear-to-br from-[#0A0A10] via-[#1F1638] to-[#0D2230]">
       <div className="px-6 py-24 sm:px-10">
         <div className="mx-auto max-w-2xl">
           <p className="mb-4 font-mono text-xs tracking-wide text-brand-gold-light uppercase">
