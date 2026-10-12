@@ -12,9 +12,10 @@
   `createDraft`, `listPendingDrafts`, `publishDraft`) always write to `drafts.<id>` and only
   publish through `publish_changes`.
 - **Scripts (`scripts/`):** standalone Node scripts can't import `write-client.ts` (the
-  `server-only` import throws outside Next). They construct their own short-lived client. See the
-  comment at the top of `scripts/migrate-blog-posts.ts`, and run them with `tsx` (`pnpm
-  migrate:blog --dry-run` first).
+  `server-only` import throws outside Next). They construct their own short-lived client (see
+  `scripts/sync-live-essays.ts`), run with `pnpm tsx scripts/<name>.ts`, and should offer a dry run
+  first. The one-off migration and rescue scripts were removed 2026-10-13 (owner); they're in git
+  history (`git log --all -- scripts/<name>`).
 - **Targeted patches** to array items use bracket paths, e.g.
   `body[_key=="<blockKey>"].markDefs[_key=="<linkKey>"].href`. Dry-run first
   (`patch.serialize()`) before `.commit()` on a published document.

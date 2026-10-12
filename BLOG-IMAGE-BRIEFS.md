@@ -12,6 +12,8 @@ Generated from `client/src/data/blogData.json`. Each post below was migrated int
 
 **2026-10-01 re-diff:** all 92 unchecked rows still show the shared fallback on live (only `the-molecule-as-mirror-from-substance-to-service` differs, with the same excluded template image). Nothing to check off. One post outside this list, `your-blood-lies-without-your-dna`, got a new hero on live; it's saved as a Sanity draft (`scripts/rescue-2026-10-live-images.ts`, see `NEXTJS-MIGRATION-TODO.md` Phase 13).
 
+**2026-10-13 (owner said yes): all 92 unchecked posts now have generated art as Sanity drafts.** Text-free pictures in the family of live's default arch (cream over a deep colour, gold line geometry; colour and motif by category, layout seeded by the slug), made with `scripts/generate-essay-hero-art.mjs` and set as each post's `heroImage` draft by `scripts/upload-essay-hero-art-2026-10-13.ts` (skips any post that already has art). Published the same day (owner: yes). Rows stay unchecked as a list of posts that still could use real photography; replace any of them the same way.
+
 | Done | Slug | Title | Category | Suggested prompt |
 |---|---|---|---|---|
 | [ ] | `the-restaurant-with-no-menu-prices-ai-ethics-manifesto` | Zuck: Fix This Now & Lead AI Toward Ethical Billing | The Crusades | Editorial hero image for an essay titled "Zuck: Fix This Now & Lead AI Toward Ethical Billing" (category: The Crusades). Themes: AI billing, token pricing, Manus AI, Meta acquisition. Sophisticated, minimal, photographic or fine-art editorial illustration style — no text, no logos, no watermarks. 1200x630, landscape. |
@@ -116,7 +118,7 @@ Generated from `client/src/data/blogData.json`. Each post below was migrated int
 
 ## In-body images still needed (added 2026-10-07)
 
-`the-tollbooth-and-the-alternative` (imported from live 2026-10-07): live's body shows 5 pictures, but all 5 are broken there too (the old image proxy serves a dark placeholder with unreadable text), so none were imported. Live's alt texts describe what each should show; insert each in the essay body in Studio once made.
+`the-tollbooth-and-the-alternative` (imported from live 2026-10-07): live's body shows 5 pictures, but all 5 are broken there too (the old image proxy serves a dark placeholder with unreadable text), so none were imported. Live's alt texts describe what each should show; insert each in the essay body in Studio once made. **2026-10-13 (owner):** all 5 drawn as line illustrations of these descriptions and added to the essay as a Sanity draft (scripts in git history: `generate-tollbooth-art.mjs`, `add-tollbooth-art-2026-10-13.ts`).
 
 | Done | Where in the essay | Suggested prompt (from live's alt text) |
 | --- | --- | --- |

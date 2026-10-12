@@ -85,8 +85,8 @@ incidents: [`docs/ai/`](docs/ai/README.md).
    invalidates the right pages.
 10. **`src/lib/sanity/write-client.ts` is server-only**, enforced by the `server-only` import.
     Never import it from a Client Component. Standalone Node scripts (`scripts/`) can't import it
-    either — see the comment at the top of `scripts/migrate-blog-posts.ts` for why; they construct
-    their own short-lived client instead.
+    either (`server-only` throws outside Next's bundler, and plain `tsx` isn't the bundler); they
+    construct their own short-lived client instead, as `scripts/sync-live-essays.ts` does.
 11. **Content boundary:** editorial copy, page SEO fields, and images belong in Sanity.
     Assessment/quiz questions, scoring logic, and encyclopedia data (BrewSoul, PRI, Kava) belong
     in typed `.ts` modules in this repo — they're application logic, not articles. Don't move one
@@ -370,7 +370,7 @@ Two specific Next.js App Router pitfalls to check for, since they're easy to int
 ## Images
 
 - **Every content image lives in Sanity**, uploaded through Studio (`/studio`) or a script using
-  the write-client pattern in `scripts/migrate-blog-posts.ts`. `public/` in this app is for
+  the script client pattern in `scripts/sync-live-essays.ts`. `public/` in this app is for
   site-chrome assets only (favicon, static brand marks that aren't editorial) — not content.
 - **Minimum 1200×630 for anything used as a hero or OG image.** Sanity's `urlFor().auto('format')`
   (see `src/lib/sanity/image.ts`) serves WebP/AVIF automatically — don't pre-convert before upload.

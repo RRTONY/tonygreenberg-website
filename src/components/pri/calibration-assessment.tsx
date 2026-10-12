@@ -138,7 +138,7 @@ export function CalibrationAssessment() {
   };
 
   return (
-    <div className="min-h-screen bg-pri-ink font-body text-pri-cream">
+    <div className="min-h-screen bg-linear-to-br from-pri-ink via-[#33200F] to-[#24142A] font-body text-pri-cream">
       <div className="mx-auto max-w-180 px-5 py-8">
         <div className="mb-8 text-center">
           <Link href="/psychedelic-readiness-index" className="inline-flex min-h-11 items-center gap-1.5 text-[.8rem] text-pri-cream/60 md:min-h-6">

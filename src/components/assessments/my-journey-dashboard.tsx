@@ -302,7 +302,7 @@ export function MyJourneyDashboard() {
     <div className="relative z-1 min-h-screen">
       <ThemedBackground theme="journey" />
 
-      <div className="relative z-1 min-h-screen bg-[#0A0A10] pb-16 text-[#E8E4DC]">
+      <div className="relative z-1 min-h-screen bg-linear-to-br from-[#0A0A10] via-[#12261C] to-[#1A1530] pb-16 text-[#E8E4DC]">
         <header className="mx-auto max-w-300 px-6 pt-[clamp(6rem,10vw,8rem)] pb-6">
           <Link
             href="/find-your-me"

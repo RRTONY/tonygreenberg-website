@@ -9,8 +9,7 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "sanity:dev": "sanity dev",
-    "sanity:deploy": "sanity deploy",
-    "migrate:blog": "tsx scripts/migrate-blog-posts.ts"
+    "sanity:deploy": "sanity deploy"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.1",

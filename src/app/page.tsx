@@ -14,7 +14,6 @@ import { summarizeArchive, type ArchivePost } from "@/lib/content/essay-archive"
 import { RecentUpdates } from "@/components/marketing/recent-updates";
 import { pickRecentUpdatePosts } from "@/lib/content/recent-updates";
 import { HomeEntityStatement } from "@/components/marketing/home-entity-statement";
-import { HomeNewsletterCapture } from "@/components/marketing/home-newsletter-capture";
 import { NewsletterPopupLazy } from "@/components/marketing/newsletter-popup-lazy";
 import { ReturningVisitorHero } from "@/components/marketing/returning-visitor-hero";
 import Link from "next/link";
@@ -91,8 +90,6 @@ export default async function Home() {
       </section>
 
       <EditorPicksSection />
-
-      <HomeNewsletterCapture />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-14">
         <Link

@@ -22,7 +22,7 @@ how to handle a request is in [`TASK_GUIDE.md`](TASK_GUIDE.md). Last checked 202
 | `src/lib/admin/` | The MCP server (see below). Off-limits to MCP edits |
 | `src/sanity/schemas/` | Sanity schema types (`post`, `author`, `category`, `page`, `pageSeo`, `seo`, `siteSettings`, `redirect`) |
 | `src/proxy.ts` | Next.js 16 proxy (was middleware): visit-count cookie + Supabase session refresh. Fails open |
-| `scripts/` | One-off Node scripts (blog migration, image rescue, backfills), plus `build-migration-status-report.py`, which regenerates `Migration-Status-Report.xlsx` (the team's spreadsheet copy of `NEXTJS-MIGRATION-TODO.md`; never edit the spreadsheet by hand, re-run the script after updating the todo file) |
+| `scripts/` | `build-migration-status-report.py` (regenerates `Migration-Status-Report.xlsx`, the team's spreadsheet copy of `NEXTJS-MIGRATION-TODO.md`; run every session), `check-search-console-urls.ts` (launch day: every address Google knows ends on a working page), `sync-live-essays.ts` (brings live's rewritten essays into Sanity), `generate-essay-hero-art.mjs` (text-free essay hero art). The one-off migration, rescue and backfill scripts were removed 2026-10-13; they're in git history. |
 | `docs/ai/` | These notes |
 | `_legacy-manus-app/` | The old app's source, kept only as the porting reference. Not built or deployed |
 | `NEXTJS-MIGRATION-TODO.md` / `ROUTES-INVENTORY.md` | Migration checklist and legacy-file → new-route map |
