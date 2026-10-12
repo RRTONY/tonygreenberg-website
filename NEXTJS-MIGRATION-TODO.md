@@ -45,6 +45,8 @@ this rebuild is live on tonygreenberg.com yet** (it still serves the old app unt
 - **Quiz result backgrounds (owner: colour, yes):** the 4 screens still flat dark (`/find-your-journey` result, `/my-journey`, `/pri-calibration`, PRI assessment) now have dark colour gradients; the rest already had colour. Closed in Phase 13.
 - Committed the `/post-intervention` email change (owner: yes).
 - **Essay pictures (owner: add them in Sanity):** 92 unique generated pictures added to their essays and published (owner: yes); the Netlify copy shows them. Phase 13.
+- **`/blog/energy-is-money-money-is-memory` (owner reported a stray bullet):** live rewrote this essay again after the 2026-10-01 sync (no "three lines" intro any more, new sources and author bio). Re-extracted live's body and rebuilt ours with `scripts/sync-live-essays.ts` (now a plain `replace`); the stray bullet came from that script turning a "✦ ✦" ornament into a list marker, fixed there. Saved as a **draft** (90 text blocks, 1 picture moved into Sanity, 1 table, no "✦" left); **publishing needs a yes**. Scanned every essay for the same problem: none (Five Cups' mid-sentence "✦" are on live too; the peptide essay's stars are evidence ratings).
+- **Homepage newsletter box** ("Get new essays and GemSparks", added 2026-10-10 from the SEO pack with the owner's yes) is not on live's homepage; owner asked why. Waiting on keep or remove.
 
 **Previous session (2026-10-10), branch `design-2026-10-09`:**
 - **Switching off Manus, database side (owner: "use the new db, remove the old db, cut down Manus").** Mapped every feature the old site's database powered against the new site (`docs/ai/project_legacy_database.md`, "Everything the old database did"). Most were already on Supabase.

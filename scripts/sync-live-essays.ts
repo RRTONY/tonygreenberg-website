@@ -41,7 +41,8 @@ type Plan =
 
 const PLAN: Record<string, Plan> = {
   "your-blood-lies-without-your-dna": { mode: "replace" },
-  "energy-is-money-money-is-memory": { mode: "replace", keepTailFrom: "Tony Greenberg is Founder and CEO of" },
+  // 2026-10-13: live rewrote it again (and fixed its author bio), so take all of live.
+  "energy-is-money-money-is-memory": { mode: "replace" },
   "the-way-of-dao": { mode: "replace" },
   "what-solutions-are-best-built-with-blockchain": { mode: "replace" },
   "the-peptide-truth-65m-fraud-industry-vs-life-changing-medicine": {
@@ -85,11 +86,15 @@ const plain = (b: LiveBlock) =>
 function tidy(blocks: LiveBlock[]): LiveBlock[] {
   const out: LiveBlock[] = [];
   for (let i = 0; i < blocks.length; i++) {
-    const b = blocks[i];
+    let b = blocks[i];
     if (b.type !== "block") {
       out.push(b);
       continue;
     }
+    // Ornament runs ("✦ ✦", "✦ ✦ ✦") are decoration, not list markers: drop them
+    // before the "✦ = bullet" check below (a "✦ ✦ intro ✦ ✦ ✦" line was saved
+    // as a bulleted quote on 2026-10-01).
+    b = { ...b, spans: b.spans.map((s) => ({ ...s, text: s.text.replace(/✦(\s*✦)+/g, "") })) };
     const text = plain(b);
     if (/^\d+\.$/.test(text) && blocks[i + 1]?.type === "block") {
       const next = blocks[i + 1] as Extract<LiveBlock, { type: "block" }>;
@@ -102,7 +107,7 @@ function tidy(blocks: LiveBlock[]): LiveBlock[] {
       out.push({ ...b, listItem: "bullet", spans: stripLead(b.spans, /^\s*✦\s*(\d+\\?\.\s*)?/) });
       continue;
     }
-    out.push({ ...b, spans: b.spans.map((s) => ({ ...s, text: s.text.replace(/✦ ✦ ✦/g, "") })) });
+    out.push(b);
   }
   return out;
 }
