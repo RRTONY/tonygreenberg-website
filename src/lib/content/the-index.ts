@@ -7,8 +7,8 @@
 // logic, shared by the page, its Client Component and its Server Actions.
 //
 // Left out on purpose: live's read counters (made-up numbers, same call as
-// the essay pages) and live's "The Stack" entry (/the-stack isn't a route on
-// this site).
+// the essay pages). Live's "The Stack" entry is back since /the-stack was
+// ported (2026-10-13); it comes in through SEARCH_DIRECTORY like live's.
 
 import { SEARCH_DIRECTORY } from "@/lib/content/search-directory";
 

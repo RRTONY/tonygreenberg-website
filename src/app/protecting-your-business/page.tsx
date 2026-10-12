@@ -49,6 +49,7 @@ const TOC = [
   { id: "reporting", label: "Report Fraud" },
   { id: "why-this-exists", label: "Why I Published This" },
   { id: "path-to-removal", label: "Path to Removal" },
+  { id: "your-story", label: "Your Story" },
   { id: "reading", label: "Further Reading" },
 ];
 
@@ -146,15 +147,15 @@ const REPORTING = [
   { name: "Platform Fraud Reporting", url: "", note: "Report to Braintrust, Upwork, etc. — they maintain internal fraud databases" },
 ];
 
-const REMOVAL_STEPS = [
-  { title: "Full Financial Restitution With Interest", text: "Pay the remaining $26,795 plus contractual interest at 1.5% per month from November 2025 through the date of payment. As of April 2026, the total exceeds $28,800. Wire transfer or cashier's check only. No payment plans. No installments. No promises. Money in the account, verified and cleared." },
-  { title: "Teach a University Course on Embezzlement", text: "Develop and deliver a semester-length course at an accredited university on the mechanics of workplace embezzlement, contractor fraud, and financial manipulation. Proof of completion required — syllabus, university confirmation, and student evaluations." },
+const REMOVAL_STEPS: { title: string; text: string; cite?: string; rest?: string }[] = [
+  { title: "Full Financial Restitution With Interest", text: "Pay the remaining $26,795 plus contractual interest at 1.5% per month from November 2025 through the date of payment.", cite: "Promissory note terms", rest: " As of April 2026, the total exceeds $28,800. Wire transfer or cashier's check only. No payment plans. No installments. No promises. Money in the account, verified and cleared." },
+  { title: "Teach a University Course on Embezzlement", text: "Develop and deliver a semester-length course at an accredited university on the mechanics of workplace embezzlement, contractor fraud, and financial manipulation. Proof of completion required — syllabus, university confirmation, and student evaluations. Turn the expertise into something useful." },
   { title: "Write and Publish a Personal Account", text: "Write a minimum 5,000-word article — published under her real name on a credible platform — detailing her path into financial crime, the specific decisions she made, the rationalizations she used, and what she has learned. Not a PR rehabilitation piece. A genuine, unflinching accounting." },
   { title: "Complete 200 Hours of Verified Community Service", text: "Serve 200 hours with a verified nonprofit focused on financial literacy or fraud prevention. ACFE, local Legal Aid societies, or Small Business Development Centers qualify. Hours must be documented and verified by the organization." },
   { title: "Formal Written Apology to Every Affected Party", text: "Write individual, specific apologies to every person and organization affected — not a form letter. Each must acknowledge the specific harm and take full responsibility without deflection, without invoking hardship, and without the word \"but.\"" },
   { title: "Complete a Certified Ethics Program", text: "Enroll in and complete a nationally recognized ethics certification — such as the CCEP through the Society of Corporate Compliance and Ethics. Provide proof of certification." },
   { title: "Undergo a Forensic Psychological Evaluation", text: "Complete a forensic psychological evaluation by a licensed professional specializing in financial crime behavior. Share the results with affected parties as evidence of genuine self-examination. This is not punishment. This is the beginning of understanding." },
-  { title: "Mentor Three Small Business Owners on Fraud Prevention", text: "Volunteer as a mentor to three small business owners through SCORE or similar, specifically teaching them how to protect themselves from the exact tactics she used. Each mentorship must last minimum six months with documented sessions." },
+  { title: "Mentor Three Small Business Owners on Fraud Prevention", text: "Volunteer as a mentor to three small business owners through SCORE or similar, specifically teaching them how to protect themselves from the exact tactics she used. Each mentorship must last minimum six months with documented sessions. Teach what you know. Make it count." },
 ];
 
 const FURTHER_READING = [
@@ -355,7 +356,8 @@ export default function ProtectingYourBusinessPage() {
             A Note From the Author
           </div>
           <div className="text-lg leading-relaxed font-medium text-amber-950 dark:text-amber-200">
-            I got taken. Twenty-five years in enterprise technology, $10 billion benchmarked, and
+            I got taken. Twenty-five years in enterprise technology, $10B+ in enterprise contracts
+            priced, audited, and renegotiated, and
             a woman with two theft convictions walked through my door and I handed her the keys.
             The duty to warn you is bigger than my ego. If I stay quiet, the next victim is on me.
           </div>
@@ -673,6 +675,8 @@ export default function ProtectingYourBusinessPage() {
           {REMOVAL_STEPS.map((step, i) => (
             <NumberedItem key={step.title} num={i + 1} title={step.title}>
               {step.text}
+              {step.cite && <Cite>{step.cite}</Cite>}
+              {step.rest}
             </NumberedItem>
           ))}
           <div className="my-8 rounded-md border border-red-800/25 bg-red-800/5 p-7 text-center">
@@ -686,18 +690,27 @@ export default function ProtectingYourBusinessPage() {
           </div>
         </Section>
 
-        <div className="mt-14 rounded-md border border-red-800/20 bg-red-800/5 p-6 text-center">
-          <h2 className="mb-2 font-heading text-xl font-bold text-foreground">
-            Has This Happened to You?
-          </h2>
-          <p className="mx-auto mb-4 max-w-md text-foreground/70">
-            If you have been defrauded by a contractor, employee, or business partner, your story
-            matters. The silence that protects thieves creates their next victim.
-          </p>
-          <StoryForm sourcePage="protecting-your-business" fallbackEmail="tony@ramprate.com" fallbackSubject="Fraud Story Submission" />
-        </div>
+        <Section id="your-story" num="12" title="Has This Happened to You?">
+          <P>
+            If you have been defrauded by a contractor, employee, or business partner — your story
+            matters. The silence that protects thieves creates their next victim. You do not have
+            to use your name. But you can start here.
+          </P>
+          <div className="rounded-md border border-red-800/20 bg-red-800/5 p-6">
+            <p className="mx-auto mb-4 max-w-md text-center text-foreground/70">
+              Anonymous submissions are accepted. All information is reviewed personally and kept
+              confidential unless you authorize otherwise.
+            </p>
+            <StoryForm
+              sourcePage="protecting-your-business"
+              fallbackEmail="tony@ramprate.com"
+              fallbackSubject="Fraud Story Submission"
+              submitLabel="Submit Your Story"
+            />
+          </div>
+        </Section>
 
-        <Section id="reading" num="12" title="Further Reading">
+        <Section id="reading" num="13" title="Further Reading">
           {FURTHER_READING.map((item) => (
             <div key={item.title} className="border-b border-border py-3 last:border-b-0">
               <a
@@ -777,6 +790,16 @@ export default function ProtectingYourBusinessPage() {
             </p>
           </div>
         </div>
+
+        {/* Live's name line under the legal notice (owner: match live, 2026-10-13). */}
+        <p className="mt-8 text-center text-xs leading-relaxed text-muted-foreground">
+          Kristi Klawiter &bull; Kristi Klawiter Convicted &bull; Kristi Klawiter Embezzlement
+          &bull; Kristi Klawiter Fraud &bull; Kristi Klawiter Theft &bull; Kristi Klawiter Forgery
+          &bull; Kristi Klawiter Guilty Plea &bull; Kris Management LLC
+        </p>
+        <p className="mt-2 text-center text-xs text-muted-foreground">
+          &copy; 2026 Tony Greenberg. All rights reserved.
+        </p>
       </div>
 
       <RelatedPages path="/protecting-your-business" tone="light" />

@@ -66,6 +66,7 @@ export const SEARCH_DIRECTORY: PageItem[] = [
   { title: "Engine Room", href: "/engine-room", description: "The portfolio — every company, every thesis, every bet", tags: ["engine", "portfolio", "companies", "investments"] },
   { title: "Under NDA", href: "/under-nda", description: "What happens behind closed doors", tags: ["nda", "confidential", "private", "deals"] },
   { title: "The Body", href: "/the-body", description: "Health, biohacking, and the vessel that carries everything", tags: ["body", "health", "biohacking", "wellness"] },
+  { title: "The Stack", href: "/the-stack", description: "A practical health resource for DNA, bloodwork, body composition, hormone and fatty-acid questions, with qualified practitioner context", tags: ["the stack", "health", "blood", "bloodwork", "dna", "genomics", "sequencing", "whole genome", "testing", "diagnostics", "body composition", "hormones", "fatty acids", "health records", "practitioner"] },
   { title: "The Nightstand", href: "/the-nightstand", description: "Books that shaped the thinking", tags: ["books", "reading", "nightstand", "library"] },
   { title: "The Web", href: "/the-web", description: "The network of relationships and collaborations", tags: ["web", "network", "connections", "relationships"] },
   { title: "Pick Up the Phone", href: "/pick-up-the-phone", description: "The lost art of the phone call — and how to reach Tony", tags: ["phone", "contact", "call", "reach"] },

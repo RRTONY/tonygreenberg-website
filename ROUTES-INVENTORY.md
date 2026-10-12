@@ -68,6 +68,7 @@ tonygreenberg.com instead of a legacy `.tsx` file.
 | `/america-unbundled-field-guide` | `src/app/america-unbundled-field-guide/page.tsx` | Part Two of "America, Unbundled". Ported 2026-10-01 |
 | `/america-unbundled` | `src/app/america-unbundled/page.tsx` | Part One of "America, Unbundled", "AI Does Not Have a Candidate". Ported 2026-10-01 |
 | `/connect` | redirect | 308 to `/`, same as live |
+| `/the-stack` | `src/app/the-stack/page.tsx` (data: `src/lib/content/the-stack.ts`) | "Private review draft" health-testing guide. Ported 2026-10-13 (owner). Like live: noindex/noarchive, not in the sitemap, listed in `/the-index` |
 
 **Checked 2026-10-01** against live's `sitemap.xml` (285 URLs) and every legacy route in `App.tsx`
 (197): every legacy route is ported (200), redirected to a working page (33 × 308), or a documented
