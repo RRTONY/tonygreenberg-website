@@ -85,3 +85,5 @@ the last 16 months, 429): 409 end on a working page, 3 go to other sites on purp
 purpose (the live-only 404s above, `/shop`, `/fauxtony`, `/members`, `/terms`...). Redirects for
 the rest: `src/lib/content/search-console-redirects.ts`. Re-run with
 `scripts/check-search-console-urls.ts` at cutover.
+
+**2026-10-13 (owner: fix the errors):** 430 addresses, **423 now end on a working page**, 3 go to other sites, 4 stay 404 on purpose (`/terms`, the removed Dr. Lee case file, two `/assets/*.js` addresses from live's script errors). The others go to the closest page: `/library` → `/blog`, `/impact` → `/impact-dashboard`, `/members` → `/login`, `/the-right-numbers-supplier` → `/supplier-intake`, `/portfolio` → `/engine-room`, `/fauxtony` → `/the-index`, `/health` → `/the-body`, `/request-a-password` → `/forgot-password`, `/built-on-manus` → `/about`, and `/shop` → `/subscribe` as a temporary (307) redirect until the shop exists.
