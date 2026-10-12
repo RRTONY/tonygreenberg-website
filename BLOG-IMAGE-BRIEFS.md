@@ -118,7 +118,7 @@ Generated from `client/src/data/blogData.json`. Each post below was migrated int
 
 ## In-body images still needed (added 2026-10-07)
 
-`the-tollbooth-and-the-alternative` (imported from live 2026-10-07): live's body shows 5 pictures, but all 5 are broken there too (the old image proxy serves a dark placeholder with unreadable text), so none were imported. Live's alt texts describe what each should show; insert each in the essay body in Studio once made.
+`the-tollbooth-and-the-alternative` (imported from live 2026-10-07): live's body shows 5 pictures, but all 5 are broken there too (the old image proxy serves a dark placeholder with unreadable text), so none were imported. Live's alt texts describe what each should show; insert each in the essay body in Studio once made. **2026-10-13 (owner):** all 5 drawn as line illustrations of these descriptions and added to the essay as a Sanity draft (scripts in git history: `generate-tollbooth-art.mjs`, `add-tollbooth-art-2026-10-13.ts`).
 
 | Done | Where in the essay | Suggested prompt (from live's alt text) |
 | --- | --- | --- |

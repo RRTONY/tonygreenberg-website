@@ -51,6 +51,8 @@ this rebuild is live on tonygreenberg.com yet** (it still serves the old app unt
 - **Google speed test dropped (owner):** `GOOGLE_API_KEY` and the US PageSpeed run removed from the list.
 - **Sign-off given (webmaster, 2026-10-13)** and Google indexing needs no change: it turns on by itself when DNS points at Netlify. Phase 14.
 - **Team report files removed (owner):** `REPORT-2026-08-22/10-01/10-06/10-07/10-10.md` deleted (nothing linked to them; they stay in git history). This status block and `Migration-Status-Report.xlsx` remain the team's record.
+- **Scripts cleaned up (owner: remove what isn't needed):** the site never runs `scripts/`. Kept 4: `build-migration-status-report.py`, `check-search-console-urls.ts` (launch day), `sync-live-essays.ts`, `generate-essay-hero-art.mjs`. Removed 26 one-off migration, rescue and backfill scripts (all already run; in git history) and the `migrate:blog` command; CONTRIBUTING rule 10 and the Images section, `reference_sanity_write_pattern.md`, `PROJECT_STRUCTURE.md` now point at `sync-live-essays.ts` as the script-client example. Type check and lint pass.
+- **Tollbooth essay pictures:** 5 new illustrations in the essay as a Sanity draft (decision item 19).
 - **Merging today's work (owner: yes):** checks passed on the branch merged with `main` (type check, lint, Manus grep, build, key pages 200, missing page 404), but `main` is protected and GitHub CLI isn't signed in on this Mac, so it needs a pull request opened in the browser: https://github.com/RRTONY/tonygreenberg-website/compare/main...analytics-reports-2026-10-10?expand=1
 
 **Previous session (2026-10-10), branch `design-2026-10-09`:**
@@ -157,7 +159,7 @@ post (121) with the new site, text and images, on a production build.
 1. **Setup only someone with access can do:** ~~database scripts 0001 to 0005, Resend email~~ (done 2026-10-09/10, see Phase 2). Still to do: add `ADMIN_EMAILS` (who may open `/pri-research`; not set in `.env.local`, Netlify unchecked) and check that Supabase Auth has the site's redirect URLs (`https://tonygreenberg.com/auth/callback`, plus the Netlify address) before launch.
 2. SEO copy from the audit and Mohammad's pack (Phase 12): post title length, homepage title/description/keywords, slugs, "Six lenses", short answer + FAQ, heading rewrites, health disclaimer, author box, newsletter block, claim sources, Case File legal review, ABIT disclosures, one contact email, merging thin categories, "Further Reading" shown twice.
 3. ~~`/post-intervention` says results "go to tony@tonygreenberg.com"~~ **Done 2026-10-13:** every saved check-in is now emailed to Tony too (Resend is working), so the page does what it says. Not yet tested with a real submission (it would email Tony).
-4. `/self-portrait`: live counts 27 experiences, our catalog has 13. Have new assessments been added on live?
+4. `/self-portrait`: live counts 27 experiences, our catalog has 13. **Owner 2026-10-13: yes, new assessments were added on live.** Next: list live's 27 and port the missing ones.
 5. ~~Typed arrows in buttons and links~~ **Decided 2026-10-09: switch to icons.** Done (see Phase 12).
 6. `/protecting-your-business`: live has much more about the named person (new sections, demands, a form, a name keyword list). Owner said keep ours for now (2026-10-07); needs Tony/legal.
 7. `/impact-dashboard`: title and description now match live (SEO copy, needs a yes).
@@ -172,7 +174,7 @@ post (121) with the new site, text and images, on a production build.
 16. The shop and payment pages: on hold until there's a Stripe account and a product list.
 17. ~~Manus-hosted partner links~~ **Decided 2026-10-09: drop them everywhere.** Done (The Mirror, then every other page and the essays; see Phase 12).
 18. ~~`/blog` vs live~~ **Decided 2026-10-09: keep our essay archive.** No change.
-19. The Tollbooth essay's 5 in-body pictures are broken on live too; new art needed (`BLOG-IMAGE-BRIEFS.md`).
+19. ~~The Tollbooth essay's 5 in-body pictures~~ **Done 2026-10-13 (owner: create new ones):** 5 new line illustrations of live's alt texts, placed after the same paragraphs as on live, with live's alt text as alt and caption. Saved as a Sanity **draft** of `the-tollbooth-and-the-alternative`; publishing needs a yes.
 
 **Next up:** go-live (owner asked 2026-10-09): merge the 3 pull requests, restore Supabase, owner sign-off, then the DNS switch at Hostinger (steps in Phase 14). Also: merge the MCP sync pull request, then the speed and error-page one (`perf-2026-10-09`, built on top of it), then (with a yes) run one throwaway change through the new review card on its deploy preview and discard it; once the setup in item 1 is done, test a real comment, the `/pri-efficacy` Live tab, reaction, sign-up, highlight, invite, Clock Keeper/post-intervention save and a friend-gate email end to end; check the draft on pagespeed.web.dev (US test servers) and keep going on the 4 to 6 pages under 90 (next lever: split the 58 KB stylesheet per section); after cutover, re-check Search Console's sitemap warnings against the new sitemap.
 

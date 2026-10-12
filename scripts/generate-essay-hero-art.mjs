@@ -8,7 +8,7 @@
 // Playwright renders the SVG to JPEG. It is not a project dependency (rule 16),
 // so point PLAYWRIGHT at any installed copy, e.g. one from `npx playwright`:
 //   PLAYWRIGHT=/path/to/node_modules/playwright node scripts/generate-essay-hero-art.mjs <outDir> "<slug>::<Category>" ...
-// Upload with scripts/upload-essay-hero-art-2026-10-13.ts.
+// The script that uploaded the 92 to Sanity (2026-10-13) is in git history.
 import { createRequire } from "node:module";
 
 const load = createRequire(import.meta.url);
