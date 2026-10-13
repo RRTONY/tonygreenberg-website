@@ -57,9 +57,12 @@ import type { PageItem } from "@/lib/search-engine";
  * house rule against introducing emoji into written files.
  */
 export const SEARCH_DIRECTORY: PageItem[] = [
-  { title: "Blog", href: "/blog", description: "92 essays spanning 15 years of enterprise tech, impact, and consciousness", tags: ["blog", "essays", "writing", "articles"] },
+  { title: "Blog", href: "/blog", description: "{count} essays spanning 15 years of enterprise tech, impact, and consciousness", tags: ["blog", "essays", "writing", "articles"] },
   { title: "Start Here", href: "/start-here", description: "The five essays that tell you who Tony is and what he's about", tags: ["start", "begin", "intro", "first"] },
   { title: "About", href: "/about", description: "The full story — from enterprise tech to psychedelic medicine", tags: ["about", "bio", "biography", "tony"] },
+  { title: "Contact", href: "/contact", description: "Email Tony, book a call, or start the Engagement Audit", tags: ["contact", "email", "reach", "book", "call"] },
+  { title: "Privacy Policy", href: "/privacy", description: "What the site collects and how to delete it", tags: ["privacy", "data", "cookies", "policy"] },
+  { title: "Terms of Use", href: "/terms", description: "Terms, and why health and investment content is not advice", tags: ["terms", "legal", "disclaimer"] },
   { title: "The Letter", href: "/the-letter", description: "I have something to show you — the seven doors", tags: ["letter", "home", "doors", "seven"] },
   { title: "Walk Through", href: "/walk-through", description: "Step inside each of the seven doors", tags: ["walk", "doors", "explore", "tour"] },
   { title: "The Territory", href: "/the-territory", description: "The map of everything — heroes, influences, and the landscape", tags: ["territory", "map", "heroes", "influences"] },
@@ -182,3 +185,14 @@ export const SEARCH_DIRECTORY: PageItem[] = [
   { title: "Report A Spammer", href: "/attention-theft#report", description: "Public accountability database — name the worst offenders and build the evidence", tags: ["report", "spammer", "accountability", "shame", "forward medical", "cold outreach", "spam report", "complaint", "crusade", "customer service"] },
   { title: "The Facilitator Index — Know Who You Go With", href: "/facilitator-index", description: "Invitation-only, anonymous, philosophy-first instrument for psychedelic practitioners and guides. 108 items across twelve bands. Companion to the Psychedelic Readiness Index.", tags: ["facilitator index", "facilitator", "facilitators", "psychedelic facilitator", "guide", "psychedelic guide", "practitioner", "psychedelic practitioner", "know who you go with", "who you go with", "facilitator assessment", "facilitator instrument", "facilitator vetting", "facilitator philosophy", "facilitator ethics", "facilitator certification", "facilitator map", "facilitator network", "facilitator referral", "facilitator corroboration", "shipibo", "vegetalismo", "santo daime", "uniao do vegetal", "mazatec", "wixarika", "native american church", "bwiti", "ibogaine medical detox", "kambo", "rapeh", "sananga", "amanita", "cacao ceremony", "nakamal", "kava ceremony", "temazcal", "holotropic breathwork", "mdma protocol", "psilocybin trial", "ketamine assisted", "reciprocity gate", "corroboration tokens", "coded identity", "anonymous practitioner", "cedar code", "practitioner map", "five axis map", "closed to me", "preparation arc", "integration arc", "container shape", "screening", "medical clearance", "touch consent", "sliding scale", "referral network", "fireside project", "psychedelic readiness index", "pri", "companion instrument"] },
 ];
+
+/**
+ * The directory with `{count}` filled in by the real number of published
+ * essays (Sanity's post count, fetched on the server and passed down).
+ * Legacy hardcoded "92 essays" here, which no longer matched the homepage.
+ */
+export function withEssayCount(items: PageItem[], essayCount: number): PageItem[] {
+  return items.map((p) =>
+    p.description.includes("{count}") ? { ...p, description: p.description.replace("{count}", String(essayCount)) } : p,
+  );
+}

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { FaLinkedin, FaXTwitter } from "react-icons/fa6";
 import { AiSummaryLinks, SITE_URL } from "@/components/ai-summary-links";
 
@@ -12,7 +13,9 @@ export function SiteFooter() {
       </p>
 
       <p className="mt-4 font-mono text-sm text-muted-foreground">
-        t@ramprate.com
+        <a href="mailto:t@ramprate.com" className="hover:text-foreground">
+          t@ramprate.com
+        </a>
         <br />
         Santa Monica, CA
       </p>
@@ -112,7 +115,19 @@ export function SiteFooter() {
         &bull; Certified B Corporation
       </p>
 
-      <div className="mx-auto mt-6 max-w-2xl border-t border-border pt-5 font-mono text-[0.68rem] leading-relaxed tracking-wide text-muted-foreground">
+      <nav aria-label="Legal and contact" className="mt-6 flex justify-center gap-6 font-mono text-xs tracking-wide uppercase">
+        <Link href="/contact" className="inline-flex min-h-11 items-center text-brand-gold hover:underline dark:text-brand-gold-light">
+          Contact
+        </Link>
+        <Link href="/privacy" className="inline-flex min-h-11 items-center text-brand-gold hover:underline dark:text-brand-gold-light">
+          Privacy
+        </Link>
+        <Link href="/terms" className="inline-flex min-h-11 items-center text-brand-gold hover:underline dark:text-brand-gold-light">
+          Terms
+        </Link>
+      </nav>
+
+      <div className="mx-auto mt-2 max-w-2xl border-t border-border pt-5 font-mono text-[0.68rem] leading-relaxed tracking-wide text-muted-foreground">
         &copy; {new Date().getFullYear()} Tony Greenberg. All rights reserved.
         <br />
         All content, essays, frameworks, assessments, and intellectual property on this site are

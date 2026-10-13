@@ -9,7 +9,7 @@ import {
   DialogDescription,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { SEARCH_DIRECTORY } from "@/lib/content/search-directory";
+import { SEARCH_DIRECTORY, withEssayCount } from "@/lib/content/search-directory";
 import { searchPages, type PageItem } from "@/lib/search-engine";
 
 // Command-palette search overlay — ported behavior from the legacy
@@ -40,9 +40,11 @@ const DEBOUNCE_MS = 250;
 export function SearchModal({
   open,
   onOpenChange,
+  essayCount,
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  essayCount: number;
 }) {
   const router = useRouter();
   const [query, setQuery] = useState("");
@@ -134,9 +136,10 @@ export function SearchModal({
   );
 
   const pages = useMemo(() => {
-    if (!query.trim()) return SEARCH_DIRECTORY.slice(0, 6);
-    return searchPages(query, SEARCH_DIRECTORY, 6);
-  }, [query]);
+    const directory = withEssayCount(SEARCH_DIRECTORY, essayCount);
+    if (!query.trim()) return directory.slice(0, 6);
+    return searchPages(query, directory, 6);
+  }, [query, essayCount]);
 
   const results: ResultItem[] = useMemo(
     () => [

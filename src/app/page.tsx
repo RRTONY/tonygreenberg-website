@@ -11,6 +11,7 @@ import { CoreThemes } from "@/components/marketing/core-themes";
 import { EcosystemCTA } from "@/components/marketing/ecosystem-cta";
 import { HomeArchive } from "@/components/blog/home-archive";
 import { summarizeArchive, type ArchivePost } from "@/lib/content/essay-archive";
+import { getMostRead } from "@/lib/content/most-read";
 import { RecentUpdates } from "@/components/marketing/recent-updates";
 import { pickRecentUpdatePosts } from "@/lib/content/recent-updates";
 import { HomeEntityStatement } from "@/components/marketing/home-entity-statement";
@@ -59,6 +60,7 @@ type Post = ArchivePost;
 
 export default async function Home() {
   const posts = await sanityFetch<Post[]>({ query: allPostsForArchiveQuery, tags: ["post"] });
+  const mostRead = await getMostRead(posts);
   const categoryCounts: Record<string, number> = {};
   for (const p of posts) {
     if (p.category) categoryCounts[p.category.slug] = (categoryCounts[p.category.slug] ?? 0) + 1;
@@ -83,6 +85,7 @@ export default async function Home() {
           <FourDoors
             doors={HOME_DOORS.map((d) => ({
               ...d,
+              bullets: d.bullets.map((b) => b.replace("{count}", String(posts.length))),
               icon: d.icon && <d.icon className="size-10 text-brand-gold" strokeWidth={1.5} />,
             }))}
           />
@@ -124,7 +127,7 @@ export default async function Home() {
 
       <EcosystemCTA essayCount={posts.length} />
 
-      <HomeArchive archive={summarizeArchive(posts)} />
+      <HomeArchive archive={summarizeArchive(posts)} mostRead={mostRead} />
       <NewsletterPopupLazy />
     </div>
   );

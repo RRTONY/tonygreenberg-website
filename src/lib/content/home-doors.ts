@@ -2,7 +2,8 @@ import { BookOpen, Compass, Handshake, Microscope, type LucideIcon } from "lucid
 import type { Door } from "@/components/marketing/four-doors";
 
 // Ported from legacy client/src/pages/Blog.tsx's `BLOG_DOORS`. Real copy,
-// unchanged. Legacy rendered these as image-first tap cards using 4 real
+// unchanged, except the essay count: `{count}` is filled in from Sanity by
+// app/page.tsx (legacy hardcoded a stale "118"). Legacy rendered these as image-first tap cards using 4 real
 // photos (door01-04) that lived on the Manus `/api/img/` proxy — rescued
 // via `scripts/rescue-homepage-images.ts` (fetched once from the still-live
 // legacy host, uploaded to Sanity, one-off script since this homepage isn't
@@ -30,7 +31,7 @@ export const HOME_DOORS: HomeDoor[] = [
     headline: "Twenty-five years of thinking, unfiltered",
     body: "Essays that challenge extractive systems and explore what comes next. Culture, capital, consciousness — written for people who are tired of being managed and ready to think for themselves.",
     bullets: [
-      "118 essays spanning enterprise technology, psychedelic medicine, and social impact",
+      "{count} essays spanning enterprise technology, psychedelic medicine, and social impact",
       "Featured in Harvard H+, Davos 2022, and independent media",
       "No paywall. No algorithm. Just the work.",
     ],

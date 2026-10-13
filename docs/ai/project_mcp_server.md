@@ -130,7 +130,7 @@ GitHub's checks). Prettier formatting is also left out, because this repo doesn'
 | `MCP_PUBLIC_ORIGIN` | Optional. The origin the OAuth metadata advertises (e.g. `https://tonygreenberg.com`). Defaults to the request host, or Netlify's main URL for `*.netlify.app` requests |
 | `MCP_OAUTH_REDIRECT_HOSTS` | Optional. Extra comma-separated sign-in callback hosts |
 | `GOOGLE_GA_CLIENT_EMAIL`, `GOOGLE_GA_PRIVATE_KEY` | Google service account for `check_analytics` and `search_console_*` (the same `vcos-ga4-reader@...` account ramprate-ui uses; its Cloud project already has the Search Console API on). Keep the key's literal `\n` escapes |
-| `GA4_PROPERTY_ID_TONYGREENBERG` | GA4 property for `check_analytics` (the service account has access; verified 2026-10-02) |
+| `GA4_PROPERTY_ID_TONYGREENBERG` | GA4 property for `check_analytics` (the service account has access; verified 2026-10-02). Since 2026-10-14 these three also feed the essay archive's "Most Read" list (`src/lib/content/most-read.ts`), so they must be set in Netlify for the site itself, not only for MCP |
 | `GOOGLE_API_KEY` | PageSpeed Insights key for `lighthouse_check_page` (no anonymous quota). Restrict it to the PageSpeed Insights API. Not created yet |
 | `MCP_SITE_ORIGIN` | Optional. The origin `seo_check_page` and `lighthouse_check_page` fetch. Until DNS cutover, set it to the Netlify site URL, because tonygreenberg.com still serves the legacy app. Don't repoint `NEXT_PUBLIC_SITE_URL` for this, since it also drives canonical URLs |
 

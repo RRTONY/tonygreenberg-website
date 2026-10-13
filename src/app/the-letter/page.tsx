@@ -92,7 +92,7 @@ const FOUR_DOORS: Door[] = [
     headline: "Twenty-five years of thinking, unfiltered",
     body: "Essays that challenge extractive systems and explore what comes next. Culture, capital, human systems — written for people who are tired of being managed and ready to think for themselves.",
     bullets: [
-      "121 essays spanning enterprise technology, impact investing, and social systems",
+      "{count} essays spanning enterprise technology, impact investing, and social systems",
       "Featured in Harvard H+, Davos 2022, and independent media",
       "No paywall. No algorithm. Just the work.",
     ],
@@ -376,7 +376,12 @@ export default async function TheLetterPage() {
             Choose how you want to <em className="text-brand-gold-light">begin</em>
           </p>
         </div>
-        <FourDoors doors={FOUR_DOORS} />
+        <FourDoors
+          doors={FOUR_DOORS.map((d) => ({
+            ...d,
+            bullets: d.bullets.map((b) => b.replace("{count}", String(essayCount))),
+          }))}
+        />
       </div>
 
       {/* Proof strip */}

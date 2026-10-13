@@ -25,7 +25,10 @@ export const postsBySlugsQuery = groq`
 export const allPostsForArchiveQuery = groq`
   *[_type == "post"] | order(publishedAt desc){
     _id, title, subtitle, "slug": slug.current, publishedAt, excerpt, heroImage,
-    readTime, tags, category->{title, "slug": slug.current}
+    readTime, tags, category->{title, "slug": slug.current},
+    // Estimated reading time (230 words a minute) for the archive's
+    // reading-time filter: only about a quarter of posts have readTime set.
+    "minutes": round(length(string::split(pt::text(body), " ")) / 230)
   }
 `;
 

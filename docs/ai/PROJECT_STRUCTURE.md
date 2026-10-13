@@ -46,6 +46,11 @@ how to handle a request is in [`TASK_GUIDE.md`](TASK_GUIDE.md). Last checked 202
 - **Live-only pages** (on the live site but not in `_legacy-manus-app/`, listed at the end of
   `ROUTES-INVENTORY.md`): e.g. `/america-unbundled-field-guide`, text in its `page.tsx`, the
   question form in `src/components/america-unbundled/`.
+- **New pages with no legacy or live source** (added 2026-10-14 after the team review):
+  `/contact`, `/privacy`, `/terms`, text in each `page.tsx`; the two policy pages share
+  `src/components/marketing/legal-page.tsx`. `/privacy` lists what the site collects and the
+  services it uses (Kit, Supabase, Resend, Google Analytics, Netlify): update it when one of those
+  changes. Linked from the footer.
 - **Page titles/descriptions:** each route's `metadata`/`generateMetadata` export. Blog posts use
   their Sanity `seo` field.
 
@@ -74,7 +79,7 @@ how to handle a request is in [`TASK_GUIDE.md`](TASK_GUIDE.md). Last checked 202
 | Theme (light/dark via `.dark` class) | `src/components/theme-provider.tsx`, tokens in `src/app/globals.css` |
 | Redirects | `next.config.ts` `redirects()`; old WordPress essay addresses in `src/lib/content/legacy-post-redirects.ts`, old addresses Google still sends people to in `src/lib/content/search-console-redirects.ts` (re-check with `scripts/check-search-console-urls.ts`) |
 | Error pages | 404: `src/app/not-found.tsx` (title) + `src/components/not-found-redirect.tsx` (live's 3-second redirect home); page errors: `src/app/error.tsx` (inside the header/footer, "Try again" re-fetches); root layout failures: `src/app/global-error.tsx` (own `<html>`, no header). Never add a `loading.tsx` above a dynamic route (404s become 200s) |
-| Essay archive on `/` and `/blog` (search, category filters, Show all) | `src/components/blog/home-archive.tsx`; the page sends 12 posts (`summarizeArchive`, `src/lib/content/essay-archive.ts`), the full list is the static `/essays-archive.json` (`src/app/essays-archive.json/route.ts`), loaded on first use |
+| Essay archive on `/` and `/blog` (search with suggestions, category, sort, year, reading-time and topic filters, Show all) | `src/components/blog/home-archive.tsx`, search box + suggestions (`/api/search`) in `archive-search-box.tsx`; "Most Read" = Google Analytics top essays, cached a day (`src/lib/content/most-read.ts`, needs the `GOOGLE_GA_*` and `GA4_PROPERTY_ID_TONYGREENBERG` env vars, else live's fixed list); the page sends 12 posts (`summarizeArchive`, `src/lib/content/essay-archive.ts`), the full list is the static `/essays-archive.json` (`src/app/essays-archive.json/route.ts`), loaded on first use |
 | Essay category pages (`/blog/category/<slug>`, `/page/<n>` for page 2+) | `src/components/blog/category-listing.tsx`, routes in `src/app/blog/category/[slug]/`; old `?page=N` links redirect in `next.config.ts` |
 | Homepage "Recent Updates" band | `src/components/marketing/recent-updates.tsx`, topic pills and `pickRecentUpdatePosts` in `src/lib/content/recent-updates.ts` |
 

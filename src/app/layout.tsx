@@ -12,6 +12,8 @@ import { GoogleAnalytics } from "@/components/google-analytics";
 import { GaEvents } from "@/components/ga-events";
 import { getWebsiteJsonLd, getPersonJsonLd } from "@/lib/structured-data";
 import { defaultOpenGraph, defaultTwitter } from "@/lib/seo-defaults";
+import { sanityFetch } from "@/lib/sanity/client";
+import { postCountQuery } from "@/lib/sanity/queries";
 import "./globals.css";
 
 const playfairDisplay = Playfair_Display({
@@ -49,9 +51,10 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
   // Every content image comes straight from Sanity's CDN (src/lib/images/image-loader.ts); open
   // that connection while the HTML is still arriving so the hero photo starts sooner.
   preconnect("https://cdn.sanity.io");
-  const [websiteJsonLd, personJsonLd] = await Promise.all([
+  const [websiteJsonLd, personJsonLd, essayCount] = await Promise.all([
     getWebsiteJsonLd(),
     getPersonJsonLd(),
+    sanityFetch<number>({ query: postCountQuery, tags: ["post"] }),
   ]);
 
   return (
@@ -86,7 +89,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
             Skip to main content
           </a>
           <SiteChrome>
-            <SiteHeader />
+            <SiteHeader essayCount={essayCount} />
           </SiteChrome>
           <main id="main-content" role="main" className="flex-1">
             {children}

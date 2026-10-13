@@ -3,6 +3,7 @@ import { sanityFetch } from "@/lib/sanity/client";
 import { allPostsForArchiveQuery } from "@/lib/sanity/queries";
 import { HomeArchive } from "@/components/blog/home-archive";
 import { summarizeArchive, type ArchivePost } from "@/lib/content/essay-archive";
+import { getMostRead } from "@/lib/content/most-read";
 import { NewsletterPopupLazy } from "@/components/marketing/newsletter-popup-lazy";
 
 // A real, standalone blog index — distinct from the homepage. Legacy
@@ -21,6 +22,7 @@ type Post = ArchivePost;
 
 export default async function BlogPage() {
   const posts = await sanityFetch<Post[]>({ query: allPostsForArchiveQuery, tags: ["post"] });
+  const mostRead = await getMostRead(posts);
 
   return (
     <div>
@@ -37,7 +39,7 @@ export default async function BlogPage() {
         </p>
       </div>
 
-      <HomeArchive archive={summarizeArchive(posts)} eagerFirstCard />
+      <HomeArchive archive={summarizeArchive(posts)} mostRead={mostRead} eagerFirstCard />
       <NewsletterPopupLazy />
     </div>
   );

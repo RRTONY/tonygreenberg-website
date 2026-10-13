@@ -38,7 +38,8 @@ export async function categoryMetadata(slug: string, page: number): Promise<Meta
     sanityFetch<{ title: string } | null>({ query: categoryBySlugQuery, params: { slug }, tags: ["category"] }),
     getCategoryPostCount(slug),
   ]);
-  if (!category) return {};
+  // Missing category: the page calls notFound(); match the 404 page's own title.
+  if (!category) return { title: "Page not found" };
 
   return {
     title: page > 1 ? `${category.title} — Page ${page}` : category.title,

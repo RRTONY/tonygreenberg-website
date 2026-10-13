@@ -95,3 +95,38 @@ export async function getAnalyticsSummary(days = 7): Promise<AnalyticsSummary> {
     topPages,
   };
 }
+
+/**
+ * The most-viewed essay addresses (`/blog/<slug>`, category pages left out)
+ * over the last `days`, most views first. Used by the essay archive's
+ * "Most Read" list (src/lib/content/most-read.ts).
+ */
+export async function getTopEssayPaths(days: number, limit: number): Promise<Array<{ path: string; views: number }>> {
+  const propertyId = process.env.GA4_PROPERTY_ID_TONYGREENBERG;
+  if (!propertyId) {
+    throw new Error("GA4_PROPERTY_ID_TONYGREENBERG is not configured");
+  }
+  const report = await runReport(propertyId, {
+    dateRanges: [{ startDate: `${days}daysAgo`, endDate: "today" }],
+    dimensions: [{ name: "pagePath" }],
+    metrics: [{ name: "screenPageViews" }],
+    dimensionFilter: {
+      andGroup: {
+        expressions: [
+          { filter: { fieldName: "pagePath", stringFilter: { matchType: "BEGINS_WITH", value: "/blog/" } } },
+          {
+            notExpression: {
+              filter: { fieldName: "pagePath", stringFilter: { matchType: "BEGINS_WITH", value: "/blog/category/" } },
+            },
+          },
+        ],
+      },
+    },
+    orderBys: [{ metric: { metricName: "screenPageViews" }, desc: true }],
+    limit: String(limit),
+  });
+  return (report.rows ?? []).map((row) => ({
+    path: row.dimensionValues?.[0]?.value ?? "",
+    views: Number(row.metricValues?.[0]?.value ?? 0),
+  }));
+}
