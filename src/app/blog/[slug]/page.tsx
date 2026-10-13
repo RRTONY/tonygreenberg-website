@@ -98,7 +98,8 @@ export async function generateMetadata({
 }: PageProps<"/blog/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPost(slug);
-  if (!post) return {};
+  // Missing post: the page calls notFound(); match the 404 page's own title.
+  if (!post) return { title: "Page not found" };
 
   const title = post.seo?.metaTitle || post.title;
   const description = post.seo?.metaDescription || post.excerpt;

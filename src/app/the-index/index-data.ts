@@ -13,7 +13,7 @@ export async function loadIndexItems(): Promise<{ items: IndexItem[]; essayCount
   const essays = posts.map((p) =>
     essayToIndexItem(p, p.heroImage ? urlFor(p.heroImage).width(160).height(110).url() : DEFAULT_ESSAY_HERO.src),
   );
-  return { items: [...essays, ...siteResourceItems()], essayCount: essays.length };
+  return { items: [...essays, ...siteResourceItems(essays.length)], essayCount: essays.length };
 }
 
 /** Lowercased body text per post slug (server only, see indexPostTextQuery). */

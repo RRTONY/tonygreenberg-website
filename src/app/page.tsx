@@ -83,6 +83,7 @@ export default async function Home() {
           <FourDoors
             doors={HOME_DOORS.map((d) => ({
               ...d,
+              bullets: d.bullets.map((b) => b.replace("{count}", String(posts.length))),
               icon: d.icon && <d.icon className="size-10 text-brand-gold" strokeWidth={1.5} />,
             }))}
           />

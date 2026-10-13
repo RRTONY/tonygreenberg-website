@@ -46,6 +46,11 @@ how to handle a request is in [`TASK_GUIDE.md`](TASK_GUIDE.md). Last checked 202
 - **Live-only pages** (on the live site but not in `_legacy-manus-app/`, listed at the end of
   `ROUTES-INVENTORY.md`): e.g. `/america-unbundled-field-guide`, text in its `page.tsx`, the
   question form in `src/components/america-unbundled/`.
+- **New pages with no legacy or live source** (added 2026-10-14 after the team review):
+  `/contact`, `/privacy`, `/terms`, text in each `page.tsx`; the two policy pages share
+  `src/components/marketing/legal-page.tsx`. `/privacy` lists what the site collects and the
+  services it uses (Kit, Supabase, Resend, Google Analytics, Netlify): update it when one of those
+  changes. Linked from the footer.
 - **Page titles/descriptions:** each route's `metadata`/`generateMetadata` export. Blog posts use
   their Sanity `seo` field.
 

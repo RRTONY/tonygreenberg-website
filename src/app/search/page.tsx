@@ -30,5 +30,5 @@ export default async function SearchPage({ searchParams }: PageProps<"/search">)
 
   const line = `${essays} essays, ${BREWSOUL_COFFEES.length} coffees, ${CHARITIES.length} charities, ${assessments} assessments, peptide research, kava science, and more — all searchable from one place.`;
 
-  return <SiteSearch initialQuery={q} emptyStateLine={line} />;
+  return <SiteSearch initialQuery={q} emptyStateLine={line} essayCount={essays} />;
 }

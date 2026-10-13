@@ -84,9 +84,9 @@ export const navCategories: { title: string; items: (NavLink & { foundation?: st
     title: "The Crusades",
     items: [
       { href: "/attention-theft", label: "Attention Theft" },
-      { href: "/attention-theft/weapons", label: "The 10 Weapons" },
-      { href: "/attention-theft/report", label: "Report A Spammer" },
-      { href: "/attention-theft/legal", label: "Legal Database" },
+      { href: "/attention-theft#weapons", label: "The 10 Weapons" },
+      { href: "/attention-theft#report", label: "Report A Spammer" },
+      { href: "/attention-theft#legal", label: "Legal Database" },
     ],
   },
 ];

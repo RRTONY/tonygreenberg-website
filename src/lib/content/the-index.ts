@@ -10,7 +10,7 @@
 // the essay pages). Live's "The Stack" entry is back since /the-stack was
 // ported (2026-10-13); it comes in through SEARCH_DIRECTORY like live's.
 
-import { SEARCH_DIRECTORY } from "@/lib/content/search-directory";
+import { SEARCH_DIRECTORY, withEssayCount } from "@/lib/content/search-directory";
 
 export type IndexConcept = {
   key: string;
@@ -243,8 +243,8 @@ export function essayToIndexItem(post: IndexPostRow, image: string | null): Inde
 }
 
 /** Every page in the site directory except the Index itself (live does the same). */
-export function siteResourceItems(): IndexItem[] {
-  return SEARCH_DIRECTORY.filter((p) => p.href !== "/the-index").map((p) => ({
+export function siteResourceItems(essayCount: number): IndexItem[] {
+  return withEssayCount(SEARCH_DIRECTORY, essayCount).filter((p) => p.href !== "/the-index").map((p) => ({
     id: `page:${p.href}`,
     kind: "page",
     title: p.title,

@@ -53,7 +53,7 @@ function AskTonyButton({ onClick }: { onClick: () => void }) {
   );
 }
 
-export function SiteHeader() {
+export function SiteHeader({ essayCount }: { essayCount: number }) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -229,7 +229,7 @@ export function SiteHeader() {
         </div>
       </div>
     </header>
-    {searchLoaded && <SearchModal open={searchOpen} onOpenChange={setSearchOpen} />}
+    {searchLoaded && <SearchModal open={searchOpen} onOpenChange={setSearchOpen} essayCount={essayCount} />}
     {menuLoaded && (
       <MobileMenu
         open={mobileOpen}

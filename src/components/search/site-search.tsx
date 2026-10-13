@@ -18,7 +18,7 @@ import {
   X,
   type LucideIcon,
 } from "lucide-react";
-import { SEARCH_DIRECTORY } from "@/lib/content/search-directory";
+import { SEARCH_DIRECTORY, withEssayCount } from "@/lib/content/search-directory";
 import { searchPages, type PageItem } from "@/lib/search-engine";
 import type { SearchPostHit } from "@/app/api/search/route";
 
@@ -62,7 +62,15 @@ function groupOf(href: string): Exclude<Filter, "all"> {
 
 type Hit = { title: string; href: string; description: string; external?: boolean; group: Exclude<Filter, "all"> };
 
-export function SiteSearch({ initialQuery, emptyStateLine }: { initialQuery: string; emptyStateLine: string }) {
+export function SiteSearch({
+  initialQuery,
+  emptyStateLine,
+  essayCount,
+}: {
+  initialQuery: string;
+  emptyStateLine: string;
+  essayCount: number;
+}) {
   const router = useRouter();
   const [query, setQuery] = useState(initialQuery);
   const [filter, setFilter] = useState<Filter>("all");
@@ -96,14 +104,14 @@ export function SiteSearch({ initialQuery, emptyStateLine }: { initialQuery: str
 
   const hits = useMemo<Hit[]>(() => {
     if (debounced.length < 2) return [];
-    const pages: Hit[] = searchPages(debounced, SEARCH_DIRECTORY, 40).map((p: PageItem) => ({ ...p, group: groupOf(p.href) }));
+    const pages: Hit[] = searchPages(debounced, withEssayCount(SEARCH_DIRECTORY, essayCount), 40).map((p: PageItem) => ({ ...p, group: groupOf(p.href) }));
     return [
       ...remote.posts.map((p) => ({ ...p, group: "essays" as const })),
       ...pages,
       ...remote.coffees.map((p) => ({ ...p, group: "brewsoul" as const })),
       ...remote.charities.map((p) => ({ ...p, group: "pages" as const })),
     ];
-  }, [debounced, remote]);
+  }, [debounced, remote, essayCount]);
 
   const visible = filter === "all" ? hits : hits.filter((h) => h.group === filter);
   const groups = (Object.keys(GROUP_LABELS) as Exclude<Filter, "all">[])

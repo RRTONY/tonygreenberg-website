@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { NewsletterSignupForm } from "@/components/marketing/newsletter-signup-form";
+import { sanityFetch } from "@/lib/sanity/client";
+import { postCountQuery } from "@/lib/sanity/queries";
 
 // Ported from legacy client/src/pages/Subscribe.tsx ("The Throughline").
 // Real copy, unchanged, except: the free signup is live now (legacy showed
@@ -9,14 +11,16 @@ import { NewsletterSignupForm } from "@/components/marketing/newsletter-signup-f
 // app has a working Kit endpoint at /api/subscribe), and the $99/yr
 // membership and $27 compilation are shown as informational only, with no
 // checkout, since Stripe billing is a separate deferred phase
-// (NEXTJS-MIGRATION-TODO.md). Legacy's "91 essays" count is stale — the
-// archive has 121 — so that one number is updated.
-export const metadata: Metadata = {
-  title: "Subscribe — The Throughline",
-  description:
-    "121 essays. 15 years. Zero algorithm. Subscribe to receive Tony Greenberg's essays directly — no social feed required, no platform between us.",
-  alternates: { canonical: "/subscribe" },
-};
+// (NEXTJS-MIGRATION-TODO.md). Legacy's "91 essays" count is stale, so the
+// count comes from Sanity instead.
+export async function generateMetadata(): Promise<Metadata> {
+  const essayCount = await sanityFetch<number>({ query: postCountQuery, tags: ["post"] });
+  return {
+    title: "Subscribe — The Throughline",
+    description: `${essayCount} essays. 15 years. Zero algorithm. Subscribe to receive Tony Greenberg's essays directly — no social feed required, no platform between us.`,
+    alternates: { canonical: "/subscribe" },
+  };
+}
 
 const MEMBERSHIP_BENEFITS = [
   "Early access to all new essays",
@@ -38,14 +42,16 @@ function NotYetAvailable() {
   );
 }
 
-export default function SubscribePage() {
+export default async function SubscribePage() {
+  const essayCount = await sanityFetch<number>({ query: postCountQuery, tags: ["post"] });
+
   return (
     <div>
       <section className="bg-linear-to-b from-[#0A0A10] to-[#1A1A24] px-6 py-20 text-center sm:py-28">
         <div className="mx-auto max-w-170">
           <p className="mb-6 font-mono text-xs tracking-[0.3em] text-brand-gold-light uppercase">The Throughline</p>
           <h1 className="font-heading text-4xl leading-tight font-bold text-[#F5F0E0] sm:text-6xl">
-            121 essays. 15 years.
+            {essayCount} essays. 15 years.
             <br />
             <span className="text-[#D4B96A]">Zero algorithm.</span>
           </h1>
