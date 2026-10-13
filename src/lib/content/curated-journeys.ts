@@ -3,10 +3,11 @@ import { Swords, Brain, Lock, Eye, Building2, Sparkles, Palette, type LucideIcon
 // The homepage sidebar's own curated-journeys widget, ported verbatim from
 // legacy client/src/pages/Blog.tsx's `curatedJourneys`. This is a distinct,
 // smaller curation from the one on the full /journeys page (different
-// titles/icons) — legacy links every entry generically to "/journeys"
-// rather than a specific journey, so this widget is real content (title,
-// icon, post count) with one shared destination, exactly as before. Legacy
-// used an emoji per entry; this app uses lucide-react for icons.
+// titles/icons). Legacy and live link every entry to "/journeys", where
+// 5 of the 7 don't exist; since 2026-10-14 a click filters the archive to
+// that journey's essays instead (home-archive.tsx), and the count is the
+// published essays among `postSlugs` (summarizeArchive). Legacy used an
+// emoji per entry; this app uses lucide-react for icons.
 export type CuratedJourney = {
   id: string;
   title: string;

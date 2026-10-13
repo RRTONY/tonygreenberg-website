@@ -65,7 +65,7 @@ export function HomeArchive({
   archive: ArchiveSummary;
   eagerFirstCard?: boolean;
 }) {
-  const { firstPosts, total, categories, years, topics } = archive;
+  const { firstPosts, total, categories, years, topics, journeyCounts } = archive;
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   // Extra filters (owner asked, 2026-10-14). "all" = not filtering.
@@ -73,6 +73,9 @@ export function HomeArchive({
   const [year, setYear] = useState("all");
   const [length, setLength] = useState("all");
   const [topic, setTopic] = useState("all");
+  // A Curated Journey from the sidebar (its id), shown as a filter chip above the grid.
+  const [journeyId, setJourneyId] = useState<string | null>(null);
+  const journey = CURATED_JOURNEYS.find((j) => j.id === journeyId);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [showAll, setShowAll] = useState(false);
   const [allPosts, setAllPosts] = useState<Post[] | null>(null);
@@ -110,14 +113,15 @@ export function HomeArchive({
       const minutes = readingMinutes(p);
       const matchesLength = !range || (minutes >= range.min && minutes <= range.max);
       const matchesTopic = topic === "all" || (p.tags ?? []).some((t) => topicKey(t) === topic);
-      return matchesCat && matchesSearch && matchesYear && matchesLength && matchesTopic;
+      const matchesJourney = !journey || journey.postSlugs.includes(p.slug);
+      return matchesCat && matchesSearch && matchesYear && matchesLength && matchesTopic && matchesJourney;
     });
     // Posts arrive newest first; reverse for "oldest".
     return sort === "oldest" ? [...matches].reverse() : matches;
-  }, [posts, activeCategory, searchQuery, year, length, topic, sort]);
+  }, [posts, activeCategory, searchQuery, year, length, topic, sort, journey]);
 
   const extraFilters = [sort !== "newest", year !== "all", length !== "all", topic !== "all"].filter(Boolean).length;
-  const isSearching = searchQuery.length > 0 || activeCategory !== "All" || extraFilters > 0;
+  const isSearching = searchQuery.length > 0 || activeCategory !== "All" || extraFilters > 0 || !!journey;
 
   function clearFilters() {
     setSort("newest");
@@ -285,8 +289,24 @@ export function HomeArchive({
       </div>
 
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-8 sm:px-6 lg:grid-cols-[1fr_260px]">
-        <div className="min-w-0">
-          {isSearching ? (
+        {/* scroll-mt clears the fixed header plus the sticky filter bar above. */}
+        <div id="archive-results" className="min-w-0 scroll-mt-56">
+          {journey ? (
+            <div className="mb-5 flex flex-wrap items-center gap-3 border-b-2 border-brand-gold pb-1.5">
+              <h2 className="font-mono text-xs tracking-[0.12em] text-brand-gold uppercase">
+                Curated Journey — {journey.title}
+              </h2>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setJourneyId(null)}
+                className="h-7 gap-1 px-2 font-mono text-xs tracking-wide text-muted-foreground uppercase"
+              >
+                <X aria-hidden="true" className="size-3.5" />
+                Show all essays
+              </Button>
+            </div>
+          ) : isSearching ? (
             <h2 className="sr-only">Matching essays</h2>
           ) : (
             <h2 className="mb-5 border-b-2 border-brand-gold pb-1.5 font-mono text-xs tracking-[0.12em] text-brand-gold uppercase">
@@ -376,23 +396,36 @@ export function HomeArchive({
             <div className="mb-2 border-b-2 border-brand-gold pb-1.5 font-mono text-xs tracking-wide text-brand-gold uppercase">
               Curated Journeys
             </div>
-            {CURATED_JOURNEYS.map((journey) => (
-              <Link
-                key={journey.id}
-                href="/journeys"
-                className="flex items-center gap-2 border-b border-border/50 py-2"
-              >
-                <journey.icon className="size-4 text-brand-gold" strokeWidth={1.75} />
-                <div>
-                  <div className="font-heading text-sm font-semibold text-foreground">
-                    {journey.title}
-                  </div>
-                  <div className="font-mono text-xs text-muted-foreground">
-                    {journey.postSlugs.length} posts
-                  </div>
-                </div>
-              </Link>
-            ))}
+            {/* Live linked every journey to /journeys, where 5 of the 7 don't exist (a
+                dead end); here a journey filters the archive to its own essays instead. */}
+            {CURATED_JOURNEYS.map((j) => {
+              const isActive = j.id === journeyId;
+              return (
+                <button
+                  key={j.id}
+                  type="button"
+                  aria-pressed={isActive}
+                  onClick={() => {
+                    loadAll();
+                    setJourneyId(isActive ? null : j.id);
+                    document.getElementById("archive-results")?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className={
+                    isActive
+                      ? "flex w-full items-center gap-2 border-b border-border/50 bg-brand-gold/10 py-2 text-left"
+                      : "flex w-full items-center gap-2 border-b border-border/50 py-2 text-left hover:bg-brand-gold/5"
+                  }
+                >
+                  <j.icon aria-hidden="true" className="size-4 shrink-0 text-brand-gold" strokeWidth={1.75} />
+                  <span>
+                    <span className="block font-heading text-sm font-semibold text-foreground">{j.title}</span>
+                    <span className="block font-mono text-xs text-muted-foreground">
+                      {journeyCounts[j.id] ?? 0} {journeyCounts[j.id] === 1 ? "essay" : "posts"}
+                    </span>
+                  </span>
+                </button>
+              );
+            })}
           </div>
 
           <div className="mb-5 rounded-md border border-brand-gold/15 bg-brand-gold/5 p-4">

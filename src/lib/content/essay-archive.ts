@@ -1,4 +1,5 @@
 import type { urlFor } from "@/lib/sanity/image";
+import { CURATED_JOURNEYS } from "@/lib/content/curated-journeys";
 
 // The essay archive on "/" and "/blog" (HomeArchive). The page sends only
 // the first ARCHIVE_PAGE_SIZE posts plus the counts; the full list for
@@ -34,6 +35,8 @@ export type ArchiveSummary = {
   years: string[];
   /** Tags used by at least MIN_TOPIC_POSTS essays, most used first. */
   topics: Array<[tag: string, count: number]>;
+  /** Published essays in each curated journey, by journey id (an unpublished slug doesn't count). */
+  journeyCounts: Record<string, number>;
 };
 
 // 874 distinct tags, most used once: only the shared ones make a useful filter.
@@ -66,7 +69,11 @@ export function summarizeArchive(posts: ArchivePost[]): ArchiveSummary {
       topics.set(tag, { label: entry?.label ?? label, count: (entry?.count ?? 0) + 1 });
     }
   }
+  const slugs = new Set(posts.map((p) => p.slug));
   return {
+    journeyCounts: Object.fromEntries(
+      CURATED_JOURNEYS.map((j) => [j.id, j.postSlugs.filter((s) => slugs.has(s)).length]),
+    ),
     firstPosts: posts.slice(0, ARCHIVE_PAGE_SIZE),
     total: posts.length,
     categories: Array.from(counts.entries()),
