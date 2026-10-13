@@ -2,17 +2,21 @@
 
 import { useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { Loader2, Search, X, ArrowRight } from "lucide-react";
+import { Loader2, X, ArrowRight, SlidersHorizontal } from "lucide-react";
 import { FaLinkedin, FaXTwitter } from "react-icons/fa6";
 import { PostCard } from "@/components/blog/post-card";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { ArchiveSearchBox } from "@/components/blog/archive-search-box";
 import { CURATED_JOURNEYS } from "@/lib/content/curated-journeys";
 import { socialLinks } from "@/components/site-nav-data";
 import { postHref } from "@/lib/content/post-redirects";
 import {
   ARCHIVE_JSON_PATH,
   ARCHIVE_PAGE_SIZE as PAGE_SIZE,
+  LENGTH_FILTERS,
+  readingMinutes,
+  topicKey,
   type ArchivePost as Post,
   type ArchiveSummary,
 } from "@/lib/content/essay-archive";
@@ -61,9 +65,15 @@ export function HomeArchive({
   archive: ArchiveSummary;
   eagerFirstCard?: boolean;
 }) {
-  const { firstPosts, total, categories } = archive;
+  const { firstPosts, total, categories, years, topics } = archive;
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
+  // Extra filters (owner asked, 2026-10-14). "all" = not filtering.
+  const [sort, setSort] = useState("newest");
+  const [year, setYear] = useState("all");
+  const [length, setLength] = useState("all");
+  const [topic, setTopic] = useState("all");
+  const [filtersOpen, setFiltersOpen] = useState(false);
   const [showAll, setShowAll] = useState(false);
   const [allPosts, setAllPosts] = useState<Post[] | null>(null);
   const [loadFailed, setLoadFailed] = useState(false);
@@ -87,7 +97,8 @@ export function HomeArchive({
   const posts = allPosts ?? firstPosts;
   const filtered = useMemo(() => {
     const q = searchQuery.toLowerCase();
-    return posts.filter((p) => {
+    const range = LENGTH_FILTERS.find((l) => l.value === length);
+    const matches = posts.filter((p) => {
       const matchesCat = activeCategory === "All" || p.category?.title === activeCategory;
       const matchesSearch =
         !q ||
@@ -95,11 +106,27 @@ export function HomeArchive({
         (p.excerpt ?? "").toLowerCase().includes(q) ||
         (p.category?.title ?? "").toLowerCase().includes(q) ||
         (p.tags ?? []).some((t) => t.toLowerCase().includes(q));
-      return matchesCat && matchesSearch;
+      const matchesYear = year === "all" || p.publishedAt?.startsWith(year);
+      const minutes = readingMinutes(p);
+      const matchesLength = !range || (minutes >= range.min && minutes <= range.max);
+      const matchesTopic = topic === "all" || (p.tags ?? []).some((t) => topicKey(t) === topic);
+      return matchesCat && matchesSearch && matchesYear && matchesLength && matchesTopic;
     });
-  }, [posts, activeCategory, searchQuery]);
+    // Posts arrive newest first; reverse for "oldest".
+    return sort === "oldest" ? [...matches].reverse() : matches;
+  }, [posts, activeCategory, searchQuery, year, length, topic, sort]);
 
-  const isSearching = searchQuery.length > 0 || activeCategory !== "All";
+  const extraFilters = [sort !== "newest", year !== "all", length !== "all", topic !== "all"].filter(Boolean).length;
+  const isSearching = searchQuery.length > 0 || activeCategory !== "All" || extraFilters > 0;
+
+  function clearFilters() {
+    setSort("newest");
+    setYear("all");
+    setLength("all");
+    setTopic("all");
+  }
+
+
   // Until the full list arrives, a search, filter or "Show all" can only be
   // answered from the first page, so show a spinner (or a retry) instead.
   const waiting = !allPosts && (isSearching || showAll);
@@ -120,20 +147,110 @@ export function HomeArchive({
         className="sticky top-14 z-40 scroll-mt-14 border-b border-border bg-secondary/95 px-4 py-4 backdrop-blur sm:px-6"
       >
         <div className="mx-auto max-w-6xl">
-          <div className="mb-3 flex flex-wrap items-center gap-2">
-            <div className="relative min-w-45 flex-1">
-              <Search className="pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-muted-foreground" />
-              <Input
-                type="text"
-                placeholder="Search essays..."
-                value={searchQuery}
-                onChange={(e) => {
-                  loadAll();
-                  setSearchQuery(e.target.value);
-                }}
-                className="h-9 bg-background pl-8"
-              />
-            </div>
+          <div className="mb-3 flex items-center gap-2">
+            <ArchiveSearchBox
+              value={searchQuery}
+              onChange={setSearchQuery}
+              onActivate={loadAll}
+              categories={categories.map(([title]) => title)}
+              topics={topics.map(([label]) => label)}
+              onPickCategory={(title) => setActiveCategory(title)}
+              onPickTopic={(label) => setTopic(topicKey(label))}
+            />
+            {/* Phones fold the four filters behind this button so the sticky bar stays short.
+                Every filter calls loadAll(): the page only carries the first 12 posts. */}
+            <Button
+              variant="outline"
+              size="sm"
+              aria-expanded={filtersOpen}
+              aria-controls="archive-filters"
+              onClick={() => setFiltersOpen((o) => !o)}
+              className="h-9 shrink-0 gap-1.5 font-mono text-xs tracking-wide uppercase sm:hidden"
+            >
+              <SlidersHorizontal aria-hidden="true" className="size-4" />
+              Filters{extraFilters > 0 && ` (${extraFilters})`}
+            </Button>
+          </div>
+
+          <div
+            id="archive-filters"
+            className={
+              filtersOpen
+                ? "mb-3 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:items-center"
+                : "mb-3 hidden grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:items-center"
+            }
+          >
+            <Select value={sort} onValueChange={(v) => {
+                loadAll();
+                setSort(v);
+              }}>
+              <SelectTrigger aria-label="Sort essays" size="sm" className="w-full bg-background sm:w-36">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="newest">Newest first</SelectItem>
+                <SelectItem value="oldest">Oldest first</SelectItem>
+              </SelectContent>
+            </Select>
+            <Select value={year} onValueChange={(v) => {
+                loadAll();
+                setYear(v);
+              }}>
+              <SelectTrigger aria-label="Filter by year" size="sm" className="w-full bg-background sm:w-32">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Any year</SelectItem>
+                {years.map((y) => (
+                  <SelectItem key={y} value={y}>
+                    {y}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Select value={length} onValueChange={(v) => {
+                loadAll();
+                setLength(v);
+              }}>
+              <SelectTrigger aria-label="Filter by reading time" size="sm" className="w-full bg-background sm:w-40">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Any length</SelectItem>
+                {LENGTH_FILTERS.map((l) => (
+                  <SelectItem key={l.value} value={l.value}>
+                    {l.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Select value={topic} onValueChange={(v) => {
+                loadAll();
+                setTopic(v);
+              }}>
+              <SelectTrigger aria-label="Filter by topic" size="sm" className="w-full bg-background sm:w-48">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Any topic</SelectItem>
+                {topics.map(([label, count]) => (
+                  <SelectItem key={label} value={topicKey(label)}>
+                    {label} ({count})
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            {extraFilters > 0 && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={clearFilters}
+                className="col-span-2 gap-1.5 font-mono text-xs tracking-wide text-muted-foreground uppercase"
+              >
+                <X aria-hidden="true" className="size-3.5" />
+                Clear filters
+              </Button>
+            )}
           </div>
           <div className="flex gap-1.5 overflow-x-auto pb-1">
             <Button
