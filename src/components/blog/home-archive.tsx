@@ -11,6 +11,7 @@ import { ArchiveSearchBox } from "@/components/blog/archive-search-box";
 import { CURATED_JOURNEYS } from "@/lib/content/curated-journeys";
 import { socialLinks } from "@/components/site-nav-data";
 import { postHref } from "@/lib/content/post-redirects";
+import type { MostRead } from "@/lib/content/most-read";
 import {
   ARCHIVE_JSON_PATH,
   ARCHIVE_PAGE_SIZE as PAGE_SIZE,
@@ -30,20 +31,11 @@ import {
 // or "Show all" (2026-10-09: every post inside the page tripled the
 // homepage's HTML). Filtering itself stays in the browser.
 //
-// "Most Read" and "Most Provocative" — legacy's other two sidebar widgets —
-// ranked posts by a `reads` count that defaulted to a flat 500 for any post
-// without one. The live site now shows both lists (2026-10-01), so the two
-// rankings are ported as fixed lists of the same posts in live's order, but
-// WITHOUT the read counts: this migration doesn't publish numbers it can't
-// back. Revisit once real view-count data exists (see NEXTJS-MIGRATION-TODO.md).
-const MOST_READ = [
-  { slug: "boiling-the-human-summit-harvard-kurzweil", title: "“Boiling the Human” H+ Summit Transcript / Harvard-Kurzweil" },
-  { slug: "the-restaurant-with-no-menu-prices-ai-ethics-manifesto", title: "Zuck: Fix This Now & Lead AI Toward Ethical Billing" },
-  { slug: "only-time-buys-trust", title: "Trust Us? Are You Really My Friend?" },
-  { slug: "return-on-investment-going-green-going-green-2", title: "Return on Investment - Are You Going Green?" },
-  { slug: "customer-service-key-to-business-success", title: "Customer Service: The Key to Business Success" },
-];
-
+// "Most Read" comes from real Google Analytics page views (getMostRead,
+// src/lib/content/most-read.ts, passed in by the page). "Most Provocative"
+// stays the hand-picked list live shows: no reader data can measure that
+// (2026-10-14: 4 reactions, 0 comments). Live's "reads" numbers were typed
+// into the old site's data file, so no counts are shown here.
 const MOST_PROVOCATIVE = [
   { slug: "boiling-the-human-summit-harvard-kurzweil", title: "“Boiling the Human” H+ Summit Transcript / Harvard-Kurzweil" },
   { slug: "the-restaurant-with-no-menu-prices-ai-ethics-manifesto", title: "Zuck: Fix This Now & Lead AI Toward Ethical Billing" },
@@ -51,20 +43,21 @@ const MOST_PROVOCATIVE = [
   { slug: "grateful-smuggest-sentiment-or-selfish-act", title: "Grateful: Smuggest Sentiment or Second Most Selfish Act?" },
   { slug: "apologize", title: "I Apologize. Not Me. Nix “I Am Sorry” From Our Lexicon" },
 ];
-
-const RANKED_LISTS = [
-  { heading: "Most Read", posts: MOST_READ },
-  { heading: "Most Provocative", posts: MOST_PROVOCATIVE },
-];
 // `eagerFirstCard`: on /blog the first card is the largest image on screen,
 // so it loads right away; on the homepage the archive is far below the fold.
 export function HomeArchive({
   archive,
+  mostRead,
   eagerFirstCard = false,
 }: {
   archive: ArchiveSummary;
+  mostRead: MostRead;
   eagerFirstCard?: boolean;
 }) {
+  const rankedLists = [
+    { heading: "Most Read", note: mostRead.fromAnalytics ? "Past 12 months" : undefined, posts: mostRead.posts },
+    { heading: "Most Provocative", note: undefined, posts: MOST_PROVOCATIVE },
+  ];
   const { firstPosts, total, categories, years, topics, journeyCounts } = archive;
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
@@ -372,10 +365,11 @@ export function HomeArchive({
         </div>
 
         <aside className="hidden lg:block">
-          {RANKED_LISTS.map((list) => (
+          {rankedLists.map((list) => (
             <div key={list.heading} className="mb-6">
-              <div className="mb-2 border-b-2 border-brand-gold pb-1.5 font-mono text-xs tracking-wide text-brand-gold uppercase">
-                {list.heading}
+              <div className="mb-2 flex items-baseline justify-between gap-2 border-b-2 border-brand-gold pb-1.5 font-mono text-xs tracking-wide uppercase">
+                <span className="text-brand-gold">{list.heading}</span>
+                {list.note && <span className="text-muted-foreground normal-case">{list.note}</span>}
               </div>
               <ol>
                 {list.posts.map((post, i) => (
