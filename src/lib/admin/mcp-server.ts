@@ -56,6 +56,7 @@ import {
   warmDevices,
   type Device,
 } from "@/lib/admin/device-preview";
+import { isNetlifyConfigured, listDeploys } from "@/lib/admin/netlify-client";
 import * as gh from "@/lib/admin/github-client";
 import { buildMcpToolContext } from "@/lib/admin/mcp-tool-context";
 import {
@@ -86,8 +87,9 @@ const MCP_APP_MIME_TYPE = "text/html;profile=mcp-app";
 // Ported from ramprate-ui's src/lib/admin/mcp-server.ts (change sets
 // 2026-10-02; review card, status and checks, confirm step, file uploads and
 // "Other Pending Changes" synced 2026-10-09). This server only ever edits
-// tonygreenberg.com (RRTONY/tonygreenberg-website). Not ported on purpose:
-// check_deploy (Netlify API), ClickUp, email, PDF reports and Prettier.
+// tonygreenberg.com (RRTONY/tonygreenberg-website). check_deploy (Netlify
+// API, read-only) ported 2026-10-16. Not ported on purpose: ClickUp, email,
+// PDF reports and Prettier.
 const CHAT_TOOLS = ADMIN_TOOLS;
 
 const CHANGE_ID_PARAM = "change_id";
@@ -301,6 +303,20 @@ const SESSION_TOOLS = [
       required: [CHANGE_ID_PARAM],
     },
     _meta: { ui: { resourceUri: PENDING_CHANGES_UI_URI } },
+  },
+  {
+    name: "check_deploy",
+    description:
+      "Netlify build status, in plain words. With a change_id: that change's preview builds (is the preview ready, still building, or did the build fail and why). Without: the live tonygreenberg.com site's latest builds, e.g. to confirm a publish actually went live or to explain a failed build. Read-only. If a build failed, use the error text to fix the cause in the same change.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        [CHANGE_ID_PARAM]: changeIdSchema(
+          "Optional: show this change's preview builds instead of the live site.",
+        ),
+      },
+      required: [],
+    },
   },
   {
     name: "undo_change",
@@ -969,6 +985,45 @@ export function createAdminMcpServer(
     if (name === "discard_change") {
       return fromChangeResult(await discardChange(changeKey!, user));
     }
+    if (name === "check_deploy") {
+      if (!isNetlifyConfigured()) {
+        return toResult(
+          {
+            error:
+              "Netlify access isn't set up on the server (NETLIFY_AUTH_TOKEN). Ask the webmaster.",
+          },
+          true,
+        );
+      }
+      let branch: string | undefined;
+      if (changeKey) {
+        const target = await getChangeSet(changeKey);
+        branch = target?.branch ?? undefined;
+        if (!branch) {
+          return toResult({
+            deploys: [],
+            note: target
+              ? "This change has no code edits, so there is no preview build. Content-only changes go live when published."
+              : `No change found with id ${changeKey}.`,
+          });
+        }
+      }
+      try {
+        const deploys = await listDeploys(
+          branch ? { branch, limit: 3 } : { production: true, limit: 3 },
+        );
+        return toResult({
+          site: branch ? `Preview of change ${changeKey}` : "Live site (tonygreenberg.com)",
+          deploys,
+        });
+      } catch (err) {
+        return toResult(
+          { error: err instanceof Error ? err.message : "Netlify check failed" },
+          true,
+        );
+      }
+    }
+
     if (name === "undo_change") {
       const result = await undoChange(changeKey!, user);
       return fromChangeResult(

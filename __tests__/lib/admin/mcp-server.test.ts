@@ -12,8 +12,10 @@ import * as gh from "@/lib/admin/github-client";
 import { buildMcpToolContext } from "@/lib/admin/mcp-tool-context";
 import { captureDevices, warmDevices } from "@/lib/admin/device-preview";
 import { listKnowledgeBase } from "@/lib/admin/project-rules";
+import { isNetlifyConfigured, listDeploys } from "@/lib/admin/netlify-client";
 
 vi.mock("next/server", () => ({ after: vi.fn() }));
+vi.mock("@/lib/admin/netlify-client", () => ({ isNetlifyConfigured: vi.fn(() => true), listDeploys: vi.fn(async () => []) }));
 vi.mock("@/lib/admin/github-client", () => ({ getPRChecksDetail: vi.fn(), getPRHeadSha: vi.fn(), GITHUB_REPO: { owner: "RRTONY", repo: "tonygreenberg-website" } }));
 vi.mock("@/lib/admin/mcp-tool-context", () => ({
   buildMcpToolContext: vi.fn(async () => ({ ctx: {}, auditLog: [], finalize: async () => ({ branch: null, prNumber: null, prUrl: null }) })),
@@ -559,5 +561,59 @@ describe("resource list and rules hint", () => {
     const r = await (await connect(users.read)).call("list_pending_changes");
     expect(r.isError).toBeFalsy();
     expect(r._meta).toEqual({ rulesVersion: null });
+  });
+});
+
+describe("check_deploy", () => {
+  const deploy = { state: "ready", plain: "Built and online.", context: "production", branch: "main", startedAt: "2026-10-16T10:00:00Z", publishedAt: "2026-10-16T10:03:00Z", seconds: 180, error: null, url: "https://tonygreenberg.com", logUrl: "https://app.netlify.com/sites/tonygreenberg-website/deploys/d1", commit: "b7b6c87" };
+
+  it("is a read-only tool every role can use, with an optional change_id", async () => {
+    const { tools } = await (await connect(users.read)).client.listTools();
+    const t = tools.find((x) => x.name === "check_deploy")!;
+    expect(t.annotations?.readOnlyHint).toBe(true);
+    expect(t.inputSchema.required ?? []).toEqual([]);
+    expect(t.inputSchema.properties).toHaveProperty("change_id");
+    expect(t.inputSchema.required ?? []).not.toContain("rules_version");
+  });
+
+  it("without a change_id shows the live site's latest 3 production builds", async () => {
+    vi.mocked(listDeploys).mockResolvedValue([deploy]);
+    const r = await (await connect(users.read)).call("check_deploy");
+    expect(r.isError).toBeFalsy();
+    expect(listDeploys).toHaveBeenCalledWith({ production: true, limit: 3 });
+    expect(r.json).toEqual({ site: "Live site (tonygreenberg.com)", deploys: [deploy] });
+  });
+
+  it("with a change_id shows that change's preview builds by its branch", async () => {
+    vi.mocked(cs.getChangeSet).mockResolvedValue(change({ branch: "admin/mcp-20261016-abc123" }));
+    vi.mocked(listDeploys).mockResolvedValue([{ ...deploy, state: "building", plain: "Building now.", context: "deploy-preview" }]);
+    const r = await (await connect(users.edit)).call("check_deploy", { change_id: KEY });
+    expect(listDeploys).toHaveBeenCalledWith({ branch: "admin/mcp-20261016-abc123", limit: 3 });
+    expect(r.json.site).toBe(`Preview of change ${KEY}`);
+    expect(r.json.deploys[0].plain).toBe("Building now.");
+  });
+
+  it("explains when a change has no code edits, or doesn't exist, without calling Netlify", async () => {
+    vi.mocked(cs.getChangeSet).mockResolvedValue(change({ branch: null }));
+    const noCode = await (await connect(users.edit)).call("check_deploy", { change_id: KEY });
+    expect(noCode.json).toEqual({ deploys: [], note: expect.stringMatching(/no code edits/) });
+    vi.mocked(cs.getChangeSet).mockResolvedValue(null);
+    const missing = await (await connect(users.edit)).call("check_deploy", { change_id: KEY });
+    expect(missing.json.note).toBe(`No change found with id ${KEY}.`);
+    expect(listDeploys).not.toHaveBeenCalled();
+  });
+
+  it("says plainly when Netlify isn't set up or the request fails", async () => {
+    vi.mocked(isNetlifyConfigured).mockReturnValue(false);
+    const off = await (await connect(users.read)).call("check_deploy");
+    expect(off.isError).toBe(true);
+    expect(off.json.error).toMatch(/NETLIFY_AUTH_TOKEN/);
+    vi.mocked(isNetlifyConfigured).mockReturnValue(true);
+    vi.mocked(listDeploys).mockRejectedValue(new Error("Netlify deploys request failed (401)"));
+    const failed = await (await connect(users.read)).call("check_deploy");
+    expect(failed.isError).toBe(true);
+    expect(failed.json.error).toBe("Netlify deploys request failed (401)");
+    vi.mocked(listDeploys).mockRejectedValue("boom");
+    expect((await (await connect(users.read)).call("check_deploy")).json.error).toBe("Netlify check failed");
   });
 });

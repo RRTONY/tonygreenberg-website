@@ -95,7 +95,7 @@ ChatGPT by just adding `<site-origin>/api/mcp` and signing in, with no token to 
 
 | Tool | Role needed | Rules-gated |
 | --- | --- | --- |
-| `get_project_rules`, `list_pending_changes`, `list_change_history` | read | |
+| `get_project_rules`, `list_pending_changes`, `list_change_history`, `check_deploy` | read | |
 | `preview_on_devices` (phone + laptop screenshots, before = live tonygreenberg.com, after = the change's preview) | read | |
 | `github_list_dir`, `github_read_file` | read | |
 | `check_code_quality` (ESLint + CONTRIBUTING.md house-rule patterns) | read | |
@@ -132,6 +132,7 @@ GitHub's checks). Prettier formatting is also left out, because this repo doesn'
 | `GOOGLE_GA_CLIENT_EMAIL`, `GOOGLE_GA_PRIVATE_KEY` | Google service account for `check_analytics` and `search_console_*` (the same `vcos-ga4-reader@...` account ramprate-ui uses; its Cloud project already has the Search Console API on). Keep the key's literal `\n` escapes |
 | `GA4_PROPERTY_ID_TONYGREENBERG` | GA4 property for `check_analytics` (the service account has access; verified 2026-10-02). Since 2026-10-14 these three also feed the essay archive's "Most Read" list (`src/lib/content/most-read.ts`), so they must be set in Netlify for the site itself, not only for MCP |
 | `GOOGLE_API_KEY` | PageSpeed Insights key for `lighthouse_check_page` (no anonymous quota). Restrict it to the PageSpeed Insights API. Not created yet |
+| `NETLIFY_AUTH_TOKEN` | For `check_deploy` (ported from ramprate-ui 2026-10-16): the live site's or a change's preview Netlify builds in plain words (ready / building / failed and why), latest 3. Read-only: `src/lib/admin/netlify-client.ts` only GETs this site's deploys (site id is a constant). Without it the tool says Netlify access isn't set up |
 | `MCP_SITE_ORIGIN` | Optional. The origin `seo_check_page` and `lighthouse_check_page` fetch. `https://tonygreenberg.com` since the DNS cutover (2026-10-16); before it, the Netlify site URL, because the domain still served the legacy app. Don't repoint `NEXT_PUBLIC_SITE_URL` for this, since it also drives canonical URLs |
 
 ## Connecting
