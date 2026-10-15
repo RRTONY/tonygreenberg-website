@@ -130,8 +130,14 @@ export const READ_ONLY_TOOLS = new Set([
   "search_console_sitemaps",
 ]);
 
-// Go live: "write" only.
-export const WRITE_ONLY_TOOLS = new Set(["publish_changes"]);
+// Go live, reach people outside the session, or delete: "write" only (same
+// split as ramprate-ui; create/update_clickup_task need "edit").
+export const WRITE_ONLY_TOOLS = new Set([
+  "publish_changes",
+  "send_email",
+  "create_report",
+  "delete_clickup_task",
+]);
 
 export function canUseTool(role: McpRole, tool: string): boolean {
   if (READ_ONLY_TOOLS.has(tool)) return true;

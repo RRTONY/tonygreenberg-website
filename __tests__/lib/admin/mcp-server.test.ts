@@ -617,3 +617,52 @@ describe("check_deploy", () => {
     expect((await (await connect(users.read)).call("check_deploy")).json.error).toBe("Netlify check failed");
   });
 });
+
+describe("email, report and ClickUp tools", () => {
+  const gated = { rules_version: "rv-current" };
+  const email = { to: "kim@example.com", subject: "Hi", text: "Hello" };
+
+  it("only write users see send_email, create_report and delete_clickup_task; edit users see create/update", async () => {
+    const edit = (await (await connect(users.edit)).client.listTools()).tools.map((t) => t.name);
+    expect(edit).toEqual(expect.arrayContaining(["create_clickup_task", "update_clickup_task"]));
+    for (const t of ["send_email", "create_report", "delete_clickup_task"]) expect(edit, t).not.toContain(t);
+    const read = (await (await connect(users.read)).client.listTools()).tools.map((t) => t.name);
+    for (const t of ["send_email", "create_report", "create_clickup_task", "update_clickup_task", "delete_clickup_task"]) expect(read, t).not.toContain(t);
+  });
+
+  it("marks them as reaching outside the site, delete as destructive, and requires rules_version", async () => {
+    const { tools } = await (await connect(users.write)).client.listTools();
+    const by = Object.fromEntries(tools.map((t) => [t.name, t]));
+    for (const t of ["send_email", "create_report", "create_clickup_task", "update_clickup_task", "delete_clickup_task"]) {
+      expect(by[t].annotations, t).toMatchObject({ openWorldHint: true, readOnlyHint: false });
+      expect(by[t].inputSchema.required, t).toContain("rules_version");
+    }
+    expect(by.delete_clickup_task.annotations?.destructiveHint).toBe(true);
+    expect(by.send_email.annotations?.destructiveHint).toBe(false);
+    expect(by.send_email.inputSchema.required).toEqual(expect.arrayContaining(["to", "subject", "text"]));
+  });
+
+  it("refuses send_email for an edit user even when called directly", async () => {
+    const r = await (await connect(users.edit)).call("send_email", { ...email, ...gated });
+    expect(r.isError).toBe(true);
+    expect(r.json.error).toMatch(/access level \(edit\) doesn't allow send_email/);
+    expect(runAdminTool).not.toHaveBeenCalled();
+  });
+
+  it("refuses send_email without the current rules_version, then runs it without needing a change", async () => {
+    const { call } = await connect(users.write);
+    expect((await call("send_email", email)).json.error).toMatch(/call get_project_rules first/);
+    expect(runAdminTool).not.toHaveBeenCalled();
+    const r = await call("send_email", { ...email, ...gated });
+    expect(r.isError).toBeFalsy();
+    expect(runAdminTool).toHaveBeenCalledWith("send_email", email, expect.anything());
+    expect(cs.markEdited).not.toHaveBeenCalled();
+  });
+
+  it("lets an edit user create a ClickUp task once the rules are read", async () => {
+    const { call } = await connect(users.edit);
+    expect((await call("create_clickup_task", { name: "Fix footer" })).isError).toBe(true);
+    await call("create_clickup_task", { name: "Fix footer", ...gated });
+    expect(runAdminTool).toHaveBeenCalledWith("create_clickup_task", { name: "Fix footer" }, expect.anything());
+  });
+});

@@ -22,13 +22,30 @@ import {
   OPENAI_FILE_SCHEMA,
   resolveBinaryInput,
 } from "@/lib/admin/binary-upload";
+import {
+  CLICKUP_NOT_CONFIGURED,
+  createClickupTask,
+  deleteClickupTask,
+  isClickupConfigured,
+  updateClickupTask,
+  type ClickupTaskFields,
+} from "@/lib/admin/clickup-client";
+import {
+  REPORT_DEFAULTS,
+  generateReportPdf,
+  type ReportDocumentInfo,
+  type ReportSection,
+} from "@/lib/admin/report-pdf";
+import { esc, sendEmail } from "@/lib/email";
 
 // Core tool set ported from ramprate-ui's src/lib/admin/tools.ts: repo file
 // tools (always on an admin/mcp-* branch, never the default branch), Sanity
 // draft tools, and checks. Lighthouse, GA4 and Search Console (read-only)
-// were added 2026-10-02; ramprate's ClickUp/email/report tools are still not
-// ported (they need tokens this site doesn't have, and the PDF report a new
-// dependency).
+// were added 2026-10-02. ClickUp tasks, send_email and create_report (PDF
+// emailed via Resend, @react-pdf/renderer approved by the owner) were added
+// 2026-10-16. ramprate's get_attachment / create_download are not ported:
+// they only work in a chat page with attachments, which ramprate's own MCP
+// server leaves out too and this site doesn't have.
 // Plain JSON-schema objects, handed straight to the MCP SDK's tools/list.
 export const ADMIN_TOOLS = [
   {
@@ -355,6 +372,144 @@ export const ADMIN_TOOLS = [
       required: ["docType", "fields"],
     },
   },
+  {
+    name: "create_clickup_task",
+    description:
+      'Create a task in ClickUp. This is a REAL, immediately-visible task on the live board, not a draft, so confirm the details with the person before calling it. Defaults to the tonygreenberg.com list in the Technology & Web space; pass listId as the alias "tonygreenberg.com" or a raw ClickUp list ID to target a different list. If ClickUp access isn\'t set up on the server, it says so: tell the person to ask the webmaster.',
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        name: { type: "string", description: "Task title." },
+        description: { type: "string" },
+        priority: { type: "string", enum: ["urgent", "high", "normal", "low"] },
+        dueDate: { type: "string", description: "ISO date, e.g. 2026-11-10." },
+        listId: {
+          type: "string",
+          description: 'Alias ("tonygreenberg.com") or a raw ClickUp list ID. Defaults to "tonygreenberg.com".',
+        },
+      },
+      required: ["name"],
+    },
+  },
+  {
+    name: "update_clickup_task",
+    description:
+      "Update an existing ClickUp task's name, description, priority, due date, or status. This changes the REAL, live task immediately, so confirm with the person first.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        taskId: { type: "string", description: "ClickUp task ID." },
+        name: { type: "string" },
+        description: { type: "string" },
+        priority: { type: "string", enum: ["urgent", "high", "normal", "low"] },
+        dueDate: { type: "string", description: "ISO date, e.g. 2026-11-10." },
+        status: {
+          type: "string",
+          description:
+            'The list\'s exact status name (e.g. "to do", "in progress", "complete"). These vary per list, so check the task or list first if unsure.',
+        },
+      },
+      required: ["taskId"],
+    },
+  },
+  {
+    name: "delete_clickup_task",
+    description:
+      "Permanently delete a ClickUp task. This is irreversible on the real, live board, so always confirm with the person before calling this.",
+    input_schema: {
+      type: "object" as const,
+      properties: { taskId: { type: "string", description: "ClickUp task ID." } },
+      required: ["taskId"],
+    },
+  },
+  {
+    name: "send_email",
+    description:
+      "Send a real email via Resend, from a verified @tonygreenberg.com sender. This is a live send, not a draft: confirm the recipient and content with the person before calling this, unless they've explicitly asked for a test send.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        to: {
+          type: "string",
+          description: "Recipient email address (or several, separated by commas).",
+        },
+        subject: { type: "string" },
+        text: { type: "string", description: "Plain-text body." },
+        html: {
+          type: "string",
+          description: "Optional HTML body. Built from text if omitted.",
+        },
+        from: {
+          type: "string",
+          description:
+            'Optional sender on @tonygreenberg.com, e.g. "Tony Greenberg <trust@tonygreenberg.com>". Defaults to the site\'s standard sender.',
+        },
+      },
+      required: ["to", "subject", "text"],
+    },
+  },
+  {
+    name: "create_report",
+    description:
+      "Generate a Tony Greenberg PDF report (dark cover with the Tony Greenberg wordmark, gold accents, page numbers on every page, optional document-info + contents page, paragraphs, bullet lists, numbered steps, callouts, tables) and email it as an attachment via Resend. Confirm the recipients with the person before calling, since this sends an email. Always fixed to the site's own gold / near-black / cream palette, never other colors. Give it structured sections (heading + paragraphs/callout/table), not raw HTML.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        title: { type: "string", description: 'Report title, e.g. "Weekly Traffic Summary".' },
+        subtitle: { type: "string" },
+        date: { type: "string", description: 'Display date, e.g. "October 16, 2026".' },
+        sections: {
+          type: "array",
+          description: "Ordered list of report sections.",
+          items: {
+            type: "object",
+            properties: {
+              heading: { type: "string" },
+              paragraphs: { type: "array", items: { type: "string" } },
+              bullets: { type: "array", items: { type: "string" }, description: "Bulleted list items." },
+              steps: { type: "array", items: { type: "string" }, description: "Numbered steps, in order." },
+              callout: { type: "string" },
+              table: {
+                type: "object",
+                properties: {
+                  headers: { type: "array", items: { type: "string" } },
+                  rows: { type: "array", items: { type: "array", items: { type: "string" } } },
+                },
+              },
+            },
+            required: ["heading"],
+          },
+        },
+        eyebrow: {
+          type: "string",
+          description: `Small gold label above the cover title, e.g. "Internal Guide". Defaults to "${REPORT_DEFAULTS.eyebrow}".`,
+        },
+        preparedBy: {
+          type: "string",
+          description: `Footer credit. Defaults to "${REPORT_DEFAULTS.preparedBy}".`,
+        },
+        documentInfo: {
+          type: "object",
+          description:
+            "Optional. When given, adds a Document information page and a numbered Contents list after the cover (use for manuals, SOPs, guides).",
+          properties: {
+            version: { type: "string" },
+            owner: { type: "string" },
+            audience: { type: "string" },
+            purpose: { type: "string" },
+            classification: { type: "string", description: 'e.g. "Internal use only".' },
+          },
+        },
+        recipients: {
+          type: "array",
+          items: { type: "string" },
+          description: "Email addresses to send the report to.",
+        },
+        emailSubject: { type: "string" },
+      },
+      required: ["title", "subtitle", "date", "sections", "recipients", "emailSubject"],
+    },
+  },
 ];
 
 export interface AdminToolContext {
@@ -371,6 +526,52 @@ export interface AdminToolContext {
 export interface ToolCallResult {
   output: unknown;
   isError?: boolean;
+}
+
+export const EMAIL_NOT_CONFIGURED =
+  "Email isn't set up on the server (RESEND_API_KEY). Ask the webmaster.";
+export const EMAIL_REFUSED =
+  "The email wasn't sent: Resend refused it or couldn't be reached. Nothing went out; try again or ask the webmaster.";
+export const SENDER_DOMAIN = "tonygreenberg.com";
+
+function looksLikeEmail(address: string): boolean {
+  return /^[^\s@<>,;]+@[^\s@<>,;]+\.[^\s@<>,;]+$/.test(address);
+}
+
+// Resend only sends from the verified domain, so refuse any other sender
+// up front with a clear reason. Accepts "Name <x@tonygreenberg.com>" too.
+function isSiteSender(from: string): boolean {
+  const address = (from.match(/<([^>]+)>\s*$/)?.[1] ?? from).trim().toLowerCase();
+  return looksLikeEmail(address) && address.endsWith(`@${SENDER_DOMAIN}`);
+}
+
+function textToHtml(text: string): string {
+  return text
+    .split(/\n{2,}/)
+    .map((para) => `<p>${esc(para).replace(/\n/g, "<br>")}</p>`)
+    .join("\n");
+}
+
+export function reportFilename(title: string): string {
+  const slug = title.replace(/[^a-z0-9]+/gi, "-").replace(/^-+|-+$/g, "");
+  return `${slug || "report"}.pdf`;
+}
+
+// Keeps a value the caller passed on purpose, even an empty string (e.g. to
+// clear a ClickUp description), and drops one that wasn't passed at all.
+function optionalText(value: unknown): string | undefined {
+  return value === undefined || value === null ? undefined : String(value);
+}
+
+async function clickupCall(action: string, fn: () => Promise<unknown>): Promise<ToolCallResult> {
+  try {
+    return { output: await fn() };
+  } catch (err) {
+    return {
+      output: { error: err instanceof Error ? err.message : `Failed to ${action} the ClickUp task` },
+      isError: true,
+    };
+  }
 }
 
 function optionalString(value: unknown): string | undefined {
@@ -730,6 +931,130 @@ export async function runAdminTool(
       }
       ctx.log(`Created Sanity draft ${created._id} (${docType})`);
       return { output: { ok: true, id: created._id } };
+    }
+
+    case "create_clickup_task": {
+      if (!isClickupConfigured()) return { output: { error: CLICKUP_NOT_CONFIGURED }, isError: true };
+      const taskName = String(input.name ?? "").trim();
+      if (!taskName) return { output: { error: "A task name is required." }, isError: true };
+      return clickupCall("create", async () => {
+        const task = await createClickupTask({
+          name: taskName,
+          description: optionalText(input.description),
+          priority: input.priority as ClickupTaskFields["priority"] | undefined,
+          dueDate: optionalText(input.dueDate),
+          listId: optionalText(input.listId),
+        });
+        ctx.log(`Created ClickUp task "${task.name}" (${task.id})`);
+        return { ok: true, ...task };
+      });
+    }
+
+    case "update_clickup_task": {
+      if (!isClickupConfigured()) return { output: { error: CLICKUP_NOT_CONFIGURED }, isError: true };
+      const taskId = String(input.taskId ?? "").trim();
+      if (!taskId) return { output: { error: "A taskId is required." }, isError: true };
+      return clickupCall("update", async () => {
+        const task = await updateClickupTask(taskId, {
+          name: optionalText(input.name),
+          description: optionalText(input.description),
+          priority: input.priority as ClickupTaskFields["priority"] | undefined,
+          dueDate: optionalText(input.dueDate),
+          status: optionalText(input.status),
+        });
+        ctx.log(`Updated ClickUp task "${task.name}" (${task.id})`);
+        return { ok: true, ...task };
+      });
+    }
+
+    case "delete_clickup_task": {
+      if (!isClickupConfigured()) return { output: { error: CLICKUP_NOT_CONFIGURED }, isError: true };
+      const taskId = String(input.taskId ?? "").trim();
+      if (!taskId) return { output: { error: "A taskId is required." }, isError: true };
+      return clickupCall("delete", async () => {
+        await deleteClickupTask(taskId);
+        ctx.log(`Deleted ClickUp task ${taskId}`);
+        return { ok: true, taskId };
+      });
+    }
+
+    case "send_email": {
+      if (!process.env.RESEND_API_KEY) return { output: { error: EMAIL_NOT_CONFIGURED }, isError: true };
+      const to = String(input.to ?? "")
+        .split(",")
+        .map((a) => a.trim())
+        .filter(Boolean);
+      const subject = String(input.subject ?? "").trim();
+      const text = String(input.text ?? "");
+      if (!to.length || !subject || !text.trim()) {
+        return { output: { error: "to, subject, and text are all required." }, isError: true };
+      }
+      const badAddress = to.find((a) => !looksLikeEmail(a));
+      if (badAddress) {
+        return { output: { error: `"${badAddress}" isn't a valid email address.` }, isError: true };
+      }
+      const from = optionalText(input.from)?.trim();
+      if (from && !isSiteSender(from)) {
+        return {
+          output: { error: `The sender must be an @${SENDER_DOMAIN} address (got "${from}").` },
+          isError: true,
+        };
+      }
+      const html = optionalText(input.html) ?? textToHtml(text);
+      const sent = await sendEmail(to.length === 1 ? to[0] : to, subject, html, { text, from });
+      if (!sent) return { output: { error: EMAIL_REFUSED }, isError: true };
+      ctx.log(`Sent email to ${to.join(", ")}: "${subject}"`);
+      return { output: { ok: true, to, subject } };
+    }
+
+    case "create_report": {
+      if (!process.env.RESEND_API_KEY) return { output: { error: EMAIL_NOT_CONFIGURED }, isError: true };
+      const title = String(input.title ?? "").trim();
+      const sections = Array.isArray(input.sections)
+        ? (input.sections as ReportSection[]).filter((s) => s && typeof s === "object" && String(s.heading ?? "").trim())
+        : [];
+      const recipients = Array.isArray(input.recipients)
+        ? input.recipients.map((r) => String(r).trim()).filter(Boolean)
+        : [];
+      const emailSubject = String(input.emailSubject ?? "").trim();
+      if (!title || sections.length === 0 || recipients.length === 0 || !emailSubject) {
+        return {
+          output: { error: "title, sections, recipients, and emailSubject are all required." },
+          isError: true,
+        };
+      }
+      const badAddress = recipients.find((a) => !looksLikeEmail(a));
+      if (badAddress) {
+        return { output: { error: `"${badAddress}" isn't a valid email address.` }, isError: true };
+      }
+      let pdf: Buffer;
+      try {
+        pdf = await generateReportPdf({
+          title,
+          subtitle: String(input.subtitle ?? ""),
+          date: String(input.date ?? ""),
+          sections,
+          eyebrow: optionalString(input.eyebrow),
+          preparedBy: optionalString(input.preparedBy),
+          documentInfo:
+            input.documentInfo && typeof input.documentInfo === "object"
+              ? (input.documentInfo as ReportDocumentInfo)
+              : undefined,
+        });
+      } catch (err) {
+        return {
+          output: { error: `The PDF couldn't be made, so nothing was sent: ${err instanceof Error ? err.message : String(err)}` },
+          isError: true,
+        };
+      }
+      const filename = reportFilename(title);
+      const sent = await sendEmail(recipients, emailSubject, `<p>Attached: ${esc(title)}</p>`, {
+        text: `Attached: ${title}`,
+        attachments: [{ filename, content: pdf.toString("base64") }],
+      });
+      if (!sent) return { output: { error: EMAIL_REFUSED }, isError: true };
+      ctx.log(`Created and emailed report "${title}" to ${recipients.join(", ")}`);
+      return { output: { ok: true, filename, recipients, sizeBytes: pdf.length } };
     }
 
     default:

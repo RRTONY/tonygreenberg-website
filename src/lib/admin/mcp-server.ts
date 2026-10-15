@@ -88,8 +88,12 @@ const MCP_APP_MIME_TYPE = "text/html;profile=mcp-app";
 // 2026-10-02; review card, status and checks, confirm step, file uploads and
 // "Other Pending Changes" synced 2026-10-09). This server only ever edits
 // tonygreenberg.com (RRTONY/tonygreenberg-website). check_deploy (Netlify
-// API, read-only) ported 2026-10-16. Not ported on purpose: ClickUp, email,
-// PDF reports and Prettier.
+// API, read-only) ported 2026-10-16, and the same day send_email,
+// create_report (PDF via @react-pdf/renderer, emailed through Resend) and
+// create/update/delete_clickup_task (they live in tools.ts). Not ported on
+// purpose: Prettier, and get_attachment / create_download (chat-page-only
+// tools that ramprate's own MCP server leaves out; this site has no chat
+// page, and an MCP client reads and saves files with its own tools).
 const CHAT_TOOLS = ADMIN_TOOLS;
 
 const CHANGE_ID_PARAM = "change_id";
@@ -103,7 +107,7 @@ const SESSION_TOOLS = [
   {
     name: "get_project_rules",
     description:
-      "CALL THIS FIRST, before anything else in a conversation. Returns tonygreenberg.com's project rules: AGENTS.md first (the must-follow summary every AI tool reads, plus the Next.js 16 notice), then CONTRIBUTING.md (the full rules: Next.js 16 / Tailwind v4 / shadcn house rules, the Sanity content boundary, image rules, what's banned, review checklist, testing, Status Report), a task guide (which kind of request goes where, what can't be done via this server, what needs a yes), a project structure map, the status block of the main project file, the list of background notes in docs/ai/, and a rulesVersion. Every tool that changes the site or its content requires that rulesVersion as its rules_version argument and refuses to run without it. Read the rules fully and follow them for the rest of the conversation.",
+      "CALL THIS FIRST, before anything else in a conversation. Returns tonygreenberg.com's project rules: AGENTS.md first (the must-follow summary every AI tool reads, plus the Next.js 16 notice), then CONTRIBUTING.md (the full rules: Next.js 16 / Tailwind v4 / shadcn house rules, the Sanity content boundary, image rules, what's banned, review checklist, testing, Status Report), a task guide (which kind of request goes where, what can't be done via this server, what needs a yes), a project structure map, the status block of the main project file, the list of background notes in docs/ai/, and a rulesVersion. Every tool that changes the site or its content, or sends email, requires that rulesVersion as its rules_version argument and refuses to run without it. Read the rules fully and follow them for the rest of the conversation.",
     input_schema: { type: "object" as const, properties: {}, required: [] },
   },
   {
@@ -414,10 +418,18 @@ function fromChangeResult<T extends { ok: boolean }>(result: T) {
 // that change things, delete, or go live get a prompt).
 const DESTRUCTIVE_TOOLS = new Set([
   "github_delete_file",
+  "delete_clickup_task",
   "publish_changes",
   "discard_change",
 ]);
-const OPEN_WORLD_TOOLS = new Set(["publish_changes"]);
+const OPEN_WORLD_TOOLS = new Set([
+  "send_email",
+  "create_report",
+  "create_clickup_task",
+  "update_clickup_task",
+  "delete_clickup_task",
+  "publish_changes",
+]);
 
 function toolAnnotations(name: string) {
   const readOnly = READ_ONLY_TOOLS.has(name);

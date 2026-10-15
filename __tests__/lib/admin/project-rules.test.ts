@@ -128,7 +128,7 @@ describe("withRulesVersionParam and the gated list", () => {
 
   it("gates every tool that changes the site", async () => {
     const { RULES_GATED_TOOLS } = await load();
-    for (const t of ["github_write_file", "github_write_binary_file", "github_delete_file", "sanity_patch_document", "sanity_create_document", "publish_changes", "undo_change", "discard_change", "request_upload_link"]) {
+    for (const t of ["github_write_file", "github_write_binary_file", "github_delete_file", "sanity_patch_document", "sanity_create_document", "publish_changes", "undo_change", "discard_change", "request_upload_link", "send_email", "create_report", "create_clickup_task", "update_clickup_task", "delete_clickup_task"]) {
       expect(RULES_GATED_TOOLS.has(t), t).toBe(true);
     }
     expect(RULES_GATED_TOOLS.has("github_read_file")).toBe(false);

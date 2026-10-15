@@ -30,8 +30,10 @@ function statusBlock(markdown: string): string {
   return markdown.slice(start, end === -1 ? undefined : end).trim();
 }
 
-// Tools that change the site or its content. A connected Claude/ChatGPT
-// session can ignore server instructions, so these refuse to run until the
+// Tools that change the site, its content, the ClickUp board, or email
+// someone. (ramprate-ui gates send_email and create_report but not ClickUp;
+// here every tool that changes anything is gated, so the ClickUp ones are
+// too.) A connected Claude/ChatGPT session can ignore server instructions, so these refuse to run until the
 // caller proves it loaded the current rules by echoing back the rulesVersion
 // from get_project_rules. Stateless by design (no session memory on
 // Netlify): the proof travels with each call instead.
@@ -48,6 +50,11 @@ export const RULES_GATED_TOOLS = new Set([
   "publish_changes",
   "discard_change",
   "undo_change",
+  "send_email",
+  "create_report",
+  "create_clickup_task",
+  "update_clickup_task",
+  "delete_clickup_task",
 ]);
 
 export const RULES_VERSION_PARAM = "rules_version";

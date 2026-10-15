@@ -109,14 +109,36 @@ ChatGPT by just adding `<site-origin>/api/mcp` and signing in, with no token to 
 | `sanity_patch_document`, `sanity_create_document` | edit | yes |
 | `start_change`, `confirm_change`, `submit_for_review`, `discard_change`, `undo_change` | edit | yes |
 | `request_upload_link` (private 30-minute page to drop a file into one change) | edit | yes |
+| `create_clickup_task`, `update_clickup_task` (real tasks on the live ClickUp board; default list tonygreenberg.com) | edit | yes |
+| `delete_clickup_task` (permanent) | write | yes |
+| `send_email` (live send via Resend, sender must be @tonygreenberg.com) | write | yes |
+| `create_report` (Tony Greenberg PDF report, emailed as an attachment via Resend) | write | yes |
 | `publish_changes` (one change, with its `review_token`) | write | yes |
 
 GA4, Search Console and Lighthouse were ported 2026-10-02 (`google-auth.ts`, `ga4-client.ts`,
 `gsc-client.ts`, `lighthouse-check.ts`), all read-only: unlike ramprate-ui, `search_console_sitemaps`
-can't submit or delete. Still not ported: ClickUp and email (need `CLICKUP_API_TOKEN` /
-`RESEND_API_KEY` and a verified sender, none set up for this site), PDF reports (a new dependency,
-`@react-pdf/renderer`), `check_deploy` (Netlify API; the review already reads Netlify's build from
-GitHub's checks). Prettier formatting is also left out, because this repo doesn't use Prettier.
+can't submit or delete. `check_deploy` (Netlify API, read-only) was ported 2026-10-16.
+
+**Email, PDF reports and ClickUp** were ported from ramprate-ui on 2026-10-16 (owner's yes,
+including the one new dependency `@react-pdf/renderer`). They live in `tools.ts`; helpers are
+`clickup-client.ts` and `report-pdf.tsx`. Email reuses the site's `src/lib/email.ts` (no second
+Resend client): `sendEmail` gained an optional fourth argument (`text`, `from`, `attachments`) and
+accepts several recipients; every site form still calls it the old way. Same safety rules as
+ramprate-ui: `send_email`, `create_report` and `delete_clickup_task` need the write role, the
+others edit; every description tells the AI to confirm recipients / task details with the person
+first; there's no recipient allowlist in ramprate-ui either. Differences from ramprate-ui: the
+ClickUp tools are rules-gated too (here every tool that changes something is), `send_email`
+refuses a sender that isn't @tonygreenberg.com and an address that doesn't look like one, a
+missing `RESEND_API_KEY` / `CLICKUP_API_TOKEN` gives a plain "isn't set up, ask the webmaster"
+message, and the only ClickUp list alias is `tonygreenberg.com` (raw list ids still work). The
+report has no logo (the site has no logo file): a "Tony Greenberg" wordmark on the dark cover, the
+site's gold / near-black / cream palette, page numbers, optional document-info + contents page.
+
+**Not ported:** `get_attachment` and `create_download`. They hand files in and out of a chat page
+(attachments on a chat message, a download in the chat), which ramprate-ui's own MCP server leaves
+out (`EXCLUDED_FROM_MCP`) and this site doesn't have; an MCP client reads and saves files with its
+own tools (files come in through `github_write_binary_file` / `request_upload_link`). Prettier
+formatting is also left out, because this repo doesn't use Prettier.
 
 ## Env vars (set in Netlify's dashboard, not just `.env.local`)
 
@@ -133,6 +155,8 @@ GitHub's checks). Prettier formatting is also left out, because this repo doesn'
 | `GA4_PROPERTY_ID_TONYGREENBERG` | GA4 property for `check_analytics` (the service account has access; verified 2026-10-02). Since 2026-10-14 these three also feed the essay archive's "Most Read" list (`src/lib/content/most-read.ts`), so they must be set in Netlify for the site itself, not only for MCP |
 | `GOOGLE_API_KEY` | PageSpeed Insights key for `lighthouse_check_page` (no anonymous quota). Restrict it to the PageSpeed Insights API. Not created yet |
 | `NETLIFY_AUTH_TOKEN` | For `check_deploy` (ported from ramprate-ui 2026-10-16): the live site's or a change's preview Netlify builds in plain words (ready / building / failed and why), latest 3. Read-only: `src/lib/admin/netlify-client.ts` only GETs this site's deploys (site id is a constant). Without it the tool says Netlify access isn't set up |
+| `RESEND_API_KEY` | Already set for the site's forms. Since 2026-10-16 also used by `send_email` and `create_report`; without it they say email isn't set up |
+| `CLICKUP_API_TOKEN` | ClickUp personal token for `create/update/delete_clickup_task` (2026-10-16). **Not set yet.** Without it those tools say ClickUp access isn't set up and never call ClickUp |
 | `MCP_SITE_ORIGIN` | Optional. The origin `seo_check_page` and `lighthouse_check_page` fetch. `https://tonygreenberg.com` since the DNS cutover (2026-10-16); before it, the Netlify site URL, because the domain still served the legacy app. Don't repoint `NEXT_PUBLIC_SITE_URL` for this, since it also drives canonical URLs |
 
 ## Connecting
@@ -207,7 +231,7 @@ ramprate-ui's three MCP updates since our 2026-10-02 copy (its #46, "attached fi
 Pending Changes"), plus the review card we had left out, were merged in: a three-way merge per file
 (base = ramprate-ui `39bc3da`, the version we copied), keeping every tonygreenberg.com difference.
 `mcp-server.ts` was taken from ramprate-ui and re-adapted (our rules text, `migrationStatus`, no
-`check_deploy`/ClickUp/email).
+`check_deploy`/ClickUp/email; all three were ported later, on 2026-10-16).
 
 - **One status, one next step, one button row:** `reviewOutcome` in `change-describe.ts` gives each
   change a single state (Waiting for your OK, Working, Checking, Ready for review, Failed, Stuck,

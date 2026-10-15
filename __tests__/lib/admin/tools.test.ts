@@ -7,7 +7,19 @@ import { checkLighthouse } from "@/lib/admin/lighthouse-check";
 import { getSearchPerformance, inspectUrls, listSitemaps, listSites } from "@/lib/admin/gsc-client";
 import { checkPageSeo } from "@/lib/admin/seo-check";
 import { checkCode } from "@/lib/admin/code-check";
-import { ADMIN_TOOLS, normalizeRepoPath, runAdminTool, waitForChecks, type AdminToolContext } from "@/lib/admin/tools";
+import {
+  ADMIN_TOOLS,
+  EMAIL_NOT_CONFIGURED,
+  EMAIL_REFUSED,
+  normalizeRepoPath,
+  reportFilename,
+  runAdminTool,
+  waitForChecks,
+  type AdminToolContext,
+} from "@/lib/admin/tools";
+import { sendEmail } from "@/lib/email";
+import { generateReportPdf } from "@/lib/admin/report-pdf";
+import { CLICKUP_NOT_CONFIGURED } from "@/lib/admin/clickup-client";
 import { READ_ONLY_TOOLS } from "@/lib/admin/mcp-auth";
 import { RULES_GATED_TOOLS } from "@/lib/admin/project-rules";
 
@@ -36,6 +48,11 @@ vi.mock("@/lib/admin/gsc-client", async (orig) => ({
   inspectUrls: vi.fn(async () => ({})),
   listSitemaps: vi.fn(async () => ({})),
   listSites: vi.fn(async () => []),
+}));
+
+vi.mock("@/lib/admin/report-pdf", async (orig) => ({
+  ...(await orig<typeof import("@/lib/admin/report-pdf")>()),
+  generateReportPdf: vi.fn(async () => Buffer.from("%PDF-1.3 fake")),
 }));
 
 function makeCtx(over: Partial<AdminToolContext> = {}): AdminToolContext {
@@ -405,5 +422,198 @@ describe("sanity_get_document and create titles", () => {
     expect(ctx.claimContent).toHaveBeenCalledWith({ id: "new1", type: "author", title: "Kim", isNew: true });
     expect(ctx.log).toHaveBeenCalledWith("Created Sanity draft drafts.new1 (author)");
     expect(deleteDraft).not.toHaveBeenCalled();
+  });
+});
+
+describe("send_email", () => {
+  const email = { to: "kim@example.com", subject: "Hello", text: "Line one\nLine two\n\nNew <para>" };
+  beforeEach(() => {
+    vi.stubEnv("RESEND_API_KEY", "re_test");
+  });
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
+  it("sends through the site's email helper with an HTML body built from the text", async () => {
+    const r = await runAdminTool("send_email", email, ctx);
+    expect(r).toEqual({ output: { ok: true, to: ["kim@example.com"], subject: "Hello" } });
+    expect(sendEmail).toHaveBeenCalledWith("kim@example.com", "Hello", "<p>Line one<br>Line two</p>\n<p>New &lt;para&gt;</p>", {
+      text: email.text,
+      from: undefined,
+    });
+    expect(ctx.log).toHaveBeenCalledWith('Sent email to kim@example.com: "Hello"');
+  });
+
+  it("passes several recipients, the given HTML and an @tonygreenberg.com sender", async () => {
+    await runAdminTool("send_email", { ...email, to: "a@x.com, b@y.org", html: "<b>Hi</b>", from: "Tony <TONY@tonygreenberg.com>" }, ctx);
+    expect(sendEmail).toHaveBeenCalledWith(["a@x.com", "b@y.org"], "Hello", "<b>Hi</b>", { text: email.text, from: "Tony <TONY@tonygreenberg.com>" });
+  });
+
+  it("refuses a sender outside tonygreenberg.com, a bad address, or missing fields, and sends nothing", async () => {
+    for (const from of ["boss@ramprate.com", "Tony <tony@tonygreenberg.com.evil.io>", "not-an-address"]) {
+      const r = await runAdminTool("send_email", { ...email, from }, ctx);
+      expect(r.isError, from).toBe(true);
+      expect(String((r.output as { error: string }).error)).toMatch(/must be an @tonygreenberg\.com address/);
+    }
+    const bad = await runAdminTool("send_email", { ...email, to: "kim@example.com, oops" }, ctx);
+    expect(bad).toEqual({ output: { error: '"oops" isn\'t a valid email address.' }, isError: true });
+    for (const missing of ["to", "subject", "text"]) {
+      const r = await runAdminTool("send_email", { ...email, [missing]: " " }, ctx);
+      expect(r).toEqual({ output: { error: "to, subject, and text are all required." }, isError: true });
+    }
+    expect(sendEmail).not.toHaveBeenCalled();
+  });
+
+  it("says plainly when email isn't set up, without trying to send", async () => {
+    vi.stubEnv("RESEND_API_KEY", "");
+    expect(await runAdminTool("send_email", email, ctx)).toEqual({ output: { error: EMAIL_NOT_CONFIGURED }, isError: true });
+    expect(EMAIL_NOT_CONFIGURED).toMatch(/RESEND_API_KEY/);
+    expect(sendEmail).not.toHaveBeenCalled();
+  });
+
+  it("reports a refused send as an error", async () => {
+    vi.mocked(sendEmail).mockResolvedValue(false);
+    expect(await runAdminTool("send_email", email, ctx)).toEqual({ output: { error: EMAIL_REFUSED }, isError: true });
+    expect(ctx.log).not.toHaveBeenCalled();
+  });
+});
+
+describe("create_report", () => {
+  const report = {
+    title: "Weekly Traffic: Oct 16",
+    subtitle: "First week live",
+    date: "October 16, 2026",
+    sections: [{ heading: "Highlights", paragraphs: ["Steady."] }, { heading: "  " }, null],
+    recipients: ["tony@example.com", " kim@example.com "],
+    emailSubject: "This week's report",
+  };
+  beforeEach(() => {
+    vi.stubEnv("RESEND_API_KEY", "re_test");
+  });
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
+  it("renders the PDF from the real sections and emails it as an attachment", async () => {
+    const r = await runAdminTool("create_report", { ...report, eyebrow: "Internal Guide", documentInfo: { owner: "Tony" } }, ctx);
+    expect(r).toEqual({
+      output: { ok: true, filename: "Weekly-Traffic-Oct-16.pdf", recipients: ["tony@example.com", "kim@example.com"], sizeBytes: 13 },
+    });
+    expect(generateReportPdf).toHaveBeenCalledWith({
+      title: "Weekly Traffic: Oct 16",
+      subtitle: "First week live",
+      date: "October 16, 2026",
+      sections: [{ heading: "Highlights", paragraphs: ["Steady."] }],
+      eyebrow: "Internal Guide",
+      preparedBy: undefined,
+      documentInfo: { owner: "Tony" },
+    });
+    expect(sendEmail).toHaveBeenCalledWith(["tony@example.com", "kim@example.com"], "This week's report", "<p>Attached: Weekly Traffic: Oct 16</p>", {
+      text: "Attached: Weekly Traffic: Oct 16",
+      attachments: [{ filename: "Weekly-Traffic-Oct-16.pdf", content: Buffer.from("%PDF-1.3 fake").toString("base64") }],
+    });
+    expect(ctx.log).toHaveBeenCalledWith('Created and emailed report "Weekly Traffic: Oct 16" to tony@example.com, kim@example.com');
+  });
+
+  it("refuses missing fields or a bad recipient before making anything", async () => {
+    for (const over of [{ title: "" }, { sections: [] }, { sections: "nope" }, { recipients: [] }, { recipients: "tony@example.com" }, { emailSubject: "" }]) {
+      const r = await runAdminTool("create_report", { ...report, ...over }, ctx);
+      expect(r, JSON.stringify(over)).toEqual({ output: { error: "title, sections, recipients, and emailSubject are all required." }, isError: true });
+    }
+    const bad = await runAdminTool("create_report", { ...report, recipients: ["tony"] }, ctx);
+    expect(bad).toEqual({ output: { error: '"tony" isn\'t a valid email address.' }, isError: true });
+    expect(generateReportPdf).not.toHaveBeenCalled();
+    expect(sendEmail).not.toHaveBeenCalled();
+  });
+
+  it("says plainly when email isn't set up", async () => {
+    vi.stubEnv("RESEND_API_KEY", "");
+    expect(await runAdminTool("create_report", report, ctx)).toEqual({ output: { error: EMAIL_NOT_CONFIGURED }, isError: true });
+    expect(generateReportPdf).not.toHaveBeenCalled();
+  });
+
+  it("sends nothing when the PDF fails, and reports a refused send", async () => {
+    vi.mocked(generateReportPdf).mockRejectedValue(new Error("font missing"));
+    const failed = await runAdminTool("create_report", report, ctx);
+    expect(failed).toEqual({ output: { error: "The PDF couldn't be made, so nothing was sent: font missing" }, isError: true });
+    vi.mocked(generateReportPdf).mockRejectedValue("boom");
+    expect(String(((await runAdminTool("create_report", report, ctx)).output as { error: string }).error)).toMatch(/: boom$/);
+    expect(sendEmail).not.toHaveBeenCalled();
+    vi.mocked(generateReportPdf).mockResolvedValue(Buffer.from("%PDF"));
+    vi.mocked(sendEmail).mockResolvedValue(false);
+    expect(await runAdminTool("create_report", report, ctx)).toEqual({ output: { error: EMAIL_REFUSED }, isError: true });
+  });
+
+  it("makes a safe file name from the title", () => {
+    expect(reportFilename("  SEO / audit: Q4 ")).toBe("SEO-audit-Q4.pdf");
+    expect(reportFilename("???")).toBe("report.pdf");
+  });
+});
+
+describe("ClickUp tools", () => {
+  const task = { id: "86abc", name: "Fix footer", url: "https://app.clickup.com/t/86abc", status: { status: "to do" } };
+  let fetchMock: ReturnType<typeof vi.fn>;
+  beforeEach(() => {
+    vi.stubEnv("CLICKUP_API_TOKEN", "pk_test");
+    fetchMock = vi.fn(async () => new Response(JSON.stringify(task)));
+    vi.stubGlobal("fetch", fetchMock);
+  });
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+  const sent = (i = 0) => {
+    const [url, init] = fetchMock.mock.calls[i] as unknown as [string, RequestInit];
+    return { url, method: init.method, auth: (init.headers as Record<string, string>).Authorization, body: init.body ? JSON.parse(init.body as string) : undefined };
+  };
+
+  it("create_clickup_task posts the task to the tonygreenberg.com list", async () => {
+    const r = await runAdminTool("create_clickup_task", { name: " Fix footer ", description: "Grey links", priority: "low", dueDate: "2026-11-01" }, ctx);
+    expect(r).toEqual({ output: { ok: true, id: "86abc", name: "Fix footer", url: "https://app.clickup.com/t/86abc", status: "to do" } });
+    expect(sent()).toEqual({
+      url: "https://api.clickup.com/api/v2/list/901114763560/task",
+      method: "POST",
+      auth: "pk_test",
+      body: { name: "Fix footer", description: "Grey links", priority: 4, due_date: Date.parse("2026-11-01") },
+    });
+    expect(ctx.log).toHaveBeenCalledWith('Created ClickUp task "Fix footer" (86abc)');
+  });
+
+  it("update_clickup_task PUTs only the fields given", async () => {
+    await runAdminTool("update_clickup_task", { taskId: "86abc", status: "complete" }, ctx);
+    expect(sent()).toMatchObject({ url: "https://api.clickup.com/api/v2/task/86abc", method: "PUT", body: { status: "complete" } });
+    expect(ctx.log).toHaveBeenCalledWith('Updated ClickUp task "Fix footer" (86abc)');
+  });
+
+  it("delete_clickup_task deletes that task", async () => {
+    expect(await runAdminTool("delete_clickup_task", { taskId: "86abc" }, ctx)).toEqual({ output: { ok: true, taskId: "86abc" } });
+    expect(sent()).toMatchObject({ url: "https://api.clickup.com/api/v2/task/86abc", method: "DELETE" });
+    expect(ctx.log).toHaveBeenCalledWith("Deleted ClickUp task 86abc");
+  });
+
+  it("refuses a missing name or task id", async () => {
+    expect(await runAdminTool("create_clickup_task", { name: " " }, ctx)).toEqual({ output: { error: "A task name is required." }, isError: true });
+    for (const tool of ["update_clickup_task", "delete_clickup_task"]) {
+      expect(await runAdminTool(tool, {}, ctx), tool).toEqual({ output: { error: "A taskId is required." }, isError: true });
+    }
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it.each(["create_clickup_task", "update_clickup_task", "delete_clickup_task"])("%s says plainly when ClickUp isn't set up and never calls it", async (tool) => {
+    vi.stubEnv("CLICKUP_API_TOKEN", "");
+    const r = await runAdminTool(tool, { name: "x", taskId: "1" }, ctx);
+    expect(r).toEqual({ output: { error: CLICKUP_NOT_CONFIGURED }, isError: true });
+    expect(CLICKUP_NOT_CONFIGURED).toMatch(/CLICKUP_API_TOKEN/);
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it.each([
+    ["create_clickup_task", { name: "x" }, "Failed to create the ClickUp task"],
+    ["update_clickup_task", { taskId: "1" }, "Failed to update the ClickUp task"],
+    ["delete_clickup_task", { taskId: "1" }, "Failed to delete the ClickUp task"],
+  ])("%s passes on ClickUp's error", async (tool, input, fallback) => {
+    fetchMock.mockResolvedValue(new Response(JSON.stringify({ err: "Task not found" }), { status: 404 }));
+    expect(await runAdminTool(tool, input, ctx)).toEqual({ output: { error: "Task not found" }, isError: true });
+    fetchMock.mockRejectedValue("offline");
+    expect(await runAdminTool(tool, input, ctx)).toEqual({ output: { error: fallback }, isError: true });
   });
 });

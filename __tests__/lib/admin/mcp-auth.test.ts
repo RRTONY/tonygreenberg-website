@@ -143,6 +143,19 @@ describe("canUseTool", () => {
 
   it("no rules-gated (site-changing) tool is classed as read-only", () => {
     for (const tool of RULES_GATED_TOOLS) expect(READ_ONLY_TOOLS.has(tool), tool).toBe(false);
-    expect(WRITE_ONLY_TOOLS).toEqual(new Set(["publish_changes"]));
+    expect(WRITE_ONLY_TOOLS).toEqual(new Set(["publish_changes", "send_email", "create_report", "delete_clickup_task"]));
+  });
+
+  it("sending email and deleting ClickUp tasks need write; creating and updating tasks need edit", () => {
+    for (const tool of ["send_email", "create_report", "delete_clickup_task"]) {
+      expect(canUseTool("read", tool), tool).toBe(false);
+      expect(canUseTool("edit", tool), tool).toBe(false);
+      expect(canUseTool("write", tool), tool).toBe(true);
+    }
+    for (const tool of ["create_clickup_task", "update_clickup_task"]) {
+      expect(canUseTool("read", tool), tool).toBe(false);
+      expect(canUseTool("edit", tool), tool).toBe(true);
+      expect(canUseTool("write", tool), tool).toBe(true);
+    }
   });
 });
