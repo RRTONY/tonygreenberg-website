@@ -24,6 +24,7 @@ describe("GrantStudyQuiz", () => {
   beforeEach(() => {
     vi.stubGlobal("fetch", vi.fn(async () => new Response("{}")));
   });
+
   it("answers all 25 questions and shows the overall score, strength and growth edge", async () => {
     const user = userEvent.setup();
     render(<GrantStudyQuiz />);

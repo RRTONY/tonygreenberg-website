@@ -197,7 +197,8 @@ export const LINK_MAP: Record<string, string> = {
  * matches (`{ text, href }`), longest-name-first, respecting word
  * boundaries so e.g. "Meta" doesn't match inside "Meta-Pattern". Each
  * entity links at most once per call. Ported from legacy's
- * `autoLinkText` — same algorithm, unchanged.
+ * `autoLinkText` — same algorithm, except a name whose first appearance sits
+ * inside a longer word is still linked at its next stand-alone mention.
  */
 export type AutoLinkSegment = string | { text: string; href: string };
 
@@ -212,15 +213,20 @@ export function autoLinkSegments(text: string): AutoLinkSegment[] {
 
     for (const key of sortedKeys) {
       if (usedLinks.has(key)) continue;
-      const idx = remaining.indexOf(key);
-      if (idx !== -1 && (earliestMatch === null || idx < earliestMatch.index)) {
+      // First stand-alone occurrence: skip past any that sit inside a longer
+      // word (legacy only checked the very first one, so "RampRate-ish and
+      // RampRate" never linked the second mention).
+      let idx = remaining.indexOf(key);
+      while (idx !== -1) {
         const charBefore = idx > 0 ? remaining[idx - 1] : " ";
         const charAfter = idx + key.length < remaining.length ? remaining[idx + key.length] : " ";
         const isWordBoundaryBefore = /[\s,.:;!?()[\]"'\n]/.test(charBefore) || idx === 0;
         const isWordBoundaryAfter = /[\s,.:;!?()[\]"'\n]/.test(charAfter) || idx + key.length === remaining.length;
-        if (isWordBoundaryBefore && isWordBoundaryAfter) {
-          earliestMatch = { index: idx, key, href: LINK_MAP[key] };
-        }
+        if (isWordBoundaryBefore && isWordBoundaryAfter) break;
+        idx = remaining.indexOf(key, idx + 1);
+      }
+      if (idx !== -1 && (earliestMatch === null || idx < earliestMatch.index)) {
+        earliestMatch = { index: idx, key, href: LINK_MAP[key] };
       }
     }
 

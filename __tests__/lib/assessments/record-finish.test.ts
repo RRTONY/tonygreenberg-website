@@ -8,9 +8,11 @@ describe("recordFinish", () => {
   beforeEach(() => {
     vi.useFakeTimers();
   });
+
   afterEach(() => {
     vi.useRealTimers();
   });
+
   it("sends nothing until the 1.5s merge window passes", () => {
     recordFinish({ assessment: "quiz-a", score: 3 });
     vi.advanceTimersByTime(1499);

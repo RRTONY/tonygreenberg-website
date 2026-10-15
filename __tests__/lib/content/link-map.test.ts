@@ -43,9 +43,9 @@ describe("autoLinkSegments", () => {
     expect(autoLinkSegments("(Meta)")).toEqual(["(", { text: "Meta", href: LINK_MAP.Meta }, ")"]);
   });
 
-  // Only the first occurrence of each name is checked; when that one sits
-  // inside a longer word, a later stand-alone mention is never linked.
-  it.fails("BUG: a name is not linked when its first appearance is inside another word", () => {
+  // Fixed 2026-10-16: only the first occurrence of each name used to be
+  // checked, so a later stand-alone mention was never linked.
+  it("still links a name whose first appearance is inside another word", () => {
     expect(autoLinkSegments("RampRate-ish and RampRate")).toContainEqual({ text: "RampRate", href: "https://ramprate.com" });
   });
 });

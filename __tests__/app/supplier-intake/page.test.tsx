@@ -6,6 +6,7 @@ vi.mock("@/app/supplier-intake/actions", () => ({ submitSupplierIntake: vi.fn() 
 afterEach(() => {
   vi.unstubAllEnvs();
 });
+
 describe("/supplier-intake", () => {
   it("has an absolute title, description, canonical and share title", () => {
     expect(metadata.title).toEqual({ absolute: "Supplier Application — Peptide Supply Partner (Stage 1)" });

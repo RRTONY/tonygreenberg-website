@@ -94,7 +94,7 @@ describe("PrescriptionWizard", () => {
     expect(screen.getAllByRole("link").some((a) => a.textContent?.startsWith("Purity Coffee"))).toBe(true);
   });
 
-  it.fails("BUG: anxiety relief keeps the visitor's total cups (3 a day becomes 1 caf + 2 decaf, but the wizard prescribes 1 + 1)", async () => {
+  it("anxiety relief keeps the visitor's total cups (3 a day becomes 1 caf + 2 decaf, but the wizard prescribes 1 + 1)", async () => {
     const user = userEvent.setup();
     render(<PrescriptionWizard />);
     await walk(user, { health: [/Reduce anxiety/] });

@@ -18,6 +18,7 @@ describe("/essays", () => {
   beforeEach(() => {
     vi.mocked(sanityFetch).mockResolvedValue(POSTS);
   });
+
   it("has its own title, description and canonical", () => {
     expect(metadata.title).toBe("Essays");
     expect(metadata.description).toMatch(/enterprise technology, psychedelic medicine, regenerative capital/);

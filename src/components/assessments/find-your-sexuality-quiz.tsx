@@ -177,8 +177,20 @@ interface Archetype {
   note: string;
 }
 
-function getArchetype(scores: Record<Dimension, number>): Archetype {
-  const { attraction, behavior, identity, fantasy, emotional, fluidity } = scores;
+// Every option scores its dimensions on one 0-6 scale (1 = a different gender, 6 = the same gender,
+// 3-4 = across genders, 0 = little or no sexual pull), and the thresholds below are on that same
+// scale. So each of the five orientation dimensions is the AVERAGE of the answers that scored it,
+// not the sum: summing over 16 questions put almost everyone above 5 (fixed 2026-10-16; legacy had
+// the same bug, and "exclusively a different gender" every time showed The Lighthouse). Fluidity is
+// the one dimension the thresholds read as a running total (10 / 20), so it stays summed.
+function getArchetype(scores: Record<Dimension, number>, counts: Record<Dimension, number>): Archetype {
+  const average = (dim: Dimension) => (counts[dim] > 0 ? scores[dim] / counts[dim] : 0);
+  const attraction = average("attraction");
+  const behavior = average("behavior");
+  const identity = average("identity");
+  const fantasy = average("fantasy");
+  const emotional = average("emotional");
+  const { fluidity } = scores;
   const total = attraction + behavior + identity + fantasy + emotional;
   const avg = total / 5;
 
@@ -289,17 +301,24 @@ export function FindYourSexualityQuiz() {
   const [emailGated, setEmailGated] = useState(false);
   const [step, setStep] = useState(0);
   const [scores, setScores] = useState(INITIAL_SCORES);
+  // How many answers scored each dimension, so getArchetype can average them.
+  const [counts, setCounts] = useState(INITIAL_SCORES);
   const { markComplete } = useJourneyProgress();
 
   const handleAnswer = (score: Partial<Record<Dimension, number>>) => {
     const next = { ...scores };
-    for (const dim in score) next[dim as Dimension] += score[dim as Dimension] ?? 0;
+    const nextCounts = { ...counts };
+    for (const dim in score) {
+      next[dim as Dimension] += score[dim as Dimension] ?? 0;
+      nextCounts[dim as Dimension] += 1;
+    }
     setScores(next);
+    setCounts(nextCounts);
     if (step < QUESTIONS.length - 1) setStep(step + 1);
     else setPhase("results");
   };
 
-  const archetype = getArchetype(scores);
+  const archetype = getArchetype(scores, counts);
 
   useEffect(() => {
     // Only the finish is saved, not the result: orientation is sensitive

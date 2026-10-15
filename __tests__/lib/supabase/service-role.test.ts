@@ -10,6 +10,7 @@ describe("service-role Supabase client", () => {
   afterEach(() => {
     vi.unstubAllEnvs();
   });
+
   it("is configured only when both the URL and service key are set", () => {
     expect(isServiceRoleConfigured()).toBe(true);
     vi.stubEnv("SUPABASE_SERVICE_ROLE_KEY", "");

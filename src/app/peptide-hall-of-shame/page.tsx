@@ -18,12 +18,6 @@ import { CRITERIA } from "@/lib/content/peptide-criteria";
 // The hero background is live's own art, rescued into Sanity on 2026-10-07
 // (docs/ai/manus-media-rescue.md), shown at live's 15% opacity, blurred and
 // dimmed, over the dark gradient.
-export const metadata: Metadata = {
-  title: "Peptide Assessment Hall of Shame — How 20 US Clinics Score",
-  description:
-    "We audited 20 peptide clinics and providers across the US on 6 clinical criteria. The results are damning: average score 93/100 (where 100 is worst).",
-  alternates: { canonical: "/peptide-hall-of-shame" },
-};
 
 const CLINICS: Clinic[] = [
   { name: "Admire Medical", url: "https://www.admiremedical.com/peptides", questions: 19, score: 40, type: "Intake form", contraindications: true, goals: true, personalized: false, evidence: false, medicalHistory: true, disclaimer: true, weaknesses: "No immediate personalized results — it's a lead-in to a paid consultation. No citation of evidence.", strengths: "Good safety screening. Asks about contraindications, medical history, and health goals. Comprehensive intake." },
@@ -48,14 +42,24 @@ const CLINICS: Clinic[] = [
   { name: "AgelessRx", url: "https://www.agelessrx.com", questions: 0, score: 100, type: "No assessment", contraindications: false, goals: false, personalized: false, evidence: true, medicalHistory: true, disclaimer: false, weaknesses: "No upfront assessment. Requires paid consultation.", strengths: "Cites evidence. Collects medical history during consultation." },
 ];
 
+// Worked out from the clinics above so the search description can't drift from
+// the page (it said 93 while the clinics average 95; owner, 2026-10-16).
+const AVG_SCORE = Math.round(CLINICS.reduce((s, c) => s + c.score, 0) / CLINICS.length);
+
+export const metadata: Metadata = {
+  title: "Peptide Assessment Hall of Shame — How 20 US Clinics Score",
+  description:
+    `We audited 20 peptide clinics and providers across the US on 6 clinical criteria. The results are damning: average score ${AVG_SCORE}/100 (where 100 is worst).`,
+  alternates: { canonical: "/peptide-hall-of-shame" },
+};
+
 export default function PeptideHallOfShamePage() {
-  const avgScore = Math.round(CLINICS.reduce((s, c) => s + c.score, 0) / CLINICS.length);
   const withAssessment = CLINICS.filter((c) => c.questions > 0).length;
   const withContraindications = CLINICS.filter((c) => c.contraindications).length;
   const withEvidence = CLINICS.filter((c) => c.evidence).length;
 
   const stats = [
-    { value: `${avgScore}/100`, label: "Average Score", sub: "(100 = worst)" },
+    { value: `${AVG_SCORE}/100`, label: "Average Score", sub: "(100 = worst)" },
     { value: `${withAssessment}/20`, label: "Have Any Assessment", sub: "" },
     { value: `${withContraindications}/20`, label: "Screen Contraindications", sub: "" },
     { value: `${withEvidence}/20`, label: "Cite Evidence", sub: "" },

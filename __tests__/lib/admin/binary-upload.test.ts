@@ -29,9 +29,11 @@ beforeEach(() => {
   );
   vi.spyOn(console, "error").mockImplementation(() => {});
 });
+
 afterEach(() => {
   vi.unstubAllEnvs();
 });
+
 describe("checkFileMatchesPath", () => {
   it("accepts files whose bytes match their extension", () => {
     expect(checkFileMatchesPath("public/a.png", PNG)).toBeNull();
@@ -153,11 +155,11 @@ describe("upload grants", () => {
     expect(readUploadGrant(token)).toBeNull();
   });
 
-  // binary-upload.ts:240-242: a token-only user (no email) is rebuilt from the
-  // grant itself, never looked up again, so the "re-checks the person on use"
-  // promise in the comment above readUploadGrant doesn't hold for them.
-  it.fails("BUG: a token-only user removed from MCP_ADMIN_USERS can still use an upload link", () => {
+  // Fixed 2026-10-16: a token-only user (no email) used to be rebuilt from the
+  // grant itself and never looked up again.
+  it("refuses a token-only user removed from MCP_ADMIN_USERS", () => {
     const { token } = signUploadGrant("abc", "p.png", { name: "Bot", email: "", role: "edit" });
+    expect(readUploadGrant(token)).toMatchObject({ user: { name: "Bot", email: "", role: "edit" } });
     vi.stubEnv("MCP_ADMIN_USERS", "[]");
     expect(readUploadGrant(token)).toBeNull();
   });

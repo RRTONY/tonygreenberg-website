@@ -14,11 +14,11 @@ vi.mock("@/app/assessments/actions", () => ({
 const TOTAL = 25;
 type User = ReturnType<typeof userEvent.setup>;
 
-async function walk(user: User, index: number) {
+async function walk(user: User, index: number | number[]) {
   await user.click(screen.getByRole("button", { name: /begin assessment/i }));
   for (let i = 0; i < TOTAL; i++) {
     expect(screen.getByText(`${i + 1} / ${TOTAL}`)).toBeInTheDocument();
-    await user.click(screen.getAllByRole("button")[index]);
+    await user.click(screen.getAllByRole("button")[typeof index === "number" ? index : index[i]]);
   }
   await user.type(screen.getByPlaceholderText("Your email address"), "me@example.com");
   await user.click(screen.getByRole("button", { name: /get my results/i }));
@@ -28,6 +28,7 @@ describe("FindYourTherapyQuiz", () => {
   beforeEach(() => {
     vi.stubGlobal("fetch", vi.fn(async () => new Response("{}")));
   });
+
   it("starts on the intro with the question count", async () => {
     const user = userEvent.setup();
     render(<FindYourTherapyQuiz />);
@@ -69,10 +70,26 @@ describe("FindYourTherapyQuiz", () => {
     expect(screen.getByRole("button", { name: /begin assessment/i })).toBeInTheDocument();
   });
 
-  it.fails("BUG: scores are capped at 10 (30 raw points), so altered-states 47 vs depth 33 both read 10 and the first one (depth) wins: The Archaeologist instead of The Boundary Crosser", async () => {
+  it("altered states 47 vs depth 33 shows The Boundary Crosser (fixed: no cap at 10 that tied them)", async () => {
     const user = userEvent.setup();
     render(<FindYourTherapyQuiz />);
     await walk(user, 3);
     expect(await screen.findByRole("heading", { level: 1 })).toHaveTextContent("The Boundary Crosser");
+  });
+
+  // One answer set (choice index per question, 0-based) for every modality, found with a
+  // random-answer search over the scoring, so none is unreachable again.
+  it.each([
+    ["The Architect", "2,0,0,0,2,0,3,0,1,3,1,0,0,0,0,0,1,1,0,0,3,3,0,0,0"],
+    ["The Embodied", "1,0,2,1,1,1,3,1,1,0,1,1,1,0,1,1,1,1,1,1,1,3,1,2,1"],
+    ["The Mirror Seeker", "2,2,1,2,3,2,2,2,3,2,2,2,2,0,1,2,2,3,0,2,2,2,2,2,2"],
+    ["The Archaeologist", "3,3,3,2,1,3,3,2,1,2,3,1,3,3,3,2,3,3,0,3,0,3,0,3,1"],
+    ["The Boundary Crosser", "3,0,3,3,3,3,3,0,2,3,3,3,1,3,3,3,3,3,1,1,3,0,3,2,1"],
+    ["The Synthesizer", "2,2,1,3,2,0,0,0,2,3,3,3,1,3,0,3,2,0,2,1,2,1,2,3,0"],
+  ])("%s is reachable", async (name, answers) => {
+    const user = userEvent.setup();
+    render(<FindYourTherapyQuiz />);
+    await walk(user, answers.split(",").map(Number));
+    expect(await screen.findByRole("heading", { level: 1 })).toHaveTextContent(name);
   });
 });

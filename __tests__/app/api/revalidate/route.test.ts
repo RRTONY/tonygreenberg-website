@@ -26,10 +26,9 @@ function req(body: string, signature?: string) {
 }
 
 afterEach(() => {
-
   vi.unstubAllEnvs();
-
 });
+
 describe("POST /api/revalidate", () => {
   it("refreshes every Sanity page when the webhook signature is valid", async () => {
     vi.stubEnv("SANITY_WEBHOOK_SECRET", SECRET);
@@ -60,5 +59,27 @@ describe("POST /api/revalidate", () => {
     vi.stubEnv("SANITY_WEBHOOK_SECRET", SECRET);
     const body = JSON.stringify({ hello: 1 });
     expect((await POST(req(body, sign(body)))).status).toBe(400);
+  });
+});
+
+describe("POST /api/revalidate errors", () => {
+  it("answers 500 with the error message when the body can't be read", async () => {
+    vi.stubEnv("SANITY_WEBHOOK_SECRET", SECRET);
+    const body = "{not json";
+    const res = await POST(req(body, sign(body)));
+    expect(res.status).toBe(500);
+    expect(await res.json()).toEqual({ message: expect.any(String) });
+    expect(revalidateTag).not.toHaveBeenCalled();
+  });
+
+  it("says 'Unknown error' when something other than an Error is thrown", async () => {
+    vi.mocked(revalidateTag).mockImplementationOnce(() => {
+      throw "boom";
+    });
+    vi.stubEnv("SANITY_WEBHOOK_SECRET", SECRET);
+    const body = JSON.stringify({ _type: "post" });
+    const res = await POST(req(body, sign(body)));
+    expect(res.status).toBe(500);
+    expect(await res.json()).toEqual({ message: "Unknown error" });
   });
 });

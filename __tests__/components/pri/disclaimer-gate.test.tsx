@@ -75,7 +75,7 @@ describe("DisclaimerGate", () => {
     await waitFor(() => expect(onConsent).toHaveBeenCalled());
   });
 
-  it.fails("BUG: the initials field has no label linked to it", () => {
+  it("the initials field has a label linked to it", () => {
     render(<DisclaimerGate onConsent={vi.fn()} />);
     expect(screen.getByLabelText(/type your initials/i)).toBeInTheDocument();
   });

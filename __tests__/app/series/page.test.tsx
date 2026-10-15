@@ -22,6 +22,7 @@ describe("/series", () => {
   beforeEach(() => {
     vi.mocked(sanityFetch).mockResolvedValue(POSTS);
   });
+
   it("has its own title, description and canonical", () => {
     expect(metadata.title).toBe("Series");
     expect(metadata.description).toMatch(/^Curated essay collections/);

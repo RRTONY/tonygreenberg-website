@@ -27,10 +27,9 @@ function slot(over: Record<string, unknown> = {}) {
 const withSlot = (s: object | null) => fakeSupabase.maybeSingle.mockResolvedValueOnce({ data: s, error: null });
 
 afterEach(() => {
-
   vi.useRealTimers();
-
 });
+
 describe("checkFriendEmail", () => {
   it("accepts a normal email and rejects malformed or disposable ones", () => {
     expect(checkFriendEmail("kim@example.com")).toBeNull();

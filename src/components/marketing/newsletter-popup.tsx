@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { X } from "lucide-react";
+import { Loader2, X } from "lucide-react";
 
 const CONTACT_EMAIL = "tony@tonygreenberg.com";
 
@@ -31,6 +31,7 @@ export function NewsletterPopup() {
   const [mounted, setMounted] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [viaMailto, setViaMailto] = useState(false);
+  const [sending, setSending] = useState(false);
   const [email, setEmail] = useState("");
 
   useEffect(() => {
@@ -55,7 +56,8 @@ export function NewsletterPopup() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email) return;
+    if (!email || sending) return;
+    setSending(true);
     try {
       const res = await fetch("/api/subscribe", {
         method: "POST",
@@ -73,6 +75,7 @@ export function NewsletterPopup() {
     try {
       localStorage.setItem("tg_subscribed", "true");
     } catch {}
+    setSending(false);
     setSubmitted(true);
   };
 
@@ -233,11 +236,13 @@ export function NewsletterPopup() {
                   />
                   <button
                     type="submit"
-                    className="w-full animate-jewel-cta-pulse rounded-xl py-4 font-mono text-xs font-semibold tracking-[0.18em] text-[#F5EDE0] uppercase transition-transform hover:-translate-y-0.5"
+                    disabled={sending}
+                    className="inline-flex w-full items-center justify-center gap-2 animate-jewel-cta-pulse rounded-xl py-4 font-mono text-xs font-semibold tracking-[0.18em] text-[#F5EDE0] uppercase transition-transform hover:-translate-y-0.5 disabled:opacity-70 disabled:hover:translate-y-0"
                     style={{
                       backgroundImage: "linear-gradient(135deg, #C4841D 0%, #B85A5A 50%, #3D8B6E 100%)",
                     }}
                   >
+                    {sending && <Loader2 aria-hidden="true" className="size-4 animate-spin" />}
                     Join the Conversation
                   </button>
                 </form>

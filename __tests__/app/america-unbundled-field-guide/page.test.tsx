@@ -23,7 +23,7 @@ describe("/america-unbundled-field-guide", () => {
     expect(og.images?.[0].width).toBeGreaterThanOrEqual(1200);
   });
 
-  it.fails("BUG: the twitter card drops the shared @ThinkTony site/creator because it doesn't spread defaultTwitter (src/app/america-unbundled-field-guide/page.tsx:46)", () => {
+  it("the twitter card keeps the shared @ThinkTony site/creator (spreads defaultTwitter)", () => {
     expect(metadata.twitter).toMatchObject({ site: defaultTwitter.site, creator: defaultTwitter.creator });
   });
 

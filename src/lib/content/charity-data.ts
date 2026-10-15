@@ -124,7 +124,8 @@ function computeTotal(scores: ScoreBreakdown): number {
   );
 }
 
-function gradeFromScore(score: number): Grade {
+// Exported so the full scale is tested (no charity in the data scores below a B-).
+export function gradeFromScore(score: number): Grade {
   if (score >= 97) return "A+";
   if (score >= 93) return "A";
   if (score >= 90) return "A-";
@@ -138,7 +139,7 @@ function gradeFromScore(score: number): Grade {
   return "F";
 }
 
-function cloakFromScore(score: number): CloakStatus {
+export function cloakFromScore(score: number): CloakStatus {
   if (score >= 90) return "clear";
   if (score >= 75) return "mostly-clear";
   if (score >= 55) return "hazy";

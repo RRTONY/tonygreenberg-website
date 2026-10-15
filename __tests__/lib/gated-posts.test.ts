@@ -24,9 +24,11 @@ describe("password and unlock cookie", () => {
   beforeEach(() => {
     vi.stubEnv("GATED_POST_PASSWORD", "open-sesame");
   });
+
   afterEach(() => {
     vi.unstubAllEnvs();
   });
+
   it("passwordMatches only the exact password", () => {
     expect(passwordMatches("open-sesame")).toBe(true);
     expect(passwordMatches("Open-sesame")).toBe(false);

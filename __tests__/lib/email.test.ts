@@ -8,9 +8,11 @@ describe("sendEmail", () => {
     vi.spyOn(console, "warn").mockImplementation(() => {});
     vi.stubEnv("RESEND_API_KEY", "re_test");
   });
+
   afterEach(() => {
     vi.unstubAllEnvs();
   });
+
   it("returns false and sends nothing without an API key", async () => {
     vi.stubEnv("RESEND_API_KEY", "");
     const fetchMock = vi.fn();
@@ -55,6 +57,7 @@ describe("esc", () => {
   it("escapes HTML special characters", () => {
     expect(esc(`<a href="x">Tom & 'Jerry'</a>`)).toBe("&lt;a href=&quot;x&quot;&gt;Tom &amp; &#39;Jerry&#39;&lt;/a&gt;");
   });
+
   it("leaves plain text alone", () => {
     expect(esc("hello")).toBe("hello");
   });

@@ -23,6 +23,7 @@ describe("/thesis-threads", () => {
   beforeEach(() => {
     vi.mocked(sanityFetch).mockResolvedValue(POSTS);
   });
+
   it("has its own title, description and canonical", () => {
     expect(metadata.title).toBe("Thesis Threads");
     expect(metadata.description).toMatch(/extractive-vs-regenerative thesis/);

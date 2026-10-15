@@ -42,10 +42,9 @@ function item(over: Partial<CatalogItem> = {}): CatalogItem {
 }
 
 afterEach(() => {
-
   vi.useRealTimers();
-
 });
+
 describe("computeTier", () => {
   it("maps cupping scores to tiers at 86, 90 and 92", () => {
     expect([85.9, 86, 89.9, 90, 91.9, 92].map(computeTier)).toEqual([1, 2, 2, 3, 3, 4]);

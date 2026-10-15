@@ -30,6 +30,7 @@ describe("FindYourSleepQuiz", () => {
   beforeEach(() => {
     vi.stubGlobal("fetch", vi.fn(async () => new Response("{}")));
   });
+
   it("starts on the intro and shows question 1 of 15", async () => {
     const user = userEvent.setup();
     render(<FindYourSleepQuiz />);

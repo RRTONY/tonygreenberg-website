@@ -16,9 +16,11 @@ beforeEach(() => {
   vi.mocked(respondToMcp).mockResolvedValue(new Response("ok", { status: 200 }));
   vi.stubEnv("MCP_PUBLIC_ORIGIN", "https://tonygreenberg.com");
 });
+
 afterEach(() => {
   vi.unstubAllEnvs();
 });
+
 describe("/api/mcp", () => {
   it("fails closed (500) when no team members are configured", async () => {
     vi.stubEnv("MCP_ADMIN_USERS", "");

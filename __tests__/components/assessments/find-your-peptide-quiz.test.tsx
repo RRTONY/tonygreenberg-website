@@ -77,14 +77,72 @@ describe("FindYourPeptideQuiz", () => {
     expect(screen.getByRole("button", { name: /begin assessment/i })).toBeInTheDocument();
   });
 
+  it("the share buttons use tonygreenberg.com for the link and the profile's share text, and count shares", async () => {
+    const open = vi.fn();
+    vi.stubGlobal("open", open);
+    const user = userEvent.setup();
+    const writeText = vi.fn(async () => {});
+    Object.defineProperty(navigator, "clipboard", { value: { writeText }, configurable: true });
+    render(<FindYourPeptideQuiz />);
+    await answer(user, Array(TOTAL).fill(0));
+    await unlock(user);
+    await screen.findByRole("heading", { level: 1 });
+    const url = window.location.href.replace(/^https?:\/\/[^/]+/, "https://tonygreenberg.com");
+    expect(url.startsWith("https://tonygreenberg.com")).toBe(true);
+    const text = "I'm The Rebuilder";
+    await user.click(screen.getByRole("button", { name: "twitter" }));
+    const tweet = String(open.mock.calls[0][0]);
+    expect(tweet.startsWith("https://twitter.com/intent/tweet?text=")).toBe(true);
+    expect(decodeURIComponent(tweet)).toContain(text);
+    expect(tweet).toContain(`&url=${encodeURIComponent(url)}`);
+    expect(screen.getByText("Shared 1x")).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: "linkedin" }));
+    expect(open).toHaveBeenLastCalledWith(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, "_blank");
+    await user.click(screen.getByRole("button", { name: "email" }));
+    const mail = String(open.mock.lastCall![0]);
+    expect(mail).toContain(`mailto:?subject=${encodeURIComponent("My Peptide Clarity Index™ Results")}`);
+    expect(decodeURIComponent(mail)).toContain(`\n\n${url}`);
+    await user.click(screen.getByRole("button", { name: "Copy Link" }));
+    expect(writeText).toHaveBeenCalledWith(url);
+    expect(screen.getByText("Shared 4x")).toBeInTheDocument();
+  });
+
   // The Catalyst (metabolic+cognitive), The Healer (recovery+immune) and The Sovereign
-  // (vitality+longevity) use the same axis pair as an earlier profile, and the lookup ignores order.
-  it.fails("BUG: three peptide profiles repeat an earlier profile's axis pair and can never be shown (metabolic-first, cognitive-second shows The Strategist, never The Catalyst)", async () => {
+  // (vitality+longevity) use the same axis pair as an earlier profile in the other order. The lookup
+  // used to ignore order, so they could never be shown; it is order-sensitive since 2026-10-16.
+  it("metabolic-first, cognitive-second shows The Catalyst, not The Strategist (fixed: the axis pair match is order-sensitive)", async () => {
     // These answers give metabolic 87, cognitive 67, then vitality/immune 53.
     const user = userEvent.setup();
     render(<FindYourPeptideQuiz />);
     await answer(user, [3, 2, 2, 0, 2, 3, 3, 3, 0, 1]);
     await unlock(user);
     expect(await screen.findByRole("heading", { level: 1 })).toHaveTextContent("The Catalyst");
+  });
+
+  // One answer set (choice index per question, 0-based) for every profile, checked against all
+  // 9,765,625 possible answer sets, so none is unreachable again.
+  it.each([
+    ["The Rebuilder", "0,0,0,0,0,0,0,0,0,0"],
+    ["The Metabolic Reset", "0,0,0,0,0,0,4,3,1,1"],
+    ["The Optimizer", "0,0,0,0,0,0,0,0,0,2"],
+    ["The Guardian", "0,0,0,0,0,0,4,2,2,0"],
+    ["The Architect", "0,0,0,0,0,0,0,3,1,1"],
+    ["The Sentinel", "0,0,0,0,0,3,4,0,1,3"],
+    ["The Restorer", "0,0,0,3,3,2,3,3,4,0"],
+    ["The Strategist", "0,0,0,0,1,0,0,4,1,1"],
+    ["The Vanguard", "0,0,0,0,0,0,4,2,2,4"],
+    ["The Renaissance", "0,0,0,0,0,1,0,0,0,2"],
+    ["The Catalyst", "0,0,0,0,1,0,4,3,4,1"],
+    ["The Centurion", "0,0,0,0,0,0,0,2,2,4"],
+    ["The Healer", "0,0,0,0,0,0,4,3,1,0"],
+    ["The Alchemist", "0,0,0,0,0,4,4,2,2,3"],
+    ["The Phoenix", "0,0,0,0,0,1,4,4,4,0"],
+    ["The Sovereign", "0,0,0,0,0,0,0,0,0,4"],
+  ])("%s is reachable", async (name, picks) => {
+    const user = userEvent.setup();
+    render(<FindYourPeptideQuiz />);
+    await answer(user, picks.split(",").map(Number));
+    await unlock(user);
+    expect(await screen.findByRole("heading", { level: 1 })).toHaveTextContent(name);
   });
 });

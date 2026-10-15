@@ -28,6 +28,7 @@ describe("FindYourAttachmentStyleQuiz", () => {
   beforeEach(() => {
     vi.stubGlobal("fetch", vi.fn(async () => new Response("{}")));
   });
+
   it("shows the question count on the intro and starts on question 1", async () => {
     const user = userEvent.setup();
     render(<FindYourAttachmentStyleQuiz />);

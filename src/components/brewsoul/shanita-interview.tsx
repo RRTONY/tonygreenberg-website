@@ -134,37 +134,36 @@ const QAS: QA[] = [
 function QABlock({ qa, isOpen, toggle }: { qa: QA; isOpen: boolean; toggle: () => void }) {
   return (
     <div className="mb-5 overflow-hidden rounded-lg border-t-4 border-t-[#D4AF37] bg-white shadow-[0_2px_10px_rgba(0,0,0,0.05)]">
-      <button onClick={toggle} className="flex w-full items-start gap-4 px-7 py-6 text-left">
+      <button onClick={toggle} aria-expanded={isOpen} aria-controls={`shanita-answer-${qa.num}`} className="flex w-full items-start gap-4 px-7 py-6 text-left">
         <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-[#8b4c2a] font-mono text-sm font-bold text-white">{qa.num}</span>
         <span className="flex-1 font-heading text-[clamp(16px,2.5vw,20px)] leading-snug font-semibold text-[#1a0e08]">{qa.q}</span>
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className={`mt-1.5 shrink-0 transition-transform ${isOpen ? "rotate-180" : ""}`}>
           <path d="M4 6l4 4 4-4" stroke="#6b5a4e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </button>
-      {isOpen && (
-        <div className="px-7 pb-7 pl-20">
-          {qa.paras.map((p) => (
-            <p key={p} className="mb-3.5 text-base leading-[1.75] text-[#2d1810]">
-              {p}
-            </p>
-          ))}
-          {qa.highlight && <p className="my-3.5 text-base leading-[1.75] font-semibold text-[#8b4c2a]">{qa.highlight}</p>}
-          {qa.data && <div className="my-3.5 rounded-sm border-l-3 border-l-[#D4AF37] bg-[#f9f1e6] px-4 py-3 text-sm font-medium text-[#2d3a24]">{qa.data}</div>}
-          {qa.sources && qa.sources.length > 0 && (
-            <div className="mt-4 rounded-sm border-l-3 border-l-[#8b4c2a] bg-[#f5f1e8] px-4 py-3">
-              <strong className="mb-1.5 block font-mono text-[11px] tracking-[0.1em] text-[#8b4c2a]">Sources</strong>
-              {qa.sources.map((s) => (
-                <div key={s.url} className="relative my-1 pl-4 text-[13px]">
-                  <ArrowRight aria-hidden="true" className="absolute top-0.5 left-0 size-3 text-[#8b4c2a]" />
-                  <a href={s.url} target="_blank" rel="noopener noreferrer" className="text-[#2d3a24]">
-                    {s.label}
-                  </a>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      )}
+      {/* Always rendered (hidden until opened) so every answer is in the server HTML. */}
+      <div id={`shanita-answer-${qa.num}`} hidden={!isOpen} className="px-7 pb-7 pl-20">
+        {qa.paras.map((p) => (
+          <p key={p} className="mb-3.5 text-base leading-[1.75] text-[#2d1810]">
+            {p}
+          </p>
+        ))}
+        {qa.highlight && <p className="my-3.5 text-base leading-[1.75] font-semibold text-[#8b4c2a]">{qa.highlight}</p>}
+        {qa.data && <div className="my-3.5 rounded-sm border-l-3 border-l-[#D4AF37] bg-[#f9f1e6] px-4 py-3 text-sm font-medium text-[#2d3a24]">{qa.data}</div>}
+        {qa.sources && qa.sources.length > 0 && (
+          <div className="mt-4 rounded-sm border-l-3 border-l-[#8b4c2a] bg-[#f5f1e8] px-4 py-3">
+            <strong className="mb-1.5 block font-mono text-[11px] tracking-[0.1em] text-[#8b4c2a]">Sources</strong>
+            {qa.sources.map((s) => (
+              <div key={s.url} className="relative my-1 pl-4 text-[13px]">
+                <ArrowRight aria-hidden="true" className="absolute top-0.5 left-0 size-3 text-[#8b4c2a]" />
+                <a href={s.url} target="_blank" rel="noopener noreferrer" className="text-[#2d3a24]">
+                  {s.label}
+                </a>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

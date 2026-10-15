@@ -22,9 +22,11 @@ describe("NewsletterPopup", () => {
     loc = { href: "http://localhost/" };
     vi.stubGlobal("location", loc);
   });
+
   afterEach(() => {
     vi.useRealTimers();
   });
+
   it("stays hidden for 3 minutes, then appears once per session", () => {
     vi.useFakeTimers();
     render(<NewsletterPopup />);
@@ -75,7 +77,7 @@ describe("NewsletterPopup", () => {
     expect(screen.queryByText("Still here? Good.")).not.toBeInTheDocument();
   });
 
-  it.fails("BUG: shows a spinner and blocks double submits while sending (house rule 7)", async () => {
+  it("shows a spinner and blocks double submits while sending (house rule 7)", async () => {
     fetchMock.mockImplementation(() => new Promise<Response>(() => {}));
     const user = showPopup();
     await user.type(screen.getByPlaceholderText("your@email.com"), "me@example.com");

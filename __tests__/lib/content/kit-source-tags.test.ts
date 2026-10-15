@@ -26,10 +26,10 @@ describe("resolveKitTag", () => {
     expect(resolveKitTag("")).toBe("Source: ");
   });
 
-  // KIT_TAG_MAP is a plain object, so KIT_TAG_MAP["constructor"] finds
-  // Object.prototype.constructor and returns a function instead of a string.
+  // Fixed 2026-10-16: KIT_TAG_MAP is a plain object, so KIT_TAG_MAP["constructor"]
+  // used to find Object.prototype.constructor and return a function.
   // The source comes from the browser, so anyone can send it.
-  it.fails("BUG: a source named like an Object.prototype key returns a function, not a tag", () => {
+  it("treats a source named like an Object.prototype key as an unknown source", () => {
     expect(resolveKitTag("constructor")).toBe("Source: constructor");
     expect(resolveKitTag("toString")).toBe("Source: toString");
   });

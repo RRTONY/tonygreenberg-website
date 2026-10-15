@@ -15,13 +15,13 @@ const ctx = (token: string) => ({ params: Promise.resolve({ token }) }) as unkno
 const req = () => new Request("https://tonygreenberg.com/api/mcp/x", { method: "POST" });
 
 beforeEach(() => {
-
   vi.mocked(respondToMcp).mockResolvedValue(new Response("ok"));
-
 });
+
 afterEach(() => {
   vi.unstubAllEnvs();
 });
+
 describe("/api/mcp/[token]", () => {
   it("fails closed (500) when MCP_ADMIN_USERS isn't set", async () => {
     vi.stubEnv("MCP_ADMIN_USERS", "");

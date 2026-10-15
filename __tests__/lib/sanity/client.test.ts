@@ -15,6 +15,7 @@ describe("sanity read client", () => {
   afterEach(() => {
     vi.unstubAllEnvs();
   });
+
   it("uses the CDN, no token and no stega", async () => {
     const { client } = await load();
     const config = (client as unknown as { config: Record<string, unknown> }).config;

@@ -66,3 +66,26 @@ describe("post schema", () => {
     expect(["seo", "shortAnswer", "faq"].map((n) => field(post, n)?.group)).toEqual(["seo", "seo", "seo"]);
   });
 });
+
+describe("post schema: voices and reading list need their key field", () => {
+  it("a voice needs a name; other voice fields are optional", () => {
+    const voice = inner(field(post, "voices"));
+    expect(voice.name).toBe("voice");
+    expect(voice.fields.map((f) => [f.name, ruleNames(f)])).toEqual([
+      ["name", ["required"]],
+      ["title", []],
+      ["relevance", []],
+      ["url", []],
+    ]);
+  });
+
+  it("a go-deeper item needs a title; link and description are optional", () => {
+    const item = inner(field(post, "goDeeper"));
+    expect(item.name).toBe("goDeeperItem");
+    expect(item.fields.map((f) => [f.name, ruleNames(f)])).toEqual([
+      ["title", ["required"]],
+      ["url", []],
+      ["description", []],
+    ]);
+  });
+});

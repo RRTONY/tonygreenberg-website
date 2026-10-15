@@ -97,9 +97,13 @@ function RankingsTab() {
     list.sort((a, b) => {
       let cmp = 0;
       switch (sortKey) {
+        // "rank" ascending = rank 1 (highest score) first. "totalScore" compares
+        // naturally, so its first click ("desc") also puts the highest first.
         case "rank":
-        case "totalScore":
           cmp = b.totalScore - a.totalScore;
+          break;
+        case "totalScore":
+          cmp = a.totalScore - b.totalScore;
           break;
         case "name":
           cmp = a.name.localeCompare(b.name);

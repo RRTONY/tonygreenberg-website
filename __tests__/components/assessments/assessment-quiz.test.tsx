@@ -19,6 +19,7 @@ describe("AssessmentQuiz", () => {
   beforeEach(() => {
     vi.stubGlobal("fetch", vi.fn(async () => Response.json({ success: true })));
   });
+
   it("every question offers one option per archetype", () => {
     for (const q of ASSESSMENT_QUESTIONS) {
       expect(q.options.map((o) => o.archetype).sort()).toEqual(["builder", "crusader", "investor"]);

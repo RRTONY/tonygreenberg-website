@@ -11,6 +11,7 @@ describe("/the-letter", () => {
   beforeEach(() => {
     vi.mocked(sanityFetch).mockResolvedValue(212);
   });
+
   it("has its own title, description and canonical", () => {
     expect(metadata.title).toBe("The Letter");
     expect(metadata.description).toMatch(/25 years exposing broken systems and building what replaces them/);

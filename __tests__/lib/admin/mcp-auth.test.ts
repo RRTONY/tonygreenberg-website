@@ -20,13 +20,13 @@ const USERS = JSON.stringify([
 ]);
 
 beforeEach(() => {
-
   vi.spyOn(console, "error").mockImplementation(() => {});
-
 });
+
 afterEach(() => {
   vi.unstubAllEnvs();
 });
+
 describe("parseMcpUsers", () => {
   it("parses entries and maps admin to write", () => {
     expect(parseMcpUsers(USERS)).toEqual([
@@ -61,6 +61,7 @@ describe("authenticateMcpToken", () => {
   beforeEach(() => {
     vi.stubEnv("MCP_ADMIN_USERS", USERS);
   });
+
   it("returns the user for an exact token, without the token", () => {
     expect(authenticateMcpToken(T1)).toEqual({ name: "Tony", email: "Tony@Example.com", role: "write" });
     expect(authenticateMcpToken(`  ${T2}  `)).toEqual({ name: "Reader", email: "", role: "read" });
@@ -94,6 +95,7 @@ describe("findMcpUserByEmail", () => {
   beforeEach(() => {
     vi.stubEnv("MCP_ADMIN_USERS", USERS);
   });
+
   it("matches case-insensitively and trims", () => {
     expect(findMcpUserByEmail("  tony@example.COM ")).toEqual({ name: "Tony", email: "Tony@Example.com", role: "write" });
   });
@@ -110,6 +112,7 @@ describe("bearerFromRequest", () => {
   it("reads a Bearer token", () => {
     expect(bearerFromRequest(req(`Bearer ${T1} `))).toBe(T1);
   });
+
   it("ignores other schemes and missing headers", () => {
     expect(bearerFromRequest(req(`Basic ${T1}`))).toBe("");
     expect(bearerFromRequest(req(`bearer ${T1}`))).toBe("");

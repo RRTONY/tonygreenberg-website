@@ -17,9 +17,11 @@ beforeEach(() => {
   vi.stubGlobal("fetch", fetchMock);
   vi.spyOn(console, "error").mockImplementation(() => {});
 });
+
 afterEach(() => {
   vi.unstubAllEnvs();
 });
+
 describe("POST /api/subscribe", () => {
   it("rejects a body that isn't JSON, a bad email and oversized fields with 400", async () => {
     expect((await send("not json")).status).toBe(400);

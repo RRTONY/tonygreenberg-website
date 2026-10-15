@@ -18,9 +18,11 @@ describe("TheMirrorQuiz", () => {
     vi.useFakeTimers({ shouldAdvanceTime: true });
     vi.stubGlobal("fetch", vi.fn(async () => new Response("{}")));
   });
+
   afterEach(() => {
     vi.useRealTimers();
   });
+
   it("goes intro -> 18 questions -> email gate -> results with the score the answers give", async () => {
     const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
     render(<TheMirrorQuiz articleTitles={{}} />);

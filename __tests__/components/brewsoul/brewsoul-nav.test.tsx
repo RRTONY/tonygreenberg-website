@@ -53,7 +53,7 @@ describe("BrewSoulNav", () => {
     Object.defineProperty(window, "scrollY", { value: 0, configurable: true });
   });
 
-  it.fails("BUG: every menu link points at a page that exists (My Collection goes to /brewsoul/my-coffees, the route is /brewsoul/collection)", async () => {
+  it("every menu link points at a page that exists (My Collection goes to /brewsoul/my-coffees, the route is /brewsoul/collection)", async () => {
     const user = userEvent.setup();
     render(<BrewSoulNav />);
     await user.click(screen.getByRole("button", { name: "Open menu" }));

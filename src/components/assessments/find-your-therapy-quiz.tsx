@@ -314,6 +314,15 @@ const MODALITIES: Modality[] = [
     shareText: "I'm The Synthesizer — I don't fit in one box, and neither should my healing. Integrative therapy matches my wiring. Find your therapy style →" },
 ];
 
+// The most points any one dimension can collect over all 25 questions. Every dimension is shown out
+// of 10 on this one shared scale, so the bars rank exactly like the real points and the top one is
+// the modality. The old fixed max of 30 capped at 10 put several dimensions at 10 for many answer
+// sets, and the tie went to whichever came first in the list (say depth 33 over altered states 47)
+// (fixed 2026-10-16; legacy had the same bug).
+const MAX_DIMENSION_POINTS = Math.max(
+  ...DIMENSIONS.map((d) => QUESTIONS.reduce((sum, q) => sum + Math.max(0, ...q.choices.map((ch) => ch.dimensions[d] ?? 0)), 0)),
+);
+
 const JOURNEY_CONTINUES = [
   { name: "Find Your Spirit", hook: "Map your beliefs across 10 dimensions and 6 traditions.", url: "/find-your-spirit", badge: "35 Questions" },
   { name: "Find Your Religion", hook: "8 real spiritual/philosophical archetypes, mapped.", url: "/find-your-religion", badge: "20 Questions" },
@@ -358,9 +367,8 @@ export function FindYourTherapyQuiz() {
         raw[d] = (raw[d] || 0) + (choice.dimensions[d] ?? 0);
       }
     });
-    const maxPossible = 30;
     const normalized: Record<Dimension, number> = {} as Record<Dimension, number>;
-    DIMENSIONS.forEach((d) => (normalized[d] = Math.min(10, (raw[d] / maxPossible) * 10)));
+    DIMENSIONS.forEach((d) => (normalized[d] = (raw[d] / MAX_DIMENSION_POINTS) * 10));
     return normalized;
   }, [answers]);
 

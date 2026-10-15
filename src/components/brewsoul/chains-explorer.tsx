@@ -60,8 +60,20 @@ function ScoreBar({ value }: { value: number }) {
 
 function ChainCard({ chain, expanded, onToggle }: { chain: ChainEntry; expanded: boolean; onToggle: () => void }) {
   return (
+    // Not a <button>: the expanded card holds a website link, and a link can't
+    // sit inside a button. role/tabIndex/Enter+Space make it keyboard-usable.
     <div
+      role="button"
+      tabIndex={0}
+      aria-expanded={expanded}
       onClick={onToggle}
+      onKeyDown={(e) => {
+        if (e.target !== e.currentTarget) return;
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onToggle();
+        }
+      }}
       className={`cursor-pointer rounded-xl border border-[#6F4E37]/8 border-l-4 bg-white p-5 ${TIER_BORDER_CLASS[chain.tier]}`}
     >
       <div className="flex items-start justify-between">

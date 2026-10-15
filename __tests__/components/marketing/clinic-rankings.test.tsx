@@ -60,7 +60,7 @@ describe("ClinicRankings", () => {
     expect(screen.queryByText("Thin evidence.")).not.toBeInTheDocument();
   });
 
-  it.fails("BUG: the expand button tells screen readers whether it is open (aria-expanded)", () => {
+  it("the expand button tells screen readers whether it is open (aria-expanded)", () => {
     render(<ClinicRankings clinics={CLINICS} />);
     expect(screen.getByRole("button", { name: /Bravo Clinic/ })).toHaveAttribute("aria-expanded", "false");
   });

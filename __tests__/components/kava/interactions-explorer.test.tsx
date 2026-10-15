@@ -46,7 +46,7 @@ describe("InteractionsExplorer", () => {
     expect(substances()).toEqual(["Methamphetamine (ICE)"]);
   });
 
-  it.fails("BUG: the clear-search (X) button has no accessible name", async () => {
+  it("the clear-search (X) button has an accessible name", async () => {
     render(<InteractionsExplorer />);
     await userEvent.type(search(), "a");
     expect(screen.getByRole("button", { name: /clear/i })).toBeInTheDocument();

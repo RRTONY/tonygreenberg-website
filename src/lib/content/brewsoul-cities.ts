@@ -112,18 +112,13 @@ export interface CityData {
   nonCoffeeSpots: NonCoffeeSpot[];
 }
 
+// One rule for every BrewSoul grade (owner, 2026-10-16): the GRADE_SCALE table
+// the site shows visitors. Live's grades were typed in by hand and followed no
+// single rule (84 was "A" for a shop, 85 "A-" for Seattle; 33 "F" or "D-").
 export function gradeFromScore(score: number): Grade {
-  if (score >= 90) return "A+";
-  if (score >= 85) return "A";
-  if (score >= 80) return "A-";
-  if (score >= 75) return "B+";
-  if (score >= 68) return "B";
-  if (score >= 65) return "B-";
-  if (score >= 58) return "C+";
-  if (score >= 50) return "C";
-  if (score >= 42) return "D+";
-  if (score >= 35) return "D";
-  if (score >= 30) return "D-";
+  for (const { grade, range } of GRADE_SCALE) {
+    if (score >= Number(range.split("-")[0])) return grade;
+  }
   return "F";
 }
 
@@ -137,7 +132,7 @@ export const SCORING_DIMENSIONS = [
   { key: "health", label: "Mold & Health", max: 5, icon: ShieldCheck },
 ] as const;
 
-export const GRADE_SCALE = [
+export const GRADE_SCALE: { grade: Grade; range: string; label: string }[] = [
   { grade: "A+", range: "90-100", label: "Pilgrimage-worthy. Life-changing coffee." },
   { grade: "A", range: "80-89", label: "Excellent. Go here." },
   { grade: "B+", range: "75-79", label: "Very good. Solid daily driver." },
@@ -147,7 +142,25 @@ export const GRADE_SCALE = [
   { grade: "F", range: "0-34", label: "Wall of Shame territory." },
 ];
 
-export const UNIVERSAL_CHAINS: Omit<ChainScore, "locationsInMetro">[] = [
+// Grades are worked out from scores (gradeFromScore) so a letter can never
+// disagree with its number; the `grade` typed in each entry is overwritten.
+function regradeChains<T extends { score: number; grade: Grade }>(chains: T[]): T[] {
+  return chains.map((c) => ({ ...c, grade: gradeFromScore(c.score) }));
+}
+function regradeShops(shops: CoffeeShop[]): CoffeeShop[] {
+  return shops.map((s) => ({ ...s, scores: { ...s.scores, grade: gradeFromScore(s.scores.total) } }));
+}
+function regradeCities(cities: CityData[]): CityData[] {
+  return cities.map((c) => ({
+    ...c,
+    grade: gradeFromScore(c.score),
+    bestShops: regradeShops(c.bestShops),
+    worstShops: regradeShops(c.worstShops),
+    chainScores: regradeChains(c.chainScores),
+  }));
+}
+
+export const UNIVERSAL_CHAINS: Omit<ChainScore, "locationsInMetro">[] = regradeChains([
   { chainName: "Starbucks", avgLatte: 6.35, beanSource: "Commodity arabica, roasted to char for \"consistency\"", grade: "D+", score: 42, verdict: "Charging specialty prices for commodity coffee. A grande latte buys a pour-over of 90-scored single-origin at most indie shops. Their dark roast is designed to mask bean quality, not showcase it." },
   { chainName: "Dunkin'", avgLatte: 5.29, beanSource: "J.M. Smucker (same as Folgers)", grade: "D", score: 38, verdict: "Marketing as an affordable alternative while quietly raising prices to Starbucks levels, with Folgers-tier coffee. Medium cold brew $4.59 — within pennies of Starbucks." },
   { chainName: "Dutch Bros", avgLatte: 5.99, beanSource: "Commodity, optimized for sugar delivery", grade: "D", score: 36, verdict: "A milkshake delivery system masquerading as a coffee company. Avg transaction $8.44. The staff is genuinely wonderful — give them better beans and they'd be dangerous." },
@@ -156,15 +169,15 @@ export const UNIVERSAL_CHAINS: Omit<ChainScore, "locationsInMetro">[] = [
   { chainName: "Scooter's", avgLatte: 5.29, beanSource: "In-house roasted commodity", grade: "D", score: 35, verdict: "Drive-thru speed over everything. The \"Amazing\" in their tagline is doing heavy lifting. Inoffensive but unremarkable." },
   { chainName: "7 Brew", avgLatte: 5.49, beanSource: "Commodity blends", grade: "D", score: 37, verdict: "The newest entrant in the \"sugar with caffeine\" drive-thru wars. Fast, friendly, forgettable coffee." },
   { chainName: "Black Rock", avgLatte: 5.99, beanSource: "Commodity, flavor-forward blends", grade: "D-", score: 32, verdict: "Dutch Bros energy with even less coffee identity. The flavored drinks are the point — the espresso is just a vehicle." },
-];
+]);
 
-export const NUANCED_CHAINS: Omit<ChainScore, "locationsInMetro">[] = [
+export const NUANCED_CHAINS: Omit<ChainScore, "locationsInMetro">[] = regradeChains([
   { chainName: "Blue Bottle", avgLatte: 6.5, beanSource: "Quality sourcing, declining since Nestlé acquisition (2017)", grade: "C+", score: 66, verdict: "Was A-grade pre-2017. Nestlé acquisition introduced cost-cutting. Quality varies dramatically by location. Some Japanese-influenced shops still excellent. Grade each location separately." },
   { chainName: "La Colombe", avgLatte: 5.75, beanSource: "Direct trade, quality blends", grade: "B", score: 73, verdict: "Fishtown HQ is genuinely great. Scaled locations are good-not-great. Draft lattes are innovative. The rare chain doing it mostly right." },
   { chainName: "Intelligentsia", avgLatte: 5.95, beanSource: "Direct trade program, high-quality sourcing", grade: "B+", score: 80, verdict: "Chicago and LA locations remain strong. Quality still high despite Peet's ownership. Direct trade program is real. Best chain-scale coffee in America." },
   { chainName: "Peet's", avgLatte: 5.65, beanSource: "Quality roasting heritage, scaled production", grade: "C+", score: 63, verdict: "Legitimate roasting heritage. Better than Starbucks. But scaled past craft. Berkeley original still deserves respect." },
   { chainName: "Philz", avgLatte: 5.75, beanSource: "Custom blends, medium quality", grade: "C+", score: 60, verdict: "Once great, now scaled to inconsistency. The \"handcrafted\" pour-over is a drip machine with extra steps. Still has charm in original SF locations." },
-];
+]);
 
 function makeShop(
   partial: Partial<CoffeeShop> & Pick<CoffeeShop, "id" | "name" | "citySlug" | "neighborhood" | "scores" | "blurb" | "orderThis" | "skipThis" | "listType" | "rankInCity">,
@@ -242,7 +255,7 @@ const portlandNonCoffee: NonCoffeeSpot[] = [
   { name: "The Jasmine Pearl", neighborhood: "NW", category: "chai", why: "House-made chai with real spices — not the syrup abomination.", priceRange: "$5-7" },
 ];
 
-export const CITIES: CityData[] = [
+export const CITIES: CityData[] = regradeCities([
   { slug: "portland", name: "Portland", state: "OR", grade: "A", score: 88, rank: 1, tagline: "The Holy Land", verdict: "Where even the gas stations have better coffee than your city's best shop.", stats: { totalSpecialtyShops: 247, bestShop: "Heart Coffee", bestScore: 92, worstShop: "Dutch Bros", worstScore: 32, avgLattePrice: 5.5, roastersPer100k: 12.4 }, heroImage: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=1920", bestShops: portlandBest, worstShops: portlandWorst, chainScores: portlandChains, bridgeDrinks: portlandBridge, nonCoffeeSpots: portlandNonCoffee },
   { slug: "seattle", name: "Seattle", state: "WA", grade: "A-", score: 85, rank: 2, tagline: "The Grandfather", verdict: "Starbucks was born here, then the city evolved past it.", stats: { totalSpecialtyShops: 312, bestShop: "Victrola Coffee", bestScore: 90, worstShop: "Starbucks Pike Place", worstScore: 38, avgLattePrice: 5.75, roastersPer100k: 9.8 }, heroImage: "https://images.unsplash.com/photo-1502175353174-a7a70e73b4c3?w=1920", bestShops: [], worstShops: [], chainScores: [], bridgeDrinks: [], nonCoffeeSpots: [] },
   { slug: "san-francisco", name: "San Francisco / Bay Area", state: "CA", grade: "A", score: 87, rank: 3, tagline: "The Innovator", verdict: "Blue Bottle started here. Then Nestlé bought it. The indies kept going.", stats: { totalSpecialtyShops: 289, bestShop: "Sightglass", bestScore: 91, worstShop: "Starbucks FiDi", worstScore: 35, avgLattePrice: 6.0, roastersPer100k: 8.7 }, heroImage: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=1920", bestShops: [], worstShops: [], chainScores: [], bridgeDrinks: [], nonCoffeeSpots: [] },
@@ -268,7 +281,7 @@ export const CITIES: CityData[] = [
   { slug: "pittsburgh", name: "Pittsburgh", state: "PA", grade: "B-", score: 65, rank: 23, tagline: "Steel City Brews", verdict: "De Fer is doing things with espresso that would make the old steel barons proud.", stats: { totalSpecialtyShops: 34, bestShop: "De Fer Coffee", bestScore: 83, worstShop: "Crazy Mocha", worstScore: 38, avgLattePrice: 4.75, roastersPer100k: 5.4 }, heroImage: "https://images.unsplash.com/photo-1569012871812-f38ee64cd54c?w=1920", bestShops: [], worstShops: [], chainScores: [], bridgeDrinks: [], nonCoffeeSpots: [] },
   { slug: "phoenix", name: "Phoenix / Scottsdale", state: "AZ", grade: "C+", score: 62, rank: 24, tagline: "Desert Drip", verdict: "Cartel Coffee is an oasis — literally and figuratively — in a chain-dominated desert.", stats: { totalSpecialtyShops: 45, bestShop: "Cartel Coffee Lab", bestScore: 84, worstShop: "Dutch Bros Tempe", worstScore: 32, avgLattePrice: 5.25, roastersPer100k: 2.9 }, heroImage: "https://images.unsplash.com/photo-1558645836-e44122a743ee?w=1920", bestShops: [], worstShops: [], chainScores: [], bridgeDrinks: [], nonCoffeeSpots: [] },
   { slug: "las-vegas", name: "Las Vegas", state: "NV", grade: "C+", score: 58, rank: 25, tagline: "The Long Shot", verdict: "Mothership is proof that even Vegas can have a soul — at least before 10am.", stats: { totalSpecialtyShops: 28, bestShop: "Mothership Coffee", bestScore: 82, worstShop: "Starbucks Strip", worstScore: 30, avgLattePrice: 5.5, roastersPer100k: 2.1 }, heroImage: "https://images.unsplash.com/photo-1605833556294-ea5c7a74f57d?w=1920", bestShops: [], worstShops: [], chainScores: [], bridgeDrinks: [], nonCoffeeSpots: [] },
-];
+]);
 
 export interface NationalStats {
   totalCities: number;

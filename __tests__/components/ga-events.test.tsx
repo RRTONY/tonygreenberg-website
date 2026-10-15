@@ -19,9 +19,11 @@ describe("GaEvents", () => {
     gtag = vi.fn();
     vi.stubGlobal("gtag", gtag);
   });
+
   afterEach(() => {
     vi.useRealTimers();
   });
+
   it("sends nothing and doesn't crash when gtag isn't loaded", () => {
     vi.stubGlobal("gtag", undefined);
     navigation.pathname = "/blog/five-cups";

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { Popover, PopoverContent, PopoverDescription, PopoverHeader, PopoverTitle, PopoverTrigger } from "@/components/ui/popover";
+import { Popover, PopoverAnchor, PopoverContent, PopoverDescription, PopoverHeader, PopoverTitle, PopoverTrigger } from "@/components/ui/popover";
 
 describe("Popover", () => {
   it("opens on click, shows its parts, and closes on Escape", async () => {
@@ -25,5 +25,22 @@ describe("Popover", () => {
     expect(screen.getByText("Details").closest('[data-slot="popover-content"]')).toHaveClass("w-96");
     await user.keyboard("{Escape}");
     await waitFor(() => expect(screen.queryByText("Details")).not.toBeInTheDocument());
+  });
+
+  it("positions against an anchor other than the trigger", async () => {
+    const user = userEvent.setup();
+    render(
+      <Popover>
+        <PopoverAnchor className="anchor">Anchor here</PopoverAnchor>
+        <PopoverTrigger>Open</PopoverTrigger>
+        <PopoverContent>Anchored</PopoverContent>
+      </Popover>,
+    );
+    expect(screen.getByText("Anchor here")).toHaveAttribute("data-slot", "popover-anchor");
+    await user.click(screen.getByRole("button", { name: "Open" }));
+    const content = screen.getByText("Anchored");
+    expect(content).toHaveAttribute("data-slot", "popover-content");
+    // Defaults: centred, 4px off the anchor (Radix reports the alignment it used).
+    expect(content).toHaveAttribute("data-align", "center");
   });
 });

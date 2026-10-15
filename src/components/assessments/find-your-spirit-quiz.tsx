@@ -364,6 +364,44 @@ const TRADITIONS: SpiritualTradition[] = [
   },
 ];
 
+// The most points any one dimension can collect over all 35 questions. Every dimension is shown
+// 0-100 on this one shared scale, so the scores rank exactly like the real points. The old fixed
+// max of 12 capped at 100 put most answer sets at 100 in several dimensions, so a clear lead (say
+// mysticism 31 vs theism 20) counted the same as a tie and the wrong tradition could win (fixed
+// 2026-10-16; legacy had the same bug).
+const MAX_DIMENSION_POINTS = Math.max(
+  ...DIMENSIONS.map((d) => QUESTIONS.reduce((sum, q) => sum + Math.max(0, ...q.choices.map((ch) => ch.dimensions[d] ?? 0)), 0)),
+);
+
+function scoreAnswers(finalAnswers: Record<number, number>) {
+  const dims = {} as Record<Dimension, number>;
+  DIMENSIONS.forEach((d) => (dims[d] = 0));
+
+  Object.entries(finalAnswers).forEach(([qIdx, choiceIdx]) => {
+    const q = QUESTIONS[parseInt(qIdx)];
+    const choice = q?.choices[choiceIdx];
+    if (!choice) return;
+    for (const dim in choice.dimensions) {
+      const d = dim as Dimension;
+      dims[d] = (dims[d] || 0) + (choice.dimensions[d] ?? 0);
+    }
+  });
+
+  const normalized = {} as Record<Dimension, number>;
+  DIMENSIONS.forEach((d) => {
+    normalized[d] = Math.round((dims[d] / MAX_DIMENSION_POINTS) * 100);
+  });
+
+  // Each tradition: its first top dimension counts 3x, the second 2x, the third 1x. Uses the real
+  // points (same order as the shared 0-100 scale) so rounding never decides a close call.
+  const traditionScores = TRADITIONS.map((t) => {
+    const score = t.topDimensions.reduce((sum, dim, idx) => sum + (dims[dim] || 0) * (3 - idx), 0);
+    return { tradition: t, score };
+  }).sort((a, b) => b.score - a.score);
+
+  return { scores: normalized, top: traditionScores[0].tradition, second: traditionScores[1].tradition };
+}
+
 export function FindYourSpiritQuiz() {
   const [phase, setPhase] = useState<"landing" | "quiz" | "results">("landing");
   const [emailGated, setEmailGated] = useState(false);
@@ -376,33 +414,10 @@ export function FindYourSpiritQuiz() {
 
   const computeResults = useCallback(
     (finalAnswers: Record<number, number>) => {
-      const dims = {} as Record<Dimension, number>;
-      DIMENSIONS.forEach((d) => (dims[d] = 0));
-
-      Object.entries(finalAnswers).forEach(([qIdx, choiceIdx]) => {
-        const q = QUESTIONS[parseInt(qIdx)];
-        const choice = q?.choices[choiceIdx];
-        if (!choice) return;
-        for (const dim in choice.dimensions) {
-          const d = dim as Dimension;
-          dims[d] = (dims[d] || 0) + (choice.dimensions[d] ?? 0);
-        }
-      });
-
-      const maxPossible = 12;
-      const normalized = {} as Record<Dimension, number>;
-      DIMENSIONS.forEach((d) => {
-        normalized[d] = Math.min(100, Math.round((dims[d] / maxPossible) * 100));
-      });
-      setScores(normalized);
-
-      const traditionScores = TRADITIONS.map((t) => {
-        const score = t.topDimensions.reduce((sum, dim, idx) => sum + (normalized[dim] || 0) * (3 - idx), 0);
-        return { tradition: t, score };
-      }).sort((a, b) => b.score - a.score);
-
-      setTopResult(traditionScores[0].tradition);
-      setSecondResult(traditionScores[1].tradition);
+      const result = scoreAnswers(finalAnswers);
+      setScores(result.scores);
+      setTopResult(result.top);
+      setSecondResult(result.second);
       setPhase("results");
       markComplete("find-your-spirit");
     },

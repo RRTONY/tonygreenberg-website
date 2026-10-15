@@ -153,7 +153,7 @@ describe("Kava PRI AssessmentQuiz", () => {
     expect(screen.getByTestId("result-actions")).toHaveAttribute("data-score", "0");
   });
 
-  it.fails("BUG: answering the 0-point question p4 ('Previous altered state experience?') highlights both Yes and No", async () => {
+  it("answering the 0-point question p4 ('Previous altered state experience?') highlights only the option picked (fixed 2026-10-16)", async () => {
     const user = userEvent.setup();
     render(<AssessmentQuiz />);
     await next(user);
@@ -162,5 +162,19 @@ describe("Kava PRI AssessmentQuiz", () => {
     const yes = within(card).getByRole("button", { name: "Yes" });
     const no = within(card).getByRole("button", { name: "No" });
     expect(yes.className).not.toBe(no.className);
+  });
+
+  it("Start Over clears the highlighted choice too", async () => {
+    const user = userEvent.setup();
+    render(<AssessmentQuiz />);
+    const question = "Oura Ring or biometric baseline established?";
+    await choose(user, question, "Yes");
+    const yes = () => within(screen.getByText(question).parentElement!).getByRole("button", { name: "Yes" });
+    const no = () => within(screen.getByText(question).parentElement!).getByRole("button", { name: "No" });
+    expect(yes().className).not.toBe(no().className);
+    await user.click(screen.getByRole("button", { name: /Integration Architecture/ }));
+    await user.click(screen.getByRole("button", { name: "View Results" }));
+    await user.click(screen.getByRole("button", { name: /Start Over/ }));
+    expect(yes().className).toBe(no().className);
   });
 });

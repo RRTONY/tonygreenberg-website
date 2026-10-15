@@ -34,7 +34,7 @@ describe("/the-philosophy", () => {
     expect(screen.getByRole("link", { name: /^Medicine Sequencing/ })).toHaveAttribute("href", "/medicine-sequencing");
   });
 
-  it.fails("BUG: the PRI card says '38 medicines' but the index has 39 (hardcoded count, the-philosophy/page.tsx line 65)", () => {
+  it("the PRI card's medicine count comes from the PRI dataset", () => {
     render(<ThePhilosophyPage />);
     const card = screen.getByRole("link", { name: /^Psychedelic Readiness Index/ });
     expect(card).toHaveTextContent(`${MEDICINES.length} medicines.`);

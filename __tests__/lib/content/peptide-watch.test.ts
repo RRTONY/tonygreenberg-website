@@ -50,9 +50,9 @@ describe("peptide-watch", () => {
     for (const t of TIMELINE) expect(Number.isFinite(sortKey(t.date)) && t.title.trim() !== "").toBe(true);
   });
 
-  // Peaks Curative's "February 2026" sits between February 2025 and June 2025.
-  // Either the date is a typo or the entry is in the wrong place.
-  it.fails("BUG: the enforcement timeline is not in date order", () => {
+  // Peaks Curative (February 2026, same date in its vendor row) used to sit
+  // between the February and June 2025 entries; moved into place 2026-10-16.
+  it("the enforcement timeline is in date order", () => {
     const keys = TIMELINE.map((t) => sortKey(t.date));
     expect(keys).toEqual([...keys].sort((a, b) => a - b));
   });

@@ -43,9 +43,12 @@ describe("/clients", () => {
     expect(screen.getByRole("link", { name: /Recent Creations/ })).toHaveAttribute("href", "/recent-creations");
   });
 
-  // The page counts its own list (79) but the search description promises 90+.
-  it.fails("BUG: the meta description's client count matches the list on the page (src/app/clients/page.tsx:14)", () => {
+  // "90+" is RampRate's real client total; the page shows a selection of them
+  // (owner, 2026-10-16). So the promise must never be smaller than the list.
+  it("the description's 90+ clients is at least as many as the page lists", () => {
     const { container } = render(<ClientsPage />);
-    expect(metadata.description).toContain(`${clientCount(container)}+`);
+    expect(metadata.description).toContain("90+ enterprise clients");
+    expect(clientCount(container)).toBeLessThanOrEqual(90);
+    expect(clientCount(container)).toBeGreaterThan(0);
   });
 });

@@ -44,7 +44,7 @@ describe("JourneyBar", () => {
     expect(screen.getByRole("link", { name: "Taste Quiz" }).firstElementChild?.className).toContain("bg-white/15");
   });
 
-  it.fails("BUG: every suggestion points at a real page (Drops suggests /brewsoul/my-coffees; the route is /brewsoul/collection)", () => {
+  it("every suggestion points at a real page (Drops suggests /brewsoul/my-coffees; the route is /brewsoul/collection)", () => {
     const appDir = join(process.cwd(), "src/app/brewsoul");
     const routes = readdirSync(appDir, { withFileTypes: true })
       .filter((d) => d.isDirectory() && !d.name.startsWith("["))

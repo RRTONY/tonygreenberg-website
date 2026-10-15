@@ -9,6 +9,7 @@ describe("SiteHeader", () => {
   beforeEach(() => {
     vi.stubGlobal("fetch", vi.fn(async () => new Response(JSON.stringify({ posts: [] }))));
   });
+
   it("links home and to every primary nav link", () => {
     render(<SiteHeader essayCount={10} />);
     expect(screen.getAllByRole("link").some((a) => a.getAttribute("href") === "/")).toBe(true);

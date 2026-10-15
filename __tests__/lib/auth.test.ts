@@ -4,10 +4,9 @@ import { headerJar } from "@tests/helpers/next";
 import { getUser, isAdmin, requestOrigin, requireUser, safeNext } from "@/lib/auth";
 
 afterEach(() => {
-
   vi.unstubAllEnvs();
-
 });
+
 describe("getUser / requireUser", () => {
   it("returns null when Supabase isn't configured", async () => {
     vi.stubEnv("NEXT_PUBLIC_SUPABASE_URL", "");
@@ -55,8 +54,20 @@ describe("safeNext", () => {
     expect(safeNext(undefined, "/home")).toBe("/home");
   });
 
-  it.fails("BUG: allows '/\\evil.com', which browsers treat as //evil.com (open redirect)", () => {
+  it("refuses '/\\evil.com', which browsers treat as //evil.com (open redirect)", () => {
     expect(safeNext("/\\evil.com")).toBe("/my-highlights");
+  });
+
+  it("refuses paths a browser would turn into another site (tab, newline, encoded or mixed slashes)", () => {
+    for (const bad of ["/\t/evil.com", "/\n/evil.com", "/\r/evil.com", "/\\/evil.com", "/\t\\evil.com"]) {
+      expect(safeNext(bad)).toBe("/my-highlights");
+    }
+  });
+
+  it("keeps ordinary paths with queries and fragments, and stays on this site for encoded ones", () => {
+    expect(safeNext("/my-journey#top")).toBe("/my-journey#top");
+    expect(safeNext("/login?next=%2Fblog")).toBe("/login?next=%2Fblog");
+    expect(safeNext("/%5Cevil.com")).toBe("/%5Cevil.com"); // stays a path on this site
   });
 });
 

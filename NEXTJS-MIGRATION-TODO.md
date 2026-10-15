@@ -19,7 +19,7 @@
 > spreadsheet copy (`Migration-Status-Report.xlsx`) is regenerated from it by
 > `scripts/build-migration-status-report.py`.
 
-**Overall:** 326 items done, 13 open (7 of them came from the new tests and the Find Your Me check, 2026-10-16). Phases 0, 1, 3, 5, 6, 7, 8 and 9 are complete. **Nothing from
+**Overall:** 333 items done, 8 open (2026-10-16: all 51 bugs the tests found are fixed; 2 items wait on Tony: Find Your Me essay picks, quiz content questions). Phases 0, 1, 3, 5, 6, 7, 8 and 9 are complete. **Nothing from
 this rebuild is live on tonygreenberg.com yet** (it still serves the old app until DNS cutover);
 `main` deploys to the Netlify copy. Most of what's open needs a setting or account outside the code
 (Supabase scripts, Resend), a decision, new artwork, or the launch steps.
@@ -32,7 +32,7 @@ this rebuild is live on tonygreenberg.com yet** (it still serves the old app unt
 | 11 MCP server | 17 | 3 | 2026-10-13: Google key dropped (owner); 2026-10-09: synced with ramprate-ui (review card, confirm step, uploads, other pending changes); left: test it on a deploy preview, connect Claude.ai for real, publish/undo test, Lighthouse key, team `.mcp.json` |
 | 12 SEO & cutover | 45 | 1 | 2026-10-13: US PageSpeed run dropped (owner), left: Search Console at cutover; 2026-10-10: old site's GA4 events ported; 2026-10-10: SEO pack copy done (homepage, essays, Five Cups), every page has a share image; 2026-10-10: Google Analytics tag added (was missing; only counts on tonygreenberg.com); 2026-10-09: your design answers done (title fonts like live, arrows as icons), category pages pre-built, redirect map finished (Search Console addresses), speed (homepage 80 to 86, PRI 81 to 87, peptide 80 to 95) and error pages; 2026-10-08: redesign group 2, BrewSoul badge and menu, `/pri-efficacy` switch, link check and sitemap clean, live comparisons closed; left: 3 decisions, Lighthouse on the preview, Search Console at cutover |
 | 13 Images | 19 | 0 | 2026-10-13: text logo kept, quiz results get colour backgrounds, 92 essays have their own generated picture (published) |
-| 14 QA & launch | 13 | 8 | 2026-10-16: Find Your Me's dead essay links fixed (9 never-written picks hidden; Tony to pick replacements); tests for all 618 files (`pnpm test`, 2,952 checks, all pass); they found 51 bugs, filed as 6 items: security (2 holes, fix before launch), PRI safety, wrong quiz results (copied from live, owner to decide), wrong info, content Google can't see, keyboard/screen reader; 2026-10-14: team review re-checked (60 menu pages, 130 blog links, 404, dark mode, phone: fine; 404 tab title and 3 menu redirects fixed); essay counts now match (123 everywhere); new `/privacy`, `/terms`, `/contact` pages with footer links (Josh to review the legal wording); 2026-10-13: sign-off given (webmaster), noindex needs no change, iPhone and Safari checked in Apple's iPhone Simulator (14 pages); left: DNS cutover; 2026-10-10: no dead-end pages (Related links on 19 pages); Accessibility pass done 2026-10-08; left: real iPhone, dead-end pages (content yes), sign-off, noindex check, DNS cutover |
+| 14 QA & launch | 20 | 3 | 2026-10-16: every file at 90%+ test coverage (`pnpm test:coverage`), all 51 bugs the tests found fixed (security, PRI deliriants, 9 quizzes, BrewSoul grades one rule, Google-visible content, keyboard); left for Tony: Find Your Me essay picks, quiz content questions; earlier: 2026-10-16: Find Your Me's dead essay links fixed (9 never-written picks hidden; Tony to pick replacements); tests for all 618 files (`pnpm test`, 2,952 checks, all pass); they found 51 bugs, filed as 6 items: security (2 holes, fix before launch), PRI safety, wrong quiz results (copied from live, owner to decide), wrong info, content Google can't see, keyboard/screen reader; 2026-10-14: team review re-checked (60 menu pages, 130 blog links, 404, dark mode, phone: fine; 404 tab title and 3 menu redirects fixed); essay counts now match (123 everywhere); new `/privacy`, `/terms`, `/contact` pages with footer links (Josh to review the legal wording); 2026-10-13: sign-off given (webmaster), noindex needs no change, iPhone and Safari checked in Apple's iPhone Simulator (14 pages); left: DNS cutover; 2026-10-10: no dead-end pages (Related links on 19 pages); Accessibility pass done 2026-10-08; left: real iPhone, dead-end pages (content yes), sign-off, noindex check, DNS cutover |
 
 **Done this session (2026-10-16), branch `tests-2026-10-16`:**
 - **Tests for every file (owner asked; owner said yes to Vitest + Testing Library, dev-only):**
@@ -44,6 +44,16 @@ this rebuild is live on tonygreenberg.com yet** (it still serves the old app unt
   PRI can recommend the "Hard Stop" deliriants, 8 quizzes give wrong results (copied from live;
   Find Your Sexuality is the most serious), a dead BrewSoul menu link, content Google can't see,
   and keyboard/screen-reader gaps. Grouped as 6 new Phase 14 items, by priority.
+- **Every file at 90%+ coverage (owner: "90+ for all file"; yes to `@vitest/coverage-v8`):**
+  `pnpm test:coverage`, all 618 files at 90% or more of lines and statements (was 31 under, lowest
+  38%); 99% / 98% overall. Phase 14.
+- **All 51 bugs fixed (owner: "you can try to pass all thing"):** 3,332 tests, none expected to
+  fail. Both security holes (plus a tab-character variant of the sign-in one found while checking),
+  PRI never recommends brugmansia/datura, 9 quizzes give reachable, correct results, BrewSoul grades
+  follow the grade table (owner), hall of shame average from data (owner), `/clients` keeps "90+"
+  (owner), content in the server HTML, keyboard and screen-reader fixes, typed arrows to icons.
+  Checked: typecheck, lint, build, fresh `pnpm start` (23 pages), Chrome at 375 and 1280.
+  Left for Tony: Consciousness Scale range, two Sexuality answers, Peptide's Sovereign rule.
 - **Find Your Me essay links (owner: "you can start"):** 14 of 17 were dead, on live too. 5 now
   point at the real essay; 9 were never written and are hidden. Two results (Systems Architect,
   Truth Speaker) now show no essays: Tony to pick. Phase 14.
@@ -670,19 +680,19 @@ Every image below needs to exist as a real asset uploaded to Sanity (or explicit
   record the bugs below as `it.fails`), type check, lint, production build (150 static, 28
   dynamic). How to write and run them: `docs/ai/testing.md`. A full run takes about 1.5 minutes (the
   first one took 10: leftover stuck test runs from the helpers were competing for the machine).
-- [ ] **Security: two holes found by the tests (2026-10-16), fix before launch.** (1)
+- [x] **Security: two holes found by the tests (2026-10-16), fix before launch.** **Fixed 2026-10-16** (owner: "you can try to pass all"): `safeNext` now reads the path the way a browser does and refuses anything that leaves the site (backslash, and also tab/newline tricks like `/<tab>/evil.com`, found while checking the first fix); upload links re-check the admin list. Checked: tests, real server (`/login?next=/%5Cevil.com` and `/%09/evil.com` fall back to `/my-highlights`). (1)
   `src/lib/auth.ts` `safeNext` lets `/\evil.com` through; browsers read it as `//evil.com`, so a
   real-looking sign-in link (`/login?next=/\evil.com`) sends the visitor to another site after
   they sign in (the sign-in form action, login and sign-up pages; the email-link callback is safe).
   One-line fix: also refuse a backslash. (2) `src/lib/admin/binary-upload.ts:240`: an MCP upload
   link keeps working for up to 30 minutes after its owner is removed from `MCP_ADMIN_USERS`.
   Tests: `__tests__/lib/auth.test.ts`, `__tests__/lib/admin/binary-upload.test.ts`.
-- [ ] **PRI results: safety and scoring (2026-10-16), needs a yes.** `src/lib/content/pri-shared.ts`:
+- [x] **PRI results: safety and scoring (2026-10-16), needs a yes.** **Fixed 2026-10-16:** Hard Stop medicines are filtered out before matching; the match score is a real 0-100% (labels can show); missing answers no longer give NaN. `src/lib/content/pri-shared.ts`:
   the "Hard Stop" deliriants (brugmansia, datura) can show in a visitor's top matches (line 102);
   the match score can never pass 12%, so "worth a real look" (60%+) and "this one knows you" (80%+)
   never show (line 75); fewer answers than questions gives NaN (line 58, low risk).
-- [ ] **Quiz results that come out wrong (2026-10-16), copied from live, needs the owner's
-  decision** (fixing changes what visitors are told). Find Your Sexuality (the most serious:
+- [x] **Quiz results that come out wrong (2026-10-16), copied from live, needs the owner's
+  decision** **Fixed 2026-10-16 (owner said yes):** every result of all 9 quizzes is now reachable (checked over 100k+ random answer sets each; Sexuality 7 of 12 to 12 of 12, Diet 3 to 6, Peptide 13 to 16); Sake, Religion, Spirit, Therapy rank by real points on one shared scale (shown numbers are lower than before); Journey Finder scores each answer against its own question; Kava highlights only the chosen option. (fixing changes what visitors are told). Find Your Sexuality (the most serious:
   answering "exclusively a different gender" every time shows The Lighthouse, gay/lesbian; The
   Compass can never show; only 3 of 11 results reachable), Diet (3 results never shown), Peptide
   (3 never shown), Sake, Religion, Spirit, Therapy (scores capped, so the top dimension often
@@ -692,7 +702,7 @@ Every image below needs to exist as a real asset uploaded to Sanity (or explicit
   line by line against legacy `FindYourSexuality.tsx`: identical, so live shows the same results
   today. Tests in `__tests__/components/assessments/`, `.../marketing/journey-finder.test.tsx`,
   `.../kava/assessment-quiz.test.tsx`.
-- [ ] **Wrong or broken information (2026-10-16).** BrewSoul "My Collection" links to
+- [x] **Wrong or broken information (2026-10-16).** **Fixed 2026-10-16:** all of these. BrewSoul grades now follow one rule (owner): the GRADE_SCALE table shown on the site, worked out from each score (some letters changed, e.g. Starbucks D+ to D, Seattle A- to A); `/clients` keeps "90+" (owner: real total, the page shows a selection); hall of shame average worked out from the clinics (95); `/the-philosophy` count from the data (39); short link `jwd9jx` to the restaurant AI-ethics essay (the only place the old sign-up box lived). BrewSoul "My Collection" links to
   `/brewsoul/my-coffees`, a missing page (`brewsoul-nav.tsx:38`, `journey-bar.tsx:142`; real page
   `/brewsoul/collection`); coffee prescription under-counts decaf for "Reduce anxiety"
   (`prescription-wizard.tsx:129`); charity scorecard's first "Score" click sorts lowest first;
@@ -705,11 +715,11 @@ Every image below needs to exist as a real asset uploaded to Sanity (or explicit
   `legacy-body.ts:49` keeps leading spaces. Copy counts that disagree with the page (owner's yes,
   copy): `/clients` description "90+" vs 79 listed, `/peptide-hall-of-shame` "93/100" vs 95,
   `/the-philosophy` "38 medicines" vs 39.
-- [ ] **Content Google can't see, and missing tags (2026-10-16).** Only shown after a click, so not
+- [x] **Content Google can't see, and missing tags (2026-10-16).** **Fixed 2026-10-16:** all three are in the server HTML now (hidden until opened); `/assessment` and `/iboga-compass` have exactly one H1 per screen; both America Unbundled pages keep @ThinkTony. Checked on a fresh `pnpm start`: 23 changed pages 200 with one H1. Only shown after a click, so not
   in the server HTML: Shanita interview answers 2 to 10, Iboga pharma table rows 6 to 8, Kava myth
   evidence. No H1: `/assessment` (until finished), `/iboga-compass`. Share cards lose @ThinkTony
   (no `...defaultTwitter`): `/america-unbundled`, `/america-unbundled-field-guide`.
-- [ ] **Keyboard and screen-reader fixes (2026-10-16).** Clickable `<div>`s with no button
+- [x] **Keyboard and screen-reader fixes (2026-10-16).** **Fixed 2026-10-16:** every item, plus the compact journey tracker (it looked clickable and did nothing: now opens the full list) and typed ▲▼↑↓ arrows swapped for icons in 8 places (rule 18). Checked in Chrome at 375 and 1280: Kava myths, BrewSoul chains, roasters, decaf, peptide fraud patterns, Shanita interview open by click and by keyboard, no sideways scroll, no errors. Clickable `<div>`s with no button
   (BrewSoul chain and roaster cards, Kava myth cards, PRI medicine cards, peptide fraud patterns);
   a Buy link inside a button (BrewSoul decaf); no accessible name (Kava clear-search X, PRI modal
   close X, calibration ↑/↓, SoulScore's 12 sliders); labels not linked to fields (BrewSoul first-sip
@@ -728,6 +738,17 @@ Every image below needs to exist as a real asset uploaded to Sanity (or explicit
   Architect and The Truth Speaker now show no essays (all 6 of each were never written); The
   Consciousness Explorer shows 2, The Tribe Weaver 3. Replace the 9 picks in `NEVER_WRITTEN`
   (`__tests__/lib/content/find-your-me.test.ts`) in `src/lib/content/find-your-me.ts`.
+- [x] **Every file at 90%+ test coverage (2026-10-16, owner: "90+ for all file").**
+  `@vitest/coverage-v8` (dev-only, owner's yes); `pnpm test:coverage` fails if any file in `src/`
+  is under 90% of lines or statements. Was 31 files under (lowest 38%); now all 618 at 90% or more
+  (lowest exactly 90%), 99% of lines and 98% of statements overall, 3,332 tests, none expected to
+  fail (all 51 bugs fixed, plus 3 more found on the way).
+- [ ] **Quiz content questions for Tony (2026-10-16).** Consciousness Scale: the answer scores only
+  reach averages 138 to 598, so "Peace and beyond" (600+) and "Shame and Guilt" (under 100) can
+  never show (same on live; owner: leave for Tony). Sexuality: a few answers ("my behavior already
+  matches my desires", "gender is the primary factor") score as "straight-ish" whoever picks them,
+  so an out gay person who picks them gets The Current, not The Lighthouse. Peptide: The Sovereign
+  now shows when vitality leads and longevity is second, but its text says "relatively balanced".
 - [ ] DNS cutover, legacy app decommissioned only after a stable overlap window **Re-checked 2026-10-13: unchanged** (Hostinger name servers, bare domain on Manus 104.19.168/169.112, `www` CNAME `cname.manus.space`). **Checked 2026-10-09 (owner wants to go live and switch off Manus):** DNS for tonygreenberg.com is at **Hostinger** (name servers `ns1/ns2.dns-parking.com`); `www` is a CNAME to `cname.manus.space`, the bare domain points at Manus's addresses (104.19.168.112 / .169.112); the Netlify site `tonygreenberg-website` has **no custom domain yet** (production branch `main`). Order: (1) merge the three open pull requests into `main` and check the Netlify copy; (2) restore Supabase and run 0001 to 0003, or launch without member features (they say "isn't available just now"); (3) owner sign-off; (4) add `tonygreenberg.com` + `www` in Netlify (Domain management), then at Hostinger point the bare domain at Netlify (A record `75.2.60.5`, or Netlify DNS) and `www` CNAME at `tonygreenberg-website.netlify.app`; Netlify issues the HTTPS certificate; (5) re-run `scripts/check-search-console-urls.ts https://tonygreenberg.com` and submit the sitemap in Search Console; (6) only after a few stable days: switch off the Manus site (the database is already backed up, `docs/ai/project_legacy_database.md`) and rotate the old database password.
 
 ---

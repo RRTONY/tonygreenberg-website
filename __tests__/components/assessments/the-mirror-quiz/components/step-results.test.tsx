@@ -5,6 +5,7 @@ import { StepResults } from "@/components/assessments/the-mirror-quiz/components
 import { MIRROR_ARTICLES, MIRROR_DIMENSIONS, type MirrorDimensionId } from "@/lib/content/mirror-data";
 import type { StepProps } from "@/components/assessments/the-mirror-quiz/the-mirror-quiz";
 import { recordFinish } from "@/lib/assessments/record-finish";
+import { theMirrorData } from "@/components/assessments/the-mirror-quiz/data/the-mirror.data";
 
 vi.mock("@/lib/assessments/record-finish", () => ({ recordFinish: vi.fn() }));
 vi.mock("@/app/assessments/actions", () => ({
@@ -63,5 +64,30 @@ describe("mirror StepResults", () => {
     expect(open.mock.calls[0][0]).toContain(encodeURIComponent("My score: 6/9"));
     await user.click(screen.getByRole("button", { name: /retake the mirror/i }));
     expect(q.reset).toHaveBeenCalled();
+  });
+
+  it("caps the reading list at 9 essays even when more weak-dimension essays have titles", () => {
+    const titles = Object.fromEntries(Object.keys(MIRROR_ARTICLES).map((slug, i) => [slug, `Essay Number ${i}`]));
+    const weakIds = ["relationships", "purpose", "body"];
+    const eligible = Object.values(MIRROR_ARTICLES).filter((a) => weakIds.includes(a.dimension)).length;
+    expect(eligible).toBeGreaterThan(9);
+    render(<StepResults quiz={quiz()} articleTitles={titles} />);
+    expect(screen.getAllByRole("link", { name: /Essay Number \d+/ })).toHaveLength(9);
+  });
+
+  it("LinkedIn and Email share the page link and the score text", async () => {
+    const open = vi.spyOn(window, "open").mockReturnValue(null);
+    const user = userEvent.setup();
+    render(<StepResults quiz={quiz()} articleTitles={{}} />);
+    await user.click(screen.getByRole("button", { name: /share with your people/i }));
+    const url = "https://tonygreenberg.com/the-mirror";
+    await user.click(screen.getByRole("button", { name: "LinkedIn" }));
+    expect(open).toHaveBeenLastCalledWith(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, "_blank");
+    await user.click(screen.getByRole("button", { name: "Email" }));
+    const text = theMirrorData.results.shareText(6);
+    expect(open).toHaveBeenLastCalledWith(
+      `mailto:?subject=${encodeURIComponent(theMirrorData.results.shareEmailSubject)}&body=${encodeURIComponent(`${text}\n\n${url}`)}`,
+      "_blank",
+    );
   });
 });

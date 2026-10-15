@@ -46,9 +46,11 @@ describe("FindYourMeQuiz", () => {
   beforeEach(() => {
     vi.useFakeTimers({ shouldAdvanceTime: true });
   });
+
   afterEach(() => {
     vi.useRealTimers();
   });
+
   it("the landing lists the whole directory and filters it by status and search", async () => {
     const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
     render(<FindYourMeQuiz articleTitles={{}} />);
@@ -117,5 +119,62 @@ describe("FindYourMeQuiz", () => {
     await answerAll(user, QUESTIONS.map(() => 1));
     await user.click(await screen.findByRole("button", { name: /shuffle the deck/i }));
     expect(screen.getByRole("button", { name: /show me what i already know/i })).toBeInTheDocument();
+  });
+
+  it("a wound card's Browse button scrolls to its directory section and highlights it for 3 seconds", async () => {
+    const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
+    render(<FindYourMeQuiz articleTitles={{}} />);
+    const section = () => screen.getByRole("heading", { level: 3, name: "Love & Belonging" }).parentElement!.parentElement!;
+    expect(section().className).not.toContain("shadow-");
+    const scroll = vi.mocked(Element.prototype.scrollIntoView);
+    scroll.mockClear();
+    await user.click(screen.getAllByRole("button", { name: /browse love & belonging/i })[0]);
+    expect(section().className).toContain("shadow-");
+    expect(scroll).toHaveBeenCalledWith({ behavior: "smooth", block: "center" });
+    await act(async () => vi.advanceTimersByTime(3000));
+    expect(section().className).not.toContain("shadow-");
+  });
+
+  it("a second click while the answer is moving on is ignored (no skipped question)", async () => {
+    const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
+    render(<FindYourMeQuiz articleTitles={{}} />);
+    await user.click(screen.getByRole("button", { name: /show me what i already know/i }));
+    await user.click(screen.getByRole("button", { name: QUESTIONS[0].choices[0].text }));
+    await act(async () => vi.advanceTimersByTime(500));
+    expect(screen.getByRole("button", { name: QUESTIONS[0].choices[1].text })).toBeDisabled();
+    await user.click(screen.getByRole("button", { name: QUESTIONS[0].choices[1].text }));
+    await act(async () => vi.advanceTimersByTime(2000));
+    expect(screen.getByText(`2 / ${QUESTIONS.length}`)).toBeInTheDocument();
+  });
+
+  it("the share buttons post the archetype's share text and count toward 10 shares", async () => {
+    const picks = QUESTIONS.map(() => 0);
+    const expected = expectedArchetype(picks);
+    const open = vi.fn();
+    vi.stubGlobal("open", open);
+    const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
+    const writeText = vi.fn(async () => {});
+    Object.defineProperty(navigator, "clipboard", { value: { writeText }, configurable: true });
+    render(<FindYourMeQuiz articleTitles={{}} />);
+    await answerAll(user, picks);
+    const url = "https://tonygreenberg.com/find-your-me";
+    await user.click(await screen.findByRole("button", { name: "Share on X" }));
+    expect(open).toHaveBeenCalledWith(
+      `https://twitter.com/intent/tweet?text=${encodeURIComponent(expected.shareText)}&url=${encodeURIComponent(url)}`,
+      "_blank",
+    );
+    expect(screen.getByText("1 of 10 shared · 9 to go")).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: "Share on LinkedIn" }));
+    expect(open).toHaveBeenLastCalledWith(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, "_blank");
+    await user.click(screen.getByRole("button", { name: "Share by email" }));
+    expect(open).toHaveBeenLastCalledWith(
+      `mailto:?subject=${encodeURIComponent(`Find My — ${expected.name}`)}&body=${encodeURIComponent(`${expected.shareText}\n\n${url}`)}`,
+      "_blank",
+    );
+    await user.click(screen.getByRole("button", { name: "Copy link" }));
+    expect(writeText).toHaveBeenCalledWith(`${expected.shareText}\n\n${url}`);
+    expect(screen.getByText("4 of 10 shared · 6 to go")).toBeInTheDocument();
+    for (let i = 0; i < 6; i++) await user.click(screen.getByRole("button", { name: "Share on LinkedIn" }));
+    expect(screen.getByText("10 of 10 shared · You're a Tribe Weaver already")).toBeInTheDocument();
   });
 });

@@ -9,13 +9,13 @@ const report = (rows: { d?: string[]; m: string[] }[]) => ({
 });
 
 beforeEach(() => {
-
   vi.stubEnv("GA4_PROPERTY_ID_TONYGREENBERG", "123456");
-
 });
+
 afterEach(() => {
   vi.unstubAllEnvs();
 });
+
 describe("getAnalyticsSummary", () => {
   it("refuses without a property id and makes no request", async () => {
     vi.stubEnv("GA4_PROPERTY_ID_TONYGREENBERG", "");

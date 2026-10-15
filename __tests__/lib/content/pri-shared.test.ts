@@ -70,22 +70,22 @@ describe("computeScores", () => {
     expect(ids).not.toContain("ayahuasca");
   });
 
-  // matchScore = round(sum of 6 dims, each at most 10) / 5, so it can never
-  // pass 12, yet the results page labels 60%+ "worth a real look" and 80%+
-  // "this one knows you", and draws the bar at matchScore% width.
-  it.fails("BUG: medicine match scores never go above 12%, so the 60%/80% labels can never show", () => {
+  // Fixed 2026-10-16: matchScore used to be round(sum of 6 dims, each at most
+  // 10) / 5, so it never passed 12, yet the results page labels 60%+ "worth a
+  // real look" and 80%+ "this one knows you".
+  it("lets medicine match scores reach the 60%/80% labels", () => {
     const best = Math.max(...[1, 5, 10].flatMap((v) => computeScores(all(v)).topMatches.map((m) => m.matchScore)));
     expect(best).toBeGreaterThanOrEqual(60);
   });
 
   // Brugmansia and Datura are "Hard Stop" deliriants ("NOT A PSYCHEDELIC.
-  // Listed to protect you."), but nothing keeps them out of the top matches.
-  it.fails("BUG: a 'Hard Stop' deliriant can be recommended as a top match", () => {
+  // Listed to protect you."): fixed 2026-10-16 to keep them out of the matches.
+  it("never recommends a 'Hard Stop' deliriant as a top match", () => {
     const ids = computeScores(all(10)).topMatches.map((m) => m.id);
     expect(ids.filter((id) => med(id).complexityLevel === "Hard Stop")).toEqual([]);
   });
 
-  it.fails("BUG: fewer answers than questions gives a NaN overall score", () => {
+  it("gives a real overall score with fewer answers than questions", () => {
     expect(Number.isNaN(computeScores([]).overall)).toBe(false);
   });
 });

@@ -23,9 +23,11 @@ describe("/alex-azzi", () => {
     vi.stubEnv("GATED_POST_PASSWORD", PASSWORD);
     vi.mocked(unlockReport).mockResolvedValue({ error: true });
   });
+
   afterEach(() => {
     vi.unstubAllEnvs();
   });
+
   it("keeps the locked report out of search and share previews", () => {
     expect(metadata.title).toBe("Restricted Access");
     expect(metadata.description).toBe("This report is password-protected.");

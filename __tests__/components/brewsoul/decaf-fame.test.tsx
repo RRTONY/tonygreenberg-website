@@ -41,7 +41,7 @@ describe("DecafFame", () => {
 });
 
 describe("DecafFame markup", () => {
-  it.fails("BUG: the Buy link is not nested inside the card's <button> (a link inside a button is invalid HTML and unreachable by keyboard)", async () => {
+  it("the Buy link is not nested inside the card's <button>", async () => {
     const user = userEvent.setup();
     render(<DecafFame />);
     await user.click(screen.getByRole("button", { name: new RegExp(FAME[0].name) }));

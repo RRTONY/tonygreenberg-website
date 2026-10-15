@@ -26,6 +26,16 @@ export default defineConfig({
     restoreMocks: true,
     // Form tests type key by key; under load (a full run) they need headroom.
     testTimeout: 60000,
+    // `pnpm test:coverage`: every file in src/ must have 90% of its lines and
+    // statements run by its tests (owner's target, 2026-10-16). perFile: one
+    // badly covered file fails the run even when the total is high.
+    coverage: {
+      provider: "v8",
+      include: ["src/**/*.{ts,tsx}"],
+      reporter: ["text-summary", "json-summary", "html"],
+      reportsDirectory: "coverage",
+      thresholds: { perFile: true, lines: 90, statements: 90 },
+    },
     env: {
       NEXT_PUBLIC_SANITY_PROJECT_ID: "test-project",
       NEXT_PUBLIC_SANITY_DATASET: "test",

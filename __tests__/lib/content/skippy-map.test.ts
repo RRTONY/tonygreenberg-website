@@ -41,7 +41,9 @@ describe("skippy-map", () => {
 
   it("shows only the documented unbuilt stops as Coming Soon", () => {
     const coming = STOPS.filter((s) => s.href === null).map((s) => s.id);
-    expect(coming).toEqual(expect.arrayContaining(["friend-gate", "post-intervention"]));
+    // Friend Gate and Post-Intervention are live pages now (fixed 2026-10-16).
+    expect(coming).not.toContain("friend-gate");
+    expect(coming).not.toContain("post-intervention");
     for (const s of STOPS) expect(s.label.trim() && s.description.trim() && s.time.trim()).toBeTruthy();
   });
 });

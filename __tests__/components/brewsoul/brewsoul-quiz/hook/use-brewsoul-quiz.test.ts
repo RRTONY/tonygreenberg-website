@@ -12,9 +12,11 @@ describe("useBrewSoulQuiz", () => {
   beforeEach(() => {
     vi.useFakeTimers();
   });
+
   afterEach(() => {
     vi.useRealTimers();
   });
+
   it("starts on question 1 of step 1 with no answers", () => {
     const { result } = renderHook(() => useBrewSoulQuiz());
     expect(result.current.state).toEqual({ step: 1, questionIndex: 0, answers: {}, visible: true });

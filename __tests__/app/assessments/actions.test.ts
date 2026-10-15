@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { cookieJar } from "@tests/helpers/next";
 import { fakeSupabase, supabaseResult } from "@tests/helpers/supabase";
-import { isServiceRoleConfigured } from "@/lib/supabase/service-role";
+import { createServiceRoleClient, isServiceRoleConfigured } from "@/lib/supabase/service-role";
 import { recordAssessmentResult, setJourneyStep, syncJourneyProgress } from "@/app/assessments/actions";
 
 const SID = "11111111-2222-3333-4444-555555555555";
@@ -102,5 +102,66 @@ describe("setJourneyStep", () => {
   it("does nothing for a visitor who isn't signed in", async () => {
     await setJourneyStep("dharma-finder", true);
     expect(fakeSupabase.from).not.toHaveBeenCalled();
+  });
+});
+
+// A database outage must never reach the visitor: each action logs and carries on.
+function databaseThrows() {
+  vi.mocked(createServiceRoleClient).mockImplementation(() => {
+    throw new Error("db down");
+  });
+  return vi.spyOn(console, "error").mockImplementation(() => {});
+}
+
+describe("when the database fails or isn't set up", () => {
+  it("recordAssessmentResult logs the failure instead of throwing", async () => {
+    const log = databaseThrows();
+    await expect(recordAssessmentResult({ assessment: "grant-study" })).resolves.toBeUndefined();
+    expect(log).toHaveBeenCalledWith("recordAssessmentResult failed", expect.objectContaining({ message: "db down" }));
+  });
+
+  it("recordAssessmentResult leaves a complete earlier row alone and drops an unusable score", async () => {
+    cookieJar.set("tg_sid", SID);
+    supabaseResult.data = [{ id: 3, assessment: "grant-study", summary: "Kept", score: 10 }];
+    await recordAssessmentResult({ assessment: "grant-study", summary: "New", score: Number.NaN });
+    expect(fakeSupabase.update).not.toHaveBeenCalled();
+    expect(fakeSupabase.insert).not.toHaveBeenCalled();
+  });
+
+  it("syncJourneyProgress returns null when the database isn't configured", async () => {
+    signIn();
+    vi.mocked(isServiceRoleConfigured).mockReturnValue(false);
+    await expect(syncJourneyProgress(["grant-study"])).resolves.toBeNull();
+    expect(fakeSupabase.from).not.toHaveBeenCalled();
+  });
+
+  it("syncJourneyProgress returns null and logs when the database throws", async () => {
+    signIn();
+    const log = databaseThrows();
+    await expect(syncJourneyProgress(["grant-study"])).resolves.toBeNull();
+    expect(log).toHaveBeenCalledWith("syncJourneyProgress failed", expect.any(Error));
+  });
+
+  it("syncJourneyProgress skips the merge when there's nothing valid to merge, and handles no rows", async () => {
+    signIn();
+    supabaseResult.data = null;
+    await expect(syncJourneyProgress("nope" as unknown as string[])).resolves.toEqual([]);
+    expect(fakeSupabase.upsert).not.toHaveBeenCalled();
+    expect(fakeSupabase.eq).toHaveBeenCalledWith("user_id", "user-1");
+  });
+
+  it("setJourneyStep ignores a bad id and an unconfigured database", async () => {
+    signIn();
+    await setJourneyStep("Not Valid!", true);
+    vi.mocked(isServiceRoleConfigured).mockReturnValue(false);
+    await setJourneyStep("dharma-finder", true);
+    expect(fakeSupabase.from).not.toHaveBeenCalled();
+  });
+
+  it("setJourneyStep logs the failure instead of throwing", async () => {
+    signIn();
+    const log = databaseThrows();
+    await expect(setJourneyStep("dharma-finder", true)).resolves.toBeUndefined();
+    expect(log).toHaveBeenCalledWith("setJourneyStep failed", expect.any(Error));
   });
 });

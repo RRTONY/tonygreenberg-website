@@ -44,10 +44,12 @@ function splitLines(block: Block): Block[] {
   return lines
     .map((children) => {
       // Trim the line's outer whitespace, as legacy's `.trim()` did.
+      // Read `last` after the leading trim, so a one-span line (first === last)
+      // keeps both trims.
       const first = children[0];
-      const last = children[children.length - 1];
       if (first?.text) children[0] = { ...first, text: first.text.replace(/^\s+/, "") };
-      if (last?.text) children[children.length - 1] = { ...children[children.length - 1], text: last.text.replace(/\s+$/, "") };
+      const last = children[children.length - 1];
+      if (last?.text) children[children.length - 1] = { ...last, text: last.text.replace(/\s+$/, "") };
       return children.filter((s) => s._type !== "span" || s.text);
     })
     .filter((children) => children.length > 0)

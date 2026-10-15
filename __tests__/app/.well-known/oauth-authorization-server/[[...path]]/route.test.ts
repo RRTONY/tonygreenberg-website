@@ -3,10 +3,9 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { GET, OPTIONS } from "@/app/.well-known/oauth-authorization-server/[[...path]]/route";
 
 afterEach(() => {
-
   vi.unstubAllEnvs();
-
 });
+
 describe("/.well-known/oauth-authorization-server", () => {
   it("points Claude/ChatGPT at this site's sign-in, token and registration endpoints", async () => {
     vi.stubEnv("MCP_PUBLIC_ORIGIN", "");

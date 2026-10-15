@@ -111,7 +111,7 @@ describe("QuickIntake", () => {
     expect(await screen.findByRole("heading", { name: "You're in the record." })).toBeInTheDocument();
   });
 
-  it.fails("BUG: the optional name/code and contact fields have no label linked to them", async () => {
+  it("the optional name/code and contact fields have labels linked to them", async () => {
     const user = userEvent.setup();
     render(<QuickIntake onGoDeeper={vi.fn()} />);
     await answerAll(user);

@@ -19,6 +19,7 @@ beforeEach(() => {
   oauth.clearRemoteClientCachesForTests();
   oauth.resetLoginFailuresForTests();
 });
+
 afterEach(() => {
   vi.unstubAllEnvs();
   vi.useRealTimers();

@@ -30,6 +30,7 @@ describe("FindYourSpiritQuiz", () => {
   beforeEach(() => {
     vi.stubGlobal("fetch", vi.fn(async () => new Response("{}")));
   });
+
   it("shows the category, Previous and Exit", async () => {
     const user = userEvent.setup();
     render(<FindYourSpiritQuiz />);
@@ -43,7 +44,7 @@ describe("FindYourSpiritQuiz", () => {
     expect(screen.getByRole("button", { name: /begin assessment/i })).toBeInTheDocument();
   });
 
-  it("all fourth answers: ethics, society and trajectory max out, The Ethical Humanist then The Embodied Naturalist", async () => {
+  it("all fourth answers: ethics, society and trajectory lead, The Ethical Humanist then The Embodied Naturalist", async () => {
     const user = userEvent.setup();
     render(<FindYourSpiritQuiz />);
     await walk(user, () => 3);
@@ -54,7 +55,7 @@ describe("FindYourSpiritQuiz", () => {
     );
   });
 
-  it("all third answers: The Embodied Naturalist (592) just ahead of The Mystic Seeker (584)", async () => {
+  it("all third answers: The Embodied Naturalist just ahead of The Mystic Seeker", async () => {
     const user = userEvent.setup();
     render(<FindYourSpiritQuiz />);
     await walk(user, () => 2);
@@ -70,10 +71,27 @@ describe("FindYourSpiritQuiz", () => {
     expect(screen.getByRole("button", { name: /begin assessment/i })).toBeInTheDocument();
   });
 
-  it.fails("BUG: dimensions are capped at 100 (max 12 raw points over 35 questions), so a clear mysticism lead (31 raw vs theism 20) shows The Contemplative Theist instead of The Mystic Seeker", async () => {
+  it("a clear mysticism lead (31 raw vs theism 20) shows The Mystic Seeker (fixed: no cap at 100 that hid the lead)", async () => {
     const user = userEvent.setup();
     render(<FindYourSpiritQuiz />);
     await walk(user, (qi) => (qi % 2 === 0 ? 2 : 0));
     expect(await screen.findByRole("heading", { level: 1 })).toHaveTextContent("The Mystic Seeker");
+  });
+
+  // One answer set (choice index per question, 0-based) for every tradition, found with a
+  // random-answer search over the scoring, so none is unreachable again.
+  it.each([
+    ["The Contemplative Theist", "0,0,0,0,0,3,0,0,1,2,0,3,0,0,0,2,0,0,0,1,0,0,0,1,0,0,2,0,0,0,0,0,0,0,3"],
+    ["The Mystic Seeker", "2,2,1,1,2,2,2,2,1,2,2,0,2,2,2,2,2,0,2,2,2,2,2,2,2,3,2,2,2,3,2,2,0,2,2"],
+    ["The Ethical Humanist", "2,2,2,3,1,2,3,3,1,2,2,2,2,3,2,2,2,2,2,2,2,2,2,2,0,2,2,2,2,2,2,2,2,3,2"],
+    ["The Rooted Reformer", "1,0,2,0,0,2,3,0,1,1,1,0,1,0,1,1,3,1,2,1,3,1,1,1,0,3,0,3,2,0,1,0,3,1,1"],
+    ["The Embodied Naturalist", "2,2,1,2,3,2,2,1,3,0,0,2,0,2,0,2,2,2,0,0,2,1,2,2,2,0,2,2,3,2,3,1,0,0,2"],
+    ["The Disciplined Practitioner", "3,0,1,3,0,0,0,1,0,0,3,0,1,0,2,3,0,0,0,3,0,2,0,0,0,0,0,0,2,0,0,0,0,0,0"],
+  ])("%s is reachable", async (name, answers) => {
+    const picks = answers.split(",").map(Number);
+    const user = userEvent.setup();
+    render(<FindYourSpiritQuiz />);
+    await walk(user, (qi) => picks[qi]);
+    expect(await screen.findByRole("heading", { level: 1 })).toHaveTextContent(name);
   });
 });

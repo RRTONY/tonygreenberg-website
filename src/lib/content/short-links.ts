@@ -116,7 +116,10 @@ export const SHORT_LINKS: [code: string, target: string][] = [
   ["j8hyrc", "/blog/the-bottle-that-quietly-ends-an-entire-civilization"],
   ["jdc76u", "/blog/a-historical-perspective-on-blockchain"],
   ["jpdxx7", "/blog/customer-service-key-to-business-success"],
-  ["jwd9jx", "/movement-signup"],
+  // Legacy made this code for the "/movement-signup" share button in the
+  // MovementSignup box, which only ever appeared at the end of this essay;
+  // "/movement-signup" itself was never a page, so send it to the essay.
+  ["jwd9jx", "/blog/the-restaurant-with-no-menu-prices-ai-ethics-manifesto"],
   ["k6jhs5", "/blog/would-you-hire-someone-who-led-a-rebellion"],
   ["kdvs8a", "/blog/enterprise-blockchain-can-big-business-co-opt"],
   ["kgfq93", "/blog/dmn8-the-most-beautiful-crooked-gym-in-the-world"],

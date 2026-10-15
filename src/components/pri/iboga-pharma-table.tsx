@@ -8,12 +8,13 @@ const tdClass = "border-b border-[#E8E2D8] px-3 py-2.5 align-top text-[.85rem] l
 
 // Ported from legacy's `PharmaTable` (IbogaDeepDive.tsx) — the real 8-row
 // ibogaine-specific pharma-to-plant alternatives table, unchanged.
-// Show-all/collapse toggle is the only interactive piece. The rows come in as
+// Show-all/collapse toggle is the only interactive piece. Every row is always
+// rendered (rows 6+ carry `hidden` until "Show all") so the whole table is in
+// the server HTML. The rows come in as
 // a prop from the (server) page, so the rest of the data module stays out of
 // the browser bundle.
 export function IbogaPharmaTable({ rows: allRows }: { rows: PharmaAltRow[] }) {
   const [expanded, setExpanded] = useState(false);
-  const rows = expanded ? allRows : allRows.slice(0, 5);
 
   return (
     <div>
@@ -29,8 +30,8 @@ export function IbogaPharmaTable({ rows: allRows }: { rows: PharmaAltRow[] }) {
             </tr>
           </thead>
           <tbody>
-            {rows.map((r, i) => (
-              <tr key={r.drug} className={i % 2 ? "bg-pri-parchment" : ""}>
+            {allRows.map((r, i) => (
+              <tr key={r.drug} hidden={!expanded && i >= 5} className={i % 2 ? "bg-pri-parchment" : ""}>
                 <td className={`${tdClass} font-bold`}>{r.drug}</td>
                 <td className={tdClass}>{r.category}</td>
                 <td className={tdClass}>{r.ibogaAlt}</td>

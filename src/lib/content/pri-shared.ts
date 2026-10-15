@@ -51,7 +51,12 @@ export function computeScores(answers: number[]): {
   sequence: { icon: LucideIcon; name: string; time: string; why: string; cost: string }[];
 } {
   const dims: Record<DimKey, number[]> = { medical: [], pharmacological: [], psychological: [], intention: [], setting: [], integration: [] };
-  QUESTIONS.forEach((q, i) => dims[q.dim].push(answers[i]));
+  // Skip missing answers (a short array) so they can't turn a dimension into NaN;
+  // a dimension with no answers falls back to 50 below.
+  QUESTIONS.forEach((q, i) => {
+    const a = answers[i];
+    if (typeof a === "number" && Number.isFinite(a)) dims[q.dim].push(a);
+  });
 
   const dimScores = {} as DimScores;
   (Object.keys(dims) as DimKey[]).forEach((d) => {
@@ -62,17 +67,22 @@ export function computeScores(answers: number[]): {
   const overall = Math.round(Object.values(dimScores).reduce((a, b) => a + b, 0) / dimKeys.length);
   const level = READINESS_LEVELS.find((l) => overall >= l.threshold) || READINESS_LEVELS[READINESS_LEVELS.length - 1];
 
-  const allMeds = MEDICINES.map(getMedicineWithSafety);
+  // "Hard Stop" entries (Brugmansia, Datura) are deliriants listed only as a
+  // warning: they must never be recommended, whatever the answers.
+  const allMeds = MEDICINES.filter((m) => m.complexityLevel !== "Hard Stop").map(getMedicineWithSafety);
   const scored: ScoredMedicine[] = allMeds
     .map((m) => {
       let s = 0;
-      (Object.keys(dimScores) as DimKey[]).forEach((d) => {
+      const scoredDims = Object.keys(dimScores) as DimKey[];
+      scoredDims.forEach((d) => {
         const req = (m.dims[d] || 0.5) * 100;
         const r = dimScores[d];
         const delta = r - req;
         s += delta > 0 ? 10 - Math.min(delta / 10, 5) : Math.max(10 + delta / 3, 0);
       });
-      return { ...m, matchScore: Math.max(0, Math.min(100, Math.round(s / 5))) };
+      // Each dimension adds at most 10 points, so s / (dims x 10) is a real
+      // 0-100% (legacy's s / 5 capped every score at 12%).
+      return { ...m, matchScore: Math.max(0, Math.min(100, Math.round((s / (scoredDims.length * 10)) * 100))) };
     })
     .sort((a, b) => b.matchScore - a.matchScore);
 

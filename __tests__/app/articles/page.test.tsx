@@ -14,6 +14,7 @@ describe("/articles", () => {
   beforeEach(() => {
     vi.mocked(sanityFetch).mockResolvedValue(POSTS);
   });
+
   it("has its own title, description and canonical", () => {
     expect(metadata.title).toBe("All Articles");
     expect(metadata.description).toMatch(/Complete archive of Tony Greenberg's published essays/);

@@ -6,7 +6,7 @@ import { DecafShame } from "@/components/brewsoul/decaf-shame";
 describe("DecafShame", () => {
   it("hides the wall until asked", () => {
     render(<DecafShame />);
-    expect(screen.getByRole("button", { name: "Reveal Wall of Shame ▼" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Reveal Wall of Shame" })).toBeInTheDocument();
     expect(screen.queryByText("Folgers Decaf")).not.toBeInTheDocument();
   });
 
@@ -17,7 +17,7 @@ describe("DecafShame", () => {
     expect(screen.getAllByText(/^Process: Methylene Chloride/)).toHaveLength(10);
     expect(screen.getByText("Dunkin' Donuts Decaf")).toBeInTheDocument();
     expect(screen.getByText("Clean Label Project Lawsuits (2020-present)")).toBeInTheDocument();
-    await user.click(screen.getByRole("button", { name: "Hide Wall of Shame ▲" }));
+    await user.click(screen.getByRole("button", { name: "Hide Wall of Shame" }));
     expect(screen.queryByText("Dunkin' Donuts Decaf")).not.toBeInTheDocument();
   });
 });

@@ -12,9 +12,11 @@ describe("unlockReport", () => {
   beforeEach(() => {
     vi.stubEnv("GATED_POST_PASSWORD", "open-sesame");
   });
+
   afterEach(() => {
     vi.unstubAllEnvs();
   });
+
   it("returns an error and sets no cookie for a wrong password", async () => {
     await expect(unlockReport({ error: false }, form({ key: "alex-azzi", password: "nope" }))).resolves.toEqual({ error: true });
     expect(cookieJar.size).toBe(0);

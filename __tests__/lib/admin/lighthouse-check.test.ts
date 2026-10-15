@@ -48,9 +48,11 @@ describe("checkLighthouse", () => {
   beforeEach(() => {
     vi.stubEnv("GOOGLE_API_KEY", "key123");
   });
+
   afterEach(() => {
     vi.unstubAllEnvs();
   });
+
   it("needs an API key", async () => {
     vi.stubEnv("GOOGLE_API_KEY", "");
     await expect(checkLighthouse("/")).rejects.toThrow(/GOOGLE_API_KEY is not configured/);

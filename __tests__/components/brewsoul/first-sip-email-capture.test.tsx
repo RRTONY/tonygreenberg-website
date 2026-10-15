@@ -52,7 +52,7 @@ describe("FirstSipEmailCapture", () => {
     }
   });
 
-  it.fails("BUG: the email box has an accessible label (it only has a placeholder)", () => {
+  it("the email box has an accessible label", () => {
     render(<FirstSipEmailCapture />);
     expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
   });

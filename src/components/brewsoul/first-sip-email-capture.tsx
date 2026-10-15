@@ -38,6 +38,7 @@ export function FirstSipEmailCapture() {
     <form onSubmit={handleSubmit} className="flex gap-2">
       <input
         type="email"
+        aria-label="Email address"
         placeholder="your@email.com"
         value={email}
         onChange={(e) => setEmail(e.target.value)}

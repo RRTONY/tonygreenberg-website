@@ -13,6 +13,7 @@ describe("writeClient", () => {
   afterEach(() => {
     vi.unstubAllEnvs();
   });
+
   it("is a non-CDN, raw-perspective client carrying the API token", async () => {
     vi.stubEnv("SANITY_API_TOKEN", "secret-token");
     const { writeClient } = await load();

@@ -20,6 +20,7 @@ describe("BlueprintForm", () => {
   beforeEach(() => {
     submit.mockResolvedValue({ ok: true });
   });
+
   it("shows all six questions with their labels", () => {
     renderForm();
     expect(screen.getByLabelText(OBSTACLE)).toHaveAttribute("placeholder", "Be honest. This isn't a job interview. It's a mirror.");

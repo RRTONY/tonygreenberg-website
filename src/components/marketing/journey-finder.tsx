@@ -221,16 +221,19 @@ export function JourneyFinder() {
 
   const totalQuestions = QUESTIONS.length;
 
+  // `step` is 1-based (0 is the intro) but `answers` is keyed by the 0-based question index that
+  // score() reads. Storing under `step` scored every answer against the next question's options and
+  // dropped the fifth (fixed 2026-10-16; legacy had the same bug).
   const handleNext = () => {
     if (selectedChoice === null) return;
-    setAnswers((prev) => ({ ...prev, [step]: selectedChoice }));
+    setAnswers((prev) => ({ ...prev, [step - 1]: selectedChoice }));
     setSelectedChoice(null);
     setStep(step + 1);
   };
 
   const handleBack = () => {
     if (step <= 1) return;
-    setSelectedChoice(answers[step - 1] ?? null);
+    setSelectedChoice(answers[step - 2] ?? null);
     setStep(step - 1);
   };
 

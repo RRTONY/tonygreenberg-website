@@ -26,6 +26,7 @@ describe("FindYourMovementQuiz", () => {
   beforeEach(() => {
     vi.stubGlobal("fetch", vi.fn(async () => new Response("{}")));
   });
+
   it("starts on the intro, then shows the first question", async () => {
     const user = userEvent.setup();
     render(<FindYourMovementQuiz />);

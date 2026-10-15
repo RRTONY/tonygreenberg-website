@@ -26,7 +26,7 @@ describe("PeptideWatchFraudPatterns", () => {
     expect(screen.getByText(second.body)).toHaveClass("hidden");
   });
 
-  it.fails("BUG: each pattern can be opened from the keyboard (it is a clickable div, not a button)", async () => {
+  it("each pattern can be opened from the keyboard (a real button)", async () => {
     render(<PeptideWatchFraudPatterns />);
     expect(screen.getAllByRole("button")).toHaveLength(FRAUD_PATTERNS.length);
   });

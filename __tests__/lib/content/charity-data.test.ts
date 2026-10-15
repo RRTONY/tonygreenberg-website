@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { CHARITIES, SCORE_WEIGHTS, SCORE_DIMENSIONS, EVALUATORS, STATS, ALL_SECTORS } from "@/lib/content/charity-data";
+import { cloakFromScore, gradeFromScore, CHARITIES, SCORE_WEIGHTS, SCORE_DIMENSIONS, EVALUATORS, STATS, ALL_SECTORS } from "@/lib/content/charity-data";
 
 const weighted = (s: (typeof CHARITIES)[number]["scores"]) =>
   Math.round(
@@ -53,5 +53,20 @@ describe("charity-data", () => {
   it("lists evaluators with https links", () => {
     expect(EVALUATORS.map((e) => e.name)).toContain("GiveWell");
     for (const e of EVALUATORS) expect(e.url).toMatch(/^https:\/\//);
+  });
+});
+
+describe("charity grade and transparency scales", () => {
+  it.each([
+    [100, "A+"], [97, "A+"], [96.9, "A"], [93, "A"], [90, "A-"], [87, "B+"], [83, "B"], [80, "B-"],
+    [79.9, "C+"], [77, "C+"], [73, "C"], [70, "C-"], [69.9, "D"], [60, "D"], [59.9, "F"], [0, "F"],
+  ] as const)("a total of %d grades %s", (score, grade) => {
+    expect(gradeFromScore(score)).toBe(grade);
+  });
+
+  it.each([
+    [100, "clear"], [90, "clear"], [89, "mostly-clear"], [75, "mostly-clear"], [74, "hazy"], [55, "hazy"], [54, "opaque"], [0, "opaque"],
+  ] as const)("a cloak score of %d is %s", (score, status) => {
+    expect(cloakFromScore(score)).toBe(status);
   });
 });

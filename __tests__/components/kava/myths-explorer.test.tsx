@@ -16,17 +16,17 @@ describe("MythsExplorer", () => {
 
   it("opens one myth's evidence at a time and closes it again", async () => {
     render(<MythsExplorer />);
-    expect(screen.queryByText(/German Administrative Court overturned/)).not.toBeInTheDocument();
+    expect(screen.getByText(/German Administrative Court overturned/)).not.toBeVisible();
     await userEvent.click(screen.getByText(/Kava damages the liver/));
-    expect(screen.getByText(/German Administrative Court overturned the 2002 ban on June 10, 2014/)).toBeInTheDocument();
+    expect(screen.getByText(/German Administrative Court overturned the 2002 ban on June 10, 2014/)).toBeVisible();
     await userEvent.click(screen.getByText(/Kava is a psychedelic/));
-    expect(screen.queryByText(/German Administrative Court/)).not.toBeInTheDocument();
-    expect(screen.getByText(/Kava is psychoactive but not psychedelic/)).toBeInTheDocument();
+    expect(screen.getByText(/German Administrative Court/)).not.toBeVisible();
+    expect(screen.getByText(/Kava is psychoactive but not psychedelic/)).toBeVisible();
     await userEvent.click(screen.getByText(/Kava is a psychedelic/));
-    expect(screen.queryByText(/Kava is psychoactive but not psychedelic/)).not.toBeInTheDocument();
+    expect(screen.getByText(/Kava is psychoactive but not psychedelic/)).not.toBeVisible();
   });
 
-  it.fails("BUG: myth cards are clickable divs, so keyboard users can't open them (no button)", () => {
+  it("myth cards are real buttons, so keyboard users can open them", () => {
     render(<MythsExplorer />);
     expect(screen.getAllByRole("button")).toHaveLength(7);
   });

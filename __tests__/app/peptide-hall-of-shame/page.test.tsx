@@ -19,10 +19,10 @@ describe("/peptide-hall-of-shame", () => {
     expect(screen.getByText("3/20")).toBeInTheDocument();
   });
 
-  it.fails("BUG: the meta description says the average is 93/100 but the page works it out as 95/100", () => {
+  it("the meta description's average matches the page's (95/100, worked out from the clinics)", () => {
     render(<PeptideHallOfShamePage />);
-    const shown = screen.getByText(/^\d+\/100$/).textContent!;
-    expect(metadata.description).toContain(shown);
+    expect(screen.getByText("95/100")).toBeInTheDocument();
+    expect(metadata.description).toContain("average score 95/100");
   });
 
   it("shows the methodology copy and every ranked clinic", () => {

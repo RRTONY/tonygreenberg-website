@@ -16,6 +16,7 @@ describe("/impact-futurism", () => {
   beforeEach(() => {
     vi.mocked(sanityFetch).mockResolvedValue(POSTS);
   });
+
   it("has its own title, description and canonical", () => {
     expect(metadata.title).toBe("Impact Futurism");
     expect(metadata.description).toMatch(/Essays on broken systems and what comes next/);

@@ -6,10 +6,9 @@ const IMG = "data:image/jpeg;base64,AAAA";
 const psi = (data?: string) => ({ lighthouseResult: { audits: { "final-screenshot": { details: { data } } } } });
 
 afterEach(() => {
-
   vi.unstubAllEnvs();
-
 });
+
 describe("liveTarget / previewTarget", () => {
   it("builds live and preview URLs, defaulting to /", () => {
     expect(liveTarget("blog/x")).toBe("https://tonygreenberg.com/blog/x");

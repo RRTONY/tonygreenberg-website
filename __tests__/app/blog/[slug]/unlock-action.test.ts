@@ -10,10 +10,9 @@ const form = (slug: string, password: string) => {
 };
 
 afterEach(() => {
-
   vi.unstubAllEnvs();
-
 });
+
 describe("unlockPost", () => {
   it("refuses a wrong password and sets no cookie", async () => {
     vi.stubEnv("GATED_POST_PASSWORD", "open-sesame");

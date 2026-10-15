@@ -38,7 +38,7 @@ describe("/skippy", () => {
     for (const a of goLinks) expect(a.getAttribute("href")).toMatch(/^\//);
   });
 
-  it.fails("BUG: Friend Gate and Post-Intervention still show 'Coming Soon' although /friend-gate and /post-intervention are live pages now", () => {
+  it("Friend Gate and Post-Intervention link to their live pages", () => {
     render(<SkippyPage />);
     const hrefs = screen.getAllByRole("link", { name: /^Go/ }).map((a) => a.getAttribute("href"));
     expect(hrefs).toContain("/friend-gate");

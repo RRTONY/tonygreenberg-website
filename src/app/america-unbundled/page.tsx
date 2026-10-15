@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowDown, ArrowRight, ArrowUpRight, Sparkle } from "lucide-react";
 import { ShareRail } from "@/components/america-unbundled/share-rail";
+import { defaultTwitter } from "@/lib/seo-defaults";
 
 // "AI Does Not Have a Candidate" (Part One of Tony's two-part America,
 // Unbundled series; Part Two is /america-unbundled-field-guide). Live-only: it
@@ -43,6 +44,7 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
+    ...defaultTwitter,
     card: "summary_large_image",
     images: [HERO_IMG],
   },

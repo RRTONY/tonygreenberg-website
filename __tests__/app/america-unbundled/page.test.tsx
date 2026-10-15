@@ -25,7 +25,7 @@ describe("/america-unbundled", () => {
     expect(og.images?.[0].alt).toBeTruthy();
   });
 
-  it.fails("BUG: the twitter card drops the shared @ThinkTony site/creator because it doesn't spread defaultTwitter (src/app/america-unbundled/page.tsx:45)", () => {
+  it("the twitter card keeps the shared @ThinkTony site/creator (spreads defaultTwitter)", () => {
     expect(metadata.twitter).toMatchObject({ site: defaultTwitter.site, creator: defaultTwitter.creator });
   });
 

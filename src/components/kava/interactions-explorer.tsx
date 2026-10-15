@@ -91,8 +91,8 @@ export function InteractionsExplorer() {
             className="flex-1 bg-transparent text-base text-kava-ink outline-none focus-visible:ring-2 focus-visible:ring-ring"
           />
           {search && (
-            <button onClick={() => setSearch("")} className="opacity-40 hover:opacity-100">
-              <X size={18} />
+            <button type="button" onClick={() => setSearch("")} aria-label="Clear search" className="opacity-40 hover:opacity-100">
+              <X aria-hidden="true" size={18} />
             </button>
           )}
         </div>

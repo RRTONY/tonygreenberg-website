@@ -22,10 +22,10 @@ describe("legacyBodyLayout", () => {
     expect(out.map((b) => b._key)).toEqual(["b", "b-1"]);
   });
 
-  // legacy-body.ts:49-50: when a line is one span, first === last, and the
-  // trailing-trim line rebuilds the span from the untrimmed `last.text`,
-  // undoing the leading trim from the line above.
-  it.fails("BUG: a one-span line keeps its leading whitespace (trailing trim overwrites the leading trim)", () => {
+  // Fixed 2026-10-16: when a line was one span (first === last), the
+  // trailing trim rebuilt the span from the untrimmed text, undoing the
+  // leading trim.
+  it("trims both ends of a one-span line", () => {
     const out = run([p("First.\n  Second line.")], NEW);
     expect(out[1].children[0].text).toBe("Second line.");
   });

@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { IbogaCompassAssessment } from "@/components/pri/iboga-compass-assessment";
 import { saveAssessmentResult } from "@/lib/assessments/result-log";
@@ -33,7 +33,7 @@ async function answerAndRank(user: User) {
   expect(screen.getByRole("heading", { name: "Priority Rank" })).toBeInTheDocument();
 }
 
-const rankLabels = () => screen.getAllByRole("button", { name: "Move up" }).map((b) => b.closest("[draggable]")!.querySelector(".flex-1")!.textContent);
+const rankLabels = () => screen.getAllByRole("button", { name: /^Move .* up$/ }).map((b) => b.closest("[draggable]")!.querySelector(".flex-1")!.textContent);
 
 describe("IbogaCompassAssessment", () => {
   it("tracks section and progress, and Previous/Next move between sections", async () => {
@@ -67,9 +67,9 @@ describe("IbogaCompassAssessment", () => {
     await answerAndRank(user);
     const order = getInitialRankOrder(ANSWERS);
     expect(rankLabels()).toEqual(order.map((k) => DIMENSION_LABELS[k]));
-    expect(screen.getAllByRole("button", { name: "Move up" })[0]).toBeDisabled();
-    expect(screen.getAllByRole("button", { name: "Move down" }).at(-1)).toBeDisabled();
-    await user.click(screen.getAllByRole("button", { name: "Move down" })[0]);
+    expect(screen.getAllByRole("button", { name: /^Move .* up$/ })[0]).toBeDisabled();
+    expect(screen.getAllByRole("button", { name: /^Move .* down$/ }).at(-1)).toBeDisabled();
+    await user.click(screen.getAllByRole("button", { name: /^Move .* down$/ })[0]);
     expect(rankLabels().slice(0, 2)).toEqual([DIMENSION_LABELS[order[1]], DIMENSION_LABELS[order[0]]]);
     await user.click(screen.getByRole("button", { name: /back to questions/i }));
     expect(screen.getByText("Section 7 of 7")).toBeInTheDocument();
@@ -128,12 +128,54 @@ describe("IbogaCompassAssessment", () => {
     expect(saved).toHaveBeenCalledWith("iboga-compass", { summary: "No facilities matched", score: undefined });
   });
 
-  it.fails("BUG: the gate's name, email and situation fields have no label linked to them", async () => {
+  it("dragging a priority onto another's place reorders the ranking and its weights stay by position", async () => {
+    const user = userEvent.setup();
+    render(<IbogaCompassAssessment />);
+    await answerAndRank(user);
+    const order = getInitialRankOrder(ANSWERS);
+    const rows = () => [...document.querySelectorAll<HTMLElement>("[draggable=true]")];
+    const weights = () => rows().map((r) => r.querySelector(".font-mono.text-xs")!.textContent);
+    const before = weights();
+    expect(before[0]).toBe("2.0x");
+    expect(before.at(-1)).toBe("0.5x");
+
+    fireEvent.dragStart(rows()[3]);
+    expect(rows()[3]).toHaveClass("border-brand-gold");
+    fireEvent.dragOver(rows()[0]);
+    const moved = [order[3], order[0], order[1], order[2], ...order.slice(4)];
+    expect(rankLabels()).toEqual(moved.map((k) => DIMENSION_LABELS[k]));
+    fireEvent.dragOver(rows()[0]); // over itself: no change
+    expect(rankLabels()).toEqual(moved.map((k) => DIMENSION_LABELS[k]));
+    fireEvent.dragEnd(rows()[0]);
+    expect(rows().some((r) => r.classList.contains("border-brand-gold"))).toBe(false);
+    fireEvent.dragOver(rows()[5]); // nothing picked up: no change
+    expect(rankLabels()).toEqual(moved.map((k) => DIMENSION_LABELS[k]));
+    // The weights belong to the position, not the dimension.
+    expect(weights()).toEqual(before);
+
+    // The results are scored with the dragged order.
+    await user.click(screen.getByRole("button", { name: /show my matches/i }));
+    await user.type(screen.getByPlaceholderText("Your full name"), "Ada");
+    await user.type(screen.getByPlaceholderText("your@email.com"), "ada@example.com");
+    await user.type(screen.getByPlaceholderText(/veteran/i), "x");
+    await user.click(screen.getByLabelText(/i consent/i));
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    await user.click(screen.getByRole("button", { name: /show my matches/i }));
+    const top = scoreAllFacilities(ANSWERS, moved).filter((r) => !r.eliminated)[0];
+    expect(saved).toHaveBeenCalledWith("iboga-compass", {
+      summary: `Top match: ${top.facility.name} (${top.matchPercent}% match)`,
+      score: top.matchPercent,
+    });
+  });
+
+  it("the gate's name, email and situation fields each have a linked label", async () => {
     const user = userEvent.setup();
     render(<IbogaCompassAssessment />);
     for (let i = 0; i < 7; i++) await user.click(next());
     await user.click(screen.getByRole("button", { name: /show my matches/i }));
     expect(screen.getByLabelText(/^name/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/^email/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/what are you seeking/i)).toBeInTheDocument();
+    expect(screen.getAllByRole("heading", { level: 1 })).toHaveLength(1);
   });
 });

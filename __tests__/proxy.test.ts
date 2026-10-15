@@ -12,10 +12,9 @@ function req(path: string, headers: Record<string, string> = {}) {
 const visitCookie = (res: Response) => (res as unknown as { cookies: { get(n: string): { value: string } | undefined } }).cookies.get("tg_visit_count")?.value;
 
 afterEach(() => {
-
   vi.unstubAllEnvs();
-
 });
+
 describe("proxy", () => {
   it("fails open when Supabase env vars are missing (no client, request passes through)", async () => {
     vi.stubEnv("NEXT_PUBLIC_SUPABASE_URL", "");

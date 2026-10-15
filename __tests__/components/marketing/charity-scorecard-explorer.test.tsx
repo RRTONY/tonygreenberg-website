@@ -44,7 +44,7 @@ describe("CharityScorecardExplorer", () => {
     expect(shownNames()[0]).toBe(sorted.at(-1));
   });
 
-  it.fails("BUG: the first click on the Score column sorts highest score first", async () => {
+  it("the first click on the Score column sorts highest score first", async () => {
     const user = setup();
     await user.click(screen.getByRole("button", { name: "Score" }));
     expect(shownNames()[0]).toBe(CHARITIES[0].name);

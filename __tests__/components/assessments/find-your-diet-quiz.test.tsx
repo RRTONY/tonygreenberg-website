@@ -30,6 +30,7 @@ describe("FindYourDietQuiz", () => {
   beforeEach(() => {
     vi.stubGlobal("fetch", vi.fn(async () => new Response("{}")));
   });
+
   it("opens on the intro and starts the 15 questions", async () => {
     const user = userEvent.setup();
     render(<FindYourDietQuiz />);
@@ -52,12 +53,14 @@ describe("FindYourDietQuiz", () => {
     expect(recordFinish).toHaveBeenCalledWith(expect.objectContaining({ assessment: "find-your-diet", summary: "The Mediterranean Soul" }));
   });
 
-  it("all last answers: lands on The Plant Alchemist", async () => {
-    // Last options: Metabolic 8, Gut 4, Inflammation 3, Energy 3, Nutrient 1, Mindful 9.
+  it("all last answers: lands on The Fasting Philosopher", async () => {
+    // Last options: Metabolic 8, Gut 4, Inflammation 3, Energy 3, Nutrient 1, Mindful 9, which as
+    // average answers (2, 1, 1, 0.75, 0.25, 2.25) sit nearest The Fasting Philosopher. (Before the
+    // 2026-10-16 fix the raw sums were compared and this showed The Plant Alchemist.)
     const user = userEvent.setup();
     render(<FindYourDietQuiz />);
     await walk(user, (_q, opts) => opts[opts.length - 1]);
-    expect(await screen.findByRole("heading", { level: 1 })).toHaveTextContent("The Plant Alchemist");
+    expect(await screen.findByRole("heading", { level: 1 })).toHaveTextContent("The Fasting Philosopher");
     expect(scoreOf("Mindful Eating")).toBe("9");
     expect(scoreOf("Nutrient Density")).toBe("1");
   });
@@ -72,10 +75,26 @@ describe("FindYourDietQuiz", () => {
     "Not very sensitive, I can drink it any time", "I tend to lose my appetite",
   ];
 
-  it.fails("BUG: The Ancestral Eater, Performance Fueler and Fasting Philosopher can never be the result (summed scores of 1-20 are compared with 1-4 profiles)", async () => {
+  it("answers matching The Ancestral Eater's profile give The Ancestral Eater (fixed: average answers, not sums, are compared with the 1-4 profiles)", async () => {
     const user = userEvent.setup();
     render(<FindYourDietQuiz />);
     await walk(user, (qi) => screen.getByRole("button", { name: ANCESTRAL[qi] }));
     expect(await screen.findByRole("heading", { level: 1 })).toHaveTextContent("The Ancestral Eater");
+  });
+
+  // One answer set (option index per question, 0-based) for every profile, found with a
+  // random-answer search over the scoring, so none is unreachable again.
+  it.each([
+    ["The Ancestral Eater", [0, 2, 0, 0, 2, 2, 2, 3, 0, 1, 3, 3, 0, 1, 3]],
+    ["The Plant Alchemist", [3, 0, 3, 3, 1, 3, 0, 1, 0, 0, 0, 0, 0, 0, 1]],
+    ["The Intuitive Grazer", [2, 0, 0, 2, 1, 2, 1, 0, 0, 2, 1, 2, 3, 1, 2]],
+    ["The Performance Fueler", [3, 3, 0, 0, 2, 3, 1, 1, 1, 3, 0, 0, 2, 1, 3]],
+    ["The Mediterranean Soul", [1, 0, 3, 0, 0, 2, 0, 3, 1, 1, 1, 1, 1, 2, 0]],
+    ["The Fasting Philosopher", [3, 2, 1, 3, 0, 3, 1, 0, 3, 2, 3, 3, 1, 3, 2]],
+  ])("%s is reachable", async (name, answers) => {
+    const user = userEvent.setup();
+    render(<FindYourDietQuiz />);
+    await walk(user, (qi, opts) => opts[answers[qi]]);
+    expect(await screen.findByRole("heading", { level: 1 })).toHaveTextContent(name);
   });
 });

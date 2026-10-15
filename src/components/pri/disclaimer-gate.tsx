@@ -101,8 +101,9 @@ export function DisclaimerGate({ onConsent }: { onConsent: () => void }) {
           </label>
 
           <div className="mb-5">
-            <label className="mb-2 block text-xs font-bold tracking-[0.08em] text-pri-tan uppercase">Type Your Initials to Confirm</label>
+            <label htmlFor="pri-disclaimer-initials" className="mb-2 block text-xs font-bold tracking-[0.08em] text-pri-tan uppercase">Type Your Initials to Confirm</label>
             <input
+              id="pri-disclaimer-initials"
               type="text"
               value={initials}
               onChange={(e) => setInitials(e.target.value.toUpperCase().slice(0, 5))}

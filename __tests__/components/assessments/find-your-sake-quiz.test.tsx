@@ -14,11 +14,11 @@ vi.mock("@/app/assessments/actions", () => ({
 const TOTAL = 20;
 type User = ReturnType<typeof userEvent.setup>;
 
-async function walk(user: User, index: number) {
+async function walk(user: User, index: number | number[]) {
   await user.click(screen.getByRole("button", { name: /begin assessment/i }));
   for (let i = 0; i < TOTAL; i++) {
     expect(screen.getByText(`${i + 1} / ${TOTAL}`)).toBeInTheDocument();
-    await user.click(screen.getAllByRole("button")[index]);
+    await user.click(screen.getAllByRole("button")[typeof index === "number" ? index : index[i]]);
   }
   await user.type(screen.getByPlaceholderText("Your email address"), "me@example.com");
   await user.click(screen.getByRole("button", { name: /get my results/i }));
@@ -29,6 +29,7 @@ describe("FindYourSakeQuiz", () => {
   beforeEach(() => {
     vi.stubGlobal("fetch", vi.fn(async () => new Response("{}")));
   });
+
   it("shows 20 questions with their subtext after Begin", async () => {
     const user = userEvent.setup();
     render(<FindYourSakeQuiz />);
@@ -39,16 +40,18 @@ describe("FindYourSakeQuiz", () => {
     expect(screen.getAllByRole("button")).toHaveLength(4);
   });
 
-  it("shows each dimension out of 10 (raw points / 16, capped) and saves the profile name", async () => {
+  it("shows each dimension out of 10 (raw points / 43, the most one dimension can get) and saves the profile name", async () => {
     // Always the first choice: raw palate 17, ritual 11, terroir 14, philosophy 25, season 13.
+    // (Before the 2026-10-16 fix this was raw / 16 capped at 10: 6.9, 8.8, 8.1, 10.)
     const user = userEvent.setup();
     render(<FindYourSakeQuiz />);
     await walk(user, 0);
     expect(await screen.findByRole("heading", { level: 1 })).toBeInTheDocument();
-    expect(score("Ritual")).toBe("6.9");
-    expect(score("Terroir")).toBe("8.8");
-    expect(score("Season")).toBe("8.1");
-    expect(score("Philosophy")).toBe("10");
+    expect(score("Palate")).toBe("4");
+    expect(score("Ritual")).toBe("2.6");
+    expect(score("Terroir")).toBe("3.3");
+    expect(score("Season")).toBe("3");
+    expect(score("Philosophy")).toBe("5.8");
     const name = screen.getByRole("heading", { level: 1 }).textContent;
     expect(recordFinish).toHaveBeenCalledWith(expect.objectContaining({ assessment: "find-your-sake", summary: name }));
   });
@@ -63,10 +66,25 @@ describe("FindYourSakeQuiz", () => {
     expect(screen.getByText(`1 / ${TOTAL}`)).toBeInTheDocument();
   });
 
-  it.fails("BUG: scores are capped at 10 with a max of 16 raw points, so a clear philosophy lead (25 vs 17) ties palate at 10 and shows The Daiginjo Devotee", async () => {
+  it("a clear philosophy lead (25 vs 17) shows The Koji Contemplative (fixed: no cap at 10 that tied it with palate)", async () => {
     const user = userEvent.setup();
     render(<FindYourSakeQuiz />);
     await walk(user, 0);
     expect(await screen.findByRole("heading", { level: 1 })).toHaveTextContent("The Koji Contemplative");
+  });
+
+  // One answer set (choice index per question, 0-based) for every profile, found with a
+  // random-answer search over the scoring, so none is unreachable again.
+  it.each([
+    ["The Daiginjo Devotee", [1, 1, 2, 0, 0, 2, 1, 0, 0, 3, 1, 3, 2, 0, 1, 0, 2, 1, 2, 3]],
+    ["The Ochoko Ceremonialist", [1, 3, 2, 0, 3, 2, 2, 2, 2, 3, 2, 0, 3, 0, 3, 3, 1, 2, 1, 2]],
+    ["The Terroir Pilgrim", [1, 0, 1, 1, 3, 3, 1, 1, 0, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 0]],
+    ["The Koji Contemplative", [0, 2, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 0, 3, 0, 0, 0]],
+    ["The Seasonal Drinker", [1, 3, 2, 2, 3, 0, 1, 0, 2, 3, 3, 0, 3, 0, 1, 1, 0, 0, 3, 2]],
+  ])("%s is reachable", async (name, answers) => {
+    const user = userEvent.setup();
+    render(<FindYourSakeQuiz />);
+    await walk(user, answers);
+    expect(await screen.findByRole("heading", { level: 1 })).toHaveTextContent(name);
   });
 });

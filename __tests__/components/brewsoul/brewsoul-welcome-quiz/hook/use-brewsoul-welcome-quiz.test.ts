@@ -34,9 +34,11 @@ describe("useBrewSoulWelcomeQuiz", () => {
   beforeEach(() => {
     vi.useFakeTimers();
   });
+
   afterEach(() => {
     vi.useRealTimers();
   });
+
   it("starts on screen 1 with weirdness 5 and no identity", () => {
     const { result } = renderHook(() => useBrewSoulWelcomeQuiz());
     expect(result.current.state).toMatchObject({ step: 1, screen: 0, weirdness: 5, identity: null, visible: true });

@@ -35,9 +35,9 @@ describe("short-links", () => {
     expect([...new Set(unknown)].sort()).toEqual(["/blog/blood-is-the-api", "/blog/the-tollbooth-and-the-alternative"]);
   });
 
-  // /movement-signup is neither a page nor a redirect, so this shared link 404s
-  // after cutover (the whole point of the list is that old links keep working).
-  it.fails("BUG: a short link points at a page that does not exist", () => {
+  // Fixed 2026-10-16: jwd9jx went to /movement-signup, neither a page nor a
+  // redirect (the whole point of the list is that old links keep working).
+  it("points every non-essay short link at a real page or redirect", () => {
     for (const [code, t] of SHORT_LINKS) {
       if (isEssay(t)) continue;
       expect(page(t) || NEXT_CONFIG.includes(`source: "${t}"`), `${code} -> ${t}`).toBe(true);

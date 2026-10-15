@@ -11,7 +11,7 @@ const risks = [
 describe("HealthRisks", () => {
   it("keeps the risks collapsed behind a count button", () => {
     render(<HealthRisks risks={risks} />);
-    expect(screen.getByRole("button", { name: "Show All 2 Risks ▼" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Show All 2 Risks" })).toBeInTheDocument();
     expect(screen.queryByText("Sleep Disruption")).not.toBeInTheDocument();
   });
 
@@ -23,7 +23,7 @@ describe("HealthRisks", () => {
     expect(screen.getByText("HIGH").className).toContain("bg-[#8b4c2a]");
     expect(screen.getByText("LOW").className).toContain("bg-[#5a6a50]");
     expect(screen.getByText("Heaney 2002")).toBeInTheDocument();
-    await user.click(screen.getByRole("button", { name: "Collapse Risks ▲" }));
+    await user.click(screen.getByRole("button", { name: "Collapse Risks" }));
     expect(screen.queryByText("Sleep Disruption")).not.toBeInTheDocument();
   });
 });

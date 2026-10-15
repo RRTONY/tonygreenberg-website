@@ -3,10 +3,9 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { GET, OPTIONS } from "@/app/.well-known/oauth-protected-resource/[[...path]]/route";
 
 afterEach(() => {
-
   vi.unstubAllEnvs();
-
 });
+
 describe("/.well-known/oauth-protected-resource", () => {
   it("names /api/mcp as the resource and this site as its sign-in server", async () => {
     vi.stubEnv("MCP_PUBLIC_ORIGIN", "");

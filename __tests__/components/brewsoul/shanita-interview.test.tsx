@@ -11,32 +11,33 @@ describe("ShanitaInterview", () => {
     render(<ShanitaInterview />);
     expect(questions()).toHaveLength(10);
     expect(screen.getByText(/Because Fair Trade was designed to make consumers feel better/)).toBeInTheDocument();
-    expect(screen.getAllByText("Sources")).toHaveLength(1);
+    expect(screen.getAllByText("Sources").filter((el) => el.closest("[hidden]") === null)).toHaveLength(1);
   });
 
   it("toggles a single question", async () => {
     const user = userEvent.setup();
     render(<ShanitaInterview />);
     await user.click(questions()[0]);
-    expect(screen.queryByText(/Because Fair Trade was designed/)).not.toBeInTheDocument();
-    expect(questions()[0].nextElementSibling).toBeNull();
+    expect(screen.getByText(/Because Fair Trade was designed/)).not.toBeVisible();
+    expect(questions()[0]).toHaveAttribute("aria-expanded", "false");
     await user.click(questions()[1]);
-    expect(questions()[1].nextElementSibling).not.toBeNull();
+    expect(questions()[1]).toHaveAttribute("aria-expanded", "true");
+    expect(questions()[1].nextElementSibling).not.toHaveAttribute("hidden");
   });
 
   it("Expand All opens every answer and Collapse All closes them", async () => {
     const user = userEvent.setup();
     render(<ShanitaInterview />);
     await user.click(screen.getByRole("button", { name: "Expand All 10" }));
-    for (const q of questions()) expect(q.nextElementSibling).not.toBeNull();
+    for (const q of questions()) expect(q.nextElementSibling).not.toHaveAttribute("hidden");
     const external = screen.getAllByRole("link");
     expect(external.length).toBeGreaterThan(1);
     for (const a of external) expect(a).toHaveAttribute("target", "_blank");
     await user.click(screen.getByRole("button", { name: "Collapse All" }));
-    for (const q of questions()) expect(q.nextElementSibling).toBeNull();
+    for (const q of questions()) expect(q.nextElementSibling).toHaveAttribute("hidden");
   });
 
-  it.fails("BUG: every interview answer is in the server HTML (answers 2-10 only render after a click, so crawlers never see them)", async () => {
+  it("every interview answer is in the server HTML (answers 2-10 only render after a click, so crawlers never see them)", async () => {
     const user = userEvent.setup();
     render(<ShanitaInterview />);
     await user.click(screen.getByRole("button", { name: "Expand All 10" }));

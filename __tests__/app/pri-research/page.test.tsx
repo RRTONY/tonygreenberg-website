@@ -9,13 +9,13 @@ vi.mock("@/lib/pri-research", () => ({ getPriResearch: vi.fn() }));
 const asUser = (email: string) => fakeSupabase.auth.getUser.mockResolvedValue({ data: { user: { id: "u", email } }, error: null } as never);
 
 beforeEach(() => {
-
   vi.stubEnv("ADMIN_EMAILS", "boss@example.com");
-
 });
+
 afterEach(() => {
   vi.unstubAllEnvs();
 });
+
 describe("/pri-research", () => {
   it("is noindex", () => {
     expect(metadata.robots).toEqual({ index: false, follow: false });

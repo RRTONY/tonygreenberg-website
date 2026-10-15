@@ -115,6 +115,7 @@ describe("SupplierIntakeForm", () => {
     expect(screen.getByText(/Online submission from this page is paused/)).toBeInTheDocument();
     expect(submit).not.toHaveBeenCalled();
   });
+
   it("shows a spinner on Submit while sending", async () => {
     let finish: (v: { ok: true; supplierId?: string }) => void = () => {};
     submit.mockImplementation(() => new Promise((r) => (finish = r)));

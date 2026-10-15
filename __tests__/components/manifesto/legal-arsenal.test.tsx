@@ -10,6 +10,7 @@ describe("LegalArsenal", () => {
   afterEach(() => {
     vi.useRealTimers();
   });
+
   it("lists every law by default", () => {
     render(<LegalArsenal />);
     expect(titles()).toEqual(LAWS.map((l) => l.title));

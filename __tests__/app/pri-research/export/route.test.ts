@@ -8,10 +8,9 @@ vi.mock("@/lib/pri-research", () => ({ getPriResearch: vi.fn() }));
 const asUser = (email: string) => fakeSupabase.auth.getUser.mockResolvedValue({ data: { user: { id: "u", email } }, error: null } as never);
 
 afterEach(() => {
-
   vi.unstubAllEnvs();
-
 });
+
 describe("GET /pri-research/export", () => {
   it("answers 404 to a signed-out visitor and to a non-admin", async () => {
     vi.stubEnv("ADMIN_EMAILS", "boss@example.com");

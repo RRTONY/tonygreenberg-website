@@ -1,7 +1,16 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { CATEGORIES, FEATURED, FIND_MY_COMING, FIND_MY_LIVE, FIND_MY_TOTAL } from "@/lib/content/find-my-directory";
 import FindMyPage, { metadata } from "@/app/find-my/page";
+
+// The real directory, plus one live tool hosted on another site, so the
+// "opens in a new tab" path is covered (none of today's entries is external).
+const EXTERNAL_HREF = vi.hoisted(() => "https://example.org/outside-tool");
+vi.mock("@/lib/content/find-my-directory", async (importOriginal) => {
+  const real = await importOriginal<typeof import("@/lib/content/find-my-directory")>();
+  const live = real.FEATURED.find((f) => f.status === "live")!;
+  return { ...real, FEATURED: [...real.FEATURED, { ...live, title: "Outside Tool", href: EXTERNAL_HREF }] };
+});
 
 describe("/find-my", () => {
   it("has its own title, a description with the live total, and a canonical", () => {
@@ -42,5 +51,23 @@ describe("/find-my", () => {
     expect(screen.getByRole("heading", { level: 2, name: "Self-Portrait" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /View Self-Portrait/ })).toHaveAttribute("href", "/self-portrait");
     expect(screen.getByRole("link", { name: /Pick Up the Phone/ })).toHaveAttribute("href", "/pick-up-the-phone");
+  });
+});
+
+describe("/find-my external tools", () => {
+  it("opens a tool hosted elsewhere in a new tab, safely", () => {
+    const { container } = render(<FindMyPage />);
+    const link = container.querySelector(`a[href="${EXTERNAL_HREF}"]`);
+    expect(link).not.toBeNull();
+    expect(link).toHaveAttribute("target", "_blank");
+    expect(link).toHaveAttribute("rel", "noopener noreferrer");
+    expect(link).toHaveTextContent("Outside Tool");
+  });
+
+  it("keeps on-site tools in the same tab", () => {
+    const { container } = render(<FindMyPage />);
+    const internal = [...container.querySelectorAll("a")].filter((a) => a.getAttribute("href")?.startsWith("/"));
+    expect(internal.length).toBeGreaterThan(0);
+    for (const a of internal) expect(a).not.toHaveAttribute("target");
   });
 });

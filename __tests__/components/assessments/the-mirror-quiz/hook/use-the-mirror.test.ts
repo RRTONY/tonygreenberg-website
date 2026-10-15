@@ -20,9 +20,11 @@ describe("useTheMirror", () => {
   beforeEach(() => {
     vi.useFakeTimers();
   });
+
   afterEach(() => {
     vi.useRealTimers();
   });
+
   it("begin goes to the questions and exit back to the intro", () => {
     const { result } = renderHook(() => useTheMirror());
     expect(result.current.state.step).toBe(1);

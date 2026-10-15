@@ -41,3 +41,14 @@ describe("dataTable schema", () => {
     expect(table.preview?.prepare?.({})).toEqual({ title: "Table: ", subtitle: "0 rows" });
   });
 });
+
+describe("dataTable row preview", () => {
+  const rowPreview = () =>
+    (field(table, "rows")?.of?.[0] as unknown as { preview: { select: unknown; prepare: (v: { cells?: string[] }) => { title: string } } }).preview;
+
+  it("shows a row's cells joined with pipes, or nothing for an empty row", () => {
+    expect(rowPreview().select).toEqual({ cells: "cells" });
+    expect(rowPreview().prepare({ cells: ["Name", "Score", "Grade"] })).toEqual({ title: "Name | Score | Grade" });
+    expect(rowPreview().prepare({})).toEqual({ title: "" });
+  });
+});

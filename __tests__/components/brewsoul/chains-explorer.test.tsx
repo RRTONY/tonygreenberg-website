@@ -76,7 +76,7 @@ describe("ChainsExplorer", () => {
     expect(screen.getByText("Strengths")).toBeInTheDocument();
   });
 
-  it.fails("BUG: a chain card can be expanded from the keyboard (it is a clickable <div> with no button role or tab stop)", async () => {
+  it("a chain card can be expanded from the keyboard", async () => {
     const user = userEvent.setup();
     render(<ChainsExplorer chains={ALL} />);
     await user.tab();

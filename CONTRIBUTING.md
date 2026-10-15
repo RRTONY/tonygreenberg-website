@@ -414,7 +414,8 @@ A change isn't done until it's been checked with real tools, not just read over.
 1. `pnpm typecheck`
 2. `pnpm lint` (or `pnpm exec eslint <files>` for just the changed files)
 3. `pnpm test` (Vitest). A new or changed file gets its test in `__tests__/`, same path as in
-   `src/`. How tests are written and what's faked: `docs/ai/testing.md`
+   `src/`, and keeps 90%+ coverage (`pnpm test:coverage`). How tests are written and what's
+   faked: `docs/ai/testing.md`
 4. `pnpm build` for anything touching routing, metadata or config, and check the route table
 5. Look at the real page: `pnpm start` (never judge from `pnpm dev`) plus a browser or `curl`,
    including `curl -I` for status codes. Make sure the server on port 3000 is the build you just

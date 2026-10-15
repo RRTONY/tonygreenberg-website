@@ -35,7 +35,7 @@ describe("BiodynamicRoasters", () => {
     expect(screen.getByRole("link", { name: /Buy Direct/ })).toBeInTheDocument();
   });
 
-  it.fails("BUG: a roaster card can be opened from the keyboard (it is a clickable <div> with no button role or tab stop)", async () => {
+  it("a roaster card can be opened from the keyboard", async () => {
     const user = userEvent.setup();
     render(<BiodynamicRoasters />);
     await user.tab();

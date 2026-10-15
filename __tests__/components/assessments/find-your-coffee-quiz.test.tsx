@@ -30,9 +30,11 @@ describe("FindYourCoffeeQuiz", () => {
     vi.useFakeTimers({ shouldAdvanceTime: true });
     vi.stubGlobal("fetch", vi.fn(async () => new Response("{}")));
   });
+
   afterEach(() => {
     vi.useRealTimers();
   });
+
   it("opens on its own landing with the question and dimension counts", () => {
     render(<FindYourCoffeeQuiz />);
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("Find YourCoffee");

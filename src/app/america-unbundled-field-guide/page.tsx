@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, Bird, Sparkle } from "lucide-react";
 import { FieldGuideResponses } from "@/components/america-unbundled/field-guide-responses";
+import { defaultTwitter } from "@/lib/seo-defaults";
 
 // "America, Unbundled: The Field Guide" (Part Two of Tony's two-part
 // America, Unbundled series). Live-only: it was added to the live site after
@@ -44,6 +45,7 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
+    ...defaultTwitter,
     card: "summary_large_image",
     images: [HERO_IMG],
   },

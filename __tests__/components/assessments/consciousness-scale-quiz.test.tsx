@@ -17,11 +17,11 @@ type User = ReturnType<typeof userEvent.setup>;
 const options = () => [...document.querySelectorAll("h3 + div > button")] as HTMLElement[];
 const nextButton = () => screen.getByText(/^(Next|See My Level)$/).closest("button") as HTMLElement;
 
-async function walk(user: User, index: number) {
+async function walk(user: User, index: number | ((question: number) => number)) {
   for (let i = 0; i < TOTAL; i++) {
     expect(screen.getByText(`${i + 1} / ${TOTAL}`)).toBeInTheDocument();
     if (i === 0) expect(nextButton()).toBeDisabled();
-    await user.click(options()[index]);
+    await user.click(options()[typeof index === "number" ? index : index(i)]);
     await user.click(nextButton());
   }
   await user.type(screen.getByPlaceholderText("Your email address"), "me@example.com");
@@ -33,6 +33,7 @@ describe("ConsciousnessScaleQuiz", () => {
   beforeEach(() => {
     vi.stubGlobal("fetch", vi.fn(async () => new Response("{}")));
   });
+
   it("opens on question 1 with the hero heading and a disabled Previous", () => {
     render(<ConsciousnessScaleQuiz />);
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("Where Does Your Consciousness Actually Calibrate?");
@@ -79,5 +80,31 @@ describe("ConsciousnessScaleQuiz", () => {
     expect(saved.getTime()).toBeGreaterThan(Date.now() + 150 * 24 * 3600 * 1000);
     await user.click(screen.getByRole("button", { name: /retake/i }));
     expect(screen.getByText(`1 / ${TOTAL}`)).toBeInTheDocument();
+  }, 60000);
+  // Option 3 on the first 12 questions, option 2 on the rest: average 249.
+  it("a 200-309 average gets the Courage reading, and the share buttons post the real score", async () => {
+    const user = userEvent.setup();
+    const open = vi.fn();
+    vi.stubGlobal("open", open);
+    const writeText = vi.fn(async () => {});
+    Object.defineProperty(navigator, "clipboard", { value: { writeText }, configurable: true });
+    render(<ConsciousnessScaleQuiz />);
+    await walk(user, (i) => (i < 12 ? 2 : 1));
+    expect(await screen.findByText("Your Calibration")).toBeInTheDocument();
+    expect(calibration()).toHaveTextContent("249");
+    expect(calibration()?.nextElementSibling).toHaveTextContent("Courage");
+    expect(screen.getByText(/You have crossed the threshold of Courage \(200\)/)).toBeInTheDocument();
+
+    const text = "I calibrated at 249 on the Hawkins Map of Consciousness — Courage. Where do you land?";
+    const url = "https://tonygreenberg.com/consciousness-scale";
+    await user.click(screen.getByRole("button", { name: "Post on X" }));
+    expect(open).toHaveBeenCalledWith(
+      `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`,
+      "_blank",
+    );
+    await user.click(screen.getByRole("button", { name: "Share on LinkedIn" }));
+    expect(open).toHaveBeenLastCalledWith(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, "_blank");
+    await user.click(screen.getByRole("button", { name: "Copy Link" }));
+    expect(writeText).toHaveBeenCalledWith(`${text} ${url}`);
   }, 60000);
 });

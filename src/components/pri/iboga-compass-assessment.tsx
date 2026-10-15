@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { AlertTriangle, Brain, CheckCircle2, ChevronLeft, ChevronRight, DollarSign, GripVertical, Heart, Leaf, MapPin, Shield, Star, Users, ArrowRight } from "lucide-react";
+import { AlertTriangle, Brain, CheckCircle2, ChevronLeft, ChevronRight, DollarSign, GripVertical, Heart, Leaf, MapPin, Shield, Star, Users, ArrowRight, ChevronDown, ChevronUp } from "lucide-react";
 import { saveAssessmentResult } from "@/lib/assessments/result-log";
 import {
   type CompassAnswers,
@@ -444,7 +444,7 @@ export function IbogaCompassAssessment() {
           <div className="mb-4 inline-flex size-16 items-center justify-center rounded-full bg-secondary">
             <CheckCircle2 className="size-8 text-brand-gold" />
           </div>
-          <h2 className="mb-3 font-heading text-2xl text-foreground md:text-3xl">Your matches are ready.</h2>
+          <h1 className="mb-3 font-heading text-2xl text-foreground md:text-3xl">Your matches are ready.</h1>
           <p className="mx-auto max-w-lg text-base leading-relaxed text-muted-foreground">
             Before I show you which facilities match your profile — and why — I want to be direct about how this works.
           </p>
@@ -463,10 +463,11 @@ export function IbogaCompassAssessment() {
 
         <form onSubmit={handleGateSubmit} className="space-y-5">
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-foreground">
+            <label htmlFor="gate-name" className="mb-1.5 block text-sm font-medium text-foreground">
               Name <span className="text-red-500">*</span>
             </label>
             <input
+              id="gate-name"
               type="text"
               required
               value={gateName}
@@ -476,10 +477,11 @@ export function IbogaCompassAssessment() {
             />
           </div>
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-foreground">
+            <label htmlFor="gate-email" className="mb-1.5 block text-sm font-medium text-foreground">
               Email <span className="text-red-500">*</span>
             </label>
             <input
+              id="gate-email"
               type="email"
               required
               value={gateEmail}
@@ -489,10 +491,11 @@ export function IbogaCompassAssessment() {
             />
           </div>
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-foreground">
+            <label htmlFor="gate-situation" className="mb-1.5 block text-sm font-medium text-foreground">
               In one sentence, what are you seeking? <span className="text-red-500">*</span>
             </label>
             <input
+              id="gate-situation"
               type="text"
               required
               maxLength={200}
@@ -530,7 +533,7 @@ export function IbogaCompassAssessment() {
     return (
       <div className="mx-auto max-w-2xl px-4 py-12">
         <div className="mb-8">
-          <h2 className="mb-3 font-heading text-2xl text-foreground md:text-3xl">Priority Rank</h2>
+          <h1 className="mb-3 font-heading text-2xl text-foreground md:text-3xl">Priority Rank</h1>
           <p className="text-base leading-relaxed text-muted-foreground">
             Drag to reorder what matters most to you. The top dimension gets 2x weight; the bottom gets 0.5x. This is the final calibration before your
             results.
@@ -552,11 +555,11 @@ export function IbogaCompassAssessment() {
               <span className="flex-1 text-sm font-medium text-foreground">{DIMENSION_LABELS[key]}</span>
               <span className="font-mono text-xs text-muted-foreground">{(RANK_MULTIPLIERS[idx] ?? 0.5).toFixed(1)}x</span>
               <div className="flex flex-col gap-0.5">
-                <button onClick={() => moveRankItem(idx, idx - 1)} disabled={idx === 0} className="p-0.5 text-muted-foreground hover:text-foreground disabled:opacity-20" aria-label="Move up">
-                  ▲
+                <button onClick={() => moveRankItem(idx, idx - 1)} disabled={idx === 0} className="p-0.5 text-muted-foreground hover:text-foreground disabled:opacity-20" aria-label={`Move ${DIMENSION_LABELS[key]} up`}>
+                  <ChevronUp aria-hidden="true" className="size-3.5" />
                 </button>
-                <button onClick={() => moveRankItem(idx, idx + 1)} disabled={idx === DIMENSION_KEYS.length - 1} className="p-0.5 text-muted-foreground hover:text-foreground disabled:opacity-20" aria-label="Move down">
-                  ▼
+                <button onClick={() => moveRankItem(idx, idx + 1)} disabled={idx === DIMENSION_KEYS.length - 1} className="p-0.5 text-muted-foreground hover:text-foreground disabled:opacity-20" aria-label={`Move ${DIMENSION_LABELS[key]} down`}>
+                  <ChevronDown aria-hidden="true" className="size-3.5" />
                 </button>
               </div>
             </div>
@@ -598,7 +601,7 @@ export function IbogaCompassAssessment() {
 
       <div className="mb-6 flex items-center gap-3">
         <div className="flex size-10 items-center justify-center rounded-full bg-secondary text-brand-gold">{section.icon}</div>
-        <h2 className="font-heading text-xl text-foreground md:text-2xl">{section.title}</h2>
+        <h1 className="font-heading text-xl text-foreground md:text-2xl">{section.title}</h1>
       </div>
 
       <div className="space-y-8">
@@ -687,7 +690,7 @@ function ResultsView({ results, onReset }: { results: FacilityResult[]; onReset:
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
       <div className="mb-10">
-        <h2 className="mb-3 font-heading text-2xl text-foreground md:text-3xl">Your Compass Results</h2>
+        <h1 className="mb-3 font-heading text-2xl text-foreground md:text-3xl">Your Compass Results</h1>
         <p className="text-base leading-relaxed text-muted-foreground">
           {eligible.length} facilities matched your profile. {eliminated.length > 0 && `${eliminated.length} were filtered out by your medical or logistical requirements.`}
         </p>

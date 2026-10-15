@@ -28,6 +28,7 @@ describe("FindYourKitchenQuiz", () => {
   beforeEach(() => {
     vi.stubGlobal("fetch", vi.fn(async () => new Response("{}")));
   });
+
   it("shows all 15 numbered questions with 4 options each after Begin", async () => {
     const user = userEvent.setup();
     render(<FindYourKitchenQuiz />);

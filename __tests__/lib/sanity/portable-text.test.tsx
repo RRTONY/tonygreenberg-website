@@ -123,3 +123,61 @@ describe("portableTextComponents: blocks", () => {
     expect(screen.getAllByRole("listitem").map((li) => li.textContent)).toEqual(["One", "Two"]);
   });
 });
+
+describe("portableTextComponents: more block and mark types", () => {
+  it("renders h3 and h4 headings, anchoring the h3 and hiding its glyph", () => {
+    show([{ ...para("✦ GemSpark of the Day", { style: "h3" }), anchorId: "gemspark-day" }, para("Small print", { style: "h4" })]);
+    const h3 = screen.getByRole("heading", { level: 3 });
+    expect(h3).toHaveAttribute("id", "gemspark-day");
+    expect(h3.querySelector('[aria-hidden="true"]')).toHaveTextContent("✦");
+    const h4 = screen.getByRole("heading", { level: 4 });
+    expect(h4).toHaveTextContent("Small print");
+    expect(h4.querySelector('[aria-hidden="true"]')).toBeNull();
+  });
+
+  it("leaves a heading that opens with formatting untouched", () => {
+    show([para("Bold opener", { style: "h2", marks: ["strong"] })]);
+    const h = screen.getByRole("heading", { level: 2 });
+    expect(h.querySelector("strong")).toHaveTextContent("Bold opener");
+    expect(h.querySelector('[aria-hidden="true"]')).toBeNull();
+  });
+
+  it("renders block quotes", () => {
+    show([para("Quoted words from someone wise.", { style: "blockquote" })]);
+    expect(screen.getByText("Quoted words from someone wise.").closest("blockquote")).not.toBeNull();
+  });
+
+  it("renders numbered lists as an ordered list", () => {
+    const { container } = show([para("First", { listItem: "number" }), para("Second", { listItem: "number" })]);
+    expect(container.querySelector("ol")).not.toBeNull();
+    expect(screen.getAllByRole("listitem").map((li) => li.textContent)).toEqual(["First", "Second"]);
+  });
+
+  it("renders bold, italic and code marks", () => {
+    const { container } = show([para("strong words", { marks: ["strong"] }), para("leaning words", { marks: ["em"] }), para("npm run", { marks: ["code"] })]);
+    expect(container.querySelector("strong")).toHaveTextContent("strong words");
+    expect(container.querySelector("em")).toHaveTextContent("leaning words");
+    expect(container.querySelector("code")).toHaveTextContent("npm run");
+  });
+
+  it("skips the drop cap on an all-bold label and an empty paragraph, but not a long letter-led one", () => {
+    const { container } = show([
+      para(LONG, { marks: ["strong"] }),
+      para(""),
+      para(LONG),
+      para(`→ ${LONG}`),
+    ]);
+    const ps = container.querySelectorAll("p");
+    expect(ps[0]).toHaveAttribute("data-no-drop-cap", "true");
+    expect(ps[1]).not.toHaveAttribute("data-no-drop-cap");
+    expect(ps[2]).not.toHaveAttribute("data-no-drop-cap");
+    expect(ps[3]).toHaveAttribute("data-no-drop-cap", "true");
+  });
+
+  it("shows a separate caption in place of the alt text when one is set", () => {
+    show([{ _key: k(), _type: "image", alt: "Alt text", caption: "The caption", asset: { _ref: "image-abc-300x200-png" } }]);
+    expect(screen.getByRole("img", { name: "Alt text" })).toHaveAttribute("width", "300");
+    expect(screen.getByText("The caption", { selector: "figcaption" })).toBeInTheDocument();
+    expect(screen.queryByText("Alt text", { selector: "figcaption" })).toBeNull();
+  });
+});

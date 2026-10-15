@@ -15,6 +15,7 @@ describe("useDharmaFinder", () => {
   beforeEach(() => {
     vi.useRealTimers();
   });
+
   it("starts on step 1, question 1, with progress 1/TOTAL", () => {
     const { result } = renderHook(() => useDharmaFinder());
     expect(result.current.state).toEqual({ step: 1, current: 0, answers: {}, interstitial: 0 });

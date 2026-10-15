@@ -12,9 +12,11 @@ describe("google-auth", () => {
     // Stored the way Netlify holds it: literal \n escapes.
     vi.stubEnv("GOOGLE_GA_PRIVATE_KEY", PEM.replace(/\n/g, "\\n"));
   });
+
   afterEach(() => {
     vi.unstubAllEnvs();
   });
+
   it("getServiceAccountEmail reads the env var", () => {
     expect(getServiceAccountEmail()).toBe("bot@project.iam.gserviceaccount.com");
   });

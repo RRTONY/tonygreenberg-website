@@ -1,18 +1,31 @@
 # Tests (Vitest + Testing Library)
 
 Added 2026-10-16 (owner's yes to the dev dependencies: `vitest`, `jsdom`, `@testing-library/react`,
-`@testing-library/dom`, `@testing-library/jest-dom`, `@testing-library/user-event`). They're dev-only
+`@testing-library/dom`, `@testing-library/jest-dom`, `@testing-library/user-event`; `@vitest/coverage-v8` added the same day). They're dev-only
 and never ship to visitors.
 
 ```bash
 pnpm test                      # run everything once (about 1.5 minutes)
 pnpm test:watch                # re-run on save
+pnpm test:coverage             # everything, plus each src/ file's coverage (fails under 90%)
 pnpm exec vitest run __tests__/components/cheshire   # one folder
 ```
 
 Needs **Node 24** (the repo's version): Node 22 crashes Vitest's workers with "Cannot read
 properties of undefined (reading 'bind')". On this Mac the default `node` is 22, so use
 `PATH=~/.nvm/versions/node/v24.18.0/bin:$PATH` (which also puts `pnpm` on the PATH).
+
+## Coverage target: 90% per file
+
+Owner's target (2026-10-16): every file in `src/` has at least 90% of its lines and statements run
+by its tests (`thresholds.perFile` in `vitest.config.mts`, provider `@vitest/coverage-v8`).
+`pnpm test:coverage` fails and names the file when one drops under. The HTML report is in
+`coverage/` (gitignored, not linted). One file:
+`pnpm exec vitest run <test> --coverage --coverage.include=<src file> --coverage.reporter=text`
+lists the uncovered line numbers. Cover behaviour, not lines: a test that only calls code to push
+the number up is worse than none. If a line truly can't be reached (a guard behind a disabled
+button), say so instead of contorting the test; a pure helper the data never exercises can be
+exported and tested directly (as `charity-data.ts`'s grade scale is).
 
 ## Where tests go
 
@@ -114,3 +127,7 @@ Don't change `src/` from inside a test pass. Write the test for the correct beha
 `it.fails("BUG: <what's wrong>", ...)` so the suite stays green while the bug is recorded, and list
 it in `NEXTJS-MIGRATION-TODO.md`. When the bug is fixed, the `it.fails` starts failing: switch it
 to `it`.
+
+An `it.fails` passes on *any* error, including a broken test (the hall-of-shame one failed on "Found
+multiple elements", not on the bug). When you write one, run it once as `it` and check it fails
+on the assertion that describes the bug. When you fix the bug, do the same before touching `src/`.

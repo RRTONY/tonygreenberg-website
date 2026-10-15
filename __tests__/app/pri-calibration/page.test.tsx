@@ -13,6 +13,7 @@ describe("/pri-calibration", () => {
   beforeEach(() => {
     save.mockResolvedValue({ ok: true });
   });
+
   it("has its own title, description and canonical", () => {
     expect(metadata.title).toBe("PRI Calibration — Psychedelic Readiness Index");
     expect(metadata.description).toMatch(/forced-rank psychometric self-assessment/);

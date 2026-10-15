@@ -525,19 +525,27 @@ export function PsychedelicReadinessIndex() {
             return (
               <div
                 key={m.id}
-                onClick={() => {
-                  if (compareMode) {
-                    setCompareList((prev) => {
-                      if (prev.includes(m.id)) return prev.filter((id) => id !== m.id);
-                      if (prev.length >= 3) return prev;
-                      return [...prev, m.id];
-                    });
-                  } else {
-                    handleMedicineClick(m);
-                  }
-                }}
                 className={`group relative cursor-pointer overflow-hidden transition-colors ${inCompare ? "bg-[#F0E8D8] outline-3 -outline-offset-3 outline-pri-purple" : "bg-pri-parchment hover:bg-pri-cream"}`}
               >
+                {/* The whole card is this one real button (keyboard users can open it;
+                    2026-10-16). The save button sits above it at z-5. */}
+                <button
+                  type="button"
+                  aria-label={compareMode ? `Compare ${m.name}` : `Open ${m.name}`}
+                  aria-pressed={compareMode ? inCompare : undefined}
+                  onClick={() => {
+                    if (compareMode) {
+                      setCompareList((prev) => {
+                        if (prev.includes(m.id)) return prev.filter((id) => id !== m.id);
+                        if (prev.length >= 3) return prev;
+                        return [...prev, m.id];
+                      });
+                    } else {
+                      handleMedicineClick(m);
+                    }
+                  }}
+                  className="absolute inset-0 z-1 cursor-pointer focus-visible:outline-3 focus-visible:-outline-offset-3 focus-visible:outline-pri-purple"
+                />
                 {inCompare && (
                   <div className="absolute top-1.5 right-1.5 z-5 flex size-6 items-center justify-center rounded-full bg-pri-purple text-[.7rem] font-black text-pri-cream">
                     {compareList.indexOf(m.id) + 1}
@@ -616,7 +624,8 @@ export function PsychedelicReadinessIndex() {
                 const m = MEDICINES.find((med) => med.id === id);
                 if (!m) return null;
                 return (
-                  <div key={id} onClick={() => handleMedicineClick(m)} className="flex cursor-pointer items-center gap-4 bg-pri-parchment px-5 py-4 transition-colors hover:bg-[#F0E8D8]">
+                  <div key={id} className="relative flex cursor-pointer items-center gap-4 bg-pri-parchment px-5 py-4 transition-colors hover:bg-[#F0E8D8]">
+                    <button type="button" aria-label={`Open ${m.name}`} onClick={() => handleMedicineClick(m)} className="absolute inset-0 z-1 cursor-pointer focus-visible:outline-3 focus-visible:-outline-offset-3 focus-visible:outline-pri-purple" />
                     {MEDICINE_IMAGES[id] && (
                       <div className="relative size-12.5 shrink-0 overflow-hidden rounded-full">
                         <Image src={MEDICINE_IMAGES[id]} alt="" fill sizes="(max-width: 640px) 25vw, 120px" className="object-cover" />
@@ -635,7 +644,8 @@ export function PsychedelicReadinessIndex() {
                         toggleSaved(id);
                       }}
                       title="Remove from saved"
-                      className="flex size-7.5 shrink-0 items-center justify-center rounded-full bg-pri-purple/10 text-[.85rem] text-pri-purple"
+                      aria-label={`Remove ${m.name} from saved`}
+                      className="relative z-5 flex size-7.5 shrink-0 items-center justify-center rounded-full bg-pri-purple/10 text-[.85rem] text-pri-purple"
                     >
                       <X className="size-3.5" />
                     </button>
@@ -1174,7 +1184,8 @@ export function PsychedelicReadinessIndex() {
 
               <div className="mb-8 grid grid-cols-[repeat(auto-fit,minmax(140px,1fr))] gap-px border border-pri-cream/8 bg-pri-cream/6">
                 {results.topMatches.map((m, i) => (
-                  <div key={m.id} onClick={() => setSelectedMedicine(m)} className="relative cursor-pointer bg-[#0A0F1E]/40 px-4 py-6 text-center transition-colors hover:bg-[#0A0F1E]/60">
+                  <div key={m.id} className="relative cursor-pointer bg-[#0A0F1E]/40 px-4 py-6 text-center transition-colors hover:bg-[#0A0F1E]/60">
+                    <button type="button" aria-label={`Open ${m.name}: match #${i + 1}`} onClick={() => setSelectedMedicine(m)} className="absolute inset-0 z-1 cursor-pointer focus-visible:outline-3 focus-visible:-outline-offset-3 focus-visible:outline-pri-purple" />
                     <div className="absolute top-2 left-2 text-xs font-extrabold tracking-[0.1em] text-pri-purple-light">#{i + 1}</div>
                     <m.icon aria-hidden="true" className="mx-auto mb-1.5 size-7 text-pri-purple-light" />
                     <div className="mb-1.5 font-heading text-[clamp(.82rem,2vw,1rem)] leading-[1.3] font-bold text-pri-cream">{m.name}</div>

@@ -7,9 +7,11 @@ describe("NotFoundRedirect", () => {
   beforeEach(() => {
     vi.useFakeTimers();
   });
+
   afterEach(() => {
     vi.useRealTimers();
   });
+
   it("shows the 404 heading and a link home", () => {
     render(<NotFoundRedirect />);
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("404");

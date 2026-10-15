@@ -104,8 +104,9 @@ describe("sitemap.xml", () => {
     }
   });
 
-  it.fails("BUG: a Sanity category with no slug crashes the whole sitemap (page/[n] guards it, sitemap.ts doesn't)", async () => {
+  it("skips a Sanity category with no slug instead of crashing the sitemap", async () => {
     withData([{ slug: null, postCount: 10 }]);
     await expect(sitemap()).resolves.toBeInstanceOf(Array);
+    expect((await sitemap()).some((e) => /\/blog\/category\/(undefined|null)?$/.test(e.url))).toBe(false);
   });
 });

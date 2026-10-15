@@ -17,6 +17,7 @@ describe("SubmitForm", () => {
   beforeEach(() => {
     submit.mockResolvedValue({ ok: true });
   });
+
   it("needs a coffee name and sends nothing when empty", async () => {
     const user = renderForm();
     await user.click(screen.getByRole("button", { name: "Submit for Review" }));

@@ -62,15 +62,50 @@ describe("JourneyFinder", () => {
     expect(screen.getByRole("button", { name: "Begin" })).toBeInTheDocument();
   });
 
-  // Answers are stored under the 1-based step number but scored as 0-based
-  // question indexes: every answer is scored against the NEXT question's
-  // options and the fifth answer is dropped. Thinker, thinker, then three
-  // relationship answers should give Relationship (9 vs 7); the bug gives a
-  // 6-6 tie that Thinker wins.
-  it.fails("BUG: every answer counts toward the result (scoring is off by one question)", async () => {
+  // Answers used to be stored under the 1-based step number but scored as
+  // 0-based question indexes: every answer was scored against the NEXT
+  // question's options and the fifth answer was dropped. Thinker, thinker,
+  // then three relationship answers should give Relationship (9 vs 7); the
+  // bug gave a 6-6 tie that Thinker won. Fixed 2026-10-16.
+  it("every answer counts toward the result (fixed: scoring was off by one question)", async () => {
     const user = userEvent.setup();
     render(<JourneyFinder />);
     await answer(user, [0, 0, 2, 2, 2]);
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("The Relationship Circuit");
+  });
+
+  // One answer set (option index per question, 0-based) for every journey, checked against all
+  // 3,125 possible answer sets, so none is unreachable again.
+  it.each([
+    ["The Thinker's Thread", [0, 0, 0, 0, 0]],
+    ["The Operator's Playbook", [1, 1, 1, 1, 1]],
+    ["The Relationship Circuit", [2, 2, 2, 2, 2]],
+    ["The Body Electric", [3, 3, 3, 3, 3]],
+    ["The Crusade Files", [4, 4, 4, 4, 4]],
+    ["The Impact Trail", [0, 0, 4, 1, 4]],
+  ])("%s is reachable", async (name, picks) => {
+    const user = userEvent.setup();
+    render(<JourneyFinder />);
+    await answer(user, picks);
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(name);
+  });
+
+  it("Back then Next keeps every answer on its own question", async () => {
+    const user = userEvent.setup();
+    render(<JourneyFinder />);
+    await user.click(screen.getByRole("button", { name: "Begin" }));
+    for (const p of [2, 2]) {
+      await user.click(choiceButtons()[p]);
+      await user.click(screen.getByRole("button", { name: "Next" }));
+    }
+    await user.click(screen.getByRole("button", { name: "Back" }));
+    expect(screen.getByText("2 / 5")).toBeInTheDocument();
+    expect(choiceButtons()[2]).toHaveClass("bg-brand-gold/10");
+    await user.click(screen.getByRole("button", { name: "Next" }));
+    for (const p of [2, 2, 2]) {
+      await user.click(choiceButtons()[p]);
+      await user.click(screen.getByRole("button", { name: /^(Next|See My Path)$/ }));
+    }
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("The Relationship Circuit");
   });
 });

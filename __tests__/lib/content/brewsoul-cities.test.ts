@@ -8,9 +8,10 @@ const MANUS = /manuscdn|\/manus-storage\/|\/api\/img\//;
 
 describe("gradeFromScore", () => {
   it.each([
-    [100, "A+"], [90, "A+"], [89, "A"], [85, "A"], [84, "A-"], [80, "A-"], [79, "B+"], [75, "B+"],
-    [74, "B"], [68, "B"], [67, "B-"], [65, "B-"], [64, "C+"], [58, "C+"], [57, "C"], [50, "C"],
-    [49, "D+"], [42, "D+"], [41, "D"], [35, "D"], [34, "D-"], [30, "D-"], [29, "F"], [0, "F"], [-5, "F"],
+    // Boundaries of the GRADE_SCALE table visitors see (owner, 2026-10-16).
+    [100, "A+"], [90, "A+"], [89, "A"], [85, "A"], [84, "A"], [80, "A"], [79, "B+"], [75, "B+"],
+    [74, "B"], [68, "B"], [67, "B"], [65, "B"], [64, "C"], [58, "C"], [57, "C"], [50, "C"],
+    [49, "D"], [42, "D"], [41, "D"], [35, "D"], [34, "F"], [30, "F"], [29, "F"], [0, "F"], [-5, "F"],
   ] as const)("%d -> %s", (score, grade) => {
     expect(gradeFromScore(score)).toBe(grade);
   });
@@ -75,15 +76,25 @@ describe("city data integrity", () => {
     }
   });
 
-  // Shop grades in the data follow the GRADE_SCALE table (A = 80-89), but
-  // gradeFromScore() gives 80-84 an "A-" and 30-34 a "D-", so e.g. pdx-sterling
-  // (84) shows "A" while the function says "A-".
-  it.fails("BUG: shop grades in CITIES disagree with gradeFromScore() for some totals", () => {
+  // One rule (owner, 2026-10-16): every letter comes from its score through the
+  // GRADE_SCALE table the site shows, for shops, chains and cities alike.
+  it("every grade matches its score on the shown grade table", () => {
+    expect(gradeFromScore(84)).toBe("A");
+    expect(gradeFromScore(85)).toBe("A");
+    expect(gradeFromScore(79)).toBe("B+");
+    expect(gradeFromScore(33)).toBe("F");
+    expect(gradeFromScore(100)).toBe("A+");
+    expect(gradeFromScore(0)).toBe("F");
     for (const city of CITIES) {
+      expect({ city: city.slug, grade: city.grade }).toEqual({ city: city.slug, grade: gradeFromScore(city.score) });
       for (const shop of [...city.bestShops, ...city.worstShops]) {
         expect({ id: shop.id, grade: shop.scores.grade }).toEqual({ id: shop.id, grade: gradeFromScore(shop.scores.total) });
       }
+      for (const ch of city.chainScores) expect(ch.grade).toBe(gradeFromScore(ch.score));
     }
+    for (const ch of [...UNIVERSAL_CHAINS, ...NUANCED_CHAINS]) expect(ch.grade).toBe(gradeFromScore(ch.score));
+    const shown = new Set(GRADE_SCALE.map((g) => g.grade));
+    for (const ch of UNIVERSAL_CHAINS) expect(shown.has(ch.grade)).toBe(true);
   });
 
   it("ranks Portland's best list 1..n by descending score", () => {
@@ -101,6 +112,6 @@ describe("city data integrity", () => {
       expect(grades).toContain(ch.grade);
       expect(ch.avgLatte).toBeGreaterThan(0);
     }
-    expect(UNIVERSAL_CHAINS.find((c) => c.chainName === "Starbucks")).toMatchObject({ grade: "D+", score: 42 });
+    expect(UNIVERSAL_CHAINS.find((c) => c.chainName === "Starbucks")).toMatchObject({ grade: "D", score: 42 });
   });
 });

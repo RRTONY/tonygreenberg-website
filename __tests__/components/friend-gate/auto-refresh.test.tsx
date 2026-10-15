@@ -7,9 +7,11 @@ describe("AutoRefresh", () => {
   beforeEach(() => {
     vi.useFakeTimers();
   });
+
   afterEach(() => {
     vi.useRealTimers();
   });
+
   it("re-reads the page every 8 seconds by default and renders nothing", () => {
     const { container } = render(<AutoRefresh />);
     expect(container).toBeEmptyDOMElement();

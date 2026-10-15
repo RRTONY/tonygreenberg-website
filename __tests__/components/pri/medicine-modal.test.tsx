@@ -68,7 +68,7 @@ describe("MedicineModal", () => {
     expect(onToggleSaved).toHaveBeenCalledWith("psilocybin");
   });
 
-  it.fails("BUG: the close (X) button has no accessible name", () => {
+  it("the close (X) button has an accessible name", () => {
     render(<MedicineModal medicine={med("psilocybin")} onClose={vi.fn()} />);
     expect(screen.getByRole("button", { name: /close/i })).toBeInTheDocument();
   });

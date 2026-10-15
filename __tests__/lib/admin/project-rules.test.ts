@@ -21,9 +21,11 @@ beforeEach(() => {
   gh.getDefaultBranch.mockResolvedValue("main");
   gh.getFile.mockImplementation(async (path: string) => files[path] ?? null);
 });
+
 afterEach(() => {
   vi.useRealTimers();
 });
+
 describe("versions", () => {
   it("versionFromSha keeps the first 10 characters", async () => {
     const { versionFromSha } = await load();

@@ -49,8 +49,8 @@ describe("/iboga-ibogaine", () => {
     expect(screen.getByRole("button", { name: "Show fewer" })).toBeInTheDocument();
   });
 
-  // Rows 6 and up are only rendered after the click, so they never reach the server HTML.
-  it.fails("BUG: every pharma-table row is in the server HTML, not only after 'Show all' (src/components/pri/iboga-pharma-table.tsx:16)", () => {
+  // Rows 6 and up are rendered hidden, so they still reach the server HTML.
+  it("every pharma-table row is in the server HTML, not only after 'Show all' (src/components/pri/iboga-pharma-table.tsx:16)", () => {
     const { container } = render(<IbogaIbogainePage />);
     const rows = container.querySelectorAll("tbody tr");
     const pharmaRows = [...rows].filter((tr) => IBOGA_PHARMA_ALTERNATIVES.some((r) => tr.textContent?.startsWith(r.drug)));

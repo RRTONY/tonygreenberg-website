@@ -1,5 +1,6 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
+import { renderToString } from "react-dom/server";
 import userEvent from "@testing-library/user-event";
 import { PsychedelicReadinessIndex } from "@/components/pri/psychedelic-readiness-index";
 import { saveAssessmentResult } from "@/lib/assessments/result-log";
@@ -13,6 +14,10 @@ const saved = vi.mocked(saveAssessmentResult);
 
 type User = ReturnType<typeof userEvent.setup>;
 const button = (name: string | RegExp) => screen.getByRole("button", { name });
+// A medicine card is clicked through its own button ("Open X", "Compare X",
+// "Open X: match #1"), the way a keyboard or screen-reader user reaches it.
+const esc = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+const card = (name: string) => screen.getAllByRole("button", { name: new RegExp(`^(Open|Compare) ${esc(name)}`) })[0];
 
 async function startQuiz(user: User) {
   await user.click(button(/see where you actually stand/i));
@@ -125,7 +130,7 @@ describe("PsychedelicReadinessIndex", { timeout: 120000 }, () => {
     const user = userEvent.setup();
     const m = MEDICINES.find((x) => x.id === "sananga")!;
     render(<PsychedelicReadinessIndex />);
-    await user.click(screen.getAllByText(m.name)[0]);
+    await user.click(card(m.name));
     expect(screen.getByRole("heading", { name: "Before You Go In" })).toBeInTheDocument();
     await consent(user);
     // The modal is loaded with next/dynamic, so allow it time to arrive.
@@ -149,7 +154,7 @@ describe("PsychedelicReadinessIndex", { timeout: 120000 }, () => {
     render(<PsychedelicReadinessIndex />);
     await user.click(button("Compare Medicines"));
     expect(screen.queryAllByTitle("Save medicine")).toHaveLength(0);
-    const pick = (i: number) => user.click(screen.getAllByText(MEDICINES[i].name)[0]);
+    const pick = (i: number) => user.click(card(MEDICINES[i].name));
     await pick(0);
     expect(screen.getByText("Select 1 more medicine to compare")).toBeInTheDocument();
     await pick(1);
@@ -181,8 +186,256 @@ describe("PsychedelicReadinessIndex", { timeout: 120000 }, () => {
     await waitFor(() => expect(screen.getByText("Your email client should be open.")).toBeInTheDocument());
   });
 
-  it.fails("BUG: medicine cards are clickable <div>s, so keyboard users can't open them", () => {
+  it("Back on a later pathway question goes to the previous one, and its slider shows the chosen value", async () => {
+    const user = userEvent.setup();
     render(<PsychedelicReadinessIndex />);
-    expect(screen.getByRole("button", { name: new RegExp(MEDICINES[0].name) })).toBeInTheDocument();
+    await startQuiz(user);
+    for (let i = 0; i < QUESTIONS.length; i++) fireEvent.click(button(i === QUESTIONS.length - 1 ? /a few more questions/i : /^next$/i));
+    expect(screen.getByText(PATHWAY_QUESTIONS[0].text)).toBeInTheDocument();
+    fireEvent.change(screen.getByRole("slider"), { target: { value: "8" } });
+    expect(screen.getByText("8/10")).toBeInTheDocument();
+    fireEvent.click(button(/^next$/i));
+    expect(screen.getByText(PATHWAY_QUESTIONS[1].text)).toBeInTheDocument();
+    expect(screen.getByText("5/10")).toBeInTheDocument();
+    await user.click(button(/back/i));
+    expect(screen.getByText(PATHWAY_QUESTIONS[0].text)).toBeInTheDocument();
+    expect(screen.getByRole("slider")).toHaveValue("8");
+  });
+
+  it("with consent given, a medicine card opens its details straight away and Close shuts them", async () => {
+    sessionStorage.setItem("pri-consent", "true");
+    const user = userEvent.setup();
+    const m = MEDICINES.find((x) => x.id === "sananga")!;
+    render(<PsychedelicReadinessIndex />);
+    await user.click(card(m.name));
+    expect(screen.queryByRole("heading", { name: "Before You Go In" })).not.toBeInTheDocument();
+    expect(await screen.findByText(m.latin, {}, { timeout: 15000 })).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: "Close" }));
+    await waitFor(() => expect(screen.queryByText(m.latin)).not.toBeInTheDocument());
+  });
+
+  describe("a ?m= deep link", () => {
+    beforeEach(() => {
+      window.history.pushState({}, "", "/psychedelic-readiness-index?m=sananga");
+    });
+
+    afterEach(() => {
+      window.history.pushState({}, "", "/");
+    });
+
+    it("opens that medicine when consent was already given", async () => {
+      sessionStorage.setItem("pri-consent", "true");
+      const m = MEDICINES.find((x) => x.id === "sananga")!;
+      render(<PsychedelicReadinessIndex />);
+      expect(await screen.findByText(m.latin, {}, { timeout: 15000 })).toBeInTheDocument();
+    });
+
+    it("asks for consent first, then opens that medicine", async () => {
+      const user = userEvent.setup();
+      const m = MEDICINES.find((x) => x.id === "sananga")!;
+      render(<PsychedelicReadinessIndex />);
+      expect(screen.getByRole("heading", { name: "Before You Go In" })).toBeInTheDocument();
+      expect(sessionStorage.getItem("pri-pending-medicine")).toBe("sananga");
+      await consent(user);
+      expect(await screen.findByText(m.latin, {}, { timeout: 15000 })).toBeInTheDocument();
+      expect(sessionStorage.getItem("pri-pending-medicine")).toBeNull();
+    });
+
+    it("ignores an unknown medicine id", () => {
+      window.history.pushState({}, "", "/psychedelic-readiness-index?m=not-a-medicine");
+      render(<PsychedelicReadinessIndex />);
+      expect(screen.queryByRole("heading", { name: "Before You Go In" })).not.toBeInTheDocument();
+      expect(sessionStorage.getItem("pri-pending-medicine")).toBeNull();
+    });
+  });
+
+  it("treats unreadable session storage as no consent", async () => {
+    const real = Storage.prototype.getItem;
+    vi.spyOn(Storage.prototype, "getItem").mockImplementation(function (this: Storage, key: string) {
+      if (key === "pri-consent") throw new Error("blocked");
+      return real.call(this, key);
+    });
+    const user = userEvent.setup();
+    render(<PsychedelicReadinessIndex />);
+    await user.click(card(MEDICINES[0].name));
+    expect(screen.getByRole("heading", { name: "Before You Go In" })).toBeInTheDocument();
+    vi.mocked(Storage.prototype.getItem).mockRestore();
+  });
+
+  it("renders on the server without consent or a shortlist", () => {
+    localStorage.setItem("pri-saved-medicines", JSON.stringify([MEDICINES[0].id]));
+    sessionStorage.setItem("pri-consent", "true");
+    const html = renderToString(<PsychedelicReadinessIndex />);
+    expect(html.replace(/<!-- -->/g, "")).toContain(`${MEDICINES.length} Sacred Medicines`);
+    // The server snapshot is empty, so no shortlist is rendered even though the browser has one.
+    expect(html).not.toContain("My Saved Medicines");
+  });
+
+  describe("the saved shortlist", () => {
+    it("skips ids that aren't medicines and survives broken stored data", () => {
+      localStorage.setItem("pri-saved-medicines", JSON.stringify(["not-a-medicine", MEDICINES[1].id]));
+      const { unmount } = render(<PsychedelicReadinessIndex />);
+      const panel = document.querySelector<HTMLElement>("[data-saved-panel]")!;
+      expect(within(panel).getByText(MEDICINES[1].name)).toBeInTheDocument();
+      expect(within(panel).getAllByTitle("Remove from saved")).toHaveLength(1);
+      unmount();
+      localStorage.setItem("pri-saved-medicines", "{not json");
+      render(<PsychedelicReadinessIndex />);
+      expect(screen.queryByRole("heading", { name: /my saved medicines/i })).not.toBeInTheDocument();
+    });
+
+    it("Clear All asks first and only clears on yes", async () => {
+      localStorage.setItem("pri-saved-medicines", JSON.stringify([MEDICINES[0].id, MEDICINES[1].id]));
+      const confirm = vi.fn(() => false);
+      vi.stubGlobal("confirm", confirm);
+      const user = userEvent.setup();
+      render(<PsychedelicReadinessIndex />);
+      expect(screen.getByRole("heading", { name: /my saved medicines \(2\)/i })).toBeInTheDocument();
+      await user.click(button("Clear All"));
+      expect(confirm).toHaveBeenCalledWith("Clear all saved medicines?");
+      expect(screen.getByRole("heading", { name: /my saved medicines \(2\)/i })).toBeInTheDocument();
+      confirm.mockReturnValue(true);
+      await user.click(button("Clear All"));
+      expect(screen.queryByRole("heading", { name: /my saved medicines/i })).not.toBeInTheDocument();
+      expect(JSON.parse(localStorage.getItem("pri-saved-medicines")!)).toEqual([]);
+    });
+
+    it("a saved card opens the medicine, and its remove button only removes it", async () => {
+      sessionStorage.setItem("pri-consent", "true");
+      const [a, b] = [MEDICINES.find((x) => x.id === "sananga")!, MEDICINES.find((x) => x.id !== "sananga")!];
+      localStorage.setItem("pri-saved-medicines", JSON.stringify([a.id, b.id]));
+      const user = userEvent.setup();
+      render(<PsychedelicReadinessIndex />);
+      const panel = document.querySelector<HTMLElement>("[data-saved-panel]")!;
+      await user.click(within(panel).getAllByTitle("Remove from saved")[1]);
+      expect(JSON.parse(localStorage.getItem("pri-saved-medicines")!)).toEqual([a.id]);
+      // Removing didn't open anything.
+      expect(screen.queryByText(b.latin)).not.toBeInTheDocument();
+      await user.click(within(panel).getByRole("button", { name: `Open ${a.name}` }));
+      expect(await screen.findByText(a.latin, {}, { timeout: 15000 })).toBeInTheDocument();
+    });
+  });
+
+  describe("compare mode", () => {
+    const pick = (user: User, i: number) => user.click(card(MEDICINES[i].name));
+
+    it("turning compare off from its button clears the selection", async () => {
+      const user = userEvent.setup();
+      render(<PsychedelicReadinessIndex />);
+      await user.click(button("Compare Medicines"));
+      await pick(user, 0);
+      await user.click(button("Compare (1/3)"));
+      await user.click(button("Compare Medicines"));
+      expect(button("Compare (0/3)")).toBeInTheDocument();
+    });
+
+    it("Cancel on the floating bar leaves compare mode", async () => {
+      const user = userEvent.setup();
+      render(<PsychedelicReadinessIndex />);
+      await user.click(button("Compare Medicines"));
+      await pick(user, 0);
+      await pick(user, 1);
+      expect(screen.getByText("2 medicines selected")).toBeInTheDocument();
+      await user.click(button("Cancel"));
+      expect(screen.queryByRole("heading", { name: "Medicine Comparison" })).not.toBeInTheDocument();
+      expect(button("Compare Medicines")).toBeInTheDocument();
+    });
+
+    it("Full Details leaves compare mode and opens that medicine", async () => {
+      sessionStorage.setItem("pri-consent", "true");
+      const user = userEvent.setup();
+      render(<PsychedelicReadinessIndex />);
+      await user.click(button("Compare Medicines"));
+      await pick(user, 0);
+      await pick(user, 1);
+      await user.click(screen.getAllByRole("button", { name: "Full Details" })[1]);
+      expect(screen.queryByRole("heading", { name: "Medicine Comparison" })).not.toBeInTheDocument();
+      expect(await screen.findByText(MEDICINES[1].latin, {}, { timeout: 15000 })).toBeInTheDocument();
+    });
+  });
+
+  describe("on the results", () => {
+    beforeEach(() => {
+      sessionStorage.setItem("pri-consent", "true");
+    });
+
+    it("Save My Results writes a printable report of the scores, matches, sequence and shortlist", async () => {
+      const saved = MEDICINES.find((x) => x.id === "sananga")!;
+      localStorage.setItem("pri-saved-medicines", JSON.stringify([saved.id, "gone"]));
+      const doc = { write: vi.fn(), close: vi.fn() };
+      const popup = { document: doc, print: vi.fn() };
+      const open = vi.fn(() => popup);
+      vi.stubGlobal("open", open);
+      const user = userEvent.setup();
+      render(<PsychedelicReadinessIndex />);
+      await startQuiz(user);
+      const value = (i: number) => (i % 2 ? 9 : 4);
+      await finishQuiz(value);
+      const expected = computeScores(QUESTIONS.map((_, i) => value(i)));
+
+      await user.click(button(/save my results/i));
+      expect(open).toHaveBeenCalledWith("", "_blank");
+      const html = doc.write.mock.calls[0][0] as string;
+      expect(html).toContain("<title>Psychedelic Readiness Index ... Personal Report</title>");
+      for (const d of Object.keys(expected.dimScores) as DimKey[]) {
+        expect(html).toContain(`${DIM_LABELS[d]}</td>`);
+        expect(html).toContain(`>${expected.dimScores[d]}<small`);
+      }
+      for (const m of expected.topMatches) expect(html).toContain(`${m.name}</td>`);
+      for (const st of expected.sequence) expect(html).toContain(`<strong>${st.name}</strong>`);
+      expect(html).toContain("<h2>My Saved Medicines</h2>");
+      expect(html).toContain(saved.name);
+      expect(doc.close).toHaveBeenCalled();
+      await waitFor(() => expect(popup.print).toHaveBeenCalled(), { timeout: 3000 });
+    });
+
+    it("Save My Results does nothing when the browser blocks the pop-up; the report has no shortlist without saved medicines", async () => {
+      const open = vi.fn(() => null);
+      vi.stubGlobal("open", open);
+      const user = userEvent.setup();
+      render(<PsychedelicReadinessIndex />);
+      await startQuiz(user);
+      await finishQuiz(() => 5);
+      await user.click(button(/save my results/i));
+      expect(open).toHaveBeenCalledTimes(1);
+      const doc = { write: vi.fn(), close: vi.fn() };
+      open.mockReturnValue({ document: doc, print: vi.fn() } as never);
+      await user.click(button(/save my results/i));
+      expect(doc.write.mock.calls[0][0]).not.toContain("My Saved Medicines");
+    });
+
+    it("a top match opens its details, and View Saved scrolls to the shortlist", async () => {
+      localStorage.setItem("pri-saved-medicines", JSON.stringify([MEDICINES[0].id]));
+      const user = userEvent.setup();
+      render(<PsychedelicReadinessIndex />);
+      await startQuiz(user);
+      await finishQuiz(() => 7);
+      const expected = computeScores(QUESTIONS.map(() => 7));
+      const scroll = vi.mocked(Element.prototype.scrollIntoView);
+      scroll.mockClear();
+      await user.click(button("View Saved (1)"));
+      expect(scroll.mock.contexts.at(-1)).toBe(document.querySelector("[data-saved-panel]"));
+
+      const top = expected.topMatches[0];
+      await user.click(button(`Open ${top.name}: match #1`));
+      expect(await screen.findByText(MEDICINES.find((x) => x.id === top.id)!.latin, {}, { timeout: 15000 })).toBeInTheDocument();
+    });
+
+    it("the referral form keeps the optional name", async () => {
+      vi.spyOn(console, "error").mockImplementation(() => {});
+      const user = userEvent.setup();
+      render(<PsychedelicReadinessIndex />);
+      await startQuiz(user);
+      await finishQuiz(() => 5);
+      await user.click(screen.getByRole("checkbox", { name: /connect me with a vetted facility/i }));
+      await user.type(screen.getByPlaceholderText("Your name"), "Ada");
+      expect(screen.getByPlaceholderText("Your name")).toHaveValue("Ada");
+    });
+  });
+
+  it("every medicine card is a real button keyboard users can reach", () => {
+    render(<PsychedelicReadinessIndex />);
+    expect(screen.getByRole("button", { name: `Open ${MEDICINES[0].name}` })).toBeInTheDocument();
+    expect(screen.getAllByRole("button", { name: /^Open / })).toHaveLength(MEDICINES.length);
   });
 });

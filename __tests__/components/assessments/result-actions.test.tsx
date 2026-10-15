@@ -50,4 +50,42 @@ describe("AssessmentResultActions", () => {
     expect(write.mock.calls[0][0]).toContain("<h2>My Result</h2>");
     expect(fakeWin.document.close).toHaveBeenCalled();
   });
+
+  it("Download PDF prints the new window after half a second", async () => {
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+    try {
+      const fakeWin = { document: { write: vi.fn(), close: vi.fn() }, print: vi.fn() };
+      vi.spyOn(window, "open").mockReturnValue(fakeWin as unknown as Window);
+      const ref = createRef<HTMLDivElement>();
+      const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
+      render(
+        <>
+          <div ref={ref}>Result</div>
+          <AssessmentResultActions printTargetRef={ref} />
+        </>,
+      );
+      await user.click(screen.getByRole("button", { name: /download pdf/i }));
+      expect(fakeWin.print).not.toHaveBeenCalled();
+      vi.advanceTimersByTime(500);
+      expect(fakeWin.print).toHaveBeenCalledTimes(1);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it("Download PDF falls back to window.print when the pop-up is blocked", async () => {
+    vi.spyOn(window, "open").mockReturnValue(null);
+    const print = vi.spyOn(window, "print").mockImplementation(() => {});
+    const ref = createRef<HTMLDivElement>();
+    const user = userEvent.setup();
+    render(
+      <>
+        <div ref={ref}>Result</div>
+        <AssessmentResultActions printTargetRef={ref} />
+      </>,
+    );
+    await user.click(screen.getByRole("button", { name: /download pdf/i }));
+    expect(window.open).toHaveBeenCalledWith("", "_blank");
+    expect(print).toHaveBeenCalledTimes(1);
+  });
 });

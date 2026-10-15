@@ -17,9 +17,11 @@ beforeEach(() => {
   vi.stubGlobal("fetch", fetchMock);
   vi.spyOn(console, "error").mockImplementation(() => {});
 });
+
 afterEach(() => {
   vi.unstubAllEnvs();
 });
+
 describe("submitSupplierIntake", () => {
   it("quietly accepts and drops a bot that filled the hidden field", async () => {
     await expect(submitSupplierIntake({ ...validValues(), website_url: "http://spam" })).resolves.toEqual({ ok: true });

@@ -17,9 +17,11 @@ describe("DharmaFinderQuiz", () => {
     vi.useFakeTimers({ shouldAdvanceTime: true });
     vi.stubGlobal("fetch", vi.fn(async () => new Response("{}")));
   });
+
   afterEach(() => {
     vi.useRealTimers();
   });
+
   it("walks every question, the between-parts quotes, the email gate and the results", async () => {
     const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
     render(<DharmaFinderQuiz />);

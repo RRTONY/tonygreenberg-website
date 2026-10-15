@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
+import { renderToString } from "react-dom/server";
 import { act, render, renderHook, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { JOURNEY_MAP, JourneyTracker, useJourneyProgress } from "@/components/assessments/journey-tracker";
@@ -48,6 +49,38 @@ describe("useJourneyProgress", () => {
     expect(setJourneyStep).toHaveBeenCalledWith("soulscore", false);
   });
 
+  it("a signed-in visitor's progress is merged once with the progress saved on their account", async () => {
+    // Fresh module copy: the account sync runs once per page load.
+    vi.resetModules();
+    const fresh = await import("@/components/assessments/journey-tracker");
+    const actions = await import("@/app/assessments/actions");
+    vi.mocked(actions.syncJourneyProgress).mockResolvedValue(["find-your-diet", "soulscore"]);
+    localStorage.setItem(KEY, JSON.stringify(["soulscore"]));
+    document.cookie = "sb-test-auth-token=abc; path=/";
+    const { result } = renderHook(() => fresh.useJourneyProgress());
+    expect(actions.syncJourneyProgress).toHaveBeenCalledWith(["soulscore"]);
+    await vi.waitFor(() => expect(result.current.completed.has("find-your-diet")).toBe(true));
+    expect(JSON.parse(localStorage.getItem(KEY)!).sort()).toEqual(["find-your-diet", "soulscore"]);
+    // A second tracker on the same page doesn't ask the server again.
+    renderHook(() => fresh.useJourneyProgress());
+    expect(actions.syncJourneyProgress).toHaveBeenCalledTimes(1);
+  });
+
+  it("visitors without a session cookie never call the server for sync", async () => {
+    vi.resetModules();
+    const fresh = await import("@/components/assessments/journey-tracker");
+    const actions = await import("@/app/assessments/actions");
+    renderHook(() => fresh.useJourneyProgress());
+    expect(actions.syncJourneyProgress).not.toHaveBeenCalled();
+  });
+
+  it("the server-rendered HTML shows no progress, so it matches the first browser render", () => {
+    localStorage.setItem(KEY, JSON.stringify(JOURNEY_MAP.map((e) => e.id)));
+    const html = renderToString(<JourneyTracker compact />);
+    expect(html).toContain(`0<!-- -->/<!-- -->${JOURNEY_MAP.length}`);
+    expect(html).not.toContain("Journey complete");
+  });
+
   it("survives broken JSON in localStorage", () => {
     localStorage.setItem(KEY, "{not json");
     const { result } = renderHook(() => useJourneyProgress());
@@ -86,5 +119,18 @@ describe("JourneyTracker", () => {
     render(<JourneyTracker compact />);
     expect(screen.getByText(`${JOURNEY_MAP.length}/${JOURNEY_MAP.length} · 100%`)).toBeInTheDocument();
     expect(screen.getByText("Journey complete. You found yourself.")).toBeInTheDocument();
+  });
+
+  it("the compact tracker opens the full journey list when clicked, and closes again", async () => {
+    const user = userEvent.setup();
+    render(<JourneyTracker compact />);
+    const bar = screen.getByRole("button", { name: /your journey/i });
+    expect(bar).toHaveAttribute("aria-expanded", "false");
+    expect(screen.queryByRole("link", { name: "Find Your Diet" })).not.toBeInTheDocument();
+    await user.click(bar);
+    expect(bar).toHaveAttribute("aria-expanded", "true");
+    expect(screen.getByRole("link", { name: "Find Your Diet" })).toBeInTheDocument();
+    await user.click(bar);
+    expect(screen.queryByRole("link", { name: "Find Your Diet" })).not.toBeInTheDocument();
   });
 });

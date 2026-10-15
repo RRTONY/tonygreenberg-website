@@ -25,6 +25,7 @@ describe("FindYourLoveLanguageQuiz", () => {
   beforeEach(() => {
     vi.stubGlobal("fetch", vi.fn(async () => new Response("{}")));
   });
+
   it("starts on the intro and walks to question 1", async () => {
     const user = userEvent.setup();
     render(<FindYourLoveLanguageQuiz />);
