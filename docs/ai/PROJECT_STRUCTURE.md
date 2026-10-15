@@ -22,6 +22,7 @@ how to handle a request is in [`TASK_GUIDE.md`](TASK_GUIDE.md). Last checked 202
 | `src/lib/admin/` | The MCP server (see below). Off-limits to MCP edits |
 | `src/sanity/schemas/` | Sanity schema types (`post`, `author`, `category`, `page`, `pageSeo`, `seo`, `siteSettings`, `redirect`) |
 | `src/proxy.ts` | Next.js 16 proxy (was middleware): visit-count cookie + Supabase session refresh. Fails open |
+| `__tests__/` | Vitest tests (`pnpm test`), one per source file at the same path as in `src/` (`src/lib/utils.ts` → `__tests__/lib/utils.test.ts`). Shared fakes in `__tests__/setup.ts` and `__tests__/helpers/`, settings in `vitest.config.mts`. How to write them: `docs/ai/testing.md`. |
 | `scripts/` | `build-migration-status-report.py` (regenerates `Migration-Status-Report.xlsx`, the team's spreadsheet copy of `NEXTJS-MIGRATION-TODO.md`; run every session), `check-search-console-urls.ts` (launch day: every address Google knows ends on a working page), `sync-live-essays.ts` (brings live's rewritten essays into Sanity), `generate-essay-hero-art.mjs` (text-free essay hero art). The one-off migration, rescue and backfill scripts were removed 2026-10-13; they're in git history. |
 | `docs/ai/` | These notes |
 | `_legacy-manus-app/` | The old app's source, kept only as the porting reference. Not built or deployed |

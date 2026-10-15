@@ -13,13 +13,13 @@
 - UI: Tailwind CSS v4 + shadcn/ui (Radix base) — same design-system convention the team already uses elsewhere. `next/image` for all images. No framer-motion — CSS transitions / `tailwindcss-animate` only.
 
 
-## Current status — 2026-10-14
+## Current status — 2026-10-16
 
 > Update this block at the end of each working session. Checkbox counts are from this file. The team's
 > spreadsheet copy (`Migration-Status-Report.xlsx`) is regenerated from it by
 > `scripts/build-migration-status-report.py`.
 
-**Overall:** 324 items done, 6 open. Phases 0, 1, 3, 5, 6, 7, 8 and 9 are complete. **Nothing from
+**Overall:** 325 items done, 12 open (6 of them are bugs the new tests found, 2026-10-16). Phases 0, 1, 3, 5, 6, 7, 8 and 9 are complete. **Nothing from
 this rebuild is live on tonygreenberg.com yet** (it still serves the old app until DNS cutover);
 `main` deploys to the Netlify copy. Most of what's open needs a setting or account outside the code
 (Supabase scripts, Resend), a decision, new artwork, or the launch steps.
@@ -32,9 +32,23 @@ this rebuild is live on tonygreenberg.com yet** (it still serves the old app unt
 | 11 MCP server | 17 | 3 | 2026-10-13: Google key dropped (owner); 2026-10-09: synced with ramprate-ui (review card, confirm step, uploads, other pending changes); left: test it on a deploy preview, connect Claude.ai for real, publish/undo test, Lighthouse key, team `.mcp.json` |
 | 12 SEO & cutover | 45 | 1 | 2026-10-13: US PageSpeed run dropped (owner), left: Search Console at cutover; 2026-10-10: old site's GA4 events ported; 2026-10-10: SEO pack copy done (homepage, essays, Five Cups), every page has a share image; 2026-10-10: Google Analytics tag added (was missing; only counts on tonygreenberg.com); 2026-10-09: your design answers done (title fonts like live, arrows as icons), category pages pre-built, redirect map finished (Search Console addresses), speed (homepage 80 to 86, PRI 81 to 87, peptide 80 to 95) and error pages; 2026-10-08: redesign group 2, BrewSoul badge and menu, `/pri-efficacy` switch, link check and sitemap clean, live comparisons closed; left: 3 decisions, Lighthouse on the preview, Search Console at cutover |
 | 13 Images | 19 | 0 | 2026-10-13: text logo kept, quiz results get colour backgrounds, 92 essays have their own generated picture (published) |
-| 14 QA & launch | 11 | 1 | 2026-10-14: team review re-checked (60 menu pages, 130 blog links, 404, dark mode, phone: fine; 404 tab title and 3 menu redirects fixed); essay counts now match (123 everywhere); new `/privacy`, `/terms`, `/contact` pages with footer links (Josh to review the legal wording); 2026-10-13: sign-off given (webmaster), noindex needs no change, iPhone and Safari checked in Apple's iPhone Simulator (14 pages); left: DNS cutover; 2026-10-10: no dead-end pages (Related links on 19 pages); Accessibility pass done 2026-10-08; left: real iPhone, dead-end pages (content yes), sign-off, noindex check, DNS cutover |
+| 14 QA & launch | 12 | 7 | 2026-10-16: tests for all 618 files (`pnpm test`, 2,952 checks, all pass); they found 51 bugs, filed as 6 items: security (2 holes, fix before launch), PRI safety, wrong quiz results (copied from live, owner to decide), wrong info, content Google can't see, keyboard/screen reader; 2026-10-14: team review re-checked (60 menu pages, 130 blog links, 404, dark mode, phone: fine; 404 tab title and 3 menu redirects fixed); essay counts now match (123 everywhere); new `/privacy`, `/terms`, `/contact` pages with footer links (Josh to review the legal wording); 2026-10-13: sign-off given (webmaster), noindex needs no change, iPhone and Safari checked in Apple's iPhone Simulator (14 pages); left: DNS cutover; 2026-10-10: no dead-end pages (Related links on 19 pages); Accessibility pass done 2026-10-08; left: real iPhone, dead-end pages (content yes), sign-off, noindex check, DNS cutover |
 
-**Done this session (2026-10-14), branch `team-review-2026-10-14`:**
+**Done this session (2026-10-16), branch `tests-2026-10-16`:**
+- **Tests for every file (owner asked; owner said yes to Vitest + Testing Library, dev-only):**
+  `pnpm test`, 618 test files in `__tests__/` mirroring `src/`, 2,952 checks, all passing. Type
+  check, lint and production build pass. Guide: `docs/ai/testing.md`; `pnpm test` added to the
+  checks in CONTRIBUTING, AGENTS and the verify-change skill. Phase 14.
+- **The tests found 51 real problems** (recorded, site code not changed): 2 security holes (a
+  sign-in link can send people to another site; an upload link outlives its owner's access), the
+  PRI can recommend the "Hard Stop" deliriants, 8 quizzes give wrong results (copied from live;
+  Find Your Sexuality is the most serious), a dead BrewSoul menu link, content Google can't see,
+  and keyboard/screen-reader gaps. Grouped as 6 new Phase 14 items, by priority.
+
+**Earlier the same day, on `main`, no code changed:**
+- **Live vs new site, page by page (owner: "check tonygreenberg.com, add anything missing"):** compared all 285 addresses in live's sitemap and all 201 routes in live's current app code with the Netlify copy, plus live's full essay list (123). Nothing public is missing: every page is built, redirects on purpose, or is a known decision. Still without a page: `/payment-success` and `/payment-cancel` (Stripe, on hold), `/analytics` and `/admin/*` (live's admin screens), `/edit/frqncy` (live's passphrase editor for one guest on the FRQNCY essay; Sanity Studio does this job now). `/heroes`, `/impact`, `/health`, `/library`, `/built-on-manus` are in live's sitemap but show live's own "not found" page (checked 2026-10-07). No essay changed on live since the 2026-10-13 sync.
+
+**Previous session (2026-10-14), branch `team-review-2026-10-14`:**
 - **Pull request (owner: "you can create pr"):** branch pushed; GitHub CLI isn't signed in on this Mac, so the pull request is opened in the browser: https://github.com/RRTONY/tonygreenberg-website/compare/main...team-review-2026-10-14?expand=1 . Merging needs a yes after the Netlify preview passes.
 - **Team review of the site (pasted):** 4 findings, checked against live and the old app (neither has a privacy, terms or contact page).
 - **Curated Journeys (owner: check it's real data):** all 29 essays are real and counts match live, but 5 of the 7 journeys led to a page that doesn't mention them; now a click shows that journey's essays in the archive. Most Read now uses real Google Analytics data (top 5 essays, past 12 months; live's read counts were typed-in numbers); Google settings confirmed in Netlify by the owner; check the "Past 12 months" label on the pull request's preview. Phase 5.
@@ -640,6 +654,63 @@ Every image below needs to exist as a real asset uploaded to Sanity (or explicit
 - [x] **Contact page (`/contact`) + footer link** (team review 2026-10-14). Gathers details already on the site: email t@ramprate.com (now also a clickable link in the footer, where it was plain text), booking link, the Engagement Audit (`/pick-up-the-phone`), RampRate supplier intake, Santa Monica, X and LinkedIn. No form (none needed: every option already exists). Checked 2026-10-14 for all three: type check, lint, Manus grep, build (all `○` static), fresh server: 200, one H1, title, canonical, share image, in the sitemap and Ask Tony search, footer links on every page; browser at 375/820/1280 light and 375/1280 dark: no sideways scroll, no JS errors.
 - [x] **Essay counts match** (team review 2026-10-14). Ask Tony's Blog entry said "92 essays" (copied from the old app), the homepage Read card "118", `/subscribe` and `/the-letter`'s Read card "121", while the homepage and `/search` count 123 from Sanity. All now use Sanity's count (`{count}` in `home-doors.ts` and `/the-letter`'s doors, `/subscribe` fetches it). Ask Tony (owner: show the number): the root layout fetches the count and passes it to `SiteHeader` → `SearchModal`; `withEssayCount()` in `search-directory.ts` fills `{count}` for Ask Tony, `/search` and `/the-index` too. Checked in a browser: Ask Tony shows "123 essays spanning 15 years", build still 150 static / 28 dynamic pages as before. Left alone: `/living-declaration`'s "QPR Index scores intellectual rigor across 91 essays" (a claim about that tool, Tony's copy). Checked 2026-10-14: type check, lint, build (`/`, `/subscribe`, `/the-letter` still static), fresh server: all three show 123, no "92 essays" in the built browser code.
 - [x] **Team review's "everything else looks fine" re-checked** (2026-10-14, owner: "you can check"). Fresh production build: all 60 menu pages (main menu, Fix Myself, Explore...) at 1280px and 375px: 200, one H1, no sideways scroll, no JS errors. All 130 blog links on them (122 posts, 8 categories): 200, no redirects. 404 page: 404 for a missing page, essay and category. Dark mode: switches and stays on across pages; 10 essays checked on a phone in dark mode. Phone menu shows every section; Ask Tony works on a phone. Netlify test site: the same 60 menu pages answer. **Two small fixes:** a missing essay or category showed the homepage's tab title on its 404 page (now "Page not found"); three Explore links (`/attention-theft/weapons`, `/report`, `/legal`) went through a redirect, now link straight to `/attention-theft#weapons` etc. Checked: type check, lint, build, clicked "Legal Database" in the menu.
+- [x] **Automated tests for every file (2026-10-16, owner: "write a test case for the full project
+  and every file and component").** Vitest + Testing Library (dev-only packages, owner's yes):
+  `pnpm test`. One test file per source file in `__tests__/`, same path as in `src/` (618 of 618,
+  checked by script both ways). 2,952 checks: forms filled in key by key (errors, exactly what is
+  sent, spinner, success, the "email Tony instead" fallback), every quiz answered start to finish
+  against its own scoring, route handlers' status codes and refusals, pages' title, description,
+  canonical, one H1 and real copy, data files' integrity. Sanity, Supabase, email and the network
+  are faked, so no test touches real data. Checked: full run 618 files passed (2,901 pass, 51
+  record the bugs below as `it.fails`), type check, lint, production build (150 static, 28
+  dynamic). How to write and run them: `docs/ai/testing.md`. A full run takes about 10 minutes.
+- [ ] **Security: two holes found by the tests (2026-10-16), fix before launch.** (1)
+  `src/lib/auth.ts` `safeNext` lets `/\evil.com` through; browsers read it as `//evil.com`, so a
+  real-looking sign-in link (`/login?next=/\evil.com`) sends the visitor to another site after
+  they sign in (the sign-in form action, login and sign-up pages; the email-link callback is safe).
+  One-line fix: also refuse a backslash. (2) `src/lib/admin/binary-upload.ts:240`: an MCP upload
+  link keeps working for up to 30 minutes after its owner is removed from `MCP_ADMIN_USERS`.
+  Tests: `__tests__/lib/auth.test.ts`, `__tests__/lib/admin/binary-upload.test.ts`.
+- [ ] **PRI results: safety and scoring (2026-10-16), needs a yes.** `src/lib/content/pri-shared.ts`:
+  the "Hard Stop" deliriants (brugmansia, datura) can show in a visitor's top matches (line 102);
+  the match score can never pass 12%, so "worth a real look" (60%+) and "this one knows you" (80%+)
+  never show (line 75); fewer answers than questions gives NaN (line 58, low risk).
+- [ ] **Quiz results that come out wrong (2026-10-16), copied from live, needs the owner's
+  decision** (fixing changes what visitors are told). Find Your Sexuality (the most serious:
+  answering "exclusively a different gender" every time shows The Lighthouse, gay/lesbian; The
+  Compass can never show; only 3 of 11 results reachable), Diet (3 results never shown), Peptide
+  (3 never shown), Sake, Religion, Spirit, Therapy (scores capped, so the top dimension often
+  loses), Find Your Journey on the homepage (`journey-finder.tsx:226`: each answer is scored
+  against the next question, the last answer is ignored), Kava assessment (on question p4 picking
+  Yes also highlights No; its "Maximum 25 points" copy can only reach 22 and 21). Sexuality checked
+  line by line against legacy `FindYourSexuality.tsx`: identical, so live shows the same results
+  today. Tests in `__tests__/components/assessments/`, `.../marketing/journey-finder.test.tsx`,
+  `.../kava/assessment-quiz.test.tsx`.
+- [ ] **Wrong or broken information (2026-10-16).** BrewSoul "My Collection" links to
+  `/brewsoul/my-coffees`, a missing page (`brewsoul-nav.tsx:38`, `journey-bar.tsx:142`; real page
+  `/brewsoul/collection`); coffee prescription under-counts decaf for "Reduce anxiety"
+  (`prescription-wizard.tsx:129`); charity scorecard's first "Score" click sorts lowest first;
+  one Sanity category with no slug crashes the whole sitemap (`sitemap.ts` ~192); short link
+  `jwd9jx` goes to missing `/movement-signup`; `/skippy` still says "Coming Soon" for Friend Gate
+  and Post-Intervention (both live); BrewSoul shop grades disagree with `gradeFromScore()`
+  (e.g. 84 shows "A", the function says "A-"); peptide-watch timeline has "February 2026" between
+  2025 entries (typo?); `kit-source-tags.ts:62` returns a function for a source named
+  "constructor"; `link-map.ts` skips a name whose first appearance is inside another word;
+  `legacy-body.ts:49` keeps leading spaces. Copy counts that disagree with the page (owner's yes,
+  copy): `/clients` description "90+" vs 79 listed, `/peptide-hall-of-shame` "93/100" vs 95,
+  `/the-philosophy` "38 medicines" vs 39. To check in Sanity: 14 of 17 essay slugs in
+  `find-your-me.ts` aren't known essays (may be dead links).
+- [ ] **Content Google can't see, and missing tags (2026-10-16).** Only shown after a click, so not
+  in the server HTML: Shanita interview answers 2 to 10, Iboga pharma table rows 6 to 8, Kava myth
+  evidence. No H1: `/assessment` (until finished), `/iboga-compass`. Share cards lose @ThinkTony
+  (no `...defaultTwitter`): `/america-unbundled`, `/america-unbundled-field-guide`.
+- [ ] **Keyboard and screen-reader fixes (2026-10-16).** Clickable `<div>`s with no button
+  (BrewSoul chain and roaster cards, Kava myth cards, PRI medicine cards, peptide fraud patterns);
+  a Buy link inside a button (BrewSoul decaf); no accessible name (Kava clear-search X, PRI modal
+  close X, calibration ↑/↓, SoulScore's 12 sliders); labels not linked to fields (BrewSoul first-sip
+  email, PRI initials, Iboga Compass gate, facilitator quick intake); clinic rankings' expand
+  button has no `aria-expanded`; the newsletter pop-up has no spinner and can be sent twice
+  (rule 7). Each is an `it.fails` test that will start failing when fixed: switch it to `it`.
 - [ ] DNS cutover, legacy app decommissioned only after a stable overlap window **Re-checked 2026-10-13: unchanged** (Hostinger name servers, bare domain on Manus 104.19.168/169.112, `www` CNAME `cname.manus.space`). **Checked 2026-10-09 (owner wants to go live and switch off Manus):** DNS for tonygreenberg.com is at **Hostinger** (name servers `ns1/ns2.dns-parking.com`); `www` is a CNAME to `cname.manus.space`, the bare domain points at Manus's addresses (104.19.168.112 / .169.112); the Netlify site `tonygreenberg-website` has **no custom domain yet** (production branch `main`). Order: (1) merge the three open pull requests into `main` and check the Netlify copy; (2) restore Supabase and run 0001 to 0003, or launch without member features (they say "isn't available just now"); (3) owner sign-off; (4) add `tonygreenberg.com` + `www` in Netlify (Domain management), then at Hostinger point the bare domain at Netlify (A record `75.2.60.5`, or Netlify DNS) and `www` CNAME at `tonygreenberg-website.netlify.app`; Netlify issues the HTTPS certificate; (5) re-run `scripts/check-search-console-urls.ts https://tonygreenberg.com` and submit the sitemap in Search Console; (6) only after a few stable days: switch off the Manus site (the database is already backed up, `docs/ai/project_legacy_database.md`) and rotate the old database password.
 
 ---

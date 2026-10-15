@@ -413,13 +413,13 @@ A change isn't done until it's been checked with real tools, not just read over.
 **Local (Claude Code, Cursor, etc.)**
 1. `pnpm typecheck`
 2. `pnpm lint` (or `pnpm exec eslint <files>` for just the changed files)
-3. `pnpm build` for anything touching routing, metadata or config, and check the route table
-4. Look at the real page: `pnpm start` (never judge from `pnpm dev`) plus a browser or `curl`,
+3. `pnpm test` (Vitest). A new or changed file gets its test in `__tests__/`, same path as in
+   `src/`. How tests are written and what's faked: `docs/ai/testing.md`
+4. `pnpm build` for anything touching routing, metadata or config, and check the route table
+5. Look at the real page: `pnpm start` (never judge from `pnpm dev`) plus a browser or `curl`,
    including `curl -I` for status codes. Make sure the server on port 3000 is the build you just
    made (`lsof -iTCP:3000`) — a stale `next-server` process silently answering instead of the new
    build has already produced false results once.
-
-There's no unit-test runner in this repo yet (adding Vitest would be a new dependency, rule 16).
 
 **Through the MCP server:** `check_code_quality` on every changed file, then `check_pr_status`
 until the Netlify deploy preview passes, then open the preview link and `seo_check_page`

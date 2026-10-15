@@ -9,7 +9,9 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "sanity:dev": "sanity dev",
-    "sanity:deploy": "sanity deploy"
+    "sanity:deploy": "sanity deploy",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.1",
@@ -45,15 +47,21 @@
   "devDependencies": {
     "@netlify/plugin-nextjs": "^5.15.13",
     "@tailwindcss/postcss": "^4",
+    "@testing-library/dom": "^10.4.2",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.8",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.3.1",
+    "jsdom": "^30.1.2",
     "marked": "^18.0.10",
     "tailwindcss": "^4",
     "tsx": "^4.23.12",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^5.0.4"
   },
   "packageManager": "pnpm@11.17.0"
 }
