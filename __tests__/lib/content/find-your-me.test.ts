@@ -39,13 +39,27 @@ describe("find-your-me quiz", () => {
 });
 
 describe("find-your-me archetypes and links", () => {
-  // Only 3 of these 17 slugs are in POST_ORDER / legacy blogData; the rest can only
-  // be checked against Sanity, which tests never read. So this checks shape only.
-  it("recommends 17 unique, url-safe essay slugs", () => {
-    expect(ALL_ARTICLE_SLUGS).toHaveLength(17);
+  // Checked against Sanity 2026-10-16: 8 of the picks are real essays (5 were
+  // under an old, longer address and now point at the real one). The other 11
+  // were never written, not on live either; the quiz hides them. Replacing them
+  // with real essays needs Tony's picks: move each from NEVER_WRITTEN as it goes.
+  const NEVER_WRITTEN = [
+    "the-science-of-being-alone-why-solitude-is-a-superpower",
+    "the-built-world-is-a-mirror-of-the-people-who-built-it",
+    "the-trust-economy-why-the-next-trillion-dollar-companies-will-be-built-on-radical-transparency",
+    "the-great-ai-swindle-how-big-tech-is-selling-you-a-future-it-cant-deliver",
+    "the-gdp-delusion-why-the-worlds-favorite-metric-is-its-most-dangerous-lie",
+    "the-great-rewiring-how-to-build-systems-that-dont-extract",
+    "the-art-of-the-long-game-why-patience-is-the-most-undervalued-asset-in-business",
+    "the-longevity-paradox-why-living-longer-means-nothing-if-you-dont-live-deeper",
+    "homeaglow-the-anatomy-of-a-consumer-fraud",
+  ];
+
+  it("every recommended essay is a real essay, or a known never-written pick the quiz hides", () => {
     for (const s of ALL_ARTICLE_SLUGS) expect(s).toMatch(/^[a-z0-9]+(-[a-z0-9]+)*$/);
-    expect(ALL_ARTICLE_SLUGS).toContain("love-as-dharma-a-science-based-playbook-for-magnetic-partnership");
-    expect(POST_ORDER).toContain("love-as-dharma-a-science-based-playbook-for-magnetic-partnership");
+    const unknown = ALL_ARTICLE_SLUGS.filter((s) => !POST_ORDER.includes(s) && !NEVER_WRITTEN.includes(s));
+    expect(unknown).toEqual([]);
+    expect(ALL_ARTICLE_SLUGS.filter((s) => POST_ORDER.includes(s))).toHaveLength(8);
     for (const a of ARCHETYPES) expect(a.articles.length).toBeGreaterThan(0);
   });
 

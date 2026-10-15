@@ -96,8 +96,19 @@ describe("FindYourMeQuiz", () => {
     await answerAll(user, picks);
     const link = (await screen.findByText("A Real Essay Title")).closest("a")!;
     expect(link.getAttribute("href")).toContain(slug);
+    // Essays the page couldn't find in Sanity are left out, never shown as a raw slug.
     const rabbit = screen.getByText("Rabbit Holes Worth Falling Into").parentElement!;
-    expect(within(rabbit).getAllByRole("link")).toHaveLength(expected.articles.length);
+    expect(within(rabbit).getAllByRole("link")).toHaveLength(1);
+    expect(screen.queryByText(expected.articles[1])).not.toBeInTheDocument();
+  });
+
+  it("hides the essay block when none of the result's essays exist", async () => {
+    const picks = QUESTIONS.map(() => 0);
+    const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
+    render(<FindYourMeQuiz articleTitles={{}} />);
+    await answerAll(user, picks);
+    await screen.findByRole("heading", { level: 1 });
+    expect(screen.queryByText("Rabbit Holes Worth Falling Into")).not.toBeInTheDocument();
   });
 
   it("Shuffle the Deck starts over", async () => {

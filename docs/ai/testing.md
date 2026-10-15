@@ -5,7 +5,7 @@ Added 2026-10-16 (owner's yes to the dev dependencies: `vitest`, `jsdom`, `@test
 and never ship to visitors.
 
 ```bash
-pnpm test                      # run everything once
+pnpm test                      # run everything once (about 1.5 minutes)
 pnpm test:watch                # re-run on save
 pnpm exec vitest run __tests__/components/cheshire   # one folder
 ```

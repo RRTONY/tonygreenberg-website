@@ -19,7 +19,7 @@
 > spreadsheet copy (`Migration-Status-Report.xlsx`) is regenerated from it by
 > `scripts/build-migration-status-report.py`.
 
-**Overall:** 325 items done, 12 open (6 of them are bugs the new tests found, 2026-10-16). Phases 0, 1, 3, 5, 6, 7, 8 and 9 are complete. **Nothing from
+**Overall:** 326 items done, 13 open (7 of them came from the new tests and the Find Your Me check, 2026-10-16). Phases 0, 1, 3, 5, 6, 7, 8 and 9 are complete. **Nothing from
 this rebuild is live on tonygreenberg.com yet** (it still serves the old app until DNS cutover);
 `main` deploys to the Netlify copy. Most of what's open needs a setting or account outside the code
 (Supabase scripts, Resend), a decision, new artwork, or the launch steps.
@@ -32,7 +32,7 @@ this rebuild is live on tonygreenberg.com yet** (it still serves the old app unt
 | 11 MCP server | 17 | 3 | 2026-10-13: Google key dropped (owner); 2026-10-09: synced with ramprate-ui (review card, confirm step, uploads, other pending changes); left: test it on a deploy preview, connect Claude.ai for real, publish/undo test, Lighthouse key, team `.mcp.json` |
 | 12 SEO & cutover | 45 | 1 | 2026-10-13: US PageSpeed run dropped (owner), left: Search Console at cutover; 2026-10-10: old site's GA4 events ported; 2026-10-10: SEO pack copy done (homepage, essays, Five Cups), every page has a share image; 2026-10-10: Google Analytics tag added (was missing; only counts on tonygreenberg.com); 2026-10-09: your design answers done (title fonts like live, arrows as icons), category pages pre-built, redirect map finished (Search Console addresses), speed (homepage 80 to 86, PRI 81 to 87, peptide 80 to 95) and error pages; 2026-10-08: redesign group 2, BrewSoul badge and menu, `/pri-efficacy` switch, link check and sitemap clean, live comparisons closed; left: 3 decisions, Lighthouse on the preview, Search Console at cutover |
 | 13 Images | 19 | 0 | 2026-10-13: text logo kept, quiz results get colour backgrounds, 92 essays have their own generated picture (published) |
-| 14 QA & launch | 12 | 7 | 2026-10-16: tests for all 618 files (`pnpm test`, 2,952 checks, all pass); they found 51 bugs, filed as 6 items: security (2 holes, fix before launch), PRI safety, wrong quiz results (copied from live, owner to decide), wrong info, content Google can't see, keyboard/screen reader; 2026-10-14: team review re-checked (60 menu pages, 130 blog links, 404, dark mode, phone: fine; 404 tab title and 3 menu redirects fixed); essay counts now match (123 everywhere); new `/privacy`, `/terms`, `/contact` pages with footer links (Josh to review the legal wording); 2026-10-13: sign-off given (webmaster), noindex needs no change, iPhone and Safari checked in Apple's iPhone Simulator (14 pages); left: DNS cutover; 2026-10-10: no dead-end pages (Related links on 19 pages); Accessibility pass done 2026-10-08; left: real iPhone, dead-end pages (content yes), sign-off, noindex check, DNS cutover |
+| 14 QA & launch | 13 | 8 | 2026-10-16: Find Your Me's dead essay links fixed (9 never-written picks hidden; Tony to pick replacements); tests for all 618 files (`pnpm test`, 2,952 checks, all pass); they found 51 bugs, filed as 6 items: security (2 holes, fix before launch), PRI safety, wrong quiz results (copied from live, owner to decide), wrong info, content Google can't see, keyboard/screen reader; 2026-10-14: team review re-checked (60 menu pages, 130 blog links, 404, dark mode, phone: fine; 404 tab title and 3 menu redirects fixed); essay counts now match (123 everywhere); new `/privacy`, `/terms`, `/contact` pages with footer links (Josh to review the legal wording); 2026-10-13: sign-off given (webmaster), noindex needs no change, iPhone and Safari checked in Apple's iPhone Simulator (14 pages); left: DNS cutover; 2026-10-10: no dead-end pages (Related links on 19 pages); Accessibility pass done 2026-10-08; left: real iPhone, dead-end pages (content yes), sign-off, noindex check, DNS cutover |
 
 **Done this session (2026-10-16), branch `tests-2026-10-16`:**
 - **Tests for every file (owner asked; owner said yes to Vitest + Testing Library, dev-only):**
@@ -44,6 +44,11 @@ this rebuild is live on tonygreenberg.com yet** (it still serves the old app unt
   PRI can recommend the "Hard Stop" deliriants, 8 quizzes give wrong results (copied from live;
   Find Your Sexuality is the most serious), a dead BrewSoul menu link, content Google can't see,
   and keyboard/screen-reader gaps. Grouped as 6 new Phase 14 items, by priority.
+- **Find Your Me essay links (owner: "you can start"):** 14 of 17 were dead, on live too. 5 now
+  point at the real essay; 9 were never written and are hidden. Two results (Systems Architect,
+  Truth Speaker) now show no essays: Tony to pick. Phase 14.
+- **Full test run is 1.5 minutes, not 10:** the slow run was 9 stuck test processes left by the
+  helpers (stopped). Run settings unchanged.
 
 **Earlier the same day, on `main`, no code changed:**
 - **Live vs new site, page by page (owner: "check tonygreenberg.com, add anything missing"):** compared all 285 addresses in live's sitemap and all 201 routes in live's current app code with the Netlify copy, plus live's full essay list (123). Nothing public is missing: every page is built, redirects on purpose, or is a known decision. Still without a page: `/payment-success` and `/payment-cancel` (Stripe, on hold), `/analytics` and `/admin/*` (live's admin screens), `/edit/frqncy` (live's passphrase editor for one guest on the FRQNCY essay; Sanity Studio does this job now). `/heroes`, `/impact`, `/health`, `/library`, `/built-on-manus` are in live's sitemap but show live's own "not found" page (checked 2026-10-07). No essay changed on live since the 2026-10-13 sync.
@@ -663,7 +668,8 @@ Every image below needs to exist as a real asset uploaded to Sanity (or explicit
   canonical, one H1 and real copy, data files' integrity. Sanity, Supabase, email and the network
   are faked, so no test touches real data. Checked: full run 618 files passed (2,901 pass, 51
   record the bugs below as `it.fails`), type check, lint, production build (150 static, 28
-  dynamic). How to write and run them: `docs/ai/testing.md`. A full run takes about 10 minutes.
+  dynamic). How to write and run them: `docs/ai/testing.md`. A full run takes about 1.5 minutes (the
+  first one took 10: leftover stuck test runs from the helpers were competing for the machine).
 - [ ] **Security: two holes found by the tests (2026-10-16), fix before launch.** (1)
   `src/lib/auth.ts` `safeNext` lets `/\evil.com` through; browsers read it as `//evil.com`, so a
   real-looking sign-in link (`/login?next=/\evil.com`) sends the visitor to another site after
@@ -698,8 +704,7 @@ Every image below needs to exist as a real asset uploaded to Sanity (or explicit
   "constructor"; `link-map.ts` skips a name whose first appearance is inside another word;
   `legacy-body.ts:49` keeps leading spaces. Copy counts that disagree with the page (owner's yes,
   copy): `/clients` description "90+" vs 79 listed, `/peptide-hall-of-shame` "93/100" vs 95,
-  `/the-philosophy` "38 medicines" vs 39. To check in Sanity: 14 of 17 essay slugs in
-  `find-your-me.ts` aren't known essays (may be dead links).
+  `/the-philosophy` "38 medicines" vs 39.
 - [ ] **Content Google can't see, and missing tags (2026-10-16).** Only shown after a click, so not
   in the server HTML: Shanita interview answers 2 to 10, Iboga pharma table rows 6 to 8, Kava myth
   evidence. No H1: `/assessment` (until finished), `/iboga-compass`. Share cards lose @ThinkTony
@@ -711,6 +716,18 @@ Every image below needs to exist as a real asset uploaded to Sanity (or explicit
   email, PRI initials, Iboga Compass gate, facilitator quick intake); clinic rankings' expand
   button has no `aria-expanded`; the newsletter pop-up has no spinner and can be sent twice
   (rule 7). Each is an `it.fails` test that will start failing when fixed: switch it to `it`.
+- [x] **Find Your Me essay links (2026-10-16, owner: "you can start").** Checked all 17 against
+  Sanity (123 published essays): only 3 worked, on live too (same links in live's
+  `FindYourMe` code). 5 were real essays under an old, longer address and now point at the real
+  one (Decay of Modern Day Communication, The Ties That Bind, The Arithmetic of Relationships,
+  The Molecule as Mirror, Eco Vegan Realities). 9 were never written anywhere ("The Great AI
+  Swindle", "The GDP Delusion", "The Trust Economy", Homeaglow...): the result screen now shows only
+  essays Sanity has and hides "Rabbit Holes" when none are left, instead of raw slugs linking to a
+  404. Checked: tests (the quiz and data tests updated, full run 618/618), type check, lint.
+- [ ] **Find Your Me: pick real essays for two results (2026-10-16), needs Tony.** The Systems
+  Architect and The Truth Speaker now show no essays (all 6 of each were never written); The
+  Consciousness Explorer shows 2, The Tribe Weaver 3. Replace the 9 picks in `NEVER_WRITTEN`
+  (`__tests__/lib/content/find-your-me.test.ts`) in `src/lib/content/find-your-me.ts`.
 - [ ] DNS cutover, legacy app decommissioned only after a stable overlap window **Re-checked 2026-10-13: unchanged** (Hostinger name servers, bare domain on Manus 104.19.168/169.112, `www` CNAME `cname.manus.space`). **Checked 2026-10-09 (owner wants to go live and switch off Manus):** DNS for tonygreenberg.com is at **Hostinger** (name servers `ns1/ns2.dns-parking.com`); `www` is a CNAME to `cname.manus.space`, the bare domain points at Manus's addresses (104.19.168.112 / .169.112); the Netlify site `tonygreenberg-website` has **no custom domain yet** (production branch `main`). Order: (1) merge the three open pull requests into `main` and check the Netlify copy; (2) restore Supabase and run 0001 to 0003, or launch without member features (they say "isn't available just now"); (3) owner sign-off; (4) add `tonygreenberg.com` + `www` in Netlify (Domain management), then at Hostinger point the bare domain at Netlify (A record `75.2.60.5`, or Netlify DNS) and `www` CNAME at `tonygreenberg-website.netlify.app`; Netlify issues the HTTPS certificate; (5) re-run `scripts/check-search-console-urls.ts https://tonygreenberg.com` and submit the sitemap in Search Console; (6) only after a few stable days: switch off the Manus site (the database is already backed up, `docs/ai/project_legacy_database.md`) and rotate the old database password.
 
 ---
