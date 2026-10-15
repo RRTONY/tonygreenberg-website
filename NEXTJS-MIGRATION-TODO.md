@@ -19,9 +19,10 @@
 > spreadsheet copy (`Migration-Status-Report.xlsx`) is regenerated from it by
 > `scripts/build-migration-status-report.py`.
 
-**Overall:** 334 items done, 8 open (2026-10-16: all 51 bugs the tests found are fixed; 2 items wait on Tony: Find Your Me essay picks, quiz content questions). Phases 0, 1, 3, 5, 6, 7, 8 and 9 are complete. **Nothing from
-this rebuild is live on tonygreenberg.com yet** (it still serves the old app until DNS cutover);
-`main` deploys to the Netlify copy. Most of what's open needs a setting or account outside the code
+**Overall:** 334 items done, 8 open (2026-10-16: all 51 bugs the tests found are fixed; 2 items wait on Tony: Find Your Me essay picks, quiz content questions). Phases 0, 1, 3, 5, 6, 7, 8 and 9 are complete. **The rebuild is live on tonygreenberg.com
+since 2026-10-16** (DNS switched to Netlify; email records untouched); `main` deploys straight to
+the live site now. Left from the cutover: Search Console + sitemap, the Sanity webhook URL, and
+switching off Manus after a few stable days. Most of what's open needs a setting or account outside the code
 (Supabase scripts, Resend), a decision, new artwork, or the launch steps.
 
 | Phase | Done | Open | Note |
@@ -60,7 +61,22 @@ this rebuild is live on tonygreenberg.com yet** (it still serves the old app unt
 - **Full test run is 1.5 minutes, not 10:** the slow run was 9 stuck test processes left by the
   helpers (stopped). Run settings unchanged.
 
-**Also 2026-10-16, branch `mcp-check-deploy-2026-10-16`:**
+**Go-live, 2026-10-16 (owner did the Hostinger and Netlify steps):**
+- **DNS cutover done.** At Hostinger (name servers kept, so Titan email, Resend and Google
+  verification records are unchanged): bare domain A record `75.2.60.5`, `www` CNAME
+  `tonygreenberg-website.netlify.app`. Checked: both resolve to Netlify, `https://tonygreenberg.com`
+  and `/blog` 200 with a valid certificate, `www` redirects 301. Phase 14.
+- **MCP server on the live address.** `MCP_SITE_ORIGIN` and `MCP_PUBLIC_ORIGIN` set to
+  `https://tonygreenberg.com` in Netlify (owner). Checked against the live site: sign-in
+  (register, authorize, token, refresh; issuer matches), all tools listed, `get_project_rules`,
+  and start, list and discard of a throwaway change (`20261015-mrdoyh`). ChatGPT (TonyWeb) still
+  shows no tool calls: the server answers correctly, so it is on ChatGPT's side (connector needs
+  recreating, or Developer mode / workspace settings). Phase 11.
+- **Pull request #18 merged into `main` (owner):** `check_deploy` plus the ported email, PDF report
+  and ClickUp tools; live build started. **Needs:** `NETLIFY_AUTH_TOKEN` and `CLICKUP_API_TOKEN`
+  in Netlify, then redeploy.
+
+**Also 2026-10-16, branch `mcp-check-deploy-2026-10-16` (merged as #18):**
 - **MCP server: `check_deploy`, then email, PDF reports and ClickUp, ported from ramprate-ui
   (owner said yes, one new dependency `@react-pdf/renderer`).** Connected AIs can send an email,
   email a Tony Greenberg PDF report, and create/update/delete ClickUp tasks. Write role for email
@@ -756,7 +772,7 @@ Every image below needs to exist as a real asset uploaded to Sanity (or explicit
   matches my desires", "gender is the primary factor") score as "straight-ish" whoever picks them,
   so an out gay person who picks them gets The Current, not The Lighthouse. Peptide: The Sovereign
   now shows when vitality leads and longevity is second, but its text says "relatively balanced".
-- [ ] DNS cutover, legacy app decommissioned only after a stable overlap window **Re-checked 2026-10-13: unchanged** (Hostinger name servers, bare domain on Manus 104.19.168/169.112, `www` CNAME `cname.manus.space`). **Checked 2026-10-09 (owner wants to go live and switch off Manus):** DNS for tonygreenberg.com is at **Hostinger** (name servers `ns1/ns2.dns-parking.com`); `www` is a CNAME to `cname.manus.space`, the bare domain points at Manus's addresses (104.19.168.112 / .169.112); the Netlify site `tonygreenberg-website` has **no custom domain yet** (production branch `main`). Order: (1) merge the three open pull requests into `main` and check the Netlify copy; (2) restore Supabase and run 0001 to 0003, or launch without member features (they say "isn't available just now"); (3) owner sign-off; (4) add `tonygreenberg.com` + `www` in Netlify (Domain management), then at Hostinger point the bare domain at Netlify (A record `75.2.60.5`, or Netlify DNS) and `www` CNAME at `tonygreenberg-website.netlify.app`; Netlify issues the HTTPS certificate; (5) re-run `scripts/check-search-console-urls.ts https://tonygreenberg.com` and submit the sitemap in Search Console; (6) only after a few stable days: switch off the Manus site (the database is already backed up, `docs/ai/project_legacy_database.md`) and rotate the old database password.
+- [ ] DNS cutover, legacy app decommissioned only after a stable overlap window **Re-checked 2026-10-13: unchanged** (Hostinger name servers, bare domain on Manus 104.19.168/169.112, `www` CNAME `cname.manus.space`). **Checked 2026-10-09 (owner wants to go live and switch off Manus):** DNS for tonygreenberg.com is at **Hostinger** (name servers `ns1/ns2.dns-parking.com`); `www` is a CNAME to `cname.manus.space`, the bare domain points at Manus's addresses (104.19.168.112 / .169.112); the Netlify site `tonygreenberg-website` has **no custom domain yet** (production branch `main`). Order: (1) merge the three open pull requests into `main` and check the Netlify copy; (2) restore Supabase and run 0001 to 0003, or launch without member features (they say "isn't available just now"); (3) owner sign-off; (4) add `tonygreenberg.com` + `www` in Netlify (Domain management), then at Hostinger point the bare domain at Netlify (A record `75.2.60.5`, or Netlify DNS) and `www` CNAME at `tonygreenberg-website.netlify.app`; Netlify issues the HTTPS certificate; (5) re-run `scripts/check-search-console-urls.ts https://tonygreenberg.com` and submit the sitemap in Search Console; (6) only after a few stable days: switch off the Manus site (the database is already backed up, `docs/ai/project_legacy_database.md`) and rotate the old database password. **2026-10-16: steps 1 to 4 done** (owner added the domains in Netlify and the A/CNAME records at Hostinger; both resolve to Netlify, HTTPS works, email records untouched). **Left:** step 5 (Search Console re-check and sitemap), change the Sanity webhook URL to `https://tonygreenberg.com/api/revalidate`, then step 6 after a few stable days.
 
 ---
 
