@@ -139,7 +139,7 @@ const SUGGESTIONS: Record<string, Suggestion[]> = {
   "/brewsoul/drops": [
     { label: "Browse Full Catalog", path: "/brewsoul/browse", why: "See everything" },
     { label: "Compare Coffees", path: "/brewsoul/compare", why: "Side by side" },
-    { label: "My Collection", path: "/brewsoul/my-coffees", why: "Save favorites" },
+    { label: "My Collection", path: "/brewsoul/collection", why: "Save favorites" },
   ],
   "/brewsoul/collection": [
     { label: "Browse More", path: "/brewsoul/browse", why: "Discover new coffees" },

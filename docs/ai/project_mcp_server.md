@@ -127,12 +127,12 @@ GitHub's checks). Prettier formatting is also left out, because this repo doesn'
 | `MCP_ADMIN_USERS` | JSON array, one entry per person: `[{"name":"...","email":"...","role":"read\|edit\|write","token":"<optional, openssl rand -hex 32>"}]`. An email lets them sign in on `/oauth/authorize`; a token (32+ chars) is optional, for header-only apps like Claude Code. Remove someone by deleting their entry and redeploying. Without this var, `/api/mcp` returns 500 (only that route is affected) |
 | `MCP_LOGIN_PASSWORD` | Shared team password for the `/oauth/authorize` sign-in page. Changing it signs everyone out |
 | `MCP_OAUTH_SECRET` | Signs sign-in codes and tokens (`openssl rand -hex 32`). Without it sign-in fails; personal tokens still work |
-| `MCP_PUBLIC_ORIGIN` | Optional. The origin the OAuth metadata advertises (e.g. `https://tonygreenberg.com`). Defaults to the request host, or Netlify's main URL for `*.netlify.app` requests |
+| `MCP_PUBLIC_ORIGIN` | Optional. The origin the OAuth metadata advertises: `https://tonygreenberg.com` since the DNS cutover (2026-10-16). It must match the URL a connector is given, or ChatGPT/Claude refuse to connect (TonyWeb in ChatGPT failed on 2026-10-16 while it still said the netlify.app address). Defaults to the request host, or Netlify's main URL for `*.netlify.app` requests |
 | `MCP_OAUTH_REDIRECT_HOSTS` | Optional. Extra comma-separated sign-in callback hosts |
 | `GOOGLE_GA_CLIENT_EMAIL`, `GOOGLE_GA_PRIVATE_KEY` | Google service account for `check_analytics` and `search_console_*` (the same `vcos-ga4-reader@...` account ramprate-ui uses; its Cloud project already has the Search Console API on). Keep the key's literal `\n` escapes |
 | `GA4_PROPERTY_ID_TONYGREENBERG` | GA4 property for `check_analytics` (the service account has access; verified 2026-10-02). Since 2026-10-14 these three also feed the essay archive's "Most Read" list (`src/lib/content/most-read.ts`), so they must be set in Netlify for the site itself, not only for MCP |
 | `GOOGLE_API_KEY` | PageSpeed Insights key for `lighthouse_check_page` (no anonymous quota). Restrict it to the PageSpeed Insights API. Not created yet |
-| `MCP_SITE_ORIGIN` | Optional. The origin `seo_check_page` and `lighthouse_check_page` fetch. Until DNS cutover, set it to the Netlify site URL, because tonygreenberg.com still serves the legacy app. Don't repoint `NEXT_PUBLIC_SITE_URL` for this, since it also drives canonical URLs |
+| `MCP_SITE_ORIGIN` | Optional. The origin `seo_check_page` and `lighthouse_check_page` fetch. `https://tonygreenberg.com` since the DNS cutover (2026-10-16); before it, the Netlify site URL, because the domain still served the legacy app. Don't repoint `NEXT_PUBLIC_SITE_URL` for this, since it also drives canonical URLs |
 
 ## Connecting
 

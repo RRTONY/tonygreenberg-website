@@ -145,12 +145,25 @@ const ARCHETYPE_DESCRIPTIONS: Record<string, string> = {
   "The Fasting Philosopher": "Your digestive system benefits from periods of rest. Intermittent fasting or time-restricted eating can help improve your energy, mental clarity, and metabolic health. You're not one for constant snacking.",
 };
 
+// How many questions score each dimension (every option of a question scores the same dimensions).
+const QUESTIONS_PER_DIMENSION = Object.fromEntries(
+  DIMENSIONS.map((dim) => [dim, QUESTIONS.filter((q) => dim in q.options[0].scores).length]),
+) as Record<Dimension, number>;
+
+// The profiles above are on the answers' own 0-4 scale, so each summed score is turned back into
+// the average answer for that dimension before comparing. Comparing the raw sums (up to 16-20)
+// with 1-4 profiles always picked whichever profile had the highest numbers, so The Ancestral
+// Eater, The Performance Fueler and The Fasting Philosopher could never come up (fixed
+// 2026-10-16; legacy had the same bug).
 function getArchetype(scores: Record<Dimension, number>): string {
   let bestMatch = "";
   let minDifference = Infinity;
   for (const archetype of Object.keys(ARCHETYPES)) {
     let difference = 0;
-    for (const dim of DIMENSIONS) difference += Math.abs(scores[dim] - ARCHETYPES[archetype][dim]);
+    for (const dim of DIMENSIONS) {
+      const average = scores[dim] / Math.max(QUESTIONS_PER_DIMENSION[dim], 1);
+      difference += Math.abs(average - ARCHETYPES[archetype][dim]);
+    }
     if (difference < minDifference) {
       minDifference = difference;
       bestMatch = archetype;

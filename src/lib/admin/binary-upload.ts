@@ -1,4 +1,4 @@
-import { findMcpUserByEmail, type McpUser } from "@/lib/admin/mcp-auth";
+import { findMcpUserByEmail, parseMcpUsers, type McpUser } from "@/lib/admin/mcp-auth";
 import { signBlob, verifyBlob } from "@/lib/admin/mcp-oauth";
 
 // Getting a picture or PDF the person attached in ChatGPT/Claude into the
@@ -221,6 +221,16 @@ export function signUploadGrant(
   return { token, expiresAt: new Date(exp * 1000).toISOString() };
 }
 
+// A token-only person (no email) is matched by name against the current list,
+// and their role is taken from the list, not from the old grant.
+function findTokenOnlyUser(name: unknown): McpUser | null {
+  if (typeof name !== "string" || !name) return null;
+  const entry = parseMcpUsers(process.env.MCP_ADMIN_USERS).find(
+    (u) => !u.email && u.token && u.name === name,
+  );
+  return entry ? { name: entry.name, email: "", role: entry.role } : null;
+}
+
 // Re-checks the person on use, so someone removed from MCP_ADMIN_USERS
 // can't use a link they were given before.
 export function readUploadGrant(
@@ -239,7 +249,7 @@ export function readUploadGrant(
   }
   const user = grant.email
     ? findMcpUserByEmail(grant.email)
-    : { name: grant.name, email: "", role: grant.role };
+    : findTokenOnlyUser(grant.name);
   if (!user || user.role === "read") return null;
   return { grant, user };
 }

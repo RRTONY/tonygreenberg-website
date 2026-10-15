@@ -85,23 +85,33 @@ export function MythsExplorer() {
       {MYTHS.map((myth) => {
         const isOpen = expanded === myth.id;
         return (
-          <KavaCard key={myth.id} className="cursor-pointer" onClick={() => setExpanded(isOpen ? null : myth.id)}>
+          // The title is a real button (keyboard + screen reader); its ::after
+          // stretches over the whole card so a click anywhere still toggles,
+          // as before. The evidence is always rendered (hidden until opened)
+          // so it's in the server HTML.
+          <KavaCard key={myth.id} className="relative">
             <div className="flex items-start justify-between gap-3">
               <div className="flex-1">
                 <div className="mb-2 flex items-center gap-2">
                   <span className={`rounded-full px-2.5 py-1 text-xs font-bold tracking-wide uppercase ${VERDICT_CLASS[myth.verdict]}`}>{myth.verdict}</span>
                 </div>
                 <h3 className="font-heading text-lg leading-[1.4] font-bold text-kava-ink">
-                  Myth {myth.id}: &ldquo;{myth.title}&rdquo;
+                  <button
+                    type="button"
+                    onClick={() => setExpanded(isOpen ? null : myth.id)}
+                    aria-expanded={isOpen}
+                    aria-controls={`kava-myth-${myth.id}`}
+                    className="cursor-pointer rounded-sm text-left after:absolute after:inset-0 after:rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-kava-saffron"
+                  >
+                    Myth {myth.id}: &ldquo;{myth.title}&rdquo;
+                  </button>
                 </h3>
               </div>
-              <span className={`mt-1 shrink-0 text-xl text-kava-saffron transition-transform duration-200 ${isOpen ? "rotate-45" : "rotate-0"}`}>+</span>
+              <span aria-hidden="true" className={`mt-1 shrink-0 text-xl text-kava-saffron transition-transform duration-200 ${isOpen ? "rotate-45" : "rotate-0"}`}>+</span>
             </div>
-            {isOpen && (
-              <div className="mt-4 border-t border-kava-sand-muted pt-4">
-                <p className="text-base leading-[1.75] text-kava-ink/80">{myth.evidence}</p>
-              </div>
-            )}
+            <div id={`kava-myth-${myth.id}`} hidden={!isOpen} className="mt-4 border-t border-kava-sand-muted pt-4">
+              <p className="text-base leading-[1.75] text-kava-ink/80">{myth.evidence}</p>
+            </div>
           </KavaCard>
         );
       })}

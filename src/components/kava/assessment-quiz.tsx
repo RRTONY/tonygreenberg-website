@@ -215,14 +215,18 @@ type Answers = Record<string, number>;
 export function AssessmentQuiz() {
   const [currentDomain, setCurrentDomain] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
+  // Which option label was picked per question, for the highlight. Comparing points instead lit up
+  // both Yes and No on the 0-point question p4 (fixed 2026-10-16; legacy had the same bug).
+  const [picked, setPicked] = useState<Record<string, string>>({});
   const [showResults, setShowResults] = useState(false);
   const resultsRef = useRef<HTMLDivElement>(null);
 
   const domain = DOMAINS[currentDomain];
   const domainStyle = DOMAIN_STYLES[domain.id];
 
-  const setAnswer = (qId: string, pts: number) => {
+  const setAnswer = (qId: string, pts: number, label: string) => {
     setAnswers((prev) => ({ ...prev, [qId]: pts }));
+    setPicked((prev) => ({ ...prev, [qId]: label }));
   };
 
   const domainScore = (d: Domain) => {
@@ -247,6 +251,7 @@ export function AssessmentQuiz() {
 
   const reset = () => {
     setAnswers({});
+    setPicked({});
     setCurrentDomain(0);
     setShowResults(false);
   };
@@ -358,8 +363,8 @@ export function AssessmentQuiz() {
                   ].map((opt) => (
                     <button
                       key={opt.label}
-                      onClick={() => setAnswer(q.id, opt.pts)}
-                      className={`rounded-lg border-2 px-5 py-2 text-sm font-bold transition-all ${answers[q.id] === opt.pts ? domainStyle.optionActive : domainStyle.optionInactive}`}
+                      onClick={() => setAnswer(q.id, opt.pts, opt.label)}
+                      className={`rounded-lg border-2 px-5 py-2 text-sm font-bold transition-all ${picked[q.id] === opt.label ? domainStyle.optionActive : domainStyle.optionInactive}`}
                     >
                       {opt.label}
                     </button>
@@ -370,8 +375,8 @@ export function AssessmentQuiz() {
                   {q.scaleOptions?.map((opt) => (
                     <button
                       key={opt.label}
-                      onClick={() => setAnswer(q.id, opt.points)}
-                      className={`rounded-lg border-2 px-4 py-2.5 text-left text-sm font-medium transition-all ${answers[q.id] === opt.points ? domainStyle.optionActive : domainStyle.optionInactive}`}
+                      onClick={() => setAnswer(q.id, opt.points, opt.label)}
+                      className={`rounded-lg border-2 px-4 py-2.5 text-left text-sm font-medium transition-all ${picked[q.id] === opt.label ? domainStyle.optionActive : domainStyle.optionInactive}`}
                     >
                       {opt.label}
                       <span className="ml-2 opacity-60">

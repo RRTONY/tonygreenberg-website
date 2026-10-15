@@ -46,8 +46,8 @@ export const TENTACLES: Tentacle[] = [
       { id: "start-here", label: "Start Here", href: "/start-here", description: "5 foundational essays that define the worldview. Your orientation.", time: "20 min", isStart: true },
       { id: "pri", label: "Psychedelic Readiness Index", href: "/psychedelic-readiness-index", description: "The most rigorous self-assessment in the field. Are you ready?", time: "25–45 min", featured: true },
       { id: "facilitator-index", label: "Facilitator Index", href: "/facilitator-index", description: "108 items. 12 bands. Find your archetype as a guide. The newest upgraded version — you're among the first 160.", time: "30–60 min", featured: true },
-      { id: "friend-gate", label: "Three Friends Permission Gate", href: null, description: "Before you go deeper — get permission from three people who know you. This is the gate.", time: "5 min + 72h wait", featured: true },
-      { id: "post-intervention", label: "Post-Intervention Assessment", href: null, description: "After the ceremony, the real work begins. Return here at Day 1, Day 3, or Day 7 to send anonymous feedback to your facilitator. Your honesty makes the field safer for everyone.", time: "10 min · choose your day", featured: true },
+      { id: "friend-gate", label: "Three Friends Permission Gate", href: "/friend-gate", description: "Before you go deeper — get permission from three people who know you. This is the gate.", time: "5 min + 72h wait", featured: true },
+      { id: "post-intervention", label: "Post-Intervention Assessment", href: "/post-intervention", description: "After the ceremony, the real work begins. Return here at Day 1, Day 3, or Day 7 to send anonymous feedback to your facilitator. Your honesty makes the field safer for everyone.", time: "10 min · choose your day", featured: true },
     ],
   },
   {

@@ -134,7 +134,22 @@ export function BiodynamicRoasters() {
   return (
     <>
       {ROASTERS.map((r, i) => (
-        <div key={r.name} onClick={() => setExpanded(expanded === i ? null : i)} className={`mb-4 cursor-pointer rounded-lg border border-[#5d3a28]/8 bg-white p-6 border-l-4 ${ROASTER_BORDER_CLASS[i]}`}>
+        // Not a <button>: the card holds a scrollable table and a Buy link.
+        // role/tabIndex/Enter+Space make it keyboard-usable.
+        <div
+          key={r.name}
+          role="button"
+          tabIndex={0}
+          aria-expanded={expanded === i}
+          onClick={() => setExpanded(expanded === i ? null : i)}
+          onKeyDown={(e) => {
+            if (e.target !== e.currentTarget) return;
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              setExpanded(expanded === i ? null : i);
+            }
+          }}
+          className={`mb-4 cursor-pointer rounded-lg border border-[#5d3a28]/8 bg-white p-6 border-l-4 ${ROASTER_BORDER_CLASS[i]}`}>
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
               <div className="font-heading text-xl font-bold text-[#1a0e08] italic">{r.name}</div>

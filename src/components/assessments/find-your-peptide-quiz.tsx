@@ -397,8 +397,9 @@ const PROFILES: PeptideProfile[] = [
     shareText: "I'm The Sovereign — my peptide profile targets balanced whole-system optimization. Take the Peptide Clarity Index™." },
 ];
 
-function calculateScores(answers: Record<number, number>): Record<Axis, number> {
+function rawAxisPoints(answers: Record<number, number>): Record<Axis, number> {
   const raw = {} as Record<Axis, number>;
+  AXIS_KEYS.forEach((axis) => (raw[axis] = 0));
   Object.entries(answers).forEach(([qIdx, choiceIdx]) => {
     const choice = QUESTIONS[Number(qIdx)]?.choices[choiceIdx];
     if (!choice) return;
@@ -407,6 +408,11 @@ function calculateScores(answers: Record<number, number>): Record<Axis, number> 
       raw[a] = (raw[a] || 0) + (choice.weights[a] ?? 0);
     }
   });
+  return raw;
+}
+
+function calculateScores(answers: Record<number, number>): Record<Axis, number> {
+  const raw = rawAxisPoints(answers);
   const maxPossible = 15;
   const normalized = {} as Record<Axis, number>;
   AXIS_KEYS.forEach((axis) => {
@@ -424,11 +430,17 @@ function getContraFlags(answers: Record<number, number>): string[] {
   return flags;
 }
 
-function getProfile(scores: Record<Axis, number>): PeptideProfile {
-  const sorted = (Object.entries(scores) as [Axis, number][]).sort((a, b) => b[1] - a[1]);
+// A profile's `axes` are [dominant, second]: The Strategist is cognitive-led and The Catalyst is
+// "the same as The Strategist but with metabolic axis dominant", and likewise Guardian/Healer and
+// Centurion/Sovereign. Matching the pair in either order meant the later profile of each pair could
+// never be shown, so the match is order-sensitive now. It also ranks by the real points, not the
+// 0-100 display numbers, which cap at 100 and could tie two axes that aren't equal (both fixed
+// 2026-10-16; legacy had the same bugs).
+function getProfile(raw: Record<Axis, number>): PeptideProfile {
+  const sorted = (Object.entries(raw) as [Axis, number][]).sort((a, b) => b[1] - a[1]);
   const top1 = sorted[0]?.[0] ?? "vitality";
   const top2 = sorted[1]?.[0] ?? "longevity";
-  const match = PROFILES.find((p) => (p.axes[0] === top1 && p.axes[1] === top2) || (p.axes[0] === top2 && p.axes[1] === top1));
+  const match = PROFILES.find((p) => p.axes[0] === top1 && p.axes[1] === top2);
   if (!match) return PROFILES.find((p) => p.axes[0] === top1 || p.axes[1] === top1) || PROFILES[PROFILES.length - 1];
   return match;
 }
@@ -454,7 +466,7 @@ export function FindYourPeptideQuiz() {
 
   const scores = useMemo(() => calculateScores(answers), [answers]);
   const contraFlags = useMemo(() => getContraFlags(answers), [answers]);
-  const profile = useMemo(() => getProfile(scores), [scores]);
+  const profile = useMemo(() => getProfile(rawAxisPoints(answers)), [answers]);
   const prs = useMemo(() => getPeptideReadinessScore(scores, contraFlags), [scores, contraFlags]);
 
   const handleAnswer = useCallback(

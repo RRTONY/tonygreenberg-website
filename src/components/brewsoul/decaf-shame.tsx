@@ -1,4 +1,5 @@
 "use client";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 import { useState } from "react";
 
@@ -26,9 +27,9 @@ export function DecafShame() {
     <>
       <button
         onClick={() => setShow(!show)}
-        className="mb-6 rounded-sm border border-[#9b3030]/50 bg-[#9b3030]/30 px-6 py-3 font-mono text-xs tracking-[0.1em] text-[#e8dcc8]"
+        className="mb-6 inline-flex items-center gap-1.5 rounded-sm border border-[#9b3030]/50 bg-[#9b3030]/30 px-6 py-3 font-mono text-xs tracking-[0.1em] text-[#e8dcc8]"
       >
-        {show ? "Hide Wall of Shame ▲" : "Reveal Wall of Shame ▼"}
+        {show ? <>Hide Wall of Shame<ChevronUp aria-hidden="true" className="size-[1em]" /></> : <>Reveal Wall of Shame<ChevronDown aria-hidden="true" className="size-[1em]" /></>}
       </button>
 
       {show && (

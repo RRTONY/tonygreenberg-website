@@ -164,7 +164,7 @@ const isUnlisted = (slug: string) => slug in POST_REDIRECTS || isGatedPost(slug)
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [posts, categories] = await Promise.all([
     client.fetch<{ slug: string; _updatedAt: string }[]>(allPostSlugsQuery),
-    client.fetch<{ slug: { current: string }; postCount: number }[]>(categoriesQuery),
+    client.fetch<{ slug: { current: string } | null; postCount: number }[]>(categoriesQuery),
   ]);
 
   return [
@@ -181,10 +181,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.6,
     })),
     // Thin categories are noindexed on their own page, so they stay out of here.
+    // A category saved in Studio without a slug is skipped (same guard as
+    // blog/category/[slug]/page/[n]), not allowed to crash the whole sitemap.
     ...categories
-      .filter((category) => category.postCount >= MIN_INDEXABLE_CATEGORY_POSTS)
-      .map((category) => ({
-        url: `${siteUrl}/blog/category/${category.slug.current}`,
+      .flatMap((category) =>
+        category.slug?.current && category.postCount >= MIN_INDEXABLE_CATEGORY_POSTS ? [category.slug.current] : [],
+      )
+      .map((slug) => ({
+        url: `${siteUrl}/blog/category/${slug}`,
         changeFrequency: "weekly" as const,
         priority: 0.5,
       })),

@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, ChartColumn, CircleDot, Link2, Sparkle, TriangleAlert, Zap, ArrowLeft } from "lucide-react";
+import { ArrowRight, ChartColumn, CircleDot, Link2, Sparkle, TriangleAlert, Zap, ArrowLeft, ChevronDown } from "lucide-react";
 import { ThemedBackground } from "@/components/assessments/themed-background";
 import { WhatsNext } from "@/components/assessments/whats-next";
 import { AssessmentRadarChart } from "@/components/assessments/radar-chart";
@@ -458,6 +458,7 @@ function MeasureTab({
                 max={d.max}
                 step={d.max === 1000 ? 5 : 1}
                 value={scores[i]}
+                aria-label={d.label}
                 onChange={(e) => updateScore(i, Number(e.target.value))}
                 className={`h-1.5 w-full cursor-pointer rounded-full ${c.accent}`}
               />
@@ -644,7 +645,7 @@ function SupplyChainTab({
                         {avg.toFixed(0)}
                       </div>
                     </div>
-                    <span className={`text-[0.8rem] text-[#999] transition-transform ${isExpanded ? "rotate-180" : ""}`}>▼</span>
+                    <ChevronDown aria-hidden="true" className={`size-4 text-[#999] transition-transform ${isExpanded ? "rotate-180" : ""}`} />
                   </div>
                 </div>
               </button>
@@ -662,6 +663,7 @@ function SupplyChainTab({
                         min={0}
                         max={100}
                         value={tierScores[ti][fi]}
+                        aria-label={`${tier.name}: ${f}`}
                         onChange={(e) => updateTierScore(ti, fi, Number(e.target.value))}
                         className={`h-1 w-full cursor-pointer rounded-full ${c.accent}`}
                       />

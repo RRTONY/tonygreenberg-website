@@ -22,6 +22,8 @@ connected session sees them on its first call.
 - [TASK_GUIDE](TASK_GUIDE.md): request type → where it lives → which MCP tools → does it need a yes
 - [PROJECT_STRUCTURE](PROJECT_STRUCTURE.md): where every page, content module, shared component and outside system lives
 
+- [testing](testing.md): Vitest tests in `__tests__/` mirroring `src/`, what's faked for every test, patterns for pages, forms, quizzes, routes (2026-10-16)
+
 ## Working rules and lessons (the why behind rules in CONTRIBUTING.md)
 
 - [feedback_ambiguous_corrections](feedback_ambiguous_corrections.md): a short correction that may contradict a recent explicit decision → ask which change, don't guess

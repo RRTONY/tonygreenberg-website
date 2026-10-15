@@ -35,7 +35,7 @@ const NAV_SECTIONS: { label: string; path: string; icon?: LucideIcon }[] = [
   { label: "Chain Rankings", path: "/brewsoul/chains" },
   { label: "City Rankings", path: "/brewsoul/cities" },
   { label: "Guest: Shanita Nicholas", path: "/brewsoul/guest/shanita-nicholas" },
-  { label: "My Collection", path: "/brewsoul/my-coffees" },
+  { label: "My Collection", path: "/brewsoul/collection" },
 ];
 
 // Ported from legacy client/src/pages/brewsoul/BrewSoulLayout.tsx's nav +

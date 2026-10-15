@@ -126,7 +126,7 @@ function generatePrescription(a: Answers) {
   let decafCups = Math.max(0, a.cupsPerDay - cafCups);
   if (wantsAnxietyRelief) {
     cafCups = Math.min(cafCups, 1);
-    decafCups = Math.max(decafCups, 1);
+    decafCups = Math.max(a.cupsPerDay - cafCups, 1);
   }
   if (a.sleepGoal === "optimize" && cafCups > 2) {
     cafCups = 2;

@@ -23,6 +23,7 @@ a shared component means every page that renders it needs checking.
 ```bash
 pnpm typecheck
 pnpm lint            # or: pnpm exec eslint <changed files>
+pnpm test            # Vitest; a changed src file's test is at the same path under __tests__/
 grep -rn "manuscdn\|manus-storage\|/api/img/" src public   # must print nothing
 ```
 

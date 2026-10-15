@@ -53,8 +53,8 @@ export function MedicineModal({
               <Heart className="size-4" fill={isSaved ? "currentColor" : "none"} />
             </button>
           )}
-          <button onClick={onClose} className="flex size-8 items-center justify-center rounded-full bg-pri-ink/60 text-lg text-pri-cream">
-            <X className="size-4" />
+          <button onClick={onClose} aria-label="Close" className="flex size-8 items-center justify-center rounded-full bg-pri-ink/60 text-lg text-pri-cream">
+            <X aria-hidden="true" className="size-4" />
           </button>
         </div>
 

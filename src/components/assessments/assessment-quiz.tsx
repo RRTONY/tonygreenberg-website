@@ -123,9 +123,10 @@ export function AssessmentQuiz() {
               />
             </div>
 
-            <h2 className="mb-10 font-heading text-[clamp(1.5rem,4vw,2.25rem)] leading-[1.3] text-foreground">
+            {/* The question is the page's one H1 while the quiz runs (the archetype name takes over on the results screen). */}
+            <h1 className="mb-10 font-heading text-[clamp(1.5rem,4vw,2.25rem)] leading-[1.3] text-foreground">
               {q.question}
-            </h2>
+            </h1>
 
             <div className="flex flex-col gap-4">
               {q.options.map((opt) => (

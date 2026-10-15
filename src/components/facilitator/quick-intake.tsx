@@ -238,16 +238,18 @@ export function QuickIntake({ onGoDeeper }: { onGoDeeper: () => void }) {
           <h3 className="mt-1.5 mb-1 font-heading text-lg text-facilitator-ink">Log {archetype.title}</h3>
           <p className="text-[.82rem] text-facilitator-ink/50">Your responses join the index anonymously. Optional: leave a code or contact.</p>
         </div>
-        <label className="mb-1.5 block text-xs font-bold tracking-[0.08em] text-facilitator-ink/45 uppercase">Name or Code (optional)</label>
+        <label htmlFor="quick-intake-name" className="mb-1.5 block text-xs font-bold tracking-[0.08em] text-facilitator-ink/45 uppercase">Name or Code (optional)</label>
         <input
+          id="quick-intake-name"
           type="text"
           placeholder="e.g. CEDAR-001 or leave blank"
           value={name}
           onChange={(e) => setName(e.target.value)}
           className="mb-4.5 w-full rounded-md border border-facilitator-amber-light/30 bg-white/85 px-3.5 py-2.5 text-[.9rem] text-facilitator-ink outline-none focus-visible:ring-2 focus-visible:ring-ring"
         />
-        <label className="mb-1.5 block text-xs font-bold tracking-[0.08em] text-facilitator-ink/45 uppercase">Contact for introduction (optional)</label>
+        <label htmlFor="quick-intake-contact" className="mb-1.5 block text-xs font-bold tracking-[0.08em] text-facilitator-ink/45 uppercase">Contact for introduction (optional)</label>
         <input
+          id="quick-intake-contact"
           type="text"
           placeholder="Email or Signal — for Tony only, never published"
           value={contact}

@@ -2,7 +2,7 @@
 
 import { useCallback, useMemo, useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, BarChart3, Loader2, RefreshCw, ShieldCheck, Target, Sparkles } from "lucide-react";
+import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, BarChart3, Loader2, RefreshCw, ShieldCheck, Target, Sparkles } from "lucide-react";
 import { saveCalibration } from "@/app/pri-calibration/actions";
 import { DIMS, DIM_LABELS, DIM_ICONS, type DimKey } from "@/lib/content/pri-data";
 import efficacyData from "@/lib/content/pri-efficacy-data.json";
@@ -236,11 +236,23 @@ export function CalibrationAssessment() {
                   <DimIcon dim={dim} className="size-6 shrink-0 text-pri-purple-light" />
                   <div className="flex-1 text-[.9rem] font-bold">{DIM_LABELS[dim]}</div>
                   <div className="flex flex-col gap-1">
-                    <button onClick={() => moveItem(idx, "up")} disabled={idx === 0} className={`text-base ${idx === 0 ? "text-pri-cream/15" : "text-pri-cream/50"}`}>
-                      ↑
+                    <button
+                      type="button"
+                      aria-label={`Move ${DIM_LABELS[dim]} up`}
+                      onClick={() => moveItem(idx, "up")}
+                      disabled={idx === 0}
+                      className={`text-base ${idx === 0 ? "text-pri-cream/15" : "text-pri-cream/50"}`}
+                    >
+                      <ArrowUp aria-hidden="true" className="size-4" />
                     </button>
-                    <button onClick={() => moveItem(idx, "down")} disabled={idx === rankings.length - 1} className={`text-base ${idx === rankings.length - 1 ? "text-pri-cream/15" : "text-pri-cream/50"}`}>
-                      ↓
+                    <button
+                      type="button"
+                      aria-label={`Move ${DIM_LABELS[dim]} down`}
+                      onClick={() => moveItem(idx, "down")}
+                      disabled={idx === rankings.length - 1}
+                      className={`text-base ${idx === rankings.length - 1 ? "text-pri-cream/15" : "text-pri-cream/50"}`}
+                    >
+                      <ArrowDown aria-hidden="true" className="size-4" />
                     </button>
                   </div>
                 </div>

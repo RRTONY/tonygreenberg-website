@@ -59,7 +59,9 @@ export const KIT_DYNAMIC_TAG_PREFIXES: [prefix: string, tag: string][] = [
 ];
 
 export function resolveKitTag(source: string): string {
-  if (KIT_TAG_MAP[source]) return KIT_TAG_MAP[source];
+  // Own keys only: the source comes from the browser, and a plain object would
+  // otherwise answer "constructor" or "toString" with an Object.prototype function.
+  if (Object.hasOwn(KIT_TAG_MAP, source)) return KIT_TAG_MAP[source];
   for (const [prefix, tag] of KIT_DYNAMIC_TAG_PREFIXES) {
     if (source.startsWith(prefix)) return tag;
   }

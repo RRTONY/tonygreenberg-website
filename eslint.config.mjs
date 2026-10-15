@@ -14,6 +14,8 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // Archived legacy Vite/Express app — not part of the deployed Next.js app.
     "_legacy-manus-app/**",
+    // `pnpm test:coverage` report (generated, gitignored).
+    "coverage/**",
   ]),
 ]);
 

@@ -27,9 +27,20 @@ export function isAdmin(email: string | undefined | null): boolean {
   return admins.includes(email.toLowerCase());
 }
 
-// Only same-site paths are allowed as a post-login destination.
+// Only same-site paths are allowed as a post-login destination. The path is
+// read the way a browser reads it (a backslash counts as "/", tabs and newlines
+// are dropped), so "/\evil.com" or "/<tab>/evil.com" can't turn into
+// "//evil.com" and send someone to another site.
+const SAFE_ORIGIN = "https://same-site.invalid";
 export function safeNext(next: unknown, fallback = "/my-highlights"): string {
-  return typeof next === "string" && next.startsWith("/") && !next.startsWith("//") ? next : fallback;
+  if (typeof next !== "string" || !next.startsWith("/")) return fallback;
+  try {
+    const url = new URL(next, SAFE_ORIGIN);
+    if (url.origin !== SAFE_ORIGIN || /[\\\t\n\r]/.test(next) || next.startsWith("//")) return fallback;
+    return `${url.pathname}${url.search}${url.hash}`;
+  } catch {
+    return fallback;
+  }
 }
 
 // This request's origin (works on Netlify previews too), for email links.

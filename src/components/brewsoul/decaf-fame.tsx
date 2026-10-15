@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { FAME } from "@/lib/content/brewsoul-decaf";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronDown, ChevronUp } from "lucide-react";
 
 // Ported from legacy client/src/pages/brewsoul/BrewSoulDecaf.tsx's
 // click-to-expand "Hall of Fame" clean-decaf cards — real behavior,
@@ -14,20 +14,23 @@ export function DecafFame() {
   return (
     <>
       {FAME.map((b, i) => (
-        <button key={b.name} onClick={() => setExpanded(expanded === i ? null : i)} className={`mb-3 block w-full rounded-lg border border-[#5d3a28]/8 bg-white p-5 text-left border-l-4 ${b.borderClass}`}>
-          <div className="flex flex-wrap items-start justify-between gap-2">
-            <div className="min-w-50 flex-1">
-              <div className="flex flex-wrap items-center gap-2.5">
+        // The card is a <div> (a link can't sit inside a <button>); the header
+        // is the real button. A click anywhere on the card still toggles: the
+        // button's click (mouse, Enter or Space) bubbles up to the card.
+        <div key={b.name} onClick={() => setExpanded(expanded === i ? null : i)} className={`mb-3 block w-full rounded-lg border border-[#5d3a28]/8 bg-white p-5 text-left border-l-4 ${b.borderClass}`}>
+          <button type="button" aria-expanded={expanded === i} className="flex w-full flex-wrap items-start justify-between gap-2 text-left">
+            <span className="block min-w-50 flex-1">
+              <span className="flex flex-wrap items-center gap-2.5">
                 <span className="font-heading text-lg font-bold text-[#1a0e08] italic">{b.name}</span>
                 <span className={`rounded-sm px-2 py-0.5 font-mono text-[9px] tracking-wide text-white ${b.colorClass}`}>{b.tier}</span>
-              </div>
-              <div className="mt-1 text-xs text-[#6b5a4e]">{b.cert}</div>
-            </div>
-            <div className="text-right">
-              <div className="font-mono text-base font-bold text-[#80541c]">{b.perOz}/oz</div>
-              <div className="text-xs text-[#6b5a4e]">{b.price}</div>
-            </div>
-          </div>
+              </span>
+              <span className="mt-1 block text-xs text-[#6b5a4e]">{b.cert}</span>
+            </span>
+            <span className="block text-right">
+              <span className="block font-mono text-base font-bold text-[#80541c]">{b.perOz}/oz</span>
+              <span className="block text-xs text-[#6b5a4e]">{b.price}</span>
+            </span>
+          </button>
           {expanded === i && (
             <div className="mt-3.5 border-t border-[#5d3a28]/6 pt-3.5">
               <div className="mb-2.5 text-sm leading-relaxed text-[#5c3a28]">{b.notes}</div>
@@ -53,8 +56,8 @@ export function DecafFame() {
               </a>
             </div>
           )}
-          <div className="mt-1.5 font-mono text-[10px] text-[#6b5a4e]">{expanded === i ? "▲" : "▼ Details & buy link"}</div>
-        </button>
+          <span className="mt-1.5 inline-flex items-center gap-1 font-mono text-[10px] text-[#6b5a4e]">{expanded === i ? <ChevronUp aria-hidden="true" className="size-[1em]" /> : <><ChevronDown aria-hidden="true" className="size-[1em]" /> Details &amp; buy link</>}</span>
+        </div>
       ))}
     </>
   );

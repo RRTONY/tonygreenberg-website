@@ -270,6 +270,15 @@ const JOURNEY_CONTINUES = [
   { name: "Find My", url: "/find-my", hook: "The master assessment. Five questions. One reckoning." },
 ];
 
+// The most points any one dimension can collect over all 20 questions (43, for ritual and
+// philosophy). Every dimension is shown out of 10 on this one shared scale, so the bars rank exactly
+// like the real points and the top one is the profile. The old fixed max of 16 with a cap at 10 put
+// most answer sets at 10 in two or more dimensions, and the tie went to whichever came first
+// (usually palate), not the real leader (fixed 2026-10-16; legacy had the same bug).
+const MAX_DIMENSION_POINTS = Math.max(
+  ...DIMENSIONS.map((d) => QUESTIONS.reduce((sum, q) => sum + Math.max(0, ...q.choices.map((ch) => ch.dimensions[d] ?? 0)), 0)),
+);
+
 function GlassPanel({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
     <div className={`rounded-2xl border border-brand-gold-light/12 bg-[#0A0A10]/85 backdrop-blur-xl ${className}`}>{children}</div>
@@ -294,10 +303,9 @@ export function FindYourSakeQuiz() {
         raw[d] = (raw[d] || 0) + (choice.dimensions[d] ?? 0);
       }
     });
-    const maxPossible = 16;
     const normalized = {} as Record<Dimension, number>;
     DIMENSIONS.forEach((d) => {
-      normalized[d] = Math.min(10, Math.round(((raw[d] / maxPossible) * 10 * 10)) / 10);
+      normalized[d] = Math.round((raw[d] / MAX_DIMENSION_POINTS) * 10 * 10) / 10;
     });
     return normalized;
   }, [answers]);

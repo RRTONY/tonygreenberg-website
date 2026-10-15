@@ -111,6 +111,7 @@ export function FindYourMeQuiz({ articleTitles }: { articleTitles: Record<string
     const topDim = sorted[0]?.[0] ?? "relationships";
     return ARCHETYPES.find((a) => a.id === topDim) ?? ARCHETYPES[0];
   }, [dimensionScores]);
+  const articles = archetype.articles.filter((slug) => articleTitles[slug]);
 
   const handleChoice = useCallback(
     (choiceIdx: number) => {
@@ -533,19 +534,24 @@ export function FindYourMeQuiz({ articleTitles }: { articleTitles: Record<string
           )}
         </GlassPanel>
 
-        <div className="mb-12">
-          <h3 className="mb-5 font-mono text-[0.75rem] tracking-[0.25em] text-brand-gold-light/50 uppercase">Rabbit Holes Worth Falling Into</h3>
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {archetype.articles.map((slug, idx) => (
-              <Link key={slug} href={postHref(slug)}>
-                <GlassPanel className="h-full p-5 transition-colors hover:border-brand-gold-light/30">
-                  <span className="font-mono text-[0.65rem] text-brand-gold-light/40">{String(idx + 1).padStart(2, "0")}</span>
-                  <p className="mt-1 font-heading text-[0.95rem] leading-[1.4] text-[#F5F0E0]/85">{articleTitles[slug] ?? slug}</p>
-                </GlassPanel>
-              </Link>
-            ))}
+        {/* Only essays that really exist (the page looks each one up in Sanity):
+            11 of legacy's picks were never written and showed as raw slugs
+            linking to a 404 (2026-10-16). The block hides when none are left. */}
+        {articles.length > 0 && (
+          <div className="mb-12">
+            <h3 className="mb-5 font-mono text-[0.75rem] tracking-[0.25em] text-brand-gold-light/50 uppercase">Rabbit Holes Worth Falling Into</h3>
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {articles.map((slug, idx) => (
+                <Link key={slug} href={postHref(slug)}>
+                  <GlassPanel className="h-full p-5 transition-colors hover:border-brand-gold-light/30">
+                    <span className="font-mono text-[0.65rem] text-brand-gold-light/40">{String(idx + 1).padStart(2, "0")}</span>
+                    <p className="mt-1 font-heading text-[0.95rem] leading-[1.4] text-[#F5F0E0]/85">{articleTitles[slug]}</p>
+                  </GlassPanel>
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Hidden when an archetype has no sites left (its *.manus.space apps were
             removed, 2026-10-09). */}

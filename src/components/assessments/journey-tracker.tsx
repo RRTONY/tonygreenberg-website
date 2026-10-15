@@ -197,9 +197,13 @@ export function JourneyTracker({
   const textMutedClass = isDark ? "text-[#E8E4DC]/60" : "text-[#707070]";
   const trackClass = isDark ? "bg-brand-gold-light/8" : "bg-brand-gold/8";
 
-  if (compact) {
-    return (
+  // Compact mode (/find-my, /self-portrait): a summary bar that opens the full
+  // tracker underneath. It used to toggle `expanded` and show nothing (same in
+  // legacy), so it looked clickable and did nothing (fixed 2026-10-16).
+  const summary = compact && (
       <button
+        type="button"
+        aria-expanded={expanded}
         onClick={() => setExpanded(!expanded)}
         className={`w-full cursor-pointer rounded-xl px-5 py-4 text-left ${shellClass}`}
       >
@@ -225,10 +229,9 @@ export function JourneyTracker({
           <p className={`mt-1.5 mb-0 text-xs ${textPrimaryClass}`}>Journey complete. You found yourself.</p>
         )}
       </button>
-    );
-  }
+  );
 
-  return (
+  const full = (
     <div className={`mb-8 rounded-2xl p-8 ${shellClass}`}>
       <div className="mb-6 text-center">
         <h3 className={`mb-2 font-mono text-[0.65rem] tracking-[0.25em] uppercase ${textMutedClass}`}>
@@ -378,6 +381,14 @@ export function JourneyTracker({
           })}
         </div>
       )}
+    </div>
+  );
+
+  if (!compact) return full;
+  return (
+    <div>
+      {summary}
+      {expanded && <div className="mt-3">{full}</div>}
     </div>
   );
 }

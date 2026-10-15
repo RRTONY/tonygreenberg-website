@@ -85,6 +85,7 @@ export function ClinicRankings({ clinics }: { clinics: Clinic[] }) {
             >
               <button
                 onClick={() => setExpanded(isExpanded ? null : clinic.name)}
+                aria-expanded={isExpanded}
                 className="flex w-full flex-wrap items-center gap-4 p-5 text-left"
               >
                 {rank && (

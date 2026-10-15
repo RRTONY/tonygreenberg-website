@@ -1,0 +1,563 @@
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { Client } from "@modelcontextprotocol/sdk/client/index.js";
+import { InMemoryTransport } from "@modelcontextprotocol/sdk/inMemory.js";
+import * as cs from "@/lib/admin/change-sets";
+import { runAdminTool } from "@/lib/admin/tools";
+import { getProjectRules } from "@/lib/admin/project-rules";
+import { createAdminMcpServer } from "@/lib/admin/mcp-server";
+import { PENDING_CHANGES_UI_URI } from "@/lib/admin/mcp-ui-widgets";
+import { READ_ONLY_TOOLS, type McpUser } from "@/lib/admin/mcp-auth";
+import { after } from "next/server";
+import * as gh from "@/lib/admin/github-client";
+import { buildMcpToolContext } from "@/lib/admin/mcp-tool-context";
+import { captureDevices, warmDevices } from "@/lib/admin/device-preview";
+import { listKnowledgeBase } from "@/lib/admin/project-rules";
+
+vi.mock("next/server", () => ({ after: vi.fn() }));
+vi.mock("@/lib/admin/github-client", () => ({ getPRChecksDetail: vi.fn(), getPRHeadSha: vi.fn(), GITHUB_REPO: { owner: "RRTONY", repo: "tonygreenberg-website" } }));
+vi.mock("@/lib/admin/mcp-tool-context", () => ({
+  buildMcpToolContext: vi.fn(async () => ({ ctx: {}, auditLog: [], finalize: async () => ({ branch: null, prNumber: null, prUrl: null }) })),
+}));
+vi.mock("@/lib/admin/tools", async (orig) => ({ ...(await orig<typeof import("@/lib/admin/tools")>()), runAdminTool: vi.fn(async () => ({ output: { ok: true } })) }));
+vi.mock("@/lib/admin/project-rules", async (orig) => ({
+  ...(await orig<typeof import("@/lib/admin/project-rules")>()),
+  getProjectRules: vi.fn(async () => ({ version: "rv-current", content: "# AGENTS", fullRules: "# CONTRIBUTING" })),
+  getProjectGuides: vi.fn(async () => ({ taskGuide: "tg", projectStructure: "ps", migrationStatus: "ms" })),
+  listKnowledgeBase: vi.fn(async () => ["docs/ai/README.md"]),
+}));
+vi.mock("@/lib/admin/change-sets", async (orig) => ({
+  ...(await orig<typeof import("@/lib/admin/change-sets")>()),
+  getChangeSet: vi.fn(),
+  createChangeSet: vi.fn(),
+  confirmChange: vi.fn(),
+  markEdited: vi.fn(async () => {}),
+  publishChange: vi.fn(async () => ({ ok: true, changeId: KEY, mergeSha: "m", published: [] })),
+  discardChange: vi.fn(async () => ({ ok: true, changeId: KEY })),
+  undoChange: vi.fn(),
+  submitForReview: vi.fn(),
+  listOpenChangeSets: vi.fn(async () => []),
+  reconcileWithGitHub: vi.fn(async (o: unknown) => o),
+  pendingOverview: vi.fn(async () => ({ changes: [], olderChanges: [], unrelatedDrafts: [] })),
+  buildReview: vi.fn(),
+  changeHistory: vi.fn(async () => []),
+  markWarmed: vi.fn(async () => {}),
+  recordDevices: vi.fn(async () => {}),
+}));
+vi.mock("@/lib/admin/device-preview", async (orig) => ({
+  ...(await orig<typeof import("@/lib/admin/device-preview")>()),
+  captureDevices: vi.fn(async () => []),
+  warmDevices: vi.fn(async () => {}),
+}));
+
+const KEY = "20261016-abc123";
+const users: Record<string, McpUser> = {
+  read: { name: "Reader", email: "r@x.com", role: "read" },
+  edit: { name: "Kim", email: "kim@x.com", role: "edit" },
+  write: { name: "Tony", email: "tony@x.com", role: "write" },
+};
+const change = (over: Partial<cs.ChangeSet> = {}) => ({ key: KEY, title: "Fix typo", request: "r", status: "draft", requestedBy: { name: "Kim" }, createdAt: "t", branch: null, prNumber: null, content: [], ...over }) as cs.ChangeSet;
+
+async function connect(user: McpUser) {
+  const server = createAdminMcpServer(user, "https://tonygreenberg.com");
+  const [a, b] = InMemoryTransport.createLinkedPair();
+  const client = new Client({ name: "test", version: "1" });
+  await Promise.all([server.connect(a), client.connect(b)]);
+  const call = async (name: string, args: Record<string, unknown> = {}) => {
+    const r = (await client.callTool({ name, arguments: args })) as { isError?: boolean; content: { text: string }[]; structuredContent?: Record<string, unknown>; _meta?: Record<string, unknown> };
+    return { ...r, json: JSON.parse(r.content[0].text) };
+  };
+  return { client, call };
+}
+
+beforeEach(() => {
+  vi.spyOn(console, "log").mockImplementation(() => {});
+  vi.mocked(cs.getChangeSet).mockResolvedValue(change());
+});
+
+describe("tools/list", () => {
+  it("read users only see read-only tools", async () => {
+    const { client } = await connect(users.read);
+    const { tools } = await client.listTools();
+    expect(tools.length).toBeGreaterThan(5);
+    for (const t of tools) expect(READ_ONLY_TOOLS.has(t.name), t.name).toBe(true);
+    expect(tools.every((t) => t.annotations?.readOnlyHint === true)).toBe(true);
+  });
+
+  it("edit users don't see publish_changes; write users do", async () => {
+    const edit = (await (await connect(users.edit)).client.listTools()).tools.map((t) => t.name);
+    expect(edit).toContain("github_write_file");
+    expect(edit).not.toContain("publish_changes");
+    expect((await (await connect(users.write)).client.listTools()).tools.map((t) => t.name)).toContain("publish_changes");
+  });
+
+  it("gated tools require rules_version, edit tools require change_id, and publish is marked destructive", async () => {
+    const { tools } = await (await connect(users.write)).client.listTools();
+    const by = Object.fromEntries(tools.map((t) => [t.name, t]));
+    expect(by.github_write_file.inputSchema.required).toEqual(expect.arrayContaining(["path", "change_id", "rules_version"]));
+    expect(by.sanity_patch_document.inputSchema.required).toEqual(expect.arrayContaining(["change_id", "rules_version"]));
+    expect(by.github_read_file.inputSchema.required).not.toContain("rules_version");
+    expect(by.github_read_file.inputSchema.properties).toHaveProperty("change_id");
+    expect(by.publish_changes.annotations).toMatchObject({ destructiveHint: true, openWorldHint: true, readOnlyHint: false });
+    expect(by.github_write_file.description).toMatch(/Requires rules_version/);
+  });
+});
+
+describe("resources", () => {
+  it("serves the review card and refuses unknown resources", async () => {
+    const { client } = await connect(users.read);
+    const { contents } = await client.readResource({ uri: PENDING_CHANGES_UI_URI });
+    expect(contents[0]).toMatchObject({ mimeType: "text/html;profile=mcp-app" });
+    await expect(client.readResource({ uri: "ui://other" })).rejects.toThrow(/Unknown resource/);
+    await expect(client.listResourceTemplates()).resolves.toMatchObject({ resourceTemplates: [] });
+  });
+});
+
+describe("access and rules gating", () => {
+  it("refuses a tool the role can't use, even if called directly", async () => {
+    const { call } = await connect(users.read);
+    const r = await call("github_write_file", { path: "a.ts", content: "x", change_id: KEY, rules_version: "rv-current" });
+    expect(r.isError).toBe(true);
+    expect(r.json.error).toMatch(/access level \(read\) doesn't allow github_write_file/);
+    expect(runAdminTool).not.toHaveBeenCalled();
+    const e = await (await connect(users.edit)).call("publish_changes", { change_id: KEY, rules_version: "rv-current", review_token: "t" });
+    expect(e.isError).toBe(true);
+    expect(cs.publishChange).not.toHaveBeenCalled();
+  });
+
+  it("get_project_rules returns the rules version and both rule files", async () => {
+    const r = await (await connect(users.edit)).call("get_project_rules");
+    expect(r.json).toMatchObject({ rulesVersion: "rv-current", rules: "# AGENTS", fullRules: "# CONTRIBUTING", you: { role: "edit" } });
+  });
+
+  it("blocks gated tools without, or with a stale, rules_version", async () => {
+    const { call } = await connect(users.write);
+    expect((await call("github_write_file", { path: "a.ts", content: "x", change_id: KEY })).json.error).toMatch(/call get_project_rules first/);
+    expect((await call("github_write_file", { path: "a.ts", content: "x", change_id: KEY, rules_version: "old" })).json.error).toMatch(/rules changed since you read them/);
+    expect((await call("publish_changes", { change_id: KEY, review_token: "t" })).isError).toBe(true);
+    expect(runAdminTool).not.toHaveBeenCalled();
+    expect(cs.publishChange).not.toHaveBeenCalled();
+  });
+
+  it("fails closed when the rules can't be loaded", async () => {
+    vi.mocked(getProjectRules).mockRejectedValue(new Error("GitHub down"));
+    const r = await (await connect(users.write)).call("github_write_file", { path: "a.ts", content: "x", change_id: KEY, rules_version: "rv-current" });
+    expect(r.json.error).toMatch(/Could not load AGENTS.md.*was not made/);
+    expect(runAdminTool).not.toHaveBeenCalled();
+  });
+});
+
+describe("change rules", () => {
+  const gated = { rules_version: "rv-current" };
+
+  it("an edit needs a valid change_id", async () => {
+    const { call } = await connect(users.edit);
+    expect((await call("github_write_file", { path: "a.ts", content: "x", ...gated })).json.error).toMatch(/Every edit must belong to a change/);
+    expect((await call("github_write_file", { path: "a.ts", content: "x", change_id: "../../main", ...gated })).json.error).toMatch(/isn't a valid change_id/);
+    vi.mocked(cs.getChangeSet).mockResolvedValue(null);
+    expect((await call("github_write_file", { path: "a.ts", content: "x", change_id: KEY, ...gated })).json.error).toMatch(/No change found/);
+    expect(runAdminTool).not.toHaveBeenCalled();
+  });
+
+  it("refuses edits before the person confirmed, or after the change closed", async () => {
+    const { call } = await connect(users.edit);
+    vi.mocked(cs.getChangeSet).mockResolvedValue(change({ status: "awaiting_confirmation", understoodAs: "Change a word" }));
+    expect((await call("github_write_file", { path: "a.ts", content: "x", change_id: KEY, ...gated })).json.error).toMatch(/hasn't confirmed what you understood yet \("Change a word"\)/);
+    vi.mocked(cs.getChangeSet).mockResolvedValue(change({ status: "published" }));
+    expect((await call("github_write_file", { path: "a.ts", content: "x", change_id: KEY, ...gated })).json.error).toMatch(/already published/);
+    expect(runAdminTool).not.toHaveBeenCalled();
+    expect(cs.markEdited).not.toHaveBeenCalled();
+  });
+
+  it("runs an allowed edit, marks the change edited and signs the commit message", async () => {
+    const { call } = await connect(users.edit);
+    const r = await call("github_write_file", { path: "src/app/about/page.tsx", content: "x", message: "Fix typo", change_id: `admin/mcp-${KEY}`, ...gated });
+    expect(r.isError).toBeFalsy();
+    expect(cs.markEdited).toHaveBeenCalled();
+    expect(runAdminTool).toHaveBeenCalledWith("github_write_file", { path: "src/app/about/page.tsx", content: "x", message: "Fix typo [by Kim]" }, {});
+  });
+
+  it("publish passes the review token and the person", async () => {
+    await (await connect(users.write)).call("publish_changes", { change_id: KEY, review_token: "tok", ...gated });
+    expect(cs.publishChange).toHaveBeenCalledWith(KEY, "tok", users.write);
+  });
+
+  it("publish and discard need a change_id", async () => {
+    const r = await (await connect(users.write)).call("discard_change", gated);
+    expect(r.json.error).toMatch(/Say which change/);
+    expect(cs.discardChange).not.toHaveBeenCalled();
+  });
+
+  it("start_change needs title, request and understood_as", async () => {
+    const r = await (await connect(users.edit)).call("start_change", { title: "x", request: "y", ...gated });
+    expect(r.json.error).toMatch(/understood_as/);
+    expect(cs.createChangeSet).not.toHaveBeenCalled();
+  });
+
+  it("start_change with needs_confirmation tells the AI to stop and ask", async () => {
+    vi.mocked(cs.createChangeSet).mockResolvedValue(change({ status: "awaiting_confirmation" }));
+    const r = await (await connect(users.edit)).call("start_change", { title: "Fix typo", request: "fix it", understood_as: "Change teh to the on /about", needs_confirmation: true, ...gated });
+    expect(r.json).toMatchObject({ view: "confirm", changeId: KEY, state: "awaiting_ok", youCanPublish: false, youCanDiscard: true });
+    expect(r.json.next).toMatch(/^STOP: show the person exactly this/);
+    expect(r._meta).toMatchObject({ rulesVersion: "rv-current" });
+    expect(r.json.otherPendingNote).toMatch(/No other pending changes/);
+  });
+
+  it("request_upload_link refuses denied paths and unconfirmed changes, and signs a link otherwise", async () => {
+    vi.stubEnv("MCP_OAUTH_SECRET", "s");
+    const { call } = await connect(users.edit);
+    expect((await call("request_upload_link", { path: "package.json", change_id: KEY, ...gated })).json.error).toMatch(/can't be changed from here/);
+    vi.mocked(cs.getChangeSet).mockResolvedValue(change({ status: "awaiting_confirmation" }));
+    expect((await call("request_upload_link", { path: "public/a.png", change_id: KEY, ...gated })).json.error).toMatch(/hasn't confirmed/);
+    vi.mocked(cs.getChangeSet).mockResolvedValue(change());
+    const ok = await call("request_upload_link", { path: "public/a.png", change_id: KEY, ...gated });
+    expect(ok.json.uploadUrl).toMatch(/^https:\/\/tonygreenberg\.com\/api\/mcp\/upload\?t=tgmcp_up\./);
+    vi.unstubAllEnvs();
+  });
+
+  it("unknown tools are refused", async () => {
+    const r = await (await connect(users.write)).call("rm_rf", {});
+    expect(r.isError).toBe(true);
+  });
+});
+
+const PREVIEW = "https://deploy-preview-4--tonygreenberg-website.netlify.app";
+const gated = { rules_version: "rv-current" };
+const review = (over: Record<string, unknown> = {}) =>
+  ({ changeId: KEY, title: "Fix typo", checks: [{ key: "build", state: "passed" }], headSha: "h1", previewUrl: PREVIEW, ...over }) as unknown as Awaited<ReturnType<typeof cs.buildReview>>;
+
+describe("get_project_rules notes per role", () => {
+  it("tells read and write users what they can do, and survives a missing knowledge base", async () => {
+    vi.mocked(listKnowledgeBase).mockRejectedValue(new Error("404"));
+    const read = await (await connect(users.read)).call("get_project_rules");
+    expect(read.json.you.note).toMatch(/Look-only access/);
+    expect(read.json.knowledgeBase).toEqual([]);
+    expect(read.json).toMatchObject({ taskGuide: "tg", projectStructure: "ps", migrationStatus: "ms" });
+    expect(read.json.howToUse).toContain('Pass "rv-current" as rules_version');
+    const write = await (await connect(users.write)).call("get_project_rules");
+    expect(write.json.you.note).toBe("Full access, including publishing.");
+  });
+});
+
+describe("list_pending_changes", () => {
+  it("lists everything after tidying up with GitHub when nothing is open", async () => {
+    const r = await (await connect(users.edit)).call("list_pending_changes");
+    expect(cs.reconcileWithGitHub).toHaveBeenCalledWith([]);
+    expect(cs.buildReview).not.toHaveBeenCalled();
+    expect(r.json).toMatchObject({ view: "list", changes: [], youCanPublish: false, youCanDiscard: true, you: { name: "Kim", role: "edit" }, otherPending: [] });
+    expect(r._meta).toEqual({ rulesVersion: "rv-current" });
+  });
+
+  it("says when the asked-for change doesn't exist", async () => {
+    vi.mocked(cs.getChangeSet).mockResolvedValue(null);
+    const r = await (await connect(users.write)).call("list_pending_changes", { change_id: KEY });
+    expect(r.isError).toBeFalsy();
+    expect(r.json).toMatchObject({ view: "list", error: `No change found with id ${KEY}.`, youCanPublish: true });
+  });
+
+  it("opens the one waiting change, counting the others, and warms its screenshots once the build passed", async () => {
+    const mine = change({ files: [{ _key: "f", path: "src/app/about/page.tsx", status: "modified" }] });
+    const other = change({ key: "20261016-zzz999", title: "Other" });
+    vi.mocked(cs.listOpenChangeSets).mockResolvedValue([mine, other]);
+    vi.mocked(cs.pendingOverview).mockResolvedValue({
+      changes: [{ changeId: KEY, title: "Fix typo" }, { changeId: "20261016-zzz999", title: "Other" }],
+      olderChanges: [{ changeId: null, prNumber: 9, prUrl: "u9" }],
+      unrelatedDrafts: [{ id: "drafts.x", label: "Blog post: X" }],
+    } as never);
+    vi.mocked(cs.getChangeSet).mockResolvedValue(mine);
+    vi.mocked(cs.buildReview).mockResolvedValue(review());
+    let warm: Promise<unknown> | undefined;
+    vi.mocked(after).mockImplementation((fn) => {
+      warm = (fn as () => Promise<unknown>)();
+    });
+
+    const r = await (await connect(users.write)).call("list_pending_changes", { change_id: KEY });
+    expect(cs.buildReview).toHaveBeenCalledWith(mine, 2);
+    expect(r.json).toMatchObject({ view: "detail", changeId: KEY, otherWaiting: [{ changeId: "20261016-zzz999", title: "Other" }], olderChanges: [{ prNumber: 9 }], unrelatedDrafts: [{ id: "drafts.x" }] });
+    await warm;
+    expect(cs.markWarmed).toHaveBeenCalledWith(KEY, "h1");
+    expect(warmDevices).toHaveBeenCalledWith(`${PREVIEW}/about`, "https://tonygreenberg.com/about");
+    // Other Pending Changes leaves out the change being shown.
+    expect(r.json.otherPending.map((o: { changeId: string }) => o.changeId)).toEqual(["20261016-zzz999"]);
+  });
+
+  it("picks the only open change without a change_id, and skips the warm-up when already warmed or not built", async () => {
+    const only = change({ warmedSha: "h1" });
+    vi.mocked(cs.listOpenChangeSets).mockResolvedValue([only]);
+    vi.mocked(cs.buildReview).mockResolvedValue(review());
+    const { call } = await connect(users.write);
+    expect((await call("list_pending_changes")).json.view).toBe("detail");
+    expect(cs.buildReview).toHaveBeenCalledWith(only, 0);
+    vi.mocked(cs.buildReview).mockResolvedValue(review({ checks: [{ key: "build", state: "running" }] }));
+    await call("list_pending_changes", { change_id: KEY });
+    vi.mocked(cs.listOpenChangeSets).mockResolvedValue([change()]);
+    vi.mocked(cs.buildReview).mockResolvedValue(review({ previewUrl: "https://evil.example.com" }));
+    await call("list_pending_changes");
+    expect(after).not.toHaveBeenCalled();
+  });
+
+  it("a warm-up outside a request is skipped quietly", async () => {
+    vi.mocked(cs.listOpenChangeSets).mockResolvedValue([change()]);
+    vi.mocked(cs.buildReview).mockResolvedValue(review());
+    vi.mocked(after).mockImplementation(() => {
+      throw new Error("after() called outside a request scope");
+    });
+    const r = await (await connect(users.write)).call("list_pending_changes");
+    expect(r.isError).toBeFalsy();
+    expect(r.json.view).toBe("detail");
+    expect(cs.markWarmed).not.toHaveBeenCalled();
+  });
+
+  it("Other Pending Changes says so when the list can't load, without failing the answer", async () => {
+    vi.mocked(cs.listOpenChangeSets).mockResolvedValueOnce([]).mockRejectedValueOnce(new Error("Sanity down"));
+    const r = await (await connect(users.edit)).call("list_pending_changes");
+    expect(r.isError).toBeFalsy();
+    expect(r.json.otherPending).toBeNull();
+    expect(r.json.otherPendingNote).toMatch(/Couldn't load the other pending changes/);
+  });
+});
+
+describe("preview_on_devices", () => {
+  const shot = (device: "phone" | "laptop", version: "before" | "after", image: string | null, extra = {}) => ({ device, version, image, width: 1, height: 1, ...extra });
+
+  it("refuses without a change, for an unknown change, and when there's no preview", async () => {
+    const { call } = await connect(users.read);
+    expect((await call("preview_on_devices")).json.error).toBe("Say which change: pass its change_id.");
+    vi.mocked(cs.getChangeSet).mockResolvedValueOnce(null);
+    expect((await call("preview_on_devices", { change_id: KEY })).json.error).toBe(`No change found with id ${KEY}.`);
+    vi.mocked(cs.getChangeSet).mockResolvedValueOnce(change({ prNumber: null }));
+    expect((await call("preview_on_devices", { change_id: KEY })).json.error).toMatch(/no code edits/);
+    vi.mocked(cs.getChangeSet).mockResolvedValueOnce(change({ prNumber: 4, status: "published" }));
+    expect((await call("preview_on_devices", { change_id: KEY })).json.error).toMatch(/no longer waiting/);
+    expect(captureDevices).not.toHaveBeenCalled();
+  });
+
+  it("refuses when the preview isn't built or the page address is bad", async () => {
+    vi.mocked(cs.getChangeSet).mockResolvedValue(change({ prNumber: 4 }));
+    vi.mocked(gh.getPRHeadSha).mockResolvedValue("h1");
+    vi.mocked(gh.getPRChecksDetail).mockResolvedValueOnce({ status: "pending", previewUrl: null, failingChecks: [] });
+    const { call } = await connect(users.read);
+    expect((await call("preview_on_devices", { change_id: KEY })).json.error).toMatch(/preview isn't built yet/);
+    vi.mocked(gh.getPRChecksDetail).mockResolvedValueOnce({ status: "success", previewUrl: PREVIEW, failingChecks: [] });
+    expect((await call("preview_on_devices", { change_id: KEY, path: "/../etc" })).json.error).toMatch(/page address isn't valid/);
+    expect(captureDevices).not.toHaveBeenCalled();
+  });
+
+  it("re-takes only the asked device, keeps the earlier result for the other, and offers a retry", async () => {
+    vi.mocked(cs.getChangeSet).mockResolvedValue(change({ prNumber: 4, devices: { headSha: "h1", phone: "failed", laptop: "ok" } as never }));
+    vi.mocked(gh.getPRHeadSha).mockResolvedValue("h1");
+    vi.mocked(gh.getPRChecksDetail).mockResolvedValue({ status: "success", previewUrl: PREVIEW, failingChecks: [] });
+    const shots = [shot("phone", "after", "data:image/jpeg;base64,AA"), shot("phone", "before", null, { error: "timeout" })];
+    vi.mocked(captureDevices).mockResolvedValue(shots as never);
+    const r = await (await connect(users.read)).call("preview_on_devices", { change_id: KEY, path: "/about", devices: ["phone", "tablet"] });
+    expect(captureDevices).toHaveBeenCalledWith(`${PREVIEW}/about`, "https://tonygreenberg.com/about", ["phone"]);
+    expect(cs.recordDevices).toHaveBeenCalledWith(KEY, { headSha: "h1", phone: "ok", laptop: "ok" });
+    expect(r.json).toMatchObject({
+      view: "devices",
+      page: "/about",
+      retaken: ["phone"],
+      missing: [],
+      retry: ["phone"],
+      youCanDiscard: false,
+      shots: [{ device: "phone", version: "after", ok: true }, { device: "phone", version: "before", ok: false, error: "timeout" }],
+    });
+    expect(r.json.note).toMatch(/Some phone screenshots didn't load/);
+    expect(r._meta).toMatchObject({ shots, rulesVersion: "rv-current" });
+  });
+
+  it("takes both devices by default from the change's own page, and reports what's missing", async () => {
+    vi.mocked(cs.getChangeSet).mockResolvedValue(change({ prNumber: 4, files: [{ _key: "f", path: "src/app/about/page.tsx", status: "modified" }] }));
+    vi.mocked(gh.getPRHeadSha).mockResolvedValue("h2");
+    vi.mocked(gh.getPRChecksDetail).mockResolvedValue({ status: "success", previewUrl: PREVIEW, failingChecks: [] });
+    vi.mocked(captureDevices).mockResolvedValue([
+      shot("phone", "after", "data:x"), shot("phone", "before", "data:y"),
+      shot("laptop", "after", null, { timedOut: true }), shot("laptop", "before", "data:z"),
+    ] as never);
+    const r = await (await connect(users.write)).call("preview_on_devices", { change_id: KEY, devices: [] });
+    expect(captureDevices).toHaveBeenCalledWith(`${PREVIEW}/about`, "https://tonygreenberg.com/about", ["phone", "laptop"]);
+    expect(cs.recordDevices).toHaveBeenCalledWith(KEY, { headSha: "h2", phone: "ok", laptop: "timed_out" });
+    expect(r.json).toMatchObject({ missing: ["laptop"], retry: ["laptop"], youCanDiscard: true });
+  });
+
+  it("doesn't record a result when GitHub gives no head commit", async () => {
+    vi.mocked(cs.getChangeSet).mockResolvedValue(change({ prNumber: 4 }));
+    vi.mocked(gh.getPRHeadSha).mockResolvedValue(null as never);
+    vi.mocked(gh.getPRChecksDetail).mockResolvedValue({ status: "success", previewUrl: PREVIEW, failingChecks: [] });
+    vi.mocked(captureDevices).mockResolvedValue([shot("phone", "after", "d"), shot("laptop", "after", "d")] as never);
+    const r = await (await connect(users.read)).call("preview_on_devices", { change_id: KEY });
+    expect(cs.recordDevices).not.toHaveBeenCalled();
+    expect(r.json.missing).toEqual([]);
+    expect(r.json.note).toMatch(/Before \(live site\) and after/);
+  });
+});
+
+describe("history, confirm, discard and undo", () => {
+  it("list_change_history passes the limit (defaulting bad ones to 20) and says who can restore", async () => {
+    vi.mocked(cs.changeHistory).mockResolvedValue([{ changeId: KEY }] as never);
+    const { call } = await connect(users.read);
+    const r = await call("list_change_history", { limit: 5 });
+    expect(cs.changeHistory).toHaveBeenLastCalledWith(5);
+    expect(r.json).toMatchObject({ view: "history", history: [{ changeId: KEY }], youCanRestore: false });
+    await call("list_change_history", { limit: "lots" });
+    expect(cs.changeHistory).toHaveBeenLastCalledWith(20);
+    expect((await (await connect(users.edit)).call("list_change_history")).json.youCanRestore).toBe(true);
+  });
+
+  it("confirm_change records the yes and says what's next, or passes on the refusal", async () => {
+    vi.mocked(cs.confirmChange).mockResolvedValueOnce({ ok: true, changeId: KEY, appliesTo: "mobile" });
+    const { call } = await connect(users.edit);
+    const ok = await call("confirm_change", { change_id: KEY, applies_to: "mobile", ...gated });
+    expect(cs.confirmChange).toHaveBeenCalledWith(KEY, "mobile");
+    expect(ok.isError).toBeFalsy();
+    expect(ok.json).toMatchObject({ ok: true, appliesToLabel: expect.any(String), next: expect.stringContaining(`change_id "${KEY}"`) });
+    vi.mocked(cs.confirmChange).mockResolvedValueOnce({ ok: false, error: "This change is already published." });
+    const no = await call("confirm_change", { change_id: KEY, ...gated });
+    expect(no.isError).toBe(true);
+    expect(no.json).toEqual({ ok: false, error: "This change is already published." });
+  });
+
+  it("confirm_change without a change_id is refused", async () => {
+    const r = await (await connect(users.edit)).call("confirm_change", gated);
+    expect(r.json.error).toMatch(/Every edit must belong to a change/);
+    expect(cs.confirmChange).not.toHaveBeenCalled();
+  });
+
+  it("discard_change discards that change and lists the others", async () => {
+    vi.mocked(cs.listOpenChangeSets).mockResolvedValue([change(), change({ key: "20261016-zzz999", title: "Other" })]);
+    const r = await (await connect(users.edit)).call("discard_change", { change_id: KEY, ...gated });
+    expect(cs.discardChange).toHaveBeenCalledWith(KEY, users.edit);
+    expect(r.json.otherPending.map((o: { changeId: string }) => o.changeId)).toEqual(["20261016-zzz999"]);
+  });
+
+  it("undo_change needs a change_id, then reports the restore change or the refusal", async () => {
+    const { call } = await connect(users.edit);
+    expect((await call("undo_change", gated)).json.error).toMatch(/Say which change/);
+    vi.mocked(cs.undoChange).mockResolvedValueOnce({ ok: true, changeId: "20261017-und111", title: "Undo: Fix typo" });
+    const ok = await call("undo_change", { change_id: KEY, ...gated });
+    expect(cs.undoChange).toHaveBeenCalledWith(KEY, users.edit);
+    expect(ok.json.next).toBe('Created "Undo: Fix typo". Show it with list_pending_changes and change_id "20261017-und111"; it goes live only if the person publishes it.');
+    vi.mocked(cs.undoChange).mockResolvedValueOnce({ ok: false, error: "Only a published change can be undone." });
+    const no = await call("undo_change", { change_id: KEY, ...gated });
+    expect(no.isError).toBe(true);
+    expect(no.json.error).toBe("Only a published change can be undone.");
+  });
+
+  it("publish_changes refuses when the review token is missing (passes an empty token on)", async () => {
+    vi.mocked(cs.publishChange).mockResolvedValueOnce({ ok: false, error: "This change was updated after it was reviewed." });
+    const r = await (await connect(users.write)).call("publish_changes", { change_id: KEY, ...gated });
+    expect(cs.publishChange).toHaveBeenCalledWith(KEY, "", users.write);
+    expect(r.isError).toBe(true);
+  });
+});
+
+describe("start_change and submit_for_review", () => {
+  it("a clear request starts working straight away", async () => {
+    vi.mocked(cs.createChangeSet).mockResolvedValue(change());
+    const r = await (await connect(users.write)).call("start_change", { title: " Fix typo ", request: "fix it", understood_as: "Change teh to the", applies_to: "desktop", conversation_url: "https://evil.example.com/x", ...gated });
+    expect(cs.createChangeSet).toHaveBeenCalledWith({ title: "Fix typo", request: "fix it", user: users.write, understoodAs: "Change teh to the", appliesTo: "desktop", needsConfirmation: false, conversationUrl: null });
+    expect(r.json).toMatchObject({ state: "working", stateLabel: "Working", youCanPublish: true, appliesTo: "desktop" });
+    expect(r.json.next).toBe(`Pass change_id "${KEY}" on every edit for this request. When done, call submit_for_review, then list_pending_changes with this change_id.`);
+  });
+
+  it("submit_for_review needs a summary, cleans up before/after and says what's next", async () => {
+    const { call } = await connect(users.edit);
+    expect((await call("submit_for_review", { change_id: KEY, summary: "  ", ...gated })).json.error).toBe("A plain-English summary is required.");
+    vi.mocked(cs.submitForReview).mockResolvedValueOnce({ ok: true, status: "ready_for_review", lint: null });
+    vi.mocked(cs.listOpenChangeSets).mockResolvedValue([change(), change({ key: "20261016-zzz999" })]);
+    const r = await call("submit_for_review", { change_id: KEY, summary: "Fixed the typo.", before_after: [{ label: "Title", before: "Teh", after: 3 }, null, "x", {}], ...gated });
+    expect(cs.submitForReview).toHaveBeenCalledWith(change(), "Fixed the typo.", [
+      { label: "Title", before: "Teh", after: "3" },
+      { label: "", before: "", after: "" },
+    ]);
+    expect(r.json.next).toBe(`Now call list_pending_changes with change_id "${KEY}" to show the person the review.`);
+    // The result has no changeId, so the requested change is left out of Other Pending Changes.
+    expect(r.json.otherPending.map((o: { changeId: string }) => o.changeId)).toEqual(["20261016-zzz999"]);
+  });
+
+  it("submit_for_review passes on a refusal and ignores a non-array before_after", async () => {
+    vi.mocked(cs.submitForReview).mockResolvedValueOnce({ ok: false, error: "Nothing has been changed in this change yet, so there's nothing to review." });
+    const r = await (await connect(users.edit)).call("submit_for_review", { change_id: KEY, summary: "s", before_after: "none", ...gated });
+    expect(vi.mocked(cs.submitForReview).mock.calls[0][2]).toEqual([]);
+    expect(r.isError).toBe(true);
+    expect(r.json.otherPending).toBeUndefined();
+  });
+});
+
+describe("edits through a change", () => {
+  const png = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 1]).toString("base64");
+
+  it("a binary upload is checked before the change is touched", async () => {
+    const { call } = await connect(users.edit);
+    const bad = await call("github_write_binary_file", { path: "public/a.png", base64Content: Buffer.from("<html>").toString("base64"), change_id: KEY, ...gated });
+    expect(bad.isError).toBe(true);
+    const none = await call("github_write_binary_file", { path: "public/a.png", change_id: KEY, ...gated });
+    expect(none.json.error).toMatch(/No file was sent/);
+    expect(cs.markEdited).not.toHaveBeenCalled();
+    expect(runAdminTool).not.toHaveBeenCalled();
+  });
+
+  it("a good binary upload reaches the tool as base64 only, with the commit signed", async () => {
+    const r = await (await connect(users.edit)).call("github_write_binary_file", { path: "public/a.png", base64Content: png, message: "Logo", file: "ignored", change_id: KEY, ...gated });
+    expect(r.isError).toBeFalsy();
+    expect(cs.markEdited).toHaveBeenCalledTimes(1);
+    expect(runAdminTool).toHaveBeenCalledWith("github_write_binary_file", { path: "public/a.png", base64Content: png, message: "Logo [by Kim]" }, {});
+  });
+
+  it("refuses an edit to a discarded change", async () => {
+    vi.mocked(cs.getChangeSet).mockResolvedValue(change({ status: "discarded" }));
+    const r = await (await connect(users.edit)).call("sanity_patch_document", { id: "p1", patch: {}, change_id: KEY, ...gated });
+    expect(r.json.error).toBe(`Change ${KEY} is already discarded. Call start_change for a new request.`);
+    expect(runAdminTool).not.toHaveBeenCalled();
+  });
+
+  it("an awaiting change without understood_as names its title", async () => {
+    vi.mocked(cs.getChangeSet).mockResolvedValue(change({ status: "awaiting_confirmation", understoodAs: null }));
+    const r = await (await connect(users.edit)).call("github_delete_file", { path: "a.ts", change_id: KEY, ...gated });
+    expect(r.json.error).toMatch(/hasn't confirmed what you understood yet \("Fix typo"\)/);
+  });
+
+  it("adds the branch and audit log only when the call did something", async () => {
+    vi.mocked(buildMcpToolContext).mockResolvedValueOnce({ ctx: {}, auditLog: ["Wrote a.ts"], finalize: async () => ({ branch: `admin/mcp-${KEY}`, prNumber: 4, prUrl: "u4" }) } as never);
+    vi.mocked(runAdminTool).mockResolvedValueOnce({ output: { ok: true, path: "a.ts" } });
+    const r = await (await connect(users.edit)).call("github_write_file", { path: "a.ts", content: "x", change_id: KEY, ...gated });
+    expect(buildMcpToolContext).toHaveBeenCalledWith(change());
+    expect(r.json).toEqual({ ok: true, path: "a.ts", branch: `admin/mcp-${KEY}`, prNumber: 4, prUrl: "u4", mcpAuditLog: ["Wrote a.ts"] });
+  });
+
+  it("read tools run without a change, and a list result is never merged with the audit log", async () => {
+    vi.mocked(buildMcpToolContext).mockResolvedValueOnce({ ctx: {}, auditLog: ["x"], finalize: async () => ({ branch: "b", prNumber: 1, prUrl: "u" }) } as never);
+    vi.mocked(runAdminTool).mockResolvedValueOnce({ output: [{ name: "app" }] });
+    const r = await (await connect(users.read)).call("github_list_dir", { path: "src" });
+    expect(buildMcpToolContext).toHaveBeenCalledWith(null);
+    expect(r.json).toEqual([{ name: "app" }]);
+    expect(r.structuredContent).toBeUndefined();
+  });
+
+  it("passes a tool's own error through", async () => {
+    vi.mocked(runAdminTool).mockResolvedValueOnce({ output: { error: "nope.ts does not exist" }, isError: true });
+    const r = await (await connect(users.read)).call("github_read_file", { path: "nope.ts", change_id: KEY });
+    expect(r.isError).toBe(true);
+    expect(r.json).toEqual({ error: "nope.ts does not exist" });
+    expect(cs.markEdited).not.toHaveBeenCalled();
+  });
+
+  it("request_upload_link needs a path and an open change", async () => {
+    const { call } = await connect(users.edit);
+    expect((await call("request_upload_link", { change_id: KEY, ...gated })).json.error).toBe("Say where to save the file (path).");
+    vi.mocked(cs.getChangeSet).mockResolvedValue(change({ status: "published" }));
+    expect((await call("request_upload_link", { path: "public/a.png", change_id: KEY, ...gated })).json.error).toBe(`Change ${KEY} is already published. Call start_change for a new request.`);
+  });
+});
+
+describe("resource list and rules hint", () => {
+  it("lists the review card as the one resource", async () => {
+    const { resources } = await (await connect(users.read)).client.listResources();
+    expect(resources).toEqual([{ uri: PENDING_CHANGES_UI_URI, name: "Pending changes", mimeType: "text/html;profile=mcp-app" }]);
+  });
+
+  it("a read tool still answers when the rules can't be loaded, with no rules version for the card", async () => {
+    vi.mocked(getProjectRules).mockRejectedValue(new Error("GitHub down"));
+    const r = await (await connect(users.read)).call("list_pending_changes");
+    expect(r.isError).toBeFalsy();
+    expect(r._meta).toEqual({ rulesVersion: null });
+  });
+});

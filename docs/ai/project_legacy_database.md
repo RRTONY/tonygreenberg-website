@@ -38,8 +38,10 @@ personal data:
 ## Done with it so far
 
 - **Short share links** `/s/<code>` (198): redirects in `src/lib/content/short-links.ts`, read by
-  `next.config.ts`. 196 land on a working page; `f9n4eq` (`/blog/blood-is-the-api`) and `jwd9jx`
-  (`/movement-signup`) point at pages that don't exist on live either.
+  `next.config.ts`. 197 land on a working page; `f9n4eq` (`/blog/blood-is-the-api`) points at a
+  page that doesn't exist on live either. `jwd9jx` pointed at `/movement-signup`, which was never a
+  page (only the share target of the sign-up box at the end of the restaurant AI-ethics essay); since
+  2026-10-16 it goes to that essay.
 
 ## Done on 2026-10-09 (owner said yes)
 

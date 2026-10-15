@@ -252,6 +252,15 @@ const TRADITIONS: Tradition[] = [
     tension: ["May dismiss genuine transcendent experiences", "Can become spiritually isolated", "Risk of reducing the sacred to the material"] },
 ];
 
+// The most points any one dimension can collect over all 20 questions (39, for embodiment). Every
+// dimension is shown 0-100 on this one shared scale, so the scores rank exactly like the real
+// points and the highest one picks the archetype. The old fixed max of 10 capped at 100 put most
+// answer sets at 100 in several dimensions, and the tie went to whichever archetype is listed
+// first, not the real leader (fixed 2026-10-16; legacy had the same bug).
+const MAX_DIMENSION_POINTS = Math.max(
+  ...DIMENSIONS.map((d) => QUESTIONS.reduce((sum, q) => sum + Math.max(0, ...q.choices.map((ch) => ch.dimensions[d] ?? 0)), 0)),
+);
+
 function computeResults(answers: Record<number, number>) {
   const dims = {} as Record<Dimension, number>;
   DIMENSIONS.forEach((d) => (dims[d] = 0));
@@ -263,12 +272,12 @@ function computeResults(answers: Record<number, number>) {
       dims[d] = (dims[d] || 0) + (choice.dimensions[d] ?? 0);
     }
   });
-  const maxPossible = 10;
   const normalized = {} as Record<Dimension, number>;
   DIMENSIONS.forEach((d) => {
-    normalized[d] = Math.min(100, Math.round((dims[d] / maxPossible) * 100));
+    normalized[d] = Math.round((dims[d] / MAX_DIMENSION_POINTS) * 100);
   });
-  const sorted = [...TRADITIONS].sort((a, b) => (normalized[b.primaryDimension] || 0) - (normalized[a.primaryDimension] || 0));
+  // Ranked by the real points, not the rounded 0-100 numbers, so two close dimensions never tie.
+  const sorted = [...TRADITIONS].sort((a, b) => (dims[b.primaryDimension] || 0) - (dims[a.primaryDimension] || 0));
   return { scores: normalized, top: sorted[0], second: sorted[1] };
 }
 

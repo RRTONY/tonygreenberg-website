@@ -142,11 +142,11 @@ export const ARCHETYPES: MeArchetype[] = [
     description: "Your deepest work is relational. You've built walls so sophisticated you forgot they were walls — and now you're ready to dismantle them. The articles below aren't advice. They're mirrors. The sites aren't tools. They're practice fields for the kind of connection that changes your molecular structure.",
     articles: [
       "love-as-dharma-a-science-based-playbook-for-magnetic-partnership",
-      "the-decay-of-modern-day-communication-and-how-it-is-affecting-your-relationships",
-      "the-ties-that-bind-interpersonal-relationships-and-the-art-of-meaningful-connection",
-      "the-arithmetic-of-relationships-why-most-people-get-the-math-wrong",
+      "the-decay-of-modern-day-communication",
+      "the-ties-that-bind-interpersonal-relationships",
+      "the-arithmetic-of-relationships",
       "the-science-of-being-alone-why-solitude-is-a-superpower",
-      "the-molecule-as-mirror-what-psychedelics-reveal-about-consciousness",
+      "the-molecule-as-mirror-from-substance-to-service",
     ],
     sites: [
       { name: "Find Your Team", url: "/flow-circuit", why: "The neurochemistry of connection — who you build with, measured not guessed." },
@@ -189,9 +189,9 @@ export const ARCHETYPES: MeArchetype[] = [
     articles: [
       "the-butchers-daughter-the-carbon-toll-and-the-cheese-that-ate-the-planet",
       "restaurants-beware-of-vegans-and-vegans-beware-of-lying-restaurants",
-      "the-eco-vegan-dilemma-when-your-diet-meets-your-carbon-footprint",
+      "eco-vegan-realities-seriesethical-economic",
       "the-science-of-being-alone-why-solitude-is-a-superpower",
-      "the-molecule-as-mirror-what-psychedelics-reveal-about-consciousness",
+      "the-molecule-as-mirror-from-substance-to-service",
       "the-longevity-paradox-why-living-longer-means-nothing-if-you-dont-live-deeper",
     ],
     sites: [
@@ -234,8 +234,8 @@ export const ARCHETYPES: MeArchetype[] = [
     tagline: "You don't just want to find your people. You want to build the place where people find each other.",
     description: "Connection isn't a nice-to-have for you — it's infrastructure. You understand that the most powerful technology on earth is a room full of aligned humans. The articles below map the territory. The community is where you start building.",
     articles: [
-      "the-decay-of-modern-day-communication-and-how-it-is-affecting-your-relationships",
-      "the-ties-that-bind-interpersonal-relationships-and-the-art-of-meaningful-connection",
+      "the-decay-of-modern-day-communication",
+      "the-ties-that-bind-interpersonal-relationships",
       "the-trust-economy-why-the-next-trillion-dollar-companies-will-be-built-on-radical-transparency",
       "the-great-rewiring-how-to-build-systems-that-dont-extract",
       "the-art-of-the-long-game-why-patience-is-the-most-undervalued-asset-in-business",
@@ -256,7 +256,7 @@ export const ARCHETYPES: MeArchetype[] = [
     tagline: "You've been to the edge. Now you want the map.",
     description: "Whether through meditation, medicine, crisis, or quiet revelation — you've glimpsed something beyond the default settings. Now you want to understand it. Not as woo. As architecture. The articles below treat consciousness as engineering, not escapism. The sites are your lab.",
     articles: [
-      "the-molecule-as-mirror-what-psychedelics-reveal-about-consciousness",
+      "the-molecule-as-mirror-from-substance-to-service",
       "the-science-of-being-alone-why-solitude-is-a-superpower",
       "love-as-dharma-a-science-based-playbook-for-magnetic-partnership",
       "the-longevity-paradox-why-living-longer-means-nothing-if-you-dont-live-deeper",

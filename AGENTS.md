@@ -57,7 +57,7 @@ Tailwind v4 + shadcn/ui, Sanity for editorial content, deployed on Netlify from 
 - **Never add a `loading.tsx` above a dynamic route**: it turns every 404 into a 200.
 - **Real content must be in the server HTML** (`forceMount` on accordions/collapsibles).
 - **No new npm dependency without asking first.** Never commit `.env.local`.
-- **Check before calling anything done:** `pnpm typecheck`, `pnpm lint`, `pnpm build` for routing
+- **Check before calling anything done:** `pnpm typecheck`, `pnpm lint`, `pnpm test`, `pnpm build` for routing
   or config changes, and look at the real page on `pnpm start`.
 - **Confirm before anything hard to undo or outward-facing**: publishing, merging, deleting, DNS.
 - **Plain, short replies for the team** (Tony, Darryl, Kimberly aren't developers). No em dashes

@@ -17,25 +17,36 @@ export function PeptideWatchFraudPatterns() {
       {FRAUD_PATTERNS.map((fp) => {
         const isOpen = expanded === fp.num;
         return (
+          // The title is a real button (keyboard + screen reader); its ::after
+          // stretches over the whole card so a click anywhere still toggles.
           <div
             key={fp.num}
-            className="cursor-pointer rounded-md border border-brand-gold/20 transition-colors hover:border-brand-gold/50"
-            onClick={() => setExpanded(isOpen ? null : fp.num)}
+            className="relative rounded-md border border-brand-gold/20 transition-colors hover:border-brand-gold/50"
           >
             <div className="flex items-start gap-4 p-4">
               <span className="w-8 shrink-0 font-heading text-2xl font-black text-[#C84B2A]">
                 {fp.num}
               </span>
               <div className="min-w-0 flex-1">
-                <h3 className="text-base font-bold text-foreground">{fp.title}</h3>
-                <p className={`mt-2 text-sm leading-relaxed text-foreground/80 ${isOpen ? "" : "hidden"}`}>
+                <h3 className="text-base font-bold text-foreground">
+                  <button
+                    type="button"
+                    onClick={() => setExpanded(isOpen ? null : fp.num)}
+                    aria-expanded={isOpen}
+                    aria-controls={`fraud-pattern-${fp.num}`}
+                    className="cursor-pointer text-left after:absolute after:inset-0 after:rounded-md"
+                  >
+                    {fp.title}
+                  </button>
+                </h3>
+                <p id={`fraud-pattern-${fp.num}`} className={`mt-2 text-sm leading-relaxed text-foreground/80 ${isOpen ? "" : "hidden"}`}>
                   {fp.body}
                 </p>
               </div>
               {isOpen ? (
-                <Minus className="size-4 shrink-0 text-muted-foreground" />
+                <Minus aria-hidden="true" className="size-4 shrink-0 text-muted-foreground" />
               ) : (
-                <Plus className="size-4 shrink-0 text-muted-foreground" />
+                <Plus aria-hidden="true" className="size-4 shrink-0 text-muted-foreground" />
               )}
             </div>
           </div>

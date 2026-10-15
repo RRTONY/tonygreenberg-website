@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { MEDICINES } from "@/lib/content/pri-data";
 
 // Ported from legacy client/src/pages/ThePhilosophy.tsx. Real content,
 // unchanged — Tony's "Diode of Perception" passage and its full "What This
@@ -62,7 +63,7 @@ const WHAT_THIS_MEANS = [
 ];
 
 const INSTRUMENTS = [
-  { label: "Psychedelic Readiness Index", desc: "38 medicines. 50+ questions. Your readiness profile.", href: "/psychedelic-readiness-index" },
+  { label: "Psychedelic Readiness Index", desc: `${MEDICINES.length} medicines. 50+ questions. Your readiness profile.`, href: "/psychedelic-readiness-index" },
   { label: "Facilitator Index", desc: "108-item assessment for practitioners and seekers evaluating fit.", href: "/facilitator-index" },
   { label: "Medicine Sequencing", desc: "The spectrum ladder — don't skip rungs.", href: "/medicine-sequencing" },
   { label: "Three Friends Gate", desc: "Permission from the people who know you best.", href: null },
