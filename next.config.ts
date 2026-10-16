@@ -15,6 +15,21 @@ const nextConfig: NextConfig = {
   // outputFileTracingIncludes globs: with pnpm those match linked package
   // folders and Turbopack panics ("Is a directory").
   serverExternalPackages: ["eslint", "eslint-config-next"],
+  // pnpm keeps one shared shortcut per package name in node_modules/.pnpm/
+  // node_modules. The MCP routes' trace picks up two of them whose targets
+  // nothing on the server uses (scheduler 0.27 for react-dom, tsconfig-paths
+  // 4.2 for Sanity's CLI); the copies the server really loads (scheduler 0.25
+  // for @react-pdf, tsconfig-paths 3.15 for ESLint) are traced normally. The
+  // shortcuts landed in .next/standalone pointing at nothing, and the Netlify
+  // Next.js plugin's copy step failed on them ("ENOENT ... stat
+  // .next/standalone/node_modules/.pnpm/node_modules/tsconfig-paths"), which
+  // broke deploy previews on 2026-10-17. Leave them out of the trace.
+  outputFileTracingExcludes: {
+    "*": [
+      "node_modules/.pnpm/node_modules/scheduler",
+      "node_modules/.pnpm/node_modules/tsconfig-paths",
+    ],
+  },
   // Keep the Netlify copies (the main *.netlify.app URL and every deploy
   // preview) out of search results so Google doesn't index a duplicate of
   // tonygreenberg.com. Host-based, so the real domain stays indexable after
