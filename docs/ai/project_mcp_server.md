@@ -22,7 +22,7 @@ per-person roles and rules gate.
   before/after and undo); a document another waiting change owns, or one with unsaved Studio edits,
   is refused. Files: `change-sets.ts` (records, review, publish, discard, undo, history, tidy-up
   against GitHub), `change-describe.ts` (plain-language pages affected, before/after, review token,
-  status labels), `mcp-tool-context.ts`, `device-preview.ts`.
+  status labels), `mcp-tool-context.ts`.
 - **Statuses:** Draft → Ready for review (`submit_for_review`; any later edit sends it back to Draft)
   → Published or Discarded. A change merged or closed directly in GitHub is marked to match the
   next time waiting changes are listed.
@@ -96,7 +96,6 @@ ChatGPT by just adding `<site-origin>/api/mcp` and signing in, with no token to 
 | Tool | Role needed | Rules-gated |
 | --- | --- | --- |
 | `get_project_rules`, `list_pending_changes`, `list_change_history`, `check_deploy` | read | |
-| `preview_on_devices` (phone + laptop screenshots, before = live tonygreenberg.com, after = the change's preview) | read | |
 | `github_list_dir`, `github_read_file` | read | |
 | `check_code_quality` (ESLint + CONTRIBUTING.md house-rule patterns) | read | |
 | `check_pr_status`, `get_check_log_excerpt` | read | |
@@ -252,18 +251,18 @@ Pending Changes"), plus the review card we had left out, were merged in: a three
   Published, Discarded) and `nextStep`. Checks are listed separately: Build and Type check
   (Netlify's preview build, which runs `next build`), Lint (the server lints the changed files
   itself, stored as `lint` on the record; errors block, warnings don't), GitHub checks (the
-  `pr-lint.yml` jobs), Phone and laptop preview (optional). `getPRChecksDetail` tells Netlify's
+  `pr-lint.yml` jobs, tests included since 2026-10-17). `getPRChecksDetail` tells Netlify's
   checks apart by the `" - tonygreenberg-website"` suffix of its check runs (`NETLIFY_RUN` in
   `github-client.ts`; must match the Netlify site name).
 - **Confirm before unclear changes:** `start_change` needs `understood_as` and
   `needs_confirmation`, takes `applies_to` (both/desktop/mobile) and an optional
   `conversation_url` (chatgpt.com / claude.ai only). Unclear changes wait for `confirm_change`;
   every edit is refused until then.
-- **Screenshots:** before (live `https://tonygreenberg.com`, which is the old app until DNS
-  cutover) and after (the preview), phone and laptop, shown in the card (images travel in `_meta`,
-  not the model's text). 45 s cap; warmed up in the background with `after()` once the build
-  passes; Retry re-takes only what's missing. Works without `GOOGLE_API_KEY` at Google's low
-  anonymous quota; the key raises it.
+- **Screenshots: removed 2026-10-17 (owner: "remove the after and before thing", picked the
+  screenshots, "preview just show the link").** `preview_on_devices`, `device-preview.ts`, the
+  "Phone and laptop preview" check and the card's screenshot view are gone; the review card keeps
+  the preview links and the Preview button. The before/after *wording* list stays. The card's URI
+  went to `pending-changes-v6.html` so ChatGPT drops its cached copy.
 - **Attached files:** `github_write_binary_file` takes `file` (ChatGPT's attachment),
   `source_url` (public https) or `base64Content`; `request_upload_link` gives a signed 30-minute
   page at `/api/mcp/upload` for one change and one path (signed with `MCP_OAUTH_SECRET`, user
@@ -283,4 +282,4 @@ Pending Changes"), plus the review card we had left out, were merged in: a three
   the card resource is served and its script is valid JavaScript, `get_project_rules` returns
   `migrationStatus`, `list_pending_changes` returns `otherPending`, `check_code_quality` runs
   ESLint, `/api/mcp/upload` refuses a missing or bad link (401). Not yet run: a full change on a
-  deploy preview (start, confirm, edit, review card, screenshots, publish/discard).
+  deploy preview (start, confirm, edit, review card, publish/discard).

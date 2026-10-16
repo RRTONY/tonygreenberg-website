@@ -8,9 +8,7 @@ import { createAdminMcpServer } from "@/lib/admin/mcp-server";
 import { PENDING_CHANGES_UI_URI } from "@/lib/admin/mcp-ui-widgets";
 import { READ_ONLY_TOOLS, type McpUser } from "@/lib/admin/mcp-auth";
 import { after } from "next/server";
-import * as gh from "@/lib/admin/github-client";
 import { buildMcpToolContext } from "@/lib/admin/mcp-tool-context";
-import { captureDevices, warmDevices } from "@/lib/admin/device-preview";
 import { listKnowledgeBase } from "@/lib/admin/project-rules";
 import { isNetlifyConfigured, listDeploys } from "@/lib/admin/netlify-client";
 
@@ -42,13 +40,6 @@ vi.mock("@/lib/admin/change-sets", async (orig) => ({
   pendingOverview: vi.fn(async () => ({ changes: [], olderChanges: [], unrelatedDrafts: [] })),
   buildReview: vi.fn(),
   changeHistory: vi.fn(async () => []),
-  markWarmed: vi.fn(async () => {}),
-  recordDevices: vi.fn(async () => {}),
-}));
-vi.mock("@/lib/admin/device-preview", async (orig) => ({
-  ...(await orig<typeof import("@/lib/admin/device-preview")>()),
-  captureDevices: vi.fn(async () => []),
-  warmDevices: vi.fn(async () => {}),
 }));
 
 const KEY = "20261016-abc123";
@@ -285,7 +276,7 @@ describe("list_pending_changes", () => {
     expect(r.json).toMatchObject({ view: "list", error: `No change found with id ${KEY}.`, youCanPublish: true });
   });
 
-  it("opens the one waiting change, counting the others, and warms its screenshots once the build passed", async () => {
+  it("opens the one waiting change, counting the others", async () => {
     const mine = change({ files: [{ _key: "f", path: "src/app/about/page.tsx", status: "modified" }] });
     const other = change({ key: "20261016-zzz999", title: "Other" });
     vi.mocked(cs.listOpenChangeSets).mockResolvedValue([mine, other]);
@@ -296,46 +287,22 @@ describe("list_pending_changes", () => {
     } as never);
     vi.mocked(cs.getChangeSet).mockResolvedValue(mine);
     vi.mocked(cs.buildReview).mockResolvedValue(review());
-    let warm: Promise<unknown> | undefined;
-    vi.mocked(after).mockImplementation((fn) => {
-      warm = (fn as () => Promise<unknown>)();
-    });
-
     const r = await (await connect(users.write)).call("list_pending_changes", { change_id: KEY });
     expect(cs.buildReview).toHaveBeenCalledWith(mine, 2);
     expect(r.json).toMatchObject({ view: "detail", changeId: KEY, otherWaiting: [{ changeId: "20261016-zzz999", title: "Other" }], olderChanges: [{ prNumber: 9 }], unrelatedDrafts: [{ id: "drafts.x" }] });
-    await warm;
-    expect(cs.markWarmed).toHaveBeenCalledWith(KEY, "h1");
-    expect(warmDevices).toHaveBeenCalledWith(`${PREVIEW}/about`, "https://tonygreenberg.com/about");
+    // No screenshots any more (removed 2026-10-17): nothing runs after the reply.
+    expect(after).not.toHaveBeenCalled();
     // Other Pending Changes leaves out the change being shown.
     expect(r.json.otherPending.map((o: { changeId: string }) => o.changeId)).toEqual(["20261016-zzz999"]);
   });
 
-  it("picks the only open change without a change_id, and skips the warm-up when already warmed or not built", async () => {
-    const only = change({ warmedSha: "h1" });
+  it("picks the only open change without a change_id", async () => {
+    const only = change();
     vi.mocked(cs.listOpenChangeSets).mockResolvedValue([only]);
     vi.mocked(cs.buildReview).mockResolvedValue(review());
     const { call } = await connect(users.write);
     expect((await call("list_pending_changes")).json.view).toBe("detail");
     expect(cs.buildReview).toHaveBeenCalledWith(only, 0);
-    vi.mocked(cs.buildReview).mockResolvedValue(review({ checks: [{ key: "build", state: "running" }] }));
-    await call("list_pending_changes", { change_id: KEY });
-    vi.mocked(cs.listOpenChangeSets).mockResolvedValue([change()]);
-    vi.mocked(cs.buildReview).mockResolvedValue(review({ previewUrl: "https://evil.example.com" }));
-    await call("list_pending_changes");
-    expect(after).not.toHaveBeenCalled();
-  });
-
-  it("a warm-up outside a request is skipped quietly", async () => {
-    vi.mocked(cs.listOpenChangeSets).mockResolvedValue([change()]);
-    vi.mocked(cs.buildReview).mockResolvedValue(review());
-    vi.mocked(after).mockImplementation(() => {
-      throw new Error("after() called outside a request scope");
-    });
-    const r = await (await connect(users.write)).call("list_pending_changes");
-    expect(r.isError).toBeFalsy();
-    expect(r.json.view).toBe("detail");
-    expect(cs.markWarmed).not.toHaveBeenCalled();
   });
 
   it("Other Pending Changes says so when the list can't load, without failing the answer", async () => {
@@ -347,77 +314,10 @@ describe("list_pending_changes", () => {
   });
 });
 
-describe("preview_on_devices", () => {
-  const shot = (device: "phone" | "laptop", version: "before" | "after", image: string | null, extra = {}) => ({ device, version, image, width: 1, height: 1, ...extra });
-
-  it("refuses without a change, for an unknown change, and when there's no preview", async () => {
-    const { call } = await connect(users.read);
-    expect((await call("preview_on_devices")).json.error).toBe("Say which change: pass its change_id.");
-    vi.mocked(cs.getChangeSet).mockResolvedValueOnce(null);
-    expect((await call("preview_on_devices", { change_id: KEY })).json.error).toBe(`No change found with id ${KEY}.`);
-    vi.mocked(cs.getChangeSet).mockResolvedValueOnce(change({ prNumber: null }));
-    expect((await call("preview_on_devices", { change_id: KEY })).json.error).toMatch(/no code edits/);
-    vi.mocked(cs.getChangeSet).mockResolvedValueOnce(change({ prNumber: 4, status: "published" }));
-    expect((await call("preview_on_devices", { change_id: KEY })).json.error).toMatch(/no longer waiting/);
-    expect(captureDevices).not.toHaveBeenCalled();
-  });
-
-  it("refuses when the preview isn't built or the page address is bad", async () => {
-    vi.mocked(cs.getChangeSet).mockResolvedValue(change({ prNumber: 4 }));
-    vi.mocked(gh.getPRHeadSha).mockResolvedValue("h1");
-    vi.mocked(gh.getPRChecksDetail).mockResolvedValueOnce({ status: "pending", previewUrl: null, failingChecks: [] });
-    const { call } = await connect(users.read);
-    expect((await call("preview_on_devices", { change_id: KEY })).json.error).toMatch(/preview isn't built yet/);
-    vi.mocked(gh.getPRChecksDetail).mockResolvedValueOnce({ status: "success", previewUrl: PREVIEW, failingChecks: [] });
-    expect((await call("preview_on_devices", { change_id: KEY, path: "/../etc" })).json.error).toMatch(/page address isn't valid/);
-    expect(captureDevices).not.toHaveBeenCalled();
-  });
-
-  it("re-takes only the asked device, keeps the earlier result for the other, and offers a retry", async () => {
-    vi.mocked(cs.getChangeSet).mockResolvedValue(change({ prNumber: 4, devices: { headSha: "h1", phone: "failed", laptop: "ok" } as never }));
-    vi.mocked(gh.getPRHeadSha).mockResolvedValue("h1");
-    vi.mocked(gh.getPRChecksDetail).mockResolvedValue({ status: "success", previewUrl: PREVIEW, failingChecks: [] });
-    const shots = [shot("phone", "after", "data:image/jpeg;base64,AA"), shot("phone", "before", null, { error: "timeout" })];
-    vi.mocked(captureDevices).mockResolvedValue(shots as never);
-    const r = await (await connect(users.read)).call("preview_on_devices", { change_id: KEY, path: "/about", devices: ["phone", "tablet"] });
-    expect(captureDevices).toHaveBeenCalledWith(`${PREVIEW}/about`, "https://tonygreenberg.com/about", ["phone"]);
-    expect(cs.recordDevices).toHaveBeenCalledWith(KEY, { headSha: "h1", phone: "ok", laptop: "ok" });
-    expect(r.json).toMatchObject({
-      view: "devices",
-      page: "/about",
-      retaken: ["phone"],
-      missing: [],
-      retry: ["phone"],
-      youCanDiscard: false,
-      shots: [{ device: "phone", version: "after", ok: true }, { device: "phone", version: "before", ok: false, error: "timeout" }],
-    });
-    expect(r.json.note).toMatch(/Some phone screenshots didn't load/);
-    expect(r._meta).toMatchObject({ shots, rulesVersion: "rv-current" });
-  });
-
-  it("takes both devices by default from the change's own page, and reports what's missing", async () => {
-    vi.mocked(cs.getChangeSet).mockResolvedValue(change({ prNumber: 4, files: [{ _key: "f", path: "src/app/about/page.tsx", status: "modified" }] }));
-    vi.mocked(gh.getPRHeadSha).mockResolvedValue("h2");
-    vi.mocked(gh.getPRChecksDetail).mockResolvedValue({ status: "success", previewUrl: PREVIEW, failingChecks: [] });
-    vi.mocked(captureDevices).mockResolvedValue([
-      shot("phone", "after", "data:x"), shot("phone", "before", "data:y"),
-      shot("laptop", "after", null, { timedOut: true }), shot("laptop", "before", "data:z"),
-    ] as never);
-    const r = await (await connect(users.write)).call("preview_on_devices", { change_id: KEY, devices: [] });
-    expect(captureDevices).toHaveBeenCalledWith(`${PREVIEW}/about`, "https://tonygreenberg.com/about", ["phone", "laptop"]);
-    expect(cs.recordDevices).toHaveBeenCalledWith(KEY, { headSha: "h2", phone: "ok", laptop: "timed_out" });
-    expect(r.json).toMatchObject({ missing: ["laptop"], retry: ["laptop"], youCanDiscard: true });
-  });
-
-  it("doesn't record a result when GitHub gives no head commit", async () => {
-    vi.mocked(cs.getChangeSet).mockResolvedValue(change({ prNumber: 4 }));
-    vi.mocked(gh.getPRHeadSha).mockResolvedValue(null as never);
-    vi.mocked(gh.getPRChecksDetail).mockResolvedValue({ status: "success", previewUrl: PREVIEW, failingChecks: [] });
-    vi.mocked(captureDevices).mockResolvedValue([shot("phone", "after", "d"), shot("laptop", "after", "d")] as never);
-    const r = await (await connect(users.read)).call("preview_on_devices", { change_id: KEY });
-    expect(cs.recordDevices).not.toHaveBeenCalled();
-    expect(r.json.missing).toEqual([]);
-    expect(r.json.note).toMatch(/Before \(live site\) and after/);
+describe("phone and laptop screenshots are gone (2026-10-17)", () => {
+  it("preview_on_devices isn't offered to anyone", async () => {
+    const { tools } = await (await connect(users.write)).client.listTools();
+    expect(tools.map((t) => t.name)).not.toContain("preview_on_devices");
   });
 });
 

@@ -354,7 +354,7 @@ export function normalizeAppliesTo(raw: unknown): AppliesTo {
   return raw === "desktop" || raw === "mobile" ? raw : "both";
 }
 
-export type CheckKey = "build" | "typecheck" | "lint" | "ci" | "devices";
+export type CheckKey = "build" | "typecheck" | "lint" | "ci";
 export type CheckState =
   | "passed"
   | "issues"
@@ -387,12 +387,6 @@ export interface LintRecord {
   }>;
 }
 
-export interface DeviceRecord {
-  headSha: string;
-  phone: "ok" | "timed_out" | "failed";
-  laptop: "ok" | "timed_out" | "failed";
-}
-
 export type BuildState = "success" | "pending" | "failure" | "unknown";
 
 export function reviewChecks(input: {
@@ -407,7 +401,6 @@ export function reviewChecks(input: {
   ciFailing?: string[];
   headSha: string | null;
   lint: LintRecord | null;
-  devices: DeviceRecord | null;
 }): CheckRow[] {
   if (!input.hasCode) {
     const note = "Content-only change, nothing to build.";
@@ -438,13 +431,6 @@ export function reviewChecks(input: {
         label: "GitHub checks",
         state: "not_needed",
         detail: note,
-        required: false,
-      },
-      {
-        key: "devices",
-        label: "Phone and laptop preview",
-        state: "not_needed",
-        detail: "Content changes show on the live site once published.",
         required: false,
       },
     ];
@@ -595,45 +581,7 @@ export function reviewChecks(input: {
               required: false,
             };
 
-  let devices: CheckRow;
-  const d =
-    input.devices && input.devices.headSha === input.headSha
-      ? input.devices
-      : null;
-  if (!d) {
-    devices = {
-      key: "devices",
-      label: "Phone and laptop preview",
-      state: "not_run",
-      detail: "Not taken yet. Optional, but worth a look for anything visual.",
-      required: false,
-    };
-  } else if (d.phone === "ok" && d.laptop === "ok") {
-    devices = {
-      key: "devices",
-      label: "Phone and laptop preview",
-      state: "passed",
-      detail: "Both screenshots taken.",
-      required: false,
-    };
-  } else {
-    const missing = [
-      d.phone !== "ok" ? "Phone" : null,
-      d.laptop !== "ok" ? "Laptop" : null,
-    ]
-      .filter(Boolean)
-      .join(" and ");
-    const timedOut = d.phone === "timed_out" || d.laptop === "timed_out";
-    devices = {
-      key: "devices",
-      label: "Phone and laptop preview",
-      state: timedOut ? "timed_out" : "failed",
-      detail: `${missing} screenshot ${timedOut ? "timed out" : "didn't load"}. Retry usually works.`,
-      required: false,
-    };
-  }
-
-  return [build, typecheck, lint, ci, devices];
+  return [build, typecheck, lint, ci];
 }
 
 export type ReviewState =

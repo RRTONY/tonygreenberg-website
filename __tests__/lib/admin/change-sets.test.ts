@@ -356,17 +356,6 @@ describe("small record updates", () => {
     expect(c.lastEditedAt).toBe((db.patches[0].set as { lastEditedAt: string }).lastEditedAt);
   });
 
-  it("recordDevices and markWarmed patch the change record", async () => {
-    seed();
-    const devices = { headSha: "head1" } as never;
-    await cs.recordDevices(KEY, devices);
-    await cs.markWarmed(KEY, "head1");
-    expect(db.patches.map((p) => [p.id, p.set])).toEqual([
-      [`adminChange.${KEY}`, { devices }],
-      [`adminChange.${KEY}`, { warmedSha: "head1" }],
-    ]);
-  });
-
   it("confirmChange keeps the scope already chosen when none is given", async () => {
     seed({ status: "awaiting_confirmation", appliesTo: "desktop" });
     await expect(cs.confirmChange(KEY, "")).resolves.toEqual({ ok: true, changeId: KEY, appliesTo: "desktop" });

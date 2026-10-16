@@ -1,4 +1,3 @@
-import { after } from "next/server";
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import {
   CallToolRequestSchema,
@@ -30,34 +29,22 @@ import {
   isOpen,
   listOpenChangeSets,
   markEdited,
-  markWarmed,
   otherPendingText,
   pendingRows,
   pendingOverview,
   publishChange,
   reconcileWithGitHub,
-  recordDevices,
   submitForReview,
   undoChange,
   type ChangeSet,
 } from "@/lib/admin/change-sets";
 import {
   APPLIES_TO_LABELS,
-  describeFiles,
   normalizeAppliesTo,
   normalizeChangeKey,
   normalizeConversationUrl,
 } from "@/lib/admin/change-describe";
-import {
-  captureDevices,
-  deviceOutcome,
-  liveTarget,
-  previewTarget,
-  warmDevices,
-  type Device,
-} from "@/lib/admin/device-preview";
 import { isNetlifyConfigured, listDeploys } from "@/lib/admin/netlify-client";
-import * as gh from "@/lib/admin/github-client";
 import { buildMcpToolContext } from "@/lib/admin/mcp-tool-context";
 import {
   READ_ONLY_TOOLS,
@@ -224,7 +211,7 @@ const SESSION_TOOLS = [
   {
     name: "list_pending_changes",
     description:
-      'Show waiting changes. With a change_id: the full review for that one change: ONE status (state: working, checking, ready, failed, stuck, awaiting_ok, published, discarded) with nextStep telling the person what to do, the checks (Build, Type check, Lint, Phone and laptop preview), what will go live, before and after, preview links, and its review_token. The card shows Preview, Discard and Publish together (greyed out when not allowed) plus Retry when something failed. Without a change_id: every waiting change, each reviewable on its own, plus older waiting work and unrelated Sanity Studio drafts that will NOT be published. Always show the person this review before publishing. In your reply, lead with the state and nextStep in one line and don\'t repeat the card. If state is "checking", call it again in a bit (you have no timer to wait with).',
+      'Show waiting changes. With a change_id: the full review for that one change: ONE status (state: working, checking, ready, failed, stuck, awaiting_ok, published, discarded) with nextStep telling the person what to do, the checks (Build, Type check, Lint, GitHub checks), what will go live, before and after, preview links, and its review_token. The card shows Preview, Discard and Publish together (greyed out when not allowed) plus Retry when something failed. Without a change_id: every waiting change, each reviewable on its own, plus older waiting work and unrelated Sanity Studio drafts that will NOT be published. Always show the person this review before publishing. In your reply, lead with the state and nextStep in one line and don\'t repeat the card. If state is "checking", call it again in a bit (you have no timer to wait with).',
     input_schema: {
       type: "object" as const,
       properties: {
@@ -279,30 +266,6 @@ const SESSION_TOOLS = [
         },
       },
       required: [],
-    },
-    _meta: { ui: { resourceUri: PENDING_CHANGES_UI_URI } },
-  },
-  {
-    name: "preview_on_devices",
-    description:
-      "Show how a change looks on a phone and on a laptop, before (the live site) and after (the preview): real screenshots of the top of the page, side by side in the card. Use after list_pending_changes whenever the change affects layout, images, buttons or anything visual, so the person can check both sizes before publishing. Needs the change's preview to be built (Build check passed). If a screenshot timed out, the card offers Retry, which re-takes only the missing ones (it's usually quick the second time).",
-    input_schema: {
-      type: "object" as const,
-      properties: {
-        [CHANGE_ID_PARAM]: changeIdSchema("The change to preview."),
-        path: {
-          type: "string",
-          description:
-            "Page address to show, e.g. '/' or '/about'. Defaults to the first page the change affects.",
-        },
-        devices: {
-          type: "array",
-          items: { type: "string", enum: ["phone", "laptop"] },
-          description:
-            "Optional: only these devices (used by Retry). Default both.",
-        },
-      },
-      required: [CHANGE_ID_PARAM],
     },
     _meta: { ui: { resourceUri: PENDING_CHANGES_UI_URI } },
   },
@@ -483,12 +446,6 @@ const CHATGPT_TOOL_META: Record<string, Record<string, unknown>> = {
     "openai/toolInvocation/invoked": "Changes ready to review",
     "openai/widgetAccessible": true,
   },
-  preview_on_devices: {
-    "openai/outputTemplate": PENDING_CHANGES_UI_URI,
-    "openai/toolInvocation/invoking": "Taking phone and laptop screenshots…",
-    "openai/toolInvocation/invoked": "Screenshots ready",
-    "openai/widgetAccessible": true,
-  },
   publish_changes: {
     "openai/toolInvocation/invoking": "Publishing to the live site…",
     "openai/toolInvocation/invoked": "Publish finished",
@@ -532,7 +489,6 @@ async function listPendingChanges(changeKey: string | null) {
     open.filter((c) => c.key !== target.key).length +
     overview.olderChanges.length;
   const review = await buildReview(target, others);
-  scheduleWarmUp(target, review);
   return {
     view: "detail" as const,
     ...review,
@@ -540,43 +496,6 @@ async function listPendingChanges(changeKey: string | null) {
     olderChanges: overview.olderChanges,
     unrelatedDrafts: overview.unrelatedDrafts,
   };
-}
-
-// Once a change's preview has built, ask Google for its screenshots in the
-// background (after this reply is sent), once per version of the code, so
-// preview_on_devices is quick when the person asks. Never blocks or fails
-// the review.
-function scheduleWarmUp(
-  change: ChangeSet,
-  review: Awaited<ReturnType<typeof buildReview>>,
-) {
-  const build = review.checks.find((c) => c.key === "build");
-  if (
-    build?.state !== "passed" ||
-    !review.headSha ||
-    change.warmedSha === review.headSha
-  ) {
-    return;
-  }
-  const path = defaultPreviewPath(change);
-  const url = previewTarget(review.previewUrl, path);
-  if (!url) return;
-  const headSha = review.headSha;
-  try {
-    after(async () => {
-      await markWarmed(change.key, headSha).catch(() => {});
-      await warmDevices(url, liveTarget(path)).catch(() => {});
-    });
-  } catch {
-    // Outside a request (tests): skip the warm-up.
-  }
-}
-
-function defaultPreviewPath(change: ChangeSet): string {
-  return (
-    describeFiles((change.files ?? []).map((f) => f.path)).find((a) => a.route)
-      ?.route ?? "/"
-  );
 }
 
 async function rulesVersionOrNull(): Promise<string | null> {
@@ -844,103 +763,6 @@ export function createAdminMcpServer(
         _meta: { rulesVersion: await rulesVersionOrNull() },
       };
     }
-
-    if (name === "preview_on_devices") {
-      if (!changeKey) {
-        return toResult(
-          { error: "Say which change: pass its change_id." },
-          true,
-        );
-      }
-      const target = await getChangeSet(changeKey);
-      if (!target) {
-        return toResult(
-          { error: `No change found with id ${changeKey}.` },
-          true,
-        );
-      }
-      if (!target.prNumber || !isOpen(target)) {
-        return toResult(
-          {
-            error: target.prNumber
-              ? "This change is no longer waiting, so its preview is gone. Look at the live site instead."
-              : "This change has no code edits, so there is no preview site to show. Content edits appear on the live site once published.",
-          },
-          true,
-        );
-      }
-      const [{ previewUrl }, headSha] = await Promise.all([
-        gh.getPRChecksDetail(target.prNumber),
-        gh.getPRHeadSha(target.prNumber),
-      ]);
-      const path = input.path ?? defaultPreviewPath(target);
-      const url = previewTarget(previewUrl, path);
-      if (!url) {
-        return toResult(
-          {
-            error: previewUrl
-              ? "That page address isn't valid. Use something like '/' or '/about'."
-              : "The preview isn't built yet. Check list_pending_changes until the site check passes, then try again.",
-          },
-          true,
-        );
-      }
-      const wanted: Device[] = Array.isArray(input.devices)
-        ? (["phone", "laptop"] as const).filter((d) =>
-            (input.devices as unknown[]).includes(d),
-          )
-        : ["phone", "laptop"];
-      const devices: Device[] = wanted.length ? wanted : ["phone", "laptop"];
-      const shots = await captureDevices(url, liveTarget(path), devices);
-
-      // Keep the earlier result for a device that wasn't re-taken.
-      const prev =
-        target.devices && target.devices.headSha === headSha
-          ? target.devices
-          : null;
-      const outcome = (d: Device) =>
-        devices.includes(d) ? deviceOutcome(shots, d) : (prev?.[d] ?? "failed");
-      if (headSha) {
-        await recordDevices(target.key, {
-          headSha,
-          phone: outcome("phone"),
-          laptop: outcome("laptop"),
-        }).catch(() => {});
-      }
-      const missing = (["phone", "laptop"] as const).filter(
-        (d) => outcome(d) !== "ok",
-      );
-      // Retry covers any picture that didn't load this time, Before too.
-      const retry = devices.filter((d) =>
-        shots.some((x) => x.device === d && !x.image),
-      );
-      // The pictures go only to the card (_meta), not into the model's
-      // context, where they would cost tokens and add nothing.
-      return {
-        ...toResult({
-          view: "devices",
-          changeId: target.key,
-          title: target.title,
-          page: new URL(url).pathname,
-          url,
-          retaken: devices,
-          shots: shots.map((s) => ({
-            device: s.device,
-            version: s.version,
-            ok: !!s.image,
-            ...(s.error ? { error: s.error } : {}),
-          })),
-          missing,
-          retry,
-          youCanDiscard: canUseTool(user.role, "discard_change"),
-          note: retry.length
-            ? `Some ${retry.join(" and ")} screenshots didn't load. The card offers Retry, which re-takes only those.`
-            : "Before (live site) and after (this change) are shown for phone and laptop in the card.",
-        }),
-        _meta: { shots, rulesVersion: await rulesVersionOrNull() },
-      };
-    }
-
 
     if (name === "list_change_history") {
       const limit = Number(input.limit ?? 20);

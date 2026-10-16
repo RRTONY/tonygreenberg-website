@@ -24,7 +24,6 @@ import {
   type BuildState,
   type ChangeStatus,
   type CheckRow,
-  type DeviceRecord,
   type LintRecord,
   type ReviewOutcome,
 } from "@/lib/admin/change-describe";
@@ -81,8 +80,6 @@ export interface ChangeSet {
   lastEditedAt?: string | null;
   confirmedAt?: string | null;
   lint?: LintRecord | null;
-  devices?: DeviceRecord | null;
-  warmedSha?: string | null;
   branch: string | null;
   prNumber: number | null;
   summary?: string | null;
@@ -269,17 +266,6 @@ async function lintAt(
       })),
   );
   return { headSha, files: await lintChangedFiles(withContent) };
-}
-
-export async function recordDevices(
-  key: string,
-  record: DeviceRecord,
-): Promise<void> {
-  await patchChangeSet(key, { devices: record });
-}
-
-export async function markWarmed(key: string, headSha: string): Promise<void> {
-  await patchChangeSet(key, { warmedSha: headSha });
 }
 
 // Called before a content edit (and right after a content item is created)
@@ -486,7 +472,6 @@ export async function buildReview(
       Date.now() - lastEdit > BUILD_STUCK_MS,
     headSha,
     lint,
-    devices: change.devices ?? null,
   });
   const problems: string[] = [];
   if (files.length === 0 && content.length === 0 && isOpen(change)) {

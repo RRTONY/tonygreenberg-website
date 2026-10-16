@@ -113,7 +113,6 @@ export const READ_ONLY_TOOLS = new Set([
   "list_pending_changes",
   "list_change_history",
   "check_deploy",
-  "preview_on_devices",
   "github_list_dir",
   "github_read_file",
   "github_search_code",

@@ -12,6 +12,8 @@ import {
   EMAIL_NOT_CONFIGURED,
   EMAIL_REFUSED,
   normalizeRepoPath,
+  applyTextEdits,
+  searchRepoFiles,
   reportFilename,
   runAdminTool,
   waitForChecks,
@@ -31,6 +33,7 @@ vi.mock("@/lib/admin/github-client", () => ({
   deleteFile: vi.fn(async () => {}),
   getPRChecksDetail: vi.fn(),
   getFailingCheckLogExcerpt: vi.fn(async () => "log tail"),
+  getRepoTextFiles: vi.fn(async () => []),
 }));
 vi.mock("@/lib/admin/sanity-content", () => ({
   createDraft: vi.fn(async () => ({ _id: "drafts.new1" })),
@@ -615,5 +618,107 @@ describe("ClickUp tools", () => {
     expect(await runAdminTool(tool, input, ctx)).toEqual({ output: { error: "Task not found" }, isError: true });
     fetchMock.mockRejectedValue("offline");
     expect(await runAdminTool(tool, input, ctx)).toEqual({ output: { error: fallback }, isError: true });
+  });
+});
+
+describe("applyTextEdits", () => {
+  it("applies edits in order, each against the result of the last", () => {
+    expect(applyTextEdits("a b c", [{ old_text: "a", new_text: "x" }, { old_text: "x b", new_text: "y" }])).toEqual({ ok: true, content: "y c" });
+  });
+
+  it("keeps $ patterns in new_text literal", () => {
+    expect(applyTextEdits("price", [{ old_text: "price", new_text: "$& $1" }])).toEqual({ ok: true, content: "$& $1" });
+  });
+
+  it("refuses empty, missing and ambiguous old_text, naming which edit", () => {
+    expect(applyTextEdits("a", [{ old_text: "", new_text: "x" }])).toMatchObject({ ok: false, error: expect.stringMatching(/^Edit 1 of 1: old_text is empty/) });
+    expect(applyTextEdits("a", [{ old_text: "a", new_text: "b" }, { old_text: "zz", new_text: "y" }])).toMatchObject({ ok: false, error: expect.stringMatching(/^Edit 2 of 2: old_text was not found/) });
+    expect(applyTextEdits("a a", [{ old_text: "a", new_text: "b" }])).toMatchObject({ ok: false, error: expect.stringMatching(/appears 2 times/) });
+  });
+});
+
+describe("searchRepoFiles", () => {
+  const files = [
+    { path: "docs/find-your-coffee.md", content: "Notes" },
+    { path: "_legacy-manus-app/FindYourCoffee.tsx", content: "Find your coffee" },
+    { path: "src/app/find-your-coffee/page.tsx", content: "line one\n  <h1>Find Your Coffee</h1>\nend" },
+  ];
+
+  it("matches names by slug or every word, code first, and lines with numbers", () => {
+    const r = searchRepoFiles(files, "Find your coffee");
+    expect(r.fileNameMatches).toEqual(["src/app/find-your-coffee/page.tsx", "docs/find-your-coffee.md", "_legacy-manus-app/FindYourCoffee.tsx"]);
+    expect(r.textMatches).toEqual([
+      { path: "src/app/find-your-coffee/page.tsx", lines: ["2: <h1>Find Your Coffee</h1>"] },
+      { path: "_legacy-manus-app/FindYourCoffee.tsx", lines: ["1: Find your coffee"] },
+    ]);
+    expect(r.textMatchFileCount).toBe(2);
+  });
+
+  it("caps lines per file and the number of files", () => {
+    const many = Array.from({ length: 25 }, (_, i) => ({ path: `src/f${i}.ts`, content: "hit\nhit\nhit\nhit" }));
+    const r = searchRepoFiles(many, "hit");
+    expect(r.textMatches).toHaveLength(20);
+    expect(r.textMatches[0].lines).toHaveLength(3);
+    expect(r.textMatchFileCount).toBe(25);
+  });
+});
+
+describe("github_search_code", () => {
+  beforeEach(() => {
+    vi.mocked(gh.getRepoTextFiles).mockResolvedValue([
+      { path: "src/app/page.tsx", content: "Essays" },
+      { path: "src/components/essays.tsx", content: "<h2>Essays</h2>" },
+      { path: ".env.local", content: "Essays" },
+    ]);
+  });
+
+  it("needs a query", async () => {
+    expect(await runAdminTool("github_search_code", { query: "  " }, ctx)).toEqual({ output: { error: "Say what to look for in `query`." }, isError: true });
+  });
+
+  it("searches the change's branch, skips off-limits files and honours path_prefix", async () => {
+    vi.mocked(ctx.getReadBranch).mockResolvedValue("admin/mcp-x");
+    const r = await runAdminTool("github_search_code", { query: "essays", path_prefix: "src/components" }, ctx);
+    expect(gh.getRepoTextFiles).toHaveBeenCalledWith("admin/mcp-x");
+    expect(r.output).toMatchObject({ fileNameMatches: ["src/components/essays.tsx"], textMatchFileCount: 1, next: expect.stringMatching(/github_edit_file/) });
+    const all = await runAdminTool("github_search_code", { query: "essays" }, ctx);
+    expect(JSON.stringify(all.output)).not.toContain(".env.local");
+  });
+
+  it("says when nothing matched", async () => {
+    const r = await runAdminTool("github_search_code", { query: "nothing like this" }, ctx);
+    expect((r.output as { next: string }).next).toMatch(/^Nothing matched/);
+  });
+});
+
+describe("github_edit_file", () => {
+  const edit = (input: Record<string, unknown>) => runAdminTool("github_edit_file", { path: "src/app/page.tsx", message: "Blue heading", ...input }, ctx);
+
+  it("checks the path and the edits list", async () => {
+    expect((await edit({ path: "" })).isError).toBe(true);
+    expect((await edit({ path: ".env.local", edits: [{ old_text: "a", new_text: "b" }] })).output).toMatchObject({ error: expect.stringMatching(/off-limits/) });
+    for (const edits of [undefined, [], ["x"], [{ old_text: 1, new_text: "b" }]]) {
+      expect((await edit({ edits })).output).toEqual({ error: "`edits` must be a list of { old_text, new_text } pairs (at least one)." });
+    }
+    expect(gh.putFile).not.toHaveBeenCalled();
+  });
+
+  it("refuses a file that doesn't exist, or an edit that doesn't apply", async () => {
+    vi.mocked(gh.getFile).mockResolvedValueOnce(null);
+    expect((await edit({ edits: [{ old_text: "a", new_text: "b" }] })).output).toMatchObject({ error: expect.stringMatching(/does not exist. Use github_write_file/) });
+    expect((await edit({ edits: [{ old_text: "missing", new_text: "b" }] })).output).toMatchObject({ error: expect.stringMatching(/not found/) });
+    expect(gh.putFile).not.toHaveBeenCalled();
+  });
+
+  it("writes the edited file to the change's branch", async () => {
+    const r = await edit({ edits: [{ old_text: "file body", new_text: "new body" }] });
+    expect(gh.putFile).toHaveBeenCalledWith("src/app/page.tsx", "new body", "Blue heading", "admin/mcp-20261016-abc123");
+    expect(r.output).toEqual({ ok: true, path: "src/app/page.tsx", branch: "admin/mcp-20261016-abc123", editsApplied: 1 });
+  });
+
+  it("does nothing when the edit changes nothing", async () => {
+    const r = await edit({ message: undefined, edits: [{ old_text: "file body", new_text: "file body" }] });
+    expect(r.output).toEqual({ ok: true, path: "src/app/page.tsx", branch: "admin/mcp-20261016-abc123", unchanged: true });
+    expect(gh.putFile).not.toHaveBeenCalled();
   });
 });

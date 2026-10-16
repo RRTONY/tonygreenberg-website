@@ -17,12 +17,10 @@
 //   so the AI carries on.
 // - "detail" (list_pending_changes with one change): status + next step +
 //   actions, what will go live (always ending with what is NOT included),
-//   the checks (Build, Type check, Lint, Phone and laptop preview), before
+//   the checks (Build, Type check, Lint, GitHub checks), before
 //   and after.
 // - "list" (several waiting changes): each with its own Review button, so an
 //   old waiting change never stands in the way of a new one.
-// - "devices" (preview_on_devices): before (live site) and after (preview)
-//   screenshots for phone and laptop; Retry re-takes only the missing ones.
 // - "history" (list_change_history): who changed what and when, with a
 //   Restore button on published changes (prepares an Undo change to review).
 //
@@ -42,7 +40,7 @@
 // resourceDomains), so it adds no dependency to this server. The URI is
 // versioned because ChatGPT caches a card's HTML by URI.
 export const PENDING_CHANGES_UI_URI =
-  "ui://tonygreenberg-admin/pending-changes-v5.html";
+  "ui://tonygreenberg-admin/pending-changes-v6.html";
 
 export const PENDING_CHANGES_HTML = `<!doctype html>
 <html>
@@ -133,21 +131,6 @@ export const PENDING_CHANGES_HTML = `<!doctype html>
     box-shadow: inset 0 0 0 1px var(--color-border-primary, var(--fallback-border));
     font-size: var(--font-text-sm-size, 13px);
   }
-  .devices { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start; }
-  .devices figure { margin: 0; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
-  .devices .phone { flex: 1 1 120px; max-width: 200px; }
-  .devices .laptop { flex: 3 1 220px; }
-  .devices img {
-    display: block; width: 100%; height: auto;
-    border-radius: var(--border-radius-md, 8px);
-    box-shadow: 0 0 0 1px var(--color-border-primary, var(--fallback-border));
-  }
-  .devices .missing {
-    padding: 24px 12px; text-align: center;
-    border-radius: var(--border-radius-md, 8px);
-    background: var(--color-background-secondary, var(--fallback-surface));
-  }
-  figcaption { font-size: var(--font-text-sm-size, 13px); font-weight: var(--font-weight-semibold, 600); }
   .actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
   .btn {
     appearance: none; border: 0; cursor: pointer; text-decoration: none;
@@ -185,20 +168,6 @@ export const PENDING_CHANGES_HTML = `<!doctype html>
   label.opt { display: flex; align-items: center; gap: 8px; cursor: pointer; }
   .linkbtn { appearance: none; border: 0; background: none; padding: 0; font: inherit; color: inherit; text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
   .linkbtn:disabled { opacity: 0.55; cursor: default; }
-  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .pair.phone { max-width: 360px; }
-  .devrow { display: flex; flex-direction: column; gap: 6px; }
-  .devrow img {
-    display: block; width: 100%; height: auto;
-    border-radius: var(--border-radius-md, 8px);
-    box-shadow: 0 0 0 1px var(--color-border-primary, var(--fallback-border));
-  }
-  .devrow figure { margin: 0; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-  .devrow .missing {
-    padding: 24px 8px; text-align: center; font-size: var(--font-text-sm-size, 13px);
-    border-radius: var(--border-radius-md, 8px);
-    background: var(--color-background-secondary, var(--fallback-surface));
-  }
   .pending li { display: flex; flex-direction: column; gap: 6px; padding: 6px 0; }
   .pending li + li { border-top: 1px solid var(--color-border-primary, var(--fallback-border)); padding-top: 10px; }
   .pending .head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
@@ -222,7 +191,6 @@ export const PENDING_CHANGES_HTML = `<!doctype html>
     let confirming = null; // "publish" | "discard" | null
     let busy = null;       // name of the running action, or null
     let note = null;
-    let shots = [];
     let scope = "both";
 
     function esc(value) {
@@ -457,12 +425,9 @@ export const PENDING_CHANGES_HTML = `<!doctype html>
       const checks = d.checks || [];
       if (checks.length) {
         parts.push('<div><h3>Checks</h3><ul class="box checks" aria-label="Checks">' + checks.map(function (c) {
-          const extra = c.key === "devices" && c.state !== "not_needed" && d.status !== "published" && d.status !== "discarded" && d.previewUrl
-            ? ' <button class="linkbtn" id="shots"' + (busy ? " disabled" : "") + '>' + (busy === "shots" ? "Taking screenshots…" : (c.state === "passed" ? "See them" : c.state === "not_run" ? "Take them" : "Retry")) + '</button>'
-            : "";
           return '<li><span class="dot ' + (CHECK_DOT[c.state] || "unknown") + '" aria-hidden="true"></span>' +
             '<span class="what">' + esc(c.label) + '</span>' +
-            '<span><strong>' + esc(CHECK_WORD[c.state] || c.state) + '</strong>' + (c.required ? "" : ' <span class="muted">(optional)</span>') + '. <span class="muted">' + esc(c.detail) + '</span>' + extra + '</span></li>';
+            '<span><strong>' + esc(CHECK_WORD[c.state] || c.state) + '</strong>' + (c.required ? "" : ' <span class="muted">(optional)</span>') + '. <span class="muted">' + esc(c.detail) + '</span></span></li>';
         }).join("") + '</ul></div>');
       }
 
@@ -494,55 +459,8 @@ export const PENDING_CHANGES_HTML = `<!doctype html>
       bind("cancel", function () { confirming = null; render(); });
       bind("yes", function () { act(confirming); });
       bind("retry", function () { refresh(d.changeId, "retry"); });
-      bind("shots", function () { takeShots(null); });
     }
 
-    // ── Before / after screenshots ──────────────────────────────────────────
-    function renderDevices() {
-      const d = data;
-      const by = {};
-      (shots || []).forEach(function (s) { if (s && s.device) by[s.device + ":" + (s.version || "after")] = s; });
-      const fig = function (device, version, label) {
-        const s = by[device + ":" + version] || {};
-        const ok = typeof s.image === "string" && s.image.indexOf("data:image/") === 0;
-        const alt = (version === "before" ? "Live site, " : "With this change, ") + device + " size, " + (d.page || "/");
-        return '<figure><figcaption>' + label + '</figcaption>' + (ok
-          ? '<img src="' + esc(s.image) + '" alt="' + esc(alt) + '"' + (s.width ? ' width="' + Number(s.width) + '" height="' + Number(s.height) + '"' : "") + ' />'
-          : '<div class="missing muted">' + esc(s.error || (version === "before" ? "Not on the live site yet" : "Not available")) + '</div>') + '</figure>';
-      };
-      const missing = d.missing || [];
-      const retryList = (d.retry && d.retry.length) ? d.retry : missing;
-      const parts = ['<h2>' + esc(d.title) + '</h2>'];
-      parts.push(statusBlock(missing.length ? "stuck" : "ready",
-        missing.length ? (missing.join(" and ") + " preview timed out") : "Screenshots ready",
-        missing.length ? "Retry to take the missing ones again (it's usually quick the second time), or Discard the change."
-          : retryList.length ? "Some Before pictures (the live site) didn't load. Retry to try again, or compare what is there."
-          : "Compare before and after, then go back to the review to Publish or Discard."));
-      const url = safeUrl(d.url);
-      const bar = [];
-      if (retryList.length) bar.push(button("retry-shots", busy === "shots" ? "Retrying…" : "Retry", "secondary", !busy));
-      bar.push(button("preview", "Preview", "secondary", !!url));
-      if (missing.length) bar.push(button("discard", "Discard", "secondary", !!(d.youCanDiscard && rulesVersion && !busy)));
-      bar.push(button("back", busy === "back" ? "Opening…" : "Back to review", "primary", !busy));
-      if (confirming === "discard") {
-        parts.push('<div class="confirm"><strong>Discard "' + esc(d.title) + '"?</strong> Everything in it is thrown away and nothing goes live.</div>');
-        parts.push('<div class="actions">' + button("yes", busy ? "Discarding…" : "Yes, discard", "secondary", !busy) + button("cancel", "Cancel", "secondary", !busy) + '</div>');
-      } else {
-        parts.push('<div class="actions">' + bar.join("") + '</div>');
-      }
-      parts.push(noteHtml());
-      parts.push('<p class="muted">Top of the ' + (d.page === "/" ? "home page" : esc(d.page || "/") + " page") + '. Before is the live site, After is this change.</p>');
-      parts.push('<div class="devrow"><h3>Phone</h3><div class="pair phone">' + fig("phone", "before", "Before") + fig("phone", "after", "After") + '</div></div>');
-      parts.push('<div class="devrow"><h3>Laptop</h3><div class="pair">' + fig("laptop", "before", "Before") + fig("laptop", "after", "After") + '</div></div>');
-      parts.push('<p class="muted">The bar at the bottom of the After pictures is the Netlify preview toolbar. It is not part of the live site.</p>');
-      root.innerHTML = parts.join("");
-      bind("retry-shots", function () { takeShots(retryList); });
-      bind("preview", function () { openLink(url); });
-      bind("back", function () { refresh(d.changeId, "back"); });
-      bind("discard", function () { confirming = "discard"; note = null; render(); });
-      bind("cancel", function () { confirming = null; render(); });
-      bind("yes", function () { act("discard"); });
-    }
 
     // ── History with Restore ────────────────────────────────────────────────
     function renderHistory() {
@@ -592,7 +510,6 @@ export const PENDING_CHANGES_HTML = `<!doctype html>
       if (!data) return;
       if (data.view === "confirm") renderConfirm();
       else if (data.view === "detail") renderDetail();
-      else if (data.view === "devices") renderDevices();
       else if (data.view === "history") renderHistory();
       else renderList();
     }
@@ -606,7 +523,6 @@ export const PENDING_CHANGES_HTML = `<!doctype html>
     function show(result) {
       data = result.structuredContent || readText(result);
       if (result._meta && result._meta.rulesVersion) rulesVersion = result._meta.rulesVersion;
-      if (result._meta && result._meta.shots) shots = result._meta.shots;
       if (data && data.appliesTo) scope = data.appliesTo;
     }
 
@@ -617,34 +533,6 @@ export const PENDING_CHANGES_HTML = `<!doctype html>
         busy = null; confirming = null;
         if (result.isError) note = { kind: "error", text: "Couldn't load that change. Ask in the chat." };
         else show(result);
-      } catch (e) {
-        busy = null;
-        note = { kind: "error", text: "That didn't work: " + (e && e.message ? e.message : "unknown error") };
-      }
-      render();
-    }
-
-    async function takeShots(only) {
-      const changeId = data.changeId;
-      const page = data.view === "devices" ? data.page : undefined;
-      busy = "shots"; note = null; render();
-      try {
-        const args = { change_id: changeId };
-        if (page) args.path = page;
-        if (only && only.length) args.devices = only;
-        const result = await app.callServerTool({ name: "preview_on_devices", arguments: args });
-        busy = null;
-        const out = result.structuredContent || readText(result);
-        if (result.isError || !out || out.error) {
-          note = { kind: "error", text: (out && out.error) || "Screenshots didn't work. Try again in a moment." };
-        } else {
-          // A retry only re-takes the missing device; keep the others.
-          const fresh = (result._meta && result._meta.shots) || [];
-          const keep = only && only.length ? (shots || []).filter(function (s) { return only.indexOf(s.device) < 0; }) : [];
-          data = out;
-          shots = keep.concat(fresh);
-          if (result._meta && result._meta.rulesVersion) rulesVersion = result._meta.rulesVersion;
-        }
       } catch (e) {
         busy = null;
         note = { kind: "error", text: "That didn't work: " + (e && e.message ? e.message : "unknown error") };
@@ -704,7 +592,7 @@ export const PENDING_CHANGES_HTML = `<!doctype html>
 
     const app = new App({ name: "tonygreenberg-admin-ui", version: "5.0.0" }, {}, { autoResize: true });
     app.ontoolresult = function (params) {
-      rulesVersion = null; shots = [];
+      rulesVersion = null;
       confirming = null; busy = null; note = null;
       show(params);
       if (!data) {

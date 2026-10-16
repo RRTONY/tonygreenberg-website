@@ -47,7 +47,7 @@ If the request is unclear, ask **one** short question with 2 to 4 options instea
 4. `check_pr_status` until the Netlify deploy preview passes (`check_deploy` with the change_id says in plain words whether the preview is ready, building or failed and why), then open the preview link. After publishing, `check_deploy` with no change_id confirms the live build finished.
 5. `submit_for_review` with a 1 to 3 sentence plain summary (and before/after for visible wording
    changed in code), then `list_pending_changes` with the `change_id` to show what will go live.
-   For visual changes, `preview_on_devices` shows phone and laptop screenshots, before (live) and after (preview).
+   For visual changes, give the person the preview link from the review so they can look on their own phone and laptop.
 6. Publish (`publish_changes` with the `change_id` and `reviewToken`) only after asking "You are
    about to publish these changes to the live tonygreenberg.com website. Are you sure you want to
    continue?" and getting a clear yes. If they don't want it, `discard_change`. To roll back a

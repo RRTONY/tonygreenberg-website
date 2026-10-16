@@ -79,8 +79,8 @@ Tailwind v4 + shadcn/ui, Sanity for editorial content, deployed on Netlify from 
   in plain words; `needs_confirmation: true` whenever the request could mean more than one thing),
   pass its `change_id` on every edit, then `submit_for_review` with a plain summary and
   `list_pending_changes` with that `change_id` to show the review card (one status and next step,
-  Build / Type check / Lint / Phone and laptop checks, what goes live and what doesn't,
-  before/after, Preview | Discard | Publish). Code lands on that change's own `admin/mcp-*` branch
+  Build / Type check / Lint / GitHub checks, what goes live and what doesn't, before/after
+  wording, the preview link, Preview | Discard | Publish). Code lands on that change's own `admin/mcp-*` branch
   and pull request, never straight to `main`; Sanity edits are drafts.
 - **Unclear request:** the change waits as "Waiting for your OK" and every edit is refused until
   the person says yes (`confirm_change`). Ask them "I understand your request as: ... Is that right?"

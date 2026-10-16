@@ -139,7 +139,7 @@ describe("change keys and inputs", () => {
   });
 });
 
-const base = { hasCode: true, build: "success" as const, buildStuck: false, ci: "success" as const, headSha: "h1", lint: { headSha: "h1", files: [] }, devices: null };
+const base = { hasCode: true, build: "success" as const, buildStuck: false, ci: "success" as const, headSha: "h1", lint: { headSha: "h1", files: [] } };
 const byKey = (rows: CheckRow[]) => Object.fromEntries(rows.map((r) => [r.key, r.state]));
 
 describe("reviewChecks", () => {
@@ -148,7 +148,7 @@ describe("reviewChecks", () => {
   });
 
   it("all green", () => {
-    expect(byKey(reviewChecks(base))).toEqual({ build: "passed", typecheck: "passed", lint: "passed", ci: "passed", devices: "not_run" });
+    expect(byKey(reviewChecks(base))).toEqual({ build: "passed", typecheck: "passed", lint: "passed", ci: "passed" });
   });
 
   it("type check follows the build", () => {
@@ -176,12 +176,9 @@ describe("reviewChecks", () => {
     expect(ci({ ci: null })).toMatchObject({ state: "not_needed", required: false });
   });
 
-  it("device screenshots are optional and only count for the current version", () => {
-    const dev = (devices: object | null) => reviewChecks({ ...base, devices: devices as never }).find((c) => c.key === "devices")!;
-    expect(dev({ headSha: "h1", phone: "ok", laptop: "ok" })).toMatchObject({ state: "passed", required: false });
-    expect(dev({ headSha: "h1", phone: "timed_out", laptop: "ok" })).toMatchObject({ state: "timed_out", detail: "Phone screenshot timed out. Retry usually works." });
-    expect(dev({ headSha: "h1", phone: "failed", laptop: "failed" }).detail).toMatch(/^Phone and Laptop screenshot didn't load/);
-    expect(dev({ headSha: "old", phone: "ok", laptop: "ok" }).state).toBe("not_run");
+  it("there is no phone and laptop screenshot check (removed 2026-10-17)", () => {
+    expect(reviewChecks(base).map((c) => c.key)).toEqual(["build", "typecheck", "lint", "ci"]);
+    expect(reviewChecks({ ...base, hasCode: false }).map((c) => c.key)).toEqual(["build", "typecheck", "lint", "ci"]);
   });
 });
 
@@ -193,7 +190,7 @@ describe("reviewOutcome: Publish only unlocks when everything required passed", 
     expect(outcome({})).toMatchObject({ state: "ready", label: "Ready for review", actions: { preview: true, discard: true, publish: true, retry: false } });
   });
 
-  it("warnings and missing screenshots don't block", () => {
+  it("warnings don't block", () => {
     const checks = reviewChecks({ ...base, lint: { headSha: "h1", files: [{ path: "a", errors: 0, warnings: 3 }] } });
     expect(outcome({}, checks).actions.publish).toBe(true);
   });
