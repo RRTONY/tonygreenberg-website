@@ -116,6 +116,7 @@ export const READ_ONLY_TOOLS = new Set([
   "preview_on_devices",
   "github_list_dir",
   "github_read_file",
+  "github_search_code",
   "seo_check_page",
   "check_code_quality",
   "check_pr_status",

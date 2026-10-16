@@ -6,6 +6,8 @@
 // Owner/repo are hardcoded constants, never accepted as a parameter from any
 // caller, so a prompt-injected instruction can't redirect a write to a
 // different repository.
+import { gunzipSync } from "node:zlib";
+
 const OWNER = "RRTONY";
 const REPO = "tonygreenberg-website";
 const API = "https://api.github.com";
@@ -103,6 +105,74 @@ export async function listDir(path: string, ref: string): Promise<DirEntry[]> {
     type: e.type === "dir" ? "dir" : "file",
     size: e.size,
   }));
+}
+
+// Every file path in the repo at `ref`, in one request (git tree API), so a
+// connected AI can find a file by name instead of opening folders one by one.
+export async function listAllFiles(ref: string): Promise<string[]> {
+  const data = await gh<{ tree: Array<{ path: string; type: string }> }>(
+    `/repos/${OWNER}/${REPO}/git/trees/${encodeURIComponent(ref)}?recursive=1`,
+  );
+  return (data?.tree ?? []).filter((e) => e.type === "blob").map((e) => e.path);
+}
+
+export interface RepoTextFile {
+  path: string;
+  content: string;
+}
+
+const MAX_SEARCH_FILE_BYTES = 512 * 1024;
+
+// Pulls the text files out of a .tar (GitHub's tarball). Plain ustar plus
+// the pax records GitHub writes; binary and very large files are skipped.
+export function readTarTextFiles(tar: Buffer): RepoTextFile[] {
+  const files: RepoTextFile[] = [];
+  let paxPath: string | null = null;
+  let offset = 0;
+  while (offset + 512 <= tar.length) {
+    const header = tar.subarray(offset, offset + 512);
+    if (header.every((b) => b === 0)) break;
+    const field = (from: number, len: number) =>
+      header.subarray(from, from + len).toString("utf8").replace(/\0.*$/s, "");
+    const size = parseInt(field(124, 12).trim() || "0", 8);
+    const type = field(156, 1);
+    const prefix = field(345, 155);
+    const name = prefix ? `${prefix}/${field(0, 100)}` : field(0, 100);
+    const body = tar.subarray(offset + 512, offset + 512 + size);
+    offset += 512 + Math.ceil(size / 512) * 512;
+    if (type === "x") {
+      paxPath = /(?:^|\n)\d+ path=([^\n]*)\n/.exec(body.toString("utf8"))?.[1] ?? null;
+      continue;
+    }
+    const fullName = paxPath ?? name;
+    paxPath = null;
+    if (type !== "0" && type !== "") continue;
+    if (size > MAX_SEARCH_FILE_BYTES || body.subarray(0, 8000).includes(0)) continue;
+    // GitHub wraps everything in one "<owner>-<repo>-<sha>/" folder.
+    const path = fullName.replace(/^[^/]+\//, "");
+    if (path) files.push({ path, content: body.toString("utf8") });
+  }
+  return files;
+}
+
+// Every text file in the repo at `ref`, from one tarball download (about
+// 3 MB). GitHub's code search doesn't index this private repo and only
+// covers the default branch, so searching the archive is the reliable way
+// to look inside files, including on a change's own branch.
+export async function getRepoTextFiles(ref: string): Promise<RepoTextFile[]> {
+  const res = await fetch(
+    `${API}/repos/${OWNER}/${REPO}/tarball/${encodeURIComponent(ref)}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token()}`,
+        "X-GitHub-Api-Version": "2022-11-28",
+      },
+    },
+  );
+  if (!res.ok) {
+    throw new GitHubApiError(res.status, `GitHub tarball ${ref} -> ${res.status}`);
+  }
+  return readTarTextFiles(gunzipSync(Buffer.from(await res.arrayBuffer())));
 }
 
 let cachedDefaultBranch: string | null = null;

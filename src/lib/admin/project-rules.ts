@@ -39,6 +39,7 @@ function statusBlock(markdown: string): string {
 // Netlify): the proof travels with each call instead.
 export const RULES_GATED_TOOLS = new Set([
   "github_write_file",
+  "github_edit_file",
   "github_write_binary_file",
   "request_upload_link",
   "github_delete_file",

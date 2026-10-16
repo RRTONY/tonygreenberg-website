@@ -113,7 +113,7 @@ const SESSION_TOOLS = [
   {
     name: "start_change",
     description:
-      "Start a new, separate change for ONE request from the person (e.g. 'change the homepage headline'). Returns a change_id. Every edit for this request (github_write_file, github_write_binary_file, github_delete_file, sanity_patch_document, sanity_create_document) must pass this change_id, so each request is kept apart and publishing it never takes any other request live. Start a new change for each new request; keep using the same change_id for follow-up tweaks to the same request. Before calling, look at the site to work out what the person really means. If the request is at all unclear, set needs_confirmation: the card then shows the person 'I understand your request as: ...' with Desktop/Mobile/Both, and every edit is refused until they say yes (confirm_change). Non-technical people often use words like tabs, table, buttons, menu, header, box or section loosely, so treat those as unclear unless the page has exactly one thing they could mean.",
+      "Start a new, separate change for ONE request from the person (e.g. 'change the homepage headline'). Returns a change_id. Every edit for this request (github_edit_file, github_write_file, github_write_binary_file, github_delete_file, sanity_patch_document, sanity_create_document) must pass this change_id, so each request is kept apart and publishing it never takes any other request live. Start a new change for each new request; keep using the same change_id for follow-up tweaks to the same request. Before calling, look at the site to work out what the person really means. If the request is at all unclear, set needs_confirmation: the card then shows the person 'I understand your request as: ...' with Desktop/Mobile/Both, and every edit is refused until they say yes (confirm_change). Non-technical people often use words like tabs, table, buttons, menu, header, box or section loosely, so treat those as unclear unless the page has exactly one thing they could mean.",
     input_schema: {
       type: "object" as const,
       properties: {
@@ -341,6 +341,7 @@ const SESSION_TOOLS = [
 const CHANGE_REQUIRED_TOOLS = new Set([
   "request_upload_link",
   "github_write_file",
+  "github_edit_file",
   "github_write_binary_file",
   "github_delete_file",
   "sanity_patch_document",
@@ -356,6 +357,7 @@ const CHANGE_ACTION_TOOLS = new Set([
 const CHANGE_OPTIONAL_TOOLS = new Set([
   "github_read_file",
   "github_list_dir",
+  "github_search_code",
   "check_pr_status",
   "get_check_log_excerpt",
 ]);
@@ -598,6 +600,10 @@ change_id to show the review card. The person then publishes or discards THAT ch
 after you show what goes live and they confirm. list_change_history and undo_change restore
 an earlier version.
 
+EDITING CODE, THE EASY WAY: github_search_code to find the file (search for the words the person
+sees on the page, or a component/page name), github_read_file to see it, then github_edit_file
+with exact old_text/new_text pairs. Only use github_write_file for a brand-new file.
+
 The rules cover, among other things:
 - Plain, short, jargon-free replies (Tony, Darryl and Kimberly aren't developers), no em dashes.
 - Next.js 16 (params are Promises, proxy.ts not middleware.ts), Server Components by default.
@@ -620,6 +626,7 @@ github_read_file before changing that feature.`;
 // authored by the one GitHub token).
 const ATTRIBUTED_MESSAGE_TOOLS = new Set([
   "github_write_file",
+  "github_edit_file",
   "github_write_binary_file",
   "github_delete_file",
 ]);
