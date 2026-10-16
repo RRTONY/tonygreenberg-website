@@ -21,7 +21,9 @@ properties of undefined (reading 'bind')". On this Mac the default `node` is 22,
 or the one test file (`pnpm exec vitest run __tests__/lib/admin/tools.test.ts`). Run the whole
 suite only when the person asks for it (in chat or through the MCP server). `--changed` follows
 imports, so a changed shared file runs every test that imports it, and a change to
-`vitest.config.mts`, `__tests__/setup.ts` or `package.json` reruns everything. GitHub's PR check
+`vitest.config.mts`, `__tests__/setup.ts` or `pnpm-lock.yaml` (a dependency) reruns everything
+(`forceRerunTriggers`; Vitest's default also reran everything on any `package.json` edit, so a
+new script made PR #19's check run all 620 files, about 7.5 minutes on GitHub). GitHub's PR check
 (`test-changed-files` in `.github/workflows/pr-lint.yml`) does the same against the PR's base
 branch, on Node 24 with a 15-minute limit.
 
