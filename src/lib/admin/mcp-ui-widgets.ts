@@ -40,7 +40,7 @@
 // resourceDomains), so it adds no dependency to this server. The URI is
 // versioned because ChatGPT caches a card's HTML by URI.
 export const PENDING_CHANGES_UI_URI =
-  "ui://tonygreenberg-admin/pending-changes-v6.html";
+  "ui://tonygreenberg-admin/pending-changes-v7.html";
 
 export const PENDING_CHANGES_HTML = `<!doctype html>
 <html>
@@ -180,12 +180,23 @@ export const PENDING_CHANGES_HTML = `<!doctype html>
 <body>
   <div id="root" class="card" aria-live="polite"><span class="muted">Loading…</span></div>
   <script type="module">
-    import { App, applyDocumentTheme, applyHostStyleVariables, applyHostFonts }
-      from "https://esm.sh/@modelcontextprotocol/ext-apps@1.7.5";
+    // Exact versions of the runtime's own dependencies (?deps=): left open,
+    // esm.sh picked zod 4.x, whose esm.sh build lacks z.custom, so the SDK
+    // crashed on import and ChatGPT showed "Couldn't display tonyweb"
+    // (2026-10-17). zod 3.25.76 ships the same v4 API and builds correctly.
+    const RUNTIME = "https://esm.sh/@modelcontextprotocol/ext-apps@1.7.5?deps=@modelcontextprotocol/sdk@1.30.0,zod@3.25.76";
+    const root = document.getElementById("root");
+    let runtime;
+    try {
+      runtime = await import(RUNTIME);
+    } catch (e) {
+      root.innerHTML = '<p class="muted">The review card could not load just now. Everything it would show is in the chat reply above; ask there to publish or discard.</p>';
+      throw e;
+    }
+    const { App, applyDocumentTheme, applyHostStyleVariables, applyHostFonts } = runtime;
 
     const MAX_ITEMS = 6;
     const MAX_BEFORE_AFTER = 4;
-    const root = document.getElementById("root");
     let data = null;
     let rulesVersion = null;
     let confirming = null; // "publish" | "discard" | null
