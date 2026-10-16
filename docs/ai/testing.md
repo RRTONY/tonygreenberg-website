@@ -23,9 +23,10 @@ suite only when the person asks for it (in chat or through the MCP server). `--c
 imports, so a changed shared file runs every test that imports it, and a change to
 `vitest.config.mts`, `__tests__/setup.ts` or `pnpm-lock.yaml` (a dependency) reruns everything
 (`forceRerunTriggers`; Vitest's default also reran everything on any `package.json` edit, so a
-new script made PR #19's check run all 620 files, about 7.5 minutes on GitHub). GitHub's PR check
-(`test-changed-files` in `.github/workflows/pr-lint.yml`) does the same against the PR's base
-branch, on Node 24 with a 15-minute limit.
+new script made PR #19's check run all 620 files, about 7.5 minutes on GitHub). Tests run locally
+only: GitHub's PR check runs lint and type check, not tests (owner removed the test job on
+2026-10-17: on GitHub's small machines even a changed-files run that hit a config change took 7+
+minutes).
 
 ## Coverage target: 90% per file
 
