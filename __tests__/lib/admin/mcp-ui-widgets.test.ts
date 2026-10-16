@@ -19,11 +19,15 @@ class FakeApp {
   getHostContext = () => null;
 }
 
+// The card loads its runtime with `await import(RUNTIME)`; tests hand it a
+// fake runtime (or a failing loader) through __load instead.
+const cardScript = () =>
+  PENDING_CHANGES_HTML.match(/<script type="module">([\s\S]*?)<\/script>/)![1].replace("await import(RUNTIME)", "await __load(RUNTIME)");
+
 async function mount() {
-  const script = PENDING_CHANGES_HTML.match(/<script type="module">([\s\S]*?)<\/script>/)![1].replace(/import \{[^}]+\}\s*from "[^"]+";/, "");
   document.body.innerHTML = '<div id="root"></div>';
-  const run = new Function("App", "applyDocumentTheme", "applyHostStyleVariables", "applyHostFonts", `return (async () => {${script}})();`);
-  await run(FakeApp, vi.fn(), vi.fn(), vi.fn());
+  const run = new Function("__load", `return (async () => {${cardScript()}})();`);
+  await run(async () => ({ App: FakeApp, applyDocumentTheme: vi.fn(), applyHostStyleVariables: vi.fn(), applyHostFonts: vi.fn() }));
   return FakeApp.last;
 }
 const root = () => document.getElementById("root")!;
@@ -58,10 +62,20 @@ beforeEach(() => {
 });
 
 describe("widget resource", () => {
-  it("has a versioned ui:// URI and loads the runtime from a pinned esm.sh version", () => {
+  it("has a versioned ui:// URI and loads the runtime from esm.sh with every dependency pinned", () => {
     expect(PENDING_CHANGES_UI_URI).toMatch(/^ui:\/\/tonygreenberg-admin\/pending-changes-v\d+\.html$/);
-    expect(PENDING_CHANGES_HTML).toMatch(/from "https:\/\/esm\.sh\/@modelcontextprotocol\/ext-apps@\d+\.\d+\.\d+"/);
+    // 2026-10-17: unpinned, esm.sh resolved zod 4.x (broken build, no z.custom) and the card crashed.
+    expect(PENDING_CHANGES_HTML).toMatch(/"https:\/\/esm\.sh\/@modelcontextprotocol\/ext-apps@\d+\.\d+\.\d+\?deps=@modelcontextprotocol\/sdk@\d+\.\d+\.\d+,zod@3\.\d+\.\d+"/);
     expect(PENDING_CHANGES_HTML).not.toMatch(/manuscdn|manus-storage|\/api\/img\//);
+  });
+});
+
+describe("runtime that fails to load", () => {
+  it("shows a plain message instead of a blank card", async () => {
+    document.body.innerHTML = '<div id="root"></div>';
+    const run = new Function("__load", `return (async () => {${cardScript()}})();`);
+    await expect(run(async () => { throw new Error("t.custom is not a function"); })).rejects.toThrow("t.custom");
+    expect(root().textContent).toMatch(/could not load just now. Everything it would show is in the chat reply/);
   });
 });
 

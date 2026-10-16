@@ -196,6 +196,16 @@ touching GitHub or Sanity.
 
 ## Gotchas (from ramprate-ui's run of the same server)
 
+- **The review card crashed in ChatGPT: "Couldn't display tonyweb" (2026-10-17).** The card
+  loads its runtime from esm.sh (`ext-apps@1.7.5`). Its dependencies were left to esm.sh, which
+  now resolves zod 4.x, and esm.sh's zod 4 build has no `z.custom`, so the SDK threw
+  `t.custom is not a function` on import and the card never drew. Fix: the URL pins them
+  (`?deps=@modelcontextprotocol/sdk@1.30.0,zod@3.25.76`, the SDK version the server uses;
+  zod 3.25.76 carries the same v4 API and builds correctly), the card shows a plain "couldn't
+  load, see the chat" message if the runtime ever fails again, and the URI is `-v7`. Checked by
+  loading the card in Chrome inside a stand-in host that answers `ui/initialize` and sends a
+  review. The "CSP off" chip in ChatGPT's developer mode was not the cause. ramprate-ui's card
+  uses the same unpinned URL, so it has the same crash.
 - **One invalid tool schema makes ChatGPT drop every tool (2026-10-17).** ChatGPT kept saying
   "TonyWeb's editing tools aren't available in this session". Cause: `request_upload_link` listed
   `change_id` in its own `required` and `withChangeIdParam` appended it again, so `required` had

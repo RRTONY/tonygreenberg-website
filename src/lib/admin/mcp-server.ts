@@ -626,7 +626,7 @@ export function createAdminMcpServer(
               csp: { resourceDomains: ["https://esm.sh"] },
             },
             "openai/widgetDescription":
-              "Review card for one website change: what will go live, before and after, the site check, preview links, phone and laptop screenshots, and Publish or Discard buttons with a confirm step.",
+              "Review card for one website change: what will go live, before and after wording, the site checks, preview links, and Publish or Discard buttons with a confirm step.",
             "openai/widgetPrefersBorder": true,
           },
         },
