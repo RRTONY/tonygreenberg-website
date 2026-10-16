@@ -30,7 +30,7 @@ export default async function BlogPage() {
         <p className="mb-3 font-mono text-xs tracking-[0.2em] text-brand-gold uppercase">
           {posts.length} Essays
         </p>
-        <h1 className="mx-auto mb-4 max-w-xl font-heading text-4xl font-bold text-foreground sm:text-5xl">
+        <h1 className="mx-auto mb-4 max-w-xl font-heading text-4xl font-bold text-blue-700 sm:text-5xl">
           Essays
         </h1>
         <p className="mx-auto max-w-lg text-foreground/70">
