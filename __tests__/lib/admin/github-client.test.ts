@@ -288,3 +288,84 @@ describe("checks", () => {
     expect(gh.errorStatus(err)).toBe(404);
   });
 });
+
+// A minimal ustar entry: name at 0, octal size at 124, type at 156, prefix
+// at 345. readTarTextFiles doesn't check the checksum, so it is left blank.
+function tarEntry(name: string, content: string | Buffer, type = "0", prefix = "") {
+  const data = Buffer.isBuffer(content) ? content : Buffer.from(content);
+  const header = Buffer.alloc(512);
+  header.write(name, 0);
+  header.write(data.length.toString(8).padStart(11, "0"), 124);
+  header.write(type, 156);
+  if (prefix) header.write(prefix, 345);
+  return Buffer.concat([header, data, Buffer.alloc(Math.ceil(data.length / 512) * 512 - data.length)]);
+}
+const tar = (...entries: Buffer[]) => Buffer.concat([...entries, Buffer.alloc(1024)]);
+
+describe("repo search helpers", () => {
+  it("listAllFiles returns only files (not folders) at the given ref", async () => {
+    routes[`GET ${API}/git/trees/admin%2Fmcp-x?recursive=1`] = () =>
+      json({ tree: [{ path: "src", type: "tree" }, { path: "src/a.ts", type: "blob" }, { path: "README.md", type: "blob" }] });
+    const gh = await load();
+    await expect(gh.listAllFiles("admin/mcp-x")).resolves.toEqual(["src/a.ts", "README.md"]);
+  });
+
+  it("listAllFiles copes with an empty answer", async () => {
+    routes[`GET ${API}/git/trees/main?recursive=1`] = () => json({});
+    const gh = await load();
+    await expect(gh.listAllFiles("main")).resolves.toEqual([]);
+  });
+
+  it("readTarTextFiles strips GitHub's wrapper folder and skips folders, binaries and pax headers", async () => {
+    const gh = await load();
+    const files = gh.readTarTextFiles(
+      tar(
+        tarEntry("pax_global_header", "52 comment=abc\n", "g"),
+        tarEntry("RRTONY-site-abc/", "", "5"),
+        tarEntry("RRTONY-site-abc/src/a.ts", "export const a = 1;\n"),
+        tarEntry("RRTONY-site-abc/logo.png", Buffer.from([0x89, 0x50, 0x00, 0x01])),
+        tarEntry("page.tsx", "<p>hi</p>", "", "RRTONY-site-abc/src/app"),
+      ),
+    );
+    expect(files).toEqual([
+      { path: "src/a.ts", content: "export const a = 1;\n" },
+      { path: "src/app/page.tsx", content: "<p>hi</p>" },
+    ]);
+  });
+
+  it("readTarTextFiles uses a pax long path for the next entry only", async () => {
+    const gh = await load();
+    const long = `RRTONY-site-abc/${"d/".repeat(60)}long.ts`;
+    const record = `${long.length + 10} path=${long}\n`;
+    const files = gh.readTarTextFiles(
+      tar(
+        tarEntry("PaxHeader", record, "x"),
+        tarEntry("RRTONY-site-abc/truncated", "long file"),
+        tarEntry("RRTONY-site-abc/next.ts", "next"),
+      ),
+    );
+    expect(files.map((f) => f.path)).toEqual([`${"d/".repeat(60)}long.ts`, "next.ts"]);
+  });
+
+  it("readTarTextFiles skips files over 512 KB and stops at the end marker", async () => {
+    const gh = await load();
+    const big = tarEntry("RRTONY-site-abc/big.txt", "x".repeat(512 * 1024 + 1));
+    expect(gh.readTarTextFiles(tar(big, tarEntry("RRTONY-site-abc/ok.txt", "ok")))).toEqual([{ path: "ok.txt", content: "ok" }]);
+    expect(gh.readTarTextFiles(Buffer.alloc(0))).toEqual([]);
+  });
+
+  it("getRepoTextFiles downloads the gzipped tarball with the token", async () => {
+    const { gzipSync } = await import("node:zlib");
+    const archive = gzipSync(tar(tarEntry("RRTONY-site-abc/a.md", "# A")));
+    routes[`GET ${API}/tarball/main`] = () => new Response(archive, { status: 200 });
+    const gh = await load();
+    await expect(gh.getRepoTextFiles("main")).resolves.toEqual([{ path: "a.md", content: "# A" }]);
+    expect((calls.at(-1)!.init.headers as Record<string, string>).Authorization).toBe("Bearer ghp_test");
+  });
+
+  it("getRepoTextFiles reports a failed download", async () => {
+    routes[`GET ${API}/tarball/main`] = () => new Response("nope", { status: 403 });
+    const gh = await load();
+    await expect(gh.getRepoTextFiles("main")).rejects.toMatchObject({ status: 403, message: "GitHub tarball main -> 403" });
+  });
+});

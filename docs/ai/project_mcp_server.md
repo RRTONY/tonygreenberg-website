@@ -22,7 +22,7 @@ per-person roles and rules gate.
   before/after and undo); a document another waiting change owns, or one with unsaved Studio edits,
   is refused. Files: `change-sets.ts` (records, review, publish, discard, undo, history, tidy-up
   against GitHub), `change-describe.ts` (plain-language pages affected, before/after, review token,
-  status labels), `mcp-tool-context.ts`, `device-preview.ts`.
+  status labels), `mcp-tool-context.ts`.
 - **Statuses:** Draft → Ready for review (`submit_for_review`; any later edit sends it back to Draft)
   → Published or Discarded. A change merged or closed directly in GitHub is marked to match the
   next time waiting changes are listed.
@@ -96,7 +96,6 @@ ChatGPT by just adding `<site-origin>/api/mcp` and signing in, with no token to 
 | Tool | Role needed | Rules-gated |
 | --- | --- | --- |
 | `get_project_rules`, `list_pending_changes`, `list_change_history`, `check_deploy` | read | |
-| `preview_on_devices` (phone + laptop screenshots, before = live tonygreenberg.com, after = the change's preview) | read | |
 | `github_list_dir`, `github_read_file` | read | |
 | `check_code_quality` (ESLint + CONTRIBUTING.md house-rule patterns) | read | |
 | `check_pr_status`, `get_check_log_excerpt` | read | |
@@ -197,6 +196,22 @@ touching GitHub or Sanity.
 
 ## Gotchas (from ramprate-ui's run of the same server)
 
+- **One invalid tool schema makes ChatGPT drop every tool (2026-10-17).** ChatGPT kept saying
+  "TonyWeb's editing tools aren't available in this session". Cause: `request_upload_link` listed
+  `change_id` in its own `required` and `withChangeIdParam` appended it again, so `required` had
+  a duplicate. Claude tolerates that; ChatGPT silently drops the whole app for that user (only
+  edit/write users, since read users never see that tool). ramprate-ui hit and fixed the same bug
+  on 2026-10-08 but the fix never came across. Now `withChangeIdParam` / `withRulesVersionParam`
+  never add a key twice, and `__tests__/lib/admin/mcp-server.test.ts` checks every tool schema
+  for every role (no duplicate required keys, every required key has a property, arrays have
+  `items`, widget templates point at a real resource). **After deploying a fix like this,
+  ChatGPT still needs the app refreshed** (Settings, Apps and Connectors, TonyWeb, Refresh) and
+  a new chat, because it caches the tool list.
+- **No tests in the PR checks (owner, 2026-10-17).** A test job was added the same day, first the
+  full suite on Node 22 (hung: Node 22 crashes Vitest's workers), then changed files only on
+  Node 24 (still 7+ minutes when a config file changed). The owner had it removed: GitHub runs
+  lint and type check only, and tests run locally with `pnpm test:changed`.
+
 - **Netlify's synchronous function limit is ~10 s on the free plan (26 s on Pro) and isn't set in
   `netlify.toml`.** A Lighthouse run takes 20 to 60 s, so `lighthouse_check_page` will likely time
   out on Netlify; it works from a long-running server. `check_pr_status` keeps its own wait under
@@ -238,26 +253,32 @@ Pending Changes"), plus the review card we had left out, were merged in: a three
   Published, Discarded) and `nextStep`. Checks are listed separately: Build and Type check
   (Netlify's preview build, which runs `next build`), Lint (the server lints the changed files
   itself, stored as `lint` on the record; errors block, warnings don't), GitHub checks (the
-  `pr-lint.yml` jobs), Phone and laptop preview (optional). `getPRChecksDetail` tells Netlify's
+  `pr-lint.yml` jobs, tests included since 2026-10-17). `getPRChecksDetail` tells Netlify's
   checks apart by the `" - tonygreenberg-website"` suffix of its check runs (`NETLIFY_RUN` in
   `github-client.ts`; must match the Netlify site name).
 - **Confirm before unclear changes:** `start_change` needs `understood_as` and
   `needs_confirmation`, takes `applies_to` (both/desktop/mobile) and an optional
   `conversation_url` (chatgpt.com / claude.ai only). Unclear changes wait for `confirm_change`;
   every edit is refused until then.
-- **Screenshots:** before (live `https://tonygreenberg.com`, which is the old app until DNS
-  cutover) and after (the preview), phone and laptop, shown in the card (images travel in `_meta`,
-  not the model's text). 45 s cap; warmed up in the background with `after()` once the build
-  passes; Retry re-takes only what's missing. Works without `GOOGLE_API_KEY` at Google's low
-  anonymous quota; the key raises it.
+- **Screenshots: removed 2026-10-17 (owner: "remove the after and before thing", picked the
+  screenshots, "preview just show the link").** `preview_on_devices`, `device-preview.ts`, the
+  "Phone and laptop preview" check and the card's screenshot view are gone; the review card keeps
+  the preview links and the Preview button. The before/after *wording* list stays. The card's URI
+  went to `pending-changes-v6.html` so ChatGPT drops its cached copy.
 - **Attached files:** `github_write_binary_file` takes `file` (ChatGPT's attachment),
   `source_url` (public https) or `base64Content`; `request_upload_link` gives a signed 30-minute
   page at `/api/mcp/upload` for one change and one path (signed with `MCP_OAUTH_SECRET`, user
   re-checked against `MCP_ADMIN_USERS`). Size limits 4 MB (page) / 8 MB (download) and the bytes
   must match the file's extension. `binary-upload.ts`, `src/app/api/mcp/upload/route.ts`.
-- **Other Pending Changes:** every change result carries `otherPending` + `otherPendingNote`, and
-  the AI ends its reply with that list (CONTRIBUTING.md's Status Report has the line). New
-  `conversationUrl` field on `adminChange`.
+- **Other Pending Changes:** every change result carried `otherPending` + `otherPendingNote`, and
+  the AI ended its reply with that list. New `conversationUrl` field on `adminChange`.
+  **Changed 2026-10-17 (owner: "only show the task related thing", the rest "if you ask"):** only
+  `list_pending_changes` *without* a `change_id` carries `otherPending` (and, when it opens the
+  one waiting change, `otherWaiting` / `olderChanges` / `unrelatedDrafts`). Every task answer
+  (start, confirm, submit, review with a `change_id`, publish, discard, undo) gets only an
+  `otherPendingNote` telling the AI to stay on this change and how to ask for the rest, so the
+  card shows no "Other pending changes" section there. The "N other waiting changes are NOT
+  included" line under What will go live stays: it is the publish-scope reassurance.
 - **Lint inside the deployed function:** `next.config.ts` lists `eslint` and `eslint-config-next`
   in `serverExternalPackages` (ramprate saw "Cannot find module 'fast-glob'" live). ramprate's
   `outputFileTracingIncludes` globs are **not** used: with pnpm they match linked package folders
@@ -269,4 +290,4 @@ Pending Changes"), plus the review card we had left out, were merged in: a three
   the card resource is served and its script is valid JavaScript, `get_project_rules` returns
   `migrationStatus`, `list_pending_changes` returns `otherPending`, `check_code_quality` runs
   ESLint, `/api/mcp/upload` refuses a missing or bad link (401). Not yet run: a full change on a
-  deploy preview (start, confirm, edit, review card, screenshots, publish/discard).
+  deploy preview (start, confirm, edit, review card, publish/discard).

@@ -4,6 +4,12 @@ on:
   pull_request:
     branches: [main]
 
+# A new push to the same PR cancels the older run still going, so a stale
+# run never keeps a PR waiting (2026-10-17).
+concurrency:
+  group: pr-checks-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   lint-changed-files:
     runs-on: ubuntu-latest

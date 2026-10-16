@@ -26,6 +26,16 @@ export default defineConfig({
     restoreMocks: true,
     // Form tests type key by key; under load (a full run) they need headroom.
     testTimeout: 60000,
+    // `pnpm test:changed` and the PR check run only the tests a change
+    // touches (owner, 2026-10-17). Vitest's default also reruns everything
+    // when package.json changes, so adding a script made a PR run all 620
+    // files on GitHub. Only these really affect every test: this config, the
+    // shared setup, and a dependency change (the lockfile).
+    forceRerunTriggers: [
+      "**/vitest.config.*",
+      "**/__tests__/setup.ts",
+      "**/pnpm-lock.yaml",
+    ],
     // `pnpm test:coverage`: every file in src/ must have 90% of its lines and
     // statements run by its tests (owner's target, 2026-10-16). perFile: one
     // badly covered file fails the run even when the total is high.

@@ -57,7 +57,8 @@ Tailwind v4 + shadcn/ui, Sanity for editorial content, deployed on Netlify from 
 - **Never add a `loading.tsx` above a dynamic route**: it turns every 404 into a 200.
 - **Real content must be in the server HTML** (`forceMount` on accordions/collapsibles).
 - **No new npm dependency without asking first.** Never commit `.env.local`.
-- **Check before calling anything done:** `pnpm typecheck`, `pnpm lint`, `pnpm test`, `pnpm build` for routing
+- **Check before calling anything done:** `pnpm typecheck`, `pnpm lint`, `pnpm test:changed` (only the
+  tests for what this task changed; the full `pnpm test` only when asked), `pnpm build` for routing
   or config changes, and look at the real page on `pnpm start`.
 - **Confirm before anything hard to undo or outward-facing**: publishing, merging, deleting, DNS.
 - **Plain, short replies for the team** (Tony, Darryl, Kimberly aren't developers). No em dashes
@@ -79,8 +80,8 @@ Tailwind v4 + shadcn/ui, Sanity for editorial content, deployed on Netlify from 
   in plain words; `needs_confirmation: true` whenever the request could mean more than one thing),
   pass its `change_id` on every edit, then `submit_for_review` with a plain summary and
   `list_pending_changes` with that `change_id` to show the review card (one status and next step,
-  Build / Type check / Lint / Phone and laptop checks, what goes live and what doesn't,
-  before/after, Preview | Discard | Publish). Code lands on that change's own `admin/mcp-*` branch
+  Build / Type check / Lint / GitHub checks, what goes live and what doesn't, before/after
+  wording, the preview link, Preview | Discard | Publish). Code lands on that change's own `admin/mcp-*` branch
   and pull request, never straight to `main`; Sanity edits are drafts.
 - **Unclear request:** the change waits as "Waiting for your OK" and every edit is refused until
   the person says yes (`confirm_change`). Ask them "I understand your request as: ... Is that right?"
@@ -91,8 +92,9 @@ Tailwind v4 + shadcn/ui, Sanity for editorial content, deployed on Netlify from 
   pass it as `file` to `github_write_binary_file`; anywhere else call `request_upload_link` and give
   the person the private link (30 minutes, one change, one path). Content images still belong in
   Sanity (Studio), not the repo.
-- **End every MCP reply with "Other pending changes"**: the `otherPending` list every change result
-  carries (one line each: what, when, status), or "No other pending changes."
+- **Only the task at hand** (owner, 2026-10-17): while working on a request, talk about that
+  change only (its status, preview link, pull request). List the other waiting changes, branches
+  or pull requests only when the person asks (`list_pending_changes` without a `change_id`).
 - Can't be done through MCP: env vars, `package.json`/lockfiles, `netlify.toml`, `src/proxy.ts`,
   CI, DNS, uploading images into Sanity, or the MCP server's own code. Tell the person who can.
 - Details: [`docs/ai/project_mcp_server.md`](docs/ai/project_mcp_server.md).

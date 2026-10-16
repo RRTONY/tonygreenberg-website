@@ -1,4 +1,3 @@
-import { after } from "next/server";
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import {
   CallToolRequestSchema,
@@ -30,34 +29,22 @@ import {
   isOpen,
   listOpenChangeSets,
   markEdited,
-  markWarmed,
   otherPendingText,
   pendingRows,
   pendingOverview,
   publishChange,
   reconcileWithGitHub,
-  recordDevices,
   submitForReview,
   undoChange,
   type ChangeSet,
 } from "@/lib/admin/change-sets";
 import {
   APPLIES_TO_LABELS,
-  describeFiles,
   normalizeAppliesTo,
   normalizeChangeKey,
   normalizeConversationUrl,
 } from "@/lib/admin/change-describe";
-import {
-  captureDevices,
-  deviceOutcome,
-  liveTarget,
-  previewTarget,
-  warmDevices,
-  type Device,
-} from "@/lib/admin/device-preview";
 import { isNetlifyConfigured, listDeploys } from "@/lib/admin/netlify-client";
-import * as gh from "@/lib/admin/github-client";
 import { buildMcpToolContext } from "@/lib/admin/mcp-tool-context";
 import {
   READ_ONLY_TOOLS,
@@ -113,7 +100,7 @@ const SESSION_TOOLS = [
   {
     name: "start_change",
     description:
-      "Start a new, separate change for ONE request from the person (e.g. 'change the homepage headline'). Returns a change_id. Every edit for this request (github_write_file, github_write_binary_file, github_delete_file, sanity_patch_document, sanity_create_document) must pass this change_id, so each request is kept apart and publishing it never takes any other request live. Start a new change for each new request; keep using the same change_id for follow-up tweaks to the same request. Before calling, look at the site to work out what the person really means. If the request is at all unclear, set needs_confirmation: the card then shows the person 'I understand your request as: ...' with Desktop/Mobile/Both, and every edit is refused until they say yes (confirm_change). Non-technical people often use words like tabs, table, buttons, menu, header, box or section loosely, so treat those as unclear unless the page has exactly one thing they could mean.",
+      "Start a new, separate change for ONE request from the person (e.g. 'change the homepage headline'). Returns a change_id. Every edit for this request (github_edit_file, github_write_file, github_write_binary_file, github_delete_file, sanity_patch_document, sanity_create_document) must pass this change_id, so each request is kept apart and publishing it never takes any other request live. Start a new change for each new request; keep using the same change_id for follow-up tweaks to the same request. Before calling, look at the site to work out what the person really means. If the request is at all unclear, set needs_confirmation: the card then shows the person 'I understand your request as: ...' with Desktop/Mobile/Both, and every edit is refused until they say yes (confirm_change). Non-technical people often use words like tabs, table, buttons, menu, header, box or section loosely, so treat those as unclear unless the page has exactly one thing they could mean.",
     input_schema: {
       type: "object" as const,
       properties: {
@@ -177,16 +164,14 @@ const SESSION_TOOLS = [
     input_schema: {
       type: "object" as const,
       properties: {
-        [CHANGE_ID_PARAM]: changeIdSchema(
-          "The change_id from start_change the file belongs to.",
-        ),
         path: {
           type: "string",
           description:
             "Where to save it in the repo, e.g. public/images/tsi-hero.png. The upload must be the same kind of file as the ending.",
         },
       },
-      required: [CHANGE_ID_PARAM, "path"],
+      // change_id is added by withChangeIdParam (CHANGE_REQUIRED_TOOLS).
+      required: ["path"],
     },
   },
   {
@@ -226,7 +211,7 @@ const SESSION_TOOLS = [
   {
     name: "list_pending_changes",
     description:
-      'Show waiting changes. With a change_id: the full review for that one change: ONE status (state: working, checking, ready, failed, stuck, awaiting_ok, published, discarded) with nextStep telling the person what to do, the checks (Build, Type check, Lint, Phone and laptop preview), what will go live, before and after, preview links, and its review_token. The card shows Preview, Discard and Publish together (greyed out when not allowed) plus Retry when something failed. Without a change_id: every waiting change, each reviewable on its own, plus older waiting work and unrelated Sanity Studio drafts that will NOT be published. Always show the person this review before publishing. In your reply, lead with the state and nextStep in one line and don\'t repeat the card. If state is "checking", call it again in a bit (you have no timer to wait with).',
+      'Show waiting changes. With a change_id: the full review for that one change: ONE status (state: working, checking, ready, failed, stuck, awaiting_ok, published, discarded) with nextStep telling the person what to do, the checks (Build, Type check, Lint, GitHub checks), what will go live, before and after, preview links, and its review_token. The card shows Preview, Discard and Publish together (greyed out when not allowed) plus Retry when something failed. Without a change_id (only when the person asks what\'s waiting; while working on a task always pass that task\'s change_id): every waiting change, each reviewable on its own, plus older waiting work and unrelated Sanity Studio drafts that will NOT be published. Always show the person this review before publishing. In your reply, lead with the state and nextStep in one line and don\'t repeat the card. If state is "checking", call it again in a bit (you have no timer to wait with).',
     input_schema: {
       type: "object" as const,
       properties: {
@@ -285,30 +270,6 @@ const SESSION_TOOLS = [
     _meta: { ui: { resourceUri: PENDING_CHANGES_UI_URI } },
   },
   {
-    name: "preview_on_devices",
-    description:
-      "Show how a change looks on a phone and on a laptop, before (the live site) and after (the preview): real screenshots of the top of the page, side by side in the card. Use after list_pending_changes whenever the change affects layout, images, buttons or anything visual, so the person can check both sizes before publishing. Needs the change's preview to be built (Build check passed). If a screenshot timed out, the card offers Retry, which re-takes only the missing ones (it's usually quick the second time).",
-    input_schema: {
-      type: "object" as const,
-      properties: {
-        [CHANGE_ID_PARAM]: changeIdSchema("The change to preview."),
-        path: {
-          type: "string",
-          description:
-            "Page address to show, e.g. '/' or '/about'. Defaults to the first page the change affects.",
-        },
-        devices: {
-          type: "array",
-          items: { type: "string", enum: ["phone", "laptop"] },
-          description:
-            "Optional: only these devices (used by Retry). Default both.",
-        },
-      },
-      required: [CHANGE_ID_PARAM],
-    },
-    _meta: { ui: { resourceUri: PENDING_CHANGES_UI_URI } },
-  },
-  {
     name: "check_deploy",
     description:
       "Netlify build status, in plain words. With a change_id: that change's preview builds (is the preview ready, still building, or did the build fail and why). Without: the live tonygreenberg.com site's latest builds, e.g. to confirm a publish actually went live or to explain a failed build. Read-only. If a build failed, use the error text to fix the cause in the same change.",
@@ -341,6 +302,7 @@ const SESSION_TOOLS = [
 const CHANGE_REQUIRED_TOOLS = new Set([
   "request_upload_link",
   "github_write_file",
+  "github_edit_file",
   "github_write_binary_file",
   "github_delete_file",
   "sanity_patch_document",
@@ -356,6 +318,7 @@ const CHANGE_ACTION_TOOLS = new Set([
 const CHANGE_OPTIONAL_TOOLS = new Set([
   "github_read_file",
   "github_list_dir",
+  "github_search_code",
   "check_pr_status",
   "get_check_log_excerpt",
 ]);
@@ -370,7 +333,13 @@ function withChangeIdParam(name: string, schema: ToolSchema): ToolSchema {
           "The change_id from start_change for the request this edit belongs to.",
         ),
       },
-      required: [...(schema.required ?? []), CHANGE_ID_PARAM],
+      // A duplicate in "required" is invalid JSON Schema: Claude tolerates it,
+      // but ChatGPT then drops every tool on the server ("editing tools
+      // aren't available", 2026-10-17; same bug as ramprate-ui 2026-10-08).
+      required: [
+        ...(schema.required ?? []).filter((k) => k !== CHANGE_ID_PARAM),
+        CHANGE_ID_PARAM,
+      ],
     };
   }
   if (CHANGE_OPTIONAL_TOOLS.has(name)) {
@@ -477,12 +446,6 @@ const CHATGPT_TOOL_META: Record<string, Record<string, unknown>> = {
     "openai/toolInvocation/invoked": "Changes ready to review",
     "openai/widgetAccessible": true,
   },
-  preview_on_devices: {
-    "openai/outputTemplate": PENDING_CHANGES_UI_URI,
-    "openai/toolInvocation/invoking": "Taking phone and laptop screenshots…",
-    "openai/toolInvocation/invoked": "Screenshots ready",
-    "openai/widgetAccessible": true,
-  },
   publish_changes: {
     "openai/toolInvocation/invoking": "Publishing to the live site…",
     "openai/toolInvocation/invoked": "Publish finished",
@@ -526,7 +489,9 @@ async function listPendingChanges(changeKey: string | null) {
     open.filter((c) => c.key !== target.key).length +
     overview.olderChanges.length;
   const review = await buildReview(target, others);
-  scheduleWarmUp(target, review);
+  // Asked about one change: answer about that change only (owner,
+  // 2026-10-17). The rest is listed only when asked for without a change_id.
+  if (changeKey) return { view: "detail" as const, ...review };
   return {
     view: "detail" as const,
     ...review,
@@ -534,43 +499,6 @@ async function listPendingChanges(changeKey: string | null) {
     olderChanges: overview.olderChanges,
     unrelatedDrafts: overview.unrelatedDrafts,
   };
-}
-
-// Once a change's preview has built, ask Google for its screenshots in the
-// background (after this reply is sent), once per version of the code, so
-// preview_on_devices is quick when the person asks. Never blocks or fails
-// the review.
-function scheduleWarmUp(
-  change: ChangeSet,
-  review: Awaited<ReturnType<typeof buildReview>>,
-) {
-  const build = review.checks.find((c) => c.key === "build");
-  if (
-    build?.state !== "passed" ||
-    !review.headSha ||
-    change.warmedSha === review.headSha
-  ) {
-    return;
-  }
-  const path = defaultPreviewPath(change);
-  const url = previewTarget(review.previewUrl, path);
-  if (!url) return;
-  const headSha = review.headSha;
-  try {
-    after(async () => {
-      await markWarmed(change.key, headSha).catch(() => {});
-      await warmDevices(url, liveTarget(path)).catch(() => {});
-    });
-  } catch {
-    // Outside a request (tests): skip the warm-up.
-  }
-}
-
-function defaultPreviewPath(change: ChangeSet): string {
-  return (
-    describeFiles((change.files ?? []).map((f) => f.path)).find((a) => a.route)
-      ?.route ?? "/"
-  );
 }
 
 async function rulesVersionOrNull(): Promise<string | null> {
@@ -598,6 +526,10 @@ change_id to show the review card. The person then publishes or discards THAT ch
 after you show what goes live and they confirm. list_change_history and undo_change restore
 an earlier version.
 
+EDITING CODE, THE EASY WAY: github_search_code to find the file (search for the words the person
+sees on the page, or a component/page name), github_read_file to see it, then github_edit_file
+with exact old_text/new_text pairs. Only use github_write_file for a brand-new file.
+
 The rules cover, among other things:
 - Plain, short, jargon-free replies (Tony, Darryl and Kimberly aren't developers), no em dashes.
 - Next.js 16 (params are Promises, proxy.ts not middleware.ts), Server Components by default.
@@ -620,6 +552,7 @@ github_read_file before changing that feature.`;
 // authored by the one GitHub token).
 const ATTRIBUTED_MESSAGE_TOOLS = new Set([
   "github_write_file",
+  "github_edit_file",
   "github_write_binary_file",
   "github_delete_file",
 ]);
@@ -833,103 +766,6 @@ export function createAdminMcpServer(
         _meta: { rulesVersion: await rulesVersionOrNull() },
       };
     }
-
-    if (name === "preview_on_devices") {
-      if (!changeKey) {
-        return toResult(
-          { error: "Say which change: pass its change_id." },
-          true,
-        );
-      }
-      const target = await getChangeSet(changeKey);
-      if (!target) {
-        return toResult(
-          { error: `No change found with id ${changeKey}.` },
-          true,
-        );
-      }
-      if (!target.prNumber || !isOpen(target)) {
-        return toResult(
-          {
-            error: target.prNumber
-              ? "This change is no longer waiting, so its preview is gone. Look at the live site instead."
-              : "This change has no code edits, so there is no preview site to show. Content edits appear on the live site once published.",
-          },
-          true,
-        );
-      }
-      const [{ previewUrl }, headSha] = await Promise.all([
-        gh.getPRChecksDetail(target.prNumber),
-        gh.getPRHeadSha(target.prNumber),
-      ]);
-      const path = input.path ?? defaultPreviewPath(target);
-      const url = previewTarget(previewUrl, path);
-      if (!url) {
-        return toResult(
-          {
-            error: previewUrl
-              ? "That page address isn't valid. Use something like '/' or '/about'."
-              : "The preview isn't built yet. Check list_pending_changes until the site check passes, then try again.",
-          },
-          true,
-        );
-      }
-      const wanted: Device[] = Array.isArray(input.devices)
-        ? (["phone", "laptop"] as const).filter((d) =>
-            (input.devices as unknown[]).includes(d),
-          )
-        : ["phone", "laptop"];
-      const devices: Device[] = wanted.length ? wanted : ["phone", "laptop"];
-      const shots = await captureDevices(url, liveTarget(path), devices);
-
-      // Keep the earlier result for a device that wasn't re-taken.
-      const prev =
-        target.devices && target.devices.headSha === headSha
-          ? target.devices
-          : null;
-      const outcome = (d: Device) =>
-        devices.includes(d) ? deviceOutcome(shots, d) : (prev?.[d] ?? "failed");
-      if (headSha) {
-        await recordDevices(target.key, {
-          headSha,
-          phone: outcome("phone"),
-          laptop: outcome("laptop"),
-        }).catch(() => {});
-      }
-      const missing = (["phone", "laptop"] as const).filter(
-        (d) => outcome(d) !== "ok",
-      );
-      // Retry covers any picture that didn't load this time, Before too.
-      const retry = devices.filter((d) =>
-        shots.some((x) => x.device === d && !x.image),
-      );
-      // The pictures go only to the card (_meta), not into the model's
-      // context, where they would cost tokens and add nothing.
-      return {
-        ...toResult({
-          view: "devices",
-          changeId: target.key,
-          title: target.title,
-          page: new URL(url).pathname,
-          url,
-          retaken: devices,
-          shots: shots.map((s) => ({
-            device: s.device,
-            version: s.version,
-            ok: !!s.image,
-            ...(s.error ? { error: s.error } : {}),
-          })),
-          missing,
-          retry,
-          youCanDiscard: canUseTool(user.role, "discard_change"),
-          note: retry.length
-            ? `Some ${retry.join(" and ")} screenshots didn't load. The card offers Retry, which re-takes only those.`
-            : "Before (live site) and after (this change) are shown for phone and laptop in the card.",
-        }),
-        _meta: { shots, rulesVersion: await rulesVersionOrNull() },
-      };
-    }
-
 
     if (name === "list_change_history") {
       const limit = Number(input.limit ?? 20);
@@ -1188,18 +1024,24 @@ export function createAdminMcpServer(
   server.setRequestHandler(CallToolRequestSchema, async (request) => {
     const result = await handleCall(request);
     if (!OTHER_PENDING_TOOLS.has(request.params.name)) return result;
-    return withOtherPending(
-      result,
-      request.params.arguments?.[CHANGE_ID_PARAM] as string | undefined,
-    );
+    // While someone works on a task, only that task (owner, 2026-10-17):
+    // the full list of waiting changes only comes with list_pending_changes
+    // called without a change_id, i.e. when the person asks what's waiting.
+    const asked = request.params.arguments?.[CHANGE_ID_PARAM];
+    if (request.params.name === "list_pending_changes" && !asked) {
+      return withOtherPending(result, undefined);
+    }
+    return withTaskOnlyNote(result);
   });
 
   return server;
 }
 
-// Team feedback 2026-10-08: every change-related answer carries the other
-// waiting changes ("Other Pending Changes"), for the card and for the AI to
-// end its reply with, so an old change is never forgotten.
+// Team feedback 2026-10-08: change-related answers carried the other waiting
+// changes ("Other Pending Changes") so an old change is never forgotten.
+// Owner, 2026-10-17: while someone works on a task, show only that task;
+// list the others only when the person asks (list_pending_changes without a
+// change_id). Task answers get a one-line note telling the AI how to ask.
 const OTHER_PENDING_TOOLS = new Set([
   "start_change",
   "confirm_change",
@@ -1209,6 +1051,26 @@ const OTHER_PENDING_TOOLS = new Set([
   "discard_change",
   "undo_change",
 ]);
+
+const TASK_ONLY_NOTE =
+  "Talk only about this change (its status, preview link and pull request). Don't list other waiting website changes unless the person asks; if they ask what else is waiting, call list_pending_changes without a change_id.";
+
+function withTaskOnlyNote<
+  T extends {
+    content: Array<{ type: "text"; text: string }>;
+    structuredContent?: Record<string, unknown>;
+    isError?: boolean;
+  },
+>(result: T): T {
+  const sc = result.structuredContent;
+  if (result.isError || !sc) return result;
+  const merged = { ...sc, otherPendingNote: TASK_ONLY_NOTE };
+  return {
+    ...result,
+    structuredContent: merged,
+    content: [{ type: "text", text: JSON.stringify(merged, null, 2) }],
+  };
+}
 
 async function withOtherPending<
   T extends {
@@ -1231,7 +1093,7 @@ async function withOtherPending<
     .catch(() => null);
   const extra = {
     otherPending: rows,
-    otherPendingNote: `End your reply with a section titled "Other Pending Changes" listing these in plain words (what it is, when it was asked, status), or "No other pending changes." if there are none. Each can be previewed, published or discarded on its own; publishing one never publishes another.\n${otherPendingText(rows)}`,
+    otherPendingNote: `The person asked what's waiting. List these in plain words (what it is, when it was asked, status), or "No other pending changes." if there are none. Each can be previewed, published or discarded on its own; publishing one never publishes another.\n${otherPendingText(rows)}`,
   };
   const merged = { ...sc, ...extra };
   return {

@@ -39,6 +39,7 @@ function statusBlock(markdown: string): string {
 // Netlify): the proof travels with each call instead.
 export const RULES_GATED_TOOLS = new Set([
   "github_write_file",
+  "github_edit_file",
   "github_write_binary_file",
   "request_upload_link",
   "github_delete_file",
@@ -141,6 +142,9 @@ export function withRulesVersionParam<T extends JsonSchema>(schema: T): T & { re
         description: `The rulesVersion returned by get_project_rules. Required: proves the project rules (${RULES_PATH} and ${FULL_RULES_PATH}) were read this conversation.`,
       },
     },
-    required: [...(schema.required ?? []), RULES_VERSION_PARAM],
+    required: [
+      ...(schema.required ?? []).filter((k) => k !== RULES_VERSION_PARAM),
+      RULES_VERSION_PARAM,
+    ],
   };
 }

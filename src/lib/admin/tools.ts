@@ -77,6 +77,61 @@ export const ADMIN_TOOLS = [
     },
   },
   {
+    name: "github_search_code",
+    description:
+      "Find where something lives in the code, so you know which file to read and edit. Searches file names AND the text inside files. Use words a person would see on the page (a headline, a button label), a component or page name (e.g. \"HeroSection\", \"find-your-coffee\"), or a route. Returns matching file paths, and the matching lines with their line numbers. Start here instead of browsing folders with github_list_dir. Pass this change's change_id to search its own version of the code.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        query: {
+          type: "string",
+          description:
+            'Words or a name to look for, e.g. "Find Your Love Language" or "brewsoul-quiz". Plain words, no regex; ignores upper/lower case.',
+        },
+        path_prefix: {
+          type: "string",
+          description:
+            'Optional: only look inside this folder, e.g. "src/components" or "src/lib/content".',
+        },
+      },
+      required: ["query"],
+    },
+  },
+  {
+    name: "github_edit_file",
+    description:
+      "The easiest, safest way to change code: replace exact pieces of text in one file, without rewriting the whole file. Read the file first (github_read_file), then for each change pass `old_text` copied EXACTLY from the file (same spaces and line breaks, include a few surrounding words so it appears only once) and the `new_text` to put in its place. Edits apply in order, all or nothing: if any old_text is missing or appears more than once, nothing is saved and the error says which edit and why. Committed to the change's own working branch (admin/mcp-*), never the live site directly. Use github_write_file only for a new file or a full rewrite.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        path: { type: "string", description: "e.g. src/app/about/page.tsx" },
+        edits: {
+          type: "array",
+          description: "One or more replacements, applied in order.",
+          items: {
+            type: "object",
+            properties: {
+              old_text: {
+                type: "string",
+                description: "Exact text currently in the file. Must appear exactly once.",
+              },
+              new_text: {
+                type: "string",
+                description: "What to put in its place (empty string deletes it).",
+              },
+            },
+            required: ["old_text", "new_text"],
+          },
+        },
+        message: {
+          type: "string",
+          description: "Short commit message describing the change.",
+        },
+      },
+      required: ["path", "edits", "message"],
+    },
+  },
+  {
     name: "github_write_file",
     description:
       "Create or update a file with new content. Committed to the pending change's working branch (admin/mcp-*), never the default branch directly. Pass the FULL new file content, not a diff.",
@@ -617,6 +672,102 @@ export function normalizeRepoPath(raw: unknown): string {
   return p;
 }
 
+export interface TextEdit {
+  old_text: string;
+  new_text: string;
+}
+
+// Applies exact-text replacements in order, all or nothing. Each old_text
+// must occur exactly once in the file as it stands after the earlier edits,
+// so an edit can never land in the wrong place.
+export function applyTextEdits(
+  content: string,
+  edits: TextEdit[],
+): { ok: true; content: string } | { ok: false; error: string } {
+  let next = content;
+  for (const [i, edit] of edits.entries()) {
+    const label = `Edit ${i + 1} of ${edits.length}`;
+    if (!edit.old_text) {
+      return { ok: false, error: `${label}: old_text is empty. Copy the exact text to replace from the file.` };
+    }
+    const count = next.split(edit.old_text).length - 1;
+    if (count === 0) {
+      return {
+        ok: false,
+        error: `${label}: old_text was not found. Read the file again with github_read_file and copy the text exactly (spaces, quotes and line breaks matter).`,
+      };
+    }
+    if (count > 1) {
+      return {
+        ok: false,
+        error: `${label}: old_text appears ${count} times. Include more of the surrounding text so it matches only one place.`,
+      };
+    }
+    next = next.replace(edit.old_text, () => edit.new_text);
+  }
+  return { ok: true, content: next };
+}
+
+function parseEdits(raw: unknown): TextEdit[] | null {
+  if (!Array.isArray(raw) || raw.length === 0) return null;
+  const edits: TextEdit[] = [];
+  for (const e of raw) {
+    if (!e || typeof e !== "object") return null;
+    const { old_text, new_text } = e as Record<string, unknown>;
+    if (typeof old_text !== "string" || typeof new_text !== "string") return null;
+    edits.push({ old_text, new_text });
+  }
+  return edits;
+}
+
+const SEARCH_NAME_LIMIT = 30;
+const SEARCH_TEXT_FILE_LIMIT = 20;
+const SEARCH_LINES_PER_FILE = 3;
+
+export interface SearchResult {
+  fileNameMatches: string[];
+  textMatches: Array<{ path: string; lines: string[] }>;
+  textMatchFileCount: number;
+}
+
+// File names match the query as a slug ("find your coffee" finds
+// find-your-coffee) or by containing every word; text matches are lines that
+// contain the whole query, ignoring case, with line numbers so the caller can
+// go straight to the spot. Code (src/) is listed before docs and the legacy
+// reference copy.
+export function searchRepoFiles(
+  files: Array<{ path: string; content: string }>,
+  query: string,
+): SearchResult {
+  const q = query.toLowerCase();
+  const words = q.split(/\s+/).filter(Boolean);
+  const slug = q.replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  const rank = (p: string) => (p.startsWith("src/") ? 0 : p.startsWith("_legacy") ? 2 : 1);
+  const sorted = [...files].sort((a, b) => rank(a.path) - rank(b.path));
+
+  const fileNameMatches = sorted
+    .map((f) => f.path)
+    .filter((p) => {
+      const lower = p.toLowerCase();
+      return (!!slug && lower.includes(slug)) || words.every((w) => lower.includes(w));
+    })
+    .slice(0, SEARCH_NAME_LIMIT);
+
+  const allText = sorted.flatMap((f) => {
+    const lines: string[] = [];
+    f.content.split("\n").forEach((line, i) => {
+      if (line.toLowerCase().includes(q)) lines.push(`${i + 1}: ${line.trim().slice(0, 200)}`);
+    });
+    return lines.length ? [{ path: f.path, lines: lines.slice(0, SEARCH_LINES_PER_FILE) }] : [];
+  });
+
+  return {
+    fileNameMatches,
+    textMatches: allText.slice(0, SEARCH_TEXT_FILE_LIMIT),
+    textMatchFileCount: allText.length,
+  };
+}
+
 function pathRequired(): ToolCallResult {
   return {
     output: { error: "A repo-relative file path is required." },
@@ -682,6 +833,59 @@ export async function runAdminTool(
       if (!file)
         return { output: { error: `${path} does not exist` }, isError: true };
       return { output: { content: file.content } };
+    }
+
+    case "github_search_code": {
+      const query = String(input.query ?? "").trim();
+      const prefix = normalizeRepoPath(input.path_prefix);
+      if (!query) {
+        return { output: { error: "Say what to look for in `query`." }, isError: true };
+      }
+      const files = (await gh.getRepoTextFiles(await ctx.getReadBranch())).filter(
+        (f) =>
+          !isPathReadDenied(f.path) &&
+          (!prefix || f.path === prefix || f.path.startsWith(`${prefix}/`)),
+      );
+      const result = searchRepoFiles(files, query);
+      return {
+        output: {
+          ...result,
+          next:
+            result.fileNameMatches.length || result.textMatches.length
+              ? "Open the most likely file with github_read_file, then change it with github_edit_file."
+              : "Nothing matched. Try fewer or different words, a component name, or the page's route.",
+        },
+      };
+    }
+
+    case "github_edit_file": {
+      const path = normalizeRepoPath(input.path);
+      const message = String(input.message ?? "MCP edit");
+      if (!path) return pathRequired();
+      if (isPathDenied(path)) return denied(path);
+      const edits = parseEdits(input.edits);
+      if (!edits) {
+        return {
+          output: { error: "`edits` must be a list of { old_text, new_text } pairs (at least one)." },
+          isError: true,
+        };
+      }
+      const branch = await ctx.ensureWriteBranch();
+      const file = await gh.getFile(path, branch);
+      if (!file) {
+        return {
+          output: { error: `${path} does not exist. Use github_write_file to create a new file.` },
+          isError: true,
+        };
+      }
+      const result = applyTextEdits(file.content, edits);
+      if (!result.ok) return { output: { error: result.error }, isError: true };
+      if (result.content === file.content) {
+        return { output: { ok: true, path, branch, unchanged: true } };
+      }
+      await gh.putFile(path, result.content, message, branch);
+      ctx.log(`Edited ${path} on ${branch} (${edits.length} edit(s)): ${message}`);
+      return { output: { ok: true, path, branch, editsApplied: edits.length } };
     }
 
     case "github_write_file": {

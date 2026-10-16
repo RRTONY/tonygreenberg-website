@@ -5,7 +5,9 @@ Added 2026-10-16 (owner's yes to the dev dependencies: `vitest`, `jsdom`, `@test
 and never ship to visitors.
 
 ```bash
-pnpm test                      # run everything once (about 1.5 minutes)
+pnpm test:changed              # DEFAULT: only tests affected by files changed vs origin/main,
+                               # with coverage (90%) for just those files; seconds, not minutes
+pnpm test                      # run everything once (about 1.5 minutes): only when asked
 pnpm test:watch                # re-run on save
 pnpm test:coverage             # everything, plus each src/ file's coverage (fails under 90%)
 pnpm exec vitest run __tests__/components/cheshire   # one folder
@@ -14,6 +16,17 @@ pnpm exec vitest run __tests__/components/cheshire   # one folder
 Needs **Node 24** (the repo's version): Node 22 crashes Vitest's workers with "Cannot read
 properties of undefined (reading 'bind')". On this Mac the default `node` is 22, so use
 `PATH=~/.nvm/versions/node/v24.18.0/bin:$PATH` (which also puts `pnpm` on the PATH).
+
+**Which to run (owner, 2026-10-17):** for a task, run only what it touched: `pnpm test:changed`,
+or the one test file (`pnpm exec vitest run __tests__/lib/admin/tools.test.ts`). Run the whole
+suite only when the person asks for it (in chat or through the MCP server). `--changed` follows
+imports, so a changed shared file runs every test that imports it, and a change to
+`vitest.config.mts`, `__tests__/setup.ts` or `pnpm-lock.yaml` (a dependency) reruns everything
+(`forceRerunTriggers`; Vitest's default also reran everything on any `package.json` edit, so a
+new script made PR #19's check run all 620 files, about 7.5 minutes on GitHub). Tests run locally
+only: GitHub's PR check runs lint and type check, not tests (owner removed the test job on
+2026-10-17: on GitHub's small machines even a changed-files run that hit a config change took 7+
+minutes).
 
 ## Coverage target: 90% per file
 
