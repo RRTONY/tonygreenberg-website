@@ -461,6 +461,9 @@ Plain words. Leave out a line only if it truly doesn't apply.
 
 **Still pending:** unfinished items, or "Nothing"
 
-**Other pending changes:** (MCP sessions only) every website change still waiting to be published
-or discarded, one line each: what it is, when it was asked, status. Or "No other pending changes."
+**Other pending changes:** only when the person asks. Then every website change still waiting
+to be published or discarded, one line each: what it is, when it was asked, status.
 ```
+
+Keep the report to **this task only** (owner, 2026-10-17): its own branch, commits and pull
+request. Other open branches, pull requests or pending changes are listed only when asked.

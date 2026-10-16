@@ -268,9 +268,15 @@ Pending Changes"), plus the review card we had left out, were merged in: a three
   page at `/api/mcp/upload` for one change and one path (signed with `MCP_OAUTH_SECRET`, user
   re-checked against `MCP_ADMIN_USERS`). Size limits 4 MB (page) / 8 MB (download) and the bytes
   must match the file's extension. `binary-upload.ts`, `src/app/api/mcp/upload/route.ts`.
-- **Other Pending Changes:** every change result carries `otherPending` + `otherPendingNote`, and
-  the AI ends its reply with that list (CONTRIBUTING.md's Status Report has the line). New
-  `conversationUrl` field on `adminChange`.
+- **Other Pending Changes:** every change result carried `otherPending` + `otherPendingNote`, and
+  the AI ended its reply with that list. New `conversationUrl` field on `adminChange`.
+  **Changed 2026-10-17 (owner: "only show the task related thing", the rest "if you ask"):** only
+  `list_pending_changes` *without* a `change_id` carries `otherPending` (and, when it opens the
+  one waiting change, `otherWaiting` / `olderChanges` / `unrelatedDrafts`). Every task answer
+  (start, confirm, submit, review with a `change_id`, publish, discard, undo) gets only an
+  `otherPendingNote` telling the AI to stay on this change and how to ask for the rest, so the
+  card shows no "Other pending changes" section there. The "N other waiting changes are NOT
+  included" line under What will go live stays: it is the publish-scope reassurance.
 - **Lint inside the deployed function:** `next.config.ts` lists `eslint` and `eslint-config-next`
   in `serverExternalPackages` (ramprate saw "Cannot find module 'fast-glob'" live). ramprate's
   `outputFileTracingIncludes` globs are **not** used: with pnpm they match linked package folders

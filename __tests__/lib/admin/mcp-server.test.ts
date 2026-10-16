@@ -221,7 +221,9 @@ describe("change rules", () => {
     expect(r.json).toMatchObject({ view: "confirm", changeId: KEY, state: "awaiting_ok", youCanPublish: false, youCanDiscard: true });
     expect(r.json.next).toMatch(/^STOP: show the person exactly this/);
     expect(r._meta).toMatchObject({ rulesVersion: "rv-current" });
-    expect(r.json.otherPendingNote).toMatch(/No other pending changes/);
+    // Only this task (owner, 2026-10-17): no list of other changes, just how to ask for it.
+    expect(r.json.otherPending).toBeUndefined();
+    expect(r.json.otherPendingNote).toMatch(/^Talk only about this change/);
   });
 
   it("request_upload_link refuses denied paths and unconfirmed changes, and signs a link otherwise", async () => {
@@ -276,7 +278,7 @@ describe("list_pending_changes", () => {
     expect(r.json).toMatchObject({ view: "list", error: `No change found with id ${KEY}.`, youCanPublish: true });
   });
 
-  it("opens the one waiting change, counting the others", async () => {
+  it("asked about one change, answers about that change only, still counting the others for what goes live", async () => {
     const mine = change({ files: [{ _key: "f", path: "src/app/about/page.tsx", status: "modified" }] });
     const other = change({ key: "20261016-zzz999", title: "Other" });
     vi.mocked(cs.listOpenChangeSets).mockResolvedValue([mine, other]);
@@ -289,11 +291,23 @@ describe("list_pending_changes", () => {
     vi.mocked(cs.buildReview).mockResolvedValue(review());
     const r = await (await connect(users.write)).call("list_pending_changes", { change_id: KEY });
     expect(cs.buildReview).toHaveBeenCalledWith(mine, 2);
-    expect(r.json).toMatchObject({ view: "detail", changeId: KEY, otherWaiting: [{ changeId: "20261016-zzz999", title: "Other" }], olderChanges: [{ prNumber: 9 }], unrelatedDrafts: [{ id: "drafts.x" }] });
+    expect(r.json).toMatchObject({ view: "detail", changeId: KEY });
+    for (const key of ["otherWaiting", "olderChanges", "unrelatedDrafts", "otherPending"]) expect(r.json, key).not.toHaveProperty(key);
+    expect(r.json.otherPendingNote).toMatch(/call list_pending_changes without a change_id/);
     // No screenshots any more (removed 2026-10-17): nothing runs after the reply.
     expect(after).not.toHaveBeenCalled();
-    // Other Pending Changes leaves out the change being shown.
+  });
+
+  it("asked what's waiting (no change_id), opens the only change and lists everything else", async () => {
+    const mine = change();
+    vi.mocked(cs.listOpenChangeSets).mockResolvedValue([mine, change({ key: "20261016-zzz999", title: "Other", status: "draft" })]);
+    vi.mocked(cs.pendingOverview).mockResolvedValue({ changes: [{ changeId: KEY, title: "Fix typo" }], olderChanges: [], unrelatedDrafts: [{ id: "drafts.x", label: "Blog post: X" }] } as never);
+    vi.mocked(cs.reconcileWithGitHub).mockResolvedValueOnce([mine]);
+    vi.mocked(cs.buildReview).mockResolvedValue(review());
+    const r = await (await connect(users.write)).call("list_pending_changes");
+    expect(r.json).toMatchObject({ view: "detail", changeId: KEY, otherWaiting: [], olderChanges: [], unrelatedDrafts: [{ id: "drafts.x" }] });
     expect(r.json.otherPending.map((o: { changeId: string }) => o.changeId)).toEqual(["20261016-zzz999"]);
+    expect(r.json.otherPendingNote).toMatch(/^The person asked what's waiting/);
   });
 
   it("picks the only open change without a change_id", async () => {
@@ -352,11 +366,12 @@ describe("history, confirm, discard and undo", () => {
     expect(cs.confirmChange).not.toHaveBeenCalled();
   });
 
-  it("discard_change discards that change and lists the others", async () => {
+  it("discard_change discards that change and doesn't list the others", async () => {
     vi.mocked(cs.listOpenChangeSets).mockResolvedValue([change(), change({ key: "20261016-zzz999", title: "Other" })]);
     const r = await (await connect(users.edit)).call("discard_change", { change_id: KEY, ...gated });
     expect(cs.discardChange).toHaveBeenCalledWith(KEY, users.edit);
-    expect(r.json.otherPending.map((o: { changeId: string }) => o.changeId)).toEqual(["20261016-zzz999"]);
+    expect(r.json.otherPending).toBeUndefined();
+    expect(r.json.otherPendingNote).toMatch(/^Talk only about this change/);
   });
 
   it("undo_change needs a change_id, then reports the restore change or the refusal", async () => {
@@ -400,8 +415,7 @@ describe("start_change and submit_for_review", () => {
       { label: "", before: "", after: "" },
     ]);
     expect(r.json.next).toBe(`Now call list_pending_changes with change_id "${KEY}" to show the person the review.`);
-    // The result has no changeId, so the requested change is left out of Other Pending Changes.
-    expect(r.json.otherPending.map((o: { changeId: string }) => o.changeId)).toEqual(["20261016-zzz999"]);
+    expect(r.json.otherPending).toBeUndefined();
   });
 
   it("submit_for_review passes on a refusal and ignores a non-array before_after", async () => {

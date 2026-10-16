@@ -91,8 +91,9 @@ Tailwind v4 + shadcn/ui, Sanity for editorial content, deployed on Netlify from 
   pass it as `file` to `github_write_binary_file`; anywhere else call `request_upload_link` and give
   the person the private link (30 minutes, one change, one path). Content images still belong in
   Sanity (Studio), not the repo.
-- **End every MCP reply with "Other pending changes"**: the `otherPending` list every change result
-  carries (one line each: what, when, status), or "No other pending changes."
+- **Only the task at hand** (owner, 2026-10-17): while working on a request, talk about that
+  change only (its status, preview link, pull request). List the other waiting changes, branches
+  or pull requests only when the person asks (`list_pending_changes` without a `change_id`).
 - Can't be done through MCP: env vars, `package.json`/lockfiles, `netlify.toml`, `src/proxy.ts`,
   CI, DNS, uploading images into Sanity, or the MCP server's own code. Tell the person who can.
 - Details: [`docs/ai/project_mcp_server.md`](docs/ai/project_mcp_server.md).

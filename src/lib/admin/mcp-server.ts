@@ -211,7 +211,7 @@ const SESSION_TOOLS = [
   {
     name: "list_pending_changes",
     description:
-      'Show waiting changes. With a change_id: the full review for that one change: ONE status (state: working, checking, ready, failed, stuck, awaiting_ok, published, discarded) with nextStep telling the person what to do, the checks (Build, Type check, Lint, GitHub checks), what will go live, before and after, preview links, and its review_token. The card shows Preview, Discard and Publish together (greyed out when not allowed) plus Retry when something failed. Without a change_id: every waiting change, each reviewable on its own, plus older waiting work and unrelated Sanity Studio drafts that will NOT be published. Always show the person this review before publishing. In your reply, lead with the state and nextStep in one line and don\'t repeat the card. If state is "checking", call it again in a bit (you have no timer to wait with).',
+      'Show waiting changes. With a change_id: the full review for that one change: ONE status (state: working, checking, ready, failed, stuck, awaiting_ok, published, discarded) with nextStep telling the person what to do, the checks (Build, Type check, Lint, GitHub checks), what will go live, before and after, preview links, and its review_token. The card shows Preview, Discard and Publish together (greyed out when not allowed) plus Retry when something failed. Without a change_id (only when the person asks what\'s waiting; while working on a task always pass that task\'s change_id): every waiting change, each reviewable on its own, plus older waiting work and unrelated Sanity Studio drafts that will NOT be published. Always show the person this review before publishing. In your reply, lead with the state and nextStep in one line and don\'t repeat the card. If state is "checking", call it again in a bit (you have no timer to wait with).',
     input_schema: {
       type: "object" as const,
       properties: {
@@ -489,6 +489,9 @@ async function listPendingChanges(changeKey: string | null) {
     open.filter((c) => c.key !== target.key).length +
     overview.olderChanges.length;
   const review = await buildReview(target, others);
+  // Asked about one change: answer about that change only (owner,
+  // 2026-10-17). The rest is listed only when asked for without a change_id.
+  if (changeKey) return { view: "detail" as const, ...review };
   return {
     view: "detail" as const,
     ...review,
@@ -1021,18 +1024,24 @@ export function createAdminMcpServer(
   server.setRequestHandler(CallToolRequestSchema, async (request) => {
     const result = await handleCall(request);
     if (!OTHER_PENDING_TOOLS.has(request.params.name)) return result;
-    return withOtherPending(
-      result,
-      request.params.arguments?.[CHANGE_ID_PARAM] as string | undefined,
-    );
+    // While someone works on a task, only that task (owner, 2026-10-17):
+    // the full list of waiting changes only comes with list_pending_changes
+    // called without a change_id, i.e. when the person asks what's waiting.
+    const asked = request.params.arguments?.[CHANGE_ID_PARAM];
+    if (request.params.name === "list_pending_changes" && !asked) {
+      return withOtherPending(result, undefined);
+    }
+    return withTaskOnlyNote(result);
   });
 
   return server;
 }
 
-// Team feedback 2026-10-08: every change-related answer carries the other
-// waiting changes ("Other Pending Changes"), for the card and for the AI to
-// end its reply with, so an old change is never forgotten.
+// Team feedback 2026-10-08: change-related answers carried the other waiting
+// changes ("Other Pending Changes") so an old change is never forgotten.
+// Owner, 2026-10-17: while someone works on a task, show only that task;
+// list the others only when the person asks (list_pending_changes without a
+// change_id). Task answers get a one-line note telling the AI how to ask.
 const OTHER_PENDING_TOOLS = new Set([
   "start_change",
   "confirm_change",
@@ -1042,6 +1051,26 @@ const OTHER_PENDING_TOOLS = new Set([
   "discard_change",
   "undo_change",
 ]);
+
+const TASK_ONLY_NOTE =
+  "Talk only about this change (its status, preview link and pull request). Don't list other waiting website changes unless the person asks; if they ask what else is waiting, call list_pending_changes without a change_id.";
+
+function withTaskOnlyNote<
+  T extends {
+    content: Array<{ type: "text"; text: string }>;
+    structuredContent?: Record<string, unknown>;
+    isError?: boolean;
+  },
+>(result: T): T {
+  const sc = result.structuredContent;
+  if (result.isError || !sc) return result;
+  const merged = { ...sc, otherPendingNote: TASK_ONLY_NOTE };
+  return {
+    ...result,
+    structuredContent: merged,
+    content: [{ type: "text", text: JSON.stringify(merged, null, 2) }],
+  };
+}
 
 async function withOtherPending<
   T extends {
@@ -1064,7 +1093,7 @@ async function withOtherPending<
     .catch(() => null);
   const extra = {
     otherPending: rows,
-    otherPendingNote: `End your reply with a section titled "Other Pending Changes" listing these in plain words (what it is, when it was asked, status), or "No other pending changes." if there are none. Each can be previewed, published or discarded on its own; publishing one never publishes another.\n${otherPendingText(rows)}`,
+    otherPendingNote: `The person asked what's waiting. List these in plain words (what it is, when it was asked, status), or "No other pending changes." if there are none. Each can be previewed, published or discarded on its own; publishing one never publishes another.\n${otherPendingText(rows)}`,
   };
   const merged = { ...sc, ...extra };
   return {
