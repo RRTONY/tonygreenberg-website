@@ -20,7 +20,7 @@ import { defaultTwitter } from "@/lib/seo-defaults";
 const PAGE_URL = "https://tonygreenberg.com/america-unbundled";
 const HERO_IMG =
   "https://cdn.sanity.io/images/a3q1cyqs/production/1f524a6b2fbe9f105982d4997d4df1f6a18d937b-1200x800.webp";
-const TITLE = "AI Does Not Have a Candidate: Politics for the AI Age";
+const TITLE = "AI Has a Candidate";
 const DESCRIPTION =
   "Why America needs an independent civic grid to govern AI, energy, and political power, with constitutional accountability and local proof.";
 
@@ -264,7 +264,7 @@ export default function AmericaUnbundledPage() {
         >
           <span aria-current="page" className="block bg-[#5b3ca8] px-4 py-3 text-white">
             <small className="block text-xs font-bold tracking-[0.12em] uppercase">Part One · You are here</small>
-            <strong className="mt-1 block font-serif text-xl font-normal">AI Does Not Have a Candidate</strong>
+            <strong className="mt-1 block font-serif text-xl font-normal">AI Has a Candidate</strong>
           </span>
           <Link
             href="/america-unbundled-field-guide"
@@ -283,9 +283,9 @@ export default function AmericaUnbundledPage() {
             Part One of Two · The Opening Argument
           </div>
           <h1 className="mt-4 font-serif text-[11.5vw] leading-[0.86] font-medium tracking-[-0.06em] sm:text-[clamp(3.7rem,7.4vw,6.8rem)]">
-            <span>AI Does Not</span>
+            <span>AI Has</span>
             <br />
-            <em className="text-[#5b3ca8] not-italic dark:text-[#b3a1ec]">Have a Candidate.</em>
+            <em className="text-[#5b3ca8] not-italic dark:text-[#b3a1ec]">a Candidate.</em>
           </h1>
           <p className="mt-5 max-w-2xl font-serif text-2xl leading-[1.2] font-medium text-pretty text-foreground/80 sm:text-[1.8rem]">
             Why America needs an independent civic grid to govern AI, energy, and power.
