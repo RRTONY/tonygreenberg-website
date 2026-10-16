@@ -133,7 +133,7 @@ export function readTarTextFiles(tar: Buffer): RepoTextFile[] {
     const header = tar.subarray(offset, offset + 512);
     if (header.every((b) => b === 0)) break;
     const field = (from: number, len: number) =>
-      header.subarray(from, from + len).toString("utf8").replace(/\0.*$/s, "");
+      header.subarray(from, from + len).toString("utf8").replace(/\0[\s\S]*$/, ""); // [\s\S], not the "s" flag: tsconfig targets ES2017
     const size = parseInt(field(124, 12).trim() || "0", 8);
     const type = field(156, 1);
     const prefix = field(345, 155);

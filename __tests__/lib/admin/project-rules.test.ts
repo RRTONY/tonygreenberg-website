@@ -124,6 +124,8 @@ describe("withRulesVersionParam and the gated list", () => {
     expect(s.required).toEqual(["path", "rules_version"]);
     expect(Object.keys(s.properties)).toEqual(["path", "rules_version"]);
     expect(withRulesVersionParam({ type: "object", properties: {} }).required).toEqual(["rules_version"]);
+    // Never twice: a duplicate makes ChatGPT drop every tool (2026-10-17).
+    expect(withRulesVersionParam({ type: "object", properties: {}, required: ["rules_version"] }).required).toEqual(["rules_version"]);
   });
 
   it("gates every tool that changes the site", async () => {

@@ -102,6 +102,35 @@ describe("tools/list", () => {
     expect(by.publish_changes.annotations).toMatchObject({ destructiveHint: true, openWorldHint: true, readOnlyHint: false });
     expect(by.github_write_file.description).toMatch(/Requires rules_version/);
   });
+
+  // 2026-10-17: request_upload_link listed change_id in "required" twice.
+  // Claude ignored it; ChatGPT dropped every tool ("TonyWeb editing tools
+  // aren't available in this session"). Same bug ramprate-ui fixed 2026-10-08.
+  it.each(["read", "edit", "write"] as const)("every tool schema is well formed (%s)", async (role) => {
+    const { tools } = await (await connect(users[role])).client.listTools();
+    const problems: string[] = [];
+    const check = (name: string, schema: Record<string, unknown>, at: string) => {
+      const props = (schema.properties ?? {}) as Record<string, Record<string, unknown>>;
+      const required = (schema.required ?? []) as string[];
+      if (new Set(required).size !== required.length) problems.push(`${name}${at}: duplicate in required`);
+      for (const key of required) if (!(key in props)) problems.push(`${name}${at}: required "${key}" has no property`);
+      for (const [key, prop] of Object.entries(props)) {
+        if (prop.type === "array" && !prop.items) problems.push(`${name}${at}.${key}: array without items`);
+        if (prop.type === "object") check(name, prop, `${at}.${key}`);
+        const items = prop.items as Record<string, unknown> | undefined;
+        if (items?.type === "object") check(name, items, `${at}.${key}[]`);
+      }
+    };
+    for (const t of tools) {
+      if (!/^[a-zA-Z0-9_-]{1,64}$/.test(t.name)) problems.push(`${t.name}: bad name`);
+      if (t.inputSchema.type !== "object") problems.push(`${t.name}: not an object schema`);
+      check(t.name, t.inputSchema as Record<string, unknown>, "");
+      const meta = t._meta as Record<string, unknown> | undefined;
+      const template = meta?.["openai/outputTemplate"] ?? (meta?.ui as { resourceUri?: string } | undefined)?.resourceUri;
+      if (template !== undefined && template !== PENDING_CHANGES_UI_URI) problems.push(`${t.name}: unknown widget ${String(template)}`);
+    }
+    expect(problems).toEqual([]);
+  });
 });
 
 describe("resources", () => {

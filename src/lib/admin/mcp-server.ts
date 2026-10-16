@@ -177,16 +177,14 @@ const SESSION_TOOLS = [
     input_schema: {
       type: "object" as const,
       properties: {
-        [CHANGE_ID_PARAM]: changeIdSchema(
-          "The change_id from start_change the file belongs to.",
-        ),
         path: {
           type: "string",
           description:
             "Where to save it in the repo, e.g. public/images/tsi-hero.png. The upload must be the same kind of file as the ending.",
         },
       },
-      required: [CHANGE_ID_PARAM, "path"],
+      // change_id is added by withChangeIdParam (CHANGE_REQUIRED_TOOLS).
+      required: ["path"],
     },
   },
   {
@@ -372,7 +370,13 @@ function withChangeIdParam(name: string, schema: ToolSchema): ToolSchema {
           "The change_id from start_change for the request this edit belongs to.",
         ),
       },
-      required: [...(schema.required ?? []), CHANGE_ID_PARAM],
+      // A duplicate in "required" is invalid JSON Schema: Claude tolerates it,
+      // but ChatGPT then drops every tool on the server ("editing tools
+      // aren't available", 2026-10-17; same bug as ramprate-ui 2026-10-08).
+      required: [
+        ...(schema.required ?? []).filter((k) => k !== CHANGE_ID_PARAM),
+        CHANGE_ID_PARAM,
+      ],
     };
   }
   if (CHANGE_OPTIONAL_TOOLS.has(name)) {

@@ -197,6 +197,20 @@ touching GitHub or Sanity.
 
 ## Gotchas (from ramprate-ui's run of the same server)
 
+- **One invalid tool schema makes ChatGPT drop every tool (2026-10-17).** ChatGPT kept saying
+  "TonyWeb's editing tools aren't available in this session". Cause: `request_upload_link` listed
+  `change_id` in its own `required` and `withChangeIdParam` appended it again, so `required` had
+  a duplicate. Claude tolerates that; ChatGPT silently drops the whole app for that user (only
+  edit/write users, since read users never see that tool). ramprate-ui hit and fixed the same bug
+  on 2026-10-08 but the fix never came across. Now `withChangeIdParam` / `withRulesVersionParam`
+  never add a key twice, and `__tests__/lib/admin/mcp-server.test.ts` checks every tool schema
+  for every role (no duplicate required keys, every required key has a property, arrays have
+  `items`, widget templates point at a real resource). **After deploying a fix like this,
+  ChatGPT still needs the app refreshed** (Settings, Apps and Connectors, TonyWeb, Refresh) and
+  a new chat, because it caches the tool list.
+- **PR checks run the full test suite** (`test` job in `.github/workflows/pr-lint.yml`, same as
+  ramprate-ui, added 2026-10-17), so the review card's GitHub row catches a broken test.
+
 - **Netlify's synchronous function limit is ~10 s on the free plan (26 s on Pro) and isn't set in
   `netlify.toml`.** A Lighthouse run takes 20 to 60 s, so `lighthouse_check_page` will likely time
   out on Netlify; it works from a long-running server. `check_pr_status` keeps its own wait under
