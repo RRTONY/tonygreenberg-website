@@ -207,8 +207,10 @@ touching GitHub or Sanity.
   `items`, widget templates point at a real resource). **After deploying a fix like this,
   ChatGPT still needs the app refreshed** (Settings, Apps and Connectors, TonyWeb, Refresh) and
   a new chat, because it caches the tool list.
-- **PR checks run the full test suite** (`test` job in `.github/workflows/pr-lint.yml`, same as
-  ramprate-ui, added 2026-10-17), so the review card's GitHub row catches a broken test.
+- **PR checks run the tests for the PR's changed files** (`test-changed-files` in
+  `.github/workflows/pr-lint.yml`, 2026-10-17), so the review card's GitHub row catches a broken
+  test. The first version ran the full suite on Node 22 and hung (Node 22 crashes Vitest's
+  workers); it is Node 24 with a 15-minute limit now.
 
 - **Netlify's synchronous function limit is ~10 s on the free plan (26 s on Pro) and isn't set in
   `netlify.toml`.** A Lighthouse run takes 20 to 60 s, so `lighthouse_check_page` will likely time

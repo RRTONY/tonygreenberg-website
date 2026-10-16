@@ -50,20 +50,30 @@ jobs:
       - name: Typecheck
         run: pnpm typecheck
 
-  # Same as ramprate-ui's PR checks: the whole Vitest suite on every pull
-  # request (MCP changes included), so the review card's checks catch a
-  # broken test before anyone can publish. Repo-wide is fine: it all passes.
-  test:
+  # Tests for what this PR changed only (owner, 2026-10-17): Vitest's
+  # --changed runs the tests that import a changed file (a change to the
+  # Vitest config, setup or package.json reruns everything), and coverage
+  # counts only the changed files, so the 90%-per-file rule still holds.
+  # The full suite is `pnpm test`, run on request.
+  # Node 24, not the 22 used above: Node 22 crashes Vitest's workers, which
+  # left this job hanging on 2026-10-17 (docs/ai/testing.md).
+  test-changed-files:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 22 # pnpm 11 needs Node 22.13+ (same major as netlify.toml)
+          node-version: 24
 
       - uses: pnpm/action-setup@v4
 
       - run: pnpm install --frozen-lockfile
 
-      - run: pnpm test
+      - name: Test changed files
+        run: |
+          git fetch origin "${{ github.base_ref }}"
+          pnpm exec vitest run --changed "origin/${{ github.base_ref }}" --coverage --passWithNoTests

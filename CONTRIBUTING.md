@@ -413,8 +413,10 @@ A change isn't done until it's been checked with real tools, not just read over.
 **Local (Claude Code, Cursor, etc.)**
 1. `pnpm typecheck`
 2. `pnpm lint` (or `pnpm exec eslint <files>` for just the changed files)
-3. `pnpm test` (Vitest). A new or changed file gets its test in `__tests__/`, same path as in
-   `src/`, and keeps 90%+ coverage (`pnpm test:coverage`). How tests are written and what's
+3. `pnpm test:changed` (Vitest): only the tests for the files this task or branch changed, with
+   coverage counted for just those files (owner, 2026-10-17). Run the full suite (`pnpm test`,
+   `pnpm test:coverage`) only when the person asks, over MCP or here. A new or changed file gets
+   its test in `__tests__/`, same path as in `src/`, and keeps 90%+ coverage. How tests are written and what's
    faked: `docs/ai/testing.md`
 4. `pnpm build` for anything touching routing, metadata or config, and check the route table
 5. Look at the real page: `pnpm start` (never judge from `pnpm dev`) plus a browser or `curl`,
