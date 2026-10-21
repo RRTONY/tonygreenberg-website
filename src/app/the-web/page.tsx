@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ExternalLink } from "lucide-react";
 import { pageFontVariables } from "@/lib/fonts/page-fonts";
 import { RelatedPages } from "@/components/marketing/related-pages";
 
@@ -38,6 +38,9 @@ const ADAGES = [
   "The long-term success of powerful international clients — spanning 20+ years — is driven by wisdom, the power of discernment, and the strength of relationships.",
   "Half of success is just being in the room. The other half is knowing which room to be in.",
 ];
+
+const TONY_CONSTELLATION_URL =
+  "https://chatgpt.com/library/share/libfile_279df5d70a2881919ecd135a82d92c09?account_id=c3ddf21c-9e88-45b4-9a59-acb3eb388c14";
 
 // 2026-10-07: restyled to live's current design: Cormorant title, red
 // letter-spaced eyebrow, a cream quote box with a red rule, red hairline
@@ -112,6 +115,23 @@ export default function TheWebPage() {
             </div>
           ))}
         </div>
+
+        <section className="mt-12 border border-[#8E1E25]/25 bg-[#F7F3EA] p-6 dark:border-[#E07A80]/35 dark:bg-secondary sm:p-8">
+          <p className="mb-3 font-mono text-[0.78rem] tracking-[0.2em] text-[#8E1E25] uppercase dark:text-[#E07A80]">
+            Tony Constellation
+          </p>
+          <h2 className="font-cormorant text-[2rem]/[1.15] text-[#111] dark:text-foreground">
+            Shared ChatGPT Library
+          </h2>
+          <a
+            href={TONY_CONSTELLATION_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-6 inline-flex min-h-11 items-center gap-2 border border-[#8E1E25]/45 px-5 py-2.5 font-mono text-sm text-[#8E1E25] transition-colors hover:border-[#8E1E25] hover:bg-[#8E1E25] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8E1E25] dark:border-[#E07A80]/55 dark:text-[#EAA6AB] dark:hover:border-[#E07A80] dark:hover:bg-[#E07A80] dark:hover:text-[#111] dark:focus-visible:outline-[#E07A80]"
+          >
+            Open the shared library item <ExternalLink aria-hidden="true" className="size-3.5" />
+          </a>
+        </section>
       </section>
 
       <div className="my-6 bg-[#111] px-6 py-8">
