@@ -62,7 +62,7 @@ function SupplierCard({ s }: { s: StackSupplier }) {
               width={s.qr.width}
               height={s.qr.height}
               sizes="(min-width: 768px) 220px, 176px"
-              className="size-full object-cover object-top"
+              className="size-full object-contain"
             />
           </span>
           <span className="mt-3 block font-mono text-xs text-[#4A1D6B] md:text-center">Open on phone</span>

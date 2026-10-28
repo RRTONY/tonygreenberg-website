@@ -72,15 +72,15 @@ export const STACK_CATEGORIES: StackCategory[] = [
     suppliers: [
       {
         kicker: "30x whole-genome sequencing",
-        name: "Sequencing.com · Alpha Club",
+        name: "Sequencing.com · Tony Greenberg / RampRate",
         description:
           "A whole-genome option that reads broadly across the genome rather than a small selected chip panel. The current invitation lists 30x sequencing, broad health interpretation, and a raw data file that can be revisited as interpretation improves.",
         why: "It can add genetic context that helps a qualified clinician ask better questions about the same blood result, medication, or nutrient marker.",
         important: "Genetic results are not diagnoses and should not be used alone to start, stop, or change treatment.",
-        note: "The current Alpha Club arrangement is $269 with code 2e61NG. I am glad to see a whole genome option become more reachable, but this is not a sales pitch. If you find equivalent value for less, or more value for the same money, send it to me. I will take that evidence back to Sequencing.com and ask them to meet it. Shipping, turnaround, and Privacy Forever settings are set by Sequencing.com at checkout.",
-        href: "https://scanned.page/2e61NG",
+        note: "The RampRate landing page lists standard sequencing at $269 and expedited sequencing at $299. Large orders require a minimum of five kits. Confirm current pricing and bundle terms at checkout. I am glad to see a whole genome option become more reachable, but this is not a sales pitch. If you find equivalent value for less, or more value for the same money, send it to me. I will take that evidence back to Sequencing.com and ask them to meet it. Shipping, turnaround, and Privacy Forever settings are set by Sequencing.com at checkout.",
+        href: "https://get.sequencing.com/ramprate-wgs-bundle/",
         referral: true,
-        qr: { src: `${CDN}/f6bc4017ad0f337be117385f6759ce8c273f516e-850x880.webp`, width: 850, height: 880 },
+        qr: { src: "/qr/sequencing-ramprate.svg", width: 370, height: 370 },
       },
       {
         kicker: "Free DNA-file upload",
