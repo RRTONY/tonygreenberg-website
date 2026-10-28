@@ -13,7 +13,7 @@
 - UI: Tailwind CSS v4 + shadcn/ui (Radix base) — same design-system convention the team already uses elsewhere. `next/image` for all images. No framer-motion — CSS transitions / `tailwindcss-animate` only.
 
 
-## Current status — 2026-10-17
+## Current status — 2026-10-24
 
 > Update this block at the end of each working session. Checkbox counts are from this file. The team's
 > spreadsheet copy (`Migration-Status-Report.xlsx`) is regenerated from it by
@@ -33,6 +33,14 @@ this rebuild is live on tonygreenberg.com yet** (it still serves the old app unt
 | 12 SEO & cutover | 45 | 1 | 2026-10-13: US PageSpeed run dropped (owner), left: Search Console at cutover; 2026-10-10: old site's GA4 events ported; 2026-10-10: SEO pack copy done (homepage, essays, Five Cups), every page has a share image; 2026-10-10: Google Analytics tag added (was missing; only counts on tonygreenberg.com); 2026-10-09: your design answers done (title fonts like live, arrows as icons), category pages pre-built, redirect map finished (Search Console addresses), speed (homepage 80 to 86, PRI 81 to 87, peptide 80 to 95) and error pages; 2026-10-08: redesign group 2, BrewSoul badge and menu, `/pri-efficacy` switch, link check and sitemap clean, live comparisons closed; left: 3 decisions, Lighthouse on the preview, Search Console at cutover |
 | 13 Images | 19 | 0 | 2026-10-13: text logo kept, quiz results get colour backgrounds, 92 essays have their own generated picture (published) |
 | 14 QA & launch | 20 | 3 | 2026-10-16: every file at 90%+ test coverage (`pnpm test:coverage`), all 51 bugs the tests found fixed (security, PRI deliriants, 9 quizzes, BrewSoul grades one rule, Google-visible content, keyboard); left for Tony: Find Your Me essay picks, quiz content questions; earlier: 2026-10-16: Find Your Me's dead essay links fixed (9 never-written picks hidden; Tony to pick replacements); tests for all 618 files (`pnpm test`, 2,952 checks, all pass); they found 51 bugs, filed as 6 items: security (2 holes, fix before launch), PRI safety, wrong quiz results (copied from live, owner to decide), wrong info, content Google can't see, keyboard/screen reader; 2026-10-14: team review re-checked (60 menu pages, 130 blog links, 404, dark mode, phone: fine; 404 tab title and 3 menu redirects fixed); essay counts now match (123 everywhere); new `/privacy`, `/terms`, `/contact` pages with footer links (Josh to review the legal wording); 2026-10-13: sign-off given (webmaster), noindex needs no change, iPhone and Safari checked in Apple's iPhone Simulator (14 pages); left: DNS cutover; 2026-10-10: no dead-end pages (Related links on 19 pages); Accessibility pass done 2026-10-08; left: real iPhone, dead-end pages (content yes), sign-off, noindex check, DNS cutover |
+
+**Done this session (2026-10-24):**
+- **Spamtoast split out as its own site (owner asked):** new project `~/Desktop/spamtoast` for
+  spamtoast.com (domain already registered at Namecheap): the Attention Theft manifesto copied
+  over (this site's `/attention-theft` stays, owner's choice), Report A Spammer by email, Wall of
+  Shame, an honest "You've been reported" page, its own MCP server, icon and SEO. Not live: no
+  GitHub repo, Netlify site or DNS yet (each needs a yes). Its own file: `SPAMTOAST-TODO.md`.
+  Nothing on tonygreenberg.com changed. **Waiting:** whether this site links to spamtoast.com.
 
 **Done this session (2026-10-17), branch `mcp-easy-edit-2026-10-16`:**
 - **ChatGPT couldn't use the TonyWeb tools (owner's screenshots: "editing tools aren't available"):**
@@ -788,6 +796,6 @@ Every image below needs to exist as a real asset uploaded to Sanity (or explicit
 
 - Admin dashboards (`/admin/*`, `/analytics`, `/pri-research` — no admin-auth system exists yet and its data source, `trpc.priCalibration.*`, was never built either)
 - Stripe billing (`/shop`, `/subscribe` full checkout flow — Phase 4 ports these as static/informational only)
-- Spam-tracking system (`/youve-been-reported`, `/spamtoast`, admin spam tooling)
+- Spam-tracking system (`/youve-been-reported`, `/spamtoast`, admin spam tooling). **2026-10-24: moved to its own project, spamtoast.com** (`~/Desktop/spamtoast`, not live yet; its own `SPAMTOAST-TODO.md`). Owner: copy `/attention-theft` there and keep it here too; honest confrontation page; no database; its own MCP server. Open for this site: whether to link to spamtoast.com, or later redirect `/attention-theft` there (needs a yes).
 - Supplier/vendor intake backend wiring (Phase 4 ports the form UI only, keeps pointing at legacy backend)
 - **MCP content-editing server for this project** — the user wants an MCP server for tonyg-site similar to the existing "claude.ai Ramprate - Admin" MCP server (`~/Desktop/ramprate-ui`), which lets Claude edit that site's code and Sanity content directly (github read/write, Sanity query/create/patch, analytics/PR/code-quality checks) instead of a hand-built in-app admin page. Explicitly deferred — not started — until the current PRI migration (Phase 7) is further along; revisit as its own dedicated task then.
