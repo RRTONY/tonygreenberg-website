@@ -57,6 +57,8 @@ import type { PageItem } from "@/lib/search-engine";
  * house rule against introducing emoji into written files.
  */
 export const SEARCH_DIRECTORY: PageItem[] = [
+  { title: "AI Does Not Have a Candidate: Politics for the AI Age", href: "/america-unbundled", description: "Part One. An independent civic grid for accountability over AI, energy and political power.", tags: ["america unbundled", "independent", "politics", "civic governance", "ai", "essay", "part one"] },
+  { title: "America, Unbundled: The Field Guide", href: "/america-unbundled-field-guide", description: "Part Two. A practical field guide to independent political infrastructure, accountability and civic action.", tags: ["america unbundled", "independent", "politics", "civic governance", "field guide", "essay", "part two"] },
   { title: "Blog", href: "/blog", description: "{count} essays spanning 15 years of enterprise tech, impact, and consciousness", tags: ["blog", "essays", "writing", "articles"] },
   { title: "Start Here", href: "/start-here", description: "The five essays that tell you who Tony is and what he's about", tags: ["start", "begin", "intro", "first"] },
   { title: "About", href: "/about", description: "The full story — from enterprise tech to psychedelic medicine", tags: ["about", "bio", "biography", "tony"] },
