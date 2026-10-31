@@ -92,6 +92,24 @@ export default async function Home() {
         </div>
       </section>
 
+      <section aria-label="America, Unbundled essays" className="border-y border-border bg-background px-4 py-8 sm:px-6">
+        <div className="mx-auto max-w-6xl">
+          <h2 className="font-heading text-2xl font-semibold text-foreground">America, Unbundled</h2>
+          <div className="mt-4 grid gap-4 md:grid-cols-2">
+            <Link href="/america-unbundled" className="border border-border bg-card p-5 hover:border-brand-gold">
+              <span className="text-sm font-semibold text-brand-gold">Politics and AI · Part One</span>
+              <h3 className="mt-2 font-serif text-2xl text-foreground">AI Does Not Have a Candidate</h3>
+              <p className="mt-3 text-lg leading-relaxed text-foreground">An independent civic grid for accountability over AI, energy and political power.</p>
+            </Link>
+            <Link href="/america-unbundled-field-guide" className="border border-border bg-card p-5 hover:border-brand-gold">
+              <span className="text-sm font-semibold text-brand-gold">Civic Governance · Part Two</span>
+              <h3 className="mt-2 font-serif text-2xl text-foreground">America, Unbundled: The Field Guide</h3>
+              <p className="mt-3 text-lg leading-relaxed text-foreground">A practical guide to independent political infrastructure, accountability and civic action.</p>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <EditorPicksSection />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-14">

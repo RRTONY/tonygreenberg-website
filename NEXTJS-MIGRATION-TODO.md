@@ -13,7 +13,11 @@
 - UI: Tailwind CSS v4 + shadcn/ui (Radix base) — same design-system convention the team already uses elsewhere. `next/image` for all images. No framer-motion — CSS transitions / `tailwindcss-animate` only.
 
 
-## Current status — 2026-10-28
+## Current status — 2026-10-31
+
+**America, Unbundled discovery (2026-10-31, draft):** Both standalone articles are now linked from the homepage and blog landing page and added to the searchable site directory and The Index. Sanity has no matching `post` records, so these are linked standalone pages rather than entries in the Sanity-powered paginated essay collection. Both routes already exist in the sitemap source. Pending preview/build checks and owner-approved publication; production UX, legacy test-domain removal, RampRate blog, and further page-specific repairs remain open. No original article text changed.
+
+## Previous status — 2026-10-28
 
 **Sequencing QR update (2026-10-28):** The Stack now targets the verified `https://get.sequencing.com/ramprate-wgs-bundle/` destination from the supplied QR. Replaced the intermediary QR with a generated direct-link SVG including its quiet zone, and changed QR rendering to contain rather than crop. Updated the supplier label and current $269 standard / $299 expedited options, removed the obsolete Alpha Club code. QR encode/decode round-trip and both changed TS/TSX quality checks passed. Publication and build checks pending. Sequencing's landing page is hosted in its Unbounce account and cannot be edited through this repository connection. The generated QR is a functional code asset; other editorial image hosting remains unchanged.
 

@@ -39,6 +39,21 @@ export default async function BlogPage() {
         </p>
       </div>
 
+      <section aria-label="America, Unbundled series" className="mx-auto max-w-6xl px-4 pt-8 sm:px-6">
+        <h2 className="font-heading text-2xl font-semibold text-foreground">America, Unbundled: Two-Part Series</h2>
+        <div className="mt-4 grid gap-4 md:grid-cols-2">
+          <a href="/america-unbundled" className="block border border-border bg-card p-5 text-foreground hover:border-brand-gold">
+            <p className="text-sm font-semibold uppercase text-brand-gold">Politics and AI · Part One</p>
+            <h3 className="mt-2 font-serif text-2xl">AI Does Not Have a Candidate: Politics for the AI Age</h3>
+            <p className="mt-3 text-lg leading-relaxed">An independent civic grid for accountability over AI, energy and political power.</p>
+          </a>
+          <a href="/america-unbundled-field-guide" className="block border border-border bg-card p-5 text-foreground hover:border-brand-gold">
+            <p className="text-sm font-semibold uppercase text-brand-gold">Civic Governance · Part Two</p>
+            <h3 className="mt-2 font-serif text-2xl">America, Unbundled: The Field Guide</h3>
+            <p className="mt-3 text-lg leading-relaxed">A practical guide to independent political infrastructure, accountability and civic action.</p>
+          </a>
+        </div>
+      </section>
       <HomeArchive archive={summarizeArchive(posts)} mostRead={mostRead} eagerFirstCard />
       <NewsletterPopupLazy />
     </div>
