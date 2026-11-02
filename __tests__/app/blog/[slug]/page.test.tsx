@@ -246,4 +246,9 @@ describe("/blog/[slug] page details", () => {
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("Five Cups of Trust");
     expect(screen.getByText("1 min read")).toBeInTheDocument();
   });
+
+  it("lets long web addresses and unbroken lines in the essay body wrap on a phone", async () => {
+    await renderServer(BlogPostPage(props("five-cups")));
+    expect(document.querySelector(".article-body")).toHaveClass("wrap-break-word");
+  });
 });

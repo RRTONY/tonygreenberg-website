@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { sanityFetch } from "@/lib/sanity/client";
 import { allPostsForArchiveQuery } from "@/lib/sanity/queries";
 import { EssaysList } from "@/components/blog/essays-list";
+import { AmericaUnbundledSeries } from "@/components/blog/america-unbundled-series";
 import { AUTHORITY_ITEMS } from "@/lib/content/archetypes";
 import { POST_ORDER } from "@/lib/content/post-order";
 
@@ -42,6 +43,8 @@ export default async function EssaysPage() {
         <p className="mb-8 text-center text-foreground/70">
           {posts.length} essays · 15 years · Zero algorithm
         </p>
+
+        <AmericaUnbundledSeries className="mb-10" />
 
         <EssaysList posts={posts} />
       </div>

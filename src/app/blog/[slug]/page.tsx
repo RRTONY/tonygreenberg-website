@@ -168,7 +168,7 @@ function validityDotClass(value: number | string) {
 }
 
 const ARTICLE_BODY_CLASS =
-  "article-body relative text-foreground lg:before:absolute lg:before:inset-y-2 lg:before:-left-8 lg:before:w-px lg:before:bg-essay-red/35 lg:before:content-['']";
+  "article-body relative wrap-break-word text-foreground lg:before:absolute lg:before:inset-y-2 lg:before:-left-8 lg:before:w-px lg:before:bg-essay-red/35 lg:before:content-['']";
 
 // "Updated <date>" shows only for a real revision: the post's "Last updated"
 // field set more than a day after it was published. (_updatedAt isn't used:

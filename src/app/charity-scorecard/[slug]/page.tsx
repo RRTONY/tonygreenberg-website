@@ -101,7 +101,7 @@ export default async function CharityProfilePage({ params }: PageProps<"/charity
               </h2>
               <div className="grid grid-cols-2 gap-4">
                 {quickFacts.map((f) => (
-                  <div key={f.label} className="rounded-lg border border-border bg-card p-3">
+                  <div key={f.label} className="min-w-0 rounded-lg border border-border bg-card p-3 wrap-break-word">
                     <div className="mb-1 flex items-center gap-1.5 text-muted-foreground">
                       <f.icon className="size-3.5" />
                       <span className="text-xs">{f.label}</span>
