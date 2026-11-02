@@ -1,17 +1,17 @@
 "use client";
 
 import { useState, useSyncExternalStore } from "react";
-import { Check, Copy, Mail, Share2 } from "lucide-react";
+import { Check, Copy, Mail, Share2, Smartphone } from "lucide-react";
 import { SITE_URL } from "@/components/ai-summary-links";
-import { FacebookIcon, LinkedinIcon, XIcon } from "@/components/icons/brand-icons";
+import { LinkedinIcon, XIcon } from "@/components/icons/brand-icons";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
-// Share buttons (legacy BlogPost.tsx ShareBar): X, LinkedIn, Facebook, More
-// (the device's share sheet, where there is one), Email, Copy link. Icons
-// only (owner asked, 2026-10-07): 44px squares, each named for screen
-// readers and in a hover tooltip.
-const PILL_CLASS =
-  "flex size-11 items-center justify-center rounded-xs no-underline transition-[background-color,transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-md";
-const OUTLINE_CLASS = `${PILL_CLASS} border border-brand-gold/25 text-brand-gold hover:bg-brand-gold/6`;
+// One compact "Share" button that opens a menu: X, LinkedIn, email, copy
+// link, and the device's share sheet where there is one. Replaced the row of
+// six 44px squares (legacy BlogPost.tsx ShareBar, icon-only since 2026-10-07)
+// so the essay starts sooner on a phone (2026-11-03).
+const ITEM_CLASS =
+  "flex min-h-11 w-full items-center gap-3 rounded-xs px-3 text-left text-sm text-foreground no-underline transition-colors hover:bg-brand-gold/6 focus-visible:bg-brand-gold/6 focus-visible:outline-hidden";
 
 export function BlogShareBar({ path, title }: { path: string; title: string }) {
   const [copied, setCopied] = useState(false);
@@ -33,74 +33,65 @@ export function BlogShareBar({ path, title }: { path: string; title: string }) {
   }
 
   return (
-    <div className="py-5">
-      <div className="mb-3 flex items-center gap-2">
-        <span className="font-mono text-xs tracking-[0.12em] text-muted-foreground uppercase">Share this essay</span>
-        <div className="h-px flex-1 bg-brand-gold/12" />
-      </div>
-      <div className="flex flex-wrap items-center gap-2.5">
-        <a
-          href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Share on X"
-          title="Share on X"
-          className={`${PILL_CLASS} bg-black text-white hover:bg-neutral-800`}
+    <div className="flex items-center gap-3 py-3">
+      <Popover>
+        <PopoverTrigger
+          aria-label="Share this essay"
+          className="inline-flex h-11 items-center gap-2 rounded-xs border border-brand-gold/25 px-4 font-mono text-xs tracking-[0.12em] text-brand-gold uppercase transition-colors hover:bg-brand-gold/6 data-[state=open]:bg-brand-gold/6"
         >
-          <XIcon aria-hidden="true" className="size-4" />
-        </a>
-        <a
-          href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Share on LinkedIn"
-          title="Share on LinkedIn"
-          className={`${PILL_CLASS} bg-[#0A66C2] text-white hover:bg-[#004182]`}
-        >
-          <LinkedinIcon aria-hidden="true" className="size-4" />
-        </a>
-        <a
-          href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Share on Facebook"
-          title="Share on Facebook"
-          className={`${PILL_CLASS} bg-[#1877F2] text-white hover:bg-[#0f5fc9]`}
-        >
-          <FacebookIcon aria-hidden="true" className="size-4" />
-        </a>
-        {canShare && (
-          <button
-            type="button"
-            onClick={() => navigator.share({ title, url }).catch(() => {})}
-            aria-label="More ways to share"
-            title="More ways to share"
-            className={OUTLINE_CLASS}
+          <Share2 aria-hidden="true" className="size-4" />
+          Share
+        </PopoverTrigger>
+        <PopoverContent align="start" className="w-56 gap-0.5 p-1.5">
+          <a
+            href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={ITEM_CLASS}
           >
-            <Share2 aria-hidden="true" className="size-4" />
+            <XIcon aria-hidden="true" className="size-4" />
+            Share on X
+          </a>
+          <a
+            href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={ITEM_CLASS}
+          >
+            <LinkedinIcon aria-hidden="true" className="size-4 text-[#0A66C2]" />
+            Share on LinkedIn
+          </a>
+          <a
+            href={`mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(`${title}\n\n${url}`)}`}
+            className={ITEM_CLASS}
+          >
+            <Mail aria-hidden="true" className="size-4 text-brand-gold" />
+            Share by email
+          </a>
+          <button type="button" onClick={copyLink} className={ITEM_CLASS}>
+            {copied ? (
+              <Check aria-hidden="true" className="size-4 text-brand-gold" />
+            ) : (
+              <Copy aria-hidden="true" className="size-4 text-brand-gold" />
+            )}
+            {copied ? "Link copied" : "Copy link"}
           </button>
-        )}
-        <a
-          href={`mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(`${title}\n\n${url}`)}`}
-          aria-label="Share by email"
-          title="Share by email"
-          className={OUTLINE_CLASS}
-        >
-          <Mail aria-hidden="true" className="size-4" />
-        </a>
-        <button
-          type="button"
-          onClick={copyLink}
-          aria-label={copied ? "Link copied" : "Copy link"}
-          title={copied ? "Link copied" : "Copy link"}
-          className={OUTLINE_CLASS}
-        >
-          {copied ? <Check aria-hidden="true" className="size-4" /> : <Copy aria-hidden="true" className="size-4" />}
-        </button>
-        <span className="sr-only" aria-live="polite">
-          {copied ? "Link copied" : ""}
-        </span>
-      </div>
+          {canShare && (
+            <button
+              type="button"
+              onClick={() => navigator.share({ title, url }).catch(() => {})}
+              className={ITEM_CLASS}
+            >
+              <Smartphone aria-hidden="true" className="size-4 text-brand-gold" />
+              More ways to share
+            </button>
+          )}
+          <span className="sr-only" aria-live="polite">
+            {copied ? "Link copied" : ""}
+          </span>
+        </PopoverContent>
+      </Popover>
+      <div className="h-px flex-1 bg-brand-gold/12" />
     </div>
   );
 }
