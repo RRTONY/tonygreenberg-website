@@ -58,4 +58,20 @@ describe("charity badges", () => {
     expect(container.querySelectorAll("text")).toHaveLength(SCORE_DIMENSIONS.length);
     expect(container).toHaveTextContent("Verified Impact");
   });
+
+  it("RadarChart puts side labels on two lines, drops a dangling '&', and keeps them inside the chart", () => {
+    const scores = Object.fromEntries(SCORE_DIMENSIONS.map((d) => [d.key, 80])) as unknown as ScoreBreakdown;
+    const { container } = render(<RadarChart scores={scores} />);
+    expect(container.querySelector("svg")).toHaveAttribute("viewBox", "-70 0 440 300");
+    const lines = (label: string) =>
+      [...container.querySelectorAll("text")]
+        .find((t) => t.textContent!.replace(/\s/g, "").startsWith(label.replace(/\s/g, "")))!
+        .querySelectorAll("tspan");
+    // Top label sits in the middle: one line.
+    expect([...lines("Verified Impact")].map((t) => t.textContent)).toEqual(["Verified Impact"]);
+    // Side labels: one word per line.
+    expect([...lines("Dollar")].map((t) => t.textContent)).toEqual(["Dollar", "Efficiency"]);
+    expect([...lines("Transparency")].map((t) => t.textContent)).toEqual(["Transparency"]);
+    expect(container.querySelectorAll("tspan")).not.toContainEqual(expect.objectContaining({ textContent: "&" }));
+  });
 });

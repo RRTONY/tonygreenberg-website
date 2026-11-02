@@ -101,7 +101,10 @@ export function RadarChart({ scores }: { scores: ScoreBreakdown }) {
   const dataPath = dataPoints.map((p, i) => `${i === 0 ? "M" : "L"} ${p.x} ${p.y}`).join(" ") + " Z";
 
   return (
-    <svg viewBox="0 0 300 300" className="mx-auto w-full max-w-80">
+    // The viewBox is wider than the chart so the side labels ("Dollar
+    // Efficiency", "Cloak-vs-Clear Score") stay inside it; they ran off a
+    // 375px phone screen at 0 0 300 300.
+    <svg viewBox="-70 0 440 300" className="mx-auto w-full max-w-80">
       {rings.map((val) => {
         const pts = dims.map((_, i) => getPoint(i, val));
         const path = pts.map((p, i) => `${i === 0 ? "M" : "L"} ${p.x} ${p.y}`).join(" ") + " Z";
@@ -118,17 +121,25 @@ export function RadarChart({ scores }: { scores: ScoreBreakdown }) {
       {dims.map((d, i) => {
         const p = getPoint(i, 115);
         const anchor = p.x < cx - 10 ? "end" : p.x > cx + 10 ? "start" : "middle";
+        // First two words, minus a dangling "&" ("Transparency & Disclosure").
+        const words = d.label.split(" ").slice(0, 2).filter((w) => w !== "&");
+        // Side labels go on two lines so they don't run wide.
+        const lines = anchor === "middle" ? [words.join(" ")] : words;
         return (
           <text
             key={d.key}
             x={p.x}
-            y={p.y}
+            y={p.y - (lines.length - 1) * 5}
             textAnchor={anchor}
             dominantBaseline="middle"
             className="fill-current text-[9px] text-muted-foreground"
             fontFamily="'DM Mono', monospace"
           >
-            {d.label.split(" ").slice(0, 2).join(" ")}
+            {lines.map((line, j) => (
+              <tspan key={line} x={p.x} dy={j === 0 ? 0 : 10}>
+                {line}
+              </tspan>
+            ))}
           </text>
         );
       })}

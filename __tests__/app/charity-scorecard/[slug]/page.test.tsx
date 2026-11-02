@@ -50,4 +50,10 @@ describe("/charity-scorecard/[slug]", () => {
       expect(bySlug.get(s)?.sector).toBe(first.sector);
     }
   });
+
+  it("lets long Quick Facts values wrap instead of pushing the page sideways on a phone", async () => {
+    await renderServer(CharityProfilePage(props(first.slug)));
+    const card = screen.getByText("Quick Facts").closest("div")!.querySelector(".grid > div")!;
+    expect(card).toHaveClass("min-w-0", "wrap-break-word");
+  });
 });
