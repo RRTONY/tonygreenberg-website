@@ -11,7 +11,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 export const metadata: Metadata = seoMetadata({
   title: "How to Read a Peptide COA — 7 Red Flags",
   description:
-    "Every peptide vendor will hand you a Certificate of Analysis. Most will look official. Many are internal documents the vendor made themselves. Here's how to tell the difference in under five minutes.",
+    "Every peptide vendor hands you a Certificate of Analysis. Many are documents the vendor made itself. How to tell the difference in five minutes.",
   alternates: { canonical: "/verify-your-coa" },
 });
 

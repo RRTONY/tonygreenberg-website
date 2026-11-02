@@ -11,7 +11,9 @@ type OG = { type?: string; siteName?: string; url?: string; images?: { url: stri
 describe("/america-unbundled-field-guide", () => {
   it("has an absolute title, description and canonical", () => {
     expect(metadata.title).toEqual({ absolute: "America, Unbundled | Independent Political Infrastructure & INC 2026" });
-    expect(metadata.description).toMatch(/^America, Unbundled is Tony Greenberg’s field guide to independent political infrastructure.*…$/);
+    expect(metadata.description).toMatch(/^America, Unbundled: Tony Greenberg's field guide.*2026 Independent National Convention\.$/);
+    // Written to fit, so the helper never cuts it off.
+    expect(metadata.description).not.toMatch(/…$/);
     expect(metadata.alternates?.canonical).toBe("/america-unbundled-field-guide");
   });
 

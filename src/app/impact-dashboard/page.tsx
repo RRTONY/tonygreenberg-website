@@ -19,7 +19,7 @@ import { STATS } from "@/lib/content/charity-data";
 export const metadata: Metadata = seoMetadata({
   title: "ImpactSoul Target Representation — Impact Dashboard",
   description:
-    "A target representation of the ImpactSoul operating model: regenerative capital, accountable projects, distributed philanthropy, and a 30-day refinement process.",
+    "A target view of the ImpactSoul operating model: regenerative capital, accountable projects, distributed philanthropy and 30-day refinement.",
   alternates: { canonical: "/impact-dashboard" },
 });
 

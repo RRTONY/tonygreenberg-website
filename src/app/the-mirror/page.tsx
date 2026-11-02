@@ -18,7 +18,7 @@ import { TheMirrorQuiz } from "@/components/assessments/the-mirror-quiz/the-mirr
 export const metadata: Metadata = seoMetadata({
   title: "The Mirror",
   description:
-    "A six-dimension life assessment. Eighteen questions mapping where you actually are across relationships, purpose, health, truth, tribe, and consciousness — and how fast you can close the gap.",
+    "A six-dimension life assessment: 18 questions on relationships, purpose, health, truth, tribe and consciousness, and how fast you can close the gap.",
   alternates: { canonical: "/the-mirror" },
 });
 

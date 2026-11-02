@@ -3,7 +3,7 @@ import { readFileSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it, vi } from "vitest";
 import sitemap from "@/app/sitemap";
-import { client } from "@/lib/sanity/client";
+import { sanityFetch } from "@/lib/sanity/client";
 import { allPostSlugsQuery } from "@/lib/sanity/queries";
 import { POST_REDIRECTS } from "@/lib/content/post-redirects";
 import { BREWSOUL_COFFEES } from "@/lib/content/brewsoul-coffees";
@@ -29,7 +29,7 @@ function pageFiles(dir = APP, out = new Map<string, string>()) {
 const REDIRECT_PREFIX = Object.keys(POST_REDIRECTS)[0];
 
 function withData(categories: unknown[] = []) {
-  vi.mocked(client.fetch).mockImplementation((async (query: string) =>
+  vi.mocked(sanityFetch).mockImplementation((async ({ query }: { query: string }) =>
     query === allPostSlugsQuery
       ? [
           { slug: "five-cups", _updatedAt: "2026-10-01" },
@@ -40,6 +40,13 @@ function withData(categories: unknown[] = []) {
 }
 
 describe("sitemap.xml", () => {
+  it("reads Sanity through sanityFetch, so a publish refreshes it", async () => {
+    withData();
+    await sitemap();
+    expect(sanityFetch).toHaveBeenCalledWith(expect.objectContaining({ query: allPostSlugsQuery, tags: ["post"] }));
+    expect(sanityFetch).toHaveBeenCalledWith(expect.objectContaining({ tags: ["category"] }));
+  });
+
   it("lists only absolute https URLs on this site, with no duplicates", async () => {
     withData([{ slug: { current: "business" }, postCount: 10 }]);
     const urls = (await sitemap()).map((e) => e.url);

@@ -5,7 +5,9 @@ import PeptideMatrixPage, { metadata } from "@/app/peptide-matrix/page";
 describe("/peptide-matrix", () => {
   it("has its own title, description and canonical", () => {
     expect(metadata.title).toEqual({ absolute: "Peptide Evidence Matrix — Reviews vs. Scientific Evidence" });
-    expect(metadata.description).toMatch(/^Evidence-based ratings for peptide influencers, clinics, and vendors.*…$/);
+    expect(metadata.description).toMatch(/Where 5-star reviews and real efficacy diverge\.$/);
+    // Written to fit, so the helper never cuts it off.
+    expect(metadata.description).not.toMatch(/…$/);
     expect(metadata.alternates?.canonical).toBe("/peptide-matrix");
   });
 

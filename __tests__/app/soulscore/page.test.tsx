@@ -7,7 +7,9 @@ import { defaultOpenGraph } from "@/lib/seo-defaults";
 describe("/soulscore", () => {
   it("has its own title, description and canonical", () => {
     expect(metadata.title).toBe("SoulScore™ — 12-Dimension Impact Measurement Engine");
-    expect(metadata.description).toMatch(/Score consciousness, not just carbon, across 12 weighted dimensions/);
+    expect(metadata.description).toMatch(/score consciousness, not just carbon, across 12 dimensions/);
+    // Written to fit, so the helper never cuts it off.
+    expect(metadata.description).not.toMatch(/…$/);
     expect(metadata.alternates?.canonical).toBe("/soulscore");
   });
 

@@ -32,9 +32,9 @@ const PHOTO =
   "https://cdn.sanity.io/images/a3q1cyqs/production/9e6e4793293ddc079385db76ef73a8bf9c416826-1000x1060.jpg";
 
 export const metadata: Metadata = seoMetadata({
-  title: "Convicted Embezzler Kristi Klawiter — $46,795 Stolen, Prior NJ Guilty Pleas",
+  title: "Convicted Embezzler Kristi Klawiter: $46,795 Stolen",
   description:
-    "Kristi Klawiter, convicted of theft and forgery in New Jersey (Monmouth County 17-005347, Morris County 16-002436), embezzled $46,795 through 11 unauthorized invoices. Full documented case with court records, FBI report, and signed admissions.",
+    "Kristi Klawiter, convicted of theft and forgery in New Jersey, embezzled $46,795 through 11 unauthorized invoices. Court records and admissions.",
   alternates: { canonical: "/protecting-your-business" },
 });
 

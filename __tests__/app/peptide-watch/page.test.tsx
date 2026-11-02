@@ -6,7 +6,9 @@ import { WALL_OF_SHAME } from "@/lib/content/peptide-watch";
 describe("/peptide-watch", () => {
   it("has its own title, description and canonical", () => {
     expect(metadata.title).toBe("PeptideWatch — The Definitive Consumer Safety Guide");
-    expect(metadata.description).toMatch(/12 documented fraud patterns, 30\+ named enforcement actions/);
+    expect(metadata.description).toMatch(/^12 documented fraud patterns, 30\+ enforcement actions/);
+    // Written to fit, so the helper never cuts it off.
+    expect(metadata.description).not.toMatch(/…$/);
     expect(metadata.alternates?.canonical).toBe("/peptide-watch");
   });
 

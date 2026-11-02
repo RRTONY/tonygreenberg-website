@@ -17,7 +17,9 @@ describe("/articles", () => {
 
   it("has its own title, description and canonical", () => {
     expect(metadata.title).toBe("All Articles");
-    expect(metadata.description).toMatch(/Complete archive of Tony Greenberg's published essays/);
+    expect(metadata.description).toMatch(/^The complete archive of Tony Greenberg's essays/);
+    // Written to fit, so the helper never cuts it off.
+    expect(metadata.description).not.toMatch(/…$/);
     expect(metadata.alternates?.canonical).toBe("/articles");
   });
 

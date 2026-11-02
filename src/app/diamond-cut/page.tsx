@@ -16,7 +16,7 @@ import { RelatedPages } from "@/components/marketing/related-pages";
 export const metadata: Metadata = seoMetadata({
   title: "The Diamond Cut — Services to Product",
   description:
-    "For services businesses not yet at product scale. Tony identifies the diamond in your rough, maps services to scalable product, and activates Fortune 50 distribution.",
+    "For services businesses not yet at product scale: Tony finds the diamond in your rough, maps services to product, and opens Fortune 50 distribution.",
   alternates: { canonical: "/diamond-cut" },
 });
 

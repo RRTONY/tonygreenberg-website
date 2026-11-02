@@ -27,7 +27,9 @@ describe("/the-mirror", () => {
 
   it("has its own title, description and canonical", () => {
     expect(metadata.title).toBe("The Mirror");
-    expect(metadata.description).toMatch(/^A six-dimension life assessment\. Eighteen questions/);
+    expect(metadata.description).toMatch(/^A six-dimension life assessment: 18 questions/);
+    // Written to fit, so the helper never cuts it off.
+    expect(metadata.description).not.toMatch(/…$/);
     expect(metadata.alternates?.canonical).toBe("/the-mirror");
   });
 

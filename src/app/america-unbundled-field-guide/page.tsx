@@ -26,7 +26,7 @@ const INC_URL = "https://independentnationalconvention.com/";
 export const metadata: Metadata = seoMetadata({
   title: { absolute: "America, Unbundled | Independent Political Infrastructure & INC 2026" },
   description:
-    "America, Unbundled is Tony Greenberg’s field guide to independent political infrastructure, decentralized governance, civic accountability, and the Independent National Convention 2026.",
+    "America, Unbundled: Tony Greenberg's field guide to independent political infrastructure, civic accountability and the 2026 Independent National Convention.",
   alternates: { canonical: "/america-unbundled-field-guide" },
   openGraph: {
     type: "article",

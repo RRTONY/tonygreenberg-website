@@ -38,7 +38,7 @@ import { QUADRANTS, DANGER_MECHANISMS, CROSS_LINKS } from "@/lib/content/peptide
 export const metadata: Metadata = seoMetadata({
   title: "Peptide Evidence Matrix — Reviews vs. Scientific Evidence",
   description:
-    "Evidence-based ratings for peptide influencers, clinics, and vendors by review score vs. scientific evidence. Where 5-star reviews and FDA-approved efficacy diverge.",
+    "Peptide influencers, clinics and vendors rated by review score against scientific evidence. Where 5-star reviews and real efficacy diverge.",
   alternates: { canonical: "/peptide-matrix" },
 });
 

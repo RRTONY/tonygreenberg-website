@@ -18,7 +18,7 @@ import { ArticlesExplorer, type ArchivePost } from "@/components/blog/articles-e
 export const metadata: Metadata = seoMetadata({
   title: "All Articles",
   description:
-    "Complete archive of Tony Greenberg's published essays on enterprise technology, psychedelic medicine, impact investing, systems thinking, and conscious capitalism.",
+    "The complete archive of Tony Greenberg's essays on enterprise technology, psychedelic medicine, impact investing and conscious capitalism.",
   alternates: { canonical: "/articles" },
 });
 

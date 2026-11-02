@@ -13,7 +13,7 @@ import { PeptideLibraryList, type PeptideProfile } from "@/components/marketing/
 export const metadata: Metadata = seoMetadata({
   title: "Peptide Library — Every Compound Profiled",
   description:
-    "Complete peptide profiles with safety tiers, evidence scores, regulatory status, pricing, stack partners, and biomarker tracking suggestions. 20+ compounds. Zero affiliate links.",
+    "Profiles of 20+ peptides with safety tiers, evidence scores, regulatory status, pricing, stack partners and biomarkers. Zero affiliate links.",
   alternates: { canonical: "/peptide-library" },
 });
 

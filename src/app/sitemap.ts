@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { client } from "@/lib/sanity/client";
+import { sanityFetch } from "@/lib/sanity/client";
 import { allPostSlugsQuery, categoriesQuery, MIN_INDEXABLE_CATEGORY_POSTS } from "@/lib/sanity/queries";
 import { CITIES } from "@/lib/content/brewsoul-cities";
 import { BREWSOUL_COFFEES } from "@/lib/content/brewsoul-coffees";
@@ -162,9 +162,12 @@ const STATIC_ROUTES = [
 const isUnlisted = (slug: string) => slug in POST_REDIRECTS || isGatedPost(slug);
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  // Through sanityFetch so a Sanity publish refreshes the sitemap too
+  // (2026-11-03: a bare client.fetch kept it frozen until the next deploy,
+  // and a newly published essay stayed out of it).
   const [posts, categories] = await Promise.all([
-    client.fetch<{ slug: string; _updatedAt: string }[]>(allPostSlugsQuery),
-    client.fetch<{ slug: { current: string } | null; postCount: number }[]>(categoriesQuery),
+    sanityFetch<{ slug: string; _updatedAt: string }[]>({ query: allPostSlugsQuery, tags: ["post"] }),
+    sanityFetch<{ slug: { current: string } | null; postCount: number }[]>({ query: categoriesQuery, tags: ["category"] }),
   ]);
 
   return [

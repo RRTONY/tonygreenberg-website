@@ -13,8 +13,10 @@ describe("/protecting-your-business", () => {
   });
 
   it("has its own title, description and canonical", () => {
-    expect(metadata.title).toEqual({ absolute: "Convicted Embezzler Kristi Klawiter — $46,795 Stolen, Prior NJ Guilty Pleas" });
-    expect(metadata.description).toMatch(/Monmouth County 17-005347, Morris County 16-002436/);
+    expect(metadata.title).toBe("Convicted Embezzler Kristi Klawiter: $46,795 Stolen");
+    expect(metadata.description).toMatch(/^Kristi Klawiter, convicted of theft and forgery in New Jersey/);
+    // Written to fit, so the helper never cuts it off.
+    expect(metadata.description).not.toMatch(/…$/);
     expect(metadata.alternates?.canonical).toBe("/protecting-your-business");
   });
 

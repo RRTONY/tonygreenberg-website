@@ -10,7 +10,9 @@ function checklistItems() {
 describe("/verify-your-coa", () => {
   it("has its own title, description and canonical", () => {
     expect(metadata.title).toBe("How to Read a Peptide COA — 7 Red Flags");
-    expect(metadata.description).toMatch(/^Every peptide vendor will hand you a Certificate of Analysis\./);
+    expect(metadata.description).toMatch(/^Every peptide vendor hands you a Certificate of Analysis\./);
+    // Written to fit, so the helper never cuts it off.
+    expect(metadata.description).not.toMatch(/…$/);
     expect(metadata.alternates?.canonical).toBe("/verify-your-coa");
   });
 

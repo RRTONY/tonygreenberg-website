@@ -7,7 +7,9 @@ import { MEDICINES, QUESTIONS } from "@/lib/content/pri-data";
 describe("/psychedelic-readiness-index", () => {
   it("has its own title, description and canonical", () => {
     expect(metadata.title).toBe("Psychedelic Readiness Index — Find Your Medicine");
-    expect(metadata.description).toMatch(/^39 plant medicines\. 50\+ readiness questions\. 6 domains\./);
+    expect(metadata.description).toMatch(/^39 plant medicines, 50\+ readiness questions, 6 domains/);
+    // Written to fit, so the helper never cuts it off.
+    expect(metadata.description).not.toMatch(/…$/);
     expect(metadata.alternates?.canonical).toBe("/psychedelic-readiness-index");
   });
 

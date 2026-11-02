@@ -21,6 +21,15 @@ describe("/brewsoul/coffee/[id]", () => {
     expect(await generateMetadata(pageProps({ id: "no-such-coffee" }))).toEqual({});
   });
 
+  it("keeps every coffee's description whole and drops the parent company from a roaster name", async () => {
+    for (const c of BREWSOUL_COFFEES) {
+      const { description } = await generateMetadata(pageProps({ id: c.id }));
+      expect(description, c.id).not.toMatch(/…$/);
+      expect(description!.length, c.id).toBeLessThanOrEqual(160);
+    }
+    expect((await generateMetadata(pageProps({ id: "tim-hortons-original" }))).title).toBe("Original Blend by Tim Hortons — BrewSoul");
+  });
+
   it("adds the roaster to a name two coffees share, so every title is different", async () => {
     expect((await generateMetadata(pageProps({ id: "dunkin-original-blend" }))).title).toMatch(/^Original Blend by .+ — BrewSoul$/);
     const titles = await Promise.all(BREWSOUL_COFFEES.map(async (c) => JSON.stringify((await generateMetadata(pageProps({ id: c.id }))).title)));

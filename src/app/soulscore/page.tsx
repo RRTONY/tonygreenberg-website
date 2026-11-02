@@ -11,7 +11,7 @@ import { defaultOpenGraph, seoMetadata } from "@/lib/seo-defaults";
 export const metadata: Metadata = seoMetadata({
   title: "SoulScore™ — 12-Dimension Impact Measurement Engine",
   description:
-    "An interactive impact measurement engine by ImpactSoul. Score consciousness, not just carbon, across 12 weighted dimensions for any entity — benchmark against Fortune 500, B Corp, and Patagonia, explore a 6-tier supply chain model, and calculate Consciousness-Adjusted NPV in real time.",
+    "ImpactSoul's impact engine: score consciousness, not just carbon, across 12 dimensions and benchmark against the Fortune 500, B Corps and Patagonia.",
   alternates: { canonical: "/soulscore" },
   openGraph: {
     ...defaultOpenGraph,

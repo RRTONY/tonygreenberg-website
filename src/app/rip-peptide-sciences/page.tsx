@@ -11,7 +11,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 export const metadata: Metadata = seoMetadata({
   title: "What Happened to Peptide Sciences? (They Pulled a Houdini)",
   description:
-    "On March 6, 2026, Peptide Sciences — $7.4M/month, decade-long run — posted three sentences and vanished. No refunds. No forwarding address. No explanation. Here's everything we know.",
+    "On March 6, 2026, Peptide Sciences ($7.4M a month) posted three sentences and vanished. No refunds, no explanation. Here's everything we know.",
   alternates: { canonical: "/rip-peptide-sciences" },
 });
 

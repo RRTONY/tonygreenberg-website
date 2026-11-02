@@ -34,7 +34,7 @@ import {
 export const metadata: Metadata = seoMetadata({
   title: "PeptideWatch — The Definitive Consumer Safety Guide",
   description:
-    "12 documented fraud patterns, 30+ named enforcement actions, and a complete vendor scoring system for the peptide market. Built on FDA, DOJ, FTC, and ITC public records.",
+    "12 documented fraud patterns, 30+ enforcement actions and a vendor scoring system for the peptide market, built on FDA, DOJ and FTC records.",
   alternates: { canonical: "/peptide-watch" },
 });
 

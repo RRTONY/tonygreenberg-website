@@ -12,7 +12,7 @@ import { PATH_TIMELINE, DIAGNOSTIC_HREF } from "@/lib/content/humanos-content";
 export const metadata: Metadata = seoMetadata({
   title: "Path to Here — HumanOS",
   description:
-    "From the 2010 H+ Summit to today — Tony Greenberg's journey through enterprise technology, psychedelic medicine, impact tokenization, and the birth of Human OS 2.0.",
+    "From the 2010 H+ Summit to today: Tony Greenberg's path through enterprise tech, psychedelic medicine and impact tokenization to Human OS 2.0.",
   alternates: { canonical: "/humanos/path-to-here" },
 });
 

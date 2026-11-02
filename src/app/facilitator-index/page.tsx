@@ -24,7 +24,7 @@ import { FacilitatorIndexContent } from "@/components/facilitator/facilitator-in
 export const metadata: Metadata = seoMetadata({
   title: "The Facilitator Index — Know Who You Go With",
   description:
-    "An anonymous, philosophy-first instrument for practitioners who hold non-ordinary states. 108 items across twelve bands. Companion to the Psychedelic Readiness Index.",
+    "An anonymous, philosophy-first instrument for practitioners who hold non-ordinary states. 108 items, twelve bands. Companion to the Readiness Index.",
   alternates: { canonical: "/facilitator-index" },
 });
 

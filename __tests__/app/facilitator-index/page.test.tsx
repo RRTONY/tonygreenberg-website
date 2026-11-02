@@ -5,7 +5,9 @@ import FacilitatorIndexPage, { metadata } from "@/app/facilitator-index/page";
 describe("/facilitator-index", () => {
   it("has its own title, description and canonical", () => {
     expect(metadata.title).toBe("The Facilitator Index — Know Who You Go With");
-    expect(metadata.description).toMatch(/108 items across twelve bands/);
+    expect(metadata.description).toMatch(/108 items, twelve bands/);
+    // Written to fit, so the helper never cuts it off.
+    expect(metadata.description).not.toMatch(/…$/);
     expect(metadata.alternates?.canonical).toBe("/facilitator-index");
   });
 

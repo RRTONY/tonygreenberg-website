@@ -14,7 +14,7 @@ import { ArrowRight } from "lucide-react";
 export const metadata: Metadata = seoMetadata({
   title: "The Seven Doors",
   description:
-    "Walk through Tony Greenberg's seven domains: Enterprise Technology, Social Impact, Psychedelic Medicine, Payments, Health & Longevity, Consumer Advocacy, and Web3.",
+    "Walk through Tony Greenberg's seven domains: Enterprise Tech, Social Impact, Psychedelic Medicine, Payments, Longevity, Consumer Advocacy, Web3.",
   alternates: { canonical: "/walk-through" },
 });
 

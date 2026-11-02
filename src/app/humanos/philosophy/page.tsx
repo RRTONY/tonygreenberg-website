@@ -17,7 +17,7 @@ import { MENTOR } from "@/lib/content/humanos-content";
 export const metadata: Metadata = seoMetadata({
   title: "HumanOS Philosophy",
   description:
-    "The philosophical foundations of HumanOS: consciousness, agency, and human potential — Boiling the Human, the Maximizer Trap, and the Conscious Satisficer framework.",
+    "The foundations of HumanOS: consciousness, agency and human potential. Boiling the Human, the Maximizer Trap and the Conscious Satisficer.",
   alternates: { canonical: "/humanos/philosophy" },
 });
 

@@ -46,7 +46,7 @@ import { BlueprintForm } from "./blueprint-form";
 export const metadata: Metadata = seoMetadata({
   title: "A Living Declaration",
   description:
-    "The Measurement of Becoming — a declaration for measuring human potential, optimizing biochemistry, reducing carbon, and building community toward an abundant future.",
+    "The Measurement of Becoming: a declaration for measuring human potential, optimizing biochemistry, reducing carbon and building community.",
   alternates: { canonical: "/living-declaration" },
 });
 
