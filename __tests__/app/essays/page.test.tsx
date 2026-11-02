@@ -44,4 +44,10 @@ describe("/essays", () => {
     expect(iNew).toBeLessThan(i1);
     expect(i1).toBeLessThan(i2);
   });
+
+  it("features both America, Unbundled articles above the archive", async () => {
+    await renderServer(EssaysPage());
+    expect(screen.getByRole("link", { name: /AI Does Not Have a Candidate/ })).toHaveAttribute("href", "/america-unbundled");
+    expect(screen.getByRole("link", { name: /America, Unbundled: The Field Guide/ })).toHaveAttribute("href", "/america-unbundled-field-guide");
+  });
 });

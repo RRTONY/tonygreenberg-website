@@ -31,4 +31,12 @@ describe("/blog", () => {
     expect(sanityFetch).toHaveBeenCalledWith(expect.objectContaining({ tags: ["post"] }));
     expect(getMostRead).toHaveBeenCalledWith(posts);
   });
+
+  it("features both America, Unbundled articles above the archive", async () => {
+    vi.mocked(getMostRead).mockResolvedValue({ posts: [], fromAnalytics: false } as never);
+    vi.mocked(sanityFetch).mockResolvedValue(posts as never);
+    await renderServer(BlogPage());
+    expect(screen.getByRole("link", { name: /AI Does Not Have a Candidate/ })).toHaveAttribute("href", "/america-unbundled");
+    expect(screen.getByRole("link", { name: /America, Unbundled: The Field Guide/ })).toHaveAttribute("href", "/america-unbundled-field-guide");
+  });
 });

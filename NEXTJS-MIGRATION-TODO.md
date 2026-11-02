@@ -16,6 +16,15 @@
 ## Current status — 2026-11-03
 
 **Compact Share button on essays (2026-11-03, Phase 5):** the six share squares are one "Share" button with a menu (X, LinkedIn, email, copy link, the phone's share sheet; Facebook dropped). Owner said yes to review and publish; pull request `share-compact-2026-11-03`.
+**America, Unbundled QA (2026-11-03, team asked, voter guide going out):** checked live in a browser (iPhone 13 and
+1280px): both articles on `/`, `/blog`, The Index, site search ("independent", "America Unbundled") and `sitemap.xml`;
+Part One hero loads (Sanity CDN, as every content image); Part Two Save privately / Copy answers / Download all work
+(saved answers come back after reload) and `#questions` lands on the questions; "The Movement Arc" label sits on its
+own line above the arc; no backticks in the header; Fix Myself / Explore open their menus (25 / 38 links). Fixed:
+`/essays` did not list them, now shows the same two-part block as `/blog` (shared `america-unbundled-series.tsx`).
+**Outside this repo:** the old ChatGPT copy (`the-new-american.eclecticexe.chatgpt.site`, still 200) has to be taken
+down by whoever owns that ChatGPT account; the ramprate.com intro is in the ramprate-ui project and needs Tony's text
+or an OK on a draft.
 **Whole-site check (2026-11-03):** all 502 sitemap pages load (local build and live), no browser errors, no
 sideways scroll at 375px after fixing 5 pages (long web addresses / underscores in 3 essays, Quick Facts on 2
 charity scorecards; charity chart side labels were also cut off). Technical SEO clean on every page (title,
