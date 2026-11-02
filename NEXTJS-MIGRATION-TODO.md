@@ -16,6 +16,15 @@
 ## Current status — 2026-11-03
 
 **Compact Share button on essays (2026-11-03, Phase 5):** the six share squares are one "Share" button with a menu (X, LinkedIn, email, copy link, the phone's share sheet; Facebook dropped). Owner said yes to review and publish; pull request `share-compact-2026-11-03`.
+**United article moved home (2026-11-03, team asked):** "United Airlines Collected $4.8 Billion in Fees..." (The Case
+of the Creamy Thing) copied word for word from `united-the-creamy-thing.eclecticexe.chatgpt.site` into Sanity as a
+**draft** post (`post-united-airlines-the-case-of-the-creamy-thing`, The Crusades, Tony, Oct 31 2026), all 8 images in
+Sanity, internal links made relative, the one link back to chatgpt.site (a JSX essay we don't have) left out.
+`/united` 308s to `/blog/united-airlines-the-case-of-the-creamy-thing` (next.config.ts, test added). Checked the draft in
+the real essay design at iPhone and 1280px (local draft preview, reverted). **Waiting:** Tony's yes to publish the draft
+(Studio), then merge; SEO description still says "vegan meal complaint", which the team's brief says not to lead with
+(Tony's call); the chatgpt.site copy can't redirect here, its owner should add a link to the new address.
+
 **America, Unbundled QA (2026-11-03, team asked, voter guide going out):** checked live in a browser (iPhone 13 and
 1280px): both articles on `/`, `/blog`, The Index, site search ("independent", "America Unbundled") and `sitemap.xml`;
 Part One hero loads (Sanity CDN, as every content image); Part Two Save privately / Copy answers / Download all work
