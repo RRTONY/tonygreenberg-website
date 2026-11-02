@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { seoMetadata } from "@/lib/seo-defaults";
 import Link from "next/link";
 import { PeptideLegalTable, type PeptideRegEntry } from "@/components/marketing/peptide-legal-table";
 import { PeptideShutdownBanner } from "@/components/marketing/peptide-shutdown-banner";
@@ -7,12 +8,12 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 // Ported from legacy client/src/pages/WhatsLegal.tsx. Real content,
 // unchanged — 17 real compounds with real regulatory status across 3
 // countries.
-export const metadata: Metadata = {
+export const metadata: Metadata = seoMetadata({
   title: "What's Legal? — Peptide Regulatory Status by Country (2026)",
   description:
     "The 2025–2026 FDA enforcement wave targeted vendors, not users. Here's the actual legal status of every major peptide across the US, UK, and Australia.",
   alternates: { canonical: "/whats-legal" },
-};
+});
 
 const DATA: PeptideRegEntry[] = [
   { compound: "BPC-157", us: "Grey Market", uk: "Grey Market", australia: "Scheduled (S4)", rxPath: "No", userRisk: "LOW" },

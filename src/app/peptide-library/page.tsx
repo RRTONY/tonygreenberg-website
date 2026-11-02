@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { seoMetadata } from "@/lib/seo-defaults";
 import Link from "next/link";
 import { PeptideShutdownBanner } from "@/components/marketing/peptide-shutdown-banner";
 import { BioChainCTA } from "@/components/marketing/biochain-cta";
@@ -9,12 +10,12 @@ import { PeptideLibraryList, type PeptideProfile } from "@/components/marketing/
 // safety tier, evidence score, regulatory status, pricing, stack partners,
 // Oura tracking, key study, Tony's take). Legacy used an emoji per
 // category; this app uses lucide-react.
-export const metadata: Metadata = {
+export const metadata: Metadata = seoMetadata({
   title: "Peptide Library — Every Compound Profiled",
   description:
     "Complete peptide profiles with safety tiers, evidence scores, regulatory status, pricing, stack partners, and biomarker tracking suggestions. 20+ compounds. Zero affiliate links.",
   alternates: { canonical: "/peptide-library" },
-};
+});
 
 const PEPTIDES: PeptideProfile[] = [
   { name: "Semaglutide", category: "metabolic", safetyTier: "green", evidence: 10, regulatoryStatus: "FDA-approved (Ozempic/Wegovy). Grey-market versions under legal pressure.", priceRange: "$120–$250 (research) / $400–$900 (Rx)", stackPartners: ["BPC-157 (GI support)", "Tirzepatide (switch, not stack)"], ouraTracking: "Resting HR, HRV, weight trend, sleep efficiency", tgTake: "Ozempic in a research vial. The economics are wild until they aren't.", mechanism: "GLP-1 receptor agonist. Reduces appetite, slows gastric emptying, improves insulin sensitivity.", keyStudy: "Wilding et al., NEJM, 2021 (STEP 1)" },

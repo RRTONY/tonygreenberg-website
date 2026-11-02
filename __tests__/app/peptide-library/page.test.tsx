@@ -5,7 +5,7 @@ import PeptideLibraryPage, { metadata } from "@/app/peptide-library/page";
 describe("/peptide-library", () => {
   it("has its own title, description and canonical", () => {
     expect(metadata.title).toBe("Peptide Library — Every Compound Profiled");
-    expect(metadata.description).toMatch(/Zero affiliate links/);
+    expect(metadata.description).toMatch(/^Complete peptide profiles with safety tiers, evidence scores.*…$/);
     expect(metadata.alternates?.canonical).toBe("/peptide-library");
   });
 

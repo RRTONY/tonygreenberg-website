@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { seoMetadata } from "@/lib/seo-defaults";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
@@ -10,12 +11,12 @@ import { ArrowRight } from "lucide-react";
 // for this page; tracked as an open item in NEXTJS-MIGRATION-TODO.md's
 // internal-cross-link-structure note rather than half-ported here.
 
-export const metadata: Metadata = {
+export const metadata: Metadata = seoMetadata({
   title: "The Seven Doors",
   description:
     "Walk through Tony Greenberg's seven domains: Enterprise Technology, Social Impact, Psychedelic Medicine, Payments, Health & Longevity, Consumer Advocacy, and Web3.",
   alternates: { canonical: "/walk-through" },
-};
+});
 
 const HERO_IMAGE =
   "https://cdn.sanity.io/images/a3q1cyqs/production/adce8df75f9f9debc9faeeb90cbcbb5a9e07881a-980x1721.webp";

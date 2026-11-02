@@ -4,7 +4,7 @@ import Page, { metadata } from "@/app/humanos/page";
 
 describe("/humanos", () => {
   it("has its own title, description and canonical", () => {
-    expect(metadata.title).toBe("Human OS V2.0 — The Machine Is Perfect. Be The Glitch.");
+    expect(metadata.title).toEqual({ absolute: "Human OS V2.0 — The Machine Is Perfect. Be The Glitch." });
     expect(metadata.description).toBeTruthy();
     expect(metadata.alternates?.canonical).toBe("/humanos");
   });

@@ -25,3 +25,54 @@ export const defaultTwitter = {
   creator: "@ThinkTony",
   images: [DEFAULT_OG_IMAGE.url],
 } satisfies NonNullable<Metadata["twitter"]>;
+
+// Search-result titles and descriptions (2026-11-03). Google cuts a title
+// off around 60-70 characters and a description around 160, and flags
+// descriptions too short to say anything. These keep every page inside
+// those limits without rewriting anyone's wording: a title that would run
+// long loses the " | Tony Greenberg" ending, a missing or thin description
+// gets the site's default, and a long one is shortened at a word break.
+export const SITE_NAME = "Tony Greenberg";
+export const DEFAULT_DESCRIPTION =
+  "Essays, frameworks, and tools from Tony Greenberg — CEO of RampRate, Founder of ImpactSoul.";
+export const MAX_TITLE_LENGTH = 70;
+export const MIN_DESCRIPTION_LENGTH = 50;
+export const MAX_DESCRIPTION_LENGTH = 160;
+
+const TITLE_SUFFIX = ` | ${SITE_NAME}`;
+
+function squash(text: string | null | undefined) {
+  return (text ?? "").replace(/\s+/g, " ").trim();
+}
+
+// The page's own title, with the layout's " | Tony Greenberg" ending only
+// when the whole thing still fits. No title: undefined, so the layout's
+// default title applies.
+export function seoTitle(title: string | null | undefined): Metadata["title"] {
+  const text = squash(title);
+  if (!text) return undefined;
+  return text.length + TITLE_SUFFIX.length <= MAX_TITLE_LENGTH ? text : { absolute: text };
+}
+
+export function seoDescription(
+  description: string | null | undefined,
+  fallback: string = DEFAULT_DESCRIPTION,
+): string {
+  let text = squash(description);
+  if (text.length < MIN_DESCRIPTION_LENGTH) text = squash(`${text} ${fallback}`);
+  if (text.length <= MAX_DESCRIPTION_LENGTH) return text;
+  const cut = text.slice(0, MAX_DESCRIPTION_LENGTH - 1);
+  const atWord = cut.slice(0, cut.lastIndexOf(" ")) || cut;
+  return `${atWord.replace(/[\s,;:.—–-]+$/, "")}…`;
+}
+
+// A page's static metadata with seoTitle/seoDescription applied:
+// export const metadata = seoMetadata({ title: "...", description: "..." }).
+export function seoMetadata(metadata: Metadata): Metadata {
+  const { title, description } = metadata;
+  return {
+    ...metadata,
+    title: typeof title === "string" ? seoTitle(title) : title,
+    description: seoDescription(description),
+  };
+}

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { seoMetadata } from "@/lib/seo-defaults";
 import Link from "next/link";
 import { EyebrowLabel } from "@/components/marketing/eyebrow-label";
 import { PATH_TIMELINE, DIAGNOSTIC_HREF } from "@/lib/content/humanos-content";
@@ -8,12 +9,12 @@ import { PATH_TIMELINE, DIAGNOSTIC_HREF } from "@/lib/content/humanos-content";
 // OS 2.0) ported verbatim. "Take the Diagnostic" CTA -> /humanos/philosophy
 // instead of legacy's dead `/assessment` (see the DIAGNOSTIC_HREF comment
 // in lib/content/humanos-content.ts).
-export const metadata: Metadata = {
+export const metadata: Metadata = seoMetadata({
   title: "Path to Here — HumanOS",
   description:
     "From the 2010 H+ Summit to today — Tony Greenberg's journey through enterprise technology, psychedelic medicine, impact tokenization, and the birth of Human OS 2.0.",
   alternates: { canonical: "/humanos/path-to-here" },
-};
+});
 
 export default function HumanosPathToHere() {
   return (

@@ -35,7 +35,7 @@ describe("categoryMetadata", () => {
   it("titles later pages and self-canonicals", async () => {
     const meta = await categoryMetadata("tech", 2);
     expect(meta.title).toBe("Tech — Page 2");
-    expect(meta.description).toBe("Essays filed under Tech.");
+    expect(meta.description).toMatch(/^\d+ essays by Tony Greenberg on Tech, newest first\./);
     expect(meta.alternates?.canonical).toBe("/blog/category/tech/page/2");
     expect(meta.robots).toBeUndefined();
   });

@@ -329,6 +329,11 @@ Two specific Next.js App Router pitfalls to check for, since they're easy to int
   metadata shallowly, so a page's own `openGraph` replaces the layout's whole object and the page
   loses the share image (165 of 171 pages had none until 2026-10-10). No `keywords`: Google
   ignores the tag and the SEO pack asked for it gone.
+- **Titles and descriptions go through the shared helper** (`src/lib/seo-defaults.ts`): a static page
+  exports `metadata = seoMetadata({ title, description, ... })`; a `generateMetadata` uses `seoTitle()` and
+  `seoDescription()`. They keep a title within 70 characters by dropping " | Tony Greenberg", fill a missing
+  or thin description with the site default, and cut a long one at 160 on a word. They never rewrite
+  wording: a title too long on its own words is Tony's to shorten.
 - Baseline expectations for every ported page regardless: real per-page `generateMetadata`
   (title/description/OG), a canonical URL, and — for anything CMS-backed — a Sanity `seo`/`pageSeo`
   document rather than hardcoded metadata that an editor can't change without a deploy.

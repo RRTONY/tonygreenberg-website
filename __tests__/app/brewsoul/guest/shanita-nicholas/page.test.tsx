@@ -4,7 +4,7 @@ import Page, { metadata } from "@/app/brewsoul/guest/shanita-nicholas/page";
 
 describe("/brewsoul/guest/shanita-nicholas", () => {
   it("has its title, description and canonical", () => {
-    expect(metadata.title).toBe("Shanita Nicholas Breaks the Coffee Industry's Comfortable Lies");
+    expect(metadata.title).toEqual({ absolute: "Shanita Nicholas Breaks the Coffee Industry's Comfortable Lies" });
     expect(metadata.description).toMatch(/Guest Series interview/);
     expect(metadata.alternates?.canonical).toBe("/brewsoul/guest/shanita-nicholas");
   });

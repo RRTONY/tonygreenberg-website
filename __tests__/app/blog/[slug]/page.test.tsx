@@ -3,6 +3,7 @@ import { screen } from "@testing-library/react";
 import { renderServer, pageProps } from "@tests/helpers/render";
 import BlogPostPage, { generateMetadata, generateStaticParams } from "@/app/blog/[slug]/page";
 import { sanityFetch, client } from "@/lib/sanity/client";
+import { DEFAULT_DESCRIPTION } from "@/lib/seo-defaults";
 import { postBySlugQuery, postsBySlugsQuery, recentPostsQuery, relatedPostsQuery } from "@/lib/sanity/queries";
 
 // The shared next/font/google fake (a Proxy) has no `has` trap, so vitest
@@ -45,17 +46,26 @@ describe("/blog/[slug] metadata", () => {
   it("uses the post's title, excerpt and its own canonical", async () => {
     const meta = await generateMetadata(props("five-cups"));
     expect(meta.title).toBe("Five Cups of Trust");
-    expect(meta.description).toBe("Why trust is poured, not built.");
+    // Too short on its own, so the site default follows it.
+    expect(meta.description).toBe(`Why trust is poured, not built. ${DEFAULT_DESCRIPTION}`);
     expect(meta.alternates?.canonical).toBe("/blog/five-cups");
     expect(meta.openGraph).toMatchObject({ type: "article", url: "/blog/five-cups", section: "Business" });
     expect(meta.robots).toBeUndefined();
+  });
+
+  it("drops the | Tony Greenberg ending from a long essay title", async () => {
+    const title = "Restaurants Beware of Vegans and Vegans Beware of Lying Restaurants";
+    withPost({ ...POST, title });
+    const meta = await generateMetadata(props("five-cups"));
+    expect(meta.title).toEqual({ absolute: title });
+    expect(meta.openGraph).toMatchObject({ title });
   });
 
   it("prefers the SEO fields when set", async () => {
     withPost({ ...POST, seo: { metaTitle: "SEO title", metaDescription: "SEO desc" } });
     const meta = await generateMetadata(props("five-cups"));
     expect(meta.title).toBe("SEO title");
-    expect(meta.description).toBe("SEO desc");
+    expect(meta.description).toMatch(/^SEO desc /);
   });
 
   it("keeps a password-protected essay out of search and says nothing about it", async () => {

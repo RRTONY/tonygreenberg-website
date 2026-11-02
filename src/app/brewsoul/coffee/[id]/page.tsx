@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { seoDescription, seoTitle } from "@/lib/seo-defaults";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BREWSOUL_COFFEES } from "@/lib/content/brewsoul-coffees";
@@ -41,12 +42,19 @@ export async function generateStaticParams() {
   return BREWSOUL_COFFEES.map((c) => ({ id: c.id }));
 }
 
+// Two roasters sell an "Original Blend" and two an "Ethiopia Worka Natural":
+// a shared name gets the roaster's added so each page has its own title.
+function coffeeTitleName(coffee: (typeof BREWSOUL_COFFEES)[number]) {
+  const shared = BREWSOUL_COFFEES.some((c) => c.id !== coffee.id && c.name === coffee.name);
+  return shared ? `${coffee.name} by ${coffee.producer}` : coffee.name;
+}
+
 export async function generateMetadata({ params }: PageProps<"/brewsoul/coffee/[id]">): Promise<Metadata> {
   const coffee = findCoffee((await params).id);
   if (!coffee) return {};
   return {
-    title: `${coffee.name} — BrewSoul`,
-    description: `${coffee.name} by ${coffee.producer}: ${coffee.originCountry}, ${coffee.variety}, ${coffee.processingMethod}. Full QPR, availability, scarcity, and wow-factor scoring.`,
+    title: seoTitle(`${coffeeTitleName(coffee)} — BrewSoul`),
+    description: seoDescription(`${coffee.name} by ${coffee.producer}: ${coffee.originCountry}, ${coffee.variety}, ${coffee.processingMethod}. Full QPR, availability, scarcity, and wow-factor scoring.`),
     alternates: { canonical: `/brewsoul/coffee/${coffee.id}` },
   };
 }

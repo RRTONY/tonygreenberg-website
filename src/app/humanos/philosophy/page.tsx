@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { seoMetadata } from "@/lib/seo-defaults";
 import Link from "next/link";
 import Image from "next/image";
 import { EyebrowLabel } from "@/components/marketing/eyebrow-label";
@@ -13,12 +14,12 @@ import { MENTOR } from "@/lib/content/humanos-content";
 // components/humanos/person-card.tsx) instead of an inline layout —
 // consolidated into that shared component since Ecosystem needs the same
 // treatment for 12 more people.
-export const metadata: Metadata = {
+export const metadata: Metadata = seoMetadata({
   title: "HumanOS Philosophy",
   description:
     "The philosophical foundations of HumanOS: consciousness, agency, and human potential — Boiling the Human, the Maximizer Trap, and the Conscious Satisficer framework.",
   alternates: { canonical: "/humanos/philosophy" },
-};
+});
 
 const CONSCIOUSNESS_IMG =
   "https://cdn.sanity.io/images/a3q1cyqs/production/4bdf04e4f73f2f9248df6e2d26ba4113594af75c-1434x1920.webp";

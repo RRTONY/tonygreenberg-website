@@ -22,7 +22,7 @@ describe("/blog/category/[slug]", () => {
     category("Business", 20);
     const meta = await generateMetadata(props("business"));
     expect(meta.title).toBe("Business");
-    expect(meta.description).toBe("Essays filed under Business.");
+    expect(meta.description).toMatch(/^20 essays by Tony Greenberg on Business, newest first\./);
     expect(meta.alternates?.canonical).toBe("/blog/category/business");
     expect(meta.robots).toBeUndefined();
   });

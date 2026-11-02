@@ -20,7 +20,7 @@ describe("/essays", () => {
   });
 
   it("has its own title, description and canonical", () => {
-    expect(metadata.title).toBe("Essays");
+    expect(metadata.title).toBe("Essay Archive");
     expect(metadata.description).toMatch(/enterprise technology, psychedelic medicine, regenerative capital/);
     expect(metadata.alternates?.canonical).toBe("/essays");
   });

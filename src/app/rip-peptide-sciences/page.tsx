@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { seoMetadata } from "@/lib/seo-defaults";
 import Link from "next/link";
 import { BioChainCTA } from "@/components/marketing/biochain-cta";
 import { VendorScorecard, type Vendor } from "@/components/marketing/vendor-scorecard";
@@ -7,12 +8,12 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 // Ported from legacy client/src/pages/RipPeptideSciences.tsx. Real content,
 // unchanged — the timeline, the 3 reasons, the vendor scorecard (9 real
 // vendors, scored), the COA explainer, and Tony's quote.
-export const metadata: Metadata = {
+export const metadata: Metadata = seoMetadata({
   title: "What Happened to Peptide Sciences? (They Pulled a Houdini)",
   description:
     "On March 6, 2026, Peptide Sciences — $7.4M/month, decade-long run — posted three sentences and vanished. No refunds. No forwarding address. No explanation. Here's everything we know.",
   alternates: { canonical: "/rip-peptide-sciences" },
-};
+});
 
 const TIMELINE = [
   { date: "2009", headline: "Domain registered.", detail: "PeptideSciences.com comes online. A new era of grey-market peptide sales begins. Nobody claps. Nobody is watching yet." },

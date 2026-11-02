@@ -9,7 +9,7 @@ vi.setConfig({ testTimeout: 45_000 });
 
 describe("/iboga-ibogaine", () => {
   it("has its own title, description and canonical", () => {
-    expect(metadata.title).toBe("Iboga vs Ibogaine — Deep Dive | Psychedelic Readiness Index");
+    expect(metadata.title).toEqual({ absolute: "Iboga vs Ibogaine — Deep Dive | Psychedelic Readiness Index" });
     expect(metadata.description).toMatch(/The Plant vs The Isolate/);
     expect(metadata.alternates?.canonical).toBe("/iboga-ibogaine");
   });

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { SoulScoreTool } from "@/components/assessments/soulscore-tool";
-import { defaultOpenGraph } from "@/lib/seo-defaults";
+import { defaultOpenGraph, seoMetadata } from "@/lib/seo-defaults";
 
 // Real metadata written fresh for this page's actual content — see the
 // port-note in `soulscore-tool.tsx` for why: legacy's own `<SEO>` block on
@@ -8,7 +8,7 @@ import { defaultOpenGraph } from "@/lib/seo-defaults";
 // ("Soul Score — Alignment Assessment" / values-alignment diagnostic /
 // path "/soul-score"), not the real 12-dimension impact measurement
 // engine that actually renders here.
-export const metadata: Metadata = {
+export const metadata: Metadata = seoMetadata({
   title: "SoulScore™ — 12-Dimension Impact Measurement Engine",
   description:
     "An interactive impact measurement engine by ImpactSoul. Score consciousness, not just carbon, across 12 weighted dimensions for any entity — benchmark against Fortune 500, B Corp, and Patagonia, explore a 6-tier supply chain model, and calculate Consciousness-Adjusted NPV in real time.",
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "Tony Greenberg",
   },
-};
+});
 
 export default function SoulScorePage() {
   return <SoulScoreTool />;

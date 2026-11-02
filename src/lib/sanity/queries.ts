@@ -192,7 +192,7 @@ export const postCountByCategoryQuery = groq`
 `;
 
 export const categoryBySlugQuery = groq`
-  *[_type == "category" && slug.current == $slug][0]{_id, title}
+  *[_type == "category" && slug.current == $slug][0]{_id, title, description}
 `;
 
 export const allCategorySlugsQuery = groq`

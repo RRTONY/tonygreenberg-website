@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { seoDescription } from "@/lib/seo-defaults";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
@@ -35,7 +36,11 @@ export async function getCategoryPostCount(slug: string) {
 
 export async function categoryMetadata(slug: string, page: number): Promise<Metadata> {
   const [category, total] = await Promise.all([
-    sanityFetch<{ title: string } | null>({ query: categoryBySlugQuery, params: { slug }, tags: ["category"] }),
+    sanityFetch<{ title: string; description?: string | null } | null>({
+      query: categoryBySlugQuery,
+      params: { slug },
+      tags: ["category"],
+    }),
     getCategoryPostCount(slug),
   ]);
   // Missing category: the page calls notFound(); match the 404 page's own title.
@@ -43,7 +48,12 @@ export async function categoryMetadata(slug: string, page: number): Promise<Meta
 
   return {
     title: page > 1 ? `${category.title} — Page ${page}` : category.title,
-    description: `Essays filed under ${category.title}.`,
+    // The category's own description from Sanity when an editor has written
+    // one; otherwise a default that says what's on the page.
+    description: seoDescription(
+      category.description ||
+        `${total} essays by Tony Greenberg on ${category.title}, newest first. Business, trust, technology and the systems that need to change.`,
+    ),
     // Each page has genuinely different posts, so it self-canonicals rather
     // than consolidating to page 1 (Google's current pagination guidance).
     alternates: { canonical: categoryPageHref(slug, page) },

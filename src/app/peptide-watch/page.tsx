@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { seoMetadata } from "@/lib/seo-defaults";
 import Image from "next/image";
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
@@ -30,12 +31,12 @@ import {
 // rescued from the old Manus host into Sanity on 2026-10-07
 // (scripts/rescue-2026-10-07-peptide-images.ts). The legacy page's own <footer> was dropped as a duplicate of the
 // site's global SiteFooter (rendered once in layout.tsx).
-export const metadata: Metadata = {
+export const metadata: Metadata = seoMetadata({
   title: "PeptideWatch — The Definitive Consumer Safety Guide",
   description:
     "12 documented fraud patterns, 30+ named enforcement actions, and a complete vendor scoring system for the peptide market. Built on FDA, DOJ, FTC, and ITC public records.",
   alternates: { canonical: "/peptide-watch" },
-};
+});
 
 const BADGE_CLASSES: Record<string, string> = {
   fda: "bg-red-700 text-white",

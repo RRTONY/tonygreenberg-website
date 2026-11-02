@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { seoMetadata } from "@/lib/seo-defaults";
 import Link from "next/link";
 import { sanityFetch } from "@/lib/sanity/client";
 import { allPostsForArchiveQuery } from "@/lib/sanity/queries";
@@ -14,12 +15,12 @@ import { ArticlesExplorer, type ArchivePost } from "@/components/blog/articles-e
 // instead of the static blogData.json import. The footer "SUBSCRIBE" CTA
 // linked to /subscribe, which was deferred at the time and swapped for /blog;
 // /subscribe exists now, so the footer matches live again (2026-10-01).
-export const metadata: Metadata = {
+export const metadata: Metadata = seoMetadata({
   title: "All Articles",
   description:
     "Complete archive of Tony Greenberg's published essays on enterprise technology, psychedelic medicine, impact investing, systems thinking, and conscious capitalism.",
   alternates: { canonical: "/articles" },
-};
+});
 
 export default async function ArticlesPage() {
   const posts = await sanityFetch<ArchivePost[]>({ query: allPostsForArchiveQuery, tags: ["post"] });
