@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { seoMetadata } from "@/lib/seo-defaults";
 import Image from "next/image";
 import Link from "next/link";
 import { ImpactDashboardExplorer } from "@/components/marketing/impact-dashboard-explorer";
@@ -15,12 +16,12 @@ import { STATS } from "@/lib/content/charity-data";
 // behind the hero, static (legacy's JS scroll parallax dropped), with
 // legacy's cream fade at the bottom. Legacy also defined a second
 // "impact-sacred" image it never rendered, so that one stays unused.
-export const metadata: Metadata = {
+export const metadata: Metadata = seoMetadata({
   title: "ImpactSoul Target Representation — Impact Dashboard",
   description:
     "A target representation of the ImpactSoul operating model: regenerative capital, accountable projects, distributed philanthropy, and a 30-day refinement process.",
   alternates: { canonical: "/impact-dashboard" },
-};
+});
 
 const HERO_CHIPS = [
   { value: "Pro forma", label: "Representation" },

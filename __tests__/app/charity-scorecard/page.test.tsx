@@ -5,7 +5,7 @@ import { STATS } from "@/lib/content/charity-data";
 
 describe("/charity-scorecard", () => {
   it("has its title, a description with the real charity count, and canonical", () => {
-    expect(metadata.title).toBe("The Grand Impact Accountability Index — Charity Scorecard");
+    expect(metadata.title).toEqual({ absolute: "The Grand Impact Accountability Index — Charity Scorecard" });
     expect(metadata.description).toContain(`${STATS.totalCharities} charities.`);
     expect(metadata.alternates?.canonical).toBe("/charity-scorecard");
   });

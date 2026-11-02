@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { seoMetadata } from "@/lib/seo-defaults";
 import Link from "next/link";
 import Image from "next/image";
 import { Users } from "lucide-react";
@@ -23,12 +24,12 @@ import { DIAGNOSTIC_HREF } from "@/lib/content/humanos-content";
 //    a real email link instead of a dead-end form); a fake live-activity
 //    counter is the same category of problem, so it's dropped rather than
 //    shipped as real social proof it isn't.
-export const metadata: Metadata = {
+export const metadata: Metadata = seoMetadata({
   title: "Human OS V2.0 — The Machine Is Perfect. Be The Glitch.",
   description:
     "Reclaim agency in the age of algorithmic control. Are you a Maximizer or a Satisficer? A framework for upgrading how you think, decide, and act.",
   alternates: { canonical: "/humanos" },
-};
+});
 
 const SATISFICER_IMG =
   "https://cdn.sanity.io/images/a3q1cyqs/production/a0276086167ed0f0ea153877a1298c28d6ba025b-1920x1072.webp";

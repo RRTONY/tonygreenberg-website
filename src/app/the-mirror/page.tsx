@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { seoMetadata } from "@/lib/seo-defaults";
 import { sanityFetch } from "@/lib/sanity/client";
 import { postsBySlugsQuery } from "@/lib/sanity/queries";
 import { MIRROR_ARTICLE_SLUGS } from "@/lib/content/mirror-data";
@@ -14,12 +15,12 @@ import { TheMirrorQuiz } from "@/components/assessments/the-mirror-quiz/the-mirr
 // "Journey Continues" card) — `/life-assessment` has zero internal
 // references anywhere in this codebase. `/life-assessment` (app/life-
 // assessment/page.tsx) permanently redirects here.
-export const metadata: Metadata = {
+export const metadata: Metadata = seoMetadata({
   title: "The Mirror",
   description:
     "A six-dimension life assessment. Eighteen questions mapping where you actually are across relationships, purpose, health, truth, tribe, and consciousness — and how fast you can close the gap.",
   alternates: { canonical: "/the-mirror" },
-};
+});
 
 type PostLookup = { title: string; slug: string };
 

@@ -7,7 +7,8 @@ import { AUTHORITY_ITEMS } from "@/lib/content/archetypes";
 import { POST_ORDER } from "@/lib/content/post-order";
 
 export const metadata: Metadata = {
-  title: "Essays",
+  // /blog is "Essays"; this list gets its own title so the two differ.
+  title: "Essay Archive",
   description:
     "Essays on enterprise technology, psychedelic medicine, regenerative capital, and the systems that need to change.",
   alternates: { canonical: "/essays" },

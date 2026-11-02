@@ -5,7 +5,7 @@ import { PROVIDERS } from "@/lib/content/supply-chain-providers";
 
 describe("/peptide-supply-chain", () => {
   it("has its own title, description and canonical", () => {
-    expect(metadata.title).toBe("Where Does Your Peptide Dollar Go? — Supply Chain Transparency");
+    expect(metadata.title).toEqual({ absolute: "Where Does Your Peptide Dollar Go? — Supply Chain Transparency" });
     expect(metadata.description).toMatch(/We mapped the supply chain of 12 peptide providers/);
     expect(metadata.alternates?.canonical).toBe("/peptide-supply-chain");
   });

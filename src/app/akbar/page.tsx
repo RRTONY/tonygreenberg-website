@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { seoMetadata } from "@/lib/seo-defaults";
 import Image from "next/image";
 import Link from "next/link";
 import { pageFontVariables } from "@/lib/fonts/page-fonts";
@@ -22,12 +23,12 @@ import { RelatedPages } from "@/components/marketing/related-pages";
 // loaded fonts (Playfair Display / DM Mono) rather than importing the
 // three additional webfonts legacy pulled in via a bare <style> tag for a
 // single page.
-export const metadata: Metadata = {
+export const metadata: Metadata = seoMetadata({
   title: "Los Angeles Is Losing Its Memory — Akbar Cuisine Refuses to Forget",
   description:
     "An essay on cultural memory, food, and what it means to preserve identity in a city that forgets.",
   alternates: { canonical: "/akbar" },
-};
+});
 
 const IMG_BASE = "https://cdn.sanity.io/images/a3q1cyqs/production/";
 const IMG = {

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { seoMetadata } from "@/lib/seo-defaults";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
@@ -42,12 +43,12 @@ import { BlueprintForm } from "./blueprint-form";
 // to /the-mirror (where those URLs redirect), "Homeaglow Exposed" keeps
 // homeaglowexposed.com (live's internal route isn't ported). The
 // assessment CTA now follows live to /assessment (a real page here).
-export const metadata: Metadata = {
+export const metadata: Metadata = seoMetadata({
   title: "A Living Declaration",
   description:
     "The Measurement of Becoming — a declaration for measuring human potential, optimizing biochemistry, reducing carbon, and building community toward an abundant future.",
   alternates: { canonical: "/living-declaration" },
-};
+});
 
 const STATS = [
   { value: "25", label: "Years Building" },

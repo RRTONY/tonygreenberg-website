@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { seoMetadata } from "@/lib/seo-defaults";
 import Link from "next/link";
 import { PeptideShutdownBanner } from "@/components/marketing/peptide-shutdown-banner";
 import { CoaChecklist, type CheckItem } from "@/components/marketing/coa-checklist";
@@ -7,12 +8,12 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 // Ported from legacy client/src/pages/VerifyYourCoa.tsx. Real content,
 // unchanged — the 7-point checklist (interactive, live score) and the
 // 4-step Janoshik verification walkthrough.
-export const metadata: Metadata = {
+export const metadata: Metadata = seoMetadata({
   title: "How to Read a Peptide COA — 7 Red Flags",
   description:
     "Every peptide vendor will hand you a Certificate of Analysis. Most will look official. Many are internal documents the vendor made themselves. Here's how to tell the difference in under five minutes.",
   alternates: { canonical: "/verify-your-coa" },
-};
+});
 
 const CHECKLIST: CheckItem[] = [
   { id: 1, title: "The Lab Is Named and Findable", description: "The issuing lab should have a name, a website, and an accreditation you can look up independently. \"Internal Quality Lab\" is not a lab. Check: A2LA.org (US) or the ILAC database (international).", passLabel: "Named, accredited, independently queryable" },

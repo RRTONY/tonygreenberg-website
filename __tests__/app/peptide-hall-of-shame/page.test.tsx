@@ -4,7 +4,7 @@ import PeptideHallOfShamePage, { metadata } from "@/app/peptide-hall-of-shame/pa
 
 describe("/peptide-hall-of-shame", () => {
   it("has its own title, description and canonical", () => {
-    expect(metadata.title).toBe("Peptide Assessment Hall of Shame — How 20 US Clinics Score");
+    expect(metadata.title).toEqual({ absolute: "Peptide Assessment Hall of Shame — How 20 US Clinics Score" });
     expect(metadata.description).toMatch(/We audited 20 peptide clinics/);
     expect(metadata.alternates?.canonical).toBe("/peptide-hall-of-shame");
   });

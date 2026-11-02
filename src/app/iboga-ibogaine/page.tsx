@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { seoMetadata } from "@/lib/seo-defaults";
 import Image from "next/image";
 import Link from "next/link";
 import { AlertTriangle, ArrowLeft, ArrowRight, Check, TreeDeciduous, Pill, Star } from "lucide-react";
@@ -37,12 +38,12 @@ import { IbogaCompassSection } from "@/components/pri/iboga-compass-section";
 // stays a plain Server Component. Legacy's purely decorative CSS
 // glow/shimmer `<style>` block is dropped, same call made throughout this
 // migration.
-export const metadata: Metadata = {
+export const metadata: Metadata = seoMetadata({
   title: "Iboga vs Ibogaine — Deep Dive | Psychedelic Readiness Index",
   description:
     "The Plant vs The Isolate. Full alkaloid profiles, receptor pharmacology, Bwiti tradition vs clinical protocol, outcomes data, and supplement stacks.",
   alternates: { canonical: "/iboga-ibogaine" },
-};
+});
 
 const thClass = "border-b-2 border-[#D4CFC5] bg-[#E8E2D8] px-3 py-2.5 text-left text-xs font-extrabold tracking-[0.08em] whitespace-nowrap text-pri-ink uppercase";
 const tdClass = "border-b border-[#E8E2D8] px-3 py-2.5 align-top text-[.95rem] leading-[1.55] text-pri-brown";

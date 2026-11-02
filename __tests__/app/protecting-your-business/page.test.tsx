@@ -13,7 +13,7 @@ describe("/protecting-your-business", () => {
   });
 
   it("has its own title, description and canonical", () => {
-    expect(metadata.title).toBe("Convicted Embezzler Kristi Klawiter — $46,795 Stolen, Prior NJ Guilty Pleas");
+    expect(metadata.title).toEqual({ absolute: "Convicted Embezzler Kristi Klawiter — $46,795 Stolen, Prior NJ Guilty Pleas" });
     expect(metadata.description).toMatch(/Monmouth County 17-005347, Morris County 16-002436/);
     expect(metadata.alternates?.canonical).toBe("/protecting-your-business");
   });

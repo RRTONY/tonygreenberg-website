@@ -6,7 +6,7 @@ import ImpactDashboardPage, { metadata } from "@/app/impact-dashboard/page";
 describe("/impact-dashboard", () => {
   it("has its own title, description and canonical", () => {
     expect(metadata.title).toBe("ImpactSoul Target Representation — Impact Dashboard");
-    expect(metadata.description).toMatch(/30-day refinement process/);
+    expect(metadata.description).toMatch(/^A target representation of the ImpactSoul operating model.*…$/);
     expect(metadata.alternates?.canonical).toBe("/impact-dashboard");
   });
 

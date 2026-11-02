@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { seoMetadata } from "@/lib/seo-defaults";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -34,12 +35,12 @@ import { QUADRANTS, DANGER_MECHANISMS, CROSS_LINKS } from "@/lib/content/peptide
 // The legacy hero background image (CloudFront-hosted) returns 403, same
 // host/failure as /peptide-hall-of-shame and /peptide-supply-chain —
 // dropped in favor of a CSS gradient.
-export const metadata: Metadata = {
+export const metadata: Metadata = seoMetadata({
   title: "Peptide Evidence Matrix — Reviews vs. Scientific Evidence",
   description:
     "Evidence-based ratings for peptide influencers, clinics, and vendors by review score vs. scientific evidence. Where 5-star reviews and FDA-approved efficacy diverge.",
   alternates: { canonical: "/peptide-matrix" },
-};
+});
 
 const DANGER_ICONS: Record<string, LucideIcon> = {
   brain: Brain,

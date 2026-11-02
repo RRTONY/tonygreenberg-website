@@ -4,7 +4,7 @@ import RipPeptideSciencesPage, { metadata } from "@/app/rip-peptide-sciences/pag
 
 describe("/rip-peptide-sciences", () => {
   it("has its own title, description and canonical", () => {
-    expect(metadata.title).toBe("What Happened to Peptide Sciences? (They Pulled a Houdini)");
+    expect(metadata.title).toEqual({ absolute: "What Happened to Peptide Sciences? (They Pulled a Houdini)" });
     expect(metadata.description).toMatch(/^On March 6, 2026, Peptide Sciences/);
     expect(metadata.alternates?.canonical).toBe("/rip-peptide-sciences");
   });

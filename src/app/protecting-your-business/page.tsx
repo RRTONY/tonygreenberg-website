@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { seoMetadata } from "@/lib/seo-defaults";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Square } from "lucide-react";
@@ -30,12 +31,12 @@ import { RelatedPages } from "@/components/marketing/related-pages";
 const PHOTO =
   "https://cdn.sanity.io/images/a3q1cyqs/production/9e6e4793293ddc079385db76ef73a8bf9c416826-1000x1060.jpg";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = seoMetadata({
   title: "Convicted Embezzler Kristi Klawiter — $46,795 Stolen, Prior NJ Guilty Pleas",
   description:
     "Kristi Klawiter, convicted of theft and forgery in New Jersey (Monmouth County 17-005347, Morris County 16-002436), embezzled $46,795 through 11 unauthorized invoices. Full documented case with court records, FBI report, and signed admissions.",
   alternates: { canonical: "/protecting-your-business" },
-};
+});
 
 const TOC = [
   { id: "case", label: "The Case" },

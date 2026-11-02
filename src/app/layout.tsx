@@ -11,7 +11,7 @@ import { NavProgressBar } from "@/components/nav-progress-bar";
 import { GoogleAnalytics } from "@/components/google-analytics";
 import { GaEvents } from "@/components/ga-events";
 import { getWebsiteJsonLd, getPersonJsonLd } from "@/lib/structured-data";
-import { defaultOpenGraph, defaultTwitter } from "@/lib/seo-defaults";
+import { DEFAULT_DESCRIPTION, defaultOpenGraph, defaultTwitter } from "@/lib/seo-defaults";
 import { sanityFetch } from "@/lib/sanity/client";
 import { postCountQuery } from "@/lib/sanity/queries";
 import "./globals.css";
@@ -40,8 +40,7 @@ export const metadata: Metadata = {
     default: "Tony Greenberg | Strategist, Author & CEO of RampRate",
     template: "%s | Tony Greenberg",
   },
-  description:
-    "Essays, frameworks, and tools from Tony Greenberg — CEO of RampRate, Founder of ImpactSoul.",
+  description: DEFAULT_DESCRIPTION,
   // Shared fallbacks for every page (image included); see seo-defaults.ts.
   openGraph: defaultOpenGraph,
   twitter: defaultTwitter,

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { seoMetadata } from "@/lib/seo-defaults";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
@@ -46,12 +47,12 @@ const CLINICS: Clinic[] = [
 // the page (it said 93 while the clinics average 95; owner, 2026-10-16).
 const AVG_SCORE = Math.round(CLINICS.reduce((s, c) => s + c.score, 0) / CLINICS.length);
 
-export const metadata: Metadata = {
+export const metadata: Metadata = seoMetadata({
   title: "Peptide Assessment Hall of Shame — How 20 US Clinics Score",
   description:
     `We audited 20 peptide clinics and providers across the US on 6 clinical criteria. The results are damning: average score ${AVG_SCORE}/100 (where 100 is worst).`,
   alternates: { canonical: "/peptide-hall-of-shame" },
-};
+});
 
 export default function PeptideHallOfShamePage() {
   const withAssessment = CLINICS.filter((c) => c.questions > 0).length;

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { seoMetadata } from "@/lib/seo-defaults";
 import Image from "next/image";
 import Link from "next/link";
 import { FACILITATOR_HERO_IMAGE } from "@/lib/content/facilitator-index-data";
@@ -20,12 +21,12 @@ import { FacilitatorIndexContent } from "@/components/facilitator/facilitator-in
 // benefit. The decorative copyright watermark SVG overlay is kept — it's
 // cheap, harmless, and a real part of this page's specific visual
 // identity.
-export const metadata: Metadata = {
+export const metadata: Metadata = seoMetadata({
   title: "The Facilitator Index — Know Who You Go With",
   description:
     "An anonymous, philosophy-first instrument for practitioners who hold non-ordinary states. 108 items across twelve bands. Companion to the Psychedelic Readiness Index.",
   alternates: { canonical: "/facilitator-index" },
-};
+});
 
 export default function FacilitatorIndexPage() {
   return (

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { seoDescription, seoTitle } from "@/lib/seo-defaults";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -107,7 +108,7 @@ export async function generateMetadata({
   // previews say nothing about its contents.
   if (isGatedPost(post.slug.current)) {
     return {
-      title,
+      title: seoTitle(title),
       description: "This essay is password-protected.",
       robots: { index: false, follow: false },
       alternates: { canonical: `/blog/${post.slug.current}` },
@@ -119,8 +120,8 @@ export async function generateMetadata({
     : DEFAULT_OG_IMAGE;
 
   return {
-    title,
-    description,
+    title: seoTitle(title),
+    description: seoDescription(description),
     alternates: { canonical: `/blog/${post.slug.current}` },
     // Page-level openGraph/twitter replace the layout's objects, so siteName
     // and the @ThinkTony handles are repeated here.

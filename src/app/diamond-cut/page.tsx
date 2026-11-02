@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { seoMetadata } from "@/lib/seo-defaults";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { EditorialDivider } from "@/components/marketing/editorial-divider";
@@ -12,12 +13,12 @@ import { RelatedPages } from "@/components/marketing/related-pages";
 // (see NEXTJS-MIGRATION-TODO.md's Stripe note), so those now route to
 // /engage instead, same as every other tier on this page and on
 // /amplifier — pricing/copy unchanged, just no live payment flow yet.
-export const metadata: Metadata = {
+export const metadata: Metadata = seoMetadata({
   title: "The Diamond Cut — Services to Product",
   description:
     "For services businesses not yet at product scale. Tony identifies the diamond in your rough, maps services to scalable product, and activates Fortune 50 distribution.",
   alternates: { canonical: "/diamond-cut" },
-};
+});
 
 const FIVE_CUTS = [
   {

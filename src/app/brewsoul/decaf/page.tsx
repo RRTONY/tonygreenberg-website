@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { seoMetadata } from "@/lib/seo-defaults";
 import { DecafFame } from "@/components/brewsoul/decaf-fame";
 import { FAME } from "@/lib/content/brewsoul-decaf";
 import { DecafShame } from "@/components/brewsoul/decaf-shame";
@@ -22,11 +23,11 @@ import { NextSteps } from "@/components/brewsoul/next-steps";
 // rest stays a Server Component. Same bespoke earthy "science" palette as
 // `/brewsoul/health`/`/brewsoul/prescription`/`/brewsoul/biodynamic` kept
 // as the same deliberate sub-identity.
-export const metadata: Metadata = {
+export const metadata: Metadata = seoMetadata({
   title: "Swiss Water Decaf: Paint Stripper or Pure Water? — BrewSoul",
   description: "Swiss Water, EA, CO2: the truth about decaf processing and what it means for your cup. 13 clean brands, 10+ brands using methylene chloride.",
   alternates: { canonical: "/brewsoul/decaf" },
-};
+});
 
 export default function BrewSoulDecafPage() {
   const sortedByPrice = [...FAME].sort((a, b) => parseFloat(a.perOz.replace("$", "").replace("~", "")) - parseFloat(b.perOz.replace("$", "").replace("~", "")));

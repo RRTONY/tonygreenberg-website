@@ -5,7 +5,7 @@ import { FAME } from "@/lib/content/brewsoul-decaf";
 
 describe("/brewsoul/decaf", () => {
   it("has its title, description and canonical", () => {
-    expect(metadata.title).toBe("Swiss Water Decaf: Paint Stripper or Pure Water? — BrewSoul");
+    expect(metadata.title).toEqual({ absolute: "Swiss Water Decaf: Paint Stripper or Pure Water? — BrewSoul" });
     expect(metadata.description).toMatch(/methylene chloride/);
     expect(metadata.alternates?.canonical).toBe("/brewsoul/decaf");
   });

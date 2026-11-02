@@ -10,7 +10,7 @@ function compounds() {
 
 describe("/whats-legal", () => {
   it("has its own title, description and canonical", () => {
-    expect(metadata.title).toBe("What's Legal? — Peptide Regulatory Status by Country (2026)");
+    expect(metadata.title).toEqual({ absolute: "What's Legal? — Peptide Regulatory Status by Country (2026)" });
     expect(metadata.description).toMatch(/targeted vendors, not users/);
     expect(metadata.alternates?.canonical).toBe("/whats-legal");
   });

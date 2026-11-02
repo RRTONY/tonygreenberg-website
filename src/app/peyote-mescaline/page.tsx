@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { seoMetadata } from "@/lib/seo-defaults";
 import Image from "next/image";
 import Link from "next/link";
 import { AlertTriangle, ArrowDown, ArrowLeft, ArrowRight, Check } from "lucide-react";
@@ -31,12 +32,12 @@ import { PharmaTable } from "@/components/pri/pharma-table";
 // so this stays a plain Server Component. Legacy's purely decorative
 // glitch-scanline overlay divs are dropped (real photography kept),
 // same call made throughout this migration.
-export const metadata: Metadata = {
+export const metadata: Metadata = seoMetadata({
   title: "Mescaline / Peyote Deep Dive — Psychedelic Readiness Index",
   description:
     "Comprehensive pharmacology, outcomes data, pharma-to-plant alternatives, supplement stacks, and readiness dimensions for mescaline and peyote.",
   alternates: { canonical: "/peyote-mescaline" },
-};
+});
 
 const thClass = "border-b-2 border-[#D4CFC5] bg-[#E8E2D8] px-3 py-2.5 text-left text-xs font-extrabold tracking-[0.08em] whitespace-nowrap text-pri-ink uppercase";
 const tdClass = "border-b border-[#E8E2D8] px-3 py-2.5 align-top text-[.82rem] leading-[1.5] text-pri-brown";

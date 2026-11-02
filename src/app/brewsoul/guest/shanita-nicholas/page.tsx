@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { seoMetadata } from "@/lib/seo-defaults";
 import { ShanitaInterview, ShareRow } from "@/components/brewsoul/shanita-interview";
 import { NextSteps } from "@/components/brewsoul/next-steps";
 
@@ -15,11 +16,11 @@ import { NextSteps } from "@/components/brewsoul/next-steps";
 // and the real Twitter/LinkedIn/copy-link share row are genuinely
 // interactive, split into client islands so the rest of the page stays
 // server-rendered.
-export const metadata: Metadata = {
+export const metadata: Metadata = seoMetadata({
   title: "Shanita Nicholas Breaks the Coffee Industry's Comfortable Lies",
   description: "Fair Trade theater, roasting mythology, the C Market trap, and origin-roasting as structural fix. A Tony G Guest Series interview.",
   alternates: { canonical: "/brewsoul/guest/shanita-nicholas" },
-};
+});
 
 export default function ShanitaNicholasPage() {
   return (

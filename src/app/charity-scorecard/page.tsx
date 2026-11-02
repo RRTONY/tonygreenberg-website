@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { seoMetadata } from "@/lib/seo-defaults";
 import { STATS } from "@/lib/content/charity-data";
 import { CharityScorecardExplorer } from "@/components/marketing/charity-scorecard-explorer";
 import { RelatedPages } from "@/components/marketing/related-pages";
@@ -10,12 +11,12 @@ import { RelatedPages } from "@/components/marketing/related-pages";
 // transparency metric. No backend dependency in the legacy source at all
 // (fully client-side, computed data), so this ports directly with the tab
 // UI as the only client-side piece.
-export const metadata: Metadata = {
+export const metadata: Metadata = seoMetadata({
   title: "The Grand Impact Accountability Index — Charity Scorecard",
   description:
     `${STATS.totalCharities} charities. Eight existing scorecards unified. Seven new dimensions measured. Where does your donation dollar actually go?`,
   alternates: { canonical: "/charity-scorecard" },
-};
+});
 
 export default function CharityScorecardPage() {
   return (

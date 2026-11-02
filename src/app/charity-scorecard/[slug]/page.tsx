@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { seoDescription, seoTitle } from "@/lib/seo-defaults";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ExternalLink, Award, BarChart3, Users, MapPin, Calendar, DollarSign, Globe, TrendingUp } from "lucide-react";
@@ -21,8 +22,8 @@ export async function generateMetadata({ params }: PageProps<"/charity-scorecard
   const charity = CHARITIES.find((c) => c.slug === slug);
   if (!charity) return {};
   return {
-    title: `${charity.name} — Charity Scorecard`,
-    description: `${charity.tagline} Unified impact score: ${charity.totalScore}/100 (${charity.grade}).`,
+    title: seoTitle(`${charity.name} — Charity Scorecard`),
+    description: seoDescription(`${charity.tagline} Unified impact score: ${charity.totalScore}/100 (${charity.grade}).`),
     alternates: { canonical: `/charity-scorecard/${charity.slug}` },
   };
 }

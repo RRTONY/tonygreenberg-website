@@ -4,7 +4,7 @@ import PeyoteMescalinePage, { metadata } from "@/app/peyote-mescaline/page";
 
 describe("/peyote-mescaline", () => {
   it("has its own title, description and canonical", () => {
-    expect(metadata.title).toBe("Mescaline / Peyote Deep Dive — Psychedelic Readiness Index");
+    expect(metadata.title).toEqual({ absolute: "Mescaline / Peyote Deep Dive — Psychedelic Readiness Index" });
     expect(metadata.description).toMatch(/pharma-to-plant alternatives, supplement stacks/);
     expect(metadata.alternates?.canonical).toBe("/peyote-mescaline");
   });
