@@ -59,7 +59,11 @@ return 200; Supabase public tables match the copied counts (`legacy_vendor_intak
 **Not verified:** the full backup. `~/Desktop/tonyg-site-backups/` no longer exists on the
 webmaster's Mac, and the private Supabase `legacy` schema couldn't be read (the
 `SUPABASE_ACCESS_TOKEN` in `.env.local` is rejected as invalid; `legacy` isn't exposed to the REST
-API). Don't delete the Manus database until one of the two is confirmed.
+API). **Verified the same day with a new access token:** the Supabase `legacy` schema holds 55
+tables, 75,089 rows, exactly the 2026-10-09 copy (the export's 56th table, the old app's
+`__drizzle_migrations` log, 39 rows, was skipped on purpose). Every table in the old schema is
+there (plus `drip_*` and `owner_digest_events`, which the old database had too). So all Manus data
+is in Supabase: deleting the Manus database loses nothing.
 
 ## Owner access
 
@@ -146,5 +150,6 @@ these addresses; they need Search Console's example list.
 - Remove the two leftover sitemap entries from Search Console (needs a yes).
 - `tonygreenberg.manus.space` still answers (sends `X-Robots-Tag: noindex, nofollow`, so Google
   doesn't index it); it goes away with the Manus project.
-- Delete the tonygreenberg Manus project and database (owner's yes, in the Manus account). Keep
+- Delete the tonygreenberg Manus project and database (owner's yes, in the Manus account). Data
+  verified in Supabase 2026-11-04, safe to delete. Keep
   `clarisseart` and `fix-ai-pricing` until the two essays stop linking to them.

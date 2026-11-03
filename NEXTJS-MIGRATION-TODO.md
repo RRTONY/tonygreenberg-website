@@ -29,9 +29,9 @@ Invited Tony (tony@tonygreenberg.com, Administrator) on 2026-11-04. New repeatab
 2 essays linking to other Manus-hosted sites (Clarisse's art site, the AI-pricing petition), which
 break if those Manus projects are deleted. Clarisse essay: about 20 links were already dead
 (`clarisse.artist` doesn't exist); a Sanity draft points them at `clarisseartist.com`, waiting for
-Tony to publish. Petition link: Tony decides. **Manus shutdown check:** images and site data verified moved, but the
-full old-database backup isn't verified (Mac backup folder missing, Supabase `legacy` area
-unreadable with the expired access token): confirm it before deleting the Manus database. **Waiting:** Tony accepts the invite email; a yes to remove two leftover broken
+Tony to publish. Petition link: Tony decides. **Manus shutdown check (2026-11-04):** images (170/170 in Sanity) and all old data verified in
+Supabase's `legacy` area (55 tables, 75,089 rows, matches the Oct 9 copy; only the old app's
+migration log skipped). Safe to delete the tonygreenberg Manus project and database. **Waiting:** Tony accepts the invite email; a yes to remove two leftover broken
 sitemap entries in Search Console; delete the Manus project and database (owner, in Manus).
 
 ## Previous status — 2026-11-03
