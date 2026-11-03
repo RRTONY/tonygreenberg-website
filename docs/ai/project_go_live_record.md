@@ -60,8 +60,8 @@ Tony needs to publish without a developer. Content publishing needs only a Sanit
 (`project_mcp_server.md`). **Checked 2026-11-04 (`pnpm exec sanity users list`): Tony is NOT a
 member.** The only members are "RampRate Impactsoul" (Administrator) and the `tonygreenberg`
 robot token (Editor). Fix: `pnpm exec sanity users invite <tony's email> --role editor` (or
-Administrator), or Sanity Manage → Members → Invite. The invite sends Tony an email, so it needs
-his address and a yes.
+Administrator), or Sanity Manage → Members → Invite. **Invited 2026-11-04** (owner's yes): tony@tonygreenberg.com as Administrator. He has to accept the
+emailed invite; until then he still can't sign in. Check with `pnpm exec sanity users list`.
 
 ## QA run 2026-11-04 (live tonygreenberg.com)
 
@@ -92,6 +92,8 @@ and `https://tonygreenberg.com/sitemap_index.xml`; removing them from Search Con
 
 ## Still open
 
-- Invite Tony to the Sanity project (needs his email and a yes).
+- Tony accepts the Sanity invite (sent 2026-11-04 to tony@tonygreenberg.com).
 - Remove the two leftover sitemap entries from Search Console (needs a yes).
+- `tonygreenberg.manus.space` still answers (sends `X-Robots-Tag: noindex, nofollow`, so Google
+  doesn't index it); it goes away with the Manus project.
 - Delete the Manus project and database (owner's yes, done in the Manus account).
