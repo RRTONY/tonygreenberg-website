@@ -22,6 +22,19 @@
 | Email list | Kit | 27 of the old site's 36 subscribers added 2026-10-09 |
 | Nothing | Manus | See "Manus" below |
 
+## Publishing doesn't refresh the site (found 2026-11-04)
+
+`pnpm exec sanity hook logs`: the `tonygreenberg` webhook (`https://tonygreenberg-website.netlify.app/api/revalidate`)
+failed with **401 on every logged delivery, 2026-10-28 to 2026-11-04 (25 of 25)**: the secret set
+on the Sanity webhook doesn't match Netlify's `SANITY_WEBHOOK_SECRET`, so `/api/revalidate`
+rejects the signature and pages keep their cached copy. Anything published in Studio since then
+is saved but not shown until the next Netlify deploy. This is the likely cause of the 2026-11-02
+Slack report that Tony "needs urgent publishing support". Fix (outside the repo): set the same
+secret in Sanity (manage.sanity.io → project → API → Webhooks → tonygreenberg → Edit → Secret) and
+in Netlify (Site configuration → Environment variables → `SANITY_WEBHOOK_SECRET`), redeploy, then
+publish any small change and check `sanity hook logs` shows success. Until then, a Netlify
+"Trigger deploy" puts published content live.
+
 ## How changes reach the live site
 
 1. Code: pull request → Netlify deploy preview → merge to `main` → Netlify builds and publishes.
@@ -126,7 +139,8 @@ Console); the painting is `https://clarisseartist.com/artwork/sab-cam-roll-ii` (
 browser). Sanity draft `drafts.post-is-that-a-lot-clarisse-abelarde`: 15 site links and 8 painting
 links pointed there, the byline's 2 `tonygreenberg.manus.space` links to `https://tonygreenberg.com`,
 the address shown in the text and in "Next steps" changed to `clarisseartist.com`. The Instagram
-handle `@clarisse.artist` stays. **Not published:** Tony publishes it in Studio.
+handle `@clarisse.artist` stays. **Published 2026-11-04** (Tony's yes, relayed by the webmaster), along with the Bottle essay's link
+clean-up; not visible until the next deploy because of the webhook failure above.
 **Petition essay:** `fix-ai-pricing.manus.space` has no other home yet; Tony decides.
 
 ## Search Console (2026-11-04)

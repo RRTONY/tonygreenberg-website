@@ -22,7 +22,10 @@ Search Console addresses work (the rest on purpose), 14 key pages clean at 375/8
 running. The report's `/medicine` and `/heroes` were never real pages. Wrote
 `docs/ai/project_go_live_record.md` (host, source of truth, sync, rollback through Netlify's deploy
 history, owner access, Manus exit). Owner: keep nothing in Manus, so Manus is no longer the rollback.
-Sitemap resubmitted in Search Console (2026-11-04). **Found: Tony is not a member of the Sanity
+**Found: Sanity publishing never refreshes the live site** (webhook 401 on all 25 deliveries since
+2026-10-28: secret mismatch between Sanity and Netlify); fix the secret in both, redeploy. Clarisse
+and Bottle essay fixes published in Sanity (Tony's yes), live after the next deploy. Sitemap
+resubmitted in Search Console (2026-11-04). **Found: Tony is not a member of the Sanity
 project** (only the RampRate admin and the robot token), which is why he can't publish.
 Invited Tony (tony@tonygreenberg.com, Administrator) on 2026-11-04. New repeatable check
 `scripts/check-live-site.ts` (20 tests, 100% covered): live 502/502 pages, 275/275 images; it found
