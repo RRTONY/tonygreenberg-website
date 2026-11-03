@@ -53,6 +53,14 @@ Everything is already out of Manus:
   database (this also takes `tonygreenberg.manus.space` down). This can't be undone, so do it only
   after the backup folder has been checked.
 
+**Re-checked 2026-11-04 before shutting Manus down:** all 170 Sanity URLs in the rescue manifest
+return 200; Supabase public tables match the copied counts (`legacy_vendor_intake` 8,
+`blog_reactions` 4, `blog_ratings` 2, `blog_commitments` 1); no code uses the Manus database.
+**Not verified:** the full backup. `~/Desktop/tonyg-site-backups/` no longer exists on the
+webmaster's Mac, and the private Supabase `legacy` schema couldn't be read (the
+`SUPABASE_ACCESS_TOKEN` in `.env.local` is rejected as invalid; `legacy` isn't exposed to the REST
+API). Don't delete the Manus database until one of the two is confirmed.
+
 ## Owner access
 
 Tony needs to publish without a developer. Content publishing needs only a Sanity Studio login
