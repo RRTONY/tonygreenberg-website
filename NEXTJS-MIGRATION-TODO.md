@@ -31,7 +31,9 @@ break if those Manus projects are deleted. Clarisse essay: about 20 links were a
 (`clarisse.artist` doesn't exist); a Sanity draft points them at `clarisseartist.com`, waiting for
 Tony to publish. Petition link: Tony decides. **Manus shutdown check (2026-11-04):** images (170/170 in Sanity) and all old data verified in
 Supabase's `legacy` area (55 tables, 75,089 rows, matches the Oct 9 copy; only the old app's
-migration log skipped). Safe to delete the tonygreenberg Manus project and database. **Waiting:** Tony accepts the invite email; a yes to remove two leftover broken
+migration log skipped). **Not safe to delete yet:** the copy ends 2026-10-08 21:02 UTC, but Manus
+served the site until the DNS switch (after 2026-10-13); rows from that gap are only on Manus. Needs
+the Manus database login to copy them. **Waiting:** Tony accepts the invite email; a yes to remove two leftover broken
 sitemap entries in Search Console; delete the Manus project and database (owner, in Manus).
 
 ## Previous status — 2026-11-03

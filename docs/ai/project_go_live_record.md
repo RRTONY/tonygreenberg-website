@@ -62,8 +62,12 @@ webmaster's Mac, and the private Supabase `legacy` schema couldn't be read (the
 API). **Verified the same day with a new access token:** the Supabase `legacy` schema holds 55
 tables, 75,089 rows, exactly the 2026-10-09 copy (the export's 56th table, the old app's
 `__drizzle_migrations` log, 39 rows, was skipped on purpose). Every table in the old schema is
-there (plus `drip_*` and `owner_digest_events`, which the old database had too). So all Manus data
-is in Supabase: deleting the Manus database loses nothing.
+there (plus `drip_*` and `owner_digest_events`, which the old database had too). **But the copy stops at 2026-10-08 21:02 UTC** (newest `createdAt`/`updatedAt` across all 55
+tables), and the Manus site kept serving tonygreenberg.com until the DNS switch (still on Manus
+2026-10-13). Anything written to the Manus database in between (quiz results, forms, manifesto
+responses, page views) is only on Manus. **Don't delete the Manus database** until that gap is
+copied: it needs the Manus database login back in `.env.local` as `LEGACY_DATABASE_URL`, then copy
+rows newer than 2026-10-08 21:02 into `legacy` (and real forms/subscribers on to their live homes).
 
 ## Owner access
 
@@ -150,6 +154,6 @@ these addresses; they need Search Console's example list.
 - Remove the two leftover sitemap entries from Search Console (needs a yes).
 - `tonygreenberg.manus.space` still answers (sends `X-Robots-Tag: noindex, nofollow`, so Google
   doesn't index it); it goes away with the Manus project.
-- Delete the tonygreenberg Manus project and database (owner's yes, in the Manus account). Data
-  verified in Supabase 2026-11-04, safe to delete. Keep
+- Delete the tonygreenberg Manus project and database (owner's yes, in the Manus account). Not yet:
+  rows after 2026-10-08 21:02 UTC are only on Manus; copy them first. Keep
   `clarisseart` and `fix-ai-pricing` until the two essays stop linking to them.
