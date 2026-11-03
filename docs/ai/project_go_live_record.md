@@ -80,8 +80,17 @@ emailed invite; until then he still can't sign in. Check with `pnpm exec sanity 
 - Sign-up endpoint `/api/subscribe` rejects a blank email (400); no real sign-up was sent.
 - robots.txt 200 with the sitemap line.
 
-Re-run: sitemap sweep (curl every `<loc>`), `node --env-file=.env.local --import tsx
-scripts/check-search-console-urls.ts https://tonygreenberg.com`.
+Re-run: `node --import tsx scripts/check-live-site.ts` (added 2026-11-04: sitemap pages, noindex,
+canonicals, Manus addresses, images; exits 1 on a problem; pass `http://localhost:3000` for a local
+build) and `node --env-file=.env.local --import tsx scripts/check-search-console-urls.ts
+https://tonygreenberg.com`.
+
+**Found by the new check (2026-11-04):** two essays link to other Manus-hosted sites that are
+still up: `/blog/is-that-a-lot-clarisse-abelarde` → `clarisseart.manus.space` and
+`/blog/the-restaurant-with-no-menu-prices-ai-ethics-manifesto` → `fix-ai-pricing.manus.space`
+("Sign the petition at..."). They are separate Manus projects: deleting them breaks those links.
+Changing the links is Tony's copy, so it needs his yes and a new home for each (Clarisse's own
+site; the petition somewhere else or dropped).
 
 ## Search Console (2026-11-04)
 
@@ -119,4 +128,5 @@ these addresses; they need Search Console's example list.
 - Remove the two leftover sitemap entries from Search Console (needs a yes).
 - `tonygreenberg.manus.space` still answers (sends `X-Robots-Tag: noindex, nofollow`, so Google
   doesn't index it); it goes away with the Manus project.
-- Delete the Manus project and database (owner's yes, done in the Manus account).
+- Delete the tonygreenberg Manus project and database (owner's yes, in the Manus account). Keep
+  `clarisseart` and `fix-ai-pricing` until the two essays stop linking to them.

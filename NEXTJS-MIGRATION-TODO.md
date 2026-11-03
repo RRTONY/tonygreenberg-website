@@ -24,7 +24,10 @@ running. The report's `/medicine` and `/heroes` were never real pages. Wrote
 history, owner access, Manus exit). Owner: keep nothing in Manus, so Manus is no longer the rollback.
 Sitemap resubmitted in Search Console (2026-11-04). **Found: Tony is not a member of the Sanity
 project** (only the RampRate admin and the robot token), which is why he can't publish.
-Invited Tony (tony@tonygreenberg.com, Administrator) on 2026-11-04. **Waiting:** Tony accepts the invite email; a yes to remove two leftover broken
+Invited Tony (tony@tonygreenberg.com, Administrator) on 2026-11-04. New repeatable check
+`scripts/check-live-site.ts` (20 tests, 100% covered): live 502/502 pages, 275/275 images; it found
+2 essays linking to other Manus-hosted sites (Clarisse's art site, the AI-pricing petition), which
+break if those Manus projects are deleted; new homes need Tony's yes. **Waiting:** Tony accepts the invite email; a yes to remove two leftover broken
 sitemap entries in Search Console; delete the Manus project and database (owner, in Manus).
 
 ## Previous status — 2026-11-03
