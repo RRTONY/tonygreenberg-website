@@ -37,6 +37,7 @@ connected session sees them on its first call.
 - [project_mcp_server](project_mcp_server.md): the `/api/mcp` server (2026-09-29): how it works, env vars, connecting Claude, what was ported from ramprate-ui (Google Analytics, Search Console and Lighthouse tools added 2026-10-02), gotchas
 - [project_performance_lighthouse](project_performance_lighthouse.md): Lighthouse 90+ work (2026-10-08): measure on a Netlify draft not localhost, image loader straight to Sanity, lazy header panels, animation/backdrop-blur cost, never build twice at once
 - [project_next16_loading_404_bug](project_next16_loading_404_bug.md): root `loading.tsx` made every invalid dynamic URL return 200 (fixed 2026-09-29), plus the stale-server testing trap
+- [project_go_live_record](project_go_live_record.md): where the live site runs, source of truth, how changes sync, rollback gate, Manus exit, owner access, the 2026-11-04 full QA run
 - [project_tonygreenberg_migration](project_tonygreenberg_migration.md): why Manus → Next.js/Sanity/Netlify, who signs off, which deploy is which
 - [project_production_restoration_branch](project_production_restoration_branch.md): the Manus branch audited 2026-09-29: what was carried over, what wasn't, and 8 owner decisions it surfaced
 - [project_legacy_database](project_legacy_database.md): the old Manus/TiDB database (2026-10-09): private backup location, what is real vs test data, short links carried over, what still needs a decision

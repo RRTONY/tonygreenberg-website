@@ -75,6 +75,10 @@ const nextConfig: NextConfig = {
       // Short address for the United article (2026-11-03), shared in place of
       // its first home on a chatgpt.site page we don't control.
       { source: "/united", destination: "/blog/united-airlines-the-case-of-the-creamy-thing", permanent: true },
+      // /medicine was never a page (not in legacy's router), but outside audits
+      // kept treating it as required (2026-11-04, webmaster asked to fix). It
+      // goes to the medicine hub, the Psychedelic Readiness Index.
+      { source: "/medicine", destination: "/psychedelic-readiness-index", permanent: true },
       // Category pages used ?page=N until 2026-10-09; now /page/N, so each page is
       // pre-built (src/components/blog/category-listing.tsx). Pages 2+ only:
       // ?page=1 just shows page 1, and /page/1 goes back to the plain address.

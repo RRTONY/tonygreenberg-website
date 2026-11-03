@@ -13,7 +13,36 @@
 - UI: Tailwind CSS v4 + shadcn/ui (Radix base) — same design-system convention the team already uses elsewhere. `next/image` for all images. No framer-motion — CSS transitions / `tailwindcss-animate` only.
 
 
-## Current status — 2026-11-03
+## Current status — 2026-11-04
+
+**Live on Netlify, full QA (2026-11-04, team asked after an outside "RED" report):** tonygreenberg.com
+already points at Netlify (DNS switch done). Re-checked live: all 502 sitemap pages 200, all 275
+images 200, zero Manus addresses, 178 of 189 old routes load (11 left out on purpose), 465 of 471
+Search Console addresses work (the rest on purpose), 14 key pages clean at 375/820/1280px with GA4
+running. The report's `/medicine` and `/heroes` were never real pages. Wrote
+`docs/ai/project_go_live_record.md` (host, source of truth, sync, rollback through Netlify's deploy
+history, owner access, Manus exit). Owner: keep nothing in Manus, so Manus is no longer the rollback.
+`/medicine` now redirects to the medicine hub `/psychedelic-readiness-index` (test added); 4
+leftover `cmp_blog_category_*.json` files from a failed 2026-10-07 comparison run removed (all 4
+category pages load in under 2s). Local `pnpm build` fails in Next's Google-font loader on this Mac
+(not the change); check the Netlify preview. **Found: Sanity publishing never refreshes the live site** (webhook 401 on all 25 deliveries since
+2026-10-28: secret mismatch between Sanity and Netlify); fix the secret in both, redeploy. Clarisse
+and Bottle essay fixes published in Sanity (Tony's yes), live after the next deploy. Sitemap
+resubmitted in Search Console (2026-11-04). **Found: Tony is not a member of the Sanity
+project** (only the RampRate admin and the robot token), which is why he can't publish.
+Invited Tony (tony@tonygreenberg.com, Administrator) on 2026-11-04. New repeatable check
+`scripts/check-live-site.ts` (20 tests, 100% covered): live 502/502 pages, 275/275 images; it found
+2 essays linking to other Manus-hosted sites (Clarisse's art site, the AI-pricing petition), which
+break if those Manus projects are deleted. Clarisse essay: about 20 links were already dead
+(`clarisse.artist` doesn't exist); a Sanity draft points them at `clarisseartist.com`, waiting for
+Tony to publish. Petition link: Tony decides. **Manus shutdown check (2026-11-04):** images (170/170 in Sanity) and all old data verified in
+Supabase's `legacy` area (55 tables, 75,089 rows, matches the Oct 9 copy; only the old app's
+migration log skipped). **Not safe to delete yet:** the copy ends 2026-10-08 21:02 UTC, but Manus
+served the site until the DNS switch (after 2026-10-13); rows from that gap are only on Manus. Needs
+the Manus database login to copy them. **Waiting:** Tony accepts the invite email; a yes to remove two leftover broken
+sitemap entries in Search Console; delete the Manus project and database (owner, in Manus).
+
+## Previous status — 2026-11-03
 
 **Compact Share button on essays (2026-11-03, Phase 5):** the six share squares are one "Share" button with a menu (X, LinkedIn, email, copy link, the phone's share sheet; Facebook dropped). Owner said yes to review and publish; pull request `share-compact-2026-11-03`.
 **United article moved home (2026-11-03, team asked):** "United Airlines Collected $4.8 Billion in Fees..." (The Case
@@ -849,7 +878,7 @@ Every image below needs to exist as a real asset uploaded to Sanity (or explicit
   matches my desires", "gender is the primary factor") score as "straight-ish" whoever picks them,
   so an out gay person who picks them gets The Current, not The Lighthouse. Peptide: The Sovereign
   now shows when vitality leads and longevity is second, but its text says "relatively balanced".
-- [ ] DNS cutover, legacy app decommissioned only after a stable overlap window **Re-checked 2026-10-13: unchanged** (Hostinger name servers, bare domain on Manus 104.19.168/169.112, `www` CNAME `cname.manus.space`). **Checked 2026-10-09 (owner wants to go live and switch off Manus):** DNS for tonygreenberg.com is at **Hostinger** (name servers `ns1/ns2.dns-parking.com`); `www` is a CNAME to `cname.manus.space`, the bare domain points at Manus's addresses (104.19.168.112 / .169.112); the Netlify site `tonygreenberg-website` has **no custom domain yet** (production branch `main`). Order: (1) merge the three open pull requests into `main` and check the Netlify copy; (2) restore Supabase and run 0001 to 0003, or launch without member features (they say "isn't available just now"); (3) owner sign-off; (4) add `tonygreenberg.com` + `www` in Netlify (Domain management), then at Hostinger point the bare domain at Netlify (A record `75.2.60.5`, or Netlify DNS) and `www` CNAME at `tonygreenberg-website.netlify.app`; Netlify issues the HTTPS certificate; (5) re-run `scripts/check-search-console-urls.ts https://tonygreenberg.com` and submit the sitemap in Search Console; (6) only after a few stable days: switch off the Manus site (the database is already backed up, `docs/ai/project_legacy_database.md`) and rotate the old database password.
+- [ ] DNS cutover, legacy app decommissioned only after a stable overlap window **2026-11-04: DNS cutover is done** (bare domain A `75.2.60.5`, `www` CNAME `tonygreenberg-website.netlify.app`, Netlify serving; full QA passed, see `docs/ai/project_go_live_record.md`). Owner: keep nothing in Manus; all images and data were already moved (Sanity, Supabase, Kit). **Left:** delete the Manus project and database (owner's yes, in the Manus account), sitemap resubmitted in Search Console 2026-11-04. **Re-checked 2026-10-13: unchanged** (Hostinger name servers, bare domain on Manus 104.19.168/169.112, `www` CNAME `cname.manus.space`). **Checked 2026-10-09 (owner wants to go live and switch off Manus):** DNS for tonygreenberg.com is at **Hostinger** (name servers `ns1/ns2.dns-parking.com`); `www` is a CNAME to `cname.manus.space`, the bare domain points at Manus's addresses (104.19.168.112 / .169.112); the Netlify site `tonygreenberg-website` has **no custom domain yet** (production branch `main`). Order: (1) merge the three open pull requests into `main` and check the Netlify copy; (2) restore Supabase and run 0001 to 0003, or launch without member features (they say "isn't available just now"); (3) owner sign-off; (4) add `tonygreenberg.com` + `www` in Netlify (Domain management), then at Hostinger point the bare domain at Netlify (A record `75.2.60.5`, or Netlify DNS) and `www` CNAME at `tonygreenberg-website.netlify.app`; Netlify issues the HTTPS certificate; (5) re-run `scripts/check-search-console-urls.ts https://tonygreenberg.com` and submit the sitemap in Search Console; (6) only after a few stable days: switch off the Manus site (the database is already backed up, `docs/ai/project_legacy_database.md`) and rotate the old database password.
 
 ---
 
