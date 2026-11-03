@@ -57,8 +57,11 @@ Everything is already out of Manus:
 
 Tony needs to publish without a developer. Content publishing needs only a Sanity Studio login
 (`tonygreenberg.com/studio`, Sanity project `a3q1cyqs` → Members) or the MCP server through Claude
-(`project_mcp_server.md`). Neither can be checked from this repo; whoever administers the Sanity
-project confirms Tony is a member with the Editor or Administrator role and can sign in.
+(`project_mcp_server.md`). **Checked 2026-11-04 (`pnpm exec sanity users list`): Tony is NOT a
+member.** The only members are "RampRate Impactsoul" (Administrator) and the `tonygreenberg`
+robot token (Editor). Fix: `pnpm exec sanity users invite <tony's email> --role editor` (or
+Administrator), or Sanity Manage → Members → Invite. The invite sends Tony an email, so it needs
+his address and a yes.
 
 ## QA run 2026-11-04 (live tonygreenberg.com)
 
@@ -80,8 +83,15 @@ project confirms Tony is a member with the Editor or Administrator role and can 
 Re-run: sitemap sweep (curl every `<loc>`), `node --env-file=.env.local --import tsx
 scripts/check-search-console-urls.ts https://tonygreenberg.com`.
 
+## Search Console (2026-11-04)
+
+`https://tonygreenberg.com/sitemap.xml` resubmitted 2026-11-04 (Google last read it 2026-10-27:
+502 addresses, 0 errors, 82 warnings left over from the old site's sitemap). Two old leftover
+sitemap entries still listed with 2 errors each: `https://tonygreenberg.com/tonygreenberg.com/sitemap.xml`
+and `https://tonygreenberg.com/sitemap_index.xml`; removing them from Search Console needs a yes.
+
 ## Still open
 
-- Submit the sitemap in Search Console (needs the Search Console account owner).
+- Invite Tony to the Sanity project (needs his email and a yes).
+- Remove the two leftover sitemap entries from Search Console (needs a yes).
 - Delete the Manus project and database (owner's yes, done in the Manus account).
-- Confirm Tony's Sanity login (Sanity project admin).
