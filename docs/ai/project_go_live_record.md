@@ -90,6 +90,21 @@ scripts/check-search-console-urls.ts https://tonygreenberg.com`.
 sitemap entries still listed with 2 errors each: `https://tonygreenberg.com/tonygreenberg.com/sitemap.xml`
 and `https://tonygreenberg.com/sitemap_index.xml`; removing them from Search Console needs a yes.
 
+Leftover sitemap entries removed 2026-11-04 (owner's yes); Google's listing then showed only
+`sitemap.xml`: 502 submitted, 0 errors, 0 warnings.
+
+### "Why pages aren't indexed" report (owner's screenshot, 2026-11-04)
+
+Inspected 20 evenly spread sitemap pages with URL Inspection: 11 indexed with matching
+canonicals; 2 essays "Blocked by robots.txt" (last crawled 2026-05, the old site) and 2 "Crawled -
+currently not indexed" (last crawled 2026-06, the old site); 5 not visited yet (new pages). Today's
+robots.txt blocks only `/api/`, `/.well-known/`, `/admin`, `/studio`. So most of that report is
+the old Manus site's history, and Google refreshes it as it recrawls. "Page with redirect" (432)
+and "Alternate page with proper canonical tag" (174) are expected (old addresses we redirect).
+Fix in the Search Console website (the API can't): open each row → "Validate fix"; optionally
+"Request indexing" for key pages. The small rows (404 ×4, 403 ×4, soft 404 ×2, Google chose a
+different canonical ×11, noindex ×84) need their example addresses (row → export) to check.
+
 ## Still open
 
 - Tony accepts the Sanity invite (sent 2026-11-04 to tony@tonygreenberg.com).
