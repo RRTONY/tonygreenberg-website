@@ -423,7 +423,9 @@ export function PsychedelicReadinessIndex() {
   return (
     <div ref={topRef} className="bg-pri-cream font-body text-pri-ink leading-[1.7]">
       {/* ── HERO ── */}
-      <section className="relative mx-auto flex min-h-screen max-w-225 flex-col justify-center overflow-hidden px-5 pt-22 pb-16">
+      {/* Full-width background (2026-11-04, webmaster asked): only the text column is capped,
+          lined up with the medicine grid's content below (max-w-290), so wide screens get no beige strips. */}
+      <section className="relative flex min-h-screen w-full flex-col justify-center overflow-hidden px-5 pt-22 pb-16">
         <div className="absolute inset-0 z-0 overflow-hidden opacity-30">
           <Image
             src="https://cdn.sanity.io/images/a3q1cyqs/production/1126cd46fd317e79cb543645ef44a536ae95f417-1920x1072.webp"
@@ -436,7 +438,7 @@ export function PsychedelicReadinessIndex() {
           />
           <div className="absolute inset-0 bg-linear-to-br from-pri-cream/85 via-pri-cream/50 to-pri-cream/20" />
         </div>
-        <div className="relative z-10">
+        <div className="relative z-10 mx-auto w-full max-w-290">
           <div className="mb-4 flex items-center gap-2 text-xs font-bold tracking-[0.25em] text-pri-purple uppercase">
             <span className="block h-0.5 w-6 bg-pri-purple" />
             Psychedelic Readiness Index
@@ -474,7 +476,7 @@ export function PsychedelicReadinessIndex() {
       </section>
 
       {/* ── STATS BAR ── */}
-      <div className="mx-5 grid grid-cols-[repeat(auto-fit,minmax(120px,1fr))] border-y border-pri-border">
+      <div className="mx-5 grid grid-cols-[repeat(auto-fit,minmax(120px,1fr))] border-y border-pri-border xl:mx-auto xl:max-w-290">
         {[
           { n: String(MEDICINES.length), l: "Plant Medicines" },
           { n: "50+", l: "Quiz Questions" },
