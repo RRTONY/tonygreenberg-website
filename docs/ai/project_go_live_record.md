@@ -105,6 +105,14 @@ Fix in the Search Console website (the API can't): open each row → "Validate f
 "Request indexing" for key pages. The small rows (404 ×4, 403 ×4, soft 404 ×2, Google chose a
 different canonical ×11, noindex ×84) need their example addresses (row → export) to check.
 
+**Checked all 470 Search Console addresses live (2026-11-04):** 467 load; the 3 404s are the two
+old Manus `/assets/*.js` files and the removed Dr. Samuel Lee essay (on purpose). Pages sending
+noindex are all on purpose: `/alex-azzi` (password-locked report, since 2026-10-07) and
+`/cheshire-grin` (308 to it), `/blog/you-are-the-moat` (gated essay), `/login`, `/members`,
+`/request-a-password`. Canonicals match on every page (addresses with `#section` or `?rbsnp=1`
+point at the clean page, as they should). No site code change needed. The 403 rows weren't among
+these addresses; they need Search Console's example list.
+
 ## Still open
 
 - Tony accepts the Sanity invite (sent 2026-11-04 to tony@tonygreenberg.com).
