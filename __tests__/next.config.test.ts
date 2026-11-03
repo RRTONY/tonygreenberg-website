@@ -10,4 +10,13 @@ describe("next.config redirects", () => {
       permanent: true,
     });
   });
+
+  it("sends /medicine to the medicine hub, permanently", async () => {
+    const redirects = await nextConfig.redirects!();
+    expect(redirects).toContainEqual({
+      source: "/medicine",
+      destination: "/psychedelic-readiness-index",
+      permanent: true,
+    });
+  });
 });

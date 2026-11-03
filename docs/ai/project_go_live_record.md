@@ -109,7 +109,8 @@ emailed invite; until then he still can't sign in. Check with `pnpm exec sanity 
 - Images: all 275 distinct Sanity images used by those pages return 200; zero Manus addresses.
 - Old site's router: 189 routes; 178 load, 11 are 404 on purpose (`/admin/*`, `/analytics`,
   `/edit/frqncy`, `/payment-success`, `/payment-cancel`, `/404`).
-- `/medicine` and `/heroes`: never real pages (legacy had no `/medicine` route; `/heroes` showed
+- `/medicine` now 308s to `/psychedelic-readiness-index`, the medicine hub (2026-11-04, webmaster
+  asked; outside audits kept calling it required). Earlier note: `/medicine` and `/heroes`: never real pages (legacy had no `/medicine` route; `/heroes` showed
   live's own 404), so the 404 is correct. Real pages `/iboga-ibogaine`, `/iboga-compass`,
   `/medicine-sequencing` are 200 with their Sanity images.
 - Search Console addresses (471, last 16 months): 465 land on a working page, 3 go to other sites
@@ -172,6 +173,11 @@ noindex are all on purpose: `/alex-azzi` (password-locked report, since 2026-10-
 `/request-a-password`. Canonicals match on every page (addresses with `#section` or `?rbsnp=1`
 point at the clean page, as they should). No site code change needed. The 403 rows weren't among
 these addresses; they need Search Console's example list.
+
+**Local build, 2026-11-04:** `pnpm build` fails on this Mac inside Next's Google-font loader
+("next/font/google queries have exactly one entry", a different font each run, also outside the
+sandbox), while Node downloads every font file fine. Not caused by the change; verify on Netlify's
+deploy preview. The `/medicine` redirect was checked on `next dev` (308 → 200).
 
 ## Still open
 

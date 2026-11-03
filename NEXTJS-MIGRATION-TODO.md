@@ -22,7 +22,10 @@ Search Console addresses work (the rest on purpose), 14 key pages clean at 375/8
 running. The report's `/medicine` and `/heroes` were never real pages. Wrote
 `docs/ai/project_go_live_record.md` (host, source of truth, sync, rollback through Netlify's deploy
 history, owner access, Manus exit). Owner: keep nothing in Manus, so Manus is no longer the rollback.
-**Found: Sanity publishing never refreshes the live site** (webhook 401 on all 25 deliveries since
+`/medicine` now redirects to the medicine hub `/psychedelic-readiness-index` (test added); 4
+leftover `cmp_blog_category_*.json` files from a failed 2026-10-07 comparison run removed (all 4
+category pages load in under 2s). Local `pnpm build` fails in Next's Google-font loader on this Mac
+(not the change); check the Netlify preview. **Found: Sanity publishing never refreshes the live site** (webhook 401 on all 25 deliveries since
 2026-10-28: secret mismatch between Sanity and Netlify); fix the secret in both, redeploy. Clarisse
 and Bottle essay fixes published in Sanity (Tony's yes), live after the next deploy. Sitemap
 resubmitted in Search Console (2026-11-04). **Found: Tony is not a member of the Sanity
