@@ -92,6 +92,16 @@ still up: `/blog/is-that-a-lot-clarisse-abelarde` → `clarisseart.manus.space` 
 Changing the links is Tony's copy, so it needs his yes and a new home for each (Clarisse's own
 site; the petition somewhere else or dropped).
 
+**Clarisse essay, draft ready (2026-11-04):** `clarisse.artist` doesn't resolve at all (no DNS), so
+about 20 of the essay's links were already dead, and both old painting addresses now show
+"Artwork Not Found". Her working site is `clarisseartist.com` (a property in the team's Search
+Console); the painting is `https://clarisseartist.com/artwork/sab-cam-roll-ii` (checked in a
+browser). Sanity draft `drafts.post-is-that-a-lot-clarisse-abelarde`: 15 site links and 8 painting
+links pointed there, the byline's 2 `tonygreenberg.manus.space` links to `https://tonygreenberg.com`,
+the address shown in the text and in "Next steps" changed to `clarisseartist.com`. The Instagram
+handle `@clarisse.artist` stays. **Not published:** Tony publishes it in Studio.
+**Petition essay:** `fix-ai-pricing.manus.space` has no other home yet; Tony decides.
+
 ## Search Console (2026-11-04)
 
 `https://tonygreenberg.com/sitemap.xml` resubmitted 2026-11-04 (Google last read it 2026-10-27:
