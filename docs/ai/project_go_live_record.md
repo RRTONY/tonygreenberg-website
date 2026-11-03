@@ -69,6 +69,17 @@ responses, page views) is only on Manus. **Don't delete the Manus database** unt
 copied: it needs the Manus database login back in `.env.local` as `LEGACY_DATABASE_URL`, then copy
 rows newer than 2026-10-08 21:02 into `legacy` (and real forms/subscribers on to their live homes).
 
+**Images and video, re-checked 2026-11-04:** 170/170 rescued Sanity URLs load; both videos the
+site uses are Sanity files (`f71ae2cd...mp4`, `d334cc86...mov`, 200). The 3 "gone" items in the
+rescue manifest (`clarisse-painting-moment_d338c917.mp4`, `slider-3_e2fd10ab.jpg`,
+`when-healing-hero_20e20251.jpg`) still return 502 on Manus: lost before the move, nothing to
+recover. Scan of all 141 Sanity documents for Manus addresses: the Clarisse essay (draft fixes it),
+the petition essay (`fix-ai-pricing.manus.space`, Tony decides; its `manus.im` mentions are Tony's
+written complaint about Manus, content, not a dependency), and "The Bottle That Quietly Ends an
+Entire Civilization" (4 links to `tonygreenberg.manus.space/brewsoul/roasters` and `/spirits`; the
+site already rewrites them to `/brewsoul/roasters` and `/spirits`, so visitors were unaffected; a
+Sanity draft stores them as relative links). Code and config: no Manus dependency.
+
 ## Owner access
 
 Tony needs to publish without a developer. Content publishing needs only a Sanity Studio login
