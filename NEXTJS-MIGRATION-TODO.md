@@ -13,7 +13,30 @@
 - UI: Tailwind CSS v4 + shadcn/ui (Radix base) — same design-system convention the team already uses elsewhere. `next/image` for all images. No framer-motion — CSS transitions / `tailwindcss-animate` only.
 
 
-## Current status — 2026-11-04
+## Current status — 2026-11-05
+
+**Search Console "Not found (404)" (2026-11-05, webmaster asked):** of the 4 examples, `/bio` (never a
+page) now 308s to `/about`, and `/brewsoul/catalog.txt` + `catalog.json` (the Manus app's data dumps)
+308 to `/brewsoul/directory` (`next.config.ts`, test added; checked on `next dev`). The other two
+(`/wp-admin/...`, an old Manus `/assets/*.js` file) are junk and correctly 404. "Crawled, currently
+not indexed" examples checked live: all 200, in the sitemap, self-canonical (Google's choice, not a
+bug; the `.woff2` font files there are normal). **Found and fixed a real cause:** the header's Fix
+Myself and Explore menus rendered nothing until clicked, so ~50 menu links (e.g. `/intel`) were
+missing from every page's server HTML. Both `NavigationMenuContent`s now `forceMount` with
+`data-[state=closed]:hidden` (homepage links in HTML 54 → 102); menus checked open/close at 1280,
+no sideways scroll at 375/820/1280, header test added. Coffee pages (~200 words each) are thin, a
+content matter for Tony. Checked on a production build (`pnpm build` passed locally this time, `next start`): 3 redirects 308, missing pages still 404, homepage HTML links 107, menus fine at 375/820/1280. Merged to `main` with the webmaster's yes (2026-11-05).
+**Needs examples from Search Console:** the 403 (4), soft 404 (2), noindex (84) and "Google chose
+different canonical" (11) lists.
+**OnlyTimeBuysTrust.com (2026-11-05):** GoDaddy, RampRate's account (owner RampRate,
+info@ramprate.com), expires 2027-09-23, lock and privacy on. Forwarding: https://tonygreenberg.com,
+Permanent (301); all 4 http/https/www variants 301 (8/8 each); GoDaddy certificates valid to
+2027-05-10 (issued 2026-10-24, which is why https failed for Tony before). MX/email records kept.
+Deeper paths (`/blog`) 404: GoDaddy forwarding can't keep the path. **Waiting:** GoDaddy shows a
+payment-profile problem for the whole account (renewals may fail, tonygreenberg.com too): someone
+with the company card must fix it; decide whether to move forwarding to Netlify for deeper paths.
+
+## Previous status — 2026-11-04
 
 **Live on Netlify, full QA (2026-11-04, team asked after an outside "RED" report):** tonygreenberg.com
 already points at Netlify (DNS switch done). Re-checked live: all 502 sitemap pages 200, all 275
