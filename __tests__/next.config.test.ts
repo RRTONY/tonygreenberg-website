@@ -19,4 +19,19 @@ describe("next.config redirects", () => {
       permanent: true,
     });
   });
+
+  it("sends the Search Console 404s (/bio, old BrewSoul catalog files) to real pages, permanently", async () => {
+    const redirects = await nextConfig.redirects!();
+    expect(redirects).toContainEqual({ source: "/bio", destination: "/about", permanent: true });
+    expect(redirects).toContainEqual({
+      source: "/brewsoul/catalog.txt",
+      destination: "/brewsoul/directory",
+      permanent: true,
+    });
+    expect(redirects).toContainEqual({
+      source: "/brewsoul/catalog.json",
+      destination: "/brewsoul/directory",
+      permanent: true,
+    });
+  });
 });
