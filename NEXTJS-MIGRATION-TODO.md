@@ -13,7 +13,30 @@
 - UI: Tailwind CSS v4 + shadcn/ui (Radix base) — same design-system convention the team already uses elsewhere. `next/image` for all images. No framer-motion — CSS transitions / `tailwindcss-animate` only.
 
 
-## Current status — 2026-11-05
+## Current status — 2026-11-06
+
+**America, Unbundled re-check (2026-11-06, Tony's list resent as "fix today"):** every item from the
+2026-11-03 QA re-checked on live tonygreenberg.com, no code change needed. Both essays are on `/`, `/blog`,
+`/essays`, `/the-index`, in `sitemap.xml`, and come up in search for "independent" and "America Unbundled".
+In a real browser (Playwright, iPhone 13 and 1280px): the Part One hero loads (Sanity CDN, like every content
+image); Part Two Save privately / Copy answers / Download all work (download file
+`america-unbundled-90-day-commitment.txt`, saved answer comes back after a reload); `#questions` lands at the
+questions; "The movement arc" label sits on its own line above the arc; "Ask Tony" has no backticks; Fix Myself
+(25) and Explore (38) open with their links, and the mobile menu lists both. The "no separator" and "no link"
+reports match a text-only read of the page (label and arc are separate lines on screen, buttons need
+JavaScript). **Still outside this repo:** the old ChatGPT copy (`the-new-american.eclecticexe.chatgpt.site`,
+still 200) needs whoever owns that ChatGPT account. The ramprate.com intro is live
+(`ramprate.com/blog/america-unbundled-introduction`, Nov 5, links to Part One).
+**SEO check, same day:** both essays pass on-page (title, description, canonical, one H1, share image, Article
+schema, in sitemap) and Google has them indexed, but last crawled 2026-09-29 / 2026-10-17 (before the
+discovery links) with 3 impressions and 0 clicks in 28 days. Off-page: Google lists no outside links to
+either essay yet; the RampRate intro (one followed link to Part One) is the first, and Google doesn't
+know that post yet. The old ChatGPT copy is indexable, self-canonical and uses Part Two's exact title and
+description, so it competes with Part Two; its owner should take it down or point its canonical at Part
+Two. **Waiting:** "Request indexing" in Search Console for both essays and the RampRate intro (website
+button only); Tony's call on Part Two's title (68 characters, same as the old copy) and its cut-off description.
+
+## Previous status — 2026-11-05
 
 **Search Console "Not found (404)" (2026-11-05, webmaster asked):** of the 4 examples, `/bio` (never a
 page) now 308s to `/about`, and `/brewsoul/catalog.txt` + `catalog.json` (the Manus app's data dumps)
