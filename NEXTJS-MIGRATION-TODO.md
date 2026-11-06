@@ -28,7 +28,10 @@ everything fits. The Blog's category row uses it too, so both pages work the sam
 entry was first). Checked: typecheck, lint, 89 changed-area tests (new `scroll-row.test.tsx`), clean `pnpm build` + `pnpm start`, real browser at
 390, 820 and 1440 on /the-index and /blog (no sideways page scroll, row swipes, arrows move and grey out, tapping a
 concept/category still filters, thumbnails load). Branch
-`index-america-unbundled-2026-11-07`, **waiting for a yes to merge**. Gotcha: after a rebuild, `pnpm start` kept
+`index-america-unbundled-2026-11-07`, **waiting for a yes to merge**. **Search Console (same day):** both essays "Submitted and indexed" (last crawled 2026-09-29 / 2026-10-17), the
+RampRate intro unknown to Google; resubmitted tonygreenberg.com and ramprate.com `sitemap.xml` (accepted, pending).
+"Request indexing" stays a website-only button: still to click for the 3 addresses after the merges.
+Gotcha: after a rebuild, `pnpm start` kept
 serving the first build's /the-index until `.next` was deleted; do a clean build before judging a change.
 
 ## Previous status — 2026-11-06
