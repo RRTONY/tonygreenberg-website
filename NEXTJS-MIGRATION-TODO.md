@@ -32,6 +32,9 @@ concept/category still filters, thumbnails load). Branch
 RampRate intro unknown to Google; resubmitted tonygreenberg.com and ramprate.com `sitemap.xml` (accepted, pending).
 "Request indexing" stays a website-only button: still to click for the 3 addresses after the merges. Also removed five
 2019 WordPress sitemaps (all 404) from ramprate.com's Search Console with the webmaster's yes.
+**RampRate side published (2026-11-07, webmaster's yes):** ramprate-ui `master` 5c5c04f, live in ~2 min:
+the America, Unbundled banner on ramprate.com/blog page one (intro, Part One, Part Two; not on page 2) and the
+Continue Reading pictures for Data Centers Have a Heart / The Cloud Gets Rich, checked live at 390 and 1440.
 Gotcha: after a rebuild, `pnpm start` kept
 serving the first build's /the-index until `.next` was deleted; do a clean build before judging a change.
 
