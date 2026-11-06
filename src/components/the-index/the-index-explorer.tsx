@@ -136,8 +136,13 @@ export function TheIndexExplorer({ items, charityCount }: { items: IndexItem[]; 
       </div>
 
       <div className="mb-12">
-        <p className="mb-4 font-mono text-xs tracking-[0.15em] text-muted-foreground uppercase">Browse by concept</p>
-        <div className="flex flex-wrap gap-2">
+        <p id="index-concepts-label" className="mb-4 font-mono text-xs tracking-[0.15em] text-muted-foreground uppercase">Browse by concept</p>
+        {/* Phone: one row that swipes sideways (23 buttons stacked one per line was a very long column). sm and up: wraps. */}
+        <div
+          role="group"
+          aria-labelledby="index-concepts-label"
+          className="-mx-4 flex snap-x scroll-px-4 gap-2 overflow-x-auto px-4 pb-2 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0 [&::-webkit-scrollbar]:hidden"
+        >
           {INDEX_CONCEPTS.map((c) => {
             const active = c.key === conceptKey;
             return (
@@ -148,12 +153,12 @@ export function TheIndexExplorer({ items, charityCount }: { items: IndexItem[]; 
                 onClick={() => pickConcept(c.key)}
                 className={
                   active
-                    ? "min-h-11 rounded-[3px] border border-brand-gold bg-[#111] px-4 py-2 text-left font-mono text-[0.78rem] tracking-[0.04em] text-brand-gold-light transition-colors"
-                    : "min-h-11 rounded-[3px] border border-brand-gold/15 bg-transparent px-4 py-2 text-left font-mono text-[0.78rem] tracking-[0.04em] text-foreground/70 transition-colors hover:border-brand-gold/40 hover:text-foreground"
+                    ? "inline-flex min-h-11 shrink-0 snap-start items-center gap-2 rounded-full border border-brand-gold bg-[#111] px-4 py-2 font-mono text-[0.78rem] tracking-[0.04em] whitespace-nowrap text-brand-gold-light transition-colors"
+                    : "inline-flex min-h-11 shrink-0 snap-start items-center gap-2 rounded-full border border-brand-gold/20 bg-white/70 px-4 py-2 font-mono text-[0.78rem] tracking-[0.04em] whitespace-nowrap text-foreground/75 transition-colors hover:border-brand-gold/50 hover:text-foreground dark:bg-card"
                 }
               >
                 {c.label}
-                <span className="ml-1.5 opacity-60">({c.slugs.length})</span>
+                <span className="rounded-full bg-brand-gold/12 px-2 py-0.5 text-[0.68rem] text-brand-gold">{c.slugs.length}</span>
               </button>
             );
           })}

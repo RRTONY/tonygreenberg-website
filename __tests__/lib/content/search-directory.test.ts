@@ -49,7 +49,7 @@ describe("withEssayCount", () => {
 
   it("does not change the original list and handles an empty one", () => {
     withEssayCount(SEARCH_DIRECTORY, 5);
-    expect(SEARCH_DIRECTORY[0].description).toContain("{count}");
+    expect(SEARCH_DIRECTORY.find((p) => p.href === "/blog")?.description).toContain("{count}");
     expect(withEssayCount([], 3)).toEqual([]);
   });
 });

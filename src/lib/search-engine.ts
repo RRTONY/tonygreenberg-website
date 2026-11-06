@@ -21,6 +21,10 @@ export type PageItem = SearchableItem & {
   href: string;
   /** True for real external sibling-product links (e.g. *.manus.space tools). */
   external?: boolean;
+  /** Publish date (ISO) for essays built as their own page, so The Index lists them with the newest work. */
+  date?: string;
+  /** Thumbnail URL for those essay pages on The Index. */
+  image?: string;
 };
 
 /**

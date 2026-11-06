@@ -13,7 +13,21 @@
 - UI: Tailwind CSS v4 + shadcn/ui (Radix base) — same design-system convention the team already uses elsewhere. `next/image` for all images. No framer-motion — CSS transitions / `tailwindcss-animate` only.
 
 
-## Current status — 2026-11-06
+## Current status — 2026-11-07
+
+**The Index: America, Unbundled in "Recently added" + concept buttons restyled (2026-11-07, webmaster asked):**
+the two essays are built pages (in `search-directory.ts`), not Sanity posts, so The Index gave them no date and
+they sorted after every essay: findable by search, missing from the newest-18 list. Directory entries now take an
+optional `date` and `image`; both essays carry their real publish dates (2026-09-21 / 09-22, same as their Article
+schema) and their hero thumbnail, show as essays (no "Site Resource" tag) and land at #2 and #3. Browse by concept:
+on phones the 20 buttons were one long column; now one row that swipes sideways (sm and up still wraps), rounded
+buttons with a small count badge. Also fixed a test broken since #27 (`search-directory.test.ts` assumed the Blog
+entry was first). Checked: typecheck, lint, 72 changed-area tests, clean `pnpm build` + `pnpm start`, real browser at
+390 and 1440 (no sideways page scroll, row swipes, concept tap works, thumbnails load). Branch
+`index-america-unbundled-2026-11-07`, **waiting for a yes to merge**. Gotcha: after a rebuild, `pnpm start` kept
+serving the first build's /the-index until `.next` was deleted; do a clean build before judging a change.
+
+## Previous status — 2026-11-06
 
 **America, Unbundled re-check (2026-11-06, Tony's list resent as "fix today"):** every item from the
 2026-11-03 QA re-checked on live tonygreenberg.com, no code change needed. Both essays are on `/`, `/blog`,

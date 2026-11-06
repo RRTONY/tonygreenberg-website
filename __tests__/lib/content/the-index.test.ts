@@ -61,7 +61,27 @@ describe("items", () => {
     expect(pages).toHaveLength(SEARCH_DIRECTORY.filter((p) => p.href !== "/the-index").length);
     expect(pages.some((p) => p.href === "/the-index")).toBe(false);
     expect(pages.find((p) => p.href === "/blog")?.summary).toMatch(/^121 essays/);
-    for (const p of pages) expect(p).toMatchObject({ kind: "page", id: `page:${p.href}`, date: null, category: "Site Resource" });
+    for (const p of pages.filter((p) => p.date === null)) {
+      expect(p).toMatchObject({ kind: "page", id: `page:${p.href}`, category: "Site Resource", formatTag: "SITE RESOURCE", image: null });
+    }
+    for (const p of pages.filter((p) => p.date !== null)) {
+      expect(p).toMatchObject({ kind: "page", category: "Essay", formatTag: null });
+      expect(p.image).toMatch(/^https:\/\/cdn\.sanity\.io\//);
+    }
+    const dated = pages.filter((p) => p.date !== null).map((p) => [p.href, p.date]);
+    expect(dated).toEqual([
+      ["/america-unbundled", "2026-09-21"],
+      ["/america-unbundled-field-guide", "2026-09-22"],
+    ]);
+  });
+
+  it("lists the America, Unbundled essays with the newest work, not after every essay", () => {
+    const essays = [
+      item({ id: "newer", date: "2026-10-31T13:00:00Z" }),
+      ...Array.from({ length: 30 }, (_, i) => item({ id: `older-${i}`, date: "2026-02-01T00:00:00Z" })),
+    ];
+    const top = sortIndexByDate([...essays, ...siteResourceItems(essays.length)]).slice(0, 18).map((i) => i.id);
+    expect(top.slice(0, 3)).toEqual(["newer", "page:/america-unbundled-field-guide", "page:/america-unbundled"]);
   });
 
   it("builds lowercase searchable text", () => {

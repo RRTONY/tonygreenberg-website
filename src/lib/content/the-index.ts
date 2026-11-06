@@ -206,7 +206,7 @@ export type IndexItem = {
   kind: "essay" | "page";
   title: string;
   href: string;
-  /** ISO date for essays; null for site resources (they sort last, like live). */
+  /** ISO date for essays (and dated directory pages); null for other site resources, which sort last like live. */
   date: string | null;
   category: string;
   summary: string;
@@ -249,11 +249,11 @@ export function siteResourceItems(essayCount: number): IndexItem[] {
     kind: "page",
     title: p.title,
     href: p.href,
-    date: null,
-    category: "Site Resource",
+    date: p.date ?? null,
+    category: p.date ? "Essay" : "Site Resource",
     summary: p.description,
-    formatTag: "SITE RESOURCE",
-    image: null,
+    formatTag: p.date ? null : "SITE RESOURCE",
+    image: p.image ?? null,
     tags: p.tags ?? [],
     external: p.external,
   }));
