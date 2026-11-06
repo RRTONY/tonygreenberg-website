@@ -294,7 +294,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
   });
 
   return (
-    <div className={post.slug.current === "energy-is-money-money-is-memory" ? `${essayFontVariables} [&_.italic]:not-italic [&_em]:not-italic` : essayFontVariables}>
+    <div className={post.slug.current === "energy-is-money-money-is-memory" ? `${essayFontVariables} essay-no-italics` : essayFontVariables}>
       <TrackLastBlogVisit slug={post.slug.current} title={post.title} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(getPostBreadcrumbJsonLd(post)) }} />
