@@ -5,11 +5,11 @@ import { STACK_HERO, STACK_CATEGORIES } from "@/lib/content/the-stack";
 const SUPPLIERS = STACK_CATEGORIES.flatMap((c) => c.suppliers);
 
 describe("the-stack", () => {
-  it("hosts the hero and QR codes on Sanity, never Manus", () => {
+  it("hosts the hero on Sanity and QR codes on Sanity or this site, never Manus", () => {
     expect(STACK_HERO.src).toMatch(/^https:\/\/cdn\.sanity\.io\/images\//);
     expect(STACK_HERO.src).toContain(`-${STACK_HERO.width}x${STACK_HERO.height}.`);
     expect(STACK_HERO.alt.trim()).not.toBe("");
-    for (const s of SUPPLIERS) if (s.qr) expect(s.qr.src).toMatch(/^https:\/\/cdn\.sanity\.io\/images\//);
+    for (const s of SUPPLIERS) if (s.qr) expect(s.qr.src).toMatch(/^(https:\/\/cdn\.sanity\.io\/images\/|\/qr\/[a-z0-9-]+\.svg$)/);
     expect(JSON.stringify(stack)).not.toMatch(/manuscdn|\/manus-storage\/|\/api\/img\//);
   });
 

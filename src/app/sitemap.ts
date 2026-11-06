@@ -198,7 +198,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.5,
     })),
     ...BREWSOUL_COFFEES.map((coffee) => ({
-      url: `${siteUrl}/brewsoul/coffee/${coffee.id}`,
+      url: `${siteUrl}/brewsoul/coffee/${encodeURIComponent(coffee.id)}`,
       changeFrequency: "monthly" as const,
       priority: 0.5,
     })),

@@ -69,8 +69,15 @@ describe("sitemap.xml", () => {
   it("includes every coffee and charity page", async () => {
     withData();
     const urls = new Set((await sitemap()).map((e) => e.url));
-    for (const c of BREWSOUL_COFFEES) expect(urls.has(`${SITE}/brewsoul/coffee/${c.id}`)).toBe(true);
+    for (const c of BREWSOUL_COFFEES) expect(urls.has(`${SITE}/brewsoul/coffee/${encodeURIComponent(c.id)}`)).toBe(true);
     for (const c of CHARITIES) expect(urls.has(`${SITE}/charity-scorecard/${c.slug}`)).toBe(true);
+  });
+
+  it("writes accented coffee addresses percent-encoded, matching the page's own canonical link", async () => {
+    withData();
+    const urls = (await sitemap()).map((e) => e.url);
+    expect(urls.every((u) => /^[\x21-\x7e]+$/.test(u))).toBe(true);
+    expect(urls).toContain(`${SITE}/brewsoul/coffee/sw-roasting-costa-rica-tarraz%C3%BA`);
   });
 
   it("every fixed page listed exists, isn't noindex, and isn't a redirect", async () => {

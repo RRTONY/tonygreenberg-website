@@ -154,7 +154,7 @@ export function TheIndexExplorer({ items, charityCount }: { items: IndexItem[]; 
                 }
               >
                 {c.label}
-                <span className="rounded-full bg-brand-gold/12 px-2 py-0.5 text-[0.68rem] text-brand-gold">{c.slugs.length}</span>
+                <span className={`rounded-full px-2 py-0.5 text-[0.68rem] ${active ? "bg-brand-gold-light/15 text-brand-gold-light" : "bg-brand-gold/12 text-brand-gold"}`}>{c.slugs.length}</span>
               </button>
             );
           })}
