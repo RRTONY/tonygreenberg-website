@@ -24,6 +24,10 @@ const BADGE_CLASS: Record<string, string> = {
 // filtered to that category (filter param wired up once /brewsoul/directory
 // itself is built). Floats over the top-left corner of the page, lined up
 // with the BrewSoul logo, rather than sitting in its own strip above the hero.
+// The visible text is only the category, which doesn't say where the link
+// goes; the accessible name starts with that text and adds the destination.
+export const BADGE_LINK_SUFFIX = "see all BrewSoul pages";
+
 export function CategoryBadge() {
   const pathname = usePathname();
   const info = PAGE_CATEGORY_MAP[pathname];
@@ -33,6 +37,7 @@ export function CategoryBadge() {
     <div className="absolute top-16 left-4 z-10 sm:left-8">
       <Link
         href="/brewsoul/directory"
+        aria-label={`${info.category}: ${BADGE_LINK_SUFFIX}`}
         className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 font-mono text-[0.6rem] tracking-wide text-white uppercase transition-opacity hover:opacity-85 ${
           BADGE_CLASS[info.category] ?? "bg-[#6F4E37]"
         }`}

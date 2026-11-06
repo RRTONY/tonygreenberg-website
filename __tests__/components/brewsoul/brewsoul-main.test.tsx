@@ -1,13 +1,14 @@
 import { describe, expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { BrewSoulMain } from "@/components/brewsoul/brewsoul-main";
+import { BADGE_LINK_SUFFIX } from "@/components/brewsoul/category-badge";
 import { navigation } from "../../helpers/next";
 import { PAGE_CATEGORY_MAP } from "@/lib/content/brewsoul-directory";
 
 function badgeFor(pathname: string) {
   navigation.pathname = pathname;
   const { container, unmount } = render(<BrewSoulMain>child</BrewSoulMain>);
-  const badge = container.querySelector('a[href="/brewsoul/directory"]');
+  const badge = screen.queryByRole("link", { name: new RegExp(`: ${BADGE_LINK_SUFFIX}$`) });
   const result = { badge: badge?.textContent ?? null, text: container.textContent };
   unmount();
   return result;

@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
 import Layout from "@/app/brewsoul/layout";
+import { BADGE_LINK_SUFFIX } from "@/components/brewsoul/category-badge";
 import { navigation } from "../../helpers/next";
 
-const badgeIn = (root: HTMLElement) =>
-  [...root.querySelectorAll('a[href="/brewsoul/directory"]')].find((a) => !a.closest("nav, footer")) ?? null;
+const badge = () => screen.queryByRole("link", { name: new RegExp(`: ${BADGE_LINK_SUFFIX}$`) });
 
 function renderLayout() {
   return render(
@@ -26,11 +26,11 @@ describe("/brewsoul layout", () => {
 
   it("shows the category badge on a framed page but not on the landing page", () => {
     navigation.pathname = "/brewsoul/glossary";
-    const first = renderLayout();
-    expect(badgeIn(first.container)).not.toBeNull();
-    first.unmount();
+    const { unmount } = renderLayout();
+    expect(badge()).not.toBeNull();
+    unmount();
     navigation.pathname = "/brewsoul";
-    const { container } = renderLayout();
-    expect(badgeIn(container)).toBeNull();
+    renderLayout();
+    expect(badge()).toBeNull();
   });
 });
