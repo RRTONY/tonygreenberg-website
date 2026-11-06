@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Diamond, Loader2, Search, X } from "lucide-react";
+import { ScrollRow } from "@/components/ui/scroll-row";
 import {
   INDEX_CONCEPTS,
   conceptsMatching,
@@ -137,12 +138,7 @@ export function TheIndexExplorer({ items, charityCount }: { items: IndexItem[]; 
 
       <div className="mb-12">
         <p id="index-concepts-label" className="mb-4 font-mono text-xs tracking-[0.15em] text-muted-foreground uppercase">Browse by concept</p>
-        {/* Phone: one row that swipes sideways (23 buttons stacked one per line was a very long column). sm and up: wraps. */}
-        <div
-          role="group"
-          aria-labelledby="index-concepts-label"
-          className="-mx-4 flex snap-x scroll-px-4 gap-2 overflow-x-auto px-4 pb-2 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0 [&::-webkit-scrollbar]:hidden"
-        >
+        <ScrollRow label="concepts" labelledBy="index-concepts-label" className="-mx-4 scroll-px-4 px-4 pb-2 sm:mx-0 sm:scroll-px-0 sm:px-0">
           {INDEX_CONCEPTS.map((c) => {
             const active = c.key === conceptKey;
             return (
@@ -162,7 +158,7 @@ export function TheIndexExplorer({ items, charityCount }: { items: IndexItem[]; 
               </button>
             );
           })}
-        </div>
+        </ScrollRow>
       </div>
 
       {concept && (

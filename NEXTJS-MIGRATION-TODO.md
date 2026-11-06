@@ -20,10 +20,14 @@ the two essays are built pages (in `search-directory.ts`), not Sanity posts, so 
 they sorted after every essay: findable by search, missing from the newest-18 list. Directory entries now take an
 optional `date` and `image`; both essays carry their real publish dates (2026-09-21 / 09-22, same as their Article
 schema) and their hero thumbnail, show as essays (no "Site Resource" tag) and land at #2 and #3. Browse by concept:
-on phones the 20 buttons were one long column; now one row that swipes sideways (sm and up still wraps), rounded
-buttons with a small count badge. Also fixed a test broken since #27 (`search-directory.test.ts` assumed the Blog
-entry was first). Checked: typecheck, lint, 72 changed-area tests, clean `pnpm build` + `pnpm start`, real browser at
-390 and 1440 (no sideways page scroll, row swipes, concept tap works, thumbnails load). Branch
+on phones the 20 buttons were one long column; now one sideways row on every screen size (webmaster's choice: "same
+UI on mobile, laptop, tablet"), rounded buttons with a small count badge. The row is a shared `ScrollRow`
+(`src/components/ui/scroll-row.tsx`): phones swipe, tablets and laptops get left/right arrows (a mouse can't swipe,
+and the Blog's category row was cut off at 1440 with no way to reach the rest), greyed out at each end, hidden when
+everything fits. The Blog's category row uses it too, so both pages work the same. Also fixed a test broken since #27 (`search-directory.test.ts` assumed the Blog
+entry was first). Checked: typecheck, lint, 89 changed-area tests (new `scroll-row.test.tsx`), clean `pnpm build` + `pnpm start`, real browser at
+390, 820 and 1440 on /the-index and /blog (no sideways page scroll, row swipes, arrows move and grey out, tapping a
+concept/category still filters, thumbnails load). Branch
 `index-america-unbundled-2026-11-07`, **waiting for a yes to merge**. Gotcha: after a rebuild, `pnpm start` kept
 serving the first build's /the-index until `.next` was deleted; do a clean build before judging a change.
 

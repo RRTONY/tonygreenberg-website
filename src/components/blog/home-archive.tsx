@@ -8,6 +8,7 @@ import { PostCard } from "@/components/blog/post-card";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ArchiveSearchBox } from "@/components/blog/archive-search-box";
+import { ScrollRow } from "@/components/ui/scroll-row";
 import { CURATED_JOURNEYS } from "@/lib/content/curated-journeys";
 import { socialLinks } from "@/components/site-nav-data";
 import { postHref } from "@/lib/content/post-redirects";
@@ -249,7 +250,7 @@ export function HomeArchive({
               </Button>
             )}
           </div>
-          <div className="flex gap-1.5 overflow-x-auto pb-1">
+          <ScrollRow label="categories" className="gap-1.5 pb-1">
             <Button
               variant={activeCategory === "All" ? "default" : "outline"}
               size="sm"
@@ -277,7 +278,7 @@ export function HomeArchive({
                 </Button>
               );
             })}
-          </div>
+          </ScrollRow>
         </div>
       </div>
 
