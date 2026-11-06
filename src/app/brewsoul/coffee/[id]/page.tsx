@@ -129,6 +129,13 @@ export default async function BrewSoulCoffeeDetailPage({ params }: PageProps<"/b
           </div>
         </div>
 
+        {coffee.connoisseurNote && (
+          <blockquote className="mb-10 border-l-2 border-[#C5A23C] pl-5">
+            <p className="text-base leading-relaxed text-[#2C1810]">{coffee.connoisseurNote}</p>
+            <footer className="mt-2 font-mono text-xs tracking-[0.15em] text-[#6B5B4F] uppercase">The BrewSoul take</footer>
+          </blockquote>
+        )}
+
         {/* Quick stats */}
         <div className="mb-10 grid gap-3 [grid-template-columns:repeat(auto-fit,minmax(140px,1fr))]">
           {[
@@ -138,6 +145,9 @@ export default async function BrewSoulCoffeeDetailPage({ params }: PageProps<"/b
             { label: "Roast", value: coffee.roastLevel || "—" },
             { label: "Cupping", value: `${coffee.cuppingScore || "—"} (${coffee.cuppingSource || "—"})` },
             { label: "Altitude", value: coffee.altitude ? `${coffee.altitude}m` : "—" },
+            ...(coffee.originFarm ? [{ label: "Farm", value: coffee.originFarm }] : []),
+            ...(coffee.harvestYear ? [{ label: "Harvest", value: String(coffee.harvestYear) }] : []),
+            ...(coffee.microlotSizeKg ? [{ label: "Lot size", value: `${coffee.microlotSizeKg} kg${coffee.limitedRelease ? ", limited release" : ""}` }] : []),
           ].map((s) => (
             <div key={s.label} className="rounded-lg bg-[#6F4E37]/3 p-3">
               <div className="mb-1 font-mono text-[0.62rem] tracking-[0.15em] text-[#6E6E6E] uppercase">{s.label}</div>
@@ -165,6 +175,35 @@ export default async function BrewSoulCoffeeDetailPage({ params }: PageProps<"/b
             <FlavorBar key={key} label={key.charAt(0).toUpperCase() + key.slice(1)} value={val} />
           ))}
         </div>
+
+        {!!(coffee.recommendedBrewMethods?.length || coffee.foodPairingSuggestions?.length) && (
+          <div className="mb-10 grid gap-8 sm:grid-cols-2">
+            {coffee.recommendedBrewMethods?.length ? (
+              <div>
+                <h2 className="mb-3 font-heading text-xl font-bold text-[#2C1810]">How to Brew It</h2>
+                <ul className="space-y-1.5 text-sm text-[#6B5B4F]">
+                  {coffee.recommendedBrewMethods.map((m) => (
+                    <li key={m} className="flex items-start gap-2">
+                      <Check aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-[#836311]" /> {m}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
+            {coffee.foodPairingSuggestions?.length ? (
+              <div>
+                <h2 className="mb-3 font-heading text-xl font-bold text-[#2C1810]">Pairs Well With</h2>
+                <ul className="space-y-1.5 text-sm text-[#6B5B4F]">
+                  {coffee.foodPairingSuggestions.map((f) => (
+                    <li key={f} className="flex items-start gap-2">
+                      <Check aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-[#836311]" /> {f}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
+          </div>
+        )}
 
         {/* Scores breakdown */}
         <div className="mb-10">

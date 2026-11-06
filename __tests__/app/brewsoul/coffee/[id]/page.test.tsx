@@ -62,4 +62,27 @@ describe("/brewsoul/coffee/[id]", () => {
       .filter((h) => h?.startsWith("/brewsoul/coffee/"));
     expect(similar).toEqual(expected);
   });
+  it("shows the coffee's own note, brew methods, pairings and farm details", async () => {
+    await renderServer(Page(pageProps({ id: gesha.id })));
+    expect(screen.getByText(gesha.connoisseurNote!)).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "How to Brew It" })).toBeInTheDocument();
+    for (const m of gesha.recommendedBrewMethods!) expect(screen.getByText(m)).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Pairs Well With" })).toBeInTheDocument();
+    for (const f of gesha.foodPairingSuggestions!) expect(screen.getByText(f)).toBeInTheDocument();
+    expect(screen.getByText(gesha.originFarm!)).toBeInTheDocument();
+    expect(screen.getByText("50 kg, limited release")).toBeInTheDocument();
+  });
+
+  it("leaves out the pairings heading and farm rows when a coffee has none", async () => {
+    const plain = BREWSOUL_COFFEES.find((c) => !c.foodPairingSuggestions?.length && !c.originFarm)!;
+    await renderServer(Page(pageProps({ id: plain.id })));
+    expect(screen.queryByRole("heading", { name: "Pairs Well With" })).toBeNull();
+    expect(screen.queryByText("Farm")).toBeNull();
+  });
+
+  it("every coffee page carries its own note, so no two pages read the same", () => {
+    const notes = BREWSOUL_COFFEES.map((c) => c.connoisseurNote?.trim() ?? "");
+    expect(notes.every((n) => n.split(/\s+/).length >= 20)).toBe(true);
+    expect(new Set(notes).size).toBe(notes.length);
+  });
 });

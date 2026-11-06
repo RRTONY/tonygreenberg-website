@@ -6,16 +6,19 @@ import { PAGE_CATEGORY_MAP } from "@/lib/content/brewsoul-directory";
 
 function badgeFor(pathname: string) {
   navigation.pathname = pathname;
-  const { unmount } = render(<BrewSoulMain>child</BrewSoulMain>);
-  const badge = screen.getByRole("main").querySelector('a[href="/brewsoul/directory"]');
-  const result = { badge: badge?.textContent ?? null, text: screen.getByRole("main").textContent };
+  const { container, unmount } = render(<BrewSoulMain>child</BrewSoulMain>);
+  const badge = container.querySelector('a[href="/brewsoul/directory"]');
+  const result = { badge: badge?.textContent ?? null, text: container.textContent };
   unmount();
   return result;
 }
 
 describe("BrewSoulMain", () => {
-  it("renders its children inside <main>", () => {
+  it("renders its children, without a second <main> inside the site's own", () => {
     expect(badgeFor("/brewsoul/glossary").text).toContain("child");
+    navigation.pathname = "/brewsoul/glossary";
+    render(<BrewSoulMain>child</BrewSoulMain>);
+    expect(screen.queryByRole("main")).toBeNull();
   });
 
   it("shows the page's category badge on framed pages", () => {
