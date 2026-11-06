@@ -13,7 +13,11 @@
 - UI: Tailwind CSS v4 + shadcn/ui (Radix base) — same design-system convention the team already uses elsewhere. `next/image` for all images. No framer-motion — CSS transitions / `tailwindcss-animate` only.
 
 
-## Current status — 2026-11-05
+## Current status — 2026-11-06
+
+**Energy Is Money. Money Is Memory. (2026-11-06, editorial draft for review):** Sanity draft prepared with Tony's focused title/subtitle, Lesson, provocation, closing question, August 2026 Texas poll, February 2026 ERCOT generation-queue definition, and the ImpactSoul rights bridge. Preserved August 9 publication date, long-spoons story, money/memory quote, grid rights, model inference versus archival retrieval, and original IEA/Berkeley/Constellation/Amazon qualifications. Article metadata now uses November 6 as draft revision date, to be corrected if publication occurs later. The unverified SYZYGY ownership-map destination was not linked; the shared 2x-versus-3x guarantee remains unchanged and needs signed-off terms; October 12 revision-history provenance not confirmed. Draft is not live; Sanity is read as published content by the public page, so Netlify code previews do not show this draft. A genuine visual preview requires Studio draft-preview support. Phone/desktop verification remains open. The migration spreadsheet was not regenerated through the MCP editor.
+
+## Previous status — 2026-11-05
 
 **Search Console "Not found (404)" (2026-11-05, webmaster asked):** of the 4 examples, `/bio` (never a
 page) now 308s to `/about`, and `/brewsoul/catalog.txt` + `catalog.json` (the Manus app's data dumps)
