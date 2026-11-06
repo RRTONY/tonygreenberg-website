@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { seoMetadata } from "@/lib/seo-defaults";
-import { STATS } from "@/lib/content/charity-data";
+import Link from "next/link";
+import { ALL_SECTORS, CHARITIES, STATS } from "@/lib/content/charity-data";
 import { CharityScorecardExplorer } from "@/components/marketing/charity-scorecard-explorer";
 import { RelatedPages } from "@/components/marketing/related-pages";
 
@@ -83,6 +84,33 @@ export default function CharityScorecardPage() {
       </section>
 
       <CharityScorecardExplorer />
+
+      {/* The explorer only links a profile after a row is opened, so this plain
+          list is the one place every profile is linked in the page's HTML. */}
+      <section className="mx-auto max-w-5xl px-4 pb-4">
+        <details className="group rounded-lg border border-border bg-card">
+          <summary className="flex min-h-11 cursor-pointer items-center justify-between gap-3 px-4 py-3 font-heading text-lg font-bold">
+            All {CHARITIES.length} charities, by sector
+            <span aria-hidden="true" className="font-mono text-sm text-muted-foreground group-open:rotate-45 transition-transform">+</span>
+          </summary>
+          <div className="grid gap-x-8 gap-y-6 border-t border-border px-4 py-5 sm:grid-cols-2 lg:grid-cols-3">
+            {ALL_SECTORS.map((sector) => (
+              <div key={sector}>
+                <h2 className="mb-2 font-mono text-xs tracking-[0.15em] text-muted-foreground uppercase">{sector}</h2>
+                <ul className="space-y-1">
+                  {CHARITIES.filter((c) => c.sector === sector).map((c) => (
+                    <li key={c.slug}>
+                      <Link href={`/charity-scorecard/${c.slug}`} className="inline-flex min-h-8 items-center gap-2 text-sm underline-offset-2 hover:text-brand-gold hover:underline">
+                        {c.name} <span className="font-mono text-xs text-muted-foreground">{c.grade}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </details>
+      </section>
 
       <RelatedPages path="/charity-scorecard" tone="light" />
     </div>
