@@ -46,9 +46,8 @@ the fixed header on 4 pages. Linked SoulSmoke from the rest of the site: header 
 "Find Your Mezcal" (legacy had it, to Manus), The Mirror's ecosystem pill, Living Declaration's "Optimize the
 Vessel" links (`/spirits`, `/recent-creations` and search were already done). `ANTHROPIC_API_KEY` added to
 `.env.local.example`.
-**Waiting:** (1) Trade Board and For Business shared posts need a Supabase table (owner's yes); (2) SoulSmoke's real
-data is in Manus's database, not in the code export: export it from Manus if any of it matters (only a test
-signup was in the export); (3) "© 2025 Tony Huang" in SoulSmoke's original header (not copied).
+**Waiting:** (1) Trade Board and For Business shared posts need a Supabase table (owner's yes); (2) ~~SoulSmoke's Manus database~~ **not copied: webmaster, 2026-11-10, "we don't want
+anything to use in manus"**; SoulSmoke starts with no old data (the only row seen was a test signup); (3) "© 2025 Tony Huang" in SoulSmoke's original header (not copied).
 **Next up:** LiquidSun, sake guide, Aqueous, Gem Spark, Find My Stem Cells (same approach, needs each Manus export);
 Brazil speed check.
 

@@ -90,3 +90,10 @@ from `xl` (1280px), the hamburger below; below `sm` the SoulSmoke/Aficionado and
 of the opened menu; both switches are `h-9 shrink-0 whitespace-nowrap`; the mode switch is icon-only between
 `xl` and `2xl` so the row fits at 1280. Page "Back to Home" links sit at `top-24` (below the fixed header).
 Check any header change at 320, 375, 820, 1024, 1280 and 1440px.
+
+## Old data (decided 2026-11-10)
+
+SoulSmoke's Manus database (TiDB: users, subscribers, tasting_journal, price_alerts, trade_listings,
+trade_messages, business_profiles, producer_profiles, bottle_interests, lead_connections) is **not**
+copied. The webmaster: "we don't want anything to use in manus". The export held only one query
+result, a test signup. The rebuilt site starts empty; nothing reads from or depends on Manus.
