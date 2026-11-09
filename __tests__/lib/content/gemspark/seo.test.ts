@@ -16,4 +16,12 @@ describe("gemsparkMetadata", () => {
     const meta = gemsparkMetadata({ path: "/gem-spark/es/short", title: "El GemSpark", description: "Una nueva palabra.", locale: "es_ES" });
     expect(meta.openGraph).toMatchObject({ locale: "es_ES" });
   });
+
+  it("names Tony as author and copyright holder, and pairs the English and Spanish short versions", () => {
+    const meta = gemsparkMetadata({ path: "/gem-spark/short", title: "T", description: "D", languages: { en: "/gem-spark/short", es: "/gem-spark/es/short" } });
+    expect(meta.authors).toEqual([{ name: "Tony Greenberg", url: "https://tonygreenberg.com" }]);
+    expect(meta.other).toEqual({ copyright: "© 2026 Tony Greenberg. All Rights Reserved." });
+    expect(meta.alternates).toEqual({ canonical: "/gem-spark/short", languages: { en: "/gem-spark/short", es: "/gem-spark/es/short" } });
+    expect(gemsparkMetadata({ path: "/gem-spark", title: "T", description: "D" }).alternates).toEqual({ canonical: "/gem-spark" });
+  });
 });

@@ -9,6 +9,7 @@ import { ReadingProgressBar } from "@/components/gemspark/reading-progress-bar";
 import { VersionSwitcher } from "@/components/gemspark/version-switcher";
 import { gemsparkImages } from "@/lib/content/gemspark/images";
 import { gemsparkMetadata } from "@/lib/content/gemspark/seo";
+import { GemsparkJsonLd } from "@/components/gemspark/gemspark-json-ld";
 
 // The GemSpark, short version, ported from the GemSpark app's client/src/pages/ShortForm.tsx (Manus
 // app "serensynch", exported 2026-11-10). Same copy, links and design.
@@ -21,12 +22,18 @@ export const metadata = gemsparkMetadata({
   path: "/gem-spark/short",
   title: "The GemSpark (Short Version)",
   description: "A new word for the moment chance and meaning collide.",
+  languages: { en: "/gem-spark/short", es: "/gem-spark/es/short" },
 });
 
 export default function GemSparkShortPage() {
   return (
     <div className="min-h-screen bg-[#F5F5F0] font-sans text-[#2C3E50] selection:bg-[#D4E6F1] selection:text-[#2C3E50]">
       <PageViewTracker page="short-form" />
+      <GemsparkJsonLd
+        version="short"
+        headline="The GemSpark (Short Version)"
+        description="A new word for the moment chance and meaning collide."
+      />
       {/* Reading Progress Bar */}
       <ReadingProgressBar />
       {/* Version Switcher */}

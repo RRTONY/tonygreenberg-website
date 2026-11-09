@@ -21,6 +21,14 @@ image, sitemap, links from Built by Tony G and Living Declaration); my 4 test re
 **SoulSmoke copyright (2026-11-10, Tony's answer):** every /soul-smoke page now has author "Tony Greenberg" and
 copyright "© 2026 Tony Greenberg. All Rights Reserved." (`soulsmokeMetadata`), replacing the app's "Tony Huang";
 checked on a production build (34 of 34 pages). Branch `soulsmoke-copyright`.
+**SEO pass, SoulSmoke + GemSpark (2026-11-10):** live audit of all 34 SoulSmoke pages: titles, descriptions,
+canonicals, share images, one H1, alt text, sitemap all fine, no duplicates. Added structured data: every
+SoulSmoke page is a WebPage (CollectionPage + ItemList of bottles on US Hunt and Mexico Source) in the "SoulSmoke"
+guide by Tony, with a breadcrumb (`src/lib/content/soulsmoke/structured-data.ts`); GemSpark's 3 pages are Articles by
+Tony (short = based on the full story, Spanish = translation of the short), with breadcrumbs, author/copyright tags
+and en/es hreflang between the short versions. Both added to `public/llms.txt`. Checked on a production build: 34/34
+and 3/3 pages complete. **For Tony (wording, not changed):** 7 SoulSmoke descriptions are short (55-81 characters;
+120-160 is ideal): discovery, mexico-source, scent-finder, site-map, my-hunt-list, us-hunt, ancestral-process.
 
 **The GemSpark rebuilt at `/gem-spark` (2026-11-10, branch `gem-spark`):** Tony's story ("The Fusion Between
 Serendipity and Synchronicity") from its Manus export (`~/Downloads/serendipity-synchronicity`): long form,

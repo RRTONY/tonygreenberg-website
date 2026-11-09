@@ -8,6 +8,7 @@ import { ReadingProgressBar } from "@/components/gemspark/reading-progress-bar";
 import { VersionSwitcher } from "@/components/gemspark/version-switcher";
 import { gemsparkImages } from "@/lib/content/gemspark/images";
 import { gemsparkMetadata } from "@/lib/content/gemspark/seo";
+import { GemsparkJsonLd } from "@/components/gemspark/gemspark-json-ld";
 
 // The GemSpark, short Spanish version, ported from the GemSpark app's client/src/pages/ShortFormES.tsx
 // (Manus app "serensynch", exported 2026-11-10). Same copy (Spanish), links and design; the wrapper
@@ -22,12 +23,18 @@ export const metadata = gemsparkMetadata({
   title: "El GemSpark",
   description: "Una nueva palabra para el momento en que el azar y el significado colisionan.",
   locale: "es_ES",
+  languages: { en: "/gem-spark/short", es: "/gem-spark/es/short" },
 });
 
 export default function GemSparkShortEsPage() {
   return (
     <div lang="es" className="min-h-screen bg-[#F5F5F0] font-sans text-[#2C3E50] selection:bg-[#D4E6F1] selection:text-[#2C3E50]">
       <PageViewTracker page="short-form" />
+      <GemsparkJsonLd
+        version="es-short"
+        headline="El GemSpark"
+        description="Una nueva palabra para el momento en que el azar y el significado colisionan."
+      />
       {/* Reading Progress Bar */}
       <ReadingProgressBar />
       {/* Version Switcher */}

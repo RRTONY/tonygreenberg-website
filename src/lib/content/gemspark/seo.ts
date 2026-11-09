@@ -20,6 +20,7 @@ export function gemsparkMetadata({
   title,
   description,
   locale,
+  languages,
 }: {
   /** The full path, e.g. "/gem-spark/short". */
   path: string;
@@ -27,11 +28,16 @@ export function gemsparkMetadata({
   description: string;
   /** Open Graph locale for a translated page, e.g. "es_ES". */
   locale?: string;
+  /** hreflang alternates for a page that has a translation, e.g. { en: "/gem-spark/short", es: "/gem-spark/es/short" }. */
+  languages?: Record<string, string>;
 }): Metadata {
   return seoMetadata({
     title,
     description,
-    alternates: { canonical: path },
+    alternates: { canonical: path, ...(languages ? { languages } : {}) },
+    authors: [{ name: "Tony Greenberg", url: "https://tonygreenberg.com" }],
+    // The page footer's own line.
+    other: { copyright: "© 2026 Tony Greenberg. All Rights Reserved." },
     openGraph: {
       ...defaultOpenGraph,
       type: "article",
