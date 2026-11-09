@@ -78,6 +78,10 @@ export const SEARCH_DIRECTORY: PageItem[] = [
   { title: "Journeys", href: "/journeys", description: "Travel, psychedelic experiences, and consciousness exploration", tags: ["journeys", "travel", "psychedelic", "consciousness"] },
   // SoulSmoke, Tony's mezcal guide, ported from Manus to /soul-smoke (2026-11-10). The home entry
   // comes first so "soulsmoke" and "mezcal" open it; its main pages follow.
+  // The GemSpark, Tony's story ported from Manus to /gem-spark (2026-11-10), with its short and Spanish versions.
+  { title: "The GemSpark", href: "/gem-spark", description: "A new word for the moment chance and meaning collide. A story by Tony Greenberg", tags: ["gemspark", "gem spark", "serendipity", "synchronicity", "tony greenberg story", "story", "david fenton"] },
+  { title: "The GemSpark (Short Version)", href: "/gem-spark/short", description: "The GemSpark in a few minutes: a new word for the moment chance and meaning collide", tags: ["gemspark", "gem spark", "short version", "serendipity", "synchronicity"] },
+  { title: "El GemSpark (Español)", href: "/gem-spark/es/short", description: "Una nueva palabra para el momento en que el azar y el significado colisionan", tags: ["gemspark", "gem spark", "español", "spanish", "serendipia", "sincronicidad"] },
   { title: "SoulSmoke: The Miracle of Mezcal", href: "/soul-smoke", description: "SoulSmoke, Tony's guide to the wildest, most extraordinary mezcals from the US and Mexico", tags: ["soulsmoke", "soul smoke", "mezcal", "agave", "oaxaca", "spirits", "drinks"] },
   { title: "SoulSmoke Agave Encyclopedia", href: "/soul-smoke/agave-encyclopedia", description: "27 agave species: the living library of varieties behind mezcal", tags: ["agave", "encyclopedia", "espadin", "tobala", "tepeztate", "mezcal", "soulsmoke"] },
   { title: "SoulSmoke: The Ancestral Process", href: "/soul-smoke/ancestral-process", description: "Six stages of making mezcal, from earth oven to clay pot", tags: ["ancestral", "process", "earth oven", "tahona", "clay pot", "distillation", "mezcal", "soulsmoke"] },
