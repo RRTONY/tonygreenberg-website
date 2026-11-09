@@ -35,10 +35,15 @@ describe("next.config redirects", () => {
     });
   });
 
-  it("sends the old SoulSmoke addresses to the Spirits page, permanently", async () => {
+  it("sends /soulsmoke (and deep links under it) to the SoulSmoke guide, permanently", async () => {
     const redirects = await nextConfig.redirects!();
-    for (const source of ["/soulsmoke", "/soul-smoke"]) {
-      expect(redirects).toContainEqual({ source, destination: "/spirits", permanent: true });
-    }
+    expect(redirects).toContainEqual({ source: "/soulsmoke", destination: "/soul-smoke", permanent: true });
+    expect(redirects).toContainEqual({
+      source: "/soulsmoke/:path*",
+      destination: "/soul-smoke/:path*",
+      permanent: true,
+    });
+    // /soul-smoke is a real page now, so it must not redirect anywhere.
+    expect(redirects.some((r) => r.source === "/soul-smoke")).toBe(false);
   });
 });

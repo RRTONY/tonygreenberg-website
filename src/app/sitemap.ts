@@ -6,6 +6,7 @@ import { BREWSOUL_COFFEES } from "@/lib/content/brewsoul-coffees";
 import { CHARITIES } from "@/lib/content/charity-data";
 import { isGatedPost } from "@/lib/gated-posts";
 import { POST_REDIRECTS } from "@/lib/content/post-redirects";
+import { soulsmokeRoutes, ss } from "@/lib/content/soulsmoke/nav";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tonygreenberg.com";
 
@@ -173,6 +174,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${siteUrl}${path}`,
       changeFrequency: "monthly" as const,
       priority: 0.7,
+    })),
+    // SoulSmoke, the mezcal guide (app/soul-smoke), one entry per page of its menu/router.
+    ...soulsmokeRoutes.map((path) => ({
+      url: `${siteUrl}${ss(path)}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
     })),
     ...posts.filter((post) => !isUnlisted(post.slug)).map((post) => ({
       url: `${siteUrl}/blog/${post.slug}`,

@@ -16,7 +16,8 @@ import { usePathname } from "next/navigation";
 // without themselves becoming client components.
 // /oauth is the MCP sign-in page (src/app/oauth/authorize), a focused
 // screen an AI app opens mid-connection, not part of the site.
-const SUPPRESSED_PREFIXES = ["/brewsoul", "/attention-theft", "/kava", "/humanos", "/oauth"];
+// /soul-smoke is the SoulSmoke mezcal guide (app/soul-smoke/layout.tsx), its own sub-site.
+const SUPPRESSED_PREFIXES = ["/brewsoul", "/attention-theft", "/kava", "/humanos", "/oauth", "/soul-smoke"];
 
 export function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();

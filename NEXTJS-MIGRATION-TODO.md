@@ -13,7 +13,56 @@
 - UI: Tailwind CSS v4 + shadcn/ui (Radix base) — same design-system convention the team already uses elsewhere. `next/image` for all images. No framer-motion — CSS transitions / `tailwindcss-animate` only.
 
 
-## Current status — 2026-11-09
+## Current status — 2026-11-10
+
+**Correction to the 2026-11-09 SoulSmoke note below (2026-11-10):** that check used the wrong addresses
+(`mezcalagave.manus.space`, `soulsmoke.manus.space`). The real Manus product sites are **still live (200)**:
+SoulSmoke `mezcalagave-ahru9fq8`, LiquidSun `tequilaazul-fxqrr3js`, sake `sakeguide-sqt7xzxp`, Aqueous
+`aqwaterqpr-wvzsc3ph`, Gem Spark `serensynch-2agjfwhe`, Find My Stem Cells `findmystem-s3lknc4h`, HumanOS
+`humanosv2-gxa9fnfu`, Intimacy `intimacyassess-tcir3hon` (all `.manus.space`); only `flowcircuit.manus.space` 404s.
+Compiled copies (HTML, scripts, styles, plus a list of each one's Manus-hosted images) were saved locally on
+2026-11-10; this is not a source-code export. Size: SoulSmoke 35 pages, LiquidSun 33, sake 50+, Find My Stem Cells
+30+, Aqueous 21 (with payments), Gem Spark 5. Six of the eight call a Manus server (logins, saved data); Find My
+Stem Cells and Intimacy run entirely in the browser. SoulSmoke's page header says "© 2025 Tony Huang" (check with Tony).
+The Oct 9 link removal (`d7492aa`) was done on the owner's instruction ("drop Manus links everywhere").
+**Decided (webmaster, 2026-11-10):** rebuild each product as real tonygreenberg.com pages, same code/UI/style,
+Manus parts removed. SoulSmoke first.
+
+**SoulSmoke rebuilt at `/soul-smoke` (2026-11-10, branch `soulsmoke-site`):** from the Manus source export
+(`~/Downloads/mezcal`). Own sub-site like `/brewsoul` (own menu, main header/footer hidden), all 34 routes,
+EN/ES switch, SoulSmoke/Aficionado mode, smoke cursor, fire sound, copy protection. 25 images + the fire sound
+rescued into Sanity. Newsletter → `/api/subscribe` (Kit tags `soulsmoke-*`). Journal, price alerts, hunt list,
+favorites → visitor's browser. Bottle Scanner → `/api/soul-smoke/bottle-scanner` (Anthropic, needs
+`ANTHROPIC_API_KEY` in Netlify). Oaxaca map → OpenStreetMap. Per-page SEO, sitemap, site-search entries;
+`/soulsmoke/*` → `/soul-smoke/*` (308). Home checked against live at 1440/390 (same height within 4px). How it's
+built: `docs/ai/project_soulsmoke_port.md`.
+**Checked and fixed before push (2026-11-10):** typecheck, lint, 90 test files / 273 tests (two tests fixed: a
+clipboard mock type, and Trade Board counting the static "For Sellers/Buyers" headings), `pnpm build` (34 static
+routes), `next start`: all 34 pages 200 with one H1, sitemap 34 entries, no sideways scroll or console errors at
+375/820/1280. Header fixes (live had the same flaws): wordmark ran over the menu (logo link now `shrink-0`), full
+menu now from `xl` (it wrapped and was cut off at 1024 to ~1400), on phones the mode and EN/ES switches move into
+the opened menu, switches no longer squeeze ("ES" spilled out), equal pill height; "Back to Home" moved below
+the fixed header on 4 pages. Linked SoulSmoke from the rest of the site: header Fix Myself → Taste & Ritual
+"Find Your Mezcal" (legacy had it, to Manus), The Mirror's ecosystem pill, Living Declaration's "Optimize the
+Vessel" links (`/spirits`, `/recent-creations` and search were already done). `ANTHROPIC_API_KEY` added to
+`.env.local.example`.
+**Member features on Supabase (2026-11-10, webmaster: "use the current db"):** Trade Board, messages to sellers,
+Register Your Business, I Want This Bottle, Tasting Journal and Price Alerts now save to Supabase (migration
+`0007_soulsmoke.sql`, run through the Management API; 6 tables, RLS on, no policies). Server actions in
+`src/app/soul-smoke/actions.ts`, each tied to the signed-in member; as on SoulSmoke, signed-out visitors see
+"Sign in" boxes (to `/login`), the board itself is public. Tony is emailed for each new business and bottle request;
+sellers are emailed each message. Checked: 299 SoulSmoke tests, typecheck, lint, build; anon key can't read or
+write the tables; full signed-in run on the production build against real Supabase with two temporary members
+(email off), every feature saved and reloaded; then both members and all their rows deleted (all 6 tables back
+to 0). Pages show their H1 while the account check runs (server HTML keeps the heading). Header logo: white
+square removed (transparent version in Sanity); SoulSmoke pages get their own favicon (`app/soul-smoke/icon.png`).
+Pre-existing, not from this branch: 2 `/the-stack` tests expect Sanity QR codes but the page uses `/qr/*.svg`.
+**Waiting:** (1) ~~Trade Board and For Business need Supabase~~ done above; (2) ~~SoulSmoke's Manus database~~ **not copied: webmaster, 2026-11-10, "we don't want
+anything to use in manus"**; SoulSmoke starts with no old data (the only row seen was a test signup); (3) "© 2025 Tony Huang" in SoulSmoke's original header (not copied).
+**Next up:** LiquidSun, sake guide, Aqueous, Gem Spark, Find My Stem Cells: on hold (each needs a Manus export, and the webmaster wants nothing more from Manus);
+Brazil speed check.
+
+## Previous status — 2026-11-09
 
 **SoulSmoke (2026-11-09, a reader asked on WhatsApp):** SoulSmoke, Tony's mezcal guide, was a separate Manus
 site (`mezcalagave.manus.space`, plus a small `soulsmoke.manus.space`), never a tonygreenberg.com page. Both
