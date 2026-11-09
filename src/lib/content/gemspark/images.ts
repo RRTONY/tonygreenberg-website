@@ -29,4 +29,12 @@ export const gemsparkImages = {
     height: 2025,
     alt: "Detail of the foot in the artwork",
   },
+  // The app's own share image (og-image-gemspark, 1200x630: the bird from the art piece), rescued
+  // from its /manus-storage on 2026-11-10. Used for link previews, not shown on the page.
+  shareImage: {
+    src: "https://cdn.sanity.io/images/a3q1cyqs/production/94647ab324fb7d96b949dc0198c288a46dc44891-1200x630.jpg",
+    width: 1200,
+    height: 630,
+    alt: "The GemSpark Art Piece by David Fenton, dye-sublimation on etched aluminum",
+  },
 } satisfies Record<string, GemSparkImage>;

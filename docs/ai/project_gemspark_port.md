@@ -15,7 +15,8 @@ header/footer, as on the app). Same porting rules as `project_soulsmoke_port.md`
 | components | `src/components/gemspark/*` (kebab-case), interactive ones are small client components |
 | `index.css` | `src/app/gem-spark/gemspark.css`, all scoped to `.gemspark-root` (layout wrapper): default fonts, sparkle keyframe, paragraph spacing (`section p + p`), print styles |
 | images (Manus CDN + `/manus-storage`) | Sanity, `src/lib/content/gemspark/images.ts` (EXIF/GPS stripped; panorama resized 15,928 → 6,000px) |
-| per-page SEO | `src/lib/content/gemspark/seo.ts` |
+| per-page SEO | `src/lib/content/gemspark/seo.ts`; share image = the app's own `og-image-gemspark` (1200x630), in Sanity as `gemsparkImages.shareImage` |
+| favicon (none: the app's `/favicon.ico` was Manus's default) | `src/app/gem-spark/icon.tsx`: a four-point sparkle (the title's star) in #2C3E50 on #F5F5F0, so it differs from the site's "G" |
 | tRPC `stories.submit`, `analytics.*`, `featured.list` | `src/app/gem-spark/actions.ts` → Supabase, `supabase/migrations/0008_gemspark.sql` (run 2026-11-10; RLS on, no policies) |
 | `newsletter.subscribe` | `/api/subscribe` → Kit, source `short-form-popup` → tag "GemSpark: Newsletter" |
 

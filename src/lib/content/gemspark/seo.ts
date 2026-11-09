@@ -3,16 +3,16 @@ import { defaultOpenGraph, defaultTwitter, seoMetadata } from "@/lib/seo-default
 import { gemsparkImages } from "@/lib/content/gemspark/images";
 
 // Page metadata for /gem-spark/*. Titles and descriptions come from the GemSpark app's own
-// index.html and each page's heading/intro (no new wording). Share image: David Fenton's art
-// piece (Sanity, cropped to 1200x630), the image the long form opens with.
+// index.html and each page's heading/intro (no new wording). Share image: the app's own 1200x630
+// og-image (the bird from David Fenton's art piece), moved to Sanity.
 
-const art = gemsparkImages.art;
+const share = gemsparkImages.shareImage;
 
 export const GEMSPARK_OG_IMAGE = {
-  url: `${art.src}?w=1200&h=630&fit=crop&auto=format`,
-  width: 1200,
-  height: 630,
-  alt: art.alt,
+  url: share.src,
+  width: share.width,
+  height: share.height,
+  alt: share.alt,
 };
 
 export function gemsparkMetadata({

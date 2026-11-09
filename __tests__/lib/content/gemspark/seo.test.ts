@@ -3,13 +3,13 @@ import { GEMSPARK_OG_IMAGE, gemsparkMetadata } from "@/lib/content/gemspark/seo"
 import { gemsparkImages } from "@/lib/content/gemspark/images";
 
 describe("gemsparkMetadata", () => {
-  it("sets the canonical, Open Graph and Twitter fields with the art piece as share image", () => {
+  it("sets the canonical, Open Graph and Twitter fields with the app's own share image", () => {
     const meta = gemsparkMetadata({ path: "/gem-spark/short", title: "The GemSpark (Short Version)", description: "A new word." });
     expect(meta.alternates?.canonical).toBe("/gem-spark/short");
     expect(meta.openGraph).toMatchObject({ url: "/gem-spark/short", title: "The GemSpark (Short Version)", images: [GEMSPARK_OG_IMAGE] });
     expect(meta.openGraph).not.toHaveProperty("locale");
     expect(meta.twitter).toMatchObject({ images: [GEMSPARK_OG_IMAGE.url] });
-    expect(GEMSPARK_OG_IMAGE.url).toBe(`${gemsparkImages.art.src}?w=1200&h=630&fit=crop&auto=format`);
+    expect(GEMSPARK_OG_IMAGE.url).toBe(gemsparkImages.shareImage.src);
   });
 
   it("adds the locale for a translated page", () => {
