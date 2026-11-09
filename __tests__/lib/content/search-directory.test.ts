@@ -2,6 +2,7 @@ import { existsSync, readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { SEARCH_DIRECTORY, withEssayCount } from "@/lib/content/search-directory";
+import { searchPages } from "@/lib/search-engine";
 
 const APP = path.join(process.cwd(), "src/app");
 const NEXT_CONFIG = readFileSync(path.join(process.cwd(), "next.config.ts"), "utf8");
@@ -49,7 +50,13 @@ describe("withEssayCount", () => {
 
   it("does not change the original list and handles an empty one", () => {
     withEssayCount(SEARCH_DIRECTORY, 5);
-    expect(SEARCH_DIRECTORY[0].description).toContain("{count}");
+    expect(SEARCH_DIRECTORY.find((p) => p.href === "/blog")?.description).toContain("{count}");
     expect(withEssayCount([], 3)).toEqual([]);
+  });
+
+  it("finds the Spirits page when someone searches for SoulSmoke or mezcal", () => {
+    for (const q of ["soulsmoke", "SoulSmoke", "soul smoke", "mezcal"]) {
+      expect(searchPages(q, SEARCH_DIRECTORY)[0]?.href).toBe("/spirits");
+    }
   });
 });

@@ -19,7 +19,10 @@
 site (`mezcalagave.manus.space`, plus a small `soulsmoke.manus.space`), never a tonygreenberg.com page. Both
 now 404 and neither is in the Internet Archive; only a design note survives in the repo history. `/soulsmoke`
 and `/soul-smoke` now 308 to `/spirits` (which describes it as no longer live) instead of 404; test added,
-checked on a production build. Branch `soulsmoke-redirect`. **Waiting:** Tony decides whether to rebuild
+checked on a production build. Site search had no `/spirits` entry at all: added "The Liquid Library"
+(`search-directory.ts`, tags soulsmoke/mezcal/tequila/sake/wine...), so searching "soulsmoke" or "mezcal" shows
+it first (checked in a browser at 375 and 1280, Enter opens `/spirits`); fixed a test that had broken when the
+America Unbundled entries were added at the top. Branch `soulsmoke-redirect`. **Waiting:** Tony decides whether to rebuild
 SoulSmoke; if the Manus project still exists, export its files before Manus is deleted. (`soulsmoke.com` is an
 unrelated Shopify store.)
 
