@@ -34,4 +34,11 @@ describe("next.config redirects", () => {
       permanent: true,
     });
   });
+
+  it("sends the old SoulSmoke addresses to the Spirits page, permanently", async () => {
+    const redirects = await nextConfig.redirects!();
+    for (const source of ["/soulsmoke", "/soul-smoke"]) {
+      expect(redirects).toContainEqual({ source, destination: "/spirits", permanent: true });
+    }
+  });
 });

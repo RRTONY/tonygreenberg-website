@@ -84,6 +84,12 @@ const nextConfig: NextConfig = {
       // were the Manus app's machine-readable dumps (gone with Manus); the
       // directory is the full list of the same coffees.
       { source: "/bio", destination: "/about", permanent: true },
+      // SoulSmoke (Tony's mezcal guide) lived on Manus (mezcalagave.manus.space),
+      // gone with Manus and not archived. A reader looked for it at
+      // tonygreenberg.com (2026-11-09): send them to the Spirits page, which
+      // describes it, instead of a 404.
+      { source: "/soulsmoke", destination: "/spirits", permanent: true },
+      { source: "/soul-smoke", destination: "/spirits", permanent: true },
       { source: "/brewsoul/catalog.txt", destination: "/brewsoul/directory", permanent: true },
       { source: "/brewsoul/catalog.json", destination: "/brewsoul/directory", permanent: true },
       // Category pages used ?page=N until 2026-10-09; now /page/N, so each page is

@@ -76,6 +76,9 @@ export const SEARCH_DIRECTORY: PageItem[] = [
   { title: "The Web", href: "/the-web", description: "The network of relationships and collaborations", tags: ["web", "network", "connections", "relationships"] },
   { title: "Pick Up the Phone", href: "/pick-up-the-phone", description: "The lost art of the phone call — and how to reach Tony", tags: ["phone", "contact", "call", "reach"] },
   { title: "Journeys", href: "/journeys", description: "Travel, psychedelic experiences, and consciousness exploration", tags: ["journeys", "travel", "psychedelic", "consciousness"] },
+  // Added 2026-11-09: a reader searched for SoulSmoke (Tony's old mezcal site, gone with Manus);
+  // /spirits is where it's described now, and /soulsmoke redirects here.
+  { title: "The Liquid Library", href: "/spirits", description: "Mezcal, tequila, sake, coffee and wine: Tony's liquid obsessions, including SoulSmoke (mezcal) and LiquidSun (tequila)", tags: ["spirits", "liquid library", "soulsmoke", "soul smoke", "mezcal", "agave", "liquidsun", "liquid sun", "tequila", "sake", "wine", "drinks"] },
   { title: "Built by Tony G", href: "/recent-creations", description: "Things Tony has built recently", tags: ["built", "creations", "portfolio", "projects", "tony g"] },
   { title: "Intel", href: "/intel", description: "Deep dives into portfolio companies and competitive landscapes", tags: ["intel", "research", "analysis", "companies"] },
   { title: "The Index", href: "/the-index", description: "Every page, every section, every door — the complete map", tags: ["index", "sitemap", "all pages", "directory"] },
