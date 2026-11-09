@@ -46,9 +46,20 @@ the fixed header on 4 pages. Linked SoulSmoke from the rest of the site: header 
 "Find Your Mezcal" (legacy had it, to Manus), The Mirror's ecosystem pill, Living Declaration's "Optimize the
 Vessel" links (`/spirits`, `/recent-creations` and search were already done). `ANTHROPIC_API_KEY` added to
 `.env.local.example`.
-**Waiting:** (1) Trade Board and For Business shared posts need a Supabase table (owner's yes); (2) ~~SoulSmoke's Manus database~~ **not copied: webmaster, 2026-11-10, "we don't want
+**Member features on Supabase (2026-11-10, webmaster: "use the current db"):** Trade Board, messages to sellers,
+Register Your Business, I Want This Bottle, Tasting Journal and Price Alerts now save to Supabase (migration
+`0007_soulsmoke.sql`, run through the Management API; 6 tables, RLS on, no policies). Server actions in
+`src/app/soul-smoke/actions.ts`, each tied to the signed-in member; as on SoulSmoke, signed-out visitors see
+"Sign in" boxes (to `/login`), the board itself is public. Tony is emailed for each new business and bottle request;
+sellers are emailed each message. Checked: 299 SoulSmoke tests, typecheck, lint, build; anon key can't read or
+write the tables; full signed-in run on the production build against real Supabase with two temporary members
+(email off), every feature saved and reloaded; then both members and all their rows deleted (all 6 tables back
+to 0). Pages show their H1 while the account check runs (server HTML keeps the heading). Header logo: white
+square removed (transparent version in Sanity); SoulSmoke pages get their own favicon (`app/soul-smoke/icon.png`).
+Pre-existing, not from this branch: 2 `/the-stack` tests expect Sanity QR codes but the page uses `/qr/*.svg`.
+**Waiting:** (1) ~~Trade Board and For Business need Supabase~~ done above; (2) ~~SoulSmoke's Manus database~~ **not copied: webmaster, 2026-11-10, "we don't want
 anything to use in manus"**; SoulSmoke starts with no old data (the only row seen was a test signup); (3) "© 2025 Tony Huang" in SoulSmoke's original header (not copied).
-**Next up:** LiquidSun, sake guide, Aqueous, Gem Spark, Find My Stem Cells (same approach, needs each Manus export);
+**Next up:** LiquidSun, sake guide, Aqueous, Gem Spark, Find My Stem Cells: on hold (each needs a Manus export, and the webmaster wants nothing more from Manus);
 Brazil speed check.
 
 ## Previous status — 2026-11-09

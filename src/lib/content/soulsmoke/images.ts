@@ -76,10 +76,12 @@ export const soulsmokeImages = {
     height: 3440,
     alt: "Wild tepeztate agave on a cliff",
   },
+  // Transparent version (2026-11-10): the original logo sat on a white square, which showed as a
+  // white box in the dark header. White turned to transparency, cropped to the swirl, in Sanity.
   soulsmokeLogo: {
-    src: "https://cdn.sanity.io/images/a3q1cyqs/production/2171f0f76d284de0f98d5cab40cc10608983d7e7-1920x1920.webp",
-    width: 1920,
-    height: 1920,
+    src: "https://cdn.sanity.io/images/a3q1cyqs/production/d22751f074441e40a5fe730c6b93fbe51c3a2261-1200x1200.png",
+    width: 1200,
+    height: 1200,
     alt: "SoulSmoke",
   },
   processEarthOven: {

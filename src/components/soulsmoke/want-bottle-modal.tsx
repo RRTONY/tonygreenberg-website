@@ -1,31 +1,20 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
-import { Check, X } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Check, Loader2, Wine, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useLocalStore } from "@/components/soulsmoke/hooks/use-local-store";
+import { getSoulsmokeMember, wantBottle } from "@/app/soul-smoke/actions";
 
-// Ported from the SoulSmoke app's client/src/components/WantBottleModal.tsx. The Manus app
-// saved this through trpc.leadGen.wantBottle (signed-in visitors only, with an owner alert).
-// There is no account or shared database here, so the interest is saved in the visitor's
-// browser under "soulsmoke-bottle-interests", with the same fields and checks the server had
-// (bottleId and bottleName required, interestType consumer/retailer/distributor). The
-// "Sign in to express interest" screen is gone: the form works without an account.
+// Ported from the SoulSmoke app's client/src/components/WantBottleModal.tsx. As on SoulSmoke it's
+// for signed-in members: the interest is saved in Supabase through wantBottle
+// (src/app/soul-smoke/actions.ts), which emails Tony (2026-11-10). When the modal opens it asks
+// the server whether someone is signed in; if not it shows SoulSmoke's "Sign In to Express
+// Interest" box, which goes to this site's /login and comes back to this page.
 
 export type BottleInterestType = "consumer" | "retailer" | "distributor";
 
-export type BottleInterest = {
-  id: string;
-  bottleId: string;
-  bottleName: string;
-  interestType: BottleInterestType;
-  quantity: string;
-  notes: string;
-  createdAt: string;
-};
-
-export const BOTTLE_INTERESTS_KEY = "soulsmoke-bottle-interests";
-const NO_INTERESTS: BottleInterest[] = [];
 const INTEREST_TYPES: BottleInterestType[] = ["consumer", "retailer", "distributor"];
 
 interface WantBottleModalProps {
@@ -36,7 +25,10 @@ interface WantBottleModalProps {
 }
 
 export function WantBottleModal({ isOpen, onClose, bottleId, bottleName }: WantBottleModalProps) {
-  const [, setInterests] = useLocalStore<BottleInterest[]>(BOTTLE_INTERESTS_KEY, NO_INTERESTS);
+  const pathname = usePathname();
+  const [signedIn, setSignedIn] = useState<boolean | null>(null);
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [interestType, setInterestType] = useState<BottleInterestType>("consumer");
   const [quantity, setQuantity] = useState("1 bottle");
   const [notes, setNotes] = useState("");
@@ -49,6 +41,18 @@ export function WantBottleModal({ isOpen, onClose, bottleId, bottleName }: WantB
   useEffect(() => {
     onCloseRef.current = onClose;
   }, [onClose]);
+
+  // Ask the server who's signed in each time the modal opens (they may have signed in since).
+  useEffect(() => {
+    if (!isOpen) return;
+    let live = true;
+    getSoulsmokeMember().then(({ signedIn: yes }) => {
+      if (live) setSignedIn(yes);
+    });
+    return () => {
+      live = false;
+    };
+  }, [isOpen]);
 
   // Escape closes the modal, like the dialogs elsewhere on the site.
   useEffect(() => {
@@ -72,22 +76,75 @@ export function WantBottleModal({ isOpen, onClose, bottleId, bottleName }: WantB
 
   if (!isOpen) return null;
 
-  const recordInterest = () => {
+  const recordInterest = async () => {
     if (!bottleId.trim() || !bottleName.trim()) return;
-    setInterests((prev) => [
-      {
-        id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
-        bottleId,
-        bottleName,
-        interestType,
-        quantity,
-        notes,
-        createdAt: new Date().toISOString(),
-      },
-      ...prev,
-    ]);
-    setSuccess(true);
+    setError(null);
+    setPending(true);
+    const result = await wantBottle({ bottleId, bottleName, interestType, quantity, notes });
+    setPending(false);
+    if (result.ok) setSuccess(true);
+    else if (result.signedOut) setSignedIn(false);
+    else setError(result.error);
   };
+
+  const closeButton = (
+    <button
+      type="button"
+      onClick={onClose}
+      aria-label="Close"
+      className="absolute top-4 right-4 text-zinc-400 hover:text-white"
+    >
+      <X aria-hidden="true" className="size-5" />
+    </button>
+  );
+
+  if (signedIn === null) {
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm">
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="I Want This Bottle"
+          className="relative w-full max-w-md rounded-xl border border-zinc-700 bg-zinc-900 p-8"
+        >
+          {closeButton}
+          <Loader2 aria-label="Checking your account" className="mx-auto size-8 animate-spin text-amber-500" />
+        </div>
+      </div>
+    );
+  }
+
+  if (!signedIn) {
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm">
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby={titleId}
+          className="relative w-full max-w-md rounded-xl border border-zinc-700 bg-zinc-900 p-8"
+        >
+          {closeButton}
+          <div className="space-y-4 text-center">
+            <Wine aria-hidden="true" className="mx-auto size-12 text-amber-500" />
+            <h3 id={titleId} className="font-display text-xl font-bold text-white">
+              Sign In to Express Interest
+            </h3>
+            <p className="text-sm text-zinc-400">
+              Create a free account to let us know you want{" "}
+              <span className="font-semibold text-amber-500">{bottleName}</span>. We track demand and connect
+              interested buyers with producers and retailers.
+            </p>
+            <Link
+              href={`/login?next=${encodeURIComponent(pathname)}`}
+              className="inline-block rounded-lg bg-amber-500 px-6 py-3 font-bold text-black transition-colors hover:bg-amber-400"
+            >
+              Sign In / Create Account
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm">
@@ -97,14 +154,7 @@ export function WantBottleModal({ isOpen, onClose, bottleId, bottleName }: WantB
         aria-labelledby={titleId}
         className="relative w-full max-w-lg rounded-xl border border-zinc-700 bg-zinc-900 p-8"
       >
-        <button
-          type="button"
-          onClick={onClose}
-          aria-label="Close"
-          className="absolute top-4 right-4 text-zinc-400 hover:text-white"
-        >
-          <X aria-hidden="true" className="size-5" />
-        </button>
+        {closeButton}
 
         {success ? (
           <div className="space-y-4 py-8 text-center">
@@ -192,10 +242,24 @@ export function WantBottleModal({ isOpen, onClose, bottleId, bottleName }: WantB
             <Button
               type="button"
               onClick={recordInterest}
+              disabled={pending}
               className="w-full bg-amber-500 py-3 font-bold text-black hover:bg-amber-400"
             >
-              Record My Interest
+              {pending ? (
+                <>
+                  <Loader2 aria-hidden="true" className="size-4 animate-spin" />
+                  Recording
+                </>
+              ) : (
+                "Record My Interest"
+              )}
             </Button>
+
+            {error && (
+              <p role="alert" className="text-center text-sm text-red-400">
+                {error}
+              </p>
+            )}
           </div>
         )}
       </div>

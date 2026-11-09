@@ -1,19 +1,17 @@
 "use client";
 
-import { useId, useState, type FormEvent } from "react";
+import { useEffect, useId, useState, type FormEvent } from "react";
 import Link from "next/link";
-import { ArrowLeft, Building2, Check, ChefHat, CircleHelp, Home, Package, Store, Truck, Wine } from "lucide-react";
+import { ArrowLeft, Building2, Check, ChefHat, CircleHelp, Home, Loader2, Package, Store, Truck, Wine } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useLocalStore } from "@/components/soulsmoke/hooks/use-local-store";
+import { getMyBusinessProfile, saveBusinessProfile } from "@/app/soul-smoke/actions";
 import { ss } from "@/lib/content/soulsmoke/nav";
 
 // Ported from the SoulSmoke app's client/src/pages/BusinessProfile.tsx. Same form, confirmation
-// and copy. On Manus the profile went to a shared database (trpc.leadGen.createBusinessProfile,
-// signed-in visitors only, with an owner alert). There is no account or shared database here
-// yet (owner to decide), so the form works for everyone and the profile is saved in the
-// visitor's own browser ("soulsmoke-business-profile"), with the server's fields and checks
-// (business type and name required, email must be valid when given, one profile per visitor).
-// The "Sign In to Register" screen is gone.
+// and copy. As on SoulSmoke it's for signed-in members: the profile is saved in Supabase
+// (getMyBusinessProfile / saveBusinessProfile in src/app/soul-smoke/actions.ts, one per member,
+// Tony is emailed on a new one; 2026-11-10). Signed-out visitors see SoulSmoke's "Sign In to
+// Register" screen, which goes to this site's /login and comes back here.
 
 export const BUSINESS_TYPES = ["retailer", "bar", "restaurant", "distributor", "importer", "other"] as const;
 export type BusinessType = (typeof BUSINESS_TYPES)[number];
@@ -35,8 +33,6 @@ export type StoredBusinessProfile = {
   isVerified: boolean;
   createdAt: string;
 };
-
-export const BUSINESS_PROFILE_KEY = "soulsmoke-business-profile";
 
 const businessTypes = [
   { value: "retailer" as const, label: "Retailer / Liquor Store", icon: Store },
@@ -94,12 +90,60 @@ const inputClass =
   "w-full rounded-lg border border-zinc-700 bg-zinc-800 px-4 py-3 text-sm text-white focus:border-amber-500 focus:outline-none";
 
 export function BusinessProfile() {
-  const [profile, setProfile] = useLocalStore<StoredBusinessProfile | null>(BUSINESS_PROFILE_KEY, null);
+  const [status, setStatus] = useState<"loading" | "signedOut" | "ready">("loading");
+  const [profile, setProfile] = useState<StoredBusinessProfile | null>(null);
   const [success, setSuccess] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [pending, setPending] = useState(false);
   const [form, setForm] = useState(emptyForm);
   const id = useId();
   const fid = (name: string) => `${id}-${name}`;
+
+  useEffect(() => {
+    let live = true;
+    getMyBusinessProfile().then((result) => {
+      if (!live) return;
+      if (result.ok) setProfile(result.data);
+      else if (result.signedOut) return setStatus("signedOut");
+      else setError(result.error);
+      setStatus("ready");
+    });
+    return () => {
+      live = false;
+    };
+  }, []);
+
+  // While the account check runs, the intro (with its H1) renders with a spinner in place of the
+  // sign-in button, so the server HTML has the page's heading and text.
+  if (status === "loading" || status === "signedOut") {
+    return (
+      <div className="min-h-screen bg-black text-white">
+        <div className="container mx-auto max-w-lg px-4 py-20 text-center">
+          <Building2 aria-hidden="true" className="mx-auto mb-6 size-16 text-amber-500" />
+          <h1 className="mb-4 font-display text-3xl font-bold">Business Registration</h1>
+          <p className="mb-8 text-zinc-400">
+            Are you a retailer, bar, restaurant, or distributor interested in sourcing extraordinary mezcal? Create a
+            free account to register your business and get connected with producers.
+          </p>
+          {status === "loading" ? (
+            <Loader2 aria-label="Loading your business profile" className="mx-auto size-8 animate-spin text-amber-500" />
+          ) : (
+            <Link
+              href={`/login?next=${encodeURIComponent(ss("/business"))}`}
+              className="inline-block rounded-lg bg-amber-500 px-8 py-4 text-lg font-bold text-black transition-colors hover:bg-amber-400"
+            >
+              Sign In to Register
+            </Link>
+          )}
+          <div className="mt-8">
+            <Link href={ss("/")} className="inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-300">
+              <Home aria-hidden="true" className="size-4" /> Back to Home
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (profile || success) {
     return (
@@ -161,16 +205,23 @@ export function BusinessProfile() {
     );
   }
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const next = toBusinessProfile(form);
     if (!next) {
-      setError(Boolean(form.businessType && form.businessName.trim()));
+      setError(form.businessType && form.businessName.trim() ? "Something went wrong. Please try again." : null);
       return;
     }
-    setError(false);
-    setProfile(next);
-    setSuccess(true);
+    setError(null);
+    setPending(true);
+    // isVerified/createdAt are set by the server; it ignores the ones here.
+    const result = await saveBusinessProfile(next);
+    setPending(false);
+    if (result.ok) {
+      setProfile(result.data);
+      setSuccess(true);
+    } else if (result.signedOut) setStatus("signedOut");
+    else setError(result.error);
   };
 
   const text = (
@@ -283,15 +334,22 @@ export function BusinessProfile() {
 
           <Button
             type="submit"
-            disabled={!form.businessType || !form.businessName}
+            disabled={!form.businessType || !form.businessName || pending}
             className="w-full bg-amber-500 py-4 text-lg font-bold text-black hover:bg-amber-400"
           >
-            Register My Business
+            {pending ? (
+              <>
+                <Loader2 aria-hidden="true" className="size-4 animate-spin" />
+                Creating Profile
+              </>
+            ) : (
+              "Register My Business"
+            )}
           </Button>
 
           {error && (
             <p role="alert" className="text-center text-sm text-red-400">
-              Something went wrong. Please try again.
+              {error}
             </p>
           )}
 

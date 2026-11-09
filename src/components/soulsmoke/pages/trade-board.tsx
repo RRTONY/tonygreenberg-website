@@ -2,19 +2,36 @@
 
 import { useEffect, useId, useState, type FormEvent } from "react";
 import Link from "next/link";
-import { ArrowLeft, ArrowLeftRight, DollarSign, MapPin, Package, Plus, Trash2, User, X } from "lucide-react";
-import { useLocalStore } from "@/components/soulsmoke/hooks/use-local-store";
+import {
+  ArrowLeft,
+  ArrowLeftRight,
+  DollarSign,
+  Loader2,
+  MapPin,
+  MessageCircle,
+  Package,
+  Plus,
+  Trash2,
+  User,
+  X,
+} from "lucide-react";
+import {
+  createTradeListing,
+  deleteTradeListing,
+  listTradeListings,
+  sendTradeMessage,
+  type PublicTradeListing,
+} from "@/app/soul-smoke/actions";
 import { ss } from "@/lib/content/soulsmoke/nav";
 
 // Ported from the SoulSmoke app's client/src/pages/TradeBoard.tsx. Same board, form, guidelines
-// and copy. On Manus the listings lived in a shared database (trpc.tradeBoard) that every
-// visitor saw, and signed-in visitors could message a seller. There is no shared database or
-// account here yet (owner to decide), so:
-// - "List a Bottle" works for everyone and saves the listing in the visitor's own browser
-//   ("soulsmoke-trade-listings"), with the server's fields and checks; the board shows those.
-// - Contacting a seller (the message button and its modal) is not carried over: a message has
-//   to reach another visitor, which needs the shared database. It returns with that database.
-// - The "Sign in to list your bottles" box is gone (no sign-in).
+// and copy. As on Manus, the listings live in a shared database that every visitor sees: this
+// site's Supabase (soulsmoke_trade_listings / soulsmoke_trade_messages, server actions in
+// src/app/soul-smoke/actions.ts) instead of trpc.tradeBoard. Signed-in members (Supabase Auth
+// instead of Manus OAuth) can list a bottle, delete their own listings and message a seller;
+// everyone else sees the original "Sign in to list your bottles" box, which goes to /login. The
+// seller's id never reaches the browser: the server marks each listing `isMine` instead. A
+// message is emailed to the seller with the sender's address (the Manus app only stored it).
 
 type Condition = "sealed" | "opened" | "partial";
 type ListingType = "trade" | "sell" | "both";
@@ -37,8 +54,6 @@ export type TradeListing = {
   createdAt: string;
 };
 
-export const TRADE_LISTINGS_KEY = "soulsmoke-trade-listings";
-const NO_LISTINGS: TradeListing[] = [];
 const CONDITIONS: Condition[] = ["sealed", "opened", "partial"];
 const LISTING_TYPES: ListingType[] = ["trade", "sell", "both"];
 
@@ -121,22 +136,61 @@ const fieldClass =
 // Native dropdown lists ignore the translucent field color, so give the options a solid one.
 const selectClass = `${fieldClass} *:bg-[#1a1a1a]`;
 
+const SIGN_IN_HREF = `/login?next=${encodeURIComponent(ss("/trade-board"))}`;
+
 export function TradeBoard() {
-  const [listings, setListings] = useLocalStore<TradeListing[]>(TRADE_LISTINGS_KEY, NO_LISTINGS);
+  const [listings, setListings] = useState<PublicTradeListing[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [signedIn, setSignedIn] = useState(false);
+  const [boardError, setBoardError] = useState("");
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [creating, setCreating] = useState(false);
+  const [createError, setCreateError] = useState("");
+  const [showMessageModal, setShowMessageModal] = useState<PublicTradeListing | null>(null);
+  const [message, setMessage] = useState("");
+  const [sending, setSending] = useState(false);
+  const [messageError, setMessageError] = useState("");
   const [filter, setFilter] = useState<"all" | "trade" | "sell">("all");
   const [formData, setFormData] = useState(emptyForm);
   const id = useId();
   const fid = (name: string) => `${id}-${name}`;
 
   useEffect(() => {
-    if (!showCreateModal) return;
+    let live = true;
+    listTradeListings().then((result) => {
+      if (!live) return;
+      if (result.ok) {
+        setListings(result.data.listings);
+        setSignedIn(result.data.signedIn);
+      } else {
+        setBoardError(result.error);
+      }
+      setLoading(false);
+    });
+    return () => {
+      live = false;
+    };
+  }, []);
+
+  const closeModals = () => {
+    setShowCreateModal(false);
+    setShowMessageModal(null);
+  };
+
+  useEffect(() => {
+    if (!showCreateModal && !showMessageModal) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setShowCreateModal(false);
+      if (e.key === "Escape") closeModals();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [showCreateModal]);
+  }, [showCreateModal, showMessageModal]);
+
+  // A server answer saying the session ended: back to the sign-in box.
+  const signedOut = () => {
+    setSignedIn(false);
+    closeModals();
+  };
 
   const filteredListings = listings.filter((l) => {
     if (filter === "trade") return l.listingType === "trade" || l.listingType === "both";
@@ -144,16 +198,68 @@ export function TradeBoard() {
     return true;
   });
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const listing = toTradeListing(formData);
-    if (!listing) return;
-    setListings((prev) => [listing, ...prev]);
-    setShowCreateModal(false);
-    setFormData(emptyForm);
+    if (!listing || creating) return;
+    setCreating(true);
+    setCreateError("");
+    // The server makes the id and date; send everything else toTradeListing checked.
+    const result = await createTradeListing({
+      mezcalName: listing.mezcalName,
+      producer: listing.producer,
+      agaveType: listing.agaveType,
+      abv: listing.abv,
+      bottleSize: listing.bottleSize,
+      condition: listing.condition,
+      fillLevel: listing.fillLevel,
+      listingType: listing.listingType,
+      askingPrice: listing.askingPrice,
+      seekingBottles: listing.seekingBottles,
+      description: listing.description,
+      location: listing.location,
+    });
+    setCreating(false);
+    if (result.ok) {
+      setListings((prev) => [result.data, ...prev]);
+      setShowCreateModal(false);
+      setFormData(emptyForm);
+    } else if (result.signedOut) {
+      signedOut();
+    } else {
+      setCreateError(result.error);
+    }
   };
 
-  const deleteListing = (listingId: string) => setListings((prev) => prev.filter((l) => l.id !== listingId));
+  const deleteListing = async (listingId: string) => {
+    setBoardError("");
+    const result = await deleteTradeListing(listingId);
+    if (result.ok) setListings((prev) => prev.filter((l) => l.id !== listingId));
+    else if (result.signedOut) signedOut();
+    else setBoardError(result.error);
+  };
+
+  const openMessage = (listing: PublicTradeListing) => {
+    setMessage("");
+    setMessageError("");
+    setShowMessageModal(listing);
+  };
+
+  const sendMessage = async () => {
+    if (!showMessageModal || !message.trim() || sending) return;
+    setSending(true);
+    setMessageError("");
+    const result = await sendTradeMessage({ listingId: showMessageModal.id, message: message.trim() });
+    setSending(false);
+    if (result.ok) {
+      setShowMessageModal(null);
+      setMessage("");
+    } else if (result.signedOut) {
+      signedOut();
+    } else {
+      setMessageError(result.error);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] pt-20 text-white">
@@ -176,14 +282,19 @@ export function TradeBoard() {
                 lovers helping each other.
               </p>
             </div>
-            <button
-              type="button"
-              onClick={() => setShowCreateModal(true)}
-              className="flex shrink-0 items-center gap-2 rounded-lg bg-amber-600 px-6 py-3 font-medium transition-colors hover:bg-amber-500"
-            >
-              <Plus aria-hidden="true" className="size-5" />
-              List a Bottle
-            </button>
+            {signedIn && (
+              <button
+                type="button"
+                onClick={() => {
+                  setCreateError("");
+                  setShowCreateModal(true);
+                }}
+                className="flex shrink-0 items-center gap-2 rounded-lg bg-amber-600 px-6 py-3 font-medium transition-colors hover:bg-amber-500"
+              >
+                <Plus aria-hidden="true" className="size-5" />
+                List a Bottle
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -214,8 +325,31 @@ export function TradeBoard() {
           </span>
         </div>
 
+        {/* Not logged in message */}
+        {!loading && !signedIn && !boardError && (
+          <div className="mb-8 rounded-xl border border-amber-800/50 bg-amber-900/20 p-6 text-center">
+            <p className="mb-4 text-amber-200">Sign in to list your bottles or contact sellers</p>
+            <Link
+              href={SIGN_IN_HREF}
+              className="inline-flex items-center gap-2 rounded-lg bg-amber-600 px-6 py-3 font-medium transition-colors hover:bg-amber-500"
+            >
+              Sign In to Trade
+            </Link>
+          </div>
+        )}
+
+        {boardError && (
+          <p role="alert" className="mb-8 rounded-lg bg-red-400/10 p-4 text-center text-sm text-red-300">
+            {boardError}
+          </p>
+        )}
+
         {/* Listings Grid */}
-        {filteredListings.length === 0 ? (
+        {loading ? (
+          <div className="flex justify-center py-16" role="status" aria-label="Loading listings">
+            <Loader2 aria-hidden="true" className="size-8 animate-spin text-amber-400" />
+          </div>
+        ) : filteredListings.length === 0 ? (
           <div className="py-16 text-center">
             <Package aria-hidden="true" className="mx-auto mb-4 size-16 text-gray-700" />
             <p className="text-lg text-gray-400">No listings yet</p>
@@ -283,8 +417,8 @@ export function TradeBoard() {
                 <div className="flex items-center justify-between border-t border-white/10 pt-4">
                   <div className="flex min-w-0 flex-wrap items-center gap-2 text-sm text-gray-400">
                     <User aria-hidden="true" className="size-4 shrink-0" />
-                    {/* Every listing here is the visitor's own; "Anonymous" was the app's name for a seller without one. */}
-                    <span>Anonymous</span>
+                    {/* Sellers' names stay private here; "Anonymous" was the app's name for a seller without one. */}
+                    <span>{listing.isMine ? "You" : "Anonymous"}</span>
                     {listing.location && (
                       <>
                         <MapPin aria-hidden="true" className="ml-2 size-3 shrink-0" />
@@ -292,15 +426,30 @@ export function TradeBoard() {
                       </>
                     )}
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => deleteListing(listing.id)}
-                    className="rounded-lg p-2 text-red-400 transition-colors hover:bg-red-400/10"
-                    title="Delete listing"
-                    aria-label={`Delete listing for ${listing.mezcalName}`}
-                  >
-                    <Trash2 aria-hidden="true" className="size-5" />
-                  </button>
+                  <div className="flex items-center gap-2">
+                    {signedIn && !listing.isMine && (
+                      <button
+                        type="button"
+                        onClick={() => openMessage(listing)}
+                        className="rounded-lg p-2 text-amber-400 transition-colors hover:bg-amber-400/10"
+                        title="Contact seller"
+                        aria-label={`Contact seller about ${listing.mezcalName}`}
+                      >
+                        <MessageCircle aria-hidden="true" className="size-5" />
+                      </button>
+                    )}
+                    {listing.isMine && (
+                      <button
+                        type="button"
+                        onClick={() => deleteListing(listing.id)}
+                        className="rounded-lg p-2 text-red-400 transition-colors hover:bg-red-400/10"
+                        title="Delete listing"
+                        aria-label={`Delete listing for ${listing.mezcalName}`}
+                      >
+                        <Trash2 aria-hidden="true" className="size-5" />
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
@@ -535,13 +684,79 @@ export function TradeBoard() {
                   placeholder="Any additional details about the bottle..."
                 />
               </div>
+              {createError && (
+                <p role="alert" className="text-sm text-red-300">
+                  {createError}
+                </p>
+              )}
               <button
                 type="submit"
-                className="w-full rounded-lg bg-amber-600 py-4 font-medium transition-colors hover:bg-amber-500 disabled:bg-gray-700"
+                disabled={creating}
+                className="flex w-full items-center justify-center gap-2 rounded-lg bg-amber-600 py-4 font-medium transition-colors hover:bg-amber-500 disabled:bg-gray-700"
               >
+                {creating && <Loader2 aria-hidden="true" className="size-4 animate-spin" />}
                 Create Listing
               </button>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Message Modal */}
+      {showMessageModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4">
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={fid("message-title")}
+            className="w-full max-w-md rounded-2xl bg-[#1a1a1a]"
+          >
+            <div className="flex items-center justify-between border-b border-white/10 p-6">
+              <div className="min-w-0">
+                <h2 id={fid("message-title")} className="font-serif text-xl text-amber-400">
+                  Contact Seller
+                </h2>
+                <p className="mt-1 text-sm wrap-break-word text-gray-400">About: {showMessageModal.mezcalName}</p>
+              </div>
+              <button
+                type="button"
+                aria-label="Close"
+                onClick={() => setShowMessageModal(null)}
+                className="p-2 text-gray-300 hover:text-white"
+              >
+                <X aria-hidden="true" className="size-5" />
+              </button>
+            </div>
+            <div className="p-6">
+              <label htmlFor={fid("message")} className="sr-only">
+                Message
+              </label>
+              <textarea
+                id={fid("message")}
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                className={`${fieldClass} resize-none`}
+                rows={4}
+                placeholder="Hi, I'm interested in this bottle..."
+              />
+              <p className="mt-2 text-xs text-gray-400">
+                The seller gets your message and your email address so they can reply.
+              </p>
+              {messageError && (
+                <p role="alert" className="mt-2 text-sm text-red-300">
+                  {messageError}
+                </p>
+              )}
+              <button
+                type="button"
+                onClick={sendMessage}
+                disabled={!message.trim() || sending}
+                className="mt-4 flex w-full items-center justify-center gap-2 rounded-lg bg-amber-600 py-3 font-medium transition-colors hover:bg-amber-500 disabled:bg-gray-700"
+              >
+                {sending && <Loader2 aria-hidden="true" className="size-4 animate-spin" />}
+                Send Message
+              </button>
+            </div>
           </div>
         </div>
       )}

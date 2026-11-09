@@ -1,22 +1,22 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, Bell, BellOff, ExternalLink, Minus, Search, TrendingDown, TrendingUp } from "lucide-react";
+import { ArrowLeft, Bell, BellOff, ExternalLink, Loader2, Minus, Search, TrendingDown, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { useLocalStore } from "@/components/soulsmoke/hooks/use-local-store";
+import { addPriceAlert, deletePriceAlert, listPriceAlerts } from "@/app/soul-smoke/actions";
 import { allMezcals } from "@/lib/content/soulsmoke/mezcal-data";
 import { ss } from "@/lib/content/soulsmoke/nav";
 import { soulsmokeFontVariables } from "@/lib/fonts/soulsmoke-fonts";
 
 // Ported from the SoulSmoke app's client/src/pages/PriceTracker.tsx. Same sample price data,
-// cards and copy. The Manus app kept price alerts per signed-in account (trpc.priceAlerts);
-// here they are saved in the visitor's browser under "soulsmoke-price-alerts", with the
-// server's fields and checks (mezcal name required, target price stored in cents, newest
-// first). No account needed, so "Set Price Alert" shows for everyone and the
-// "Sign In to Set Alerts" section is gone.
+// cards and copy. The price cards are public; price alerts belong to a signed-in member, as on
+// SoulSmoke: saved in Supabase (soulsmoke_price_alerts) through src/app/soul-smoke/actions.ts,
+// which replaces trpc.priceAlerts (mezcal name required, target price in cents, newest first).
+// Signed out: no "Set Price Alert" button and the original "Never Miss a Deal" section, linking
+// to /login.
 // The dialog renders in a portal outside the /soul-smoke wrapper, so it carries the wrapper's
 // class and font variables to keep SoulSmoke's colors and type.
 
@@ -28,8 +28,7 @@ export type PriceAlert = {
   createdAt: string;
 };
 
-export const PRICE_ALERTS_KEY = "soulsmoke-price-alerts";
-const NO_ALERTS: PriceAlert[] = [];
+const LOGIN_HREF = "/login?next=/soul-smoke/price-tracker";
 
 // Sample price history data (in production, this would come from a database)
 const priceHistory: Record<string, { date: string; price: number; retailer: string }[]> = {
@@ -166,8 +165,14 @@ function PriceHistoryChart({ name }: { name: string }) {
   );
 }
 
+type AlertsState = { status: "loading" } | { status: "signedOut" } | { status: "ready"; alerts: PriceAlert[] };
+
 export function PriceTracker() {
-  const [alerts, setAlerts] = useLocalStore<PriceAlert[]>(PRICE_ALERTS_KEY, NO_ALERTS);
+  const [state, setState] = useState<AlertsState>({ status: "loading" });
+  const [alertError, setAlertError] = useState<string | null>(null);
+  const [formError, setFormError] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
   const [isAddingAlert, setIsAddingAlert] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedMezcal, setSelectedMezcal] = useState("");
@@ -175,24 +180,56 @@ export function PriceTracker() {
   const mezcalId = useId();
   const priceId = useId();
 
-  const handleAddAlert = () => {
-    if (!selectedMezcal.trim()) return;
+  useEffect(() => {
+    let live = true;
+    listPriceAlerts().then((result) => {
+      if (!live) return;
+      if (result.ok) setState({ status: "ready", alerts: result.data });
+      else if (result.signedOut) setState({ status: "signedOut" });
+      else {
+        setState({ status: "ready", alerts: [] });
+        setAlertError(result.error);
+      }
+    });
+    return () => {
+      live = false;
+    };
+  }, []);
+
+  const alerts = state.status === "ready" ? state.alerts : [];
+
+  const handleAddAlert = async () => {
+    if (!selectedMezcal.trim() || saving) return;
     const dollars = parseInt(targetPrice, 10);
-    setAlerts((prev) => [
-      {
-        id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
-        mezcalName: selectedMezcal,
-        targetPrice: targetPrice && Number.isFinite(dollars) ? dollars * 100 : null,
-        createdAt: new Date().toISOString(),
-      },
-      ...prev,
-    ]);
+    setSaving(true);
+    setFormError(null);
+    const result = await addPriceAlert({
+      mezcalName: selectedMezcal,
+      targetPrice: targetPrice && Number.isFinite(dollars) ? dollars * 100 : null,
+    });
+    setSaving(false);
+    if (!result.ok) {
+      if (result.signedOut) setState({ status: "signedOut" });
+      setFormError(result.error);
+      return;
+    }
+    setState({ status: "ready", alerts: [result.data, ...alerts] });
     setIsAddingAlert(false);
     setSelectedMezcal("");
     setTargetPrice("");
   };
 
-  const deleteAlert = (id: string) => setAlerts((prev) => prev.filter((alert) => alert.id !== id));
+  const deleteAlert = async (id: string) => {
+    setDeletingId(id);
+    setAlertError(null);
+    const result = await deletePriceAlert(id);
+    setDeletingId(null);
+    if (!result.ok) {
+      setAlertError(result.error);
+      return;
+    }
+    setState({ status: "ready", alerts: alerts.filter((alert) => alert.id !== id) });
+  };
 
   const filteredTrackedBottles = trackedBottles.filter((bottle) =>
     bottle.name.toLowerCase().includes(searchQuery.toLowerCase()),
@@ -235,6 +272,10 @@ export function PriceTracker() {
               />
             </div>
 
+            {state.status === "loading" && (
+              <Loader2 aria-label="Checking your alerts" className="size-6 animate-spin text-amber-400" />
+            )}
+            {state.status === "ready" && (
             <Dialog open={isAddingAlert} onOpenChange={setIsAddingAlert}>
               <DialogTrigger asChild>
                 <Button className="gap-2 bg-amber-600 hover:bg-amber-500">
@@ -285,22 +326,41 @@ export function PriceTracker() {
                     </div>
                     <p className="text-xs text-gray-400">Leave blank to get alerts for any price drop</p>
                   </div>
+                  {formError && (
+                    <p role="alert" className="text-sm text-red-400">
+                      {formError}
+                    </p>
+                  )}
                   <div className="flex justify-end gap-3 pt-4">
                     <Button variant="outline" onClick={() => setIsAddingAlert(false)}>
                       Cancel
                     </Button>
-                    <Button className="bg-amber-600 hover:bg-amber-500" onClick={handleAddAlert} disabled={!selectedMezcal}>
+                    <Button
+                      className="gap-2 bg-amber-600 hover:bg-amber-500"
+                      onClick={handleAddAlert}
+                      disabled={!selectedMezcal || saving}
+                    >
+                      {saving && <Loader2 aria-hidden="true" className="size-4 animate-spin" />}
                       Create Alert
                     </Button>
                   </div>
                 </div>
               </DialogContent>
             </Dialog>
+            )}
           </div>
         </div>
       </section>
 
-      {/* Visitor's Alerts */}
+      {alertError && (
+        <div className="container py-4">
+          <p role="alert" className="text-sm text-red-400">
+            {alertError}
+          </p>
+        </div>
+      )}
+
+      {/* Member's Alerts */}
       {alerts.length > 0 && (
         <section className="border-b border-white/10 bg-amber-950/10 py-8">
           <div className="container">
@@ -321,10 +381,15 @@ export function PriceTracker() {
                   <button
                     type="button"
                     aria-label={`Remove alert for ${alert.mezcalName}`}
+                    disabled={deletingId === alert.id}
                     onClick={() => deleteAlert(alert.id)}
                     className="text-gray-400 hover:text-red-400"
                   >
-                    <BellOff aria-hidden="true" className="size-4" />
+                    {deletingId === alert.id ? (
+                      <Loader2 aria-hidden="true" className="size-4 animate-spin" />
+                    ) : (
+                      <BellOff aria-hidden="true" className="size-4" />
+                    )}
                   </button>
                 </div>
               ))}
@@ -391,6 +456,23 @@ export function PriceTracker() {
           </div>
         </div>
       </section>
+
+      {/* CTA for signed-out visitors */}
+      {state.status === "signedOut" && (
+        <section className="bg-linear-to-b from-transparent to-amber-950/20 py-16">
+          <div className="container max-w-2xl text-center">
+            <Bell aria-hidden="true" className="mx-auto mb-6 size-12 text-amber-400" />
+            <h2 className="mb-4 font-serif text-3xl text-amber-400">Never Miss a Deal</h2>
+            <p className="mb-8 text-gray-300">
+              Sign in to set price alerts for your favorite bottles. We&apos;ll notify you when prices drop or when rare
+              bottles become available.
+            </p>
+            <Button asChild size="lg" className="bg-amber-600 hover:bg-amber-500">
+              <Link href={LOGIN_HREF}>Sign In to Set Alerts</Link>
+            </Button>
+          </div>
+        </section>
+      )}
     </div>
   );
 }

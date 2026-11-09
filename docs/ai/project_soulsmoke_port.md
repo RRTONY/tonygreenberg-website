@@ -56,19 +56,29 @@ entries. Same pattern as `/brewsoul`.
      so the text is in the server HTML.
    - Fix live's flaws only where clearly broken (unreadable contrast, squeezed inputs, sideways
      scroll at 375px), and note each in a comment.
-4. **Manus pieces are removed, not stubbed:** Manus OAuth/`useAuth`/login buttons (features work
-   without an account), `trpc` (see below), Manus analytics, `ManusDialog`, `AIChatBox`,
+4. **Manus pieces are removed, not stubbed:** Manus OAuth/`useAuth` (member features use this site's
+   Supabase sign-in instead, see 5), `trpc` (see below), Manus analytics, `ManusDialog`, `AIChatBox`,
    `DashboardLayout`, `ComponentShowcase` (dev demo, not ported).
 5. Server features (`trpc.*`) without Manus:
    - `mailingList.subscribe` → `EmailSignup` (done).
-   - `tastingJournal`, `priceAlerts`, `leadGen.wantBottle`, favorites → saved in the visitor's browser
-     with `useLocalStore(key, fallback)` from `src/components/soulsmoke/hooks/use-local-store.ts`
-     (keys `soulsmoke-tasting-journal`, `soulsmoke-price-alerts`, `soulsmoke-bottle-interests`, ...).
+   - Member features → Supabase (webmaster, 2026-11-10: "use the current db"). Tables in
+     `supabase/migrations/0007_soulsmoke.sql` (run 2026-11-10 through the Management API; RLS on,
+     no policies, so only the server's service-role key reaches them). Server actions in
+     `src/app/soul-smoke/actions.ts`, each scoped to the signed-in member (`getUser()`):
+     `tastingJournal` → `list/add/deleteTastingEntry`; `priceAlerts` → `list/add/deletePriceAlert`;
+     `tradeBoard` → `listTradeListings` (public, returns `isMine` instead of owner ids),
+     `create/deleteTradeListing`, `sendTradeMessage` (stores it and emails the seller with the
+     sender's email to reply to; Manus only stored it); `leadGen.*BusinessProfile` →
+     `getMyBusinessProfile`/`saveBusinessProfile` (emails Tony on create); `leadGen.wantBottle` →
+     `wantBottle` (emails Tony). As on SoulSmoke these need a signed-in member: signed-out visitors
+     see the original "Sign in" boxes, linking to `/login?next=/soul-smoke/...` (Supabase Auth
+     replaces Manus OAuth). Not ported (no page used them): `bottleDemand`, `getMyInterests`,
+     `myListings`, `messages`, and the admin-only producer profiles / lead connections (Tony uses
+     the Table Editor). Flood guard: a few rows per member per 10 minutes per table.
+   - Favorites (hunt list), language and view mode stay in the visitor's browser (they did on
+     SoulSmoke too) via `useLocalStore(key, fallback)` from `src/components/soulsmoke/hooks/use-local-store.ts`.
    - `bottleScanner.analyze` → `src/app/api/soul-smoke/bottle-scanner/route.ts`, same system
      prompt, Anthropic Messages API over `fetch` (no SDK), `ANTHROPIC_API_KEY`, size-limited.
-   - `tradeBoard` and `leadGen.*BusinessProfile`/`bottleDemand` need a shared database (they were
-     shared between visitors). Until the owner decides (Supabase tables?), the visitor's own listings
-     and profile are kept in their browser; messaging between visitors is not available.
 6. Google Maps (`components/Map.tsx`) went through Manus's proxy: the Oaxaca map uses an
    OpenStreetMap embed (`<iframe>` to `openstreetmap.org/export/embed.html` with a bbox and marker)
    plus the same list of places.

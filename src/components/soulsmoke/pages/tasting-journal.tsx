@@ -1,22 +1,21 @@
 "use client";
 
-import { useId, useState, type ElementType, type FormEvent } from "react";
+import { useEffect, useId, useState, type ElementType, type FormEvent } from "react";
 import Link from "next/link";
-import { ArrowLeft, Calendar, Check, Droplets, Flame, Plus, Sparkles, Star, Trash2, Wine, X } from "lucide-react";
+import { ArrowLeft, Calendar, Check, Droplets, Flame, Loader2, Plus, Sparkles, Star, Trash2, Wine, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useLocalStore } from "@/components/soulsmoke/hooks/use-local-store";
+import { addTastingEntry, deleteTastingEntry, listTastingEntries } from "@/app/soul-smoke/actions";
 import { ss } from "@/lib/content/soulsmoke/nav";
 import { soulsmokeFontVariables } from "@/lib/fonts/soulsmoke-fonts";
 
 // Ported from the SoulSmoke app's client/src/pages/TastingJournal.tsx. Same form, cards and copy.
-// The Manus app kept the journal per signed-in account (trpc.tastingJournal); here it is saved
-// in the visitor's browser under "soulsmoke-tasting-journal", with the server's fields and
-// checks (mezcal name required, ratings and levels 1 to 5, tastedAt set on save, newest first).
-// No account needed, so the "Sign In to Start Your Journal" screen is gone and the journal
-// itself shows for everyone.
+// As on SoulSmoke, the journal belongs to a signed-in member: it's saved in Supabase
+// (soulsmoke_tasting_entries) through src/app/soul-smoke/actions.ts, which replaces
+// trpc.tastingJournal (mezcal name required, ratings and levels 1 to 5, newest first). Signed-out
+// visitors get the original "Sign In to Start Your Journal" screen, linking to /login.
 // The dialog renders in a portal outside the /soul-smoke wrapper, so it carries the wrapper's
 // class and font variables to keep SoulSmoke's colors and type.
 
@@ -36,8 +35,7 @@ export type TastingEntry = {
   tastedAt: string;
 };
 
-export const TASTING_JOURNAL_KEY = "soulsmoke-tasting-journal";
-const NO_ENTRIES: TastingEntry[] = [];
+const LOGIN_HREF = "/login?next=/soul-smoke/tasting-journal";
 
 const emptyForm = {
   mezcalName: "",
@@ -140,8 +138,14 @@ function LevelSlider({
   );
 }
 
+type JournalState = { status: "loading" } | { status: "signedOut" } | { status: "ready"; entries: TastingEntry[] };
+
 export function TastingJournal() {
-  const [entries, setEntries] = useLocalStore<TastingEntry[]>(TASTING_JOURNAL_KEY, NO_ENTRIES);
+  const [state, setState] = useState<JournalState>({ status: "loading" });
+  const [loadError, setLoadError] = useState<string | null>(null);
+  const [formError, setFormError] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
   const [isAddingEntry, setIsAddingEntry] = useState(false);
   const [formData, setFormData] = useState(emptyForm);
   const ids = {
@@ -153,16 +157,87 @@ export function TastingJournal() {
     notes: useId(),
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  useEffect(() => {
+    let live = true;
+    listTastingEntries().then((result) => {
+      if (!live) return;
+      if (result.ok) setState({ status: "ready", entries: result.data });
+      else if (result.signedOut) setState({ status: "signedOut" });
+      else {
+        setState({ status: "ready", entries: [] });
+        setLoadError(result.error);
+      }
+    });
+    return () => {
+      live = false;
+    };
+  }, []);
+
+  const entries = state.status === "ready" ? state.entries : [];
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const entry = toTastingEntry(formData);
-    if (!entry) return;
-    setEntries((prev) => [entry, ...prev]);
+    if (!entry || saving) return;
+    setSaving(true);
+    setFormError(null);
+    // The server sets the id and the tasting date.
+    const input: Omit<TastingEntry, "id" | "tastedAt"> = { ...entry };
+    const result = await addTastingEntry(input);
+    setSaving(false);
+    if (!result.ok) {
+      if (result.signedOut) setState({ status: "signedOut" });
+      setFormError(result.error);
+      return;
+    }
+    setState({ status: "ready", entries: [result.data, ...entries] });
     setIsAddingEntry(false);
     setFormData(emptyForm);
   };
 
-  const deleteEntry = (id: string) => setEntries((prev) => prev.filter((entry) => entry.id !== id));
+  const deleteEntry = async (id: string) => {
+    setDeletingId(id);
+    setLoadError(null);
+    const result = await deleteTastingEntry(id);
+    setDeletingId(null);
+    if (!result.ok) {
+      setLoadError(result.error);
+      return;
+    }
+    setState({ status: "ready", entries: entries.filter((entry) => entry.id !== id) });
+  };
+
+  // While the account check runs, the intro (with its H1) renders with a spinner in place of the
+  // sign-in button, so the server HTML has the page's heading and text.
+  if (state.status === "loading" || state.status === "signedOut") {
+    return (
+      <div className="min-h-screen bg-background text-foreground">
+        <section className="relative py-24">
+          <div className="container">
+            <Link href={ss("/")} className="mb-8 inline-flex items-center gap-2 text-amber-400 hover:text-amber-300">
+              <ArrowLeft aria-hidden="true" className="size-4" />
+              Back to Home
+            </Link>
+            <div className="mx-auto max-w-xl py-16 text-center">
+              <Wine aria-hidden="true" className="mx-auto mb-6 size-16 text-amber-400" />
+              <h1 className="mb-4 font-serif text-4xl text-amber-400">Your Tasting Journal</h1>
+              <p className="mb-8 text-gray-300">
+                Track every mezcal you taste. Record your notes, ratings, and flavor profiles. Build your personal
+                archive of liquid memories.
+              </p>
+              {state.status === "loading" ? (
+                <Loader2 aria-label="Loading your journal" className="mx-auto size-8 animate-spin text-amber-400" />
+              ) : (
+                <Button asChild size="lg" className="bg-amber-600 hover:bg-amber-500">
+                  <Link href={LOGIN_HREF}>Sign In to Start Your Journal</Link>
+                </Button>
+              )}
+            </div>
+          </div>
+        </section>
+      </div>
+    );
+  }
 
   const textField = (
     key: "mezcalName" | "producer" | "agaveType" | "region" | "abv",
@@ -200,16 +275,8 @@ export function TastingJournal() {
           <div className="mb-8 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
             <div>
               <h1 className="mb-2 font-serif text-5xl text-amber-400">Your Tasting Journal</h1>
-              {/* A first visit shows live's signed-out intro; once there are entries, the
-                  signed-in line ("explorer" is the Manus app's fallback name). */}
-              {entries.length > 0 ? (
-                <p className="text-gray-300">{entries.length} mezcals tasted • Welcome back, explorer</p>
-              ) : (
-                <p className="max-w-xl text-gray-300">
-                  Track every mezcal you taste. Record your notes, ratings, and flavor profiles. Build your personal
-                  archive of liquid memories.
-                </p>
-              )}
+              {/* "explorer" is the Manus app's fallback when a member has no name. */}
+              <p className="text-gray-300">{entries.length} mezcals tasted • Welcome back, explorer</p>
             </div>
 
             <Dialog open={isAddingEntry} onOpenChange={setIsAddingEntry}>
@@ -305,11 +372,18 @@ export function TastingJournal() {
                     />
                   </div>
 
+                  {formError && (
+                    <p role="alert" className="text-sm text-red-400">
+                      {formError}
+                    </p>
+                  )}
+
                   <div className="flex justify-end gap-3 pt-4">
                     <Button type="button" variant="outline" onClick={() => setIsAddingEntry(false)}>
                       Cancel
                     </Button>
-                    <Button type="submit" className="bg-amber-600 hover:bg-amber-500">
+                    <Button type="submit" disabled={saving} className="gap-2 bg-amber-600 hover:bg-amber-500">
+                      {saving && <Loader2 aria-hidden="true" className="size-4 animate-spin" />}
                       Save Entry
                     </Button>
                   </div>
@@ -323,6 +397,11 @@ export function TastingJournal() {
       {/* Entries Grid */}
       <section className="pb-24">
         <div className="container">
+          {loadError && (
+            <p role="alert" className="mb-6 text-sm text-red-400">
+              {loadError}
+            </p>
+          )}
           {entries.length > 0 ? (
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {entries.map((entry) => (
@@ -332,10 +411,15 @@ export function TastingJournal() {
                   <button
                     type="button"
                     aria-label={`Delete ${entry.mezcalName}`}
+                    disabled={deletingId === entry.id}
                     onClick={() => deleteEntry(entry.id)}
                     className="absolute top-4 right-4 p-2 text-gray-400 transition-opacity hover:text-red-400 focus-visible:opacity-100 pointer-fine:opacity-0 pointer-fine:group-hover:opacity-100"
                   >
-                    <Trash2 aria-hidden="true" className="size-4" />
+                    {deletingId === entry.id ? (
+                      <Loader2 aria-hidden="true" className="size-4 animate-spin" />
+                    ) : (
+                      <Trash2 aria-hidden="true" className="size-4" />
+                    )}
                   </button>
 
                   <div className="mb-4">
