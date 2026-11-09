@@ -13,7 +13,17 @@
 - UI: Tailwind CSS v4 + shadcn/ui (Radix base) — same design-system convention the team already uses elsewhere. `next/image` for all images. No framer-motion — CSS transitions / `tailwindcss-animate` only.
 
 
-## Current status — 2026-11-06
+## Current status — 2026-11-09
+
+**SoulSmoke (2026-11-09, a reader asked on WhatsApp):** SoulSmoke, Tony's mezcal guide, was a separate Manus
+site (`mezcalagave.manus.space`, plus a small `soulsmoke.manus.space`), never a tonygreenberg.com page. Both
+now 404 and neither is in the Internet Archive; only a design note survives in the repo history. `/soulsmoke`
+and `/soul-smoke` now 308 to `/spirits` (which describes it as no longer live) instead of 404; test added,
+checked on a production build. Branch `soulsmoke-redirect`. **Waiting:** Tony decides whether to rebuild
+SoulSmoke; if the Manus project still exists, export its files before Manus is deleted. (`soulsmoke.com` is an
+unrelated Shopify store.)
+
+## Previous status — 2026-11-06
 
 **Energy Is Money. Money Is Memory. (2026-11-06, editorial draft for review):** Sanity draft prepared with Tony's focused title/subtitle, Lesson, provocation, closing question, August 2026 Texas poll, February 2026 ERCOT generation-queue definition, and the ImpactSoul rights bridge. Preserved August 9 publication date, long-spoons story, money/memory quote, grid rights, model inference versus archival retrieval, and original IEA/Berkeley/Constellation/Amazon qualifications. Article metadata now uses November 6 as draft revision date, to be corrected if publication occurs later. RampRate's SYZYGY shared-ownership calculator was confirmed to be intentionally offline at /blog/shared-ownership (404). A working, public RampRate companion essay at /blog/the-cloud-gets-rich (HTTP 200, canonical/SEO verified) was linked instead, without misrepresenting it as the interactive ownership map. Texas poll 57% opposed and 30% supported, with separately measured 56% negative bill/grid expectations, 57% water and 55% quality-of-life expectations, verified against UT/Texas Politics Project. ERCOT's 2,008 active February 28 generation/storage requests, totaling 453,562 MW, verified against its April 1 report, explicitly not data-center large-load projects. IEA (415 TWh estimated 2024, 945 TWh 2030 Base Case), Berkeley Lab (13% commercial / 77% withdrawn / 10% active historic generation and storage capacity cohort), Constellation (890 MW new uprates versus 2,700 MW agreement on existing generation) and Amazon (more than $1bn over five years announced) checked against primary publisher materials. Teasers under impact-futurism now avoid unsupported memory-making claims. The shared 2x-versus-3x guarantee remains unchanged without approved terms; October 12 is the previously recorded Sanity _updatedAt timestamp, not independently established as an editorial revision. Draft is not live; Netlify preview reads published Sanity content, not the unpublished draft. Mobile visual QA and an actual draft-content preview are still open. The migration spreadsheet was not regenerated through the MCP editor.
 
