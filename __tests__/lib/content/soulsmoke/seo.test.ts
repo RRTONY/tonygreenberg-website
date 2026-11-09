@@ -19,6 +19,13 @@ describe("soulsmokeMetadata", () => {
     expect(SOULSMOKE_OG_IMAGE.url).toContain("w=1200&h=630");
   });
 
+  it("names Tony Greenberg as author and copyright holder (not the app's \"Tony Huang\")", () => {
+    const meta = soulsmokeMetadata({ path: "/us-hunt", title: "The US Hunt | SoulSmoke", description: "x" });
+    expect(meta.authors).toEqual([{ name: "Tony Greenberg", url: "https://tonygreenberg.com" }]);
+    expect(meta.other).toEqual({ copyright: "© 2026 Tony Greenberg. All Rights Reserved." });
+    expect(JSON.stringify(meta)).not.toMatch(/Huang/);
+  });
+
   it("uses /soul-smoke as the home canonical", () => {
     expect(soulsmokeMetadata({ path: "/", title: "SoulSmoke", description: "x".repeat(60) }).alternates?.canonical).toBe(
       "/soul-smoke",

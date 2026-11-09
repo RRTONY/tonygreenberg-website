@@ -7,6 +7,10 @@ import { ss } from "@/lib/content/soulsmoke/nav";
 // ("SoulSmoke - The Miracle of Mezcal"); here each page's title is its own heading plus
 // "| SoulSmoke", and its description is taken from that page's intro copy (no new wording).
 // Share image: the app's hero (Sanity, cropped to 1200x630).
+// Author/copyright tags: the app's index.html named "Tony Huang", almost certainly a slip of the
+// tool that built it; Tony chose "© 2026 Tony Greenberg. All Rights Reserved." (2026-11-10).
+
+export const SOULSMOKE_COPYRIGHT = "© 2026 Tony Greenberg. All Rights Reserved.";
 
 const hero = soulsmokeImages.heroMystical;
 
@@ -32,6 +36,8 @@ export function soulsmokeMetadata({
     title,
     description,
     alternates: { canonical: url },
+    authors: [{ name: "Tony Greenberg", url: "https://tonygreenberg.com" }],
+    other: { copyright: SOULSMOKE_COPYRIGHT },
     openGraph: {
       ...defaultOpenGraph,
       siteName: "SoulSmoke by Tony Greenberg",
