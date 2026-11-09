@@ -54,9 +54,15 @@ describe("withEssayCount", () => {
     expect(withEssayCount([], 3)).toEqual([]);
   });
 
-  it("finds the Spirits page when someone searches for SoulSmoke or mezcal", () => {
+  it("finds the SoulSmoke guide when someone searches for SoulSmoke or mezcal", () => {
     for (const q of ["soulsmoke", "SoulSmoke", "soul smoke", "mezcal"]) {
-      expect(searchPages(q, SEARCH_DIRECTORY)[0]?.href).toBe("/spirits");
+      expect(searchPages(q, SEARCH_DIRECTORY)[0]?.href).toBe("/soul-smoke");
     }
+  });
+
+  it("finds SoulSmoke's own pages and still lists the Spirits page", () => {
+    expect(searchPages("agave encyclopedia", SEARCH_DIRECTORY)[0]?.href).toBe("/soul-smoke/agave-encyclopedia");
+    expect(searchPages("oaxaca", SEARCH_DIRECTORY).map((r) => r.href)).toContain("/soul-smoke/oaxaca-map");
+    expect(searchPages("tequila", SEARCH_DIRECTORY)[0]?.href).toBe("/spirits");
   });
 });

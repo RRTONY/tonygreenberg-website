@@ -83,6 +83,7 @@ const PROJECTS: Project[] = [
   {
     title: "SoulSmoke",
     tagline: "The Alchemy of Agave.",
+    url: "/soul-smoke",
     description: "A deep dive into mezcal — not the drink, the culture. From the jimador's machete to the copper still, from the terroir of Oaxaca to the ritual of the copita.",
     category: "Agave Education",
     accent: "#92400E",

@@ -76,8 +76,21 @@ export const SEARCH_DIRECTORY: PageItem[] = [
   { title: "The Web", href: "/the-web", description: "The network of relationships and collaborations", tags: ["web", "network", "connections", "relationships"] },
   { title: "Pick Up the Phone", href: "/pick-up-the-phone", description: "The lost art of the phone call — and how to reach Tony", tags: ["phone", "contact", "call", "reach"] },
   { title: "Journeys", href: "/journeys", description: "Travel, psychedelic experiences, and consciousness exploration", tags: ["journeys", "travel", "psychedelic", "consciousness"] },
-  // Added 2026-11-09: a reader searched for SoulSmoke (Tony's old mezcal site, gone with Manus);
-  // /spirits is where it's described now, and /soulsmoke redirects here.
+  // SoulSmoke, Tony's mezcal guide, ported from Manus to /soul-smoke (2026-11-10). The home entry
+  // comes first so "soulsmoke" and "mezcal" open it; its main pages follow.
+  { title: "SoulSmoke: The Miracle of Mezcal", href: "/soul-smoke", description: "SoulSmoke, Tony's guide to the wildest, most extraordinary mezcals from the US and Mexico", tags: ["soulsmoke", "soul smoke", "mezcal", "agave", "oaxaca", "spirits", "drinks"] },
+  { title: "SoulSmoke Agave Encyclopedia", href: "/soul-smoke/agave-encyclopedia", description: "27 agave species: the living library of varieties behind mezcal", tags: ["agave", "encyclopedia", "espadin", "tobala", "tepeztate", "mezcal", "soulsmoke"] },
+  { title: "SoulSmoke: The Ancestral Process", href: "/soul-smoke/ancestral-process", description: "Six stages of making mezcal, from earth oven to clay pot", tags: ["ancestral", "process", "earth oven", "tahona", "clay pot", "distillation", "mezcal", "soulsmoke"] },
+  { title: "SoulSmoke Scent-to-Agave Finder", href: "/soul-smoke/scent-finder", description: "Smell green apple, wet clay or pine? Find the agave speaking to your nose", tags: ["scent", "aroma", "flavor", "agave", "quiz", "mezcal", "soulsmoke"] },
+  { title: "SoulSmoke Taste Quiz", href: "/soul-smoke/taste-quiz", description: "Find the mezcal that fits your palate", tags: ["taste quiz", "quiz", "palate", "mezcal", "soulsmoke"] },
+  { title: "SoulSmoke: The US Hunt", href: "/soul-smoke/us-hunt", description: "25 esoteric mezcals you can find in the US, if you hunt", tags: ["us hunt", "bottles", "buy", "mezcal", "soulsmoke"] },
+  { title: "SoulSmoke: The Mexico Source", href: "/soul-smoke/mexico-source", description: "25 legendary mezcals from wild agave and ancestral producers in Mexico", tags: ["mexico", "source", "producers", "wild agave", "mezcal", "soulsmoke"] },
+  { title: "SoulSmoke Mezcal Cocktails", href: "/soul-smoke/cocktails", description: "Cocktails built on mezcal", tags: ["cocktails", "recipes", "mezcal", "soulsmoke"] },
+  { title: "SoulSmoke Oaxaca Map", href: "/soul-smoke/oaxaca-map", description: "Palenques and mezcal regions of Oaxaca on a map", tags: ["oaxaca", "map", "palenque", "travel", "mezcal", "soulsmoke"] },
+  { title: "SoulSmoke Pilgrimage Guide", href: "/soul-smoke/pilgrimage", description: "Plan a mezcal pilgrimage to Oaxaca", tags: ["pilgrimage", "travel", "oaxaca", "trip", "mezcal", "soulsmoke"] },
+  { title: "SoulSmoke Discovery Engine", href: "/soul-smoke/discovery", description: "Explore every mezcal by flavor, price and rarity", tags: ["discovery", "search", "flavor", "mezcal", "soulsmoke"] },
+  { title: "SoulSmoke Site Map", href: "/soul-smoke/site-map", description: "Every page of SoulSmoke", tags: ["soulsmoke", "site map", "mezcal", "all pages"] },
+  // Added 2026-11-09: a reader searched for SoulSmoke; /spirits describes all of Tony's drinks sites.
   { title: "The Liquid Library", href: "/spirits", description: "Mezcal, tequila, sake, coffee and wine: Tony's liquid obsessions, including SoulSmoke (mezcal) and LiquidSun (tequila)", tags: ["spirits", "liquid library", "soulsmoke", "soul smoke", "mezcal", "agave", "liquidsun", "liquid sun", "tequila", "sake", "wine", "drinks"] },
   { title: "Built by Tony G", href: "/recent-creations", description: "Things Tony has built recently", tags: ["built", "creations", "portfolio", "projects", "tony g"] },
   { title: "Intel", href: "/intel", description: "Deep dives into portfolio companies and competitive landscapes", tags: ["intel", "research", "analysis", "companies"] },
