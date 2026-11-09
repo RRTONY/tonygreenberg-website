@@ -15,6 +15,16 @@
 
 ## Current status — 2026-11-10
 
+**The GemSpark rebuilt at `/gem-spark` (2026-11-10, branch `gem-spark`):** Tony's story ("The Fusion Between
+Serendipity and Synchronicity") from its Manus export (`~/Downloads/serendipity-synchronicity`): long form,
+short form and Spanish short form, same copy and look (no framer-motion, browser-default fonts as on live).
+4 images moved to Sanity (GPS/EXIF stripped). Supabase (`0008_gemspark.sql`, run): reader stories (Tony emailed),
+featured sparks (Tony adds rows in the Table Editor), read counts for the Impact Report. Newsletter popup → Kit
+(tag "GemSpark: Newsletter"). Linked from Built by Tony G and Living Declaration; sitemap and site search.
+Checked: typecheck, lint, 146 tests (100% lines on new files), build (3 static routes), page heights equal live
+at 375 and 1280, no sideways scroll or errors at 375/820/1280, real story + read-count run then all rows deleted.
+SoulSmoke (#36) is merged and live. Notes: `docs/ai/project_gemspark_port.md`.
+
 **Correction to the 2026-11-09 SoulSmoke note below (2026-11-10):** that check used the wrong addresses
 (`mezcalagave.manus.space`, `soulsmoke.manus.space`). The real Manus product sites are **still live (200)**:
 SoulSmoke `mezcalagave-ahru9fq8`, LiquidSun `tequilaazul-fxqrr3js`, sake `sakeguide-sqt7xzxp`, Aqueous
@@ -59,7 +69,7 @@ square removed (transparent version in Sanity); SoulSmoke pages get their own fa
 Pre-existing, not from this branch: 2 `/the-stack` tests expect Sanity QR codes but the page uses `/qr/*.svg`.
 **Waiting:** (1) ~~Trade Board and For Business need Supabase~~ done above; (2) ~~SoulSmoke's Manus database~~ **not copied: webmaster, 2026-11-10, "we don't want
 anything to use in manus"**; SoulSmoke starts with no old data (the only row seen was a test signup); (3) "© 2025 Tony Huang" in SoulSmoke's original header (not copied).
-**Next up:** LiquidSun, sake guide, Aqueous, Gem Spark, Find My Stem Cells: on hold (each needs a Manus export, and the webmaster wants nothing more from Manus);
+**Next up:** LiquidSun, sake guide, Aqueous, Find My Stem Cells: on hold (Gem Spark done 2026-11-10) (each needs a Manus export, and the webmaster wants nothing more from Manus);
 Brazil speed check.
 
 ## Previous status — 2026-11-09

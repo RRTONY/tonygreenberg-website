@@ -175,6 +175,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly" as const,
       priority: 0.7,
     })),
+    // The GemSpark (app/gem-spark): the long story, its short version and the Spanish short version.
+    ...["/gem-spark", "/gem-spark/short", "/gem-spark/es/short"].map((path) => ({
+      url: `${siteUrl}${path}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    })),
     // SoulSmoke, the mezcal guide (app/soul-smoke), one entry per page of its menu/router.
     ...soulsmokeRoutes.map((path) => ({
       url: `${siteUrl}${ss(path)}`,

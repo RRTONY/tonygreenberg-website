@@ -56,6 +56,8 @@ const PROJECTS: Project[] = [
     category: "Narrative Essay",
     accent: "#AC5F05",
     icon: BookOpen,
+    // Rebuilt on this site from its Manus app (2026-11-10).
+    url: "/gem-spark",
   },
   {
     // Note: legacy source also pointed this at /humanos, same as the Human OS
