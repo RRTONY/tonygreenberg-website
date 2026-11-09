@@ -43,3 +43,10 @@ Build static (`○`), one H1 per page, canonicals, sitemap (3), site search. Pag
 375 and 1280 (long 16,745 / 15,435 px; short 4,640 / 3,570; ES 4,746 / 3,700), no sideways scroll or
 console errors at 375/820/1280. Real run on the production build: reads counted, story saved, "Your
 GemSpark Has Been Received" shown; all test rows deleted afterwards.
+
+## SEO (2026-11-10)
+
+`gemsparkMetadata` adds author/copyright and, for the short versions, en/es hreflang. `<GemsparkJsonLd>` in each page
+(`src/lib/content/gemspark/structured-data.ts`): Article by Tony (short `isBasedOn` the full story; Spanish
+`translationOfWork` the English short) + BreadcrumbList. No publish date (the app never stated one). Listed in
+`public/llms.txt`.

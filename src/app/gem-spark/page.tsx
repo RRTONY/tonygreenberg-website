@@ -13,6 +13,7 @@ import { SparkleTitle } from "@/components/gemspark/sparkle-title";
 import { VersionSwitcher } from "@/components/gemspark/version-switcher";
 import { gemsparkImages, type GemSparkImage } from "@/lib/content/gemspark/images";
 import { gemsparkMetadata } from "@/lib/content/gemspark/seo";
+import { GemsparkJsonLd } from "@/components/gemspark/gemspark-json-ld";
 
 // The GemSpark (long form), ported from the GemSpark app's client/src/pages/Home.tsx (Manus app
 // "serensynch", exported 2026-11-10). Same copy, links and design. Mechanical changes only:
@@ -38,6 +39,11 @@ export default async function GemSparkPage() {
   return (
     <div className="min-h-screen bg-[#F5F5F0] font-sans text-[#2C3E50] selection:bg-[#D4E6F1] selection:text-[#2C3E50]">
       <PageViewTracker page="long-form" />
+      <GemsparkJsonLd
+        version="full"
+        headline="The GemSpark: The Fusion Between Serendipity and Synchronicity"
+        description="A story about what happens when you stop sweeping up the glass and start looking at it. By Tony Greenberg."
+      />
       {/* Reading Progress Bar */}
       <ReadingProgressBar />
       {/* Version Switcher */}

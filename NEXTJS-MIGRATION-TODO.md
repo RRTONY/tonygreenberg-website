@@ -15,6 +15,21 @@
 
 ## Current status — 2026-11-10
 
+**Live (2026-11-10):** The GemSpark merged (#37) and live at /gem-spark, /gem-spark/short, /gem-spark/es/short:
+checked on tonygreenberg.com at 375 and 1280 (all images load, no sideways scroll or errors, own icon and share
+image, sitemap, links from Built by Tony G and Living Declaration); my 4 test reads removed from the counter.
+**SoulSmoke copyright (2026-11-10, Tony's answer):** every /soul-smoke page now has author "Tony Greenberg" and
+copyright "© 2026 Tony Greenberg. All Rights Reserved." (`soulsmokeMetadata`), replacing the app's "Tony Huang";
+checked on a production build (34 of 34 pages). Branch `soulsmoke-copyright`.
+**SEO pass, SoulSmoke + GemSpark (2026-11-10):** live audit of all 34 SoulSmoke pages: titles, descriptions,
+canonicals, share images, one H1, alt text, sitemap all fine, no duplicates. Added structured data: every
+SoulSmoke page is a WebPage (CollectionPage + ItemList of bottles on US Hunt and Mexico Source) in the "SoulSmoke"
+guide by Tony, with a breadcrumb (`src/lib/content/soulsmoke/structured-data.ts`); GemSpark's 3 pages are Articles by
+Tony (short = based on the full story, Spanish = translation of the short), with breadcrumbs, author/copyright tags
+and en/es hreflang between the short versions. Both added to `public/llms.txt`. Checked on a production build: 34/34
+and 3/3 pages complete. **For Tony (wording, not changed):** 7 SoulSmoke descriptions are short (55-81 characters;
+120-160 is ideal): discovery, mexico-source, scent-finder, site-map, my-hunt-list, us-hunt, ancestral-process.
+
 **The GemSpark rebuilt at `/gem-spark` (2026-11-10, branch `gem-spark`):** Tony's story ("The Fusion Between
 Serendipity and Synchronicity") from its Manus export (`~/Downloads/serendipity-synchronicity`): long form,
 short form and Spanish short form, same copy and look (no framer-motion, browser-default fonts as on live).
@@ -68,7 +83,7 @@ to 0). Pages show their H1 while the account check runs (server HTML keeps the h
 square removed (transparent version in Sanity); SoulSmoke pages get their own favicon (`app/soul-smoke/icon.png`).
 Pre-existing, not from this branch: 2 `/the-stack` tests expect Sanity QR codes but the page uses `/qr/*.svg`.
 **Waiting:** (1) ~~Trade Board and For Business need Supabase~~ done above; (2) ~~SoulSmoke's Manus database~~ **not copied: webmaster, 2026-11-10, "we don't want
-anything to use in manus"**; SoulSmoke starts with no old data (the only row seen was a test signup); (3) "© 2025 Tony Huang" in SoulSmoke's original header (not copied).
+anything to use in manus"**; SoulSmoke starts with no old data (the only row seen was a test signup); (3) ~~"© 2025 Tony Huang"~~ done 2026-11-10: "© 2026 Tony Greenberg" (Tony's answer).
 **Next up:** LiquidSun, sake guide, Aqueous, Find My Stem Cells: on hold (Gem Spark done 2026-11-10) (each needs a Manus export, and the webmaster wants nothing more from Manus);
 Brazil speed check.
 

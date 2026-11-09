@@ -107,3 +107,11 @@ SoulSmoke's Manus database (TiDB: users, subscribers, tasting_journal, price_ale
 trade_messages, business_profiles, producer_profiles, bottle_interests, lead_connections) is **not**
 copied. The webmaster: "we don't want anything to use in manus". The export held only one query
 result, a test signup. The rebuilt site starts empty; nothing reads from or depends on Manus.
+
+## SEO (2026-11-10)
+
+Per-page metadata via `soulsmokeMetadata` (author/copyright Tony Greenberg). Structured data via
+`<SoulsmokeJsonLd {...seo} />` in every `page.tsx` (`src/lib/content/soulsmoke/structured-data.ts`): WebPage or
+CollectionPage + BreadcrumbList + the SoulSmoke guide (CreativeWork); US Hunt and Mexico Source add an ItemList of
+bottles (names only: no prices or ratings). A new page: wrap its metadata in `const seo = {...}` and add the component.
+All pages are listed in `public/llms.txt`.
