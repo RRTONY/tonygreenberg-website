@@ -13,7 +13,118 @@
 - UI: Tailwind CSS v4 + shadcn/ui (Radix base) — same design-system convention the team already uses elsewhere. `next/image` for all images. No framer-motion — CSS transitions / `tailwindcss-animate` only.
 
 
-## Current status — 2026-11-06
+## Current status — 2026-11-11
+
+**Live 2026-11-11 01:11 IST:** PR #39 (PRI scoring safety fix). Checked on tonygreenberg.com at 390px:
+cardiac profile paused with no score, disclaimer page 200, share-card QR decodes to it.
+**Follow-up (branch `fix/pri-a11y-deeplink`):** `?m=` medicine links no longer fail hydration (React
+#418 on every `?m=` visit, live before this); medicine photos and the hero get alt text; the 39 save
+buttons get labels; the interaction guide's Hard Stop / Caution badge is an explicit `label` field
+(values unchanged, three rows waiting on the clinical reviewer).
+
+**PRI scoring safety fix (2026-11-11, Tony's review of 7 Nov; Sam approves before anything goes live):**
+- Branch `hotfix/pri-hide-scores`: temporary hold. No personal score, matches or report until the
+  fix is live; nothing logged. Ready to merge (pushing to main was blocked here).
+- Branch `fix/pri-scoring-review`: the fix (replaces the hold). Every question needs an answer;
+  any of the 14 hard-stop answers below "Often true" (7) pauses the score, matches, report and
+  referral, and the result log records "Paused" with no score; consenting to browse a medicine no
+  longer opens a result; "Talk to your psychedelic council" reminder on every assessment screen,
+  the medicine profile, the printed report and a new share card, each with a QR; new page
+  /psychedelic-readiness-index/disclaimer (sitemap). Same code as psychedelicreadiness.com.
+- Checked: typecheck, lint, full suite 3,819 passed / 2 failed (the-stack, also failing on main),
+  build, 390px walk-through (cardiac profile paused, ibogaine profile has no score), share-card
+  and printed-report QRs decoded to the disclaimer address.
+
+## Earlier status — 2026-11-10
+
+**Live (2026-11-10):** The GemSpark merged (#37) and live at /gem-spark, /gem-spark/short, /gem-spark/es/short:
+checked on tonygreenberg.com at 375 and 1280 (all images load, no sideways scroll or errors, own icon and share
+image, sitemap, links from Built by Tony G and Living Declaration); my 4 test reads removed from the counter.
+**SoulSmoke copyright (2026-11-10, Tony's answer):** every /soul-smoke page now has author "Tony Greenberg" and
+copyright "© 2026 Tony Greenberg. All Rights Reserved." (`soulsmokeMetadata`), replacing the app's "Tony Huang";
+checked on a production build (34 of 34 pages). Branch `soulsmoke-copyright`.
+**SEO pass, SoulSmoke + GemSpark (2026-11-10):** live audit of all 34 SoulSmoke pages: titles, descriptions,
+canonicals, share images, one H1, alt text, sitemap all fine, no duplicates. Added structured data: every
+SoulSmoke page is a WebPage (CollectionPage + ItemList of bottles on US Hunt and Mexico Source) in the "SoulSmoke"
+guide by Tony, with a breadcrumb (`src/lib/content/soulsmoke/structured-data.ts`); GemSpark's 3 pages are Articles by
+Tony (short = based on the full story, Spanish = translation of the short), with breadcrumbs, author/copyright tags
+and en/es hreflang between the short versions. Both added to `public/llms.txt`. Checked on a production build: 34/34
+and 3/3 pages complete. **For Tony (wording, not changed):** 7 SoulSmoke descriptions are short (55-81 characters;
+120-160 is ideal): discovery, mexico-source, scent-finder, site-map, my-hunt-list, us-hunt, ancestral-process.
+
+**The GemSpark rebuilt at `/gem-spark` (2026-11-10, branch `gem-spark`):** Tony's story ("The Fusion Between
+Serendipity and Synchronicity") from its Manus export (`~/Downloads/serendipity-synchronicity`): long form,
+short form and Spanish short form, same copy and look (no framer-motion, browser-default fonts as on live).
+4 images moved to Sanity (GPS/EXIF stripped). Supabase (`0008_gemspark.sql`, run): reader stories (Tony emailed),
+featured sparks (Tony adds rows in the Table Editor), read counts for the Impact Report. Newsletter popup → Kit
+(tag "GemSpark: Newsletter"). Linked from Built by Tony G and Living Declaration; sitemap and site search.
+Checked: typecheck, lint, 146 tests (100% lines on new files), build (3 static routes), page heights equal live
+at 375 and 1280, no sideways scroll or errors at 375/820/1280, real story + read-count run then all rows deleted.
+SoulSmoke (#36) is merged and live. Notes: `docs/ai/project_gemspark_port.md`.
+
+**Correction to the 2026-11-09 SoulSmoke note below (2026-11-10):** that check used the wrong addresses
+(`mezcalagave.manus.space`, `soulsmoke.manus.space`). The real Manus product sites are **still live (200)**:
+SoulSmoke `mezcalagave-ahru9fq8`, LiquidSun `tequilaazul-fxqrr3js`, sake `sakeguide-sqt7xzxp`, Aqueous
+`aqwaterqpr-wvzsc3ph`, Gem Spark `serensynch-2agjfwhe`, Find My Stem Cells `findmystem-s3lknc4h`, HumanOS
+`humanosv2-gxa9fnfu`, Intimacy `intimacyassess-tcir3hon` (all `.manus.space`); only `flowcircuit.manus.space` 404s.
+Compiled copies (HTML, scripts, styles, plus a list of each one's Manus-hosted images) were saved locally on
+2026-11-10; this is not a source-code export. Size: SoulSmoke 35 pages, LiquidSun 33, sake 50+, Find My Stem Cells
+30+, Aqueous 21 (with payments), Gem Spark 5. Six of the eight call a Manus server (logins, saved data); Find My
+Stem Cells and Intimacy run entirely in the browser. SoulSmoke's page header says "© 2025 Tony Huang" (check with Tony).
+The Oct 9 link removal (`d7492aa`) was done on the owner's instruction ("drop Manus links everywhere").
+**Decided (webmaster, 2026-11-10):** rebuild each product as real tonygreenberg.com pages, same code/UI/style,
+Manus parts removed. SoulSmoke first.
+
+**SoulSmoke rebuilt at `/soul-smoke` (2026-11-10, branch `soulsmoke-site`):** from the Manus source export
+(`~/Downloads/mezcal`). Own sub-site like `/brewsoul` (own menu, main header/footer hidden), all 34 routes,
+EN/ES switch, SoulSmoke/Aficionado mode, smoke cursor, fire sound, copy protection. 25 images + the fire sound
+rescued into Sanity. Newsletter → `/api/subscribe` (Kit tags `soulsmoke-*`). Journal, price alerts, hunt list,
+favorites → visitor's browser. Bottle Scanner → `/api/soul-smoke/bottle-scanner` (Anthropic, needs
+`ANTHROPIC_API_KEY` in Netlify). Oaxaca map → OpenStreetMap. Per-page SEO, sitemap, site-search entries;
+`/soulsmoke/*` → `/soul-smoke/*` (308). Home checked against live at 1440/390 (same height within 4px). How it's
+built: `docs/ai/project_soulsmoke_port.md`.
+**Checked and fixed before push (2026-11-10):** typecheck, lint, 90 test files / 273 tests (two tests fixed: a
+clipboard mock type, and Trade Board counting the static "For Sellers/Buyers" headings), `pnpm build` (34 static
+routes), `next start`: all 34 pages 200 with one H1, sitemap 34 entries, no sideways scroll or console errors at
+375/820/1280. Header fixes (live had the same flaws): wordmark ran over the menu (logo link now `shrink-0`), full
+menu now from `xl` (it wrapped and was cut off at 1024 to ~1400), on phones the mode and EN/ES switches move into
+the opened menu, switches no longer squeeze ("ES" spilled out), equal pill height; "Back to Home" moved below
+the fixed header on 4 pages. Linked SoulSmoke from the rest of the site: header Fix Myself → Taste & Ritual
+"Find Your Mezcal" (legacy had it, to Manus), The Mirror's ecosystem pill, Living Declaration's "Optimize the
+Vessel" links (`/spirits`, `/recent-creations` and search were already done). `ANTHROPIC_API_KEY` added to
+`.env.local.example`.
+**Member features on Supabase (2026-11-10, webmaster: "use the current db"):** Trade Board, messages to sellers,
+Register Your Business, I Want This Bottle, Tasting Journal and Price Alerts now save to Supabase (migration
+`0007_soulsmoke.sql`, run through the Management API; 6 tables, RLS on, no policies). Server actions in
+`src/app/soul-smoke/actions.ts`, each tied to the signed-in member; as on SoulSmoke, signed-out visitors see
+"Sign in" boxes (to `/login`), the board itself is public. Tony is emailed for each new business and bottle request;
+sellers are emailed each message. Checked: 299 SoulSmoke tests, typecheck, lint, build; anon key can't read or
+write the tables; full signed-in run on the production build against real Supabase with two temporary members
+(email off), every feature saved and reloaded; then both members and all their rows deleted (all 6 tables back
+to 0). Pages show their H1 while the account check runs (server HTML keeps the heading). Header logo: white
+square removed (transparent version in Sanity); SoulSmoke pages get their own favicon (`app/soul-smoke/icon.png`).
+Pre-existing, not from this branch: 2 `/the-stack` tests expect Sanity QR codes but the page uses `/qr/*.svg`.
+**Waiting:** (1) ~~Trade Board and For Business need Supabase~~ done above; (2) ~~SoulSmoke's Manus database~~ **not copied: webmaster, 2026-11-10, "we don't want
+anything to use in manus"**; SoulSmoke starts with no old data (the only row seen was a test signup); (3) ~~"© 2025 Tony Huang"~~ done 2026-11-10: "© 2026 Tony Greenberg" (Tony's answer).
+**Next up:** LiquidSun, sake guide, Aqueous, Find My Stem Cells: on hold (Gem Spark done 2026-11-10) (each needs a Manus export, and the webmaster wants nothing more from Manus);
+Brazil speed check.
+
+## Previous status — 2026-11-09
+
+**SoulSmoke (2026-11-09, a reader asked on WhatsApp):** SoulSmoke, Tony's mezcal guide, was a separate Manus
+site (`mezcalagave.manus.space`, plus a small `soulsmoke.manus.space`), never a tonygreenberg.com page. Both
+now 404 and neither is in the Internet Archive; only a design note survives in the repo history. `/soulsmoke`
+and `/soul-smoke` now 308 to `/spirits` (which describes it as no longer live) instead of 404; test added,
+checked on a production build. Site search had no `/spirits` entry at all: added "The Liquid Library"
+(`search-directory.ts`, tags soulsmoke/mezcal/tequila/sake/wine...), so searching "soulsmoke" or "mezcal" shows
+it first (checked in a browser at 375 and 1280, Enter opens `/spirits`); fixed a test that had broken when the
+America Unbundled entries were added at the top. Branch `soulsmoke-redirect`. **Waiting:** Tony decides whether to rebuild
+SoulSmoke; if the Manus project still exists, export its files before Manus is deleted. (`soulsmoke.com` is an
+unrelated Shopify store.)
+
+## Previous status — 2026-11-06
+
+**Energy Is Money. Money Is Memory. (2026-11-06, editorial draft for review):** Sanity draft prepared with Tony's focused title/subtitle, Lesson, provocation, closing question, August 2026 Texas poll, February 2026 ERCOT generation-queue definition, and the ImpactSoul rights bridge. Preserved August 9 publication date, long-spoons story, money/memory quote, grid rights, model inference versus archival retrieval, and original IEA/Berkeley/Constellation/Amazon qualifications. Article metadata now uses November 6 as draft revision date, to be corrected if publication occurs later. RampRate's SYZYGY shared-ownership calculator was confirmed to be intentionally offline at /blog/shared-ownership (404). A working, public RampRate companion essay at /blog/the-cloud-gets-rich (HTTP 200, canonical/SEO verified) was linked instead, without misrepresenting it as the interactive ownership map. Texas poll 57% opposed and 30% supported, with separately measured 56% negative bill/grid expectations, 57% water and 55% quality-of-life expectations, verified against UT/Texas Politics Project. ERCOT's 2,008 active February 28 generation/storage requests, totaling 453,562 MW, verified against its April 1 report, explicitly not data-center large-load projects. IEA (415 TWh estimated 2024, 945 TWh 2030 Base Case), Berkeley Lab (13% commercial / 77% withdrawn / 10% active historic generation and storage capacity cohort), Constellation (890 MW new uprates versus 2,700 MW agreement on existing generation) and Amazon (more than $1bn over five years announced) checked against primary publisher materials. Teasers under impact-futurism now avoid unsupported memory-making claims. The shared 2x-versus-3x guarantee remains unchanged without approved terms; October 12 is the previously recorded Sanity _updatedAt timestamp, not independently established as an editorial revision. Draft is not live; Netlify preview reads published Sanity content, not the unpublished draft. Mobile visual QA and an actual draft-content preview are still open. The migration spreadsheet was not regenerated through the MCP editor.
 
 **America, Unbundled re-check (2026-11-06, Tony's list resent as "fix today"):** every item from the
 2026-11-03 QA re-checked on live tonygreenberg.com, no code change needed. Both essays are on `/`, `/blog`,

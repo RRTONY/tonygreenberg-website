@@ -1,0 +1,99 @@
+/*
+ * The GemSpark (/gem-spark), from its Manus app (exported 2026-11-10). Everything here is scoped to
+ * .gemspark-root (the /gem-spark layout's wrapper), so nothing reaches the rest of the site.
+ *
+ * Fonts: the live GemSpark page rendered in the browser's default faces (Tailwind's default
+ * --font-sans and --font-serif; the Playfair <link> in its index.html was never applied), so this
+ * section swaps this site's body/heading faces back to those stacks instead of loading web fonts.
+ */
+.gemspark-root {
+  --font-body: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    "Noto Color Emoji";
+  --font-display: var(--font-body);
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  font-family: var(--font-body);
+}
+
+/* SparkleTitle's star particles (the app animated them with framer-motion): each one fades,
+   grows, turns half a circle and drifts up. Its rotation and duration are set per particle. */
+@keyframes gemspark-sparkle {
+  from {
+    opacity: 1;
+    transform: translateY(0) rotate(var(--gemspark-rotation, 0deg)) scale(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px) rotate(calc(var(--gemspark-rotation, 0deg) + 180deg)) scale(1);
+  }
+}
+
+.gemspark-root .gemspark-sparkle {
+  animation: gemspark-sparkle ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gemspark-root .gemspark-sparkle {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+/* The app's "article paragraph spacing" (index.css): a gap between consecutive paragraphs in a
+   section. Unlayered, as in the app, so it wins over any margin utility on those paragraphs. */
+.gemspark-root section p + p {
+  margin-top: 1.75rem;
+}
+
+@media (min-width: 768px) {
+  .gemspark-root section p + p {
+    margin-top: 2.25rem;
+  }
+}
+
+/* The app's print styles: the story on white, without buttons, forms, the footer or the arrow. */
+@media print {
+  @page {
+    margin: 2cm;
+  }
+
+  .gemspark-root {
+    background: white !important;
+    color: black !important;
+  }
+
+  .gemspark-root button,
+  .gemspark-root input,
+  .gemspark-root textarea,
+  .gemspark-root .no-print,
+  .gemspark-root [role="button"],
+  .gemspark-root footer {
+    display: none !important;
+  }
+
+  .gemspark-root header {
+    min-height: auto !important;
+    padding: 0 !important;
+    margin-bottom: 2rem !important;
+  }
+
+  .gemspark-root :is(p, h1, h2, h3, h4, h5, h6) {
+    color: black !important;
+    text-shadow: none !important;
+  }
+
+  .gemspark-root :is(.max-w-4xl, .max-w-5xl, .max-w-7xl) {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .gemspark-root img {
+    max-width: 100% !important;
+    height: auto !important;
+    page-break-inside: avoid;
+  }
+
+  .gemspark-root .lucide-arrow-down {
+    display: none !important;
+  }
+}

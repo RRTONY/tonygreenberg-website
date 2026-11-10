@@ -56,6 +56,8 @@ Tailwind v4 + shadcn/ui, Sanity for editorial content, deployed on Netlify from 
   `post`/`author`/`category` actually reach the site today.
 - **Never add a `loading.tsx` above a dynamic route**: it turns every 404 into a 200.
 - **Real content must be in the server HTML** (`forceMount` on accordions/collapsibles).
+- **PRI scoring safety is never weakened**: every question answered, and any hard-stop answer
+  pauses the score (CONTRIBUTING rule 21).
 - **No new npm dependency without asking first.** Never commit `.env.local`.
 - **Check before calling anything done:** `pnpm typecheck`, `pnpm lint`, `pnpm test:changed` (only the
   tests for what this task changed; the full `pnpm test` only when asked), `pnpm build` for routing

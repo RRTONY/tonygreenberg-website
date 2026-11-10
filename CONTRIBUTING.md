@@ -143,6 +143,13 @@ incidents: [`docs/ai/`](docs/ai/README.md).
     owner asked for this (2026-10-08). Examples: red labels on dark bands use `#E07A80` instead of
     live's `#8E1E25`; BrewSoul's category badge floats in the corner instead of live's doubled gap.
 
+21. **PRI scoring safety (Tony's review, 2026-11-11).** Every readiness question needs an
+    explicit answer before a personal result, and any hard-stop answer below "Often true"
+    (`HARD_STOP_CLEAR_MIN` in `src/lib/content/pri-shared.ts`) pauses the score, matches, report and
+    referral. Never weaken either. The council reminder and disclaimer text live once in
+    `src/lib/content/pri-disclaimer.ts`. Medicine warnings and interaction labels change only with
+    the clinical reviewer.
+
 ## Next.js (App Router, v16)
 
 - This is Next.js 16, which has real breaking changes vs. the Next 13-15 patterns most training

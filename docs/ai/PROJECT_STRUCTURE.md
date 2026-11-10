@@ -30,6 +30,13 @@ how to handle a request is in [`TASK_GUIDE.md`](TASK_GUIDE.md). Last checked 202
 
 ## Where each page's text lives
 
+- **The GemSpark (`/gem-spark`, `/gem-spark/short`, `/gem-spark/es/short`, Tony's story):** in code,
+  `src/app/gem-spark/` + `src/components/gemspark/`, images in Sanity (`src/lib/content/gemspark/images.ts`),
+  reader stories / featured sparks / read counts in Supabase (`src/app/gem-spark/actions.ts`). See
+  `docs/ai/project_gemspark_port.md`.
+- **SoulSmoke (`/soul-smoke/*`, the mezcal guide):** in code, `src/components/soulsmoke/pages/` + data in
+  `src/lib/content/soulsmoke/` (images in Sanity, map in `images.ts`). Own header and styles
+  (`src/app/soul-smoke/layout.tsx`, `soulsmoke.css`). See `docs/ai/project_soulsmoke_port.md`.
 - **Marketing, assessment, BrewSoul, PRI, Kava, peptide pages:** in code, in the route's
   `page.tsx`, its component under `src/components/`, and/or a data module in `src/lib/content/`.
 - **Blog posts (`/blog/[slug]`, `/blog/category/[slug]`, `/essays`):** Sanity `post` documents.

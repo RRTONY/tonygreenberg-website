@@ -7,7 +7,7 @@ import { MEDICINES, QUESTIONS } from "@/lib/content/pri-data";
 describe("/psychedelic-readiness-index", () => {
   it("has its own title, description and canonical", () => {
     expect(metadata.title).toBe("Psychedelic Readiness Index — Find Your Medicine");
-    expect(metadata.description).toMatch(/^39 plant medicines\. 50\+ readiness questions\. 6 domains\./);
+    expect(metadata.description).toMatch(/^39 substances\. 50\+ readiness questions\. 6 domains\./);
     expect(metadata.alternates?.canonical).toBe("/psychedelic-readiness-index");
   });
 
@@ -20,7 +20,7 @@ describe("/psychedelic-readiness-index", () => {
 
   it("lists the medicines and the interaction sections in the HTML", () => {
     const { container } = render(<PsychedelicReadinessIndexPage />);
-    expect(screen.getByRole("heading", { level: 2, name: `${MEDICINES.length} Sacred Medicines` })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 2, name: `${MEDICINES.length} Substances` })).toBeInTheDocument();
     expect(screen.getByRole("heading", { level: 2, name: "MAO-B Interaction Matrix" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { level: 2, name: "Medication Interaction Guide" })).toBeInTheDocument();
     expect(container.textContent).toContain("Psilocybin Mushrooms");

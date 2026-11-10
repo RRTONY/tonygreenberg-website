@@ -124,6 +124,8 @@ export const findYourMeGroups: { category: string; items: (NavLink & { badge?: s
   {
     category: "Taste & Ritual",
     items: [
+      // Legacy's first Taste & Ritual link went to SoulSmoke on Manus; it lives at /soul-smoke since 2026-11-10.
+      { href: "/soul-smoke", label: "Find Your Mezcal" },
       { href: "/find-your-sake", label: "Find Your Sake" },
       { href: "/find-your-coffee", label: "Find Your Coffee" },
       { href: "/brewsoul", label: "BrewSoul Intelligence" },

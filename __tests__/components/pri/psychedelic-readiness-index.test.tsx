@@ -1,12 +1,15 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { renderToString } from "react-dom/server";
+import { hydrateRoot } from "react-dom/client";
+import { act } from "react";
 import userEvent from "@testing-library/user-event";
 import { PsychedelicReadinessIndex } from "@/components/pri/psychedelic-readiness-index";
 import { saveAssessmentResult } from "@/lib/assessments/result-log";
 import { submitPriConsent } from "@/app/forms/actions";
 import { DIM_LABELS, MEDICINES, PATHWAY_QUESTIONS, QUESTIONS, SLIDER_LABELS, type DimKey } from "@/lib/content/pri-data";
 import { computeScores } from "@/lib/content/pri-shared";
+import { MEDICINE_IMAGES } from "@/lib/content/pri-medicine-images";
 
 vi.mock("@/lib/assessments/result-log", () => ({ saveAssessmentResult: vi.fn() }));
 vi.mock("@/app/forms/actions", () => ({ submitPriConsent: vi.fn(), submitPriCorrection: vi.fn() }));
@@ -24,13 +27,25 @@ async function startQuiz(user: User) {
   await user.click(button(new RegExp(`begin ${QUESTIONS.length}-question assessment`, "i")));
 }
 
+// Sets the slider and releases it, the way a click does: releasing counts as an answer even when
+// the value doesn't change (5 is where an unanswered slider sits).
+function answer(value: number) {
+  const slider = screen.getByRole("slider");
+  fireEvent.change(slider, { target: { value: String(value) } });
+  fireEvent.pointerUp(slider);
+}
+
+// Hard-stop statements answered "Completely true" so a test reaches real scores; any lower
+// answer on one of them pauses the results.
+const cleared = (value: (i: number) => number) => (i: number) => (QUESTIONS[i].severity === "hard_stop" ? 10 : value(i));
+
 // Answers every readiness question (value per question index) and every pathway question.
 // fireEvent rather than userEvent for the 60-odd slider steps: this page is
 // large, and userEvent's per-click pointer simulation makes the walk-through slow.
 async function finishQuiz(value: (i: number) => number) {
   for (let i = 0; i < QUESTIONS.length; i++) {
     expect(screen.getByText(`${i + 1} / ${QUESTIONS.length}`)).toBeInTheDocument();
-    fireEvent.change(screen.getByRole("slider"), { target: { value: String(value(i)) } });
+    answer(value(i));
     fireEvent.click(button(i === QUESTIONS.length - 1 ? /a few more questions/i : /^next$/i));
   }
   expect(screen.getByRole("heading", { name: "How You Want to Go" })).toBeInTheDocument();
@@ -55,7 +70,7 @@ describe("PsychedelicReadinessIndex", { timeout: 120000 }, () => {
     const user = userEvent.setup();
     render(<PsychedelicReadinessIndex />);
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/Find My\s*Medicine/);
-    expect(screen.getByRole("heading", { name: `${MEDICINES.length} Sacred Medicines` })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: `${MEDICINES.length} Substances` })).toBeInTheDocument();
     await startQuiz(user);
     expect(screen.getByText(QUESTIONS[0].text)).toBeInTheDocument();
     expect(screen.getByRole("slider")).toHaveValue("5");
@@ -80,7 +95,7 @@ describe("PsychedelicReadinessIndex", { timeout: 120000 }, () => {
     const user = userEvent.setup();
     render(<PsychedelicReadinessIndex />);
     await startQuiz(user);
-    const value = (i: number) => (i % 3 === 0 ? 9 : i % 3 === 1 ? 6 : 3);
+    const value = cleared((i: number) => (i % 3 === 0 ? 9 : i % 3 === 1 ? 6 : 3));
     await finishQuiz(value);
     expect(screen.getByRole("heading", { name: "Before You Go In" })).toBeInTheDocument();
     await consent(user);
@@ -121,7 +136,10 @@ describe("PsychedelicReadinessIndex", { timeout: 120000 }, () => {
     const user = userEvent.setup();
     render(<PsychedelicReadinessIndex />);
     await startQuiz(user);
-    for (let i = 0; i < QUESTIONS.length; i++) fireEvent.click(button(i === QUESTIONS.length - 1 ? /a few more questions/i : /^next$/i));
+    for (let i = 0; i < QUESTIONS.length; i++) {
+      answer(8);
+      fireEvent.click(button(i === QUESTIONS.length - 1 ? /a few more questions/i : /^next$/i));
+    }
     await user.click(button(/back/i));
     expect(screen.getByText(`${QUESTIONS.length} / ${QUESTIONS.length}`)).toBeInTheDocument();
   });
@@ -135,6 +153,9 @@ describe("PsychedelicReadinessIndex", { timeout: 120000 }, () => {
     await consent(user);
     // The modal is loaded with next/dynamic, so allow it time to arrive.
     expect(await screen.findByText(m.latin, {}, { timeout: 15000 })).toBeInTheDocument();
+    // 2026-11-11 audit: consenting here used to open a personal result built from untouched sliders.
+    expect(screen.queryByText("Where You Stand")).not.toBeInTheDocument();
+    expect(screen.queryByText(/your score is paused/i)).not.toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Suggest Correction" })).toBeInTheDocument();
   });
 
@@ -174,7 +195,7 @@ describe("PsychedelicReadinessIndex", { timeout: 120000 }, () => {
     const user = userEvent.setup();
     render(<PsychedelicReadinessIndex />);
     await startQuiz(user);
-    await finishQuiz(() => 5);
+    await finishQuiz(cleared(() => 5));
     await user.click(screen.getByRole("checkbox", { name: /connect me with a vetted facility/i }));
     const send = button(/send introduction request/i);
     expect(send).toBeDisabled();
@@ -190,7 +211,10 @@ describe("PsychedelicReadinessIndex", { timeout: 120000 }, () => {
     const user = userEvent.setup();
     render(<PsychedelicReadinessIndex />);
     await startQuiz(user);
-    for (let i = 0; i < QUESTIONS.length; i++) fireEvent.click(button(i === QUESTIONS.length - 1 ? /a few more questions/i : /^next$/i));
+    for (let i = 0; i < QUESTIONS.length; i++) {
+      answer(8);
+      fireEvent.click(button(i === QUESTIONS.length - 1 ? /a few more questions/i : /^next$/i));
+    }
     expect(screen.getByText(PATHWAY_QUESTIONS[0].text)).toBeInTheDocument();
     fireEvent.change(screen.getByRole("slider"), { target: { value: "8" } });
     expect(screen.getByText("8/10")).toBeInTheDocument();
@@ -241,6 +265,26 @@ describe("PsychedelicReadinessIndex", { timeout: 120000 }, () => {
       expect(sessionStorage.getItem("pri-pending-medicine")).toBeNull();
     });
 
+    // 2026-11-11: reading the link during the first render made every ?m= visit fail hydration
+    // (React #418). The server HTML has no gate; hydrating matches it, then the gate opens.
+    it("hydrates the server HTML without a mismatch, then asks for consent", async () => {
+      const html = renderToString(<PsychedelicReadinessIndex />);
+      expect(html).not.toContain("Before You Go In");
+      const container = document.createElement("div");
+      container.innerHTML = html;
+      document.body.appendChild(container);
+      const onRecoverableError = vi.fn();
+      let root: ReturnType<typeof hydrateRoot> | undefined;
+      await act(async () => {
+        root = hydrateRoot(container, <PsychedelicReadinessIndex />, { onRecoverableError });
+      });
+      expect(onRecoverableError).not.toHaveBeenCalled();
+      expect(await screen.findByRole("heading", { name: "Before You Go In" })).toBeInTheDocument();
+      expect(sessionStorage.getItem("pri-pending-medicine")).toBe("sananga");
+      act(() => root?.unmount());
+      container.remove();
+    });
+
     it("ignores an unknown medicine id", () => {
       window.history.pushState({}, "", "/psychedelic-readiness-index?m=not-a-medicine");
       render(<PsychedelicReadinessIndex />);
@@ -266,7 +310,7 @@ describe("PsychedelicReadinessIndex", { timeout: 120000 }, () => {
     localStorage.setItem("pri-saved-medicines", JSON.stringify([MEDICINES[0].id]));
     sessionStorage.setItem("pri-consent", "true");
     const html = renderToString(<PsychedelicReadinessIndex />);
-    expect(html.replace(/<!-- -->/g, "")).toContain(`${MEDICINES.length} Sacred Medicines`);
+    expect(html.replace(/<!-- -->/g, "")).toContain(`${MEDICINES.length} Substances`);
     // The server snapshot is empty, so no shortlist is rendered even though the browser has one.
     expect(html).not.toContain("My Saved Medicines");
   });
@@ -369,7 +413,7 @@ describe("PsychedelicReadinessIndex", { timeout: 120000 }, () => {
       const user = userEvent.setup();
       render(<PsychedelicReadinessIndex />);
       await startQuiz(user);
-      const value = (i: number) => (i % 2 ? 9 : 4);
+      const value = cleared((i: number) => (i % 2 ? 9 : 4));
       await finishQuiz(value);
       const expected = computeScores(QUESTIONS.map((_, i) => value(i)));
 
@@ -384,6 +428,9 @@ describe("PsychedelicReadinessIndex", { timeout: 120000 }, () => {
       for (const m of expected.topMatches) expect(html).toContain(`${m.name}</td>`);
       for (const st of expected.sequence) expect(html).toContain(`<strong>${st.name}</strong>`);
       expect(html).toContain("<h2>My Saved Medicines</h2>");
+      expect(html).toContain("Talk to your psychedelic council.");
+      expect(html).toContain("Read the full disclaimer: tonygreenberg.com/psychedelic-readiness-index/disclaimer");
+      expect(html).toContain('aria-label="QR code: https://tonygreenberg.com/psychedelic-readiness-index/disclaimer"');
       expect(html).toContain(saved.name);
       expect(doc.close).toHaveBeenCalled();
       await waitFor(() => expect(popup.print).toHaveBeenCalled(), { timeout: 3000 });
@@ -395,7 +442,7 @@ describe("PsychedelicReadinessIndex", { timeout: 120000 }, () => {
       const user = userEvent.setup();
       render(<PsychedelicReadinessIndex />);
       await startQuiz(user);
-      await finishQuiz(() => 5);
+      await finishQuiz(cleared(() => 5));
       await user.click(button(/save my results/i));
       expect(open).toHaveBeenCalledTimes(1);
       const doc = { write: vi.fn(), close: vi.fn() };
@@ -426,15 +473,82 @@ describe("PsychedelicReadinessIndex", { timeout: 120000 }, () => {
       const user = userEvent.setup();
       render(<PsychedelicReadinessIndex />);
       await startQuiz(user);
-      await finishQuiz(() => 5);
+      await finishQuiz(cleared(() => 5));
       await user.click(screen.getByRole("checkbox", { name: /connect me with a vetted facility/i }));
       await user.type(screen.getByPlaceholderText("Your name"), "Ada");
       expect(screen.getByPlaceholderText("Your name")).toHaveValue("Ada");
     });
   });
 
+  describe("explicit answers and hard stops (2026-11-11 audit)", () => {
+    it("Next stays disabled until the slider is answered; a click on the middle counts, tabbing onto it does not", async () => {
+      const user = userEvent.setup();
+      render(<PsychedelicReadinessIndex />);
+      await startQuiz(user);
+      expect(screen.getByText("Move the slider to answer")).toBeInTheDocument();
+      expect(screen.getByText("Talk to your psychedelic council.")).toBeInTheDocument();
+      expect(button(/^next$/i)).toBeDisabled();
+      fireEvent.click(button(/^next$/i));
+      expect(screen.getByText(`1 / ${QUESTIONS.length}`)).toBeInTheDocument();
+
+      fireEvent.keyUp(screen.getByRole("slider"), { key: "Tab" });
+      expect(button(/^next$/i)).toBeDisabled();
+      fireEvent.keyUp(screen.getByRole("slider"), { key: "ArrowRight" });
+      expect(button(/^next$/i)).toBeEnabled();
+
+      await user.click(button(/^next$/i));
+      expect(button(/^next$/i)).toBeDisabled();
+      fireEvent.pointerUp(screen.getByRole("slider"));
+      expect(screen.getByText(`5/10`)).toBeInTheDocument();
+      expect(button(/^next$/i)).toBeEnabled();
+    });
+
+    it("one negative cardiac answer pauses the score and the matches, lists it for a clinician, and logs no score", async () => {
+      sessionStorage.setItem("pri-consent", "true");
+      const open = vi.fn();
+      vi.stubGlobal("open", open);
+      saved.mockClear();
+      const cardiac = QUESTIONS.findIndex((q) => q.text.startsWith("I have no history of heart attack"));
+      const user = userEvent.setup();
+      render(<PsychedelicReadinessIndex />);
+      await startQuiz(user);
+      await finishQuiz((i) => (i === cardiac ? 1 : 10));
+
+      expect(screen.getByRole("heading", { name: /your score is paused/i })).toBeInTheDocument();
+      expect(screen.getByText("Talk to your psychedelic council.")).toBeInTheDocument();
+      expect(screen.getByText("Any Red")).toBeInTheDocument();
+      expect(screen.getByText(QUESTIONS[cardiac].text)).toBeInTheDocument();
+      expect(screen.queryByText("Where You Stand")).not.toBeInTheDocument();
+      expect(screen.queryByText("Ready to Go Deep")).not.toBeInTheDocument();
+      expect(screen.queryByRole("button", { name: /: match #1$/ })).not.toBeInTheDocument();
+      expect(screen.queryByRole("button", { name: /save my results/i })).not.toBeInTheDocument();
+      expect(screen.queryByRole("checkbox", { name: /connect me with a vetted facility/i })).not.toBeInTheDocument();
+      expect(saved).toHaveBeenCalledWith("psychedelic-readiness-index", { summary: "Paused: 1 hard-stop answer", score: undefined });
+      expect(open).not.toHaveBeenCalled();
+
+      await user.click(button(/retake assessment/i));
+      expect(screen.getByRole("heading", { name: "Your Readiness Assessment" })).toBeInTheDocument();
+    });
+
+    it("several hard stops show the Multiple Red guidance", async () => {
+      sessionStorage.setItem("pri-consent", "true");
+      saved.mockClear();
+      const user = userEvent.setup();
+      render(<PsychedelicReadinessIndex />);
+      await startQuiz(user);
+      await finishQuiz(() => 5);
+      expect(screen.getByText("Multiple Red")).toBeInTheDocument();
+      expect(screen.getAllByRole("listitem").filter((li) => QUESTIONS.some((q) => q.severity === "hard_stop" && li.textContent?.includes(q.text)))).toHaveLength(14);
+      expect(saved).toHaveBeenCalledWith("psychedelic-readiness-index", { summary: "Paused: 14 hard-stop answers", score: undefined });
+    });
+  });
+
   it("every medicine card is a real button keyboard users can reach", () => {
     render(<PsychedelicReadinessIndex />);
+    // Each save (heart) button has its own label, and each medicine photo is described.
+    expect(screen.getAllByRole("button", { name: /^Save / })).toHaveLength(MEDICINES.length);
+    expect(screen.getByRole("button", { name: `Save ${MEDICINES[0].name}` })).toHaveAttribute("aria-pressed", "false");
+    for (const m of MEDICINES.filter((x) => MEDICINE_IMAGES[x.id])) expect(screen.getAllByRole("img", { name: m.name }).length).toBeGreaterThan(0);
     expect(screen.getByRole("button", { name: `Open ${MEDICINES[0].name}` })).toBeInTheDocument();
     expect(screen.getAllByRole("button", { name: /^Open / })).toHaveLength(MEDICINES.length);
   });

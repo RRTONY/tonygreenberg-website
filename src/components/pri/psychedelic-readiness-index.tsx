@@ -17,20 +17,29 @@ import {
   MEDICATION_INTERACTIONS,
   CRISIS_RESOURCES,
   PATHWAY_QUESTIONS,
+  SCORE_PROFILES,
   type Medicine,
   type MedicineWithSafety,
   type DimKey,
 } from "@/lib/content/pri-data";
 import { MEDICINE_IMAGES } from "@/lib/content/pri-medicine-images";
-import { getMedicineWithSafety, computeScores, TAG_CLASS, DEFAULT_TAG_CLASS } from "@/lib/content/pri-shared";
+import { getMedicineWithSafety, computeScores, isComplete, TAG_CLASS, DEFAULT_TAG_CLASS } from "@/lib/content/pri-shared";
 import { DisclaimerGate } from "@/components/pri/disclaimer-gate";
 // Opens only when a medicine is tapped; loading it then keeps it (and its correction form) out of
 // the page's first load (Lighthouse, 2026-10-08).
 const MedicineModal = dynamic(() => import("@/components/pri/medicine-modal").then((m) => m.MedicineModal), { ssr: false });
 import { PriShareBar } from "@/components/pri/share-bar";
 import { CinematicBand } from "@/components/pri/cinematic-band";
+import { CouncilReminder } from "@/components/pri/council-reminder";
+import { DISCLAIMER_QR_URL, DISCLAIMER_QR_SVG } from "@/components/pri/disclaimer-qr";
+import { COUNCIL_REMINDER } from "@/lib/content/pri-disclaimer";
 
 const CONTACT_EMAIL = "tony@tonygreenberg.com";
+
+// Keys that operate a range input. Tab (focus moving onto the slider) is not an answer.
+const SLIDER_KEYS = new Set(["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home", "End", "PageUp", "PageDown"]);
+const ANY_RED = SCORE_PROFILES.find((p) => p.label === "Any Red")!;
+const MULTIPLE_RED = SCORE_PROFILES.find((p) => p.label === "Multiple Red")!;
 
 function DimIcon({ dim, className }: { dim: DimKey; className: string }) {
   const Icon = DIM_ICONS[dim];
@@ -62,6 +71,18 @@ function subscribeConsent(listener: () => void) {
   consentListeners.add(listener);
   return () => consentListeners.delete(listener);
 }
+// The `?m=<medicine id>` deep link. The URL doesn't change while the page is open, so there is
+// nothing to subscribe to; the server has no URL, so its snapshot is "no link".
+function subscribeNothing() {
+  return () => {};
+}
+function readDeepLinkId(): string | null {
+  return new URLSearchParams(window.location.search).get("m");
+}
+function getDeepLinkServerSnapshot(): string | null {
+  return null;
+}
+
 function getConsentServerSnapshot() {
   return false;
 }
@@ -165,7 +186,12 @@ const PHILOSOPHY_PARAGRAPHS = [
 export function PsychedelicReadinessIndex() {
   const [state, setState] = useState<AppState>("philosophy");
   const [currentQ, setCurrentQ] = useState(0);
-  const [answers, setAnswers] = useState<number[]>(() => new Array(QUESTIONS.length).fill(5));
+  // null = not answered yet. Every question needs an explicit answer before a personal score
+  // (2026-11-11 audit: untouched sliders used to count as a 5).
+  const [answers, setAnswers] = useState<(number | null)[]>(() => new Array(QUESTIONS.length).fill(null));
+  // Set when the last pathway question sends a not-yet-consented visitor to the disclaimer, so
+  // consenting there (and only there) opens the results. Consenting to browse a medicine doesn't.
+  const [resultsAfterConsent, setResultsAfterConsent] = useState(false);
   const [pathwayAnswers, setPathwayAnswers] = useState<Record<string, number>>(() => Object.fromEntries(PATHWAY_QUESTIONS.map((q) => [q.id, 5])));
   const [currentPathwayQ, setCurrentPathwayQ] = useState(0);
   const [selectedMedicine, setSelectedMedicine] = useState<MedicineWithSafety | null>(null);
@@ -191,13 +217,19 @@ export function PsychedelicReadinessIndex() {
   const topRef = useRef<HTMLDivElement>(null);
 
   const results = useMemo(() => {
-    if (state !== "results") return null;
+    if (state !== "results" || !isComplete(answers)) return null;
     return computeScores(answers);
   }, [state, answers]);
 
   // Saves the finish once per result shown (Supabase + /self-portrait log).
-  const resultScore = results?.overall;
-  const resultSummary = results ? `${results.level.label}; Top matches: ${results.topMatches.map((m) => m.name).join(", ")}` : undefined;
+  // A paused result (hard-stop answers) has no score and no matches to log.
+  const resultPaused = !!results && results.hardStops.length > 0;
+  const resultScore = results && !resultPaused ? results.overall : undefined;
+  const resultSummary = results
+    ? resultPaused
+      ? `Paused: ${results.hardStops.length} hard-stop answer${results.hardStops.length > 1 ? "s" : ""}`
+      : `${results.level.label}; Top matches: ${results.topMatches.map((m) => m.name).join(", ")}`
+    : undefined;
   useEffect(() => {
     if (resultSummary) saveAssessmentResult("psychedelic-readiness-index", { summary: resultSummary, score: resultScore });
   }, [resultSummary, resultScore]);
@@ -261,6 +293,10 @@ export function PsychedelicReadinessIndex() {
         <div class="title">Psychedelic Readiness Index</div>
         <div class="date">Personal Report ... ${dateStr}</div>
       </div>
+      <div style="display:flex;align-items:center;gap:20px;background:#F3EEF6;border:1px solid #E8E0D6;padding:16px 20px;margin-bottom:2rem;page-break-inside:avoid">
+        <div style="flex:1"><div style="font-weight:700;color:#6B21A8;margin-bottom:4px">${COUNCIL_REMINDER.title}</div><div style="font-size:.82rem;color:#5D4E3C;line-height:1.55;margin-bottom:6px">${COUNCIL_REMINDER.body}</div><div style="font-size:.78rem;font-weight:700;color:#6B21A8">${COUNCIL_REMINDER.link}: ${DISCLAIMER_QR_URL.replace("https://", "")}</div></div>
+        <div style="width:96px;height:96px;flex-shrink:0">${DISCLAIMER_QR_SVG}</div>
+      </div>
       <div class="score-block">
         <div class="number">${results.overall}</div>
         <div class="label">${results.level.label}</div>
@@ -291,7 +327,10 @@ export function PsychedelicReadinessIndex() {
     [currentQ]
   );
 
+  const currentAnswered = answers[currentQ] !== null;
+
   const nextQuestion = useCallback(() => {
+    if (answers[currentQ] === null) return;
     if (currentQ < QUESTIONS.length - 1) {
       setCurrentQ((q) => q + 1);
     } else {
@@ -299,18 +338,23 @@ export function PsychedelicReadinessIndex() {
       setCurrentPathwayQ(0);
       setTimeout(() => assessmentRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
     }
-  }, [currentQ]);
+  }, [currentQ, answers]);
 
   const nextPathwayQuestion = useCallback(() => {
     if (currentPathwayQ < PATHWAY_QUESTIONS.length - 1) {
       setCurrentPathwayQ((q) => q + 1);
+    } else if (!isComplete(answers)) {
+      // Can't normally happen (Next needs an answer), but never score a partial set.
+      setState("quiz");
+      setCurrentQ(Math.max(0, answers.indexOf(null)));
     } else if (!hasConsent) {
+      setResultsAfterConsent(true);
       setShowDisclaimer(true);
     } else {
       setState("results");
       setTimeout(() => assessmentRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
     }
-  }, [currentPathwayQ, hasConsent]);
+  }, [currentPathwayQ, hasConsent, answers]);
 
   const prevPathwayQuestion = useCallback(() => {
     if (currentPathwayQ > 0) {
@@ -324,9 +368,13 @@ export function PsychedelicReadinessIndex() {
   const handleConsentComplete = useCallback(() => {
     writeConsent();
     setShowDisclaimer(false);
+    // Consent given to browse a medicine opens that medicine (see the hasConsent check below),
+    // never a personal result built from unanswered questions.
+    if (!resultsAfterConsent || !isComplete(answers)) return;
+    setResultsAfterConsent(false);
     setState("results");
     setTimeout(() => assessmentRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
-  }, []);
+  }, [resultsAfterConsent, answers]);
 
   const prevQuestion = useCallback(() => {
     if (currentQ > 0) setCurrentQ((q) => q - 1);
@@ -339,7 +387,7 @@ export function PsychedelicReadinessIndex() {
 
   const resetQuiz = useCallback(() => {
     setCurrentQ(0);
-    setAnswers(new Array(QUESTIONS.length).fill(5));
+    setAnswers(new Array(QUESTIONS.length).fill(null));
     setCurrentPathwayQ(0);
     setPathwayAnswers(Object.fromEntries(PATHWAY_QUESTIONS.map((q) => [q.id, 5])));
     setState("intro");
@@ -348,6 +396,7 @@ export function PsychedelicReadinessIndex() {
 
   const sliderLabel = useMemo(() => {
     const v = answers[currentQ];
+    if (v === null) return null;
     const idx = Math.round(((v - 1) / 9) * 4);
     return SLIDER_LABELS[idx];
   }, [answers, currentQ]);
@@ -385,19 +434,20 @@ export function PsychedelicReadinessIndex() {
     }
   }
 
+  // The `?m=` link is read through useSyncExternalStore, so the hydration render sees no link
+  // (matching the server HTML) and the next render opens it. Reading `window.location` during the
+  // first render made every `?m=` visit fail hydration (React error #418, 2026-11-11).
+  const deepLinkId = useSyncExternalStore(subscribeNothing, readDeepLinkId, getDeepLinkServerSnapshot);
   const [consumedDeepLink, setConsumedDeepLink] = useState(false);
-  if (!consumedDeepLink && typeof window !== "undefined") {
+  if (deepLinkId && !consumedDeepLink) {
     setConsumedDeepLink(true);
-    const mId = new URLSearchParams(window.location.search).get("m");
-    if (mId) {
-      const m = MEDICINES.find((med) => med.id === mId);
-      if (m) {
-        if (hasConsent) {
-          setSelectedMedicine(getMedicineWithSafety(m));
-        } else {
-          sessionStorage.setItem("pri-pending-medicine", m.id);
-          setShowDisclaimer(true);
-        }
+    const m = MEDICINES.find((med) => med.id === deepLinkId);
+    if (m) {
+      if (hasConsent) {
+        setSelectedMedicine(getMedicineWithSafety(m));
+      } else {
+        sessionStorage.setItem("pri-pending-medicine", m.id);
+        setShowDisclaimer(true);
       }
     }
   }
@@ -427,7 +477,7 @@ export function PsychedelicReadinessIndex() {
         <div className="absolute inset-0 z-0 overflow-hidden opacity-30">
           <Image
             src="https://cdn.sanity.io/images/a3q1cyqs/production/1126cd46fd317e79cb543645ef44a536ae95f417-1920x1072.webp"
-            alt=""
+            alt="A figure meditating on a floating stone between ancient trees, under a spiral galaxy and sacred geometry, with glowing neural roots below"
             fill
             sizes="100vw"
             fetchPriority="high"
@@ -447,7 +497,7 @@ export function PsychedelicReadinessIndex() {
             <em className="text-pri-purple not-italic">Medicine</em>
           </h1>
           <p className="mb-4 max-w-140 text-[clamp(.95rem,2.5vw,1.1rem)] text-pri-brown">
-            {MEDICINES.length} plant medicines. 50+ readiness questions. 6 domains. MAO-B interaction matrix. An honest map of where you stand ... before
+            {MEDICINES.length} substances. 50+ readiness questions. 6 domains. MAO-B interaction matrix. An honest map of where you stand ... before
             you walk into territory that rewards preparation.
           </p>
 
@@ -476,7 +526,7 @@ export function PsychedelicReadinessIndex() {
       {/* ── STATS BAR ── */}
       <div className="mx-5 grid grid-cols-[repeat(auto-fit,minmax(120px,1fr))] border-y border-pri-border">
         {[
-          { n: String(MEDICINES.length), l: "Plant Medicines" },
+          { n: String(MEDICINES.length), l: "Substances" },
           { n: "50+", l: "Quiz Questions" },
           { n: "6", l: "Domains" },
           { n: "∞", l: "Healing Paths" },
@@ -492,7 +542,7 @@ export function PsychedelicReadinessIndex() {
       <div id="medicines" className="mx-auto max-w-300 px-5 py-16">
         <CinematicBand
           src="https://cdn.sanity.io/images/a3q1cyqs/production/d1def9c5a5f53e8552abaf70d5770678e3c0b347-1200x669.jpg"
-          alt={`${MEDICINES.length} sacred plant medicines arranged on stone tiles`}
+          alt="Plant medicines arranged on stone tiles"
           fadeTo="cream"
           heightClass="h-[clamp(200px,30vw,360px)] mb-8"
         />
@@ -502,7 +552,7 @@ export function PsychedelicReadinessIndex() {
               <span className="block h-0.5 w-6 bg-pri-purple" />
               The Pharmacopoeia
             </div>
-            <h2 className="font-heading text-[clamp(1.5rem,4vw,2.8rem)] text-pri-ink">{MEDICINES.length} Sacred Medicines</h2>
+            <h2 className="font-heading text-[clamp(1.5rem,4vw,2.8rem)] text-pri-ink">{MEDICINES.length} Substances</h2>
           </div>
           <div className="flex items-center gap-3">
             <button
@@ -558,16 +608,18 @@ export function PsychedelicReadinessIndex() {
                       toggleSaved(m.id);
                     }}
                     title={isSaved ? "Remove from saved" : "Save medicine"}
+                    aria-label={isSaved ? `Remove ${m.name} from saved` : `Save ${m.name}`}
+                    aria-pressed={isSaved}
                     className={`absolute top-1.5 right-1.5 z-5 flex size-6.5 items-center justify-center rounded-full text-[.82rem] text-pri-cream transition-opacity ${isSaved ? "bg-pri-purple opacity-100" : "bg-pri-ink/45 opacity-60 hover:opacity-100"}`}
                   >
-                    <Heart className="size-3.5" fill={isSaved ? "currentColor" : "none"} />
+                    <Heart aria-hidden="true" className="size-3.5" fill={isSaved ? "currentColor" : "none"} />
                   </button>
                 )}
                 {MEDICINE_IMAGES[m.id] && (
                   <div className="relative h-20 w-full overflow-hidden">
                     <Image
                       src={MEDICINE_IMAGES[m.id]}
-                      alt=""
+                      alt={m.name}
                       fill
                       sizes="(max-width: 640px) 25vw, 120px"
                       className="object-cover object-[center_30%] transition-transform duration-400 group-hover:scale-108"
@@ -628,7 +680,7 @@ export function PsychedelicReadinessIndex() {
                     <button type="button" aria-label={`Open ${m.name}`} onClick={() => handleMedicineClick(m)} className="absolute inset-0 z-1 cursor-pointer focus-visible:outline-3 focus-visible:-outline-offset-3 focus-visible:outline-pri-purple" />
                     {MEDICINE_IMAGES[id] && (
                       <div className="relative size-12.5 shrink-0 overflow-hidden rounded-full">
-                        <Image src={MEDICINE_IMAGES[id]} alt="" fill sizes="(max-width: 640px) 25vw, 120px" className="object-cover" />
+                        <Image src={MEDICINE_IMAGES[id]} alt={m.name} fill sizes="(max-width: 640px) 25vw, 120px" className="object-cover" />
                       </div>
                     )}
                     <div className="min-w-0 flex-1">
@@ -689,7 +741,7 @@ export function PsychedelicReadinessIndex() {
                   <div key={id} className="bg-pri-ink p-6">
                     {MEDICINE_IMAGES[id] && (
                       <div className="relative mb-3 h-25 overflow-hidden">
-                        <Image src={MEDICINE_IMAGES[id]} alt="" fill sizes="(max-width: 640px) 25vw, 120px" className="object-cover brightness-70" />
+                        <Image src={MEDICINE_IMAGES[id]} alt={m.name} fill sizes="(max-width: 640px) 25vw, 120px" className="object-cover brightness-70" />
                         <div className="absolute inset-0 bg-linear-to-b from-transparent from-40% to-pri-ink" />
                       </div>
                     )}
@@ -727,9 +779,15 @@ export function PsychedelicReadinessIndex() {
                     <div className="mt-4 border-t border-pri-cream/8 pt-3">
                       <div className="mb-1 text-[.75rem] font-bold tracking-[0.06em] text-pri-cream/60 uppercase">Safety</div>
                       <div className="text-[.75rem] leading-[1.5] text-pri-cream/60">
-                        {ms.contraindications.length} contraindications
-                        <br />
-                        {ms.drugInteractions.length} drug interactions
+                        {ms.safetyReviewed ? (
+                          <>
+                            {ms.contraindications.length} contraindications
+                            <br />
+                            {ms.drugInteractions.length} drug interactions
+                          </>
+                        ) : (
+                          "Not reviewed yet"
+                        )}
                       </div>
                     </div>
 
@@ -879,7 +937,7 @@ export function PsychedelicReadinessIndex() {
 
           <div className="grid gap-px border border-pri-border bg-pri-border">
             {MEDICATION_INTERACTIONS.map((med) => {
-              const isHardStop = med.risk.includes("LIFE-THREATENING") || med.risk.includes("ABSOLUTE") || med.risk.includes("Seizure");
+              const isHardStop = med.label === "hard_stop";
               return (
                 <div key={med.category} className="bg-pri-parchment px-6 py-5">
                   <div className="mb-2 flex flex-wrap items-start justify-between gap-2">
@@ -1023,6 +1081,12 @@ export function PsychedelicReadinessIndex() {
             </div>
           )}
 
+          {state !== "philosophy" && (
+            <div className="mb-8 px-5">
+              <CouncilReminder />
+            </div>
+          )}
+
           {/* QUIZ */}
           {state === "quiz" && (
             <div className="px-5">
@@ -1058,12 +1122,24 @@ export function PsychedelicReadinessIndex() {
                   type="range"
                   min={1}
                   max={10}
-                  value={answers[currentQ]}
+                  aria-label={domain.text}
+                  value={answers[currentQ] ?? 5}
                   onChange={(e) => handleSliderChange(parseInt(e.target.value))}
-                  className="h-7 w-full accent-pri-purple"
+                  // A click or arrow-key press that leaves the thumb where it is still counts as an answer.
+                  onPointerUp={(e) => handleSliderChange(parseInt(e.currentTarget.value))}
+                  onKeyUp={(e) => {
+                    if (SLIDER_KEYS.has(e.key)) handleSliderChange(parseInt(e.currentTarget.value));
+                  }}
+                  className={`h-7 w-full accent-pri-purple ${currentAnswered ? "" : "opacity-50"}`}
                 />
-                <div className="mt-3 text-center text-[clamp(.82rem,2.5vw,.9rem)] font-semibold text-pri-cream/50">
-                  <span className="text-pri-purple-light">{answers[currentQ]}/10</span> ... {sliderLabel}
+                <div className="mt-3 text-center text-[clamp(.82rem,2.5vw,.9rem)] font-semibold text-pri-cream/50" aria-live="polite">
+                  {currentAnswered ? (
+                    <>
+                      <span className="text-pri-purple-light">{answers[currentQ]}/10</span> ... {sliderLabel}
+                    </>
+                  ) : (
+                    "Move the slider to answer"
+                  )}
                 </div>
               </div>
 
@@ -1078,7 +1154,11 @@ export function PsychedelicReadinessIndex() {
                     Back
                   </span>
                 </button>
-                <button onClick={nextQuestion} className="max-w-60 flex-1 justify-center bg-pri-purple px-6 py-3 text-sm font-bold text-pri-cream">
+                <button
+                  onClick={nextQuestion}
+                  disabled={!currentAnswered}
+                  className={`max-w-60 flex-1 justify-center bg-pri-purple px-6 py-3 text-sm font-bold text-pri-cream ${currentAnswered ? "" : "cursor-not-allowed opacity-50"}`}
+                >
                   <span className="inline-flex items-center gap-1.5">
                     {currentQ === QUESTIONS.length - 1 ? "A Few More Questions" : "Next"}
                     <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
@@ -1145,7 +1225,35 @@ export function PsychedelicReadinessIndex() {
           )}
 
           {/* RESULTS */}
-          {state === "results" && results && (
+          {state === "results" && results && results.hardStops.length > 0 && (
+            <div className="px-5">
+              {/* Paused: a hard-stop answer means no overall score, no matches and no sequence. */}
+              <div className="mt-8 mb-8 border border-[#E07A80]/40 bg-[#E07A80]/10 p-[clamp(1.25rem,3vw,1.75rem)]">
+                <div className="mb-2 flex items-center gap-1.5 text-xs font-extrabold tracking-[0.14em] text-[#E07A80] uppercase">
+                  <Ban aria-hidden="true" className="size-4 shrink-0" />
+                  {results.hardStops.length > 1 ? MULTIPLE_RED.label : ANY_RED.label}
+                </div>
+                <h3 className="mb-3 font-heading text-[clamp(1.2rem,3vw,1.6rem)] leading-[1.3] text-pri-cream">Your score is paused</h3>
+                <p className="mb-2 text-[clamp(.85rem,2.5vw,.95rem)] leading-[1.6] text-pri-cream/80">{ANY_RED.meaning}</p>
+                {results.hardStops.length > 1 && <p className="mb-2 text-[clamp(.85rem,2.5vw,.95rem)] leading-[1.6] text-pri-cream/80">{MULTIPLE_RED.meaning}</p>}
+                <p className="mt-4 mb-2 text-[.82rem] font-bold text-pri-cream">Bring these answers to a licensed clinician:</p>
+                <ul className="list-disc space-y-1.5 pl-5 text-[.85rem] leading-[1.5] text-pri-cream/75">
+                  {results.hardStops.map((q) => (
+                    <li key={q.text}>
+                      <span className="text-pri-cream/60">{q.category}:</span> {q.text}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="flex flex-wrap justify-center gap-3 pb-8">
+                <button onClick={resetQuiz} className="border-[1.5px] border-pri-cream/20 px-6 py-3 text-sm font-bold text-pri-cream uppercase">
+                  Retake Assessment
+                </button>
+              </div>
+            </div>
+          )}
+
+          {state === "results" && results && results.hardStops.length === 0 && (
             <div className="px-5">
               <div className="mb-8 border-b border-pri-cream/8 pt-8 pb-10 text-center">
                 <div className="text-xs font-extrabold tracking-[0.14em] text-pri-purple-light uppercase">Where You Stand</div>

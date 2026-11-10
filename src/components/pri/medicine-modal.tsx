@@ -9,6 +9,7 @@ import { MEDICINE_IMAGES } from "@/lib/content/pri-medicine-images";
 import { TAG_CLASS, DEFAULT_TAG_CLASS } from "@/lib/content/pri-shared";
 import { SafetySection } from "@/components/pri/safety-section";
 import { CorrectionForm } from "@/components/pri/correction-form";
+import { CouncilReminder } from "@/components/pri/council-reminder";
 
 const TABS = [
   { key: "info" as const, label: "Overview" },
@@ -48,6 +49,8 @@ export function MedicineModal({
             <button
               onClick={() => onToggleSaved(medicine.id)}
               title={isSaved ? "Remove from saved" : "Save medicine"}
+              aria-label={isSaved ? `Remove ${medicine.name} from saved` : `Save ${medicine.name}`}
+              aria-pressed={!!isSaved}
               className={`flex size-8 items-center justify-center rounded-full text-base text-pri-cream ${isSaved ? "bg-pri-purple" : "bg-pri-ink/60"}`}
             >
               <Heart className="size-4" fill={isSaved ? "currentColor" : "none"} />
@@ -60,7 +63,7 @@ export function MedicineModal({
 
         {heroImage && (
           <div className="relative h-50 w-full overflow-hidden">
-            <Image src={heroImage} alt="" fill sizes="(max-width: 640px) 100vw, 600px" className="object-cover object-[center_30%]" />
+            <Image src={heroImage} alt={medicine.name} fill sizes="(max-width: 640px) 100vw, 600px" className="object-cover object-[center_30%]" />
             <div className="absolute inset-0 bg-linear-to-b from-transparent from-40% to-pri-parchment" />
           </div>
         )}
@@ -88,6 +91,10 @@ export function MedicineModal({
               </span>
             ))}
           </div>
+        </div>
+
+        <div className="px-8 pb-4">
+          <CouncilReminder tone="light" />
         </div>
 
         <div className="flex border-b-2 border-pri-border px-8">
@@ -167,7 +174,9 @@ export function MedicineModal({
                   Review Safety Data Before Proceeding
                 </div>
                 <p className="m-0 text-[.82rem] text-pri-brown">
-                  This medicine has {medicine.contraindications.length} contraindications and {medicine.drugInteractions.length} known drug interactions.{" "}
+                  {medicine.safetyReviewed
+                    ? `This medicine has ${medicine.contraindications.length} contraindications and ${medicine.drugInteractions.length} known drug interactions.`
+                    : "Safety data for this medicine has not been reviewed yet."}{" "}
                   <button onClick={() => setTab("safety")} className="inline-flex items-center gap-1 p-0 font-bold text-pri-purple underline">
                     View Safety &amp; Risks tab
                     <ArrowRight aria-hidden="true" className="size-3.5" />

@@ -11,8 +11,9 @@ export const ACCENT = "#836311";
 
 // Live's ecosystem pills. Live links three of them to *.manus.space apps
 // (Intimacy Assessment, Sacred Waters, SoulSmoke Mezcal); zero-Manus rule,
-// so those render as plain labels with no link (Sacred Waters and SoulSmoke
-// were 404 on 2026-10-07 anyway). Flow Circuit keeps live's off-site URL;
+// so those render as plain labels with no link (Sacred Waters was 404 on
+// 2026-10-07 anyway). SoulSmoke was rebuilt here at /soul-smoke (2026-11-10)
+// and links there again. Flow Circuit keeps live's off-site URL;
 // Human OS is our own /humanos.
 export type EcosystemPill = { label: string; href?: string; external?: boolean };
 
@@ -20,7 +21,7 @@ export const ECOSYSTEM_PILLS: EcosystemPill[] = [
   { label: "Intimacy Assessment" },
   { label: "Flow Circuit", href: "https://flow.tonygreenberg.com", external: true },
   { label: "Sacred Waters" },
-  { label: "SoulSmoke Mezcal" },
+  { label: "SoulSmoke Mezcal", href: "/soul-smoke" },
   { label: "Human OS", href: "/humanos" },
 ];
 
