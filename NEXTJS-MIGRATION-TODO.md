@@ -15,6 +15,13 @@
 
 ## Current status — 2026-11-11
 
+**Live 2026-11-11 01:11 IST:** PR #39 (PRI scoring safety fix). Checked on tonygreenberg.com at 390px:
+cardiac profile paused with no score, disclaimer page 200, share-card QR decodes to it.
+**Follow-up (branch `fix/pri-a11y-deeplink`):** `?m=` medicine links no longer fail hydration (React
+#418 on every `?m=` visit, live before this); medicine photos and the hero get alt text; the 39 save
+buttons get labels; the interaction guide's Hard Stop / Caution badge is an explicit `label` field
+(values unchanged, three rows waiting on the clinical reviewer).
+
 **PRI scoring safety fix (2026-11-11, Tony's review of 7 Nov; Sam approves before anything goes live):**
 - Branch `hotfix/pri-hide-scores`: temporary hold. No personal score, matches or report until the
   fix is live; nothing logged. Ready to merge (pushing to main was blocked here).

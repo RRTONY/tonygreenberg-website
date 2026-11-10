@@ -71,6 +71,18 @@ function subscribeConsent(listener: () => void) {
   consentListeners.add(listener);
   return () => consentListeners.delete(listener);
 }
+// The `?m=<medicine id>` deep link. The URL doesn't change while the page is open, so there is
+// nothing to subscribe to; the server has no URL, so its snapshot is "no link".
+function subscribeNothing() {
+  return () => {};
+}
+function readDeepLinkId(): string | null {
+  return new URLSearchParams(window.location.search).get("m");
+}
+function getDeepLinkServerSnapshot(): string | null {
+  return null;
+}
+
 function getConsentServerSnapshot() {
   return false;
 }
@@ -422,19 +434,20 @@ export function PsychedelicReadinessIndex() {
     }
   }
 
+  // The `?m=` link is read through useSyncExternalStore, so the hydration render sees no link
+  // (matching the server HTML) and the next render opens it. Reading `window.location` during the
+  // first render made every `?m=` visit fail hydration (React error #418, 2026-11-11).
+  const deepLinkId = useSyncExternalStore(subscribeNothing, readDeepLinkId, getDeepLinkServerSnapshot);
   const [consumedDeepLink, setConsumedDeepLink] = useState(false);
-  if (!consumedDeepLink && typeof window !== "undefined") {
+  if (deepLinkId && !consumedDeepLink) {
     setConsumedDeepLink(true);
-    const mId = new URLSearchParams(window.location.search).get("m");
-    if (mId) {
-      const m = MEDICINES.find((med) => med.id === mId);
-      if (m) {
-        if (hasConsent) {
-          setSelectedMedicine(getMedicineWithSafety(m));
-        } else {
-          sessionStorage.setItem("pri-pending-medicine", m.id);
-          setShowDisclaimer(true);
-        }
+    const m = MEDICINES.find((med) => med.id === deepLinkId);
+    if (m) {
+      if (hasConsent) {
+        setSelectedMedicine(getMedicineWithSafety(m));
+      } else {
+        sessionStorage.setItem("pri-pending-medicine", m.id);
+        setShowDisclaimer(true);
       }
     }
   }
@@ -464,7 +477,7 @@ export function PsychedelicReadinessIndex() {
         <div className="absolute inset-0 z-0 overflow-hidden opacity-30">
           <Image
             src="https://cdn.sanity.io/images/a3q1cyqs/production/1126cd46fd317e79cb543645ef44a536ae95f417-1920x1072.webp"
-            alt=""
+            alt="A figure meditating on a floating stone between ancient trees, under a spiral galaxy and sacred geometry, with glowing neural roots below"
             fill
             sizes="100vw"
             fetchPriority="high"
@@ -595,16 +608,18 @@ export function PsychedelicReadinessIndex() {
                       toggleSaved(m.id);
                     }}
                     title={isSaved ? "Remove from saved" : "Save medicine"}
+                    aria-label={isSaved ? `Remove ${m.name} from saved` : `Save ${m.name}`}
+                    aria-pressed={isSaved}
                     className={`absolute top-1.5 right-1.5 z-5 flex size-6.5 items-center justify-center rounded-full text-[.82rem] text-pri-cream transition-opacity ${isSaved ? "bg-pri-purple opacity-100" : "bg-pri-ink/45 opacity-60 hover:opacity-100"}`}
                   >
-                    <Heart className="size-3.5" fill={isSaved ? "currentColor" : "none"} />
+                    <Heart aria-hidden="true" className="size-3.5" fill={isSaved ? "currentColor" : "none"} />
                   </button>
                 )}
                 {MEDICINE_IMAGES[m.id] && (
                   <div className="relative h-20 w-full overflow-hidden">
                     <Image
                       src={MEDICINE_IMAGES[m.id]}
-                      alt=""
+                      alt={m.name}
                       fill
                       sizes="(max-width: 640px) 25vw, 120px"
                       className="object-cover object-[center_30%] transition-transform duration-400 group-hover:scale-108"
@@ -665,7 +680,7 @@ export function PsychedelicReadinessIndex() {
                     <button type="button" aria-label={`Open ${m.name}`} onClick={() => handleMedicineClick(m)} className="absolute inset-0 z-1 cursor-pointer focus-visible:outline-3 focus-visible:-outline-offset-3 focus-visible:outline-pri-purple" />
                     {MEDICINE_IMAGES[id] && (
                       <div className="relative size-12.5 shrink-0 overflow-hidden rounded-full">
-                        <Image src={MEDICINE_IMAGES[id]} alt="" fill sizes="(max-width: 640px) 25vw, 120px" className="object-cover" />
+                        <Image src={MEDICINE_IMAGES[id]} alt={m.name} fill sizes="(max-width: 640px) 25vw, 120px" className="object-cover" />
                       </div>
                     )}
                     <div className="min-w-0 flex-1">
@@ -726,7 +741,7 @@ export function PsychedelicReadinessIndex() {
                   <div key={id} className="bg-pri-ink p-6">
                     {MEDICINE_IMAGES[id] && (
                       <div className="relative mb-3 h-25 overflow-hidden">
-                        <Image src={MEDICINE_IMAGES[id]} alt="" fill sizes="(max-width: 640px) 25vw, 120px" className="object-cover brightness-70" />
+                        <Image src={MEDICINE_IMAGES[id]} alt={m.name} fill sizes="(max-width: 640px) 25vw, 120px" className="object-cover brightness-70" />
                         <div className="absolute inset-0 bg-linear-to-b from-transparent from-40% to-pri-ink" />
                       </div>
                     )}
@@ -916,7 +931,7 @@ export function PsychedelicReadinessIndex() {
 
           <div className="grid gap-px border border-pri-border bg-pri-border">
             {MEDICATION_INTERACTIONS.map((med) => {
-              const isHardStop = med.risk.includes("LIFE-THREATENING") || med.risk.includes("ABSOLUTE") || med.risk.includes("Seizure");
+              const isHardStop = med.label === "hard_stop";
               return (
                 <div key={med.category} className="bg-pri-parchment px-6 py-5">
                   <div className="mb-2 flex flex-wrap items-start justify-between gap-2">
