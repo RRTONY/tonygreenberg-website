@@ -158,6 +158,10 @@ Search Console addresses work (the rest on purpose), 14 key pages clean at 375/8
 running. The report's `/medicine` and `/heroes` were never real pages. Wrote
 `docs/ai/project_go_live_record.md` (host, source of truth, sync, rollback through Netlify's deploy
 history, owner access, Manus exit). Owner: keep nothing in Manus, so Manus is no longer the rollback.
+**PRI hero full width (2026-11-04, webmaster asked):** `/psychedelic-readiness-index`'s hero
+background now spans the whole screen (was boxed at 900px with beige strips on wide screens); the
+hero text and the stats bar line up with the medicine grid (max-w-290). Checked at 375/820/1280/1920
+on `next dev` (no sideways scroll), 27 page tests pass. Branch `pri-hero-full-width`.
 `/medicine` now redirects to the medicine hub `/psychedelic-readiness-index` (test added); 4
 leftover `cmp_blog_category_*.json` files from a failed 2026-10-07 comparison run removed (all 4
 category pages load in under 2s). Local `pnpm build` fails in Next's Google-font loader on this Mac
