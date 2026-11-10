@@ -34,6 +34,10 @@ export const KIT_TAG_MAP: Record<string, string> = {
   "dharma-finder": "Assessment: Dharma Finder",
   "journey-finder": "Assessment: Journey Finder",
   "living-declaration": "Community: Living Declaration",
+  "soulsmoke-homepage-hero": "SoulSmoke: Homepage",
+  "soulsmoke-quadrant-page": "SoulSmoke: Quadrant",
+  // The GemSpark (/gem-spark) newsletter popup on the short versions, its Manus source name.
+  "short-form-popup": "GemSpark: Newsletter",
   // EmailGate always sources as `find-your-<assessmentSlug>` (see that
   // component), but these 3 assessments' real routes are the bare
   // /consciousness-scale, /grant-study, /dharma-finder — not /find-your-*

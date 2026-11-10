@@ -40,6 +40,14 @@
   --color-kava-sand-muted: var(--kava-sand-muted);
   --color-kava-saffron-light: var(--kava-saffron-light);
   --color-kava-cobalt-light: var(--kava-cobalt-light);
+  /* SoulSmoke (/soul-smoke) Oaxacan palette, from the SoulSmoke app's index.css (2026-11-10). */
+  --color-terracotta: oklch(0.60 0.18 25);
+  --color-sage: oklch(0.60 0.12 145);
+  --color-coral: oklch(0.70 0.20 35);
+  --color-indigo: oklch(0.50 0.15 280);
+  --color-ochre: oklch(0.75 0.15 90);
+  --color-cream: oklch(0.92 0.02 85);
+  --color-earth: oklch(0.15 0.04 35);
   --color-pri-cream: var(--pri-cream);
   --color-pri-parchment: var(--pri-parchment);
   --color-pri-ink: var(--pri-ink);
@@ -465,5 +473,14 @@
       ) {
       font-size: 16px;
     }
+  }
+}
+
+/* Only this essay drops typographic italics in headings, pull quotes,
+   the Lesson and captions. All other articles keep their usual style. */
+@layer utilities {
+  .essay-no-italics .italic,
+  .essay-no-italics em {
+    font-style: normal;
   }
 }

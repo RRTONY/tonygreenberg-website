@@ -79,6 +79,18 @@ const nextConfig: NextConfig = {
       // kept treating it as required (2026-11-04, webmaster asked to fix). It
       // goes to the medicine hub, the Psychedelic Readiness Index.
       { source: "/medicine", destination: "/psychedelic-readiness-index", permanent: true },
+      // Search Console 404s (2026-11-05). /bio was never a page, but Google keeps
+      // finding it; Tony's bio is /about. The BrewSoul catalog.txt/.json files
+      // were the Manus app's machine-readable dumps (gone with Manus); the
+      // directory is the full list of the same coffees.
+      { source: "/bio", destination: "/about", permanent: true },
+      // SoulSmoke (Tony's mezcal guide) lives at /soul-smoke since 2026-11-10, ported
+      // from its Manus app (mezcalagave-ahru9fq8.manus.space). /soulsmoke (and any old
+      // deep link under it) goes to the same page.
+      { source: "/soulsmoke", destination: "/soul-smoke", permanent: true },
+      { source: "/soulsmoke/:path*", destination: "/soul-smoke/:path*", permanent: true },
+      { source: "/brewsoul/catalog.txt", destination: "/brewsoul/directory", permanent: true },
+      { source: "/brewsoul/catalog.json", destination: "/brewsoul/directory", permanent: true },
       // Category pages used ?page=N until 2026-10-09; now /page/N, so each page is
       // pre-built (src/components/blog/category-listing.tsx). Pages 2+ only:
       // ?page=1 just shows page 1, and /page/1 goes back to the plain address.

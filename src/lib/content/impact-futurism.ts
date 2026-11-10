@@ -34,10 +34,10 @@ export const IMPACT_FUTURISM_ENTRIES: ImpactFuturismEntry[] = [
     slug: "energy-is-money-money-is-memory",
     tag: "AI & Energy",
     teaser:
-      "The physics underneath the AI buildout — and why the largest act of memory-making in human history is happening right now.",
+      "The AI buildout has a power bill. Who gets capacity, who pays for it, and who shares the benefit?",
     listTitle: "Energy Is Money. Money Is Memory.",
     listTeaser:
-      "Soddy, Satoshi, and Kocherlakota walk into a data center. The AI buildout as the largest act of memory-making in human history.",
+      "Soddy, Satoshi, and Kocherlakota explain the links between energy, money, and memory. Who pays for the infrastructure, and who shares the benefits?",
   },
   {
     slug: "when-healing-becomes-extraction",

@@ -120,7 +120,11 @@ export function SiteHeader({ essayCount }: { essayCount: number }) {
                   <NavigationMenuTrigger className="h-8 bg-transparent px-2 font-mono text-[0.78rem] font-semibold tracking-[0.05em] whitespace-nowrap text-[#555] uppercase transition-colors hover:bg-transparent hover:text-brand-gold data-open:text-brand-gold data-popup-open:bg-transparent data-popup-open:text-brand-gold dark:text-[#bbb]">
                     {link.label}
                   </NavigationMenuTrigger>
-                  <NavigationMenuContent>
+                  {/* forceMount keeps both menus' links in the server HTML while
+                      closed (hidden), so search engines can follow them; Radix
+                      otherwise renders nothing until a click (Search Console
+                      "crawled, not indexed", 2026-11-05). */}
+                  <NavigationMenuContent forceMount className="data-[state=closed]:hidden">
                     <div className="grid w-[720px] max-w-[calc(100vw-2rem)] grid-cols-5 gap-4 p-5">
                       {findYourMeGroups.map((group) => (
                         <div key={group.category}>
@@ -164,7 +168,7 @@ export function SiteHeader({ essayCount }: { essayCount: number }) {
                   right edge of the viewport on laptop-width screens.
                   right-0/left-auto anchors it to the trigger's right edge
                   instead, so it expands leftward and stays on-screen. */}
-              <NavigationMenuContent className="right-0 left-auto">
+              <NavigationMenuContent forceMount className="right-0 left-auto data-[state=closed]:hidden">
                 <div className="grid w-[640px] max-w-[calc(100vw-2rem)] grid-cols-3 gap-4 p-5">
                   {navCategories.map((cat) => (
                     <div key={cat.title}>

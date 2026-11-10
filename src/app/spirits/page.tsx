@@ -4,12 +4,11 @@ import { pageFontVariables } from "@/lib/fonts/page-fonts";
 import { ArrowRight, ArrowUpRight, Wine, Flame, Droplets, Sparkles, type LucideIcon } from "lucide-react";
 
 // Ported from legacy client/src/pages/Spirits.tsx ("The Liquid Library").
-// Real content, unchanged. Two of the five external companion sites
-// (SoulSmoke for mezcal, LiquidSun for tequila) were hosted on
-// *.manus.space — confirmed dead (503) along with the rest of the Manus
-// infrastructure, not just at risk. Rather than link out to a broken page,
-// those two site cards render as non-linked, explicitly marked "no longer
-// live" — the description is real content worth keeping, the link isn't.
+// Real content, unchanged. Two of the five companion sites (SoulSmoke for
+// mezcal, LiquidSun for tequila) were hosted on *.manus.space. SoulSmoke was
+// rebuilt on this site at /soul-smoke (2026-11-10), so its card links there
+// again; LiquidSun's card stays unlinked, marked "no longer live", until it is
+// rebuilt the same way.
 export const metadata: Metadata = {
   title: "Wine, Sake, Spirits & Mezcal",
   description:
@@ -71,7 +70,7 @@ const CATEGORIES: Category[] = [
       tagline: "The Miracle of Mezcal",
       description:
         "A deep-dive education site with 25 US bottles, 25 Mexico legends, a scent-to-agave flavor finder, an agave encyclopedia covering 27 species, and a scroll-driven journey through the ancestral distillation process.",
-      offline: true,
+      url: "/soul-smoke",
     },
     pullquote:
       "We're here for the bottles that give your palate an existential crisis, tell stories you wouldn't believe, and feel like a rupture in the matrix of mass-produced spirits.",

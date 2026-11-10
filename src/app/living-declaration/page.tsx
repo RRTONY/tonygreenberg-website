@@ -116,12 +116,17 @@ const ECOSYSTEM_MAP = [
       { label: "The Index", href: "/search" },
       { label: "Flow Circuit", href: "/flow-circuit" },
       { label: "Human OS", href: "/humanos" },
+      // Legacy's chip went to the GemSpark Manus app; it lives here since 2026-11-10.
+      { label: "Gem Spark", href: "/gem-spark" },
     ],
   },
   {
     principle: "Optimize the Vessel",
     proof: "The Regenerative Protocol tracks biological optimization. SoulSmoke and LiquidSun honor what enters the body. Sacred Waters maps the molecule that remembers.",
-    links: [{ label: "The Liquid Library", href: "/spirits" }],
+    links: [
+      { label: "SoulSmoke", href: "/soul-smoke" },
+      { label: "The Liquid Library", href: "/spirits" },
+    ],
   },
   {
     principle: "Shrink the Footprint",

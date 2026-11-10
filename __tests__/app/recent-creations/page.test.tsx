@@ -29,6 +29,7 @@ describe("/recent-creations", () => {
     const { container } = render(<RecentCreationsPage />);
     expect(screen.getByRole("link", { name: /Human OS V2\.0/ })).toHaveAttribute("href", "/humanos");
     expect(screen.getByRole("link", { name: /The Flow Circuit/ })).toHaveAttribute("href", "/flow-circuit");
+    expect(screen.getByRole("link", { name: /SoulSmoke/ })).toHaveAttribute("href", "/soul-smoke");
     const homeaglow = screen.getByRole("link", { name: /Homeaglow Exposed/ });
     expect(homeaglow).toHaveAttribute("href", "https://homeaglowexposed.com");
     expect(homeaglow).toHaveAttribute("target", "_blank");

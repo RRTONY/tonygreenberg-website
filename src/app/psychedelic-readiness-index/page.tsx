@@ -9,7 +9,7 @@ import { PsychedelicReadinessIndex } from "@/components/pri/psychedelic-readines
 export const metadata: Metadata = seoMetadata({
   title: "Psychedelic Readiness Index — Find Your Medicine",
   description:
-    "39 plant medicines. 50+ readiness questions. 6 domains. MAO-B interaction matrix. An honest map of where you stand before you walk into territory that rewards preparation.",
+    "39 substances. 50+ readiness questions. 6 domains. MAO-B interaction matrix. An honest map of where you stand before you walk into territory that rewards preparation.",
   alternates: { canonical: "/psychedelic-readiness-index" },
 });
 

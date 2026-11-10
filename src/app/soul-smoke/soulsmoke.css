@@ -1,0 +1,1429 @@
+/*
+ * SoulSmoke stylesheet, ported from the SoulSmoke Manus app's client/src/index.css (exported 2026-11-10).
+ * Generated mechanically: every selector is scoped under .soulsmoke-root (the /soul-smoke layout's wrapper),
+ * html.mode-aficionado became .soulsmoke-root[data-mode="aficionado"], keyframes are prefixed ss-, and the
+ * @theme colors became the shadcn tokens (--background, --card, ...) on the wrapper so bg-background etc.
+ * show SoulSmoke's palette inside this section only; rules here read var(--background), not
+ * var(--color-background) (that one is set on :root with the main site's light value). Rules that were unlayered in the original stay
+ * unlayered (they are all scoped, so they can't touch the rest of the site). Fonts come from next/font
+ * (src/lib/fonts/soulsmoke-fonts.ts) instead of the Google Fonts <link>.
+ */
+.soulsmoke-root {
+  --background: oklch(0.12 0.02 35);
+  --foreground: oklch(0.92 0.02 85);
+  --card: oklch(0.18 0.02 35);
+  --card-foreground: oklch(0.92 0.02 85);
+  --popover: oklch(0.15 0.02 35);
+  --popover-foreground: oklch(0.92 0.02 85);
+  --primary: oklch(0.65 0.18 100);
+  --primary-foreground: oklch(0.12 0.02 35);
+  --secondary: oklch(0.55 0.12 35);
+  --secondary-foreground: oklch(0.95 0.01 85);
+  --muted: oklch(0.25 0.02 35);
+  --muted-foreground: oklch(0.80 0.02 85);
+  --accent: oklch(0.70 0.18 80);
+  --accent-foreground: oklch(0.12 0.02 35);
+  --destructive: oklch(0.55 0.25 25);
+  --destructive-foreground: oklch(0.95 0.01 85);
+  --border: oklch(0.30 0.03 35);
+  --input: oklch(0.20 0.02 35);
+  --ring: oklch(0.65 0.18 100);
+  --radius: 0.5rem;
+  --color-terracotta: oklch(0.60 0.18 25);
+  --color-sage: oklch(0.60 0.12 145);
+  --color-coral: oklch(0.70 0.20 35);
+  --color-indigo: oklch(0.50 0.15 280);
+  --color-ochre: oklch(0.75 0.15 90);
+  --color-cream: oklch(0.92 0.02 85);
+  --color-earth: oklch(0.15 0.04 35);
+}
+
+@layer base {
+  .soulsmoke-root *,
+.soulsmoke-root *::before,
+.soulsmoke-root *::after {
+    border-color: var(--border);
+  }
+
+  :root:has(.soulsmoke-root) {
+    font-size: 18px;
+  }
+
+  @media (min-width: 768px) {
+    :root:has(.soulsmoke-root) {
+      font-size: 20px;
+    }
+  }
+
+  .soulsmoke-root {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-ss-cormorant), Georgia, serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    line-height: 1.6;
+    font-weight: 500;
+  }
+
+  .soulsmoke-root h1,
+.soulsmoke-root h2,
+.soulsmoke-root h3,
+.soulsmoke-root h4,
+.soulsmoke-root h5,
+.soulsmoke-root h6 {
+    font-family: var(--font-ss-cinzel-decorative), var(--font-ss-cinzel), Georgia, serif;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+  .soulsmoke-root h1 {
+    font-size: 2rem;
+  }
+  .soulsmoke-root h2 {
+    font-size: 1.5rem;
+  }
+  .soulsmoke-root h3 {
+    font-size: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .soulsmoke-root h1 {
+      font-size: 3rem;
+    }
+    .soulsmoke-root h2 {
+      font-size: 2rem;
+    }
+    .soulsmoke-root h3 {
+      font-size: 1.5rem;
+    }
+  }
+
+  .soulsmoke-root code,
+.soulsmoke-root pre {
+    font-family: var(--font-ss-special-elite), 'Courier New', monospace;
+  }
+  .soulsmoke-root .dark-section {
+    --text-primary: oklch(0.95 0.01 85);
+    --text-secondary: oklch(0.80 0.02 85);
+    --text-muted: oklch(0.65 0.02 85);
+  }
+
+  .soulsmoke-root .dark-section p,
+.soulsmoke-root .dark-section span,
+.soulsmoke-root .dark-section div {
+    color: var(--text-secondary);
+  }
+
+  .soulsmoke-root .dark-section h1,
+.soulsmoke-root .dark-section h2,
+.soulsmoke-root .dark-section h3,
+.soulsmoke-root .dark-section h4 {
+    color: var(--text-primary);
+  }
+}
+
+@layer utilities {
+  .soulsmoke-root .bg-background {
+    background-color: var(--background);
+  }
+
+  .soulsmoke-root .text-foreground {
+    color: var(--foreground);
+  }
+
+  .soulsmoke-root .bg-card {
+    background-color: var(--card);
+  }
+
+  .soulsmoke-root .text-card-foreground {
+    color: var(--card-foreground);
+  }
+
+  .soulsmoke-root .bg-muted {
+    background-color: var(--muted);
+  }
+
+  .soulsmoke-root .text-muted-foreground {
+    color: var(--muted-foreground);
+  }
+
+  .soulsmoke-root .border-border {
+    border-color: var(--border);
+  }
+  .soulsmoke-root .bg-terracotta {
+    background-color: var(--color-terracotta);
+  }
+  .soulsmoke-root .text-terracotta {
+    color: var(--color-terracotta);
+  }
+  .soulsmoke-root .border-terracotta {
+    border-color: var(--color-terracotta);
+  }
+
+  .soulsmoke-root .bg-sage {
+    background-color: var(--color-sage);
+  }
+  .soulsmoke-root .text-sage {
+    color: var(--color-sage);
+  }
+  .soulsmoke-root .border-sage {
+    border-color: var(--color-sage);
+  }
+
+  .soulsmoke-root .bg-coral {
+    background-color: var(--color-coral);
+  }
+  .soulsmoke-root .text-coral {
+    color: var(--color-coral);
+  }
+  .soulsmoke-root .border-coral {
+    border-color: var(--color-coral);
+  }
+
+  .soulsmoke-root .bg-indigo {
+    background-color: var(--color-indigo);
+  }
+  .soulsmoke-root .text-indigo {
+    color: var(--color-indigo);
+  }
+  .soulsmoke-root .border-indigo {
+    border-color: var(--color-indigo);
+  }
+
+  .soulsmoke-root .bg-ochre {
+    background-color: var(--color-ochre);
+  }
+  .soulsmoke-root .text-ochre {
+    color: var(--color-ochre);
+  }
+  .soulsmoke-root .border-ochre {
+    border-color: var(--color-ochre);
+  }
+
+  .soulsmoke-root .bg-cream {
+    background-color: var(--color-cream);
+  }
+  .soulsmoke-root .text-cream {
+    color: var(--color-cream);
+  }
+
+  .soulsmoke-root .bg-earth {
+    background-color: var(--color-earth);
+  }
+  .soulsmoke-root .text-earth {
+    color: var(--color-earth);
+  }
+
+  .soulsmoke-root .font-sans {
+    font-family: var(--font-ss-cormorant), Georgia, serif;
+  }
+
+  .soulsmoke-root .font-display {
+    font-family: var(--font-ss-cinzel-decorative), var(--font-ss-cinzel), Georgia, serif;
+  }
+
+  .soulsmoke-root .font-heading {
+    font-family: var(--font-ss-cinzel), Georgia, serif;
+  }
+
+  .soulsmoke-root .font-mono {
+    font-family: var(--font-ss-special-elite), 'Courier New', monospace;
+  }
+  .soulsmoke-root .glitch {
+    position: relative;
+    animation: ss-glitch-skew 1s infinite linear alternate-reverse;
+  }
+
+  .soulsmoke-root .glitch::before {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    left: 2px;
+    text-shadow: -2px 0 oklch(0.85 0.18 130);
+    clip: rect(44px, 450px, 56px, 0);
+    animation: ss-glitch-anim 5s infinite linear alternate-reverse;
+  }
+
+  .soulsmoke-root .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    left: -2px;
+    text-shadow: -2px 0 oklch(0.75 0.15 35), 2px 2px oklch(0.85 0.18 130);
+    clip: rect(44px, 450px, 56px, 0);
+    animation: ss-glitch-anim2 5s infinite linear alternate-reverse;
+  }
+
+  @keyframes ss-glitch-anim {
+    0% {
+      clip: rect(10px, 9999px, 31px, 0);
+      transform: skew(0.5deg);
+    }
+    5% {
+      clip: rect(70px, 9999px, 71px, 0);
+      transform: skew(0.9deg);
+    }
+    10% {
+      clip: rect(60px, 9999px, 100px, 0);
+      transform: skew(0.2deg);
+    }
+    15% {
+      clip: rect(10px, 9999px, 105px, 0);
+      transform: skew(0.7deg);
+    }
+    20% {
+      clip: rect(40px, 9999px, 20px, 0);
+      transform: skew(0.4deg);
+    }
+    25% {
+      clip: rect(80px, 9999px, 15px, 0);
+      transform: skew(0.3deg);
+    }
+    30% {
+      clip: rect(20px, 9999px, 85px, 0);
+      transform: skew(0.8deg);
+    }
+    35% {
+      clip: rect(30px, 9999px, 55px, 0);
+      transform: skew(0.1deg);
+    }
+    40% {
+      clip: rect(90px, 9999px, 25px, 0);
+      transform: skew(0.6deg);
+    }
+    45% {
+      clip: rect(50px, 9999px, 95px, 0);
+      transform: skew(0.5deg);
+    }
+    50% {
+      clip: rect(5px, 9999px, 65px, 0);
+      transform: skew(0.2deg);
+    }
+    55% {
+      clip: rect(75px, 9999px, 35px, 0);
+      transform: skew(0.9deg);
+    }
+    60% {
+      clip: rect(45px, 9999px, 75px, 0);
+      transform: skew(0.3deg);
+    }
+    65% {
+      clip: rect(15px, 9999px, 45px, 0);
+      transform: skew(0.7deg);
+    }
+    70% {
+      clip: rect(85px, 9999px, 5px, 0);
+      transform: skew(0.4deg);
+    }
+    75% {
+      clip: rect(25px, 9999px, 90px, 0);
+      transform: skew(0.8deg);
+    }
+    80% {
+      clip: rect(65px, 9999px, 50px, 0);
+      transform: skew(0.1deg);
+    }
+    85% {
+      clip: rect(35px, 9999px, 80px, 0);
+      transform: skew(0.6deg);
+    }
+    90% {
+      clip: rect(95px, 9999px, 40px, 0);
+      transform: skew(0.5deg);
+    }
+    95% {
+      clip: rect(55px, 9999px, 70px, 0);
+      transform: skew(0.2deg);
+    }
+    100% {
+      clip: rect(100px, 9999px, 60px, 0);
+      transform: skew(0.9deg);
+    }
+  }
+
+  @keyframes ss-glitch-anim2 {
+    0% {
+      clip: rect(65px, 9999px, 119px, 0);
+      transform: skew(0.8deg);
+    }
+    5% {
+      clip: rect(25px, 9999px, 90px, 0);
+      transform: skew(0.4deg);
+    }
+    10% {
+      clip: rect(95px, 9999px, 40px, 0);
+      transform: skew(0.6deg);
+    }
+    15% {
+      clip: rect(45px, 9999px, 75px, 0);
+      transform: skew(0.2deg);
+    }
+    20% {
+      clip: rect(85px, 9999px, 30px, 0);
+      transform: skew(0.9deg);
+    }
+    25% {
+      clip: rect(15px, 9999px, 100px, 0);
+      transform: skew(0.1deg);
+    }
+    30% {
+      clip: rect(75px, 9999px, 50px, 0);
+      transform: skew(0.7deg);
+    }
+    35% {
+      clip: rect(35px, 9999px, 85px, 0);
+      transform: skew(0.3deg);
+    }
+    40% {
+      clip: rect(55px, 9999px, 20px, 0);
+      transform: skew(0.5deg);
+    }
+    45% {
+      clip: rect(5px, 9999px, 70px, 0);
+      transform: skew(0.8deg);
+    }
+    50% {
+      clip: rect(90px, 9999px, 60px, 0);
+      transform: skew(0.4deg);
+    }
+    55% {
+      clip: rect(20px, 9999px, 95px, 0);
+      transform: skew(0.6deg);
+    }
+    60% {
+      clip: rect(80px, 9999px, 25px, 0);
+      transform: skew(0.2deg);
+    }
+    65% {
+      clip: rect(40px, 9999px, 80px, 0);
+      transform: skew(0.9deg);
+    }
+    70% {
+      clip: rect(70px, 9999px, 45px, 0);
+      transform: skew(0.1deg);
+    }
+    75% {
+      clip: rect(10px, 9999px, 105px, 0);
+      transform: skew(0.7deg);
+    }
+    80% {
+      clip: rect(100px, 9999px, 15px, 0);
+      transform: skew(0.3deg);
+    }
+    85% {
+      clip: rect(30px, 9999px, 65px, 0);
+      transform: skew(0.5deg);
+    }
+    90% {
+      clip: rect(60px, 9999px, 55px, 0);
+      transform: skew(0.8deg);
+    }
+    95% {
+      clip: rect(50px, 9999px, 35px, 0);
+      transform: skew(0.4deg);
+    }
+    100% {
+      clip: rect(105px, 9999px, 10px, 0);
+      transform: skew(0.6deg);
+    }
+  }
+
+  @keyframes ss-glitch-skew {
+    0% {
+      transform: skew(0deg);
+    }
+    10% {
+      transform: skew(-1deg);
+    }
+    20% {
+      transform: skew(2deg);
+    }
+    30% {
+      transform: skew(-2deg);
+    }
+    40% {
+      transform: skew(1deg);
+    }
+    50% {
+      transform: skew(-1deg);
+    }
+    60% {
+      transform: skew(2deg);
+    }
+    70% {
+      transform: skew(0deg);
+    }
+    80% {
+      transform: skew(-1deg);
+    }
+    90% {
+      transform: skew(1deg);
+    }
+    100% {
+      transform: skew(0deg);
+    }
+  }
+  @keyframes ss-fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .soulsmoke-root .animate-fade-in {
+    animation: ss-fade-in 1s ease-out forwards;
+  }
+
+  .soulsmoke-root .animate-fade-in-delay-1 {
+    opacity: 0;
+    animation: ss-fade-in 1s ease-out 0.3s forwards;
+  }
+
+  .soulsmoke-root .animate-fade-in-delay-2 {
+    opacity: 0;
+    animation: ss-fade-in 1s ease-out 0.6s forwards;
+  }
+
+  .soulsmoke-root .animate-fade-in-delay-3 {
+    opacity: 0;
+    animation: ss-fade-in 1s ease-out 0.9s forwards;
+  }
+}
+.soulsmoke-root .container {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .soulsmoke-root .container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .soulsmoke-root .container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+.soulsmoke-root .flex {
+  min-width: 0;
+  min-height: 0;
+}
+.soulsmoke-root .glitch-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.soulsmoke-root .glitch-image::before,
+.soulsmoke-root .glitch-image::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: inherit;
+  background-size: cover;
+  background-position: center;
+}
+
+.soulsmoke-root .glitch-image::before {
+  animation: ss-glitch-image-1 3s infinite linear alternate-reverse;
+  mix-blend-mode: screen;
+  opacity: 0.3;
+}
+
+.soulsmoke-root .glitch-image::after {
+  animation: ss-glitch-image-2 2s infinite linear alternate-reverse;
+  mix-blend-mode: multiply;
+  opacity: 0.3;
+}
+
+@keyframes ss-glitch-image-1 {
+  0%, 100% {
+    transform: translate(0);
+    filter: hue-rotate(0deg);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+    filter: hue-rotate(90deg);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+    filter: hue-rotate(180deg);
+  }
+  60% {
+    transform: translate(2px, 2px);
+    filter: hue-rotate(270deg);
+  }
+  80% {
+    transform: translate(2px, -2px);
+    filter: hue-rotate(360deg);
+  }
+}
+
+@keyframes ss-glitch-image-2 {
+  0%, 100% {
+    transform: translate(0);
+    opacity: 0.3;
+  }
+  25% {
+    transform: translate(3px, -3px);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(-3px, 3px);
+    opacity: 0.2;
+  }
+  75% {
+    transform: translate(3px, 3px);
+    opacity: 0.4;
+  }
+}
+.soulsmoke-root .scanlines {
+  position: relative;
+  overflow: hidden;
+}
+
+.soulsmoke-root .scanlines::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.1) 2px,
+    rgba(0, 0, 0, 0.1) 4px
+  );
+  pointer-events: none;
+  animation: ss-scanline-move 8s linear infinite;
+}
+
+@keyframes ss-scanline-move {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(4px);
+  }
+}
+.soulsmoke-root .grain {
+  position: relative;
+}
+
+.soulsmoke-root .grain::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.05;
+  pointer-events: none;
+  animation: ss-grain-shift 0.5s steps(10) infinite;
+}
+
+@keyframes ss-grain-shift {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  10% {
+    transform: translate(-5%, -10%);
+  }
+  20% {
+    transform: translate(-15%, 5%);
+  }
+  30% {
+    transform: translate(7%, -25%);
+  }
+  40% {
+    transform: translate(-5%, 25%);
+  }
+  50% {
+    transform: translate(-15%, 10%);
+  }
+  60% {
+    transform: translate(15%, 0%);
+  }
+  70% {
+    transform: translate(0%, 15%);
+  }
+  80% {
+    transform: translate(3%, 35%);
+  }
+  90% {
+    transform: translate(-10%, 10%);
+  }
+}
+.soulsmoke-root .hover-glitch {
+  transition: all 0.3s ease;
+}
+
+.soulsmoke-root .hover-glitch:hover {
+  animation: ss-hover-glitch-effect 0.3s ease;
+}
+
+@keyframes ss-hover-glitch-effect {
+  0% {
+    transform: translate(0);
+    filter: hue-rotate(0deg);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+    filter: hue-rotate(20deg);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+    filter: hue-rotate(-20deg);
+  }
+  60% {
+    transform: translate(2px, 2px);
+    filter: hue-rotate(20deg);
+  }
+  80% {
+    transform: translate(2px, -2px);
+    filter: hue-rotate(-20deg);
+  }
+  100% {
+    transform: translate(0);
+    filter: hue-rotate(0deg);
+  }
+}
+.soulsmoke-root .parallax-container {
+  perspective: 1000px;
+  overflow: hidden;
+}
+
+.soulsmoke-root .parallax-slow {
+  transform: translateZ(-200px) scale(1.2);
+}
+
+.soulsmoke-root .parallax-medium {
+  transform: translateZ(-100px) scale(1.1);
+}
+
+.soulsmoke-root .parallax-fast {
+  transform: translateZ(0);
+}
+.soulsmoke-root .pulse-glow {
+  animation: ss-pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes ss-pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(163, 230, 53, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(163, 230, 53, 0.6), 0 0 60px rgba(163, 230, 53, 0.3);
+  }
+}
+.soulsmoke-root .float {
+  animation: ss-float 6s ease-in-out infinite;
+}
+
+@keyframes ss-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+.soulsmoke-root .shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.soulsmoke-root .shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  animation: ss-shimmer 3s infinite;
+}
+
+@keyframes ss-shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+.soulsmoke-root .rgb-split {
+  position: relative;
+}
+
+.soulsmoke-root .rgb-split:hover {
+  text-shadow: 
+    -2px 0 rgba(255, 0, 0, 0.5),
+    2px 0 rgba(0, 255, 255, 0.5);
+}
+.soulsmoke-root .distort-scroll {
+  transition: transform 0.1s ease-out;
+}
+.soulsmoke-root .reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.soulsmoke-root .reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.soulsmoke-root .stagger-children > * {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: ss-stagger-in 0.6s ease forwards;
+}
+
+.soulsmoke-root .stagger-children > *:nth-child(1) { animation-delay: 0.1s; }
+.soulsmoke-root .stagger-children > *:nth-child(2) { animation-delay: 0.2s; }
+.soulsmoke-root .stagger-children > *:nth-child(3) { animation-delay: 0.3s; }
+.soulsmoke-root .stagger-children > *:nth-child(4) { animation-delay: 0.4s; }
+.soulsmoke-root .stagger-children > *:nth-child(5) { animation-delay: 0.5s; }
+.soulsmoke-root .stagger-children > *:nth-child(6) { animation-delay: 0.6s; }
+
+@keyframes ss-stagger-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.soulsmoke-root .smoke-overlay {
+  position: relative;
+  overflow: hidden;
+}
+
+.soulsmoke-root .smoke-overlay::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(ellipse at 20% 80%, rgba(163, 230, 53, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 40%),
+    radial-gradient(ellipse at 50% 50%, rgba(100, 100, 100, 0.1) 0%, transparent 60%);
+  animation: ss-smoke-drift 20s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.soulsmoke-root .smoke-overlay::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  background: 
+    radial-gradient(ellipse at 30% 70%, rgba(200, 200, 200, 0.06) 0%, transparent 40%),
+    radial-gradient(ellipse at 70% 30%, rgba(163, 230, 53, 0.04) 0%, transparent 35%);
+  animation: ss-smoke-swirl 30s ease-in-out infinite reverse;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes ss-smoke-drift {
+  0%, 100% {
+    transform: translateX(0) translateY(0) scale(1);
+    opacity: 0.8;
+  }
+  25% {
+    transform: translateX(5%) translateY(-3%) scale(1.05);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translateX(-3%) translateY(5%) scale(1.02);
+    opacity: 0.7;
+  }
+  75% {
+    transform: translateX(-5%) translateY(-2%) scale(1.08);
+    opacity: 0.85;
+  }
+}
+
+@keyframes ss-smoke-swirl {
+  0%, 100% {
+    transform: rotate(0deg) scale(1);
+  }
+  33% {
+    transform: rotate(3deg) scale(1.1);
+  }
+  66% {
+    transform: rotate(-3deg) scale(1.05);
+  }
+}
+.soulsmoke-root .ethereal-glow {
+  position: relative;
+}
+
+.soulsmoke-root .ethereal-glow::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 150%;
+  height: 150%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(163, 230, 53, 0.15) 0%, transparent 60%);
+  animation: ss-ethereal-pulse 8s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes ss-ethereal-pulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}
+.soulsmoke-root .mystical-mist {
+  position: relative;
+}
+
+.soulsmoke-root .mystical-mist::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(
+    to top,
+    rgba(20, 20, 20, 0.9) 0%,
+    rgba(20, 20, 20, 0.6) 30%,
+    rgba(20, 20, 20, 0.3) 60%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 3;
+}
+.soulsmoke-root .smoke-wisps {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.soulsmoke-root .smoke-wisps::before,
+.soulsmoke-root .smoke-wisps::after {
+  content: '';
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  filter: blur(60px);
+}
+
+.soulsmoke-root .smoke-wisps::before {
+  top: 20%;
+  left: 10%;
+  background: rgba(163, 230, 53, 0.08);
+  animation: ss-wisp-float-1 15s ease-in-out infinite;
+}
+
+.soulsmoke-root .smoke-wisps::after {
+  bottom: 30%;
+  right: 15%;
+  background: rgba(255, 255, 255, 0.05);
+  animation: ss-wisp-float-2 18s ease-in-out infinite;
+}
+
+@keyframes ss-wisp-float-1 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.6;
+  }
+  25% {
+    transform: translate(50px, -30px) scale(1.2);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(20px, 40px) scale(0.9);
+    opacity: 0.5;
+  }
+  75% {
+    transform: translate(-30px, 10px) scale(1.1);
+    opacity: 0.7;
+  }
+}
+
+@keyframes ss-wisp-float-2 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.5;
+  }
+  33% {
+    transform: translate(-40px, 20px) scale(1.3);
+    opacity: 0.7;
+  }
+  66% {
+    transform: translate(30px, -40px) scale(0.8);
+    opacity: 0.4;
+  }
+}
+.soulsmoke-root .smoky-hero {
+  position: relative;
+}
+
+.soulsmoke-root .smoky-hero > .smoke-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(ellipse at 50% 100%, rgba(0, 0, 0, 0.7) 0%, transparent 70%),
+    radial-gradient(ellipse at 20% 50%, rgba(163, 230, 53, 0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 50%, rgba(200, 200, 200, 0.03) 0%, transparent 50%);
+  animation: ss-smoke-breathe 12s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 5;
+}
+
+@keyframes ss-smoke-breathe {
+  0%, 100% {
+    opacity: 0.8;
+    filter: blur(0px);
+  }
+  50% {
+    opacity: 1;
+    filter: blur(2px);
+  }
+}
+.soulsmoke-root[data-mode="aficionado"] {
+  --ss-font-sans: var(--font-ss-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --ss-font-display: var(--font-playfair-ss, var(--font-display)), Georgia, serif;
+  --ss-font-heading: var(--font-ss-inter), -apple-system, sans-serif;
+  --background: oklch(0.94 0.02 80);
+  --foreground: oklch(0.15 0.03 35);
+  --card: oklch(0.98 0.01 80);
+  --card-foreground: oklch(0.15 0.03 35);
+  --muted: oklch(0.90 0.02 80);
+  --muted-foreground: oklch(0.30 0.03 35);
+  --border: oklch(0.80 0.03 80);
+  --primary: oklch(0.40 0.18 25);
+  --primary-foreground: oklch(0.98 0.01 80);
+  --accent: oklch(0.45 0.15 80);
+  --accent-foreground: oklch(0.98 0.01 80);
+  --secondary: oklch(0.35 0.10 35);
+  --secondary-foreground: oklch(0.98 0.01 80);
+}
+
+.soulsmoke-root[data-mode="aficionado"] {
+  font-family: var(--font-ss-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: oklch(0.15 0.03 35) !important;
+}
+.soulsmoke-root[data-mode="aficionado"] p,
+.soulsmoke-root[data-mode="aficionado"] span,
+.soulsmoke-root[data-mode="aficionado"] div,
+.soulsmoke-root[data-mode="aficionado"] li,
+.soulsmoke-root[data-mode="aficionado"] a:not([class*="bg-"]) {
+  color: inherit;
+}
+
+.soulsmoke-root[data-mode="aficionado"] .text-white,
+.soulsmoke-root[data-mode="aficionado"] .text-cream,
+.soulsmoke-root[data-mode="aficionado"] .text-cream\/80,
+.soulsmoke-root[data-mode="aficionado"] .text-cream\/70,
+.soulsmoke-root[data-mode="aficionado"] .text-cream\/60,
+.soulsmoke-root[data-mode="aficionado"] .text-white\/80,
+.soulsmoke-root[data-mode="aficionado"] .text-white\/70,
+.soulsmoke-root[data-mode="aficionado"] .text-white\/60,
+.soulsmoke-root[data-mode="aficionado"] .text-white\/90 {
+  color: oklch(0.15 0.03 35) !important;
+}
+
+.soulsmoke-root[data-mode="aficionado"] .text-muted-foreground {
+  color: oklch(0.35 0.03 35) !important;
+}
+
+.soulsmoke-root[data-mode="aficionado"] h1,
+.soulsmoke-root[data-mode="aficionado"] h2,
+.soulsmoke-root[data-mode="aficionado"] h3,
+.soulsmoke-root[data-mode="aficionado"] h4,
+.soulsmoke-root[data-mode="aficionado"] h5,
+.soulsmoke-root[data-mode="aficionado"] h6 {
+  font-family: var(--font-playfair-ss, var(--font-display)), Georgia, serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.soulsmoke-root[data-mode="aficionado"] .smoke-layer,
+.soulsmoke-root[data-mode="aficionado"] .smoke-clouds,
+.soulsmoke-root[data-mode="aficionado"] .smoke-wisps,
+.soulsmoke-root[data-mode="aficionado"] .mystical-mist,
+.soulsmoke-root[data-mode="aficionado"] .ethereal-glow,
+.soulsmoke-root[data-mode="aficionado"] .smoky-hero > .smoke-layer,
+.soulsmoke-root[data-mode="aficionado"] [class*="smoke-"],
+.soulsmoke-root[data-mode="aficionado"] .smoke-cursor-container {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+.soulsmoke-root[data-mode="aficionado"] .ambient-sound-toggle {
+  display: none !important;
+}
+.soulsmoke-root[data-mode="aficionado"] nav {
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.soulsmoke-root[data-mode="aficionado"] nav .text-cream,
+.soulsmoke-root[data-mode="aficionado"] nav .text-cream\/80 {
+  color: oklch(0.25 0.02 35) !important;
+}
+
+.soulsmoke-root[data-mode="aficionado"] nav .text-terracotta {
+  color: oklch(0.45 0.15 25) !important;
+}
+
+.soulsmoke-root[data-mode="aficionado"] nav .font-display {
+  font-family: var(--font-playfair-ss, var(--font-display)), Georgia, serif !important;
+  color: oklch(0.15 0.02 35) !important;
+}
+.soulsmoke-root[data-mode="aficionado"] .hero-section,
+.soulsmoke-root[data-mode="aficionado"] section[class*="hero"],
+.soulsmoke-root[data-mode="aficionado"] .smoky-hero {
+  background: oklch(0.94 0.02 80) !important;
+}
+
+.soulsmoke-root[data-mode="aficionado"] .hero-section *,
+.soulsmoke-root[data-mode="aficionado"] .smoky-hero * {
+  color: oklch(0.15 0.03 35) !important;
+}
+
+.soulsmoke-root[data-mode="aficionado"] .hero-section h1,
+.soulsmoke-root[data-mode="aficionado"] .hero-section h2,
+.soulsmoke-root[data-mode="aficionado"] .smoky-hero h1,
+.soulsmoke-root[data-mode="aficionado"] .smoky-hero h2 {
+  color: oklch(0.12 0.03 35) !important;
+  text-shadow: none !important;
+}
+.soulsmoke-root[data-mode="aficionado"] .hero-section .text-lime-400,
+.soulsmoke-root[data-mode="aficionado"] .smoky-hero .text-lime-400 {
+  color: oklch(0.40 0.18 25) !important;
+}
+
+.soulsmoke-root[data-mode="aficionado"] .hero-section .italic,
+.soulsmoke-root[data-mode="aficionado"] .smoky-hero .italic {
+  color: oklch(0.25 0.03 35) !important;
+}
+.soulsmoke-root[data-mode="aficionado"] .bottle-card,
+.soulsmoke-root[data-mode="aficionado"] [class*="Card"] {
+  background: white;
+  border: 1px solid oklch(0.90 0.01 85);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+}
+.soulsmoke-root[data-mode="aficionado"] .btn-primary,
+.soulsmoke-root[data-mode="aficionado"] button[class*="bg-lime"] {
+  background: oklch(0.45 0.15 25) !important;
+  border-radius: 4px !important;
+  font-family: var(--font-ss-inter), sans-serif !important;
+  font-weight: 500 !important;
+  text-transform: none !important;
+}
+.soulsmoke-root[data-mode="aficionado"] .font-display {
+  font-family: var(--font-playfair-ss, var(--font-display)), Georgia, serif !important;
+}
+
+.soulsmoke-root[data-mode="aficionado"] .font-heading {
+  font-family: var(--font-ss-inter), -apple-system, sans-serif !important;
+  font-weight: 600 !important;
+}
+
+.soulsmoke-root[data-mode="aficionado"] .font-mono {
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace !important;
+}
+.soulsmoke-root[data-mode="aficionado"] table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.soulsmoke-root[data-mode="aficionado"] th {
+  background: oklch(0.95 0.005 85);
+  font-weight: 600;
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 2px solid oklch(0.88 0.01 85);
+}
+
+.soulsmoke-root[data-mode="aficionado"] td {
+  padding: 12px 16px;
+  border-bottom: 1px solid oklch(0.92 0.005 85);
+}
+.soulsmoke-root[data-mode="aficionado"] [class*="glitch"],
+.soulsmoke-root[data-mode="aficionado"] .glitch-effect {
+  animation: none !important;
+  filter: none !important;
+}
+.soulsmoke-root[data-mode="aficionado"] :is([class*="bg-gradient"],[class*="bg-linear"]) {
+  background: oklch(0.94 0.02 80) !important;
+}
+.soulsmoke-root[data-mode="aficionado"] .bg-earth,
+.soulsmoke-root[data-mode="aficionado"] .bg-background\/95,
+.soulsmoke-root[data-mode="aficionado"] .bg-background\/90,
+.soulsmoke-root[data-mode="aficionado"] [class*="bg-earth"] {
+  background: oklch(0.94 0.02 80) !important;
+}
+.soulsmoke-root[data-mode="aficionado"] section {
+  background-color: oklch(0.94 0.02 80);
+}
+
+.soulsmoke-root[data-mode="aficionado"] section:nth-child(even) {
+  background-color: oklch(0.92 0.02 80);
+}
+.soulsmoke-root[data-mode="aficionado"] .text-terracotta {
+  color: oklch(0.35 0.18 25) !important;
+}
+
+.soulsmoke-root[data-mode="aficionado"] .text-lime-400,
+.soulsmoke-root[data-mode="aficionado"] .text-lime-500 {
+  color: oklch(0.35 0.15 145) !important;
+}
+.soulsmoke-root[data-mode="aficionado"] button:not([class*="bg-"]) {
+  color: oklch(0.15 0.03 35) !important;
+}
+
+.soulsmoke-root[data-mode="aficionado"] a {
+  color: oklch(0.30 0.15 25) !important;
+}
+
+.soulsmoke-root[data-mode="aficionado"] a:hover {
+  color: oklch(0.25 0.18 25) !important;
+}
+.soulsmoke-root[data-mode="aficionado"] .bg-black,
+.soulsmoke-root[data-mode="aficionado"] .bg-zinc-900,
+.soulsmoke-root[data-mode="aficionado"] .bg-zinc-800,
+.soulsmoke-root[data-mode="aficionado"] .bg-neutral-900,
+.soulsmoke-root[data-mode="aficionado"] .bg-neutral-800,
+.soulsmoke-root[data-mode="aficionado"] .bg-gray-900,
+.soulsmoke-root[data-mode="aficionado"] .bg-gray-800,
+.soulsmoke-root[data-mode="aficionado"] .bg-slate-900,
+.soulsmoke-root[data-mode="aficionado"] .bg-slate-800,
+.soulsmoke-root[data-mode="aficionado"] .bg-stone-950,
+.soulsmoke-root[data-mode="aficionado"] .bg-stone-900,
+.soulsmoke-root[data-mode="aficionado"] .bg-stone-800,
+.soulsmoke-root[data-mode="aficionado"] [class*="bg-stone-9"],
+.soulsmoke-root[data-mode="aficionado"] [class*="bg-stone-8"],
+.soulsmoke-root[data-mode="aficionado"] [class*="bg-earth-9"],
+.soulsmoke-root[data-mode="aficionado"] [class*="bg-earth-8"],
+.soulsmoke-root[data-mode="aficionado"] .bg-earth-950,
+.soulsmoke-root[data-mode="aficionado"] .bg-earth-900,
+.soulsmoke-root[data-mode="aficionado"] .bg-earth-800 {
+  background: oklch(0.96 0.015 85) !important;
+  border: 1px solid oklch(0.85 0.02 80) !important;
+}
+.soulsmoke-root[data-mode="aficionado"] .bg-black *,
+.soulsmoke-root[data-mode="aficionado"] .bg-zinc-900 *,
+.soulsmoke-root[data-mode="aficionado"] .bg-zinc-800 *,
+.soulsmoke-root[data-mode="aficionado"] .bg-neutral-900 *,
+.soulsmoke-root[data-mode="aficionado"] .bg-neutral-800 *,
+.soulsmoke-root[data-mode="aficionado"] .bg-gray-900 *,
+.soulsmoke-root[data-mode="aficionado"] .bg-gray-800 *,
+.soulsmoke-root[data-mode="aficionado"] .bg-slate-900 *,
+.soulsmoke-root[data-mode="aficionado"] .bg-slate-800 *,
+.soulsmoke-root[data-mode="aficionado"] .bg-stone-950 *,
+.soulsmoke-root[data-mode="aficionado"] .bg-stone-900 *,
+.soulsmoke-root[data-mode="aficionado"] .bg-stone-800 *,
+.soulsmoke-root[data-mode="aficionado"] [class*="bg-stone-9"] *,
+.soulsmoke-root[data-mode="aficionado"] [class*="bg-stone-8"] *,
+.soulsmoke-root[data-mode="aficionado"] [class*="bg-earth-9"] *,
+.soulsmoke-root[data-mode="aficionado"] [class*="bg-earth-8"] *,
+.soulsmoke-root[data-mode="aficionado"] .bg-earth-950 *,
+.soulsmoke-root[data-mode="aficionado"] .bg-earth-900 *,
+.soulsmoke-root[data-mode="aficionado"] .bg-earth-800 * {
+  color: oklch(0.20 0.03 35) !important;
+}
+.soulsmoke-root[data-mode="aficionado"] .text-red-400,
+.soulsmoke-root[data-mode="aficionado"] .text-red-500,
+.soulsmoke-root[data-mode="aficionado"] .text-rose-400,
+.soulsmoke-root[data-mode="aficionado"] .text-rose-500 {
+  color: oklch(0.40 0.18 25) !important;
+}
+.soulsmoke-root[data-mode="aficionado"] .text-green-400,
+.soulsmoke-root[data-mode="aficionado"] .text-green-500,
+.soulsmoke-root[data-mode="aficionado"] .text-emerald-400,
+.soulsmoke-root[data-mode="aficionado"] .text-emerald-500 {
+  color: oklch(0.35 0.15 145) !important;
+}
+.soulsmoke-root[data-mode="aficionado"] .text-yellow-400,
+.soulsmoke-root[data-mode="aficionado"] .text-yellow-500,
+.soulsmoke-root[data-mode="aficionado"] .text-amber-400,
+.soulsmoke-root[data-mode="aficionado"] .text-amber-500 {
+  color: oklch(0.40 0.15 70) !important;
+}
+.soulsmoke-root[data-mode="aficionado"] .text-white,
+.soulsmoke-root[data-mode="aficionado"] .text-zinc-100,
+.soulsmoke-root[data-mode="aficionado"] .text-zinc-200,
+.soulsmoke-root[data-mode="aficionado"] .text-neutral-100,
+.soulsmoke-root[data-mode="aficionado"] .text-neutral-200,
+.soulsmoke-root[data-mode="aficionado"] .text-gray-100,
+.soulsmoke-root[data-mode="aficionado"] .text-gray-200 {
+  color: oklch(0.20 0.03 35) !important;
+}
+.soulsmoke-root[data-mode="aficionado"] .text-zinc-400,
+.soulsmoke-root[data-mode="aficionado"] .text-zinc-500,
+.soulsmoke-root[data-mode="aficionado"] .text-neutral-400,
+.soulsmoke-root[data-mode="aficionado"] .text-neutral-500,
+.soulsmoke-root[data-mode="aficionado"] .text-gray-400,
+.soulsmoke-root[data-mode="aficionado"] .text-gray-500 {
+  color: oklch(0.40 0.02 35) !important;
+}
+.soulsmoke-root[data-mode="aficionado"] [class*="rounded-xl"][class*="bg-"] {
+  background: oklch(0.96 0.015 85) !important;
+  border: 1px solid oklch(0.85 0.02 80) !important;
+}
+.soulsmoke-root[data-mode="aficionado"] [class*="rounded-xl"] h3,
+.soulsmoke-root[data-mode="aficionado"] [class*="rounded-xl"] h4 {
+  color: oklch(0.15 0.03 35) !important;
+}
+.soulsmoke-root[data-mode="aficionado"] [class*="rounded-xl"] li {
+  color: oklch(0.25 0.03 35) !important;
+}
+.soulsmoke-root[data-mode="aficionado"] [class*="rounded-full"][class*="bg-"] {
+  background: oklch(0.90 0.03 80) !important;
+  color: oklch(0.20 0.03 35) !important;
+}
+.soulsmoke-root[data-mode="aficionado"] [class*="from-black"],
+.soulsmoke-root[data-mode="aficionado"] [class*="to-black"],
+.soulsmoke-root[data-mode="aficionado"] [class*="via-black"] {
+  --tw-gradient-from: oklch(0.94 0.02 80) !important;
+  --tw-gradient-to: oklch(0.94 0.02 80) !important;
+}
+.soulsmoke-root[data-mode="aficionado"] nav,
+.soulsmoke-root[data-mode="aficionado"] header {
+  background: oklch(0.96 0.015 85) !important;
+  border-bottom: 1px solid oklch(0.88 0.02 80) !important;
+}
+
+.soulsmoke-root[data-mode="aficionado"] nav a,
+.soulsmoke-root[data-mode="aficionado"] header a {
+  color: oklch(0.25 0.03 35) !important;
+}
+.soulsmoke-root[data-mode="aficionado"] footer {
+  background: oklch(0.92 0.02 80) !important;
+  color: oklch(0.25 0.03 35) !important;
+}
+.soulsmoke-root[data-mode="aficionado"] [class*="bg-emerald"],
+.soulsmoke-root[data-mode="aficionado"] [class*="from-emerald"],
+.soulsmoke-root[data-mode="aficionado"] [class*="to-emerald"] {
+  background: oklch(0.94 0.03 145) !important;
+}
+
+.soulsmoke-root[data-mode="aficionado"] [class*="bg-emerald"] *,
+.soulsmoke-root[data-mode="aficionado"] .text-emerald-400,
+.soulsmoke-root[data-mode="aficionado"] .text-emerald-500 {
+  color: oklch(0.30 0.12 145) !important;
+}
+.soulsmoke-root[data-mode="aficionado"] [class*="from-stone"],
+.soulsmoke-root[data-mode="aficionado"] [class*="to-stone"],
+.soulsmoke-root[data-mode="aficionado"] [class*="via-stone"] {
+  background: oklch(0.94 0.02 80) !important;
+}
+.soulsmoke-root[data-mode="aficionado"] .min-h-screen {
+  background: oklch(0.94 0.02 80) !important;
+}
+.soulsmoke-root[data-mode="aficionado"] .text-stone-200,
+.soulsmoke-root[data-mode="aficionado"] .text-stone-300,
+.soulsmoke-root[data-mode="aficionado"] .text-stone-400 {
+  color: oklch(0.35 0.02 35) !important;
+}
+.soulsmoke-root[data-mode="aficionado"] [class*="border-stone"],
+.soulsmoke-root[data-mode="aficionado"] [class*="border-emerald"] {
+  border-color: oklch(0.80 0.03 80) !important;
+}
+.soulsmoke-root[data-mode="aficionado"] section[class*="bg-stone"],
+.soulsmoke-root[data-mode="aficionado"] section:is([class*="bg-gradient"],[class*="bg-linear"]) {
+  background: oklch(0.94 0.02 80) !important;
+}
+
+.soulsmoke-root[data-mode="aficionado"] section:nth-child(odd) {
+  background: oklch(0.92 0.02 80) !important;
+}
+.soulsmoke-root[data-mode="aficionado"] [class*="hover:border-emerald"]:hover {
+  border-color: oklch(0.50 0.15 145) !important;
+}
+.soulsmoke-root[data-mode="aficionado"] button[class*="bg-emerald"] {
+  background: oklch(0.40 0.12 145) !important;
+  color: white !important;
+}
+
+.soulsmoke-root[data-mode="aficionado"] button[class*="bg-red"] {
+  background: oklch(0.45 0.15 25) !important;
+  color: white !important;
+}
+
+.soulsmoke-root[data-mode="aficionado"] button[class*="bg-sage"] {
+  background: oklch(0.75 0.08 145) !important;
+  color: oklch(0.20 0.03 35) !important;
+}
+.soulsmoke-root {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.soulsmoke-root img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+  pointer-events: auto;
+}
+.soulsmoke-root img::selection {
+  background: transparent;
+}
+.soulsmoke-root input,
+.soulsmoke-root textarea,
+.soulsmoke-root [contenteditable="true"] {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}

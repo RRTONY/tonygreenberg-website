@@ -56,6 +56,8 @@ const PROJECTS: Project[] = [
     category: "Narrative Essay",
     accent: "#AC5F05",
     icon: BookOpen,
+    // Rebuilt on this site from its Manus app (2026-11-10).
+    url: "/gem-spark",
   },
   {
     // Note: legacy source also pointed this at /humanos, same as the Human OS
@@ -83,6 +85,7 @@ const PROJECTS: Project[] = [
   {
     title: "SoulSmoke",
     tagline: "The Alchemy of Agave.",
+    url: "/soul-smoke",
     description: "A deep dive into mezcal — not the drink, the culture. From the jimador's machete to the copper still, from the terroir of Oaxaca to the ritual of the copita.",
     category: "Agave Education",
     accent: "#92400E",

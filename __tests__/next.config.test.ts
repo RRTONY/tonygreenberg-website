@@ -19,4 +19,31 @@ describe("next.config redirects", () => {
       permanent: true,
     });
   });
+
+  it("sends the Search Console 404s (/bio, old BrewSoul catalog files) to real pages, permanently", async () => {
+    const redirects = await nextConfig.redirects!();
+    expect(redirects).toContainEqual({ source: "/bio", destination: "/about", permanent: true });
+    expect(redirects).toContainEqual({
+      source: "/brewsoul/catalog.txt",
+      destination: "/brewsoul/directory",
+      permanent: true,
+    });
+    expect(redirects).toContainEqual({
+      source: "/brewsoul/catalog.json",
+      destination: "/brewsoul/directory",
+      permanent: true,
+    });
+  });
+
+  it("sends /soulsmoke (and deep links under it) to the SoulSmoke guide, permanently", async () => {
+    const redirects = await nextConfig.redirects!();
+    expect(redirects).toContainEqual({ source: "/soulsmoke", destination: "/soul-smoke", permanent: true });
+    expect(redirects).toContainEqual({
+      source: "/soulsmoke/:path*",
+      destination: "/soul-smoke/:path*",
+      permanent: true,
+    });
+    // /soul-smoke is a real page now, so it must not redirect anywhere.
+    expect(redirects.some((r) => r.source === "/soul-smoke")).toBe(false);
+  });
 });

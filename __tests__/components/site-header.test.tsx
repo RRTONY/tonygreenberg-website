@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { SiteHeader } from "@/components/site-header";
-import { primaryNavLinks, socialLinks } from "@/components/site-nav-data";
+import { findYourMeGroups, navCategories, primaryNavLinks, socialLinks } from "@/components/site-nav-data";
 import { navigation } from "@tests/helpers/next";
 
 describe("SiteHeader", () => {
@@ -18,6 +18,16 @@ describe("SiteHeader", () => {
     }
     expect(screen.getByRole("button", { name: "Fix Myself" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Explore" })).toBeInTheDocument();
+  });
+
+  it("keeps both closed menus' links in the page (hidden) so search engines can follow them", () => {
+    const { container } = render(<SiteHeader essayCount={10} />);
+    const hrefs = [...container.querySelectorAll("a")].map((a) => a.getAttribute("href"));
+    for (const cat of navCategories) for (const item of cat.items) expect(hrefs).toContain(item.href);
+    for (const group of findYourMeGroups) for (const item of group.items) expect(hrefs).toContain(item.href);
+    const panels = container.querySelectorAll('[data-slot="navigation-menu-content"]');
+    expect(panels).toHaveLength(2);
+    panels.forEach((p) => expect(p).toHaveAttribute("data-state", "closed"));
   });
 
   it("social links open in a new tab with safe rel", () => {
