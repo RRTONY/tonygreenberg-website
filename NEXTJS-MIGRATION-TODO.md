@@ -13,7 +13,22 @@
 - UI: Tailwind CSS v4 + shadcn/ui (Radix base) — same design-system convention the team already uses elsewhere. `next/image` for all images. No framer-motion — CSS transitions / `tailwindcss-animate` only.
 
 
-## Current status — 2026-11-10
+## Current status — 2026-11-11
+
+**PRI scoring safety fix (2026-11-11, Tony's review of 7 Nov; Sam approves before anything goes live):**
+- Branch `hotfix/pri-hide-scores`: temporary hold. No personal score, matches or report until the
+  fix is live; nothing logged. Ready to merge (pushing to main was blocked here).
+- Branch `fix/pri-scoring-review`: the fix (replaces the hold). Every question needs an answer;
+  any of the 14 hard-stop answers below "Often true" (7) pauses the score, matches, report and
+  referral, and the result log records "Paused" with no score; consenting to browse a medicine no
+  longer opens a result; "Talk to your psychedelic council" reminder on every assessment screen,
+  the medicine profile, the printed report and a new share card, each with a QR; new page
+  /psychedelic-readiness-index/disclaimer (sitemap). Same code as psychedelicreadiness.com.
+- Checked: typecheck, lint, full suite 3,819 passed / 2 failed (the-stack, also failing on main),
+  build, 390px walk-through (cardiac profile paused, ibogaine profile has no score), share-card
+  and printed-report QRs decoded to the disclaimer address.
+
+## Earlier status — 2026-11-10
 
 **Live (2026-11-10):** The GemSpark merged (#37) and live at /gem-spark, /gem-spark/short, /gem-spark/es/short:
 checked on tonygreenberg.com at 375 and 1280 (all images load, no sideways scroll or errors, own icon and share
