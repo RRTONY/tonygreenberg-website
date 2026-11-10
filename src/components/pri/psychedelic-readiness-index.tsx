@@ -32,6 +32,10 @@ import { CinematicBand } from "@/components/pri/cinematic-band";
 
 const CONTACT_EMAIL = "tony@tonygreenberg.com";
 
+// Temporary safety hold (2026-11-11, Tony's team): no personal score, matches or report is shown
+// until the scoring fix (hard-stop pause, every question answered) is live and checked.
+const SCORES_ON_HOLD = true;
+
 function DimIcon({ dim, className }: { dim: DimKey; className: string }) {
   const Icon = DIM_ICONS[dim];
   return <Icon aria-hidden="true" className={className} />;
@@ -197,7 +201,7 @@ export function PsychedelicReadinessIndex() {
 
   // Saves the finish once per result shown (Supabase + /self-portrait log).
   const resultScore = results?.overall;
-  const resultSummary = results ? `${results.level.label}; Top matches: ${results.topMatches.map((m) => m.name).join(", ")}` : undefined;
+  const resultSummary = results && !SCORES_ON_HOLD ? `${results.level.label}; Top matches: ${results.topMatches.map((m) => m.name).join(", ")}` : undefined;
   useEffect(() => {
     if (resultSummary) saveAssessmentResult("psychedelic-readiness-index", { summary: resultSummary, score: resultScore });
   }, [resultSummary, resultScore]);
@@ -1145,7 +1149,20 @@ export function PsychedelicReadinessIndex() {
           )}
 
           {/* RESULTS */}
-          {state === "results" && results && (
+          {state === "results" && results && SCORES_ON_HOLD && (
+            <div className="px-5 py-10 text-center">
+              <h3 className="mb-3 font-heading text-[clamp(1.2rem,3vw,1.6rem)] text-pri-cream">Personal scores are paused</h3>
+              <p className="mx-auto mb-6 max-w-120 text-[clamp(.85rem,2.5vw,.95rem)] leading-[1.6] text-pri-cream/75">
+                We are updating the Psychedelic Readiness Index. Personal scores and medicine matches are temporarily unavailable. Review personal
+                risks with a licensed clinician.
+              </p>
+              <button onClick={resetQuiz} className="border-[1.5px] border-pri-cream/20 px-6 py-3 text-sm font-bold text-pri-cream uppercase">
+                Retake Assessment
+              </button>
+            </div>
+          )}
+
+          {state === "results" && results && !SCORES_ON_HOLD && (
             <div className="px-5">
               <div className="mb-8 border-b border-pri-cream/8 pt-8 pb-10 text-center">
                 <div className="text-xs font-extrabold tracking-[0.14em] text-pri-purple-light uppercase">Where You Stand</div>

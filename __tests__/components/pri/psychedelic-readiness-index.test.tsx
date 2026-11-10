@@ -76,7 +76,7 @@ describe("PsychedelicReadinessIndex", { timeout: 120000 }, () => {
     expect(screen.getByRole("slider")).toHaveValue("1");
   });
 
-  it("asks for consent before the results, then scores exactly as computeScores does", async () => {
+  it.skip("asks for consent before the results, then scores exactly as computeScores does", async () => {
     const user = userEvent.setup();
     render(<PsychedelicReadinessIndex />);
     await startQuiz(user);
@@ -101,7 +101,7 @@ describe("PsychedelicReadinessIndex", { timeout: 120000 }, () => {
     expect(sessionStorage.getItem("pri-consent")).toBe("true");
   });
 
-  it("skips the gate once consented, gives the top level for all-10 answers, and Retake resets", async () => {
+  it.skip("skips the gate once consented, gives the top level for all-10 answers, and Retake resets", async () => {
     sessionStorage.setItem("pri-consent", "true");
     const user = userEvent.setup();
     render(<PsychedelicReadinessIndex />);
@@ -168,7 +168,7 @@ describe("PsychedelicReadinessIndex", { timeout: 120000 }, () => {
     expect(button("Compare Medicines")).toBeInTheDocument();
   });
 
-  it("the referral request needs email and region, then confirms", async () => {
+  it.skip("the referral request needs email and region, then confirms", async () => {
     sessionStorage.setItem("pri-consent", "true");
     vi.spyOn(console, "error").mockImplementation(() => {}); // jsdom can't open the mailto: link
     const user = userEvent.setup();
@@ -359,7 +359,7 @@ describe("PsychedelicReadinessIndex", { timeout: 120000 }, () => {
       sessionStorage.setItem("pri-consent", "true");
     });
 
-    it("Save My Results writes a printable report of the scores, matches, sequence and shortlist", async () => {
+    it.skip("Save My Results writes a printable report of the scores, matches, sequence and shortlist", async () => {
       const saved = MEDICINES.find((x) => x.id === "sananga")!;
       localStorage.setItem("pri-saved-medicines", JSON.stringify([saved.id, "gone"]));
       const doc = { write: vi.fn(), close: vi.fn() };
@@ -389,7 +389,7 @@ describe("PsychedelicReadinessIndex", { timeout: 120000 }, () => {
       await waitFor(() => expect(popup.print).toHaveBeenCalled(), { timeout: 3000 });
     });
 
-    it("Save My Results does nothing when the browser blocks the pop-up; the report has no shortlist without saved medicines", async () => {
+    it.skip("Save My Results does nothing when the browser blocks the pop-up; the report has no shortlist without saved medicines", async () => {
       const open = vi.fn(() => null);
       vi.stubGlobal("open", open);
       const user = userEvent.setup();
@@ -404,7 +404,7 @@ describe("PsychedelicReadinessIndex", { timeout: 120000 }, () => {
       expect(doc.write.mock.calls[0][0]).not.toContain("My Saved Medicines");
     });
 
-    it("a top match opens its details, and View Saved scrolls to the shortlist", async () => {
+    it.skip("a top match opens its details, and View Saved scrolls to the shortlist", async () => {
       localStorage.setItem("pri-saved-medicines", JSON.stringify([MEDICINES[0].id]));
       const user = userEvent.setup();
       render(<PsychedelicReadinessIndex />);
@@ -421,7 +421,7 @@ describe("PsychedelicReadinessIndex", { timeout: 120000 }, () => {
       expect(await screen.findByText(MEDICINES.find((x) => x.id === top.id)!.latin, {}, { timeout: 15000 })).toBeInTheDocument();
     });
 
-    it("the referral form keeps the optional name", async () => {
+    it.skip("the referral form keeps the optional name", async () => {
       vi.spyOn(console, "error").mockImplementation(() => {});
       const user = userEvent.setup();
       render(<PsychedelicReadinessIndex />);
@@ -431,6 +431,25 @@ describe("PsychedelicReadinessIndex", { timeout: 120000 }, () => {
       await user.type(screen.getByPlaceholderText("Your name"), "Ada");
       expect(screen.getByPlaceholderText("Your name")).toHaveValue("Ada");
     });
+  });
+
+  // Temporary safety hold (2026-11-11): the score screen is hidden, so the 7 score tests above are
+  // skipped. The full scoring fix (branch fix/pri-scoring-review) removes the hold and these skips.
+  it("while scores are on hold, a finished assessment shows no score, matches or report, and logs nothing", async () => {
+    sessionStorage.setItem("pri-consent", "true");
+    saved.mockClear();
+    const user = userEvent.setup();
+    render(<PsychedelicReadinessIndex />);
+    await startQuiz(user);
+    await finishQuiz(() => 10);
+    expect(screen.getByRole("heading", { name: "Personal scores are paused" })).toBeInTheDocument();
+    expect(screen.queryByText("Where You Stand")).not.toBeInTheDocument();
+    expect(screen.queryByText("Ready to Go Deep")).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /: match #1$/ })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /save my results/i })).not.toBeInTheDocument();
+    expect(saved).not.toHaveBeenCalled();
+    await user.click(button(/retake assessment/i));
+    expect(screen.getByRole("heading", { name: "Your Readiness Assessment" })).toBeInTheDocument();
   });
 
   it("every medicine card is a real button keyboard users can reach", () => {
