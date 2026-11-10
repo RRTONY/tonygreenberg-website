@@ -497,7 +497,7 @@ export function PsychedelicReadinessIndex() {
             <em className="text-pri-purple not-italic">Medicine</em>
           </h1>
           <p className="mb-4 max-w-140 text-[clamp(.95rem,2.5vw,1.1rem)] text-pri-brown">
-            {MEDICINES.length} plant medicines. 50+ readiness questions. 6 domains. MAO-B interaction matrix. An honest map of where you stand ... before
+            {MEDICINES.length} substances. 50+ readiness questions. 6 domains. MAO-B interaction matrix. An honest map of where you stand ... before
             you walk into territory that rewards preparation.
           </p>
 
@@ -526,7 +526,7 @@ export function PsychedelicReadinessIndex() {
       {/* ── STATS BAR ── */}
       <div className="mx-5 grid grid-cols-[repeat(auto-fit,minmax(120px,1fr))] border-y border-pri-border">
         {[
-          { n: String(MEDICINES.length), l: "Plant Medicines" },
+          { n: String(MEDICINES.length), l: "Substances" },
           { n: "50+", l: "Quiz Questions" },
           { n: "6", l: "Domains" },
           { n: "∞", l: "Healing Paths" },
@@ -542,7 +542,7 @@ export function PsychedelicReadinessIndex() {
       <div id="medicines" className="mx-auto max-w-300 px-5 py-16">
         <CinematicBand
           src="https://cdn.sanity.io/images/a3q1cyqs/production/d1def9c5a5f53e8552abaf70d5770678e3c0b347-1200x669.jpg"
-          alt={`${MEDICINES.length} sacred plant medicines arranged on stone tiles`}
+          alt="Plant medicines arranged on stone tiles"
           fadeTo="cream"
           heightClass="h-[clamp(200px,30vw,360px)] mb-8"
         />
@@ -552,7 +552,7 @@ export function PsychedelicReadinessIndex() {
               <span className="block h-0.5 w-6 bg-pri-purple" />
               The Pharmacopoeia
             </div>
-            <h2 className="font-heading text-[clamp(1.5rem,4vw,2.8rem)] text-pri-ink">{MEDICINES.length} Sacred Medicines</h2>
+            <h2 className="font-heading text-[clamp(1.5rem,4vw,2.8rem)] text-pri-ink">{MEDICINES.length} Substances</h2>
           </div>
           <div className="flex items-center gap-3">
             <button

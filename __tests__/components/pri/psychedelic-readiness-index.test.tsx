@@ -70,7 +70,7 @@ describe("PsychedelicReadinessIndex", { timeout: 120000 }, () => {
     const user = userEvent.setup();
     render(<PsychedelicReadinessIndex />);
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/Find My\s*Medicine/);
-    expect(screen.getByRole("heading", { name: `${MEDICINES.length} Sacred Medicines` })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: `${MEDICINES.length} Substances` })).toBeInTheDocument();
     await startQuiz(user);
     expect(screen.getByText(QUESTIONS[0].text)).toBeInTheDocument();
     expect(screen.getByRole("slider")).toHaveValue("5");
@@ -310,7 +310,7 @@ describe("PsychedelicReadinessIndex", { timeout: 120000 }, () => {
     localStorage.setItem("pri-saved-medicines", JSON.stringify([MEDICINES[0].id]));
     sessionStorage.setItem("pri-consent", "true");
     const html = renderToString(<PsychedelicReadinessIndex />);
-    expect(html.replace(/<!-- -->/g, "")).toContain(`${MEDICINES.length} Sacred Medicines`);
+    expect(html.replace(/<!-- -->/g, "")).toContain(`${MEDICINES.length} Substances`);
     // The server snapshot is empty, so no shortlist is rendered even though the browser has one.
     expect(html).not.toContain("My Saved Medicines");
   });

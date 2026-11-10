@@ -242,7 +242,7 @@ export const RELATED_PAGES: Record<string, [RelatedPage, RelatedPage, RelatedPag
     {
       href: "/psychedelic-readiness-index",
       title: "Psychedelic Readiness Index",
-      blurb: "39 plant medicines, 50+ readiness questions, 6 domains.",
+      blurb: "39 substances, 50+ readiness questions, 6 domains.",
     },
     {
       href: "/pri-efficacy",
