@@ -129,6 +129,7 @@ const STATIC_ROUTES = [
   "/privacy",
   "/protecting-your-business",
   "/psychedelic-readiness-index",
+  "/psychedelic-readiness-index/disclaimer",
   "/published",
   "/quiz_25q",
   "/recent-creations",
