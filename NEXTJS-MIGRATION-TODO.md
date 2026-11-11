@@ -15,6 +15,8 @@
 
 ## Current status — 2026-11-11
 
+**Peyote public claims correction (2026-11-11, PR #47):** Rebased the previously approved PR #46 correction against production after a shared status-file conflict. Buy links and unverified outcome percentages withheld; regression tests updated. Pending preview checks and publication.
+
 **PRI Medication Interaction Guide review (2026-11-11, PR #45, preview only):** Three disputed rows (SSRIs/SNRIs, non-selective MAOIs, MAO-B inhibitors) now show Clinical Review Required and avoid generic discontinuation/washout schedules. Specialist sign-off required; not published.
 
 **Emergency legacy PRI ibogaine URL hold (2026-11-11, PR #44):** Prepared a reversible, server-rendered holding notice when `?m=ibogaine` is present on `/psychedelic-readiness-index`. The scoring client does not mount for this query. Regression test added. Pending preview checks, owner publication, and mobile verification of live URL. This does not alter the rest of PRI.
