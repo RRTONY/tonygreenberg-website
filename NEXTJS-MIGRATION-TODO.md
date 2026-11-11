@@ -15,6 +15,8 @@
 
 ## Current status — 2026-11-11
 
+**Peyote public-claims cleanup (2026-11-11, PR #46, preview only):** Removed nine supplement purchase link renderings and withheld the unsupported clinical outcome percentage tiles (including 86% depression). Source review and owner publication pending.
+
 **Emergency legacy PRI ibogaine URL hold (2026-11-11, PR #44):** Prepared a reversible, server-rendered holding notice when `?m=ibogaine` is present on `/psychedelic-readiness-index`. The scoring client does not mount for this query. Regression test added. Pending preview checks, owner publication, and mobile verification of live URL. This does not alter the rest of PRI.
 
 **Live 2026-11-11 01:11 IST:** PR #39 (PRI scoring safety fix). Checked on tonygreenberg.com at 390px:
