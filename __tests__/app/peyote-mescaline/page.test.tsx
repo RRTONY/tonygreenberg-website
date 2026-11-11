@@ -24,7 +24,7 @@ describe("/peyote-mescaline", () => {
 
   it("shows the pharmacology and the Latuda comparison", () => {
     const { container } = render(<PeyoteMescalinePage />);
-    for (const h of ["Key Receptors", "Same Targets. Opposite Actions.", "Clinical Outcomes", "Research & References"]) {
+    for (const h of ["Key Receptors", "Same Targets. Opposite Actions.", "Research Limitations", "Research & References"]) {
       expect(screen.getByRole("heading", { level: 2, name: h })).toBeInTheDocument();
     }
     expect(container.textContent).toContain("mescaline has no serotonin transporter (SERT) affinity");
@@ -40,10 +40,10 @@ describe("/peyote-mescaline", () => {
     expect(container.querySelector("#pharmacology")).not.toBeNull();
   });
 
-  it("points the supplement stack's buy links at Amazon searches", () => {
+  it("has no supplement Buy links or unreviewed outcome percentages", () => {
     render(<PeyoteMescalinePage />);
-    const buys = screen.getAllByRole("link", { name: /^Buy/ });
-    expect(buys.length).toBeGreaterThan(5);
-    for (const a of buys) expect(a.getAttribute("href")).toMatch(/^https:\/\/amazon\.com\/s\?k=/);
+    expect(screen.queryByRole("link", { name: /^Buy/ })).not.toBeInTheDocument();
+    expect(screen.queryByText("86%")).not.toBeInTheDocument();
+    expect(screen.getByText(/Previously displayed improvement percentages have been withheld/)).toBeInTheDocument();
   });
 });
