@@ -2,15 +2,11 @@ import type { Metadata } from "next";
 import { seoMetadata } from "@/lib/seo-defaults";
 import Image from "next/image";
 import Link from "next/link";
-import { AlertTriangle, ArrowDown, ArrowLeft, ArrowRight, Check } from "lucide-react";
+import { AlertTriangle, ArrowDown, ArrowLeft, Check } from "lucide-react";
 import {
   MESCALINE_PHARMACOLOGY,
   LATUDA_MIRROR,
   LATUDA_MIRROR_ONELINER,
-  MESCALINE_OUTCOMES,
-  OUTCOMES_SOURCE,
-  OUTCOMES_SPIRITUAL,
-  OUTCOMES_INTENT,
   SUPPLEMENT_STACKS,
   MESCALINE_DIM_SCORES,
   MEDICINE_SELECTOR,
@@ -190,7 +186,7 @@ export default function PeyoteMescalinePage() {
         </div>
       </PriSection>
 
-      {/* ── OUTCOMES ── */}
+      {/* Outcomes percentage claims withheld pending source and clinical review. */}
       <PriSection id="outcomes">
         <div className="relative mb-8 h-[clamp(180px,25vw,280px)] w-full overflow-hidden rounded-md">
           <Image
@@ -202,29 +198,13 @@ export default function PeyoteMescalinePage() {
           />
           <div className="absolute inset-0 bg-linear-to-b from-transparent from-50% to-pri-parchment" />
         </div>
-        <PriEyebrow>Outcomes Data</PriEyebrow>
-        <h2 className="mb-1 font-heading text-[clamp(1.5rem,4vw,2.5rem)] text-pri-ink">Clinical Outcomes</h2>
-        <p className="mb-8 text-[.82rem] text-pri-tan">Source: {OUTCOMES_SOURCE}</p>
-
-        <div className="mb-6 grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-px border border-pri-border bg-pri-border">
-          {MESCALINE_OUTCOMES.map((o) => (
-            <div key={o.condition} className="bg-pri-parchment px-4 py-6 text-center">
-              <div className="font-heading text-[clamp(2rem,6vw,3rem)] leading-none font-black text-pri-purple">{o.improved}</div>
-              <div className="mt-1 text-xs font-bold tracking-[0.08em] text-pri-tan uppercase">{o.condition} improved</div>
-            </div>
-          ))}
-        </div>
-
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <div className="border-l-3 border-[#C9A84C] bg-pri-parchment p-5">
-            <div className="mb-1 text-xs font-extrabold tracking-[0.08em] text-[#866E29] uppercase">Spiritual Significance</div>
-            <div className="text-[.88rem] leading-[1.6] text-pri-brown">{OUTCOMES_SPIRITUAL}</div>
-          </div>
-          <div className="border-l-3 border-[#6B8F71] bg-pri-parchment p-5">
-            <div className="mb-1 text-xs font-extrabold tracking-[0.08em] text-[#5A785F] uppercase">Intent Paradox</div>
-            <div className="text-[.88rem] leading-[1.6] text-pri-brown">{OUTCOMES_INTENT}</div>
-          </div>
-        </div>
+        <PriEyebrow>Evidence Review</PriEyebrow>
+        <h2 className="mb-3 font-heading text-[clamp(1.5rem,4vw,2.5rem)] text-pri-ink">Research Limitations</h2>
+        <p className="max-w-175 text-[.9rem] leading-[1.7] text-pri-brown">
+          Previously displayed improvement percentages have been withheld pending independent review
+          of their source, study design, population and clinical interpretation. Self-reported
+          outcomes in observational research are not established treatment success rates.
+        </p>
       </PriSection>
 
 
@@ -256,12 +236,7 @@ export default function PeyoteMescalinePage() {
                       <div className="text-[.85rem] font-semibold text-pri-ink">{item.name}</div>
                       <div className="text-[.72rem] text-pri-tan">{item.dosage}</div>
                     </div>
-                    {item.searchUrl && (
-                      <a href={item.searchUrl} target="_blank" rel="noopener noreferrer" className="inline-flex shrink-0 items-center gap-1 border border-pri-purple/20 px-1.5 py-0.5 text-[.75rem] font-bold whitespace-nowrap text-pri-purple">
-                        Buy
-                        <ArrowRight aria-hidden="true" className="size-3" />
-                      </a>
-                    )}
+
                   </div>
                 ))}
               </div>
