@@ -61,13 +61,13 @@ describe("pri-data", () => {
 });
 
 // 2026-11-11: the guide's badge is an explicit field per row (it was guessed from the risk text).
-// MAOIs and MAO-B moved to hard_stop to match their own text (pending clinical review).
+// Three complex medication categories need specialist review and cannot be reduced to a blanket hard stop or a generic washout instruction.
 describe("MEDICATION_INTERACTIONS labels", () => {
   it("gives each row the label its own text calls for", () => {
     expect(Object.fromEntries(MEDICATION_INTERACTIONS.map((m) => [m.category, m.label]))).toEqual({
-      "SSRIs / SNRIs": "hard_stop",
-      "MAOIs (non-selective)": "hard_stop",
-      "MAO-B Inhibitors": "hard_stop",
+      "SSRIs / SNRIs": "clinical_review",
+      "MAOIs (non-selective)": "clinical_review",
+      "MAO-B Inhibitors": "clinical_review",
       Lithium: "hard_stop",
       Stimulants: "caution",
       Antipsychotics: "caution",
