@@ -171,7 +171,7 @@ export interface MedInteraction {
    * MAO-B Inhibitors were moved to "hard_stop" to match their own text ("Hard stop for all
    * psychedelics"; the MAO-B matrix's Hard Stops), the cautious direction, pending clinical review.
    */
-  label: "hard_stop" | "caution";
+  label: "hard_stop" | "caution" | "clinical_review";
   category: string;
   medications: string;
   risk: string;
@@ -179,9 +179,9 @@ export interface MedInteraction {
 }
 
 export const MEDICATION_INTERACTIONS: MedInteraction[] = [
-  { label: "hard_stop", category: "SSRIs / SNRIs", medications: "Fluoxetine, sertraline, paroxetine, citalopram, venlafaxine, duloxetine", risk: "Attenuates psilocybin/LSD effects. LIFE-THREATENING serotonin syndrome with ayahuasca.", guidance: "Taper under MD supervision 2–6 weeks before. Ayahuasca: absolute contraindication without full washout." },
-  { label: "hard_stop", category: "MAOIs (non-selective)", medications: "Phenelzine (Nardil), tranylcypromine (Parnate), isocarboxazid (Marplan)", risk: "Dangerous potentiation of all serotonergic psychedelics. Hypertensive crisis.", guidance: "Hard stop for all psychedelics. 2–3 week washout minimum under psychiatrist supervision." },
-  { label: "hard_stop", category: "MAO-B Inhibitors", medications: "Selegiline (Eldepryl/Zelapar), rasagiline (Azilect), safinamide (Xadago)", risk: "High potentiation of DMT/5-MeO-DMT/MDMA. Unpredictable with psilocybin/LSD.", guidance: "See MAO-B Interaction Matrix. Neurologist must supervise any changes." },
+  { label: "clinical_review", category: "SSRIs / SNRIs", medications: "Fluoxetine, sertraline, paroxetine, citalopram, venlafaxine, duloxetine", risk: "Effects and interactions differ by medicine. Combining serotonergic medications with MAOI-containing ayahuasca can cause potentially life-threatening serotonin toxicity.", guidance: "Do not combine with ayahuasca or change prescribed medication to prepare for a psychedelic experience. Seek individualized advice from the prescribing clinician and a qualified interaction specialist." },
+  { label: "clinical_review", category: "MAOIs (non-selective)", medications: "Phenelzine (Nardil), tranylcypromine (Parnate), isocarboxazid (Marplan)", risk: "Serious interactions are possible, including serotonin toxicity and hypertensive reactions. Risk differs among substances and combinations.", guidance: "Do not combine with serotonergic psychedelics or stop an MAOI for an experience. A prescribing psychiatrist and medication-interaction specialist must assess any proposed treatment change; no generic washout interval is safe to prescribe here." },
+  { label: "clinical_review", category: "MAO-B Inhibitors", medications: "Selegiline (Eldepryl/Zelapar), rasagiline (Azilect), safinamide (Xadago)", risk: "Potentially dangerous interactions vary by dose, selectivity, other medications, and psychedelic substance; severe reactions are possible.", guidance: "Avoid combinations pending individualized review. Do not interrupt Parkinson’s treatment for an experience. Consult the prescribing neurologist and a medication-interaction specialist; see the MAO-B Interaction Matrix." },
   { label: "hard_stop", category: "Lithium", medications: "Lithium carbonate, lithium citrate", risk: "Seizure risk — ABSOLUTE contraindication with all classic psychedelics.", guidance: "Hard stop. No exceptions. Do not combine under any circumstances." },
   { label: "caution", category: "Stimulants", medications: "Amphetamine (Adderall), methylphenidate (Ritalin), lisdexamfetamine (Vyvanse)", risk: "Increased heart rate and blood pressure. Autonomic instability.", guidance: "Discontinue day of experience minimum. Discuss with prescriber." },
   { label: "caution", category: "Antipsychotics", medications: "Quetiapine, olanzapine, risperidone, aripiprazole, haloperidol", risk: "Block psychedelic effects via 5-HT2A antagonism. May indicate contraindicated conditions.", guidance: "Renders experience therapeutically ineffective. Underlying diagnosis may be absolute contraindication." },

@@ -940,6 +940,7 @@ export function PsychedelicReadinessIndex() {
           <div className="grid gap-px border border-pri-border bg-pri-border">
             {MEDICATION_INTERACTIONS.map((med) => {
               const isHardStop = med.label === "hard_stop";
+              const needsClinicalReview = med.label === "clinical_review";
               return (
                 <div key={med.category} className="bg-pri-parchment px-6 py-5">
                   <div className="mb-2 flex flex-wrap items-start justify-between gap-2">
@@ -948,6 +949,10 @@ export function PsychedelicReadinessIndex() {
                       {isHardStop ? (
                         <>
                           <Ban className="size-3.5" /> Hard Stop
+                        </>
+                      ) : needsClinicalReview ? (
+                        <>
+                          <AlertTriangle className="size-3.5" /> Clinical Review Required
                         </>
                       ) : (
                         <>
