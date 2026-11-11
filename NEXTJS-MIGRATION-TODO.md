@@ -15,6 +15,8 @@
 
 ## Current status — 2026-11-11
 
+**Emergency legacy PRI ibogaine URL hold (2026-11-11, PR #44):** Prepared a reversible, server-rendered holding notice when `?m=ibogaine` is present on `/psychedelic-readiness-index`. The scoring client does not mount for this query. Regression test added. Pending preview checks, owner publication, and mobile verification of live URL. This does not alter the rest of PRI.
+
 **Live 2026-11-11 01:11 IST:** PR #39 (PRI scoring safety fix). Checked on tonygreenberg.com at 390px:
 cardiac profile paused with no score, disclaimer page 200, share-card QR decodes to it.
 **Follow-up (branch `fix/pri-a11y-deeplink`):** `?m=` medicine links no longer fail hydration (React
