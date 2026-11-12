@@ -86,6 +86,18 @@ describe("computeScores", () => {
 
   // Brugmansia and Datura are "Hard Stop" deliriants ("NOT A PSYCHEDELIC.
   // Listed to protect you."): fixed 2026-10-16 to keep them out of the matches.
+  it("never recommends any medicine lacking a detailed safety record", () => {
+    for (const score of [1, 5, 7, 10]) {
+      const result = computeScores(all(score));
+      for (const match of result.topMatches) expect(SAFETY_DATA[match.id]).toBeDefined();
+      for (const step of result.sequence) {
+        for (const m of MEDICINES.filter((m) => !SAFETY_DATA[m.id])) {
+          expect(step.name).not.toBe(m.name);
+        }
+      }
+    }
+  });
+
   it("never recommends a 'Hard Stop' deliriant as a top match", () => {
     const ids = computeScores(all(10)).topMatches.map((m) => m.id);
     expect(ids.filter((id) => med(id).complexityLevel === "Hard Stop")).toEqual([]);
