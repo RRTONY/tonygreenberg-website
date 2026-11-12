@@ -3,8 +3,23 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import PsychedelicReadinessIndexPage, { metadata } from "@/app/psychedelic-readiness-index/page";
 import { MEDICINES, QUESTIONS } from "@/lib/content/pri-data";
+import { SAFETY_DATA } from "@/lib/content/pri-safety-data";
 
 describe("/psychedelic-readiness-index", () => {
+  it("holds every medicine lacking detailed safety records without mounting assessment or scores", async () => {
+    const unreviewed = MEDICINES.filter((m) => !SAFETY_DATA[m.id]);
+    expect(unreviewed).toHaveLength(14);
+    for (const medicine of unreviewed) {
+      const { unmount } = render(await PsychedelicReadinessIndexPage({
+        searchParams: Promise.resolve({ m: medicine.id }),
+      }));
+      expect(screen.getByRole("heading", { name: "This assessment is temporarily unavailable" })).toBeInTheDocument();
+      expect(screen.queryByRole("button", { name: /Begin Assessment/ })).not.toBeInTheDocument();
+      expect(screen.queryByText(/Find MyMedicine/)).not.toBeInTheDocument();
+      unmount();
+    }
+  });
+
   it("withholds all scoring UI for the legacy ibogaine URL, including cardiac-history profiles", async () => {
     render(await PsychedelicReadinessIndexPage({
       searchParams: Promise.resolve({ m: "ibogaine" }),

@@ -13,7 +13,11 @@
 - UI: Tailwind CSS v4 + shadcn/ui (Radix base) — same design-system convention the team already uses elsewhere. `next/image` for all images. No framer-motion — CSS transitions / `tailwindcss-animate` only.
 
 
-## Current status — 2026-11-11
+## Current status — 2026-11-12
+
+**Unreviewed PRI medicine emergency hold (2026-11-12, PR #48):** All 14 medicines missing a SAFETY_DATA record get the existing server-rendered temporary holding notice on their `?m=<id>` deep links, with no assessment or scores. Unreviewed entries are excluded from personalized medicine matches. Regression tests added. Clinical reviewer names and accepted due dates remain unconfirmed; the pharmacist, psychiatrist and cardiologist must be named by the clinical owner, with documented sign-off before restoration. Pending deployment verification.
+
+## Previous status — 2026-11-11
 
 **Peyote public claims correction (2026-11-11, PR #47):** Rebased the previously approved PR #46 correction against production after a shared status-file conflict. Buy links and unverified outcome percentages withheld; regression tests updated. Pending preview checks and publication.
 

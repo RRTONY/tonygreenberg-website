@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { seoMetadata } from "@/lib/seo-defaults";
 import { PsychedelicReadinessIndex } from "@/components/pri/psychedelic-readiness-index";
+import { MEDICINES } from "@/lib/content/pri-data";
+import { SAFETY_DATA } from "@/lib/content/pri-safety-data";
 
 // Ported from legacy client/src/pages/pri/PsychedelicReadinessIndex.tsx —
 // see that component file for the full port-note on what changed. Fully
@@ -19,7 +21,10 @@ export default async function PsychedelicReadinessIndexPage({
   searchParams: Promise<{ m?: string | string[] }>;
 }) {
   const { m } = await searchParams;
-  if (m === "ibogaine" || (Array.isArray(m) && m.includes("ibogaine"))) {
+  const selectedIds = Array.isArray(m) ? m : m ? [m] : [];
+  const holdsIbogaine = selectedIds.includes("ibogaine");
+  const unreviewed = selectedIds.map((id) => MEDICINES.find((medicine) => medicine.id === id && !SAFETY_DATA[medicine.id])).find(Boolean);
+  if (holdsIbogaine || unreviewed) {
     return (
       <main className="mx-auto flex min-h-[70vh] max-w-2xl flex-col justify-center px-6 py-16 text-center">
         <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-red-700">
@@ -29,12 +34,12 @@ export default async function PsychedelicReadinessIndexPage({
           This assessment is temporarily unavailable
         </h1>
         <p className="mb-4 text-lg leading-relaxed">
-          The ibogaine readiness assessment is paused pending medical and safety review.
+          The {holdsIbogaine ? "ibogaine" : unreviewed?.name} readiness assessment is paused pending medical and safety review.
           No scores, suitability recommendations, or medicine matches are being issued here.
         </p>
         <p className="text-base leading-relaxed">
-          Ibogaine can pose serious cardiac risks. A personal assessment cannot establish
-          medical safety. Consult a qualified healthcare professional for individual guidance.
+          A personal assessment cannot establish medical safety. Consult a qualified
+          healthcare professional for individual guidance. Do not change prescribed medications to prepare for psychedelic use.
         </p>
       </main>
     );
