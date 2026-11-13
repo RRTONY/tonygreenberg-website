@@ -59,6 +59,22 @@ Live check: 533/533 sitemap URLs 200, legacy 114/114 200, certs valid, email DNS
   links don't prefetch. Addresses unchanged, so the move stays easy to undo; checked clean on a
   production build. Point them straight at psychedelicreadiness.com if the move becomes permanent.
 - [x] Scroll retest of the 187 pages a network drop interrupted: 561 runs, 0 problems.
+- [x] SEO sweep of all 533 pages: every page has a title, description, canonical, OG image and
+  JSON-LD; no duplicates, no H1 or noindex problems, all images have alt. Off-page: Common Crawl
+  ranks the domain ~#9.3M by link authority (low confidence; Moz/Bing keys needed for a real
+  backlink report).
+- [x] Long titles (owner's team said fix, 2026-11-14): `MAX_TITLE_LENGTH` 70 → 60 in
+  `seo-defaults.ts` (34 titles were cut only by the suffix); 6 pages that bypassed `seoTitle` now
+  use it; 7 code-set titles shortened (search title only, headings unchanged); charity and coffee
+  title templates fit 60. Local production build: every non-essay title ≤ 60.
+- [ ] **Owner/Tony:** 42 essays have a short `seo.metaTitle` saved as a Sanity DRAFT
+  (`scripts/draft-short-seo-titles.ts`; Tony's words, subtitle dropped; headlines unchanged).
+  Review and publish them in /studio, or edit them first.
+- [x] All 8 sign-up/email forms on Formik + Yup at the owner's request (SoulSmoke signup, site
+  newsletter form and popup, GemSpark popup and share-your-spark, ABIT waitlist, BrewSoul First Sip,
+  the shared quiz email gate): same layout, written field errors, emails trimmed. Not changed:
+  login / password reset (sign-in is sensitive) and the email boxes inside PRI / Iboga assessments
+  (clinical review).
 - [ ] ramprate.com's TLS certificate expired 2026-06-22; 315 pages here link to it (RampRate site, not
   this repo). Renew it on the RampRate host.
 - [ ] ~280 external links in old essays are dead or block bots (old bit.ly links, etc.): content in
