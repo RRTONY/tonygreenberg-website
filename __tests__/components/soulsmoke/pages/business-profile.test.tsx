@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { BusinessProfile, toBusinessProfile } from "@/components/soulsmoke/pages/business-profile";
 import { SoulsmokeProviders } from "@/components/soulsmoke/soulsmoke-providers";
 import { getMyBusinessProfile, saveBusinessProfile } from "@/app/soul-smoke/actions";
@@ -71,10 +71,8 @@ describe("BusinessProfile", () => {
   });
 
   it("registers a business and shows the saved profile", async () => {
-    vi.mocked(saveBusinessProfile).mockResolvedValue({
-      ok: true,
-      data: { ...base, businessName: "Mezcaleria Uno", contactEmail: "ana@uno.bar", city: "Austin", state: "TX", bio: "Agave only.", isVerified: false, createdAt: "" },
-    });
+    let answer!: (v: Awaited<ReturnType<typeof saveBusinessProfile>>) => void;
+    vi.mocked(saveBusinessProfile).mockReturnValue(new Promise((r) => (answer = r)));
     renderPage();
     await screen.findByRole("heading", { level: 1, name: "Register Your Business" });
     expect(screen.getByRole("button", { name: "Register My Business" })).toBeDisabled();
@@ -92,7 +90,11 @@ describe("BusinessProfile", () => {
     fireEvent.change(screen.getByLabelText("Tell us about your business"), { target: { value: "Agave only." } });
     fireEvent.click(screen.getByRole("button", { name: "Register My Business" }));
 
-    expect(screen.getByRole("button", { name: "Creating Profile" })).toBeDisabled();
+    expect(await screen.findByRole("button", { name: "Creating Profile" })).toBeDisabled();
+    answer({
+      ok: true,
+      data: { ...base, businessName: "Mezcaleria Uno", contactEmail: "ana@uno.bar", city: "Austin", state: "TX", bio: "Agave only.", isVerified: false, createdAt: "" },
+    });
     expect(await screen.findByRole("heading", { level: 1, name: "Profile Created!" })).toBeInTheDocument();
     expect(saveBusinessProfile).toHaveBeenCalledWith(
       expect.objectContaining({ businessType: "bar", businessName: "Mezcaleria Uno", annualVolume: "10-50", city: "Austin" }),
@@ -128,19 +130,59 @@ describe("BusinessProfile", () => {
     expect(await screen.findByRole("alert")).toHaveTextContent("Try again in a minute.");
     const form = screen.getByRole("button", { name: "Register My Business" }).closest("form")!;
 
+    // Nothing filled in: the load error clears and each required field says what it needs.
     fireEvent.submit(form);
-    expect(screen.queryByRole("alert")).toBeNull();
+    expect(await screen.findByText("Pick a business type.")).toHaveAttribute("role", "alert");
+    expect(screen.getByText("Add your business name.")).toHaveAttribute("role", "alert");
+    expect(screen.queryByText("Try again in a minute.")).toBeNull();
+    const name = screen.getByLabelText("Business Name *");
+    expect(name).toHaveAttribute("aria-invalid", "true");
+    expect(name).toHaveAccessibleDescription("Add your business name.");
+
     fireEvent.click(screen.getByRole("button", { name: /Importer/ }));
-    fireEvent.change(screen.getByLabelText("Business Name *"), { target: { value: "Imp" } });
+    fireEvent.change(name, { target: { value: "Imp" } });
     fireEvent.change(screen.getByLabelText("Email"), { target: { value: "bad" } });
     fireEvent.submit(form);
-    expect(screen.getByRole("alert")).toHaveTextContent("Something went wrong. Please try again.");
+    expect(await screen.findByText("That email address doesn't look right.")).toBeInTheDocument();
+    expect(screen.queryByText("Pick a business type.")).toBeNull();
+    expect(screen.queryByText("Add your business name.")).toBeNull();
+    expect(screen.getByLabelText("Email")).toHaveAttribute("aria-invalid", "true");
     expect(saveBusinessProfile).not.toHaveBeenCalled();
 
     vi.mocked(saveBusinessProfile).mockResolvedValue({ ok: false, error: "Business name is required" });
     fireEvent.change(screen.getByLabelText("Email"), { target: { value: "" } });
     fireEvent.submit(form);
     expect(await screen.findByText("Business name is required")).toBeInTheDocument();
+  });
+
+  it("names a missing business name as soon as the field is left empty", async () => {
+    renderPage();
+    const name = await screen.findByLabelText("Business Name *");
+    fireEvent.change(name, { target: { value: "   " } });
+    fireEvent.blur(name);
+    expect(await screen.findByText("Add your business name.")).toBeInTheDocument();
+  });
+
+  it("checks a website only when one is given", async () => {
+    vi.mocked(saveBusinessProfile).mockResolvedValue({ ok: false, error: "Saved nothing." });
+    renderPage();
+    await screen.findByRole("heading", { level: 1, name: "Register Your Business" });
+    fireEvent.click(screen.getByRole("button", { name: /Distributor/ }));
+    fireEvent.change(screen.getByLabelText("Business Name *"), { target: { value: "Dist" } });
+    fireEvent.change(screen.getByLabelText("Website"), { target: { value: "dist.example" } });
+    fireEvent.click(screen.getByRole("button", { name: "Register My Business" }));
+    expect(await screen.findByText("Use a web address starting with http.")).toBeInTheDocument();
+    expect(saveBusinessProfile).not.toHaveBeenCalled();
+
+    // Left empty (rule 17), the optional website and email don't block the save.
+    fireEvent.change(screen.getByLabelText("Website"), { target: { value: "" } });
+    fireEvent.click(screen.getByRole("button", { name: "Register My Business" }));
+    await waitFor(() =>
+      expect(saveBusinessProfile).toHaveBeenCalledWith(
+        expect.objectContaining({ businessType: "distributor", businessName: "Dist", website: undefined, contactEmail: undefined }),
+      ),
+    );
+    expect(screen.queryByText("Use a web address starting with http.")).toBeNull();
   });
 
   it("sends a member whose session ran out to the sign-in screen", async () => {

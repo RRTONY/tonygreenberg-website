@@ -36,6 +36,23 @@ Live check: 533/533 sitemap URLs 200, legacy 114/114 200, certs valid, email DNS
   (business profile, price tracker, tasting journal, trade board) and the GemSpark view counter.
   Fixed with `src/lib/content/soulsmoke/reach.ts` (turns a failed request into the usual
   `{ ok: false, error }`) plus catches; a "dropped connection" test for each fails on the old code.
+- [x] Scroll + cut-content test (every page at 375/820/1280; no sideways scroll, no scroll errors
+  anywhere). Fixed the real cuts: Mexico Source and Scent Finder heroes were fixed-height with an
+  8xl title (title hidden behind the header, subtitle clipped at tablet), now `min-h` + top padding,
+  8xl from `lg`; Agave Encyclopedia's "Encyclopedia" overflowed phones (text-4xl below `sm`);
+  Evolution's era titles ran off the tablet column (`md:text-5xl lg:text-6xl`); the SoulSmoke top
+  bar's EN/ES pill was cut at exactly 1280px (tighter spacing below `2xl`). Checked on a local
+  production build: no cuts at any width.
+- [x] Five BrewSoul city pages (Seattle, Nashville, Minneapolis, Houston, Raleigh-Durham) showed
+  broken images: their Unsplash photos were deleted upstream (404). `heroImage` is now optional and
+  those cities show the banner's gradient. **Owner:** pick replacement photos (Sanity) if wanted.
+- [x] House rule 6: SoulSmoke's multi-field forms (tasting journal, trade board listing, business
+  profile) moved to Formik + Yup, same labels and layout, field-level messages, rule-17 empty
+  optional fields tested. New client checks: a whole-dollar asking price, a website starting with
+  http, max lengths on the journal. The email signup (name + email) and the single-textarea seller
+  message stay as they are (rule 6 says one/two-field forms don't need Formik).
+- [x] Every quiz has an end-to-end unit test (questions, email gate, result, score); live walk of
+  8 quizzes reached their results. Mirror quiz test made stable under load.
 - [ ] 106 internal links still point at the PRI pages that 307 to psychedelicreadiness.com (PR #49,
   temporary on purpose). Clicking works; Next's background prefetch logs a CORS error. Point them
   straight at psychedelicreadiness.com if the move becomes permanent.

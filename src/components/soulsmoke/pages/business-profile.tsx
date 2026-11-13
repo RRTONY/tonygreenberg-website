@@ -1,7 +1,9 @@
 "use client";
 
-import { useEffect, useId, useState, type FormEvent } from "react";
+import { useEffect, useId, useState } from "react";
 import Link from "next/link";
+import { ErrorMessage, Field, Formik, type FormikErrors, type FormikTouched } from "formik";
+import * as Yup from "yup";
 import { ArrowLeft, Building2, Check, ChefHat, CircleHelp, Home, Loader2, Package, Store, Truck, Wine } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getMyBusinessProfile, saveBusinessProfile } from "@/app/soul-smoke/actions";
@@ -61,13 +63,39 @@ const emptyForm = {
 };
 
 const optional = (s: string) => (s.trim() ? s.trim() : undefined);
+const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+// Client-side checks (rule 6); saveBusinessProfile repeats the ones that matter on the server.
+// Formik turns an untouched "" into undefined before validating, so every optional field gets a
+// default("") and its pattern skips empty strings (rule 17).
+const optionalText = () => Yup.string().trim().default("");
+const schema = Yup.object({
+  businessType: Yup.string<BusinessType | "">()
+    .oneOf(["", ...BUSINESS_TYPES])
+    .required("Pick a business type.")
+    .default(""),
+  businessName: Yup.string().trim().max(255).required("Add your business name.").default(""),
+  contactName: optionalText(),
+  contactEmail: optionalText().matches(EMAIL, { message: "That email address doesn't look right.", excludeEmptyString: true }),
+  phone: optionalText(),
+  website: optionalText().matches(/^https?:\/\/\S+$/i, { message: "Use a web address starting with http.", excludeEmptyString: true }),
+  city: optionalText(),
+  state: optionalText(),
+  country: optionalText(),
+  licenseType: optionalText(),
+  annualVolume: optionalText(),
+  focusCategories: optionalText(),
+  bio: optionalText(),
+});
+
+type Values = Yup.InferType<typeof schema>;
 
 /** Mirrors the Manus server's createBusinessProfile input checks. Returns null when invalid. */
 export function toBusinessProfile(form: typeof emptyForm, now = new Date()): StoredBusinessProfile | null {
   const businessName = form.businessName.trim();
   if (!form.businessType || !BUSINESS_TYPES.includes(form.businessType) || !businessName) return null;
   const contactEmail = optional(form.contactEmail);
-  if (contactEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactEmail)) return null;
+  if (contactEmail && !EMAIL.test(contactEmail)) return null;
   return {
     businessType: form.businessType,
     businessName,
@@ -89,14 +117,13 @@ export function toBusinessProfile(form: typeof emptyForm, now = new Date()): Sto
 
 const inputClass =
   "w-full rounded-lg border border-zinc-700 bg-zinc-800 px-4 py-3 text-sm text-white focus:border-amber-500 focus:outline-none";
+const errorClass = "mt-1 text-sm text-red-300";
 
 export function BusinessProfile() {
   const [status, setStatus] = useState<"loading" | "signedOut" | "ready">("loading");
   const [profile, setProfile] = useState<StoredBusinessProfile | null>(null);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [pending, setPending] = useState(false);
-  const [form, setForm] = useState(emptyForm);
   const id = useId();
   const fid = (name: string) => `${id}-${name}`;
 
@@ -206,18 +233,12 @@ export function BusinessProfile() {
     );
   }
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    const next = toBusinessProfile(form);
-    if (!next) {
-      setError(form.businessType && form.businessName.trim() ? "Something went wrong. Please try again." : null);
-      return;
-    }
-    setError(null);
-    setPending(true);
+  const save = async (values: Values) => {
+    const next = toBusinessProfile(values);
+    // The schema already checks what toBusinessProfile does; this only guards against the two drifting.
+    if (!next) return setError("Something went wrong. Please try again.");
     // isVerified/createdAt are set by the server; it ignores the ones here.
     const result = await reach(saveBusinessProfile(next));
-    setPending(false);
     if (result.ok) {
       setProfile(result.data);
       setSuccess(true);
@@ -229,24 +250,36 @@ export function BusinessProfile() {
     key: "businessName" | "contactName" | "contactEmail" | "phone" | "website" | "city" | "state",
     label: string,
     placeholder: string,
-    type = "text",
+    type: string,
+    shown: { errors: FormikErrors<Values>; touched: FormikTouched<Values> },
     extra?: { required?: boolean; wide?: boolean },
-  ) => (
-    <div className={extra?.wide ? "sm:col-span-2" : undefined}>
-      <label htmlFor={fid(key)} className="mb-1 block text-sm font-semibold text-zinc-300">
-        {label}
-      </label>
-      <input
-        id={fid(key)}
-        type={type}
-        value={form[key]}
-        onChange={(e) => setForm((f) => ({ ...f, [key]: e.target.value }))}
-        className={inputClass}
-        placeholder={placeholder}
-        required={extra?.required}
-      />
-    </div>
-  );
+  ) => {
+    const invalid = Boolean(shown.touched[key] && shown.errors[key]);
+    return (
+      <div className={extra?.wide ? "sm:col-span-2" : undefined}>
+        <label htmlFor={fid(key)} className="mb-1 block text-sm font-semibold text-zinc-300">
+          {label}
+        </label>
+        <Field
+          id={fid(key)}
+          name={key}
+          type={type}
+          className={inputClass}
+          placeholder={placeholder}
+          required={extra?.required}
+          aria-invalid={invalid}
+          aria-describedby={invalid ? fid(`${key}-error`) : undefined}
+        />
+        <ErrorMessage name={key}>
+          {(msg) => (
+            <p id={fid(`${key}-error`)} role="alert" className={errorClass}>
+              {msg}
+            </p>
+          )}
+        </ErrorMessage>
+      </div>
+    );
+  };
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -264,101 +297,118 @@ export function BusinessProfile() {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-8">
-          {/* Business Type */}
-          <fieldset>
-            <legend className="mb-3 block text-sm font-semibold text-zinc-300">Business Type *</legend>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-              {businessTypes.map(({ value, label, icon: Icon }) => (
-                <button
-                  key={value}
-                  type="button"
-                  aria-pressed={form.businessType === value}
-                  onClick={() => setForm((f) => ({ ...f, businessType: value }))}
-                  className={
-                    form.businessType === value
-                      ? "rounded-xl border border-amber-500 bg-amber-500/10 p-4 text-left text-amber-500 transition-all"
-                      : "rounded-xl border border-zinc-700 bg-zinc-900 p-4 text-left text-zinc-400 transition-all hover:border-zinc-500"
-                  }
-                >
-                  <Icon aria-hidden="true" className="mb-2 size-5" />
-                  <span className="block text-sm font-medium">{label}</span>
-                </button>
-              ))}
-            </div>
-          </fieldset>
-
-          {/* Business Details */}
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {text("businessName", "Business Name *", "Your business name", "text", { required: true, wide: true })}
-            {text("contactName", "Contact Name", "Your name")}
-            {text("contactEmail", "Email", "you@business.com", "email")}
-            {text("phone", "Phone", "+1 (555) 000-0000", "tel")}
-            {text("website", "Website", "https://yourbusiness.com", "url")}
-            {text("city", "City", "City")}
-            {text("state", "State / Province", "State")}
-          </div>
-
-          {/* Additional Info */}
-          <div className="space-y-4">
-            <div>
-              <label htmlFor={fid("volume")} className="mb-1 block text-sm font-semibold text-zinc-300">
-                Annual Volume (estimated cases)
-              </label>
-              <select
-                id={fid("volume")}
-                value={form.annualVolume}
-                onChange={(e) => setForm((f) => ({ ...f, annualVolume: e.target.value }))}
-                className={inputClass}
+        <Formik<Values> initialValues={emptyForm} validationSchema={schema} onSubmit={save}>
+          {({ values, errors, touched, isSubmitting, setFieldValue, handleSubmit }) => {
+            const shown = { errors, touched };
+            return (
+              <form
+                noValidate
+                onSubmit={(e) => {
+                  // A new attempt clears the last server error; Yup's field messages take over.
+                  setError(null);
+                  handleSubmit(e);
+                }}
+                className="space-y-8"
               >
-                <option value="">Select...</option>
-                <option value="1-10">1-10 cases/year</option>
-                <option value="10-50">10-50 cases/year</option>
-                <option value="50-200">50-200 cases/year</option>
-                <option value="200-1000">200-1,000 cases/year</option>
-                <option value="1000+">1,000+ cases/year</option>
-              </select>
-            </div>
-            <div>
-              <label htmlFor={fid("bio")} className="mb-1 block text-sm font-semibold text-zinc-300">
-                Tell us about your business
-              </label>
-              <textarea
-                id={fid("bio")}
-                value={form.bio}
-                onChange={(e) => setForm((f) => ({ ...f, bio: e.target.value }))}
-                className="h-24 w-full resize-none rounded-lg border border-zinc-700 bg-zinc-800 px-4 py-3 text-sm text-white focus:border-amber-500 focus:outline-none"
-                placeholder="What makes your business unique? What kind of mezcal are you looking for?"
-              />
-            </div>
-          </div>
+                {/* Business Type */}
+                <fieldset>
+                  <legend className="mb-3 block text-sm font-semibold text-zinc-300">Business Type *</legend>
+                  <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                    {businessTypes.map(({ value, label, icon: Icon }) => (
+                      <button
+                        key={value}
+                        type="button"
+                        aria-pressed={values.businessType === value}
+                        onClick={() => setFieldValue("businessType", value)}
+                        className={
+                          values.businessType === value
+                            ? "rounded-xl border border-amber-500 bg-amber-500/10 p-4 text-left text-amber-500 transition-all"
+                            : "rounded-xl border border-zinc-700 bg-zinc-900 p-4 text-left text-zinc-400 transition-all hover:border-zinc-500"
+                        }
+                      >
+                        <Icon aria-hidden="true" className="mb-2 size-5" />
+                        <span className="block text-sm font-medium">{label}</span>
+                      </button>
+                    ))}
+                  </div>
+                  <ErrorMessage name="businessType">
+                    {(msg) => (
+                      <p role="alert" className={errorClass}>
+                        {msg}
+                      </p>
+                    )}
+                  </ErrorMessage>
+                </fieldset>
 
-          <Button
-            type="submit"
-            disabled={!form.businessType || !form.businessName || pending}
-            className="w-full bg-amber-500 py-4 text-lg font-bold text-black hover:bg-amber-400"
-          >
-            {pending ? (
-              <>
-                <Loader2 aria-hidden="true" className="size-4 animate-spin" />
-                Creating Profile
-              </>
-            ) : (
-              "Register My Business"
-            )}
-          </Button>
+                {/* Business Details */}
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  {text("businessName", "Business Name *", "Your business name", "text", shown, { required: true, wide: true })}
+                  {text("contactName", "Contact Name", "Your name", "text", shown)}
+                  {text("contactEmail", "Email", "you@business.com", "email", shown)}
+                  {text("phone", "Phone", "+1 (555) 000-0000", "tel", shown)}
+                  {text("website", "Website", "https://yourbusiness.com", "url", shown)}
+                  {text("city", "City", "City", "text", shown)}
+                  {text("state", "State / Province", "State", "text", shown)}
+                </div>
 
-          {error && (
-            <p role="alert" className="text-center text-sm text-red-400">
-              {error}
-            </p>
-          )}
+                {/* Additional Info */}
+                <div className="space-y-4">
+                  <div>
+                    <label htmlFor={fid("volume")} className="mb-1 block text-sm font-semibold text-zinc-300">
+                      Annual Volume (estimated cases)
+                    </label>
+                    <Field as="select" id={fid("volume")} name="annualVolume" className={inputClass}>
+                      <option value="">Select...</option>
+                      <option value="1-10">1-10 cases/year</option>
+                      <option value="10-50">10-50 cases/year</option>
+                      <option value="50-200">50-200 cases/year</option>
+                      <option value="200-1000">200-1,000 cases/year</option>
+                      <option value="1000+">1,000+ cases/year</option>
+                    </Field>
+                  </div>
+                  <div>
+                    <label htmlFor={fid("bio")} className="mb-1 block text-sm font-semibold text-zinc-300">
+                      Tell us about your business
+                    </label>
+                    <Field
+                      as="textarea"
+                      id={fid("bio")}
+                      name="bio"
+                      className="h-24 w-full resize-none rounded-lg border border-zinc-700 bg-zinc-800 px-4 py-3 text-sm text-white focus:border-amber-500 focus:outline-none"
+                      placeholder="What makes your business unique? What kind of mezcal are you looking for?"
+                    />
+                  </div>
+                </div>
 
-          <p className="text-center text-xs text-zinc-500">
-            Your information is kept confidential and only shared with verified producers when you express interest in
-            specific bottles.
-          </p>
-        </form>
+                <Button
+                  type="submit"
+                  disabled={!values.businessType || !values.businessName || isSubmitting}
+                  className="w-full bg-amber-500 py-4 text-lg font-bold text-black hover:bg-amber-400"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 aria-hidden="true" className="size-4 animate-spin" />
+                      Creating Profile
+                    </>
+                  ) : (
+                    "Register My Business"
+                  )}
+                </Button>
+
+                {error && (
+                  <p role="alert" className="text-center text-sm text-red-400">
+                    {error}
+                  </p>
+                )}
+
+                <p className="text-center text-xs text-zinc-500">
+                  Your information is kept confidential and only shared with verified producers when you express interest in
+                  specific bottles.
+                </p>
+              </form>
+            );
+          }}
+        </Formik>
       </div>
     </div>
   );

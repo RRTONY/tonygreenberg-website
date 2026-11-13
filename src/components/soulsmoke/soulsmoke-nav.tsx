@@ -108,8 +108,8 @@ function Dropdown({
         aria-haspopup="true"
         className={
           active
-            ? "flex items-center gap-1 px-3 py-2 font-heading text-sm tracking-wide whitespace-nowrap text-terracotta transition-all duration-300"
-            : "flex items-center gap-1 px-3 py-2 font-heading text-sm tracking-wide whitespace-nowrap text-cream/80 transition-all duration-300 hover:text-cream"
+            ? "flex items-center gap-1 px-2 py-2 font-heading text-sm tracking-wide 2xl:px-3 whitespace-nowrap text-terracotta transition-all duration-300"
+            : "flex items-center gap-1 px-2 py-2 font-heading text-sm tracking-wide 2xl:px-3 whitespace-nowrap text-cream/80 transition-all duration-300 hover:text-cream"
         }
       >
         {label}
@@ -200,7 +200,7 @@ export function SoulsmokeNav() {
       <nav aria-label="SoulSmoke" className="fixed top-0 right-0 left-0 z-50 hidden xl:block">
         <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-earth/90 via-earth/70 to-transparent" />
         <div className="relative mx-auto max-w-7xl px-6 py-4">
-          <div className="flex items-center justify-between gap-6">
+          <div className="flex items-center justify-between gap-4 2xl:gap-6">
             {/* shrink-0: the flex row squeezed the logo link narrower than "SOULSMOKE", so the wordmark ran over the menu (2026-11-10). */}
             <Link href={ss("/")} className="flex shrink-0 cursor-pointer items-center gap-3 transition-opacity hover:opacity-80">
               <Image src={logo.src} alt="" width={40} height={40} className="size-10" priority />
@@ -214,12 +214,12 @@ export function SoulsmokeNav() {
                   href={ss(item.path)}
                   className={
                     isActive(item.path)
-                      ? "relative cursor-pointer px-3 py-2 font-heading text-sm tracking-wide whitespace-nowrap text-terracotta transition-all duration-300"
-                      : "relative cursor-pointer px-3 py-2 font-heading text-sm tracking-wide whitespace-nowrap text-cream/80 transition-all duration-300 hover:text-cream"
+                      ? "relative cursor-pointer px-2 py-2 font-heading text-sm tracking-wide 2xl:px-3 whitespace-nowrap text-terracotta transition-all duration-300"
+                      : "relative cursor-pointer px-2 py-2 font-heading text-sm tracking-wide 2xl:px-3 whitespace-nowrap text-cream/80 transition-all duration-300 hover:text-cream"
                   }
                 >
                   {getLabel(item)}
-                  {isActive(item.path) && <span className="absolute right-3 bottom-0 left-3 h-px bg-terracotta" />}
+                  {isActive(item.path) && <span className="absolute right-2 bottom-0 left-2 h-px bg-terracotta 2xl:right-3 2xl:left-3" />}
                 </Link>
               ))}
 

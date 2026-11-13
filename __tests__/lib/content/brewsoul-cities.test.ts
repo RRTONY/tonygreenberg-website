@@ -55,9 +55,11 @@ describe("city data integrity", () => {
     expect(top.score).toBe(NATIONAL_STATS.topCityScore);
   });
 
-  it("uses https hero images and no Manus URLs", () => {
+  // A city's photo is optional since 2026-11-14 (dead Unsplash photos were removed, not replaced).
+  it("uses https hero images where a city has one, and no Manus URLs", () => {
+    expect(CITIES.filter((c) => c.heroImage).length).toBeGreaterThanOrEqual(20);
     for (const c of CITIES) {
-      expect(c.heroImage).toMatch(/^https:\/\//);
+      if (c.heroImage) expect(c.heroImage).toMatch(/^https:\/\//);
       expect(JSON.stringify(c)).not.toMatch(MANUS);
     }
   });

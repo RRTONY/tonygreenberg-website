@@ -141,14 +141,78 @@ describe("TastingJournal", () => {
     expect(screen.queryByRole("dialog")).toBeNull();
   });
 
-  it("won't send a blank name", async () => {
+  it("won't send a blank name, and says the name is required", async () => {
     list.mockResolvedValue({ ok: true, data: [] });
     renderPage();
     fireEvent.click(await screen.findByRole("button", { name: "Add Entry" }));
     fireEvent.change(screen.getByLabelText("Mezcal Name *"), { target: { value: "   " } });
     fireEvent.submit(screen.getByRole("button", { name: "Save Entry" }).closest("form")!);
+    expect(await screen.findByRole("alert")).toHaveTextContent("Mezcal Name is required.");
     expect(add).not.toHaveBeenCalled();
     expect(screen.getByRole("dialog")).toBeInTheDocument();
+  });
+
+  it("shows a field's length message and sends nothing", async () => {
+    list.mockResolvedValue({ ok: true, data: [] });
+    renderPage();
+    fireEvent.click(await screen.findByRole("button", { name: "Add Entry" }));
+    fireEvent.change(screen.getByLabelText("Mezcal Name *"), { target: { value: "Largo" } });
+    fireEvent.change(screen.getByLabelText("ABV"), { target: { value: "forty-eight percent" } });
+    fireEvent.change(screen.getByLabelText("Tasting Notes"), { target: { value: "x".repeat(5001) } });
+    fireEvent.click(screen.getByRole("button", { name: "Save Entry" }));
+    expect(await screen.findByText("Keep the ABV under 10 characters.")).toHaveAttribute("role", "alert");
+    expect(screen.getByText("Keep your notes under 5,000 characters.")).toBeInTheDocument();
+    expect(add).not.toHaveBeenCalled();
+  });
+
+  // Rule 17: an untouched optional field sends "", and that must still save.
+  it("saves with every optional field left empty and resets the form for the next entry", async () => {
+    list.mockResolvedValue({ ok: true, data: [] });
+    add.mockImplementation(async (input) => ({
+      ok: true,
+      data: { ...input, id: "7", tastedAt: "2026-02-01T00:00:00Z" } as TastingEntry,
+    }));
+    renderPage();
+    fireEvent.click(await screen.findByRole("button", { name: "Add Entry" }));
+    fireEvent.change(screen.getByLabelText("Mezcal Name *"), { target: { value: "Espadín" } });
+    fireEvent.click(screen.getByRole("button", { name: "Save Entry" }));
+    expect(await screen.findByRole("heading", { level: 3, name: "Espadín" })).toBeInTheDocument();
+    expect(add).toHaveBeenCalledWith(
+      expect.objectContaining({
+        mezcalName: "Espadín",
+        producer: undefined,
+        agaveType: undefined,
+        region: undefined,
+        abv: undefined,
+        notes: undefined,
+        rating: undefined,
+        smokeLevel: 3,
+        wouldBuyAgain: true,
+      }),
+    );
+    expect(screen.queryByRole("dialog")).toBeNull();
+    fireEvent.click(screen.getByRole("button", { name: "Add Entry" }));
+    expect(screen.getByLabelText("Mezcal Name *")).toHaveValue("");
+  });
+
+  it("keeps a cancelled draft and shows the spinner, not text, while saving", async () => {
+    list.mockResolvedValue({ ok: true, data: [] });
+    let resolve!: (v: Awaited<ReturnType<typeof addTastingEntry>>) => void;
+    add.mockReturnValue(new Promise((r) => (resolve = r)));
+    renderPage();
+    fireEvent.click(await screen.findByRole("button", { name: "Add Entry" }));
+    fireEvent.change(screen.getByLabelText("Mezcal Name *"), { target: { value: "Draft" } });
+    fireEvent.click(screen.getByRole("button", { name: "Cancel" }));
+    fireEvent.click(screen.getByRole("button", { name: "Add Entry" }));
+    expect(screen.getByLabelText("Mezcal Name *")).toHaveValue("Draft");
+    const save = screen.getByRole("button", { name: "Save Entry" });
+    fireEvent.click(save);
+    await waitFor(() => expect(save).toBeDisabled());
+    expect(save.querySelector(".animate-spin")).not.toBeNull();
+    expect(save).toHaveTextContent(/^Save Entry$/);
+    resolve({ ok: false, error: "Try later." });
+    expect(await screen.findByText("Try later.")).toBeInTheDocument();
+    expect(save).toBeEnabled();
   });
 
   it("shows the server's errors when loading, saving or deleting fails", async () => {

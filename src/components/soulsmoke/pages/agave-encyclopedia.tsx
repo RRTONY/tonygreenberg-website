@@ -680,7 +680,7 @@ export function AgaveEncyclopedia() {
             <p className="animate-fade-in mb-4 font-mono text-sm tracking-[0.3em] text-lime-400">
               {language === "es" ? "LA BIBLIOTECA VIVIENTE" : "THE LIVING LIBRARY"}
             </p>
-            <h1 className="animate-fade-in mb-6 font-serif text-5xl font-bold md:text-7xl">
+            <h1 className="animate-fade-in mb-6 font-serif text-4xl font-bold sm:text-5xl md:text-7xl">
               {language === "es" ? "Enciclopedia del Agave" : "Agave Encyclopedia"}
             </h1>
             <p className="animate-fade-in mx-auto max-w-2xl text-xl text-stone-300">
