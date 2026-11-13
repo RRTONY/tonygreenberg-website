@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowLeft, Building2, Check, ChefHat, CircleHelp, Home, Loader2, Package, Store, Truck, Wine } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getMyBusinessProfile, saveBusinessProfile } from "@/app/soul-smoke/actions";
+import { reach } from "@/lib/content/soulsmoke/reach";
 import { ss } from "@/lib/content/soulsmoke/nav";
 
 // Ported from the SoulSmoke app's client/src/pages/BusinessProfile.tsx. Same form, confirmation
@@ -101,7 +102,7 @@ export function BusinessProfile() {
 
   useEffect(() => {
     let live = true;
-    getMyBusinessProfile().then((result) => {
+    reach(getMyBusinessProfile()).then((result) => {
       if (!live) return;
       if (result.ok) setProfile(result.data);
       else if (result.signedOut) return setStatus("signedOut");
@@ -215,7 +216,7 @@ export function BusinessProfile() {
     setError(null);
     setPending(true);
     // isVerified/createdAt are set by the server; it ignores the ones here.
-    const result = await saveBusinessProfile(next);
+    const result = await reach(saveBusinessProfile(next));
     setPending(false);
     if (result.ok) {
       setProfile(result.data);

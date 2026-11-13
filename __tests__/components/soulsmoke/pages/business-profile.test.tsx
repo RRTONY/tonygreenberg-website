@@ -116,6 +116,12 @@ describe("BusinessProfile", () => {
     expect(screen.queryByText(/Pending verification/)).toBeNull();
   });
 
+  it("explains a dropped connection instead of spinning forever", async () => {
+    vi.mocked(getMyBusinessProfile).mockRejectedValue(new TypeError("Failed to fetch"));
+    renderPage();
+    expect(await screen.findByRole("alert")).toHaveTextContent("Couldn't reach the server");
+  });
+
   it("shows why it couldn't load or save, and checks the form first", async () => {
     vi.mocked(getMyBusinessProfile).mockResolvedValue({ ok: false, error: "Try again in a minute." });
     renderPage();

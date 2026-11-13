@@ -119,6 +119,13 @@ describe("PriceTracker", () => {
     expect(screen.getByRole("button", { name: "Set Price Alert" })).toBeInTheDocument();
   });
 
+  it("explains a dropped connection instead of failing silently", async () => {
+    list.mockRejectedValue(new TypeError("Failed to fetch"));
+    renderPage();
+    expect(await screen.findByRole("alert")).toHaveTextContent("Couldn't reach the server");
+    expect(screen.getByRole("button", { name: "Set Price Alert" })).toBeInTheDocument();
+  });
+
   it("falls back to the sign-in section when the session ends before saving", async () => {
     list.mockResolvedValue({ ok: true, data: [] });
     add.mockResolvedValue({ ok: false, error: "Please sign in first.", signedOut: true });

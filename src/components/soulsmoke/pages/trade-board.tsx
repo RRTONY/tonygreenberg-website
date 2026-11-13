@@ -22,6 +22,7 @@ import {
   sendTradeMessage,
   type PublicTradeListing,
 } from "@/app/soul-smoke/actions";
+import { reach } from "@/lib/content/soulsmoke/reach";
 import { ss } from "@/lib/content/soulsmoke/nav";
 
 // Ported from the SoulSmoke app's client/src/pages/TradeBoard.tsx. Same board, form, guidelines
@@ -157,7 +158,7 @@ export function TradeBoard() {
 
   useEffect(() => {
     let live = true;
-    listTradeListings().then((result) => {
+    reach(listTradeListings()).then((result) => {
       if (!live) return;
       if (result.ok) {
         setListings(result.data.listings);
@@ -205,7 +206,7 @@ export function TradeBoard() {
     setCreating(true);
     setCreateError("");
     // The server makes the id and date; send everything else toTradeListing checked.
-    const result = await createTradeListing({
+    const result = await reach(createTradeListing({
       mezcalName: listing.mezcalName,
       producer: listing.producer,
       agaveType: listing.agaveType,
@@ -218,7 +219,7 @@ export function TradeBoard() {
       seekingBottles: listing.seekingBottles,
       description: listing.description,
       location: listing.location,
-    });
+    }));
     setCreating(false);
     if (result.ok) {
       setListings((prev) => [result.data, ...prev]);
@@ -233,7 +234,7 @@ export function TradeBoard() {
 
   const deleteListing = async (listingId: string) => {
     setBoardError("");
-    const result = await deleteTradeListing(listingId);
+    const result = await reach(deleteTradeListing(listingId));
     if (result.ok) setListings((prev) => prev.filter((l) => l.id !== listingId));
     else if (result.signedOut) signedOut();
     else setBoardError(result.error);
@@ -249,7 +250,7 @@ export function TradeBoard() {
     if (!showMessageModal || !message.trim() || sending) return;
     setSending(true);
     setMessageError("");
-    const result = await sendTradeMessage({ listingId: showMessageModal.id, message: message.trim() });
+    const result = await reach(sendTradeMessage({ listingId: showMessageModal.id, message: message.trim() }));
     setSending(false);
     if (result.ok) {
       setShowMessageModal(null);

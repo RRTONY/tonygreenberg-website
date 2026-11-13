@@ -64,10 +64,12 @@ export function EmailGate({ assessmentSlug, onUnlock }: { assessmentSlug: string
           <button
             type="submit"
             disabled={pending}
+            aria-busy={pending}
             className="flex min-h-12 items-center justify-center gap-2 bg-linear-to-br from-brand-gold to-brand-gold-light px-6 py-3.5 font-mono text-[0.82rem] font-bold tracking-[0.1em] text-[#0A0A10] uppercase disabled:cursor-wait"
           >
-            {pending && <Loader2 className="size-4 animate-spin" />}
-            {pending ? "Unlocking..." : "Get My Results"}
+            {/* House rule 7: a real spinner next to the label, never "Unlocking..." text. */}
+            {pending && <Loader2 aria-hidden="true" data-testid="email-gate-spinner" className="size-4 animate-spin" />}
+            Get My Results
           </button>
         </form>
         <p className="mt-6 font-mono text-[0.68rem] tracking-[0.05em] text-[#8B7B6B]">

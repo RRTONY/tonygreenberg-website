@@ -96,6 +96,12 @@ describe("TradeBoard", () => {
     expect(screen.queryByText("Sign in to list your bottles or contact sellers")).toBeNull();
   });
 
+  it("explains a dropped connection instead of spinning forever", async () => {
+    actions.listTradeListings.mockRejectedValue(new TypeError("Failed to fetch"));
+    renderPage();
+    expect(await screen.findByRole("alert")).toHaveTextContent("Couldn't reach the server");
+  });
+
   it("ignores a board answer that arrives after the page closed", async () => {
     let resolve!: (v: unknown) => void;
     actions.listTradeListings.mockReturnValue(new Promise((r) => (resolve = r)));

@@ -165,6 +165,21 @@ describe("TastingJournal", () => {
     expect(screen.getByRole("dialog")).toBeInTheDocument();
   });
 
+  // Browser test 2026-11-14: a dropped connection left the journal spinning forever.
+  it("explains a dropped connection when loading, saving or deleting", async () => {
+    list.mockRejectedValue(new TypeError("Failed to fetch"));
+    renderPage();
+    expect(await screen.findByRole("alert")).toHaveTextContent("Couldn't reach the server");
+    expect(screen.queryByLabelText("Loading your journal")).toBeNull();
+
+    add.mockRejectedValue(new TypeError("Failed to fetch"));
+    fireEvent.click(screen.getByRole("button", { name: "Add Entry" }));
+    fireEvent.change(screen.getByLabelText("Mezcal Name *"), { target: { value: "Largo" } });
+    fireEvent.click(screen.getByRole("button", { name: "Save Entry" }));
+    await waitFor(() => expect(screen.getAllByRole("alert").some((a) => /Couldn't reach/.test(a.textContent ?? ""))).toBe(true));
+    expect(screen.getByRole("button", { name: "Save Entry" })).toBeEnabled();
+  });
+
   it("keeps an entry when deleting fails", async () => {
     list.mockResolvedValue({ ok: true, data: [entry({ mezcalName: "Keep" })] });
     remove.mockResolvedValue({ ok: false, error: "Try again." });

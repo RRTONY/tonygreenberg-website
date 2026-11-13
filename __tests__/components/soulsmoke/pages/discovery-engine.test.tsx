@@ -96,4 +96,20 @@ describe("DiscoveryEngine", () => {
     fireEvent.click(screen.getByRole("button", { name: "Filtros" }));
     expect(screen.getByRole("button", { name: "Filtros" })).toHaveClass("border-stone-300");
   });
+
+  // Live link check 2026-11-13: "Buy" linked each store name as a URL, so every one opened
+  // /soul-smoke/<store name> (404). Store names are labels; every link on the page must go somewhere real.
+  it("shows where-to-buy store names as text, never as broken links", () => {
+    const { container } = renderPage();
+    const stores = new Set(all.flatMap((b) => b.whereToBuy ?? []));
+    expect(stores.size).toBeGreaterThan(0);
+    for (const a of container.querySelectorAll("a[href]")) {
+      const href = a.getAttribute("href") ?? "";
+      expect(stores.has(href), `link to store name "${href}"`).toBe(false);
+      expect(href, `relative link "${href}"`).toMatch(/^(\/|#|https?:\/\/|mailto:)/);
+    }
+    const withStores = [...all].sort((a, b) => b.qpr - a.qpr).find((b) => b.whereToBuy?.length);
+    expect(screen.getAllByText(withStores!.whereToBuy![0]).length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Find at:").length).toBeGreaterThan(0);
+  });
 });

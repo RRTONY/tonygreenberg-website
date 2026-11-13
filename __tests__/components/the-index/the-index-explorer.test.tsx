@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { TheIndexExplorer } from "@/components/the-index/the-index-explorer";
 import { getIndexNextReads, searchIndexBodies } from "@/app/the-index/actions";
@@ -91,5 +91,24 @@ describe("TheIndexExplorer", () => {
     expect(await screen.findByRole("link", { name: "Next One" }, { timeout: 5000 })).toHaveAttribute("href", "/blog/next-one");
     expect(screen.getByRole("link", { name: "Read Only Time Buys Trust" })).toHaveAttribute("href", "/blog/only-time-buys-trust");
     expect(getIndexNextReads).toHaveBeenCalledWith("only-time-buys-trust");
+  });
+
+  // Browser test 2026-11-14: a dropped connection left both spinners running forever and hid
+  // the no-results message.
+  it("stops the search spinner and still says 'No essays found' when the full-text search fails", async () => {
+    vi.mocked(searchIndexBodies).mockRejectedValue(new TypeError("Failed to fetch"));
+    const user = setup();
+    await user.type(screen.getByLabelText("Search the Index"), "qqqqzz");
+    expect(await screen.findByText(/No essays found for/, {}, { timeout: 5000 })).toBeInTheDocument();
+    expect(screen.queryByLabelText("Searching full text")).toBeNull();
+  });
+
+  it("hides the next-reads block instead of spinning when that request fails", async () => {
+    vi.mocked(getIndexNextReads).mockRejectedValue(new TypeError("Failed to fetch"));
+    const user = setup();
+    await user.click(screen.getByRole("button", { name: /Only Time Buys Trust/ }));
+    await waitFor(() => expect(screen.queryByLabelText("Loading next reads")).toBeNull());
+    expect(screen.queryByText("THREE RELATED PLACES TO GO NEXT")).toBeNull();
+    expect(screen.getByRole("link", { name: "Read Only Time Buys Trust" })).toBeInTheDocument();
   });
 });

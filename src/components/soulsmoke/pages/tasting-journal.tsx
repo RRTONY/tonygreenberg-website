@@ -8,6 +8,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { addTastingEntry, deleteTastingEntry, listTastingEntries } from "@/app/soul-smoke/actions";
+import { reach } from "@/lib/content/soulsmoke/reach";
 import { ss } from "@/lib/content/soulsmoke/nav";
 import { soulsmokeFontVariables } from "@/lib/fonts/soulsmoke-fonts";
 
@@ -159,7 +160,7 @@ export function TastingJournal() {
 
   useEffect(() => {
     let live = true;
-    listTastingEntries().then((result) => {
+    reach(listTastingEntries()).then((result) => {
       if (!live) return;
       if (result.ok) setState({ status: "ready", entries: result.data });
       else if (result.signedOut) setState({ status: "signedOut" });
@@ -183,7 +184,7 @@ export function TastingJournal() {
     setFormError(null);
     // The server sets the id and the tasting date.
     const input: Omit<TastingEntry, "id" | "tastedAt"> = { ...entry };
-    const result = await addTastingEntry(input);
+    const result = await reach(addTastingEntry(input));
     setSaving(false);
     if (!result.ok) {
       if (result.signedOut) setState({ status: "signedOut" });
@@ -198,7 +199,7 @@ export function TastingJournal() {
   const deleteEntry = async (id: string) => {
     setDeletingId(id);
     setLoadError(null);
-    const result = await deleteTastingEntry(id);
+    const result = await reach(deleteTastingEntry(id));
     setDeletingId(null);
     if (!result.ok) {
       setLoadError(result.error);
