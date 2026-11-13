@@ -30,6 +30,7 @@ import {
   type TentacleIcon,
   type TentacleTheme,
 } from "@/lib/content/skippy-map";
+import { priPrefetch } from "@/lib/content/pri-moved";
 
 // Ported from legacy client/src/pages/SkippyMap.tsx. Progress persists in
 // localStorage under the same key legacy used, read through
@@ -156,6 +157,7 @@ function StopRow({
           {stop.href ? (
             <Link
               href={stop.href}
+              prefetch={priPrefetch(stop.href)}
               className={cn("inline-flex items-center gap-1 text-xs font-bold underline underline-offset-2", t.text)}
             >
               Go <ArrowRight aria-hidden="true" className="size-3" />

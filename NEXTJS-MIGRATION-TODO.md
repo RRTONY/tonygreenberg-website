@@ -53,9 +53,12 @@ Live check: 533/533 sitemap URLs 200, legacy 114/114 200, certs valid, email DNS
   message stay as they are (rule 6 says one/two-field forms don't need Formik).
 - [x] Every quiz has an end-to-end unit test (questions, email gate, result, score); live walk of
   8 quizzes reached their results. Mirror quiz test made stable under load.
-- [ ] 106 internal links still point at the PRI pages that 307 to psychedelicreadiness.com (PR #49,
-  temporary on purpose). Clicking works; Next's background prefetch logs a CORS error. Point them
-  straight at psychedelicreadiness.com if the move becomes permanent.
+- [x] Links to the PRI pages that 307 to psychedelicreadiness.com (PR #49, temporary on purpose)
+  logged a CORS error from Next's background prefetch on 16 pages. The moved-page list now lives in
+  `src/lib/content/pri-moved.ts` (used by next.config.ts and by `priPrefetch(href)`), and those
+  links don't prefetch. Addresses unchanged, so the move stays easy to undo; checked clean on a
+  production build. Point them straight at psychedelicreadiness.com if the move becomes permanent.
+- [x] Scroll retest of the 187 pages a network drop interrupted: 561 runs, 0 problems.
 - [ ] ramprate.com's TLS certificate expired 2026-06-22; 315 pages here link to it (RampRate site, not
   this repo). Renew it on the RampRate host.
 - [ ] ~280 external links in old essays are dead or block bots (old bit.ly links, etc.): content in

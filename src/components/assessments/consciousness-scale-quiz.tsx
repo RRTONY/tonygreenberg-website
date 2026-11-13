@@ -588,13 +588,13 @@ export function ConsciousnessScaleQuiz() {
       </section>
 
       <section className="mx-auto flex max-w-3xl flex-wrap gap-4 px-6 pb-12">
-        <Link href="/psychedelic-readiness-index" className="rounded-sm border border-brand-gold px-5 py-2.5 font-mono text-[0.7rem] tracking-[0.12em] text-brand-gold uppercase">
+        <Link href="/psychedelic-readiness-index" prefetch={false} className="rounded-sm border border-brand-gold px-5 py-2.5 font-mono text-[0.7rem] tracking-[0.12em] text-brand-gold uppercase">
           <span className="inline-flex items-center gap-1.5">
             Psychedelic Readiness Index
             <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
           </span>
         </Link>
-        <Link href="/facilitator-index" className="rounded-sm border border-black/20 px-5 py-2.5 font-mono text-[0.7rem] tracking-[0.12em] text-[#666] uppercase">
+        <Link href="/facilitator-index" prefetch={false} className="rounded-sm border border-black/20 px-5 py-2.5 font-mono text-[0.7rem] tracking-[0.12em] text-[#666] uppercase">
           <span className="inline-flex items-center gap-1.5">
             Find a Facilitator
             <ArrowRight aria-hidden="true" className="size-[1em] shrink-0" />
