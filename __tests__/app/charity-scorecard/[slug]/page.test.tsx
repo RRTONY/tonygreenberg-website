@@ -17,7 +17,9 @@ describe("/charity-scorecard/[slug]", () => {
 
   it("has a per-charity title, description with the score, and canonical", async () => {
     const meta = await generateMetadata(props(first.slug));
-    expect(meta.title).toBe(`${first.name} — Charity Scorecard`);
+    // seoTitle keeps " | Tony Greenberg" only within 60 characters (2026-11-14).
+    const full = `${first.name} — Charity Scorecard`;
+    expect(meta.title).toEqual(full.length + " | Tony Greenberg".length <= 60 ? full : { absolute: full });
     expect(meta.description).toContain(`${first.totalScore}/100 (${first.grade})`);
     expect(meta.alternates?.canonical).toBe(`/charity-scorecard/${first.slug}`);
     expect(await generateMetadata(props("no-such-charity"))).toEqual({});

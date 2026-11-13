@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { act, render, screen } from "@testing-library/react";
+import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { NewsletterPopup } from "@/components/gemspark/newsletter-popup";
 
@@ -98,6 +98,43 @@ describe("NewsletterPopup", () => {
     await user.click(screen.getByRole("button", { name: "Subscribe" }));
     expect(await screen.findByText("Something went wrong. Please try again.")).toBeInTheDocument();
     expect(localStorage.getItem("newsletter_subscribed")).toBeNull();
+  });
+
+  it("checks the email before sending: missing or malformed shows the message and nothing is sent", async () => {
+    const fetchMock = okFetch();
+    vi.stubGlobal("fetch", fetchMock);
+    const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
+    render(<NewsletterPopup delaySeconds={1} enableScrollTrigger={false} />);
+    act(() => {
+      vi.advanceTimersByTime(1000);
+    });
+    const input = screen.getByLabelText("Email address");
+    expect(input).toBeRequired();
+    await user.click(screen.getByRole("button", { name: "Subscribe" }));
+    expect(await screen.findByRole("alert")).toHaveTextContent("Add your email.");
+    expect(input).toHaveAttribute("aria-invalid", "true");
+    expect(input).toHaveAttribute("aria-describedby", "gemspark-newsletter-email-error");
+    await user.type(input, "not-an-email");
+    await user.click(screen.getByRole("button", { name: "Subscribe" }));
+    expect(await screen.findByText("That email address doesn't look right.")).toBeInTheDocument();
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it("disables the form and shows a spinner while sending", async () => {
+    let resolve!: (r: Response) => void;
+    vi.stubGlobal("fetch", vi.fn(() => new Promise<Response>((r) => (resolve = r))));
+    const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
+    render(<NewsletterPopup delaySeconds={1} enableScrollTrigger={false} />);
+    act(() => {
+      vi.advanceTimersByTime(1000);
+    });
+    await user.type(screen.getByLabelText("Email address"), "ana@example.com");
+    await user.click(screen.getByRole("button", { name: "Subscribe" }));
+    await waitFor(() => expect(screen.getByRole("button", { name: "Subscribe" })).toBeDisabled());
+    expect(screen.getByLabelText("Email address")).toBeDisabled();
+    expect(document.querySelector(".animate-spin")).not.toBeNull();
+    resolve(new Response(JSON.stringify({ success: true })));
+    expect(await screen.findByRole("heading", { name: "You're In!" })).toBeInTheDocument();
   });
 
   it("still works when storage is blocked", () => {

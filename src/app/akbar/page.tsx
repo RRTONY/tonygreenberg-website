@@ -24,7 +24,7 @@ import { RelatedPages } from "@/components/marketing/related-pages";
 // three additional webfonts legacy pulled in via a bare <style> tag for a
 // single page.
 export const metadata: Metadata = seoMetadata({
-  title: "Los Angeles Is Losing Its Memory — Akbar Cuisine Refuses to Forget",
+  title: "LA Is Losing Its Memory. Akbar Cuisine Refuses to Forget",
   description:
     "An essay on cultural memory, food, and what it means to preserve identity in a city that forgets.",
   alternates: { canonical: "/akbar" },

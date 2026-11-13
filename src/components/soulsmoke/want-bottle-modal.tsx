@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { Check, Loader2, Wine, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getSoulsmokeMember, wantBottle } from "@/app/soul-smoke/actions";
+import { CONNECTION_ERROR } from "@/lib/content/soulsmoke/reach";
 
 // Ported from the SoulSmoke app's client/src/components/WantBottleModal.tsx. As on SoulSmoke it's
 // for signed-in members: the interest is saved in Supabase through wantBottle
@@ -27,6 +28,7 @@ interface WantBottleModalProps {
 export function WantBottleModal({ isOpen, onClose, bottleId, bottleName }: WantBottleModalProps) {
   const pathname = usePathname();
   const [signedIn, setSignedIn] = useState<boolean | null>(null);
+  const [checkFailed, setCheckFailed] = useState(false);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [interestType, setInterestType] = useState<BottleInterestType>("consumer");
@@ -46,9 +48,15 @@ export function WantBottleModal({ isOpen, onClose, bottleId, bottleName }: WantB
   useEffect(() => {
     if (!isOpen) return;
     let live = true;
-    getSoulsmokeMember().then(({ signedIn: yes }) => {
-      if (live) setSignedIn(yes);
-    });
+    // On a failed check the modal used to spin forever (browser test, 2026-11-14).
+    getSoulsmokeMember().then(
+      ({ signedIn: yes }) => {
+        if (live) setSignedIn(yes);
+      },
+      () => {
+        if (live) setCheckFailed(true);
+      },
+    );
     return () => {
       live = false;
     };
@@ -80,11 +88,16 @@ export function WantBottleModal({ isOpen, onClose, bottleId, bottleName }: WantB
     if (!bottleId.trim() || !bottleName.trim()) return;
     setError(null);
     setPending(true);
-    const result = await wantBottle({ bottleId, bottleName, interestType, quantity, notes });
-    setPending(false);
-    if (result.ok) setSuccess(true);
-    else if (result.signedOut) setSignedIn(false);
-    else setError(result.error);
+    try {
+      const result = await wantBottle({ bottleId, bottleName, interestType, quantity, notes });
+      if (result.ok) setSuccess(true);
+      else if (result.signedOut) setSignedIn(false);
+      else setError(result.error);
+    } catch {
+      setError(CONNECTION_ERROR);
+    } finally {
+      setPending(false);
+    }
   };
 
   const closeButton = (
@@ -108,7 +121,13 @@ export function WantBottleModal({ isOpen, onClose, bottleId, bottleName }: WantB
           className="relative w-full max-w-md rounded-xl border border-zinc-700 bg-zinc-900 p-8"
         >
           {closeButton}
-          <Loader2 aria-label="Checking your account" className="mx-auto size-8 animate-spin text-amber-500" />
+          {checkFailed ? (
+            <p role="alert" className="text-center text-sm text-red-400">
+              {CONNECTION_ERROR}
+            </p>
+          ) : (
+            <Loader2 aria-label="Checking your account" className="mx-auto size-8 animate-spin text-amber-500" />
+          )}
         </div>
       </div>
     );

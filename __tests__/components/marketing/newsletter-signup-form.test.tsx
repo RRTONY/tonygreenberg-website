@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { NewsletterSignupForm } from "@/components/marketing/newsletter-signup-form";
 
@@ -56,7 +56,7 @@ describe("NewsletterSignupForm", () => {
     await user.type(screen.getByLabelText("Email address"), "me@example.com");
     const btn = screen.getByRole("button", { name: "Subscribe Free" });
     await user.click(btn);
-    expect(btn).toBeDisabled();
+    await waitFor(() => expect(btn).toBeDisabled());
     expect(btn.querySelector(".animate-spin")).not.toBeNull();
     await user.click(btn);
     expect(fetchMock).toHaveBeenCalledTimes(1);
@@ -64,9 +64,29 @@ describe("NewsletterSignupForm", () => {
     expect(await screen.findByRole("status")).toBeInTheDocument();
   });
 
-  it("does not send an empty form", async () => {
+  it("does not send an empty form, and says so", async () => {
     const user = setup();
     await user.click(screen.getByRole("button", { name: "Subscribe Free" }));
+    expect(await screen.findByRole("alert")).toHaveTextContent("Add your email.");
     expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it("shows the error for a bad email and sends nothing", async () => {
+    const user = setup();
+    const input = screen.getByLabelText("Email address");
+    await user.type(input, "not-an-email");
+    await user.click(screen.getByRole("button", { name: "Subscribe Free" }));
+    expect(await screen.findByRole("alert")).toHaveTextContent("That email address doesn't look right.");
+    expect(input).toHaveAttribute("aria-invalid", "true");
+    expect(input).toHaveAttribute("aria-describedby", "subscribe-email-error");
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it("trims spaces around the email before sending", async () => {
+    const user = setup();
+    await user.type(screen.getByLabelText("Email address"), "  me@example.com ");
+    await user.click(screen.getByRole("button", { name: "Subscribe Free" }));
+    await screen.findByRole("status");
+    expect(JSON.parse(fetchMock.mock.calls[0][1].body).email).toBe("me@example.com");
   });
 });

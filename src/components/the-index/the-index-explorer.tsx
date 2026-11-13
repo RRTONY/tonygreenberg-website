@@ -39,7 +39,9 @@ export function TheIndexExplorer({ items, charityCount }: { items: IndexItem[]; 
     if (!q) return;
     const seq = ++searchSeq.current;
     const timer = setTimeout(async () => {
-      const slugs = await searchIndexBodies(q);
+      // A failed request (dropped connection) counts as "no extra hits", so the spinner stops and
+      // the title/tag matches still show (browser test, 2026-11-14).
+      const slugs = await searchIndexBodies(q).catch(() => [] as string[]);
       if (seq === searchSeq.current) setBodyHits({ query: q, slugs: new Set(slugs) });
     }, 250);
     return () => clearTimeout(timer);
@@ -48,9 +50,11 @@ export function TheIndexExplorer({ items, charityCount }: { items: IndexItem[]; 
   useEffect(() => {
     if (!openId) return;
     let live = true;
-    getIndexNextReads(openId).then((reads) => {
-      if (live) setNextReads({ id: openId, reads });
-    });
+    getIndexNextReads(openId)
+      .catch(() => [] as IndexNextRead[])
+      .then((reads) => {
+        if (live) setNextReads({ id: openId, reads });
+      });
     return () => {
       live = false;
     };
@@ -270,7 +274,8 @@ function IndexTldr({ item, reads }: { item: IndexItem; reads: IndexNextRead[] | 
       <h2 className="mb-2 font-heading text-[1.6rem]/tight text-foreground sm:text-[2.15rem]/tight">{item.title}</h2>
       <p className="font-serif text-[1.06rem]/[1.65] text-foreground/85">{item.summary}</p>
 
-      <div className="mt-5">
+      {/* An empty list (no picks, or the request failed) hides the block instead of a bare heading. */}
+      {reads?.length !== 0 && <div className="mt-5">
         <p className="mb-2 font-mono text-[0.7rem] tracking-widest text-muted-foreground">THREE RELATED PLACES TO GO NEXT</p>
         {reads === null ? (
           <Loader2 aria-label="Loading next reads" className="size-4 animate-spin text-muted-foreground" />
@@ -285,7 +290,7 @@ function IndexTldr({ item, reads }: { item: IndexItem; reads: IndexNextRead[] | 
             ))}
           </ul>
         )}
-      </div>
+      </div>}
 
       <IndexLink
         href={item.href}

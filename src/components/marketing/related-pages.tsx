@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { RELATED_PAGES } from "@/lib/content/related-pages";
 import { cn } from "@/lib/utils";
+import { priPrefetch } from "@/lib/content/pri-moved";
 
 // "Related": three topic-related pages near the end of a marketing page's own
 // content (owner said yes 2026-10-10). Different from the site-wide
@@ -66,6 +67,7 @@ export function RelatedPages({
             <li key={item.href}>
               <Link
                 href={item.href}
+                prefetch={priPrefetch(item.href)}
                 className={cn(
                   "flex min-h-11 items-center gap-4 px-1 py-4 no-underline transition-colors",
                   t.link,

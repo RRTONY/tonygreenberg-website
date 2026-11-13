@@ -96,6 +96,12 @@ describe("TradeBoard", () => {
     expect(screen.queryByText("Sign in to list your bottles or contact sellers")).toBeNull();
   });
 
+  it("explains a dropped connection instead of spinning forever", async () => {
+    actions.listTradeListings.mockRejectedValue(new TypeError("Failed to fetch"));
+    renderPage();
+    expect(await screen.findByRole("alert")).toHaveTextContent("Couldn't reach the server");
+  });
+
   it("ignores a board answer that arrives after the page closed", async () => {
     let resolve!: (v: unknown) => void;
     actions.listTradeListings.mockReturnValue(new Promise((r) => (resolve = r)));
@@ -145,9 +151,13 @@ describe("TradeBoard", () => {
     actions.createTradeListing.mockReturnValue(new Promise((r) => (finish = r)));
     fireEvent.click(screen.getByRole("button", { name: "Create Listing" }));
     expect(screen.getByRole("button", { name: "Create Listing" })).toBeDisabled();
+    // Formik validates before saving, so the save starts a moment later.
+    await waitFor(() => expect(actions.createTradeListing).toHaveBeenCalledTimes(1));
     // A second submit while saving does nothing.
     fireEvent.submit(screen.getByRole("button", { name: "Create Listing" }).closest("form")!);
+    await new Promise((r) => setTimeout(r, 0));
     expect(actions.createTradeListing).toHaveBeenCalledTimes(1);
+    expect(screen.getByRole("button", { name: "Create Listing" })).toBeDisabled();
     expect(actions.createTradeListing).toHaveBeenCalledWith(
       expect.objectContaining({ mezcalName: "Real Minero Largo", condition: "opened", askingPrice: 15000, fillLevel: "90%" }),
     );
@@ -281,6 +291,71 @@ describe("TradeBoard", () => {
     expect(listingNames()).toEqual(["Seller"]);
   });
 
+  it("shows a message for a blank name and saves nothing", async () => {
+    board([]);
+    renderPage();
+    fireEvent.click(await screen.findByRole("button", { name: "List a Bottle" }));
+    fireEvent.click(screen.getByRole("button", { name: "Create Listing" }));
+    const error = await screen.findByRole("alert");
+    expect(error).toHaveTextContent("Add the mezcal's name.");
+    const name = screen.getByLabelText("Mezcal Name *");
+    expect(name).toHaveAttribute("aria-invalid", "true");
+    expect(name).toHaveAttribute("aria-describedby", error.id);
+    expect(actions.createTradeListing).not.toHaveBeenCalled();
+
+    // Typing a name clears the message.
+    fireEvent.change(name, { target: { value: "Tosba" } });
+    await waitFor(() => expect(screen.queryByRole("alert")).toBeNull());
+    expect(name).toHaveAttribute("aria-invalid", "false");
+  });
+
+  it("saves with every optional field left empty (rule 17)", async () => {
+    board([]);
+    renderPage();
+    fireEvent.click(await screen.findByRole("button", { name: "List a Bottle" }));
+    fireEvent.change(screen.getByLabelText("Mezcal Name *"), { target: { value: "Tosba" } });
+    expect(screen.getByLabelText("Asking Price ($)")).toHaveValue(null);
+    actions.createTradeListing.mockResolvedValue({ ok: true, data: listing({ id: "9", mezcalName: "Tosba", isMine: true }) });
+    fireEvent.click(screen.getByRole("button", { name: "Create Listing" }));
+    expect(await screen.findByRole("heading", { level: 3, name: "Tosba" })).toBeInTheDocument();
+    expect(actions.createTradeListing).toHaveBeenCalledWith({
+      mezcalName: "Tosba",
+      producer: undefined,
+      agaveType: undefined,
+      abv: undefined,
+      bottleSize: "750ml",
+      condition: "sealed",
+      fillLevel: "100%",
+      listingType: "both",
+      askingPrice: undefined,
+      seekingBottles: undefined,
+      description: undefined,
+      location: undefined,
+    });
+    expect(screen.queryByRole("dialog")).toBeNull();
+
+    // The form starts empty again after a save.
+    fireEvent.click(screen.getByRole("button", { name: "List a Bottle" }));
+    expect(screen.getByLabelText("Mezcal Name *")).toHaveValue("");
+  });
+
+  it("asks for a whole dollar price and keeps what was typed when the form is closed", async () => {
+    board([]);
+    renderPage();
+    fireEvent.click(await screen.findByRole("button", { name: "List a Bottle" }));
+    fireEvent.change(screen.getByLabelText("Mezcal Name *"), { target: { value: "Tosba" } });
+    fireEvent.change(screen.getByLabelText("Asking Price ($)"), { target: { value: "12.5" } });
+    fireEvent.click(screen.getByRole("button", { name: "Create Listing" }));
+    const error = await screen.findByRole("alert");
+    expect(error).toHaveTextContent("Use a whole dollar amount, like 150.");
+    expect(screen.getByLabelText("Asking Price ($)")).toHaveAttribute("aria-describedby", error.id);
+    expect(actions.createTradeListing).not.toHaveBeenCalled();
+
+    fireEvent.click(screen.getByRole("button", { name: "Close" }));
+    fireEvent.click(screen.getByRole("button", { name: "List a Bottle" }));
+    expect(screen.getByLabelText("Mezcal Name *")).toHaveValue("Tosba");
+  });
+
   it("hides fields that don't apply, closes with X or Escape, and won't save a blank name", async () => {
     board([]);
     renderPage();
@@ -292,6 +367,7 @@ describe("TradeBoard", () => {
     expect(screen.queryByLabelText("What are you seeking?")).toBeNull();
     fireEvent.change(screen.getByLabelText("Mezcal Name *"), { target: { value: "  " } });
     fireEvent.submit(screen.getByRole("button", { name: "Create Listing" }).closest("form")!);
+    expect(await screen.findByRole("alert")).toHaveTextContent("Add the mezcal's name.");
     expect(actions.createTradeListing).not.toHaveBeenCalled();
     fireEvent.keyDown(window, { key: "a" });
     fireEvent.keyDown(window, { key: "Escape" });

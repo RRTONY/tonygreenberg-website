@@ -29,14 +29,16 @@ describe("seo defaults", () => {
       expect(seoTitle("Essays")).toBe("Essays");
     });
 
-    it("drops the ending when the full title would pass 70 characters", () => {
-      const title = "Restaurants Beware of Vegans and Vegans Beware of Lying Restaurants";
+    // Limit 60 since 2026-11-14 (Google cuts around 60; 35 titles were cut only because of the suffix).
+    it("drops the ending when the full title would pass 60 characters", () => {
+      const title = "The Molecule as Mirror, Part 7: The Pathway to Dharma"; // 53 + 17
       expect(seoTitle(title)).toEqual({ absolute: title });
     });
 
-    it("keeps the ending at exactly 70 characters", () => {
-      const title = "x".repeat(70 - " | Tony Greenberg".length);
+    it("keeps the ending at exactly 60 characters", () => {
+      const title = "x".repeat(60 - " | Tony Greenberg".length);
       expect(seoTitle(title)).toBe(title);
+      expect(seoTitle(title + "x")).toEqual({ absolute: title + "x" });
     });
 
     it("tidies spaces and leaves a missing title to the layout default", () => {

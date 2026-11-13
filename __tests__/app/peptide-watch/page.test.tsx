@@ -5,7 +5,8 @@ import { WALL_OF_SHAME } from "@/lib/content/peptide-watch";
 
 describe("/peptide-watch", () => {
   it("has its own title, description and canonical", () => {
-    expect(metadata.title).toBe("PeptideWatch — The Definitive Consumer Safety Guide");
+    // Over 60 with " | Tony Greenberg", so seoTitle drops the ending (limit 60 since 2026-11-14).
+    expect(metadata.title).toEqual({ absolute: "PeptideWatch — The Definitive Consumer Safety Guide" });
     expect(metadata.description).toMatch(/12 documented fraud patterns, 30\+ named enforcement actions/);
     expect(metadata.alternates?.canonical).toBe("/peptide-watch");
   });

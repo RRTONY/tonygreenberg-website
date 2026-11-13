@@ -1,13 +1,16 @@
 "use client";
 
-import { useEffect, useId, useState, type ElementType, type FormEvent } from "react";
+import { useEffect, useId, useState, type ElementType } from "react";
 import Link from "next/link";
+import { ErrorMessage, Field, Form, Formik, type FormikHelpers } from "formik";
+import * as Yup from "yup";
 import { ArrowLeft, Calendar, Check, Droplets, Flame, Loader2, Plus, Sparkles, Star, Trash2, Wine, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { addTastingEntry, deleteTastingEntry, listTastingEntries } from "@/app/soul-smoke/actions";
+import { reach } from "@/lib/content/soulsmoke/reach";
 import { ss } from "@/lib/content/soulsmoke/nav";
 import { soulsmokeFontVariables } from "@/lib/fonts/soulsmoke-fonts";
 
@@ -37,7 +40,27 @@ export type TastingEntry = {
 
 const LOGIN_HREF = "/login?next=/soul-smoke/tasting-journal";
 
-const emptyForm = {
+// Client-side checks so a member sees what's wrong before anything is sent. The server action
+// still validates and clips on its own (src/app/soul-smoke/actions.ts); the length limits here are
+// its column limits. Optional fields accept an empty string (rule 17).
+const level = (min: number) => Yup.number().integer().min(min).max(5).required();
+const tastingSchema = Yup.object({
+  mezcalName: Yup.string().trim().max(255, "Keep the name under 255 characters.").required("Mezcal Name is required."),
+  producer: Yup.string().trim().max(255, "Keep the producer under 255 characters."),
+  agaveType: Yup.string().trim().max(100, "Keep the agave type under 100 characters."),
+  region: Yup.string().trim().max(255, "Keep the region under 255 characters."),
+  abv: Yup.string().trim().max(10, "Keep the ABV under 10 characters."),
+  rating: level(0),
+  notes: Yup.string().trim().max(5000, "Keep your notes under 5,000 characters."),
+  smokeLevel: level(1),
+  sweetnessLevel: level(1),
+  complexityLevel: level(1),
+  wouldBuyAgain: Yup.boolean().required(),
+});
+
+export type TastingForm = Yup.InferType<typeof tastingSchema>;
+
+const emptyForm: TastingForm = {
   mezcalName: "",
   producer: "",
   agaveType: "",
@@ -52,10 +75,10 @@ const emptyForm = {
 };
 
 const oneToFive = (n: number) => (Number.isInteger(n) && n >= 1 && n <= 5 ? n : undefined);
-const optional = (s: string) => (s.trim() ? s.trim() : undefined);
+const optional = (s?: string) => s?.trim() || undefined;
 
 /** Mirrors the Manus server's tastingJournal.add input checks. Returns null when invalid. */
-export function toTastingEntry(form: typeof emptyForm, now = new Date()): TastingEntry | null {
+export function toTastingEntry(form: TastingForm, now = new Date()): TastingEntry | null {
   const mezcalName = form.mezcalName.trim();
   if (!mezcalName) return null;
   return {
@@ -74,6 +97,13 @@ export function toTastingEntry(form: typeof emptyForm, now = new Date()): Tastin
     tastedAt: now.toISOString(),
   };
 }
+
+// A field's Yup message, announced to screen readers when it appears.
+const fieldError = (message: string) => (
+  <p role="alert" className="text-sm text-red-400">
+    {message}
+  </p>
+);
 
 function StarRating({ value, onChange, label }: { value: number; onChange: (v: number) => void; label: string }) {
   return (
@@ -144,10 +174,8 @@ export function TastingJournal() {
   const [state, setState] = useState<JournalState>({ status: "loading" });
   const [loadError, setLoadError] = useState<string | null>(null);
   const [formError, setFormError] = useState<string | null>(null);
-  const [saving, setSaving] = useState(false);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [isAddingEntry, setIsAddingEntry] = useState(false);
-  const [formData, setFormData] = useState(emptyForm);
   const ids = {
     mezcalName: useId(),
     producer: useId(),
@@ -159,7 +187,7 @@ export function TastingJournal() {
 
   useEffect(() => {
     let live = true;
-    listTastingEntries().then((result) => {
+    reach(listTastingEntries()).then((result) => {
       if (!live) return;
       if (result.ok) setState({ status: "ready", entries: result.data });
       else if (result.signedOut) setState({ status: "signedOut" });
@@ -175,16 +203,14 @@ export function TastingJournal() {
 
   const entries = state.status === "ready" ? state.entries : [];
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    const entry = toTastingEntry(formData);
-    if (!entry || saving) return;
-    setSaving(true);
+  // Formik runs this only once the schema passes, and holds isSubmitting until it resolves.
+  const handleSubmit = async (values: TastingForm, { resetForm }: FormikHelpers<TastingForm>) => {
+    const entry = toTastingEntry(values);
+    if (!entry) return; // the schema already requires a non-blank name
     setFormError(null);
     // The server sets the id and the tasting date.
     const input: Omit<TastingEntry, "id" | "tastedAt"> = { ...entry };
-    const result = await addTastingEntry(input);
-    setSaving(false);
+    const result = await reach(addTastingEntry(input));
     if (!result.ok) {
       if (result.signedOut) setState({ status: "signedOut" });
       setFormError(result.error);
@@ -192,13 +218,13 @@ export function TastingJournal() {
     }
     setState({ status: "ready", entries: [result.data, ...entries] });
     setIsAddingEntry(false);
-    setFormData(emptyForm);
+    resetForm();
   };
 
   const deleteEntry = async (id: string) => {
     setDeletingId(id);
     setLoadError(null);
-    const result = await deleteTastingEntry(id);
+    const result = await reach(deleteTastingEntry(id));
     setDeletingId(null);
     if (!result.ok) {
       setLoadError(result.error);
@@ -249,14 +275,15 @@ export function TastingJournal() {
       <label htmlFor={ids[key]} className="text-sm text-gray-300">
         {label}
       </label>
-      <Input
+      <Field
+        as={Input}
         id={ids[key]}
-        value={formData[key]}
-        onChange={(e) => setFormData({ ...formData, [key]: e.target.value })}
+        name={key}
         placeholder={placeholder}
         className="border-zinc-700 bg-zinc-800"
         required={required}
       />
+      <ErrorMessage name={key} render={fieldError} />
     </div>
   );
 
@@ -279,117 +306,123 @@ export function TastingJournal() {
               <p className="text-gray-300">{entries.length} mezcals tasted • Welcome back, explorer</p>
             </div>
 
-            <Dialog open={isAddingEntry} onOpenChange={setIsAddingEntry}>
-              <DialogTrigger asChild>
-                <Button className="shrink-0 gap-2 bg-amber-600 hover:bg-amber-500">
-                  <Plus aria-hidden="true" className="size-4" />
-                  Add Entry
-                </Button>
-              </DialogTrigger>
-              <DialogContent
-                className={`${soulsmokeFontVariables} soulsmoke-root max-h-[90vh] overflow-y-auto border-zinc-800 bg-zinc-900 text-white sm:max-w-2xl`}
-              >
-                <DialogHeader>
-                  <DialogTitle className="font-serif text-2xl text-amber-400">Log a Tasting</DialogTitle>
-                </DialogHeader>
-                <form onSubmit={handleSubmit} className="space-y-6 pt-4">
-                  <div className="grid gap-4 md:grid-cols-2">
-                    {textField("mezcalName", "Mezcal Name *", "e.g., Real Minero Largo", true)}
-                    {textField("producer", "Producer", "e.g., Real Minero")}
-                    {textField("agaveType", "Agave Type", "e.g., Largo, Espadín, Tobalá")}
-                    {textField("region", "Region", "e.g., Santa Catarina Minas, Oaxaca")}
-                    {textField("abv", "ABV", "e.g., 48%")}
-                  </div>
-
-                  <div className="space-y-2">
-                    <label htmlFor={ids.notes} className="text-sm text-gray-300">
-                      Tasting Notes
-                    </label>
-                    <Textarea
-                      id={ids.notes}
-                      value={formData.notes}
-                      onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                      placeholder="What did you taste? What memories did it evoke?"
-                      className="min-h-[100px] border-zinc-700 bg-zinc-800"
-                    />
-                  </div>
-
-                  <div className="grid gap-6 md:grid-cols-2">
-                    <StarRating
-                      value={formData.rating}
-                      onChange={(v) => setFormData({ ...formData, rating: v })}
-                      label="Overall Rating"
-                    />
-                    <div className="space-y-1">
-                      <span className="text-sm text-gray-300">Would Buy Again?</span>
-                      <div className="flex gap-2">
-                        <button
-                          type="button"
-                          aria-pressed={formData.wouldBuyAgain}
-                          onClick={() => setFormData({ ...formData, wouldBuyAgain: true })}
-                          className={
-                            formData.wouldBuyAgain
-                              ? "rounded bg-emerald-600 px-4 py-2 text-white transition-colors"
-                              : "rounded bg-zinc-800 px-4 py-2 text-gray-300 transition-colors"
-                          }
-                        >
-                          Yes
-                        </button>
-                        <button
-                          type="button"
-                          aria-pressed={!formData.wouldBuyAgain}
-                          onClick={() => setFormData({ ...formData, wouldBuyAgain: false })}
-                          className={
-                            !formData.wouldBuyAgain
-                              ? "rounded bg-red-600 px-4 py-2 text-white transition-colors"
-                              : "rounded bg-zinc-800 px-4 py-2 text-gray-300 transition-colors"
-                          }
-                        >
-                          No
-                        </button>
+            {/* Formik sits outside the dialog so a cancelled draft is still there when it reopens. */}
+            <Formik<TastingForm> initialValues={emptyForm} validationSchema={tastingSchema} onSubmit={handleSubmit}>
+              {({ values, setFieldValue, isSubmitting }) => (
+                <Dialog open={isAddingEntry} onOpenChange={setIsAddingEntry}>
+                  <DialogTrigger asChild>
+                    <Button className="shrink-0 gap-2 bg-amber-600 hover:bg-amber-500">
+                      <Plus aria-hidden="true" className="size-4" />
+                      Add Entry
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent
+                    className={`${soulsmokeFontVariables} soulsmoke-root max-h-[90vh] overflow-y-auto border-zinc-800 bg-zinc-900 text-white sm:max-w-2xl`}
+                  >
+                    <DialogHeader>
+                      <DialogTitle className="font-serif text-2xl text-amber-400">Log a Tasting</DialogTitle>
+                    </DialogHeader>
+                    <Form noValidate className="space-y-6 pt-4">
+                      <div className="grid gap-4 md:grid-cols-2">
+                        {textField("mezcalName", "Mezcal Name *", "e.g., Real Minero Largo", true)}
+                        {textField("producer", "Producer", "e.g., Real Minero")}
+                        {textField("agaveType", "Agave Type", "e.g., Largo, Espadín, Tobalá")}
+                        {textField("region", "Region", "e.g., Santa Catarina Minas, Oaxaca")}
+                        {textField("abv", "ABV", "e.g., 48%")}
                       </div>
-                    </div>
-                  </div>
 
-                  <div className="grid gap-6 md:grid-cols-3">
-                    <LevelSlider
-                      value={formData.smokeLevel}
-                      onChange={(v) => setFormData({ ...formData, smokeLevel: v })}
-                      label="Smoke"
-                      icon={Flame}
-                    />
-                    <LevelSlider
-                      value={formData.sweetnessLevel}
-                      onChange={(v) => setFormData({ ...formData, sweetnessLevel: v })}
-                      label="Sweetness"
-                      icon={Droplets}
-                    />
-                    <LevelSlider
-                      value={formData.complexityLevel}
-                      onChange={(v) => setFormData({ ...formData, complexityLevel: v })}
-                      label="Complexity"
-                      icon={Sparkles}
-                    />
-                  </div>
+                      <div className="space-y-2">
+                        <label htmlFor={ids.notes} className="text-sm text-gray-300">
+                          Tasting Notes
+                        </label>
+                        <Field
+                          as={Textarea}
+                          id={ids.notes}
+                          name="notes"
+                          placeholder="What did you taste? What memories did it evoke?"
+                          className="min-h-[100px] border-zinc-700 bg-zinc-800"
+                        />
+                        <ErrorMessage name="notes" render={fieldError} />
+                      </div>
 
-                  {formError && (
-                    <p role="alert" className="text-sm text-red-400">
-                      {formError}
-                    </p>
-                  )}
+                      <div className="grid gap-6 md:grid-cols-2">
+                        <StarRating
+                          value={values.rating}
+                          onChange={(v) => setFieldValue("rating", v)}
+                          label="Overall Rating"
+                        />
+                        <div className="space-y-1">
+                          <span className="text-sm text-gray-300">Would Buy Again?</span>
+                          <div className="flex gap-2">
+                            <button
+                              type="button"
+                              aria-pressed={values.wouldBuyAgain}
+                              onClick={() => setFieldValue("wouldBuyAgain", true)}
+                              className={
+                                values.wouldBuyAgain
+                                  ? "rounded bg-emerald-600 px-4 py-2 text-white transition-colors"
+                                  : "rounded bg-zinc-800 px-4 py-2 text-gray-300 transition-colors"
+                              }
+                            >
+                              Yes
+                            </button>
+                            <button
+                              type="button"
+                              aria-pressed={!values.wouldBuyAgain}
+                              onClick={() => setFieldValue("wouldBuyAgain", false)}
+                              className={
+                                !values.wouldBuyAgain
+                                  ? "rounded bg-red-600 px-4 py-2 text-white transition-colors"
+                                  : "rounded bg-zinc-800 px-4 py-2 text-gray-300 transition-colors"
+                              }
+                            >
+                              No
+                            </button>
+                          </div>
+                        </div>
+                      </div>
 
-                  <div className="flex justify-end gap-3 pt-4">
-                    <Button type="button" variant="outline" onClick={() => setIsAddingEntry(false)}>
-                      Cancel
-                    </Button>
-                    <Button type="submit" disabled={saving} className="gap-2 bg-amber-600 hover:bg-amber-500">
-                      {saving && <Loader2 aria-hidden="true" className="size-4 animate-spin" />}
-                      Save Entry
-                    </Button>
-                  </div>
-                </form>
-              </DialogContent>
-            </Dialog>
+                      <div className="grid gap-6 md:grid-cols-3">
+                        <LevelSlider
+                          value={values.smokeLevel}
+                          onChange={(v) => setFieldValue("smokeLevel", v)}
+                          label="Smoke"
+                          icon={Flame}
+                        />
+                        <LevelSlider
+                          value={values.sweetnessLevel}
+                          onChange={(v) => setFieldValue("sweetnessLevel", v)}
+                          label="Sweetness"
+                          icon={Droplets}
+                        />
+                        <LevelSlider
+                          value={values.complexityLevel}
+                          onChange={(v) => setFieldValue("complexityLevel", v)}
+                          label="Complexity"
+                          icon={Sparkles}
+                        />
+                      </div>
+
+                      {formError && (
+                        <p role="alert" className="text-sm text-red-400">
+                          {formError}
+                        </p>
+                      )}
+
+                      <div className="flex justify-end gap-3 pt-4">
+                        <Button type="button" variant="outline" onClick={() => setIsAddingEntry(false)}>
+                          Cancel
+                        </Button>
+                        <Button type="submit" disabled={isSubmitting} className="gap-2 bg-amber-600 hover:bg-amber-500">
+                          {isSubmitting && <Loader2 aria-hidden="true" className="size-4 animate-spin" />}
+                          Save Entry
+                        </Button>
+                      </div>
+                    </Form>
+                  </DialogContent>
+                </Dialog>
+              )}
+            </Formik>
           </div>
         </div>
       </section>

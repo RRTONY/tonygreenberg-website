@@ -12,7 +12,8 @@ export function PageViewTracker({ page }: { page: GemSparkPage }) {
   useEffect(() => {
     if (tracked.current) return;
     tracked.current = true;
-    void trackGemSparkView(page);
+    // A missed count is fine; an unhandled rejection on a dropped connection isn't.
+    trackGemSparkView(page).catch(() => {});
   }, [page]);
 
   return null;

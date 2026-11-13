@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { PeptideShutdownBanner } from "@/components/marketing/peptide-shutdown-banner";
 import { BioChainCTA } from "@/components/marketing/biochain-cta";
 import { PeptideQuiz } from "@/components/marketing/peptide-quiz";
+import { seoTitle } from "@/lib/seo-defaults";
 
 // Ported from legacy client/src/pages/PeptideQuiz25.tsx. Real content,
 // unchanged — all 25 questions across 5 scoring dimensions, all 5 result
@@ -13,7 +14,8 @@ import { PeptideQuiz } from "@/components/marketing/peptide-quiz";
 // real and backend-free. The hero picture live shows above the title was
 // rescued into Sanity on 2026-10-06 and is rendered by PeptideQuiz.
 export const metadata: Metadata = {
-  title: "Peptide Consumer Literacy Quiz — 25 Questions",
+  // Through seoTitle so a long title drops " | Tony Greenberg" (CONTRIBUTING.md SEO rules).
+  title: seoTitle("Peptide Consumer Literacy Quiz — 25 Questions"),
   description:
     "Test your peptide knowledge across 5 dimensions: Science Literacy, Red Flag Detection, Provider Evaluation, Regulatory Awareness, and Personal Risk Assessment.",
   alternates: { canonical: "/quiz_25q" },

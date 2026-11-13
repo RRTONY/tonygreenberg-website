@@ -42,7 +42,8 @@ describe("TheMirrorQuiz", () => {
 
     await user.type(screen.getByPlaceholderText("Your email address"), "me@example.com");
     await user.click(screen.getByRole("button", { name: /get my results/i }));
-    expect(await screen.findByRole("heading", { level: 1, name: "Your Distance From Flow" })).toBeInTheDocument();
+    // 5s like the other quiz walk-throughs: the default 1s timed out when the whole suite ran at once.
+    expect(await screen.findByRole("heading", { level: 1, name: "Your Distance From Flow" }, { timeout: 5000 })).toBeInTheDocument();
 
     const dims = Object.values(byDim).map((v) => Math.round(v.reduce((a, b) => a + b, 0) / v.length));
     const overall = Math.round(dims.reduce((a, b) => a + b, 0) / dims.length);

@@ -4,7 +4,8 @@ import InvestPage, { metadata } from "@/app/invest/page";
 
 describe("/invest", () => {
   it("has its own title, description and canonical", () => {
-    expect(metadata.title).toBe("Invest in the Thesis — Portfolio & ABIT Waitlist");
+    // Over 60 with " | Tony Greenberg", so seoTitle drops the ending (2026-11-14).
+    expect(metadata.title).toEqual({ absolute: "Invest in the Thesis — Portfolio & ABIT Waitlist" });
     expect(metadata.description).toMatch(/ImpactSoul ABITs launch Q1 2027/);
     expect(metadata.alternates?.canonical).toBe("/invest");
   });

@@ -3,7 +3,6 @@
 import { useCallback, useMemo, useState } from "react";
 import {
   ArrowDown,
-  ArrowRight,
   ArrowUp,
   ChevronDown,
   ChevronUp,
@@ -459,20 +458,17 @@ function BottleCard({
 
           <p className="mt-2 text-xs text-muted-foreground italic">&quot;{bottle.tastingNotes}&quot;</p>
 
+          {/* whereToBuy holds store names ("Total Wine"), not web addresses: show them as labels,
+              like My Hunt List and the Quadrant do. As links they opened /soul-smoke/<store> (404). */}
           {bottle.whereToBuy && bottle.whereToBuy.length > 0 && (
-            <div className="mt-2 flex gap-2">
-              {bottle.whereToBuy.slice(0, 2).map((url) => (
-                <a
-                  key={url}
-                  href={url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 rounded bg-lime-500/10 px-2 py-1 text-[10px] text-lime-500 transition-colors hover:bg-lime-500/20"
-                >
-                  Buy <ArrowRight aria-hidden="true" className="size-[1em]" />
-                </a>
+            <p className="mt-2 flex flex-wrap items-center gap-2 text-[10px] text-muted-foreground">
+              <span>Find at:</span>
+              {bottle.whereToBuy.slice(0, 2).map((place) => (
+                <span key={place} className="rounded bg-lime-500/10 px-2 py-1 text-lime-500">
+                  {place}
+                </span>
               ))}
-            </div>
+            </p>
           )}
         </div>
       </div>

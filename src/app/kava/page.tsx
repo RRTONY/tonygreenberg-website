@@ -113,7 +113,7 @@ export default function KavaHomePage() {
         <div className="text-center">
           <p className="mb-3 text-sm font-medium text-kava-ink/60">Part of the TonyGreenberg.com ecosystem</p>
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <Link href="/psychedelic-readiness-index" className="inline-flex items-center rounded-lg bg-kava-saffron px-4 py-2 text-sm font-semibold text-white min-h-11 md:min-h-6">
+            <Link href="/psychedelic-readiness-index" prefetch={false} className="inline-flex items-center rounded-lg bg-kava-saffron px-4 py-2 text-sm font-semibold text-white min-h-11 md:min-h-6">
               Full PRI Assessment
             </Link>
             <Link href="/find-my" className="inline-flex items-center rounded-lg border border-kava-sand-muted bg-white px-4 py-2 text-sm font-semibold text-kava-ink min-h-11 md:min-h-6">

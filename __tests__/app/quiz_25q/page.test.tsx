@@ -12,7 +12,8 @@ const PROFILE_FOR = (score: number) =>
 
 describe("/quiz_25q", () => {
   it("has its own title, description and canonical", () => {
-    expect(metadata.title).toBe("Peptide Consumer Literacy Quiz — 25 Questions");
+    // Over 60 with " | Tony Greenberg", so seoTitle drops the ending (2026-11-14).
+    expect(metadata.title).toEqual({ absolute: "Peptide Consumer Literacy Quiz — 25 Questions" });
     expect(metadata.description).toMatch(/Science Literacy, Red Flag Detection, Provider Evaluation/);
     expect(metadata.alternates?.canonical).toBe("/quiz_25q");
   });

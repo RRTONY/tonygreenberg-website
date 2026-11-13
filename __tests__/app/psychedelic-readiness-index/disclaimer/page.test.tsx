@@ -5,11 +5,12 @@ import sitemap from "@/app/sitemap";
 import { ACKNOWLEDGE, COUNCIL_REMINDER, LEGAL, SCORE_CAN_TELL, TONY_NOTE, WHAT_THIS_IS } from "@/lib/content/pri-disclaimer";
 
 describe("/psychedelic-readiness-index/disclaimer", () => {
-  it("has its own title, description and canonical, and is in the sitemap", async () => {
-    expect(String(metadata.title)).toMatch(/^Full Disclaimer/);
+  // PR #49 (2026-11-13): the PRI pages 307 to psychedelicreadiness.com and left the sitemap.
+  it("has its own title, description and canonical, and is out of the sitemap while it redirects", async () => {
+    expect(metadata.title).toEqual({ absolute: expect.stringMatching(/^Full Disclaimer/) });
     expect(metadata.description).toMatch(/licensed clinician/);
     expect(metadata.alternates?.canonical).toBe("/psychedelic-readiness-index/disclaimer");
-    expect((await sitemap()).map((e: { url: string }) => e.url)).toContain("https://tonygreenberg.com/psychedelic-readiness-index/disclaimer");
+    expect((await sitemap()).map((e: { url: string }) => e.url)).not.toContain("https://tonygreenberg.com/psychedelic-readiness-index/disclaimer");
   });
 
   it("renders one H1 and every section of the full disclaimer", () => {

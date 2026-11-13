@@ -28,7 +28,7 @@ export default async function PriResearchPage() {
             Sign in
           </Link>
         )}
-        <Link href="/pri-efficacy" className="inline-flex items-center gap-1.5 text-[#C084FC]">
+        <Link href="/pri-efficacy" prefetch={false} className="inline-flex items-center gap-1.5 text-[#C084FC]">
           <ArrowLeft aria-hidden="true" className="size-4" />
           View Public Efficacy Report
         </Link>
@@ -98,7 +98,7 @@ export default async function PriResearchPage() {
         </section>
 
         <div className="mt-6 flex items-center justify-between">
-          <Link href="/pri-efficacy" className="inline-flex items-center gap-1.5 text-sm text-[#C084FC]">
+          <Link href="/pri-efficacy" prefetch={false} className="inline-flex items-center gap-1.5 text-sm text-[#C084FC]">
             <ArrowLeft aria-hidden="true" className="size-4" />
             Public Efficacy Report
           </Link>

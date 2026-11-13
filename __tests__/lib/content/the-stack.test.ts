@@ -9,7 +9,8 @@ describe("the-stack", () => {
     expect(STACK_HERO.src).toMatch(/^https:\/\/cdn\.sanity\.io\/images\//);
     expect(STACK_HERO.src).toContain(`-${STACK_HERO.width}x${STACK_HERO.height}.`);
     expect(STACK_HERO.alt.trim()).not.toBe("");
-    for (const s of SUPPLIERS) if (s.qr) expect(s.qr.src).toMatch(/^https:\/\/cdn\.sanity\.io\/images\//);
+    // Sanity, or the site's own /qr/*.svg (PR #26 machine-generated the Sequencing QR, 2026-10-28).
+    for (const s of SUPPLIERS) if (s.qr) expect(s.qr.src).toMatch(/^(https:\/\/cdn\.sanity\.io\/images\/|\/qr\/[a-z0-9-]+\.svg$)/);
     expect(JSON.stringify(stack)).not.toMatch(/manuscdn|\/manus-storage\/|\/api\/img\//);
   });
 

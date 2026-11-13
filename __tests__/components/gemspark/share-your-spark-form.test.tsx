@@ -1,5 +1,5 @@
-import { describe, expect, it, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ShareYourSparkForm } from "@/components/gemspark/share-your-spark-form";
 import { submitGemSparkStory } from "@/app/gem-spark/actions";
@@ -9,6 +9,10 @@ vi.mock("@/app/gem-spark/actions", () => ({ submitGemSparkStory: vi.fn() }));
 const STORY = "A wrong turn put me next to my future co-founder.";
 
 describe("ShareYourSparkForm", () => {
+  beforeEach(() => {
+    vi.mocked(submitGemSparkStory).mockReset();
+  });
+
   it("keeps the button off until there's a story, and asks for at least 10 characters", async () => {
     const user = userEvent.setup();
     render(<ShareYourSparkForm />);
@@ -16,7 +20,10 @@ describe("ShareYourSparkForm", () => {
     expect(button).toBeDisabled();
     await user.type(screen.getByLabelText("Your GemSpark"), "Too short");
     await user.click(button);
-    expect(screen.getByRole("alert")).toHaveTextContent("at least 10 characters");
+    expect(await screen.findByRole("alert")).toHaveTextContent("at least 10 characters");
+    const story = screen.getByLabelText("Your GemSpark");
+    expect(story).toHaveAttribute("aria-invalid", "true");
+    expect(story).toHaveAttribute("aria-describedby", "gemspark-story-error");
     expect(submitGemSparkStory).not.toHaveBeenCalled();
   });
 
@@ -28,9 +35,10 @@ describe("ShareYourSparkForm", () => {
     await user.type(screen.getByLabelText("Your GemSpark"), `  ${STORY}  `);
     await user.type(screen.getByLabelText("Email (Optional)"), "ana@example.com");
     await user.click(screen.getByRole("button", { name: "Submit My GemSpark" }));
+    await waitFor(() => expect(submitGemSparkStory).toHaveBeenCalledWith({ story: STORY, email: "ana@example.com" }));
     expect(screen.getByRole("button", { name: "Submit My GemSpark" })).toBeDisabled();
     expect(screen.getByLabelText("Your GemSpark")).toBeDisabled();
-    expect(submitGemSparkStory).toHaveBeenCalledWith({ story: STORY, email: "ana@example.com" });
+    expect(document.querySelector(".animate-spin")).not.toBeNull();
     resolve({ ok: true });
     expect(await screen.findByRole("heading", { name: "Your GemSpark Has Been Received" })).toBeInTheDocument();
     await user.click(screen.getByRole("button", { name: "Share another story" }));
@@ -43,7 +51,7 @@ describe("ShareYourSparkForm", () => {
     render(<ShareYourSparkForm />);
     await user.type(screen.getByLabelText("Your GemSpark"), STORY);
     await user.click(screen.getByRole("button", { name: "Submit My GemSpark" }));
-    expect(submitGemSparkStory).toHaveBeenCalledWith({ story: STORY, email: undefined });
+    await waitFor(() => expect(submitGemSparkStory).toHaveBeenCalledWith({ story: STORY, email: undefined }));
     expect(await screen.findByRole("alert")).toHaveTextContent("That email address doesn't look right.");
     expect(screen.getByLabelText("Your GemSpark")).toHaveValue(STORY);
   });
@@ -64,5 +72,28 @@ describe("ShareYourSparkForm", () => {
     await user.type(screen.getByLabelText("Your GemSpark"), STORY);
     await user.click(screen.getByRole("button", { name: "Submit My GemSpark" }));
     expect(await screen.findByRole("alert")).toHaveTextContent("Something went wrong. Please try again.");
+  });
+
+  it("checks an email that is filled in and sends nothing while it's wrong", async () => {
+    const user = userEvent.setup();
+    render(<ShareYourSparkForm />);
+    await user.type(screen.getByLabelText("Your GemSpark"), STORY);
+    await user.type(screen.getByLabelText("Email (Optional)"), "not-an-email");
+    await user.click(screen.getByRole("button", { name: "Submit My GemSpark" }));
+    expect(await screen.findByRole("alert")).toHaveTextContent("That email address doesn't look right.");
+    expect(screen.getByLabelText("Email (Optional)")).toHaveAttribute("aria-describedby", "gemspark-email-error");
+    expect(submitGemSparkStory).not.toHaveBeenCalled();
+  });
+
+  it("asks for a story when only spaces were typed", async () => {
+    const user = userEvent.setup();
+    render(<ShareYourSparkForm />);
+    const story = screen.getByLabelText("Your GemSpark");
+    expect(story).toBeRequired();
+    await user.type(story, "   ");
+    await user.tab();
+    expect(await screen.findByRole("alert")).toHaveTextContent("Please share your story.");
+    expect(screen.getByRole("button", { name: "Submit My GemSpark" })).toBeDisabled();
+    expect(submitGemSparkStory).not.toHaveBeenCalled();
   });
 });

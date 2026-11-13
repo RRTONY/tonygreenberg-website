@@ -41,4 +41,21 @@ describe("/brewsoul/cities/[slug]", () => {
     expect(screen.getByRole("link", { name: /back to all cities/i })).toHaveAttribute("href", "/brewsoul/cities");
     expect(screen.getByRole("link", { name: "BrewSoul Home" })).toHaveAttribute("href", "/brewsoul/home");
   });
+
+  // Live check 2026-11-14: four Unsplash photos (Seattle, Nashville, Minneapolis, Houston,
+  // Raleigh-Durham) were deleted upstream and showed as broken images.
+  it("shows the photo when a city has one, and just the banner (no broken image) when it doesn't", async () => {
+    const DEAD = ["photo-1502175353174-a7a70e73b4c3", "photo-1545419913-775e4b1b4a38", "photo-1558618666-fcd25c85f82e", "photo-1548519853-a7c05d085e24"];
+    expect(CITIES.filter((c) => DEAD.some((d) => c.heroImage?.includes(d)))).toEqual([]);
+
+    const withPhoto = CITIES.find((c) => c.heroImage)!;
+    const { container, unmount } = await renderServer(Page(pageProps({ slug: withPhoto.slug })));
+    expect(container.querySelector("section img")).toHaveAttribute("src", expect.stringContaining("images.unsplash.com"));
+    unmount();
+
+    const noPhoto = CITIES.find((c) => !c.heroImage)!;
+    const view = await renderServer(Page(pageProps({ slug: noPhoto.slug })));
+    expect(view.container.querySelector("section img")).toBeNull();
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(noPhoto.name);
+  });
 });

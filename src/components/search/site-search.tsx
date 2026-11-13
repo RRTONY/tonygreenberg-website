@@ -21,6 +21,7 @@ import {
 import { SEARCH_DIRECTORY, withEssayCount } from "@/lib/content/search-directory";
 import { searchPages, type PageItem } from "@/lib/search-engine";
 import type { SearchPostHit } from "@/app/api/search/route";
+import { priPrefetch } from "@/lib/content/pri-moved";
 
 // /search, laid out like live (2026-10-06): back arrow, one big box, filter
 // chips, "Search Everything" empty state. Live's own results never appear
@@ -198,6 +199,7 @@ export function SiteSearch({
                     <li key={h.href + h.title}>
                       <Link
                         href={h.href}
+                        prefetch={priPrefetch(h.href)}
                         {...(h.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                         className="flex items-start justify-between gap-4 px-4 py-3.5 transition-colors hover:bg-[#FBFAF6]"
                       >

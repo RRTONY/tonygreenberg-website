@@ -20,6 +20,21 @@ describe("next.config redirects", () => {
     });
   });
 
+  it("sends the PRI pages to psychedelicreadiness.com, temporarily (QA, 2026-11-13)", async () => {
+    const redirects = await nextConfig.redirects!();
+    const pri = (source: string) => redirects.find((r) => r.source === source);
+    expect(pri("/psychedelic-readiness-index")).toEqual({
+      source: "/psychedelic-readiness-index",
+      destination: "https://psychedelicreadiness.com/",
+      permanent: false,
+    });
+    expect(pri("/psychedelic-readiness-index/disclaimer")?.destination).toBe("https://psychedelicreadiness.com/disclaimer");
+    for (const page of ["/pri-calibration", "/pri-efficacy", "/medicine-sequencing", "/iboga-ibogaine", "/iboga-compass", "/peyote-mescaline", "/facilitator-index"]) {
+      expect(pri(page)).toEqual({ source: page, destination: `https://psychedelicreadiness.com${page}`, permanent: false });
+    }
+    expect(pri("/pri-research")).toBeUndefined();
+  });
+
   it("sends the Search Console 404s (/bio, old BrewSoul catalog files) to real pages, permanently", async () => {
     const redirects = await nextConfig.redirects!();
     expect(redirects).toContainEqual({ source: "/bio", destination: "/about", permanent: true });

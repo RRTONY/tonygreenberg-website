@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { EditorialDivider } from "@/components/marketing/editorial-divider";
 import { RelatedPages } from "@/components/marketing/related-pages";
+import { seoTitle } from "@/lib/seo-defaults";
 
 // Ported from legacy client/src/pages/Invest.tsx ("Invest in the Thesis").
 // Real content, unchanged — 6 real portfolio categories, 32 real named
@@ -10,7 +11,8 @@ import { RelatedPages } from "@/components/marketing/related-pages";
 // impactsoul.is (a separate, live site), not an email-capture form on this
 // page — no backend dependency here at all.
 export const metadata: Metadata = {
-  title: "Invest in the Thesis — Portfolio & ABIT Waitlist",
+  // Through seoTitle so a long title drops " | Tony Greenberg" (CONTRIBUTING.md SEO rules).
+  title: seoTitle("Invest in the Thesis — Portfolio & ABIT Waitlist"),
   description:
     "35+ portfolio companies across psychedelic medicine, impact venture, Web3, blockchain, and health tech. ImpactSoul ABITs launch Q1 2027.",
   alternates: { canonical: "/invest" },

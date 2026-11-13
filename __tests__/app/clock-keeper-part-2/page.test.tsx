@@ -7,7 +7,8 @@ import ClockKeeperPartTwoPage, { metadata, revalidate } from "@/app/clock-keeper
 
 describe("/clock-keeper-part-2", () => {
   it("has its own title, description and canonical, and refreshes every 10 minutes", () => {
-    expect(metadata.title).toBe("The Clock Keeper Chronicles: Part II — Your Response");
+    // Over 60 with " | Tony Greenberg", so seoTitle drops the ending (2026-11-14).
+    expect(metadata.title).toEqual({ absolute: "The Clock Keeper Chronicles: Part II — Your Response" });
     expect(metadata.description).toMatch(/A form for the offering/);
     expect(metadata.alternates?.canonical).toBe("/clock-keeper-part-2");
     expect(revalidate).toBe(600);

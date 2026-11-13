@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 import { LEGACY_POST_REDIRECTS } from "./src/lib/content/legacy-post-redirects";
 import { SEARCH_CONSOLE_REDIRECTS, SEARCH_CONSOLE_TEMPORARY_REDIRECTS } from "./src/lib/content/search-console-redirects";
+
+// tonygreenberg.com address → psychedelicreadiness.com path.
+import { PRI_MOVED_PAGES } from "./src/lib/content/pri-moved";
 import { SHORT_LINKS } from "./src/lib/content/short-links";
 
 const nextConfig: NextConfig = {
@@ -79,6 +82,15 @@ const nextConfig: NextConfig = {
       // kept treating it as required (2026-11-04, webmaster asked to fix). It
       // goes to the medicine hub, the Psychedelic Readiness Index.
       { source: "/medicine", destination: "/psychedelic-readiness-index", permanent: true },
+      // The PRI pages now live on psychedelicreadiness.com (QA of 2026-11-13: this copy was
+      // still scoring visitors). Temporary (307) on purpose: that site is still on hold and
+      // noindex, so nothing here should tell Google the move is final. Query strings such as
+      // ?m=ibogaine are carried over. /pri-research (admin only) stays here.
+      ...PRI_MOVED_PAGES.map(([source, destination]) => ({
+        source,
+        destination: `https://psychedelicreadiness.com${destination}`,
+        permanent: false,
+      })),
       // Search Console 404s (2026-11-05). /bio was never a page, but Google keeps
       // finding it; Tony's bio is /about. The BrewSoul catalog.txt/.json files
       // were the Manus app's machine-readable dumps (gone with Manus); the

@@ -1,6 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useState, type FormEvent } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import * as Yup from "yup";
 import { Loader2, Mail, Sparkles, X } from "lucide-react";
 
 // Ported from the GemSpark app's components/NewsletterPopup.tsx (short version only). Same copy,
@@ -19,6 +21,15 @@ interface NewsletterPopupProps {
   /** Enable scroll-based trigger (default: true) */
   enableScrollTrigger?: boolean;
 }
+
+// Owner (2026-11-14): even one-field sign-ups use Formik + Yup. /api/subscribe checks again.
+const schema = Yup.object({
+  email: Yup.string().trim().email("That email address doesn't look right.").required("Add your email."),
+});
+
+type Values = Yup.InferType<typeof schema>;
+
+const ERROR_ID = "gemspark-newsletter-email-error";
 
 const SUBSCRIBED_KEY = "newsletter_subscribed";
 const DISMISSED_KEY = "newsletter_dismissed";
@@ -46,8 +57,7 @@ export function NewsletterPopup({
   enableScrollTrigger = true,
 }: NewsletterPopupProps) {
   const [isVisible, setIsVisible] = useState(false);
-  const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const [hasTriggered, setHasTriggered] = useState(false);
 
@@ -99,16 +109,13 @@ export function NewsletterPopup({
     return () => window.removeEventListener("keydown", onKey);
   }, [isVisible, handleClose]);
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    if (!email || status === "loading") return;
-
-    setStatus("loading");
+  const handleSubmit = async (values: Values) => {
+    setStatus("idle");
     try {
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, source: "short-form-popup" }),
+        body: JSON.stringify({ email: values.email.trim(), source: "short-form-popup" }),
       });
       const data = (await res.json().catch(() => ({}))) as { success?: boolean; message?: string };
       if (res.ok && data.success) {
@@ -184,39 +191,55 @@ export function NewsletterPopup({
               </p>
 
               {/* Form */}
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="relative">
-                  <Mail
-                    aria-hidden="true"
-                    className="absolute top-1/2 left-4 size-5 -translate-y-1/2 text-[#95A5A6]"
-                  />
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="your@email.com"
-                    aria-label="Email address"
-                    className="w-full rounded-xl border-none bg-[#F8F9F9] py-3 pr-4 pl-12 text-[#2C3E50] transition-all placeholder:text-[#95A5A6] focus:ring-2 focus:ring-[#D4E6F1]"
-                    required
-                    disabled={status === "loading"}
-                  />
-                </div>
+              <Formik<Values> initialValues={{ email: "" }} validationSchema={schema} onSubmit={handleSubmit}>
+                {({ isSubmitting, errors, touched }) => {
+                  const invalid = Boolean(touched.email && errors.email);
+                  return (
+                    <Form noValidate className="space-y-4">
+                      <div className="relative">
+                        <Mail
+                          aria-hidden="true"
+                          className="absolute top-1/2 left-4 size-5 -translate-y-1/2 text-[#95A5A6]"
+                        />
+                        <Field
+                          type="email"
+                          name="email"
+                          placeholder="your@email.com"
+                          aria-label="Email address"
+                          className="w-full rounded-xl border-none bg-[#F8F9F9] py-3 pr-4 pl-12 text-[#2C3E50] transition-all placeholder:text-[#95A5A6] focus:ring-2 focus:ring-[#D4E6F1]"
+                          required
+                          disabled={isSubmitting}
+                          aria-invalid={invalid}
+                          aria-describedby={invalid ? ERROR_ID : undefined}
+                        />
+                      </div>
+                      <ErrorMessage
+                        name="email"
+                        render={(msg) => (
+                          <p id={ERROR_ID} role="alert" className="text-center text-sm text-red-500">
+                            {msg}
+                          </p>
+                        )}
+                      />
 
-                {status === "error" && (
-                  <p role="alert" className="text-center text-sm text-red-500">
-                    {errorMessage}
-                  </p>
-                )}
+                      {status === "error" && (
+                        <p role="alert" className="text-center text-sm text-red-500">
+                          {errorMessage}
+                        </p>
+                      )}
 
-                <button
-                  type="submit"
-                  disabled={status === "loading"}
-                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#2C3E50] py-3 font-medium text-white transition-colors hover:bg-[#1A252F] disabled:cursor-not-allowed disabled:opacity-50"
-                >
-                  {status === "loading" && <Loader2 aria-hidden="true" className="size-5 animate-spin" />}
-                  <span>Subscribe</span>
-                </button>
-              </form>
+                      <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#2C3E50] py-3 font-medium text-white transition-colors hover:bg-[#1A252F] disabled:cursor-not-allowed disabled:opacity-50"
+                      >
+                        {isSubmitting && <Loader2 aria-hidden="true" className="size-5 animate-spin" />}
+                        <span>Subscribe</span>
+                      </button>
+                    </Form>
+                  );
+                }}
+              </Formik>
 
               <p className="mt-4 text-center text-xs text-[#95A5A6]">No spam. Unsubscribe anytime.</p>
             </>

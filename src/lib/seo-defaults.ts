@@ -27,7 +27,8 @@ export const defaultTwitter = {
 } satisfies NonNullable<Metadata["twitter"]>;
 
 // Search-result titles and descriptions (2026-11-03). Google cuts a title
-// off around 60-70 characters and a description around 160, and flags
+// off around 60 characters (limit lowered from 70 on 2026-11-14: 35 titles
+// were cut in results only because of the suffix) and a description around 160, and flags
 // descriptions too short to say anything. These keep every page inside
 // those limits without rewriting anyone's wording: a title that would run
 // long loses the " | Tony Greenberg" ending, a missing or thin description
@@ -35,7 +36,7 @@ export const defaultTwitter = {
 export const SITE_NAME = "Tony Greenberg";
 export const DEFAULT_DESCRIPTION =
   "Essays, frameworks, and tools from Tony Greenberg — CEO of RampRate, Founder of ImpactSoul.";
-export const MAX_TITLE_LENGTH = 70;
+export const MAX_TITLE_LENGTH = 60;
 export const MIN_DESCRIPTION_LENGTH = 50;
 export const MAX_DESCRIPTION_LENGTH = 160;
 

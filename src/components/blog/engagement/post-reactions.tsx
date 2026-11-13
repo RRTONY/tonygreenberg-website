@@ -26,10 +26,17 @@ function useReaction(slug: string) {
   async function save(reaction: Reaction, comment?: string) {
     setSaving(true);
     setError(null);
-    const res = await react({ slug, reaction, comment });
-    setSaving(false);
-    if (!res.ok) return setError(res.error ?? "Something went wrong.");
-    refreshPostEngagement(slug);
+    // A dropped connection rejects the server action: without the catch the buttons stayed
+    // disabled for good (browser test, 2026-11-14).
+    try {
+      const res = await react({ slug, reaction, comment });
+      if (!res.ok) return setError(res.error ?? "Something went wrong.");
+      refreshPostEngagement(slug);
+    } catch {
+      setError("Couldn't reach the server. Check your connection and try again.");
+    } finally {
+      setSaving(false);
+    }
   }
   return { data, mine, picked, setPicked, saving, error, save };
 }
