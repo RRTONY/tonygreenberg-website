@@ -84,6 +84,21 @@ describe("PostVerdict", () => {
     expect(await screen.findByRole("alert")).toHaveTextContent("Already reacted.");
   });
 
+  // Browser test 2026-11-14: a dropped connection rejected the action and left the buttons
+  // disabled for good with no message.
+  it("explains a dropped connection and lets the reader try again", async () => {
+    save.mockRejectedValueOnce(new TypeError("Failed to fetch"));
+    const user = userEvent.setup();
+    render(<PostVerdict slug={nextSlug()} />);
+    await user.click(screen.getByRole("button", { name: /meh/i }));
+    await user.click(screen.getByRole("button", { name: /skip/i }));
+    expect(await screen.findByRole("alert")).toHaveTextContent("Couldn't reach the server");
+    const skip = screen.getByRole("button", { name: /skip/i });
+    expect(skip).toBeEnabled();
+    await user.click(skip);
+    expect(save).toHaveBeenCalledTimes(2);
+  });
+
   it("shows totals and reader notes, and thanks the reader after saving", async () => {
     const slug = nextSlug();
     const user = userEvent.setup();

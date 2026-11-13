@@ -221,7 +221,7 @@ export function MezcalTimeline() {
                   <span className="font-mono text-sm tracking-wider">{era.year}</span>
                 </div>
 
-                <h2 className="mb-2 font-display text-4xl text-white md:text-6xl">{era.title}</h2>
+                <h2 className="mb-2 font-display text-4xl break-words text-white md:text-5xl lg:text-6xl">{era.title}</h2>
                 <h3 className={`mb-6 font-serif text-xl md:text-2xl ${era.color}`}>{era.subtitle}</h3>
 
                 <p className="mb-8 text-lg leading-relaxed text-stone-200">{era.description}</p>

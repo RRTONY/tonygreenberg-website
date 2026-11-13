@@ -3,17 +3,7 @@ import { LEGACY_POST_REDIRECTS } from "./src/lib/content/legacy-post-redirects";
 import { SEARCH_CONSOLE_REDIRECTS, SEARCH_CONSOLE_TEMPORARY_REDIRECTS } from "./src/lib/content/search-console-redirects";
 
 // tonygreenberg.com address → psychedelicreadiness.com path.
-const PRI_MOVED_PAGES: [string, string][] = [
-  ["/psychedelic-readiness-index", "/"],
-  ["/psychedelic-readiness-index/disclaimer", "/disclaimer"],
-  ["/pri-calibration", "/pri-calibration"],
-  ["/pri-efficacy", "/pri-efficacy"],
-  ["/medicine-sequencing", "/medicine-sequencing"],
-  ["/iboga-ibogaine", "/iboga-ibogaine"],
-  ["/iboga-compass", "/iboga-compass"],
-  ["/peyote-mescaline", "/peyote-mescaline"],
-  ["/facilitator-index", "/facilitator-index"],
-];
+import { PRI_MOVED_PAGES } from "./src/lib/content/pri-moved";
 import { SHORT_LINKS } from "./src/lib/content/short-links";
 
 const nextConfig: NextConfig = {

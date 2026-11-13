@@ -24,4 +24,13 @@ describe("PageViewTracker", () => {
     expect(trackGemSparkView).toHaveBeenCalledTimes(1);
     expect(trackGemSparkView).toHaveBeenCalledWith("short-form");
   });
+
+  it("swallows a failed count instead of throwing an unhandled error", async () => {
+    const failed = Promise.reject(new TypeError("Failed to fetch"));
+    let handled = false;
+    vi.mocked(trackGemSparkView).mockReturnValue({ catch: (fn: () => void) => { handled = true; return failed.catch(fn); } } as never);
+    render(<PageViewTracker page="long-form" />);
+    expect(handled).toBe(true);
+    await failed.catch(() => {});
+  });
 });

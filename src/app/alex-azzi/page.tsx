@@ -34,6 +34,7 @@ import {
 import { ArrowLeft } from "lucide-react";
 import { StoryForm } from "@/components/cheshire/story-form";
 import { RelatedPages } from "@/components/marketing/related-pages";
+import { priPrefetch } from "@/lib/content/pri-moved";
 
 // Ported from legacy client/src/pages/CheshireGrin.tsx (2608 lines) — the
 // "VerifiedTribe Community Protection Report" on Alex Azzi, CEO of
@@ -824,6 +825,7 @@ export default async function AlexAzziPage() {
               <Link
                 key={link.href}
                 href={link.href}
+                prefetch={priPrefetch(link.href)}
                 className="block rounded-md border border-border bg-card p-5 hover:border-red-800/30"
               >
                 <div className="mb-1 font-mono text-xs tracking-wide text-muted-foreground uppercase">{link.tag}</div>

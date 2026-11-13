@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { WHERE_NEXT, WHERE_NEXT_DEFAULT, WHERE_NEXT_HIDDEN } from "@/lib/content/where-next";
+import { priPrefetch } from "@/lib/content/pri-moved";
 
 // Legacy WhereNext.tsx: "Keep going", 2 to 3 contextual next pages, then Home,
 // Site Index and All Assessments, above the footer on every page. A Client
@@ -26,6 +27,7 @@ export function WhereNext() {
           <li key={item.href}>
             <Link
               href={item.href}
+              prefetch={priPrefetch(item.href)}
               className="block h-full rounded-lg border border-brand-gold/12 bg-brand-gold/4 px-4 py-3 no-underline transition-colors hover:border-brand-gold hover:bg-brand-gold/8"
             >
               <span className="mb-0.5 block font-heading text-[0.9rem] font-semibold text-foreground">{item.label}</span>

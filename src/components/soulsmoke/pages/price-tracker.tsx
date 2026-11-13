@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { addPriceAlert, deletePriceAlert, listPriceAlerts } from "@/app/soul-smoke/actions";
+import { reach } from "@/lib/content/soulsmoke/reach";
 import { allMezcals } from "@/lib/content/soulsmoke/mezcal-data";
 import { ss } from "@/lib/content/soulsmoke/nav";
 import { soulsmokeFontVariables } from "@/lib/fonts/soulsmoke-fonts";
@@ -182,7 +183,7 @@ export function PriceTracker() {
 
   useEffect(() => {
     let live = true;
-    listPriceAlerts().then((result) => {
+    reach(listPriceAlerts()).then((result) => {
       if (!live) return;
       if (result.ok) setState({ status: "ready", alerts: result.data });
       else if (result.signedOut) setState({ status: "signedOut" });
@@ -203,10 +204,10 @@ export function PriceTracker() {
     const dollars = parseInt(targetPrice, 10);
     setSaving(true);
     setFormError(null);
-    const result = await addPriceAlert({
+    const result = await reach(addPriceAlert({
       mezcalName: selectedMezcal,
       targetPrice: targetPrice && Number.isFinite(dollars) ? dollars * 100 : null,
-    });
+    }));
     setSaving(false);
     if (!result.ok) {
       if (result.signedOut) setState({ status: "signedOut" });
@@ -222,7 +223,7 @@ export function PriceTracker() {
   const deleteAlert = async (id: string) => {
     setDeletingId(id);
     setAlertError(null);
-    const result = await deletePriceAlert(id);
+    const result = await reach(deletePriceAlert(id));
     setDeletingId(null);
     if (!result.ok) {
       setAlertError(result.error);

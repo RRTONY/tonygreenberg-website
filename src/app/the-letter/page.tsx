@@ -568,7 +568,7 @@ export default async function TheLetterPage() {
         </div>
         <p className="mt-5 border-t border-border pt-4 font-mono text-xs text-muted-foreground">
           Also active in:{" "}
-          <Link href="/psychedelic-readiness-index" className="text-brand-gold">
+          <Link href="/psychedelic-readiness-index" prefetch={false} className="text-brand-gold">
             Psychedelic Medicine
           </Link>{" "}
           ·{" "}

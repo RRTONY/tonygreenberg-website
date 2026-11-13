@@ -105,7 +105,7 @@ export function KavaFooter() {
         <Link href="/kava" className="inline-flex min-h-11 md:min-h-6 items-center text-xs font-medium text-kava-ink opacity-70 underline hover:opacity-100">
           Kava Home
         </Link>
-        <Link href="/psychedelic-readiness-index" className="inline-flex min-h-11 md:min-h-6 items-center text-xs font-medium text-kava-ink opacity-70 underline hover:opacity-100">
+        <Link href="/psychedelic-readiness-index" prefetch={false} className="inline-flex min-h-11 md:min-h-6 items-center text-xs font-medium text-kava-ink opacity-70 underline hover:opacity-100">
           Full PRI
         </Link>
         <Link href="/" className="inline-flex min-h-11 md:min-h-6 items-center text-xs font-medium text-kava-ink opacity-70 underline hover:opacity-100">

@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import * as Yup from "yup";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,6 +15,12 @@ const CONTACT_EMAIL = "tony@tonygreenberg.com";
 // `tg_subscribed` flag so the popup stops asking afterwards. The label,
 // placeholder and layout props let other pages (e.g. /the-letter's "Dispatch"
 // block) reuse the same form with their own live copy.
+// Formik + Yup at the owner's request (2026-11-14), even for this one field.
+const schema = Yup.object({
+  email: Yup.string().trim().email("That email address doesn't look right.").max(320).required("Add your email."),
+});
+
+type Values = { email: string };
 export function NewsletterSignupForm({
   source = "subscribe",
   buttonLabel = "Subscribe Free",
@@ -24,14 +32,10 @@ export function NewsletterSignupForm({
   placeholder?: string;
   className?: string;
 }) {
-  const [email, setEmail] = useState("");
-  const [pending, setPending] = useState(false);
   const [done, setDone] = useState<"api" | "mailto" | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email || pending) return;
-    setPending(true);
+  const handleSubmit = async (values: Values) => {
+    const email = values.email.trim();
     let via: "api" | "mailto" = "api";
     try {
       const res = await fetch("/api/subscribe", {
@@ -50,7 +54,6 @@ export function NewsletterSignupForm({
     try {
       localStorage.setItem("tg_subscribed", "true");
     } catch {}
-    setPending(false);
     setDone(via);
   };
 
@@ -64,25 +67,45 @@ export function NewsletterSignupForm({
     );
   }
 
+  // The error line sits under the form (not inside it) so the input/button row keeps its layout.
   return (
-    <form onSubmit={handleSubmit} className={className}>
-      <label htmlFor="subscribe-email" className="sr-only">
-        Email address
-      </label>
-      <Input
-        id="subscribe-email"
-        type="email"
-        required
-        autoComplete="email"
-        placeholder={placeholder}
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        className="h-11 flex-1"
-      />
-      <Button type="submit" disabled={pending} className="h-11 font-mono text-xs tracking-wider uppercase">
-        {pending && <Loader2 className="size-4 animate-spin" />}
-        {buttonLabel}
-      </Button>
-    </form>
+    <Formik<Values> initialValues={{ email: "" }} validationSchema={schema} onSubmit={handleSubmit}>
+      {({ isSubmitting, touched, errors }) => {
+        const invalid = Boolean(touched.email && errors.email);
+        return (
+          <>
+            <Form noValidate className={className}>
+              <label htmlFor="subscribe-email" className="sr-only">
+                Email address
+              </label>
+              <Field
+                as={Input}
+                id="subscribe-email"
+                name="email"
+                type="email"
+                required
+                autoComplete="email"
+                placeholder={placeholder}
+                aria-invalid={invalid}
+                aria-describedby={invalid ? "subscribe-email-error" : undefined}
+                className="h-11 flex-1"
+              />
+              <Button type="submit" disabled={isSubmitting} className="h-11 font-mono text-xs tracking-wider uppercase">
+                {isSubmitting && <Loader2 className="size-4 animate-spin" />}
+                {buttonLabel}
+              </Button>
+            </Form>
+            <ErrorMessage
+              name="email"
+              render={(msg) => (
+                <p id="subscribe-email-error" role="alert" className="mt-2 text-sm text-destructive">
+                  {msg}
+                </p>
+              )}
+            />
+          </>
+        );
+      }}
+    </Formik>
   );
 }

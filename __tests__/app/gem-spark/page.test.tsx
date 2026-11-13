@@ -18,7 +18,7 @@ describe("/gem-spark", () => {
 
   it("uses the GemSpark app's own title and description, with a canonical and share image", () => {
     // Too long for the " | Tony Greenberg" suffix, so the shared helper sets it as an absolute title.
-    expect(metadata.title).toEqual({ absolute: "The GemSpark | The Fusion Between Serendipity and Synchronicity" });
+    expect(metadata.title).toEqual({ absolute: "The GemSpark | The Fusion of Serendipity and Synchronicity" });
     expect(metadata.description).toMatch(/^A story about what happens when you stop sweeping up the glass/);
     expect(metadata.alternates?.canonical).toBe("/gem-spark");
     expect(JSON.stringify(metadata.openGraph)).toContain("cdn.sanity.io");

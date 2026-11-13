@@ -1,36 +1,41 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState } from "react";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import * as Yup from "yup";
 import { CheckCircle, Loader2, Send } from "lucide-react";
 import { submitGemSparkStory } from "@/app/gem-spark/actions";
 
 // Ported from the GemSpark app's components/ShareYourSparkForm.tsx. Same copy and form; the story
 // goes to Supabase (gemspark_story_submissions) and Tony gets an email, as the app's
 // stories.submit did. While sending, the button shows a spinner with its own label.
+
+// Same limits submitGemSparkStory enforces (10..10,000 characters; email optional, max 320).
+// The email may be left empty (rule 17): Yup's email() skips "".
+const schema = Yup.object({
+  story: Yup.string()
+    .trim()
+    .required("Please share your story.")
+    .min(10, "Please share a bit more of your story (at least 10 characters).")
+    .max(10000, "Keep it under 10,000 characters."),
+  email: Yup.string().trim().email("That email address doesn't look right.").max(320, "That email address is too long."),
+});
+
+type Values = Yup.InferType<typeof schema>;
+
+const errorClass = "mt-2 text-sm text-red-500";
+
 export function ShareYourSparkForm() {
-  const [story, setStory] = useState("");
-  const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    if (!story.trim() || status === "loading") return;
-
-    if (story.trim().length < 10) {
-      setStatus("error");
-      setErrorMessage("Please share a bit more of your story (at least 10 characters).");
-      return;
-    }
-
-    setStatus("loading");
+  const handleSubmit = async (values: Values) => {
+    setStatus("idle");
     setErrorMessage("");
     try {
-      const result = await submitGemSparkStory({ story: story.trim(), email: email.trim() || undefined });
+      const result = await submitGemSparkStory({ story: values.story.trim(), email: values.email?.trim() || undefined });
       if (result.ok) {
         setStatus("success");
-        setStory("");
-        setEmail("");
       } else {
         setStatus("error");
         setErrorMessage(result.error || "Something went wrong. Please try again.");
@@ -74,66 +79,94 @@ export function ShareYourSparkForm() {
         Award.
       </p>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div>
-          <label
-            htmlFor="gemspark-story"
-            className="mb-2 block text-sm font-medium tracking-wider text-[#5D6D7E] uppercase"
-          >
-            Your GemSpark
-          </label>
-          <textarea
-            id="gemspark-story"
-            rows={4}
-            value={story}
-            onChange={(e) => setStory(e.target.value)}
-            className="w-full resize-none rounded-xl border-none bg-[#F8F9F9] p-4 text-lg text-[#2C3E50] transition-all placeholder:text-[#95A5A6] focus:ring-2 focus:ring-[#D4E6F1]"
-            placeholder="I had a GemSpark when..."
-            disabled={status === "loading"}
-          />
-        </div>
-        <div>
-          <label
-            htmlFor="gemspark-email"
-            className="mb-2 block text-sm font-medium tracking-wider text-[#5D6D7E] uppercase"
-          >
-            Email (Optional)
-          </label>
-          <input
-            type="email"
-            id="gemspark-email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full rounded-xl border-none bg-[#F8F9F9] p-4 text-lg text-[#2C3E50] transition-all placeholder:text-[#95A5A6] focus:ring-2 focus:ring-[#D4E6F1]"
-            placeholder="you@example.com"
-            disabled={status === "loading"}
-          />
-        </div>
+      <Formik<Values> initialValues={{ story: "", email: "" }} validationSchema={schema} onSubmit={handleSubmit}>
+        {({ isSubmitting, values, errors, touched }) => {
+          const storyInvalid = Boolean(touched.story && errors.story);
+          const emailInvalid = Boolean(touched.email && errors.email);
+          return (
+            <Form noValidate className="space-y-6">
+              <div>
+                <label
+                  htmlFor="gemspark-story"
+                  className="mb-2 block text-sm font-medium tracking-wider text-[#5D6D7E] uppercase"
+                >
+                  Your GemSpark
+                </label>
+                <Field
+                  as="textarea"
+                  id="gemspark-story"
+                  name="story"
+                  rows={4}
+                  className="w-full resize-none rounded-xl border-none bg-[#F8F9F9] p-4 text-lg text-[#2C3E50] transition-all placeholder:text-[#95A5A6] focus:ring-2 focus:ring-[#D4E6F1]"
+                  placeholder="I had a GemSpark when..."
+                  required
+                  disabled={isSubmitting}
+                  aria-invalid={storyInvalid}
+                  aria-describedby={storyInvalid ? "gemspark-story-error" : undefined}
+                />
+                <ErrorMessage
+                  name="story"
+                  render={(msg) => (
+                    <p id="gemspark-story-error" role="alert" className={errorClass}>
+                      {msg}
+                    </p>
+                  )}
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="gemspark-email"
+                  className="mb-2 block text-sm font-medium tracking-wider text-[#5D6D7E] uppercase"
+                >
+                  Email (Optional)
+                </label>
+                <Field
+                  type="email"
+                  id="gemspark-email"
+                  name="email"
+                  className="w-full rounded-xl border-none bg-[#F8F9F9] p-4 text-lg text-[#2C3E50] transition-all placeholder:text-[#95A5A6] focus:ring-2 focus:ring-[#D4E6F1]"
+                  placeholder="you@example.com"
+                  disabled={isSubmitting}
+                  aria-invalid={emailInvalid}
+                  aria-describedby={emailInvalid ? "gemspark-email-error" : undefined}
+                />
+                <ErrorMessage
+                  name="email"
+                  render={(msg) => (
+                    <p id="gemspark-email-error" role="alert" className={errorClass}>
+                      {msg}
+                    </p>
+                  )}
+                />
+              </div>
 
-        {status === "error" && (
-          <p role="alert" className="text-sm text-red-500">
-            {errorMessage}
-          </p>
-        )}
+              {status === "error" && (
+                <p role="alert" className="text-sm text-red-500">
+                  {errorMessage}
+                </p>
+              )}
 
-        <button
-          type="submit"
-          disabled={status === "loading" || !story.trim()}
-          className="group flex w-full items-center justify-center gap-2 rounded-xl bg-[#2C3E50] py-4 text-lg font-medium text-white transition-colors hover:bg-[#1A252F] disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          {status === "loading" ? (
-            <>
-              <Loader2 aria-hidden="true" className="size-5 animate-spin" />
-              <span>Submit My GemSpark</span>
-            </>
-          ) : (
-            <>
-              <span>Submit My GemSpark</span>
-              <Send aria-hidden="true" className="size-5 transition-transform group-hover:translate-x-1" />
-            </>
-          )}
-        </button>
-      </form>
+              <button
+                type="submit"
+                disabled={isSubmitting || !values.story.trim()}
+                className="group flex w-full items-center justify-center gap-2 rounded-xl bg-[#2C3E50] py-4 text-lg font-medium text-white transition-colors hover:bg-[#1A252F] disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 aria-hidden="true" className="size-5 animate-spin" />
+                    <span>Submit My GemSpark</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Submit My GemSpark</span>
+                    <Send aria-hidden="true" className="size-5 transition-transform group-hover:translate-x-1" />
+                  </>
+                )}
+              </button>
+            </Form>
+          );
+        }}
+      </Formik>
     </div>
   );
 }

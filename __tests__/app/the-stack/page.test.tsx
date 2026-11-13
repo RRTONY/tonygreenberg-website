@@ -48,13 +48,13 @@ describe("/the-stack", () => {
     });
   });
 
-  it("shows QR codes from Sanity, never Manus, with real alt text", () => {
+  it("shows QR codes from Sanity or the site's own /qr/ files, never Manus, with real alt text", () => {
     render(<TheStackPage />);
     const withQr = SUPPLIERS.filter((s) => s.qr);
     expect(withQr).toHaveLength(5);
     for (const s of withQr) {
       const img = screen.getByAltText(`QR code for ${s.name}`);
-      expect(img.getAttribute("src")).toMatch(/^https:\/\/cdn\.sanity\.io\//);
+      expect(img.getAttribute("src")).toMatch(/^(https:\/\/cdn\.sanity\.io\/|\/qr\/[a-z0-9-]+\.svg$)/);
       expect(screen.getByRole("link", { name: `Open ${s.name} on your phone (QR code)` })).toHaveAttribute("href", s.href);
     }
   });

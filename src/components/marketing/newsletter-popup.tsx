@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import * as Yup from "yup";
 import { Loader2, X } from "lucide-react";
 
 const CONTACT_EMAIL = "tony@tonygreenberg.com";
@@ -26,13 +28,18 @@ const CONTACT_EMAIL = "tony@tonygreenberg.com";
 // the API errors) does it fall back to a pre-filled mailto: to the
 // visitor's own email client, same honest non-fake-success behavior as
 // before this endpoint existed.
+// Formik + Yup at the owner's request (2026-11-14), even for this one field.
+const schema = Yup.object({
+  email: Yup.string().trim().email("That email address doesn't look right.").max(320).required("Add your email."),
+});
+
+type Values = { email: string };
+
 export function NewsletterPopup() {
   const [show, setShow] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [viaMailto, setViaMailto] = useState(false);
-  const [sending, setSending] = useState(false);
-  const [email, setEmail] = useState("");
 
   useEffect(() => {
     if (sessionStorage.getItem("tg-popup-shown")) return;
@@ -54,10 +61,8 @@ export function NewsletterPopup() {
 
   const handleDismiss = () => setShow(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email || sending) return;
-    setSending(true);
+  const handleSubmit = async (values: Values) => {
+    const email = values.email.trim();
     try {
       const res = await fetch("/api/subscribe", {
         method: "POST",
@@ -75,7 +80,6 @@ export function NewsletterPopup() {
     try {
       localStorage.setItem("tg_subscribed", "true");
     } catch {}
-    setSending(false);
     setSubmitted(true);
   };
 
@@ -225,27 +229,44 @@ export function NewsletterPopup() {
                   spam. No algorithm.
                 </p>
 
-                <form onSubmit={handleSubmit} className="mx-auto max-w-90">
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="your@email.com"
-                    required
-                    className="mb-3.5 w-full rounded-xl border border-[#F5EDE0]/10 bg-[#F5EDE0]/4 px-5 py-4 text-[#F5EDE0] outline-none focus-visible:ring-2 focus-visible:ring-ring transition-colors focus:border-[#C4841D]/30 focus:bg-[#F5EDE0]/8"
-                  />
-                  <button
-                    type="submit"
-                    disabled={sending}
-                    className="inline-flex w-full items-center justify-center gap-2 animate-jewel-cta-pulse rounded-xl py-4 font-mono text-xs font-semibold tracking-[0.18em] text-[#F5EDE0] uppercase transition-transform hover:-translate-y-0.5 disabled:opacity-70 disabled:hover:translate-y-0"
-                    style={{
-                      backgroundImage: "linear-gradient(135deg, #C4841D 0%, #B85A5A 50%, #3D8B6E 100%)",
-                    }}
-                  >
-                    {sending && <Loader2 aria-hidden="true" className="size-4 animate-spin" />}
-                    Join the Conversation
-                  </button>
-                </form>
+                <Formik<Values> initialValues={{ email: "" }} validationSchema={schema} onSubmit={handleSubmit}>
+                  {({ isSubmitting, touched, errors }) => {
+                    const invalid = Boolean(touched.email && errors.email);
+                    return (
+                      <Form noValidate className="mx-auto max-w-90">
+                        <Field
+                          type="email"
+                          name="email"
+                          aria-label="Email address"
+                          placeholder="your@email.com"
+                          required
+                          aria-invalid={invalid}
+                          aria-describedby={invalid ? "newsletter-popup-email-error" : undefined}
+                          className="mb-3.5 w-full rounded-xl border border-[#F5EDE0]/10 bg-[#F5EDE0]/4 px-5 py-4 text-[#F5EDE0] outline-none focus-visible:ring-2 focus-visible:ring-ring transition-colors focus:border-[#C4841D]/30 focus:bg-[#F5EDE0]/8"
+                        />
+                        <ErrorMessage
+                          name="email"
+                          render={(msg) => (
+                            <p id="newsletter-popup-email-error" role="alert" className="-mt-1.5 mb-3.5 text-center text-xs text-[#E8A0A0]">
+                              {msg}
+                            </p>
+                          )}
+                        />
+                        <button
+                          type="submit"
+                          disabled={isSubmitting}
+                          className="inline-flex w-full items-center justify-center gap-2 animate-jewel-cta-pulse rounded-xl py-4 font-mono text-xs font-semibold tracking-[0.18em] text-[#F5EDE0] uppercase transition-transform hover:-translate-y-0.5 disabled:opacity-70 disabled:hover:translate-y-0"
+                          style={{
+                            backgroundImage: "linear-gradient(135deg, #C4841D 0%, #B85A5A 50%, #3D8B6E 100%)",
+                          }}
+                        >
+                          {isSubmitting && <Loader2 aria-hidden="true" className="size-4 animate-spin" />}
+                          Join the Conversation
+                        </button>
+                      </Form>
+                    );
+                  }}
+                </Formik>
 
                 <p className="mt-4 text-center text-xs text-[#F5EDE0]/20 italic">
                   Unsubscribe anytime. I&apos;ll survive.

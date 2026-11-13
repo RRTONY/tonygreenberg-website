@@ -40,7 +40,7 @@ export default async function BrewSoulCityDetailPage({ params }: PageProps<"/bre
   return (
     <div className="min-h-screen overflow-x-hidden bg-linear-to-b from-[#1a1208] via-[#0f0d08] to-[#0a0806] text-amber-50">
       <section className="relative flex h-[50vh] min-h-100 items-end overflow-hidden">
-        <Image src={city.heroImage} alt="" fill sizes="100vw" className="scale-110 object-cover" />
+        {city.heroImage && <Image src={city.heroImage} alt="" fill sizes="100vw" className="scale-110 object-cover" />}
         <div className="absolute inset-0 bg-linear-to-t from-[#0a0806] via-[#0a0806]/60 to-transparent" />
 
         <div className="relative z-1 mx-auto w-full max-w-6xl px-6 pb-8">

@@ -22,7 +22,8 @@ export async function generateMetadata({ params }: PageProps<"/charity-scorecard
   const charity = CHARITIES.find((c) => c.slug === slug);
   if (!charity) return {};
   return {
-    title: seoTitle(`${charity.name} — Charity Scorecard`),
+    // Search-result title within 60 characters: long names drop the section label (2026-11-14).
+    title: seoTitle(charity.name.length > 40 ? charity.name : `${charity.name} — Charity Scorecard`),
     description: seoDescription(`${charity.tagline} Unified impact score: ${charity.totalScore}/100 (${charity.grade}).`),
     alternates: { canonical: `/charity-scorecard/${charity.slug}` },
   };

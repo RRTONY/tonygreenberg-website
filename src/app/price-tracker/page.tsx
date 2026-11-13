@@ -3,12 +3,14 @@ import Link from "next/link";
 import { PeptideShutdownBanner } from "@/components/marketing/peptide-shutdown-banner";
 import { PriceTrackerTable, type PriceEntry } from "@/components/marketing/price-tracker-table";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { seoTitle } from "@/lib/seo-defaults";
 
 // Ported from legacy client/src/pages/PriceTracker.tsx. Real content,
 // unchanged — 13 real compounds with real research-vendor vs. telehealth
 // price ranges, Tony's takes, and the interactive stack cost calculator.
 export const metadata: Metadata = {
-  title: "Peptide Prices 2026 — What You Should Actually Pay",
+  // Through seoTitle so a long title drops " | Tony Greenberg" (CONTRIBUTING.md SEO rules).
+  title: seoTitle("Peptide Prices 2026 — What You Should Actually Pay"),
   description:
     "Twenty-five years of analyzing $10 billion in enterprise transactions taught me one thing: the information asymmetry IS the markup. This page fixes that.",
   alternates: { canonical: "/price-tracker" },

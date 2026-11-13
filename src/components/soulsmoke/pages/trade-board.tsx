@@ -1,7 +1,9 @@
 "use client";
 
-import { useEffect, useId, useState, type FormEvent } from "react";
+import { useEffect, useId, useRef, useState, type ChangeEvent } from "react";
 import Link from "next/link";
+import { ErrorMessage, Field, Form, Formik, type FormikHelpers } from "formik";
+import * as Yup from "yup";
 import {
   ArrowLeft,
   ArrowLeftRight,
@@ -22,6 +24,7 @@ import {
   sendTradeMessage,
   type PublicTradeListing,
 } from "@/app/soul-smoke/actions";
+import { reach } from "@/lib/content/soulsmoke/reach";
 import { ss } from "@/lib/content/soulsmoke/nav";
 
 // Ported from the SoulSmoke app's client/src/pages/TradeBoard.tsx. Same board, form, guidelines
@@ -57,15 +60,37 @@ export type TradeListing = {
 const CONDITIONS: Condition[] = ["sealed", "opened", "partial"];
 const LISTING_TYPES: ListingType[] = ["trade", "sell", "both"];
 
-const emptyForm = {
+// Client-side checks for the "List a Bottle" form (rule 6). createTradeListing checks again on the
+// server. Optional fields accept an empty string (rule 17): Formik hands Yup "" as undefined.
+const listingSchema = Yup.object({
+  mezcalName: Yup.string().default("").trim().required("Add the mezcal's name."),
+  producer: Yup.string().default(""),
+  agaveType: Yup.string().default(""),
+  abv: Yup.string().default(""),
+  bottleSize: Yup.string().default(""),
+  condition: Yup.mixed<Condition>().oneOf(CONDITIONS).required(),
+  fillLevel: Yup.string().default(""),
+  listingType: Yup.mixed<ListingType>().oneOf(LISTING_TYPES).required(),
+  askingPrice: Yup.string()
+    .default("")
+    .trim()
+    .matches(/^\d+$/, { message: "Use a whole dollar amount, like 150.", excludeEmptyString: true }),
+  seekingBottles: Yup.string().default(""),
+  description: Yup.string().default(""),
+  location: Yup.string().default(""),
+});
+
+type ListingForm = Yup.InferType<typeof listingSchema>;
+
+const emptyForm: ListingForm = {
   mezcalName: "",
   producer: "",
   agaveType: "",
   abv: "",
   bottleSize: "750ml",
-  condition: "sealed" as Condition,
+  condition: "sealed",
   fillLevel: "100%",
-  listingType: "both" as ListingType,
+  listingType: "both",
   askingPrice: "",
   seekingBottles: "",
   description: "",
@@ -75,7 +100,7 @@ const emptyForm = {
 const optional = (s: string) => (s.trim() ? s.trim() : undefined);
 
 /** Mirrors the Manus server's tradeBoard.create input checks. Returns null when invalid. */
-export function toTradeListing(form: typeof emptyForm, now = new Date()): TradeListing | null {
+export function toTradeListing(form: ListingForm, now = new Date()): TradeListing | null {
   const mezcalName = form.mezcalName.trim();
   if (!mezcalName) return null;
   if (!CONDITIONS.includes(form.condition) || !LISTING_TYPES.includes(form.listingType)) return null;
@@ -136,6 +161,8 @@ const fieldClass =
 // Native dropdown lists ignore the translucent field color, so give the options a solid one.
 const selectClass = `${fieldClass} *:bg-[#1a1a1a]`;
 
+const errorClass = "mt-1 text-sm text-red-300";
+
 const SIGN_IN_HREF = `/login?next=${encodeURIComponent(ss("/trade-board"))}`;
 
 export function TradeBoard() {
@@ -151,13 +178,12 @@ export function TradeBoard() {
   const [sending, setSending] = useState(false);
   const [messageError, setMessageError] = useState("");
   const [filter, setFilter] = useState<"all" | "trade" | "sell">("all");
-  const [formData, setFormData] = useState(emptyForm);
   const id = useId();
   const fid = (name: string) => `${id}-${name}`;
 
   useEffect(() => {
     let live = true;
-    listTradeListings().then((result) => {
+    reach(listTradeListings()).then((result) => {
       if (!live) return;
       if (result.ok) {
         setListings(result.data.listings);
@@ -198,14 +224,17 @@ export function TradeBoard() {
     return true;
   });
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    const listing = toTradeListing(formData);
-    if (!listing || creating) return;
+  // Formik doesn't stop a second submit (e.g. Enter) while the first is still saving; this does.
+  const savingListing = useRef(false);
+
+  const createListing = async (values: ListingForm, { resetForm }: FormikHelpers<ListingForm>) => {
+    const listing = toTradeListing(values);
+    if (!listing || savingListing.current) return;
+    savingListing.current = true;
     setCreating(true);
     setCreateError("");
     // The server makes the id and date; send everything else toTradeListing checked.
-    const result = await createTradeListing({
+    const result = await reach(createTradeListing({
       mezcalName: listing.mezcalName,
       producer: listing.producer,
       agaveType: listing.agaveType,
@@ -218,12 +247,13 @@ export function TradeBoard() {
       seekingBottles: listing.seekingBottles,
       description: listing.description,
       location: listing.location,
-    });
+    }));
+    savingListing.current = false;
     setCreating(false);
     if (result.ok) {
       setListings((prev) => [result.data, ...prev]);
       setShowCreateModal(false);
-      setFormData(emptyForm);
+      resetForm();
     } else if (result.signedOut) {
       signedOut();
     } else {
@@ -233,7 +263,7 @@ export function TradeBoard() {
 
   const deleteListing = async (listingId: string) => {
     setBoardError("");
-    const result = await deleteTradeListing(listingId);
+    const result = await reach(deleteTradeListing(listingId));
     if (result.ok) setListings((prev) => prev.filter((l) => l.id !== listingId));
     else if (result.signedOut) signedOut();
     else setBoardError(result.error);
@@ -249,7 +279,7 @@ export function TradeBoard() {
     if (!showMessageModal || !message.trim() || sending) return;
     setSending(true);
     setMessageError("");
-    const result = await sendTradeMessage({ listingId: showMessageModal.id, message: message.trim() });
+    const result = await reach(sendTradeMessage({ listingId: showMessageModal.id, message: message.trim() }));
     setSending(false);
     if (result.ok) {
       setShowMessageModal(null);
@@ -486,221 +516,226 @@ export function TradeBoard() {
       </div>
 
       {/* Create Listing Modal */}
-      {showCreateModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4">
-          <div
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby={fid("title")}
-            className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-[#1a1a1a]"
-          >
-            <div className="flex items-center justify-between border-b border-white/10 p-6">
-              <h2 id={fid("title")} className="font-serif text-2xl text-amber-400">
-                List a Bottle
-              </h2>
-              <button
-                type="button"
-                aria-label="Close"
-                onClick={() => setShowCreateModal(false)}
-                className="p-2 text-gray-300 hover:text-white"
+      {/* Formik sits outside the modal so a closed-but-unsaved listing keeps what was typed, as before. */}
+      <Formik<ListingForm> initialValues={emptyForm} validationSchema={listingSchema} onSubmit={createListing}>
+        {({ values, errors, touched, isSubmitting, setFieldValue }) =>
+          showCreateModal && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4">
+              <div
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby={fid("title")}
+                className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-[#1a1a1a]"
               >
-                <X aria-hidden="true" className="size-5" />
-              </button>
+                <div className="flex items-center justify-between border-b border-white/10 p-6">
+                  <h2 id={fid("title")} className="font-serif text-2xl text-amber-400">
+                    List a Bottle
+                  </h2>
+                  <button
+                    type="button"
+                    aria-label="Close"
+                    onClick={() => setShowCreateModal(false)}
+                    className="p-2 text-gray-300 hover:text-white"
+                  >
+                    <X aria-hidden="true" className="size-5" />
+                  </button>
+                </div>
+                <Form noValidate className="space-y-4 p-6">
+                  <div>
+                    <label htmlFor={fid("name")} className="mb-1 block text-sm text-gray-300">
+                      Mezcal Name *
+                    </label>
+                    <Field
+                      id={fid("name")}
+                      type="text"
+                      name="mezcalName"
+                      className={fieldClass}
+                      placeholder="e.g., Real Minero Largo"
+                      required
+                      aria-invalid={Boolean(touched.mezcalName && errors.mezcalName)}
+                      aria-describedby={touched.mezcalName && errors.mezcalName ? fid("name-error") : undefined}
+                    />
+                    <ErrorMessage name="mezcalName">{(msg) => <p id={fid("name-error")} role="alert" className={errorClass}>{msg}</p>}</ErrorMessage>
+                  </div>
+                  {/* One column below sm: two and three across squeezed the fields at 375px on live (rule 20). */}
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <div>
+                      <label htmlFor={fid("producer")} className="mb-1 block text-sm text-gray-300">
+                        Producer
+                      </label>
+                      <Field
+                        id={fid("producer")}
+                        type="text"
+                        name="producer"
+                        className={fieldClass}
+                        placeholder="e.g., Real Minero"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor={fid("agave")} className="mb-1 block text-sm text-gray-300">
+                        Agave Type
+                      </label>
+                      <Field
+                        id={fid("agave")}
+                        type="text"
+                        name="agaveType"
+                        className={fieldClass}
+                        placeholder="e.g., Largo"
+                      />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                    <div>
+                      <label htmlFor={fid("abv")} className="mb-1 block text-sm text-gray-300">
+                        ABV
+                      </label>
+                      <Field
+                        id={fid("abv")}
+                        type="text"
+                        name="abv"
+                        className={fieldClass}
+                        placeholder="e.g., 49%"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor={fid("size")} className="mb-1 block text-sm text-gray-300">
+                        Bottle Size
+                      </label>
+                      <Field
+                        as="select"
+                        id={fid("size")}
+                        name="bottleSize"
+                        className={selectClass}
+                      >
+                        <option value="750ml">750ml</option>
+                        <option value="375ml">375ml</option>
+                        <option value="1L">1L</option>
+                        <option value="200ml">200ml</option>
+                      </Field>
+                    </div>
+                    <div>
+                      <label htmlFor={fid("condition")} className="mb-1 block text-sm text-gray-300">
+                        Condition
+                      </label>
+                      <Field
+                        as="select"
+                        id={fid("condition")}
+                        name="condition"
+                        className={selectClass}
+                      >
+                        <option value="sealed">Sealed</option>
+                        <option value="opened">Opened</option>
+                        <option value="partial">Partial</option>
+                      </Field>
+                    </div>
+                  </div>
+                  {values.condition !== "sealed" && (
+                    <div>
+                      <label htmlFor={fid("fill")} className="mb-1 block text-sm text-gray-300">
+                        Fill Level
+                      </label>
+                      <Field
+                        id={fid("fill")}
+                        type="text"
+                        name="fillLevel"
+                        className={fieldClass}
+                        placeholder="e.g., 90%, 75%"
+                      />
+                    </div>
+                  )}
+                  <div>
+                    <label htmlFor={fid("type")} className="mb-1 block text-sm text-gray-300">
+                      Listing Type
+                    </label>
+                    <Field
+                      as="select"
+                      id={fid("type")}
+                      name="listingType"
+                      className={selectClass}
+                    >
+                      <option value="both">Trade or Sell</option>
+                      <option value="trade">Trade Only</option>
+                      <option value="sell">For Sale Only</option>
+                    </Field>
+                  </div>
+                  {(values.listingType === "sell" || values.listingType === "both") && (
+                    <div>
+                      <label htmlFor={fid("price")} className="mb-1 block text-sm text-gray-300">
+                        Asking Price ($)
+                      </label>
+                      {/* Formik's own onChange turns a number input's text into a number; keep it a string. */}
+                      <Field
+                        id={fid("price")}
+                        type="number"
+                        min={0}
+                        name="askingPrice"
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => setFieldValue("askingPrice", e.target.value)}
+                        className={fieldClass}
+                        placeholder="e.g., 150"
+                        aria-invalid={Boolean(touched.askingPrice && errors.askingPrice)}
+                        aria-describedby={touched.askingPrice && errors.askingPrice ? fid("price-error") : undefined}
+                      />
+                      <ErrorMessage name="askingPrice">{(msg) => <p id={fid("price-error")} role="alert" className={errorClass}>{msg}</p>}</ErrorMessage>
+                    </div>
+                  )}
+                  {(values.listingType === "trade" || values.listingType === "both") && (
+                    <div>
+                      <label htmlFor={fid("seeking")} className="mb-1 block text-sm text-gray-300">
+                        What are you seeking?
+                      </label>
+                      <Field
+                        id={fid("seeking")}
+                        type="text"
+                        name="seekingBottles"
+                        className={fieldClass}
+                        placeholder="e.g., Any Real Minero, Fane Kantsini expressions"
+                      />
+                    </div>
+                  )}
+                  <div>
+                    <label htmlFor={fid("location")} className="mb-1 block text-sm text-gray-300">
+                      Location
+                    </label>
+                    <Field
+                      id={fid("location")}
+                      type="text"
+                      name="location"
+                      className={fieldClass}
+                      placeholder="e.g., Los Angeles, CA"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor={fid("notes")} className="mb-1 block text-sm text-gray-300">
+                      Additional Notes
+                    </label>
+                    <Field
+                      as="textarea"
+                      id={fid("notes")}
+                      name="description"
+                      className={`${fieldClass} resize-none`}
+                      rows={3}
+                      placeholder="Any additional details about the bottle..."
+                    />
+                  </div>
+                  {createError && (
+                    <p role="alert" className="text-sm text-red-300">
+                      {createError}
+                    </p>
+                  )}
+                  <button
+                    type="submit"
+                    disabled={isSubmitting || creating}
+                    className="flex w-full items-center justify-center gap-2 rounded-lg bg-amber-600 py-4 font-medium transition-colors hover:bg-amber-500 disabled:bg-gray-700"
+                  >
+                    {(isSubmitting || creating) && <Loader2 aria-hidden="true" className="size-4 animate-spin" />}
+                    Create Listing
+                  </button>
+                </Form>
+              </div>
             </div>
-            <form onSubmit={handleSubmit} className="space-y-4 p-6">
-              <div>
-                <label htmlFor={fid("name")} className="mb-1 block text-sm text-gray-300">
-                  Mezcal Name *
-                </label>
-                <input
-                  id={fid("name")}
-                  type="text"
-                  value={formData.mezcalName}
-                  onChange={(e) => setFormData({ ...formData, mezcalName: e.target.value })}
-                  className={fieldClass}
-                  placeholder="e.g., Real Minero Largo"
-                  required
-                />
-              </div>
-              {/* One column below sm: two and three across squeezed the fields at 375px on live (rule 20). */}
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <div>
-                  <label htmlFor={fid("producer")} className="mb-1 block text-sm text-gray-300">
-                    Producer
-                  </label>
-                  <input
-                    id={fid("producer")}
-                    type="text"
-                    value={formData.producer}
-                    onChange={(e) => setFormData({ ...formData, producer: e.target.value })}
-                    className={fieldClass}
-                    placeholder="e.g., Real Minero"
-                  />
-                </div>
-                <div>
-                  <label htmlFor={fid("agave")} className="mb-1 block text-sm text-gray-300">
-                    Agave Type
-                  </label>
-                  <input
-                    id={fid("agave")}
-                    type="text"
-                    value={formData.agaveType}
-                    onChange={(e) => setFormData({ ...formData, agaveType: e.target.value })}
-                    className={fieldClass}
-                    placeholder="e.g., Largo"
-                  />
-                </div>
-              </div>
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                <div>
-                  <label htmlFor={fid("abv")} className="mb-1 block text-sm text-gray-300">
-                    ABV
-                  </label>
-                  <input
-                    id={fid("abv")}
-                    type="text"
-                    value={formData.abv}
-                    onChange={(e) => setFormData({ ...formData, abv: e.target.value })}
-                    className={fieldClass}
-                    placeholder="e.g., 49%"
-                  />
-                </div>
-                <div>
-                  <label htmlFor={fid("size")} className="mb-1 block text-sm text-gray-300">
-                    Bottle Size
-                  </label>
-                  <select
-                    id={fid("size")}
-                    value={formData.bottleSize}
-                    onChange={(e) => setFormData({ ...formData, bottleSize: e.target.value })}
-                    className={selectClass}
-                  >
-                    <option value="750ml">750ml</option>
-                    <option value="375ml">375ml</option>
-                    <option value="1L">1L</option>
-                    <option value="200ml">200ml</option>
-                  </select>
-                </div>
-                <div>
-                  <label htmlFor={fid("condition")} className="mb-1 block text-sm text-gray-300">
-                    Condition
-                  </label>
-                  <select
-                    id={fid("condition")}
-                    value={formData.condition}
-                    onChange={(e) => setFormData({ ...formData, condition: e.target.value as Condition })}
-                    className={selectClass}
-                  >
-                    <option value="sealed">Sealed</option>
-                    <option value="opened">Opened</option>
-                    <option value="partial">Partial</option>
-                  </select>
-                </div>
-              </div>
-              {formData.condition !== "sealed" && (
-                <div>
-                  <label htmlFor={fid("fill")} className="mb-1 block text-sm text-gray-300">
-                    Fill Level
-                  </label>
-                  <input
-                    id={fid("fill")}
-                    type="text"
-                    value={formData.fillLevel}
-                    onChange={(e) => setFormData({ ...formData, fillLevel: e.target.value })}
-                    className={fieldClass}
-                    placeholder="e.g., 90%, 75%"
-                  />
-                </div>
-              )}
-              <div>
-                <label htmlFor={fid("type")} className="mb-1 block text-sm text-gray-300">
-                  Listing Type
-                </label>
-                <select
-                  id={fid("type")}
-                  value={formData.listingType}
-                  onChange={(e) => setFormData({ ...formData, listingType: e.target.value as ListingType })}
-                  className={selectClass}
-                >
-                  <option value="both">Trade or Sell</option>
-                  <option value="trade">Trade Only</option>
-                  <option value="sell">For Sale Only</option>
-                </select>
-              </div>
-              {(formData.listingType === "sell" || formData.listingType === "both") && (
-                <div>
-                  <label htmlFor={fid("price")} className="mb-1 block text-sm text-gray-300">
-                    Asking Price ($)
-                  </label>
-                  <input
-                    id={fid("price")}
-                    type="number"
-                    min={0}
-                    value={formData.askingPrice}
-                    onChange={(e) => setFormData({ ...formData, askingPrice: e.target.value })}
-                    className={fieldClass}
-                    placeholder="e.g., 150"
-                  />
-                </div>
-              )}
-              {(formData.listingType === "trade" || formData.listingType === "both") && (
-                <div>
-                  <label htmlFor={fid("seeking")} className="mb-1 block text-sm text-gray-300">
-                    What are you seeking?
-                  </label>
-                  <input
-                    id={fid("seeking")}
-                    type="text"
-                    value={formData.seekingBottles}
-                    onChange={(e) => setFormData({ ...formData, seekingBottles: e.target.value })}
-                    className={fieldClass}
-                    placeholder="e.g., Any Real Minero, Fane Kantsini expressions"
-                  />
-                </div>
-              )}
-              <div>
-                <label htmlFor={fid("location")} className="mb-1 block text-sm text-gray-300">
-                  Location
-                </label>
-                <input
-                  id={fid("location")}
-                  type="text"
-                  value={formData.location}
-                  onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                  className={fieldClass}
-                  placeholder="e.g., Los Angeles, CA"
-                />
-              </div>
-              <div>
-                <label htmlFor={fid("notes")} className="mb-1 block text-sm text-gray-300">
-                  Additional Notes
-                </label>
-                <textarea
-                  id={fid("notes")}
-                  value={formData.description}
-                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className={`${fieldClass} resize-none`}
-                  rows={3}
-                  placeholder="Any additional details about the bottle..."
-                />
-              </div>
-              {createError && (
-                <p role="alert" className="text-sm text-red-300">
-                  {createError}
-                </p>
-              )}
-              <button
-                type="submit"
-                disabled={creating}
-                className="flex w-full items-center justify-center gap-2 rounded-lg bg-amber-600 py-4 font-medium transition-colors hover:bg-amber-500 disabled:bg-gray-700"
-              >
-                {creating && <Loader2 aria-hidden="true" className="size-4 animate-spin" />}
-                Create Listing
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
+          )
+        }
+      </Formik>
 
       {/* Message Modal */}
       {showMessageModal && (

@@ -82,6 +82,22 @@ describe("WantBottleModal", () => {
     expect(screen.getByRole("alert")).toHaveTextContent("That's a lot at once.");
   });
 
+  // Browser test 2026-11-14: a failed request left the modal or its button spinning forever.
+  it("explains a dropped connection instead of spinning forever on the account check", async () => {
+    vi.mocked(getSoulsmokeMember).mockRejectedValue(new TypeError("Failed to fetch"));
+    renderModal();
+    expect(await screen.findByRole("alert")).toHaveTextContent("Couldn't reach the server");
+    expect(screen.queryByLabelText("Checking your account")).toBeNull();
+  });
+
+  it("explains a dropped connection while saving and re-enables the button", async () => {
+    vi.mocked(wantBottle).mockRejectedValueOnce(new TypeError("Failed to fetch"));
+    renderModal();
+    fireEvent.click(await screen.findByRole("button", { name: "Record My Interest" }));
+    expect(await screen.findByRole("alert")).toHaveTextContent("Couldn't reach the server");
+    expect(screen.getByRole("button", { name: "Record My Interest" })).toBeEnabled();
+  });
+
   it("switches to the sign-in box when the session ran out", async () => {
     vi.mocked(wantBottle).mockResolvedValue({ ok: false, error: "Please sign in first.", signedOut: true });
     renderModal();

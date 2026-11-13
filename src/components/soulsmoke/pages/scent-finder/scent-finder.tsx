@@ -28,7 +28,7 @@ export function ScentFinder() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Hero Section */}
-      <section className="relative flex h-[50vh] items-center justify-center overflow-hidden">
+      <section className="relative flex min-h-[50vh] items-center justify-center overflow-hidden pt-40 pb-16">
         <Image
           src={img.scentVisualization.src}
           alt=""
@@ -40,7 +40,7 @@ export function ScentFinder() {
         <div className="absolute inset-0 bg-linear-to-b from-transparent to-background"></div>
 
         <div className="relative z-10 container space-y-6 text-center">
-          <h1 className="font-display text-6xl font-black text-white drop-shadow-2xl md:text-8xl">{copy.title}</h1>
+          <h1 className="font-display text-5xl font-black text-white drop-shadow-2xl sm:text-6xl lg:text-8xl">{copy.title}</h1>
           <p className="mx-auto max-w-4xl text-2xl leading-relaxed text-lime-400 md:text-3xl">{copy.subtitle}</p>
         </div>
 

@@ -53,7 +53,7 @@ export async function generateMetadata({ params }: PageProps<"/brewsoul/coffee/[
   const coffee = findCoffee((await params).id);
   if (!coffee) return {};
   return {
-    title: seoTitle(`${coffeeTitleName(coffee)} — BrewSoul`),
+    title: seoTitle(coffeeSearchTitle(coffeeTitleName(coffee))),
     description: seoDescription(`${coffee.name} by ${coffee.producer}: ${coffee.originCountry}, ${coffee.variety}, ${coffee.processingMethod}. Full QPR, availability, scarcity, and wow-factor scoring.`),
     alternates: { canonical: `/brewsoul/coffee/${coffee.id}` },
   };
@@ -325,4 +325,11 @@ export default async function BrewSoulCoffeeDetailPage({ params }: PageProps<"/b
       <div className="h-20" />
     </div>
   );
+}
+
+// Search-result title within 60 characters (2026-11-14): a long name loses its parenthetical (the
+// roaster's parent company), and " — BrewSoul" is kept only when the result still fits. The page's own heading is unchanged.
+function coffeeSearchTitle(name: string): string {
+  const short = name.length > 40 ? name.replace(/\s*\([^)]*\)/g, "").trim() : name;
+  return short.length <= 40 ? `${short} — BrewSoul` : short;
 }
