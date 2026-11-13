@@ -4,7 +4,8 @@ import FindYourPeptidePage, { metadata } from "@/app/find-your-peptide/page";
 
 describe("/find-your-peptide", () => {
   it("has its own title, description and canonical", () => {
-    expect(metadata.title).toBe("Find Your Peptide — The Peptide Clarity Index™");
+    // Over 60 with " | Tony Greenberg", so seoTitle drops the ending (2026-11-14).
+    expect(metadata.title).toEqual({ absolute: "Find Your Peptide — The Peptide Clarity Index™" });
     expect(metadata.description).toMatch(/7 clinical axes/);
     expect(metadata.alternates?.canonical).toBe("/find-your-peptide");
   });

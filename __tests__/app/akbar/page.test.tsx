@@ -15,7 +15,7 @@ vi.mock("next/font/google", () => {
 
 describe("/akbar", () => {
   it("has its own title, description and canonical", () => {
-    expect(metadata.title).toEqual({ absolute: "Los Angeles Is Losing Its Memory — Akbar Cuisine Refuses to Forget" });
+    expect(metadata.title).toEqual({ absolute: "LA Is Losing Its Memory. Akbar Cuisine Refuses to Forget" });
     expect(metadata.description).toMatch(/cultural memory, food, and what it means to preserve identity/);
     expect(metadata.alternates?.canonical).toBe("/akbar");
   });

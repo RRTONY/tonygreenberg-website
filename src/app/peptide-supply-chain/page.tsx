@@ -22,7 +22,7 @@ import { ArrowRight } from "lucide-react";
 // The legacy hero background image (CloudFront-hosted) returns 403, same as
 // /peptide-hall-of-shame's — dropped in favor of a CSS gradient.
 export const metadata: Metadata = seoMetadata({
-  title: "Where Does Your Peptide Dollar Go? — Supply Chain Transparency",
+  title: "Where Does Your Peptide Dollar Go? Supply Chain Transparency",
   description:
     "We mapped the supply chain of 12 peptide providers. See exactly where your money goes: manufacturing, marketing, physician oversight, or profit.",
   alternates: { canonical: "/peptide-supply-chain" },

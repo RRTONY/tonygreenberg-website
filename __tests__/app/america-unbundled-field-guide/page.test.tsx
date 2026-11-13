@@ -10,7 +10,7 @@ type OG = { type?: string; siteName?: string; url?: string; images?: { url: stri
 
 describe("/america-unbundled-field-guide", () => {
   it("has an absolute title, description and canonical", () => {
-    expect(metadata.title).toEqual({ absolute: "America, Unbundled | Independent Political Infrastructure & INC 2026" });
+    expect(metadata.title).toEqual({ absolute: "America, Unbundled: The Field Guide | INC 2026" });
     expect(metadata.description).toMatch(/^America, Unbundled is Tony Greenberg’s field guide to independent political infrastructure.*…$/);
     expect(metadata.alternates?.canonical).toBe("/america-unbundled-field-guide");
   });

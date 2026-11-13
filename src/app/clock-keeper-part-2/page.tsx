@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { ClockKeeperForm } from "@/components/clock-keeper/clock-keeper-form";
 import { createServiceRoleClient, isServiceRoleConfigured } from "@/lib/supabase/service-role";
+import { seoTitle } from "@/lib/seo-defaults";
 
 // The Clock Keeper Chronicles, Part II: a response form for the five
 // questions in Part I. Ported from legacy client/src/pages/ClockKeeperPartII.tsx
@@ -12,7 +13,8 @@ import { createServiceRoleClient, isServiceRoleConfigured } from "@/lib/supabase
 export const revalidate = 600;
 
 export const metadata: Metadata = {
-  title: "The Clock Keeper Chronicles: Part II — Your Response",
+  // Through seoTitle so a long title drops " | Tony Greenberg" (CONTRIBUTING.md SEO rules).
+  title: seoTitle("The Clock Keeper Chronicles: Part II — Your Response"),
   description:
     "Five questions. Not an intellectual challenge — a container for what already exists. A form for the offering, in whatever shape it takes.",
   alternates: { canonical: "/clock-keeper-part-2" },

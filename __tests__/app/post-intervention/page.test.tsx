@@ -4,7 +4,8 @@ import { PostIntervention } from "@/components/post-intervention/post-interventi
 
 describe("/post-intervention", () => {
   it("has its own title, description and canonical", () => {
-    expect(metadata.title).toBe("How Are You, Really? Post-Intervention Assessment");
+    // Over 60 with " | Tony Greenberg", so seoTitle drops the ending (2026-11-14).
+    expect(metadata.title).toEqual({ absolute: "How Are You, Really? Post-Intervention Assessment" });
     expect(metadata.description).toMatch(/anonymous check-in/);
     expect(metadata.alternates?.canonical).toBe("/post-intervention");
   });

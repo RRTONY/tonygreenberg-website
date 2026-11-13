@@ -4,7 +4,8 @@ import PriceTrackerPage, { metadata } from "@/app/price-tracker/page";
 
 describe("/price-tracker", () => {
   it("has its own title, description and canonical", () => {
-    expect(metadata.title).toBe("Peptide Prices 2026 — What You Should Actually Pay");
+    // Over 60 with " | Tony Greenberg", so seoTitle drops the ending (2026-11-14).
+    expect(metadata.title).toEqual({ absolute: "Peptide Prices 2026 — What You Should Actually Pay" });
     expect(metadata.description).toMatch(/the information asymmetry IS the markup/);
     expect(metadata.alternates?.canonical).toBe("/price-tracker");
   });

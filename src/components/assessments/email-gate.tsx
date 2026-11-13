@@ -1,7 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useId } from "react";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import * as Yup from "yup";
 import { Loader2, Sparkles } from "lucide-react";
+
+// The owner asked (2026-11-14) for small email sign-ups to use Formik + Yup too.
+const schema = Yup.object({
+  email: Yup.string().trim().email("That email address doesn't look right.").required("Enter your email address."),
+});
+
+type Values = Yup.InferType<typeof schema>;
 
 // Ported from legacy client/src/components/EmailGate.tsx — the
 // email-capture screen shown between finishing an assessment and seeing
@@ -23,18 +32,14 @@ import { Loader2, Sparkles } from "lucide-react";
 // `AssessmentIntro` already uses on the same background (`#6B5B4F`
 // description, `#2C1810` input text, `#8B7B6B` muted footnote).
 export function EmailGate({ assessmentSlug, onUnlock }: { assessmentSlug: string; onUnlock: () => void }) {
-  const [email, setEmail] = useState("");
-  const [pending, setPending] = useState(false);
+  const errorId = useId();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email.includes("@")) return;
-    setPending(true);
+  const unlock = async ({ email }: Values) => {
     try {
       await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, source: `find-your-${assessmentSlug}` }),
+        body: JSON.stringify({ email: email.trim(), source: `find-your-${assessmentSlug}` }),
       });
     } catch {
       // Don't block unlock if the API fails.
@@ -52,26 +57,43 @@ export function EmailGate({ assessmentSlug, onUnlock }: { assessmentSlug: string
         <p className="mb-10 text-[1.05rem] leading-loose text-[#6B5B4F]">
           Your results are ready. We&apos;ll send your full analysis to your inbox along with actionable next steps.
         </p>
-        <form onSubmit={handleSubmit} className="flex gap-2">
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Your email address"
-            required
-            className="min-h-12 flex-1 border border-brand-gold-light/40 bg-white/50 px-5 py-3.5 font-mono text-[0.88rem] text-[#2C1810] outline-none focus-visible:ring-2 focus-visible:ring-ring placeholder:text-[#8B7B6B]"
-          />
-          <button
-            type="submit"
-            disabled={pending}
-            aria-busy={pending}
-            className="flex min-h-12 items-center justify-center gap-2 bg-linear-to-br from-brand-gold to-brand-gold-light px-6 py-3.5 font-mono text-[0.82rem] font-bold tracking-[0.1em] text-[#0A0A10] uppercase disabled:cursor-wait"
-          >
-            {/* House rule 7: a real spinner next to the label, never "Unlocking..." text. */}
-            {pending && <Loader2 aria-hidden="true" data-testid="email-gate-spinner" className="size-4 animate-spin" />}
-            Get My Results
-          </button>
-        </form>
+        <Formik<Values> initialValues={{ email: "" }} validationSchema={schema} onSubmit={unlock}>
+          {({ errors, touched, isSubmitting }) => {
+            const invalid = Boolean(touched.email && errors.email);
+            return (
+              <>
+                <Form noValidate className="flex gap-2">
+                  <Field
+                    type="email"
+                    name="email"
+                    placeholder="Your email address"
+                    required
+                    aria-invalid={invalid}
+                    aria-describedby={invalid ? errorId : undefined}
+                    className="min-h-12 flex-1 border border-brand-gold-light/40 bg-white/50 px-5 py-3.5 font-mono text-[0.88rem] text-[#2C1810] outline-none focus-visible:ring-2 focus-visible:ring-ring placeholder:text-[#8B7B6B]"
+                  />
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    aria-busy={isSubmitting}
+                    className="flex min-h-12 items-center justify-center gap-2 bg-linear-to-br from-brand-gold to-brand-gold-light px-6 py-3.5 font-mono text-[0.82rem] font-bold tracking-[0.1em] text-[#0A0A10] uppercase disabled:cursor-wait"
+                  >
+                    {/* House rule 7: a real spinner next to the label, never "Unlocking..." text. */}
+                    {isSubmitting && <Loader2 aria-hidden="true" data-testid="email-gate-spinner" className="size-4 animate-spin" />}
+                    Get My Results
+                  </button>
+                </Form>
+                <ErrorMessage name="email">
+                  {(msg) => (
+                    <p id={errorId} role="alert" className="mt-2 text-left font-mono text-[0.75rem] text-[#9B2C2C]">
+                      {msg}
+                    </p>
+                  )}
+                </ErrorMessage>
+              </>
+            );
+          }}
+        </Formik>
         <p className="mt-6 font-mono text-[0.68rem] tracking-[0.05em] text-[#8B7B6B]">
           We respect your privacy. Your results and email are never shared or sold.
         </p>

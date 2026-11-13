@@ -62,4 +62,17 @@ describe("/brewsoul/coffee/[id]", () => {
       .filter((h) => h?.startsWith("/brewsoul/coffee/"));
     expect(similar).toEqual(expected);
   });
+
+  // Search-result titles stay within 60 characters (2026-11-14): a long name drops " — BrewSoul",
+  // then the roaster's parent company in brackets. The page heading is unchanged.
+  it("keeps every coffee's search title within 60 characters", async () => {
+    const titleText = (t: unknown) => (typeof t === "string" ? `${t} | Tony Greenberg` : (t as { absolute: string }).absolute);
+    for (const c of BREWSOUL_COFFEES) {
+      const meta = await generateMetadata(pageProps({ id: c.id }));
+      expect(titleText(meta.title).length, c.id).toBeLessThanOrEqual(60);
+    }
+    const tim = await generateMetadata(pageProps({ id: "tim-hortons-original" }));
+    expect(tim.title).toBe("Original Blend by Tim Hortons — BrewSoul");
+  });
 });
+

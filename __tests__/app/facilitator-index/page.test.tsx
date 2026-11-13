@@ -4,7 +4,8 @@ import FacilitatorIndexPage, { metadata } from "@/app/facilitator-index/page";
 
 describe("/facilitator-index", () => {
   it("has its own title, description and canonical", () => {
-    expect(metadata.title).toBe("The Facilitator Index — Know Who You Go With");
+    // Over 60 with " | Tony Greenberg", so seoTitle drops the ending (limit 60 since 2026-11-14).
+    expect(metadata.title).toEqual({ absolute: "The Facilitator Index — Know Who You Go With" });
     expect(metadata.description).toMatch(/108 items across twelve bands/);
     expect(metadata.alternates?.canonical).toBe("/facilitator-index");
   });

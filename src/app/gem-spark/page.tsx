@@ -26,7 +26,7 @@ import { GemsparkJsonLd } from "@/components/gemspark/gemspark-json-ld";
 // - The Featured GemSparks list is read on the server and refreshed every 5 minutes.
 export const metadata = gemsparkMetadata({
   path: "/gem-spark",
-  title: "The GemSpark | The Fusion Between Serendipity and Synchronicity",
+  title: "The GemSpark | The Fusion of Serendipity and Synchronicity",
   description:
     "A story about what happens when you stop sweeping up the glass and start looking at it. By Tony Greenberg.",
 });

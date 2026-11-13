@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { act, render, screen } from "@testing-library/react";
+import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { NewsletterPopup } from "@/components/marketing/newsletter-popup";
 
@@ -83,6 +83,28 @@ describe("NewsletterPopup", () => {
     await user.type(screen.getByPlaceholderText("your@email.com"), "me@example.com");
     const btn = screen.getByRole("button", { name: "Join the Conversation" });
     await user.click(btn);
-    expect(btn).toBeDisabled();
+    await waitFor(() => expect(btn).toBeDisabled());
+    expect(btn.querySelector(".animate-spin")).not.toBeNull();
+    await user.click(btn);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
+  it("shows the error for a bad email and sends nothing", async () => {
+    const user = showPopup();
+    const input = screen.getByPlaceholderText("your@email.com");
+    expect(input).toBeRequired();
+    await user.type(input, "not-an-email");
+    await user.click(screen.getByRole("button", { name: "Join the Conversation" }));
+    expect(await screen.findByRole("alert")).toHaveTextContent("That email address doesn't look right.");
+    expect(input).toHaveAttribute("aria-invalid", "true");
+    expect(input).toHaveAttribute("aria-describedby", "newsletter-popup-email-error");
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it("asks for an email when the box is empty", async () => {
+    const user = showPopup();
+    await user.click(screen.getByRole("button", { name: "Join the Conversation" }));
+    expect(await screen.findByRole("alert")).toHaveTextContent("Add your email.");
+    expect(fetchMock).not.toHaveBeenCalled();
   });
 });

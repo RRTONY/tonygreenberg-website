@@ -5,7 +5,8 @@ import ImpactDashboardPage, { metadata } from "@/app/impact-dashboard/page";
 
 describe("/impact-dashboard", () => {
   it("has its own title, description and canonical", () => {
-    expect(metadata.title).toBe("ImpactSoul Target Representation — Impact Dashboard");
+    // Over 60 with " | Tony Greenberg", so seoTitle drops the ending (limit 60 since 2026-11-14).
+    expect(metadata.title).toEqual({ absolute: "ImpactSoul Target Representation — Impact Dashboard" });
     expect(metadata.description).toMatch(/^A target representation of the ImpactSoul operating model.*…$/);
     expect(metadata.alternates?.canonical).toBe("/impact-dashboard");
   });

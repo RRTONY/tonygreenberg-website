@@ -6,7 +6,8 @@ import { defaultOpenGraph } from "@/lib/seo-defaults";
 
 describe("/soulscore", () => {
   it("has its own title, description and canonical", () => {
-    expect(metadata.title).toBe("SoulScore™ — 12-Dimension Impact Measurement Engine");
+    // Over 60 with " | Tony Greenberg", so seoTitle drops the ending (limit 60 since 2026-11-14).
+    expect(metadata.title).toEqual({ absolute: "SoulScore™ — 12-Dimension Impact Measurement Engine" });
     expect(metadata.description).toMatch(/Score consciousness, not just carbon, across 12 weighted dimensions/);
     expect(metadata.alternates?.canonical).toBe("/soulscore");
   });

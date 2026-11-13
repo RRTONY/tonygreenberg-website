@@ -31,7 +31,8 @@ describe("/psychedelic-readiness-index", () => {
   });
 
   it("has its own title, description and canonical", () => {
-    expect(metadata.title).toBe("Psychedelic Readiness Index — Find Your Medicine");
+    // Over 60 with " | Tony Greenberg", so seoTitle drops the ending (limit 60 since 2026-11-14).
+    expect(metadata.title).toEqual({ absolute: "Psychedelic Readiness Index — Find Your Medicine" });
     expect(metadata.description).toMatch(/^39 substances\. 50\+ readiness questions\. 6 domains\./);
     expect(metadata.alternates?.canonical).toBe("/psychedelic-readiness-index");
   });

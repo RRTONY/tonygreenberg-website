@@ -17,7 +17,7 @@ import { NextSteps } from "@/components/brewsoul/next-steps";
 // interactive, split into client islands so the rest of the page stays
 // server-rendered.
 export const metadata: Metadata = seoMetadata({
-  title: "Shanita Nicholas Breaks the Coffee Industry's Comfortable Lies",
+  title: "Shanita Nicholas Breaks Coffee's Comfortable Lies",
   description: "Fair Trade theater, roasting mythology, the C Market trap, and origin-roasting as structural fix. A Tony G Guest Series interview.",
   alternates: { canonical: "/brewsoul/guest/shanita-nicholas" },
 });
