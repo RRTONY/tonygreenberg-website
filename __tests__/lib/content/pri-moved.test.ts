@@ -1,27 +1,30 @@
 import { describe, expect, it } from "vitest";
 import nextConfig from "../../../next.config";
-import { PRI_MOVED_PAGES, isMovedPriHref, priPrefetch } from "@/lib/content/pri-moved";
+import { PRI_MOVED_PAGES, PRI_SITE, priHref } from "@/lib/content/pri-moved";
 
 describe("pri-moved", () => {
-  it("is the same list the redirect uses: each page 307s to psychedelicreadiness.com", async () => {
+  it("is the same list the redirect uses: each page 308s to psychedelicreadiness.com", async () => {
     const redirects = (await nextConfig.redirects!()) as { source: string; destination: string; permanent?: boolean }[];
     for (const [source, path] of PRI_MOVED_PAGES) {
-      expect(redirects).toContainEqual({ source, destination: `https://psychedelicreadiness.com${path}`, permanent: false });
+      expect(redirects).toContainEqual({ source, destination: `${PRI_SITE}${path}`, permanent: true });
     }
   });
 
-  it("recognises moved pages with or without a query or #hash, and nothing else", () => {
-    expect(isMovedPriHref("/psychedelic-readiness-index")).toBe(true);
-    expect(isMovedPriHref("/psychedelic-readiness-index?m=ibogaine")).toBe(true);
-    expect(isMovedPriHref("/psychedelic-readiness-index#mao-b")).toBe(true);
-    expect(isMovedPriHref("/facilitator-index")).toBe(true);
-    expect(isMovedPriHref("/pri-research")).toBe(false); // stays on tonygreenberg.com
-    expect(isMovedPriHref("/psychedelic-readiness-index-extra")).toBe(false);
-    expect(isMovedPriHref("/blog/iboga-ibogaine-the-full-paradox")).toBe(false);
+  it("points moved pages straight at psychedelicreadiness.com, keeping the query and #hash", () => {
+    expect(priHref("/psychedelic-readiness-index")).toBe("https://psychedelicreadiness.com/");
+    expect(priHref("/psychedelic-readiness-index?m=ibogaine")).toBe("https://psychedelicreadiness.com/?m=ibogaine");
+    expect(priHref("/psychedelic-readiness-index#mao-b")).toBe("https://psychedelicreadiness.com/#mao-b");
+    expect(priHref("/psychedelic-readiness-index/disclaimer")).toBe("https://psychedelicreadiness.com/disclaimer");
+    expect(priHref("/facilitator-index")).toBe("https://psychedelicreadiness.com/facilitator-index");
+    expect(priHref("https://tonygreenberg.com/iboga-compass")).toBe("https://psychedelicreadiness.com/iboga-compass");
+    expect(priHref("https://www.tonygreenberg.com/pri-efficacy")).toBe("https://psychedelicreadiness.com/pri-efficacy");
   });
 
-  it("turns prefetch off only for moved pages (a cross-site prefetch fails with a CORS error)", () => {
-    expect(priPrefetch("/iboga-compass")).toBe(false);
-    expect(priPrefetch("/the-index")).toBeUndefined();
+  it("leaves every other link alone", () => {
+    expect(priHref("/pri-research")).toBe("/pri-research"); // stays on tonygreenberg.com
+    expect(priHref("/psychedelic-readiness-index-extra")).toBe("/psychedelic-readiness-index-extra");
+    expect(priHref("/blog/iboga-ibogaine-the-full-paradox")).toBe("/blog/iboga-ibogaine-the-full-paradox");
+    expect(priHref("https://example.com/facilitator-index")).toBe("https://example.com/facilitator-index");
+    expect(priHref("")).toBe("");
   });
 });

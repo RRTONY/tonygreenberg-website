@@ -35,7 +35,23 @@ describe("resolveInternalHref", () => {
     expect(resolveInternalHref("/assessments/consciousness-scale#top")).toBe("/consciousness-scale#top");
   });
 
+  it("sends WordPress-era post addresses (slash or not, relative or full) straight to /blog", () => {
+    const ev = "/blog/find-my-ev-paul-scott-wont-let-you-buy-a-gas-car";
+    expect(resolveInternalHref("/find-my-ev/")).toBe(ev);
+    expect(resolveInternalHref("/find-my-ev")).toBe(ev);
+    expect(resolveInternalHref("https://tonygreenberg.com/find-my-ev/")).toBe(ev);
+    expect(resolveInternalHref("https://www.tonygreenberg.com/apologize/#top")).toBe("/blog/apologize#top");
+  });
+
+  it("sends links to the moved PRI pages straight to psychedelicreadiness.com", () => {
+    expect(resolveInternalHref("/psychedelic-readiness-index")).toBe("https://psychedelicreadiness.com/");
+    expect(resolveInternalHref("https://tonygreenberg.com/psychedelic-readiness-index?m=kava")).toBe("https://psychedelicreadiness.com/?m=kava");
+    expect(resolveInternalHref("/facilitator-index")).toBe("https://psychedelicreadiness.com/facilitator-index");
+  });
+
   it("leaves everything else alone", () => {
+    expect(resolveInternalHref("/about/")).toBe("/about/");
+    expect(resolveInternalHref("https://tonygreenberg.com/about")).toBe("https://tonygreenberg.com/about");
     expect(resolveInternalHref("/blog/five-cups")).toBe("/blog/five-cups");
     expect(resolveInternalHref("/assessments/dharma-finder-2")).toBe("/assessments/dharma-finder-2");
     expect(resolveInternalHref("/assessments")).toBe("/assessments");

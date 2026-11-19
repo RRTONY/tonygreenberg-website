@@ -26,7 +26,7 @@ describe("/kava", () => {
 
   it("links on to the full PRI, the Find My hub and the essays", () => {
     render(<Page />);
-    expect(screen.getByRole("link", { name: "Full PRI Assessment" })).toHaveAttribute("href", "/psychedelic-readiness-index");
+    expect(screen.getByRole("link", { name: "Full PRI Assessment" })).toHaveAttribute("href", "https://psychedelicreadiness.com/");
     expect(screen.getByRole("link", { name: /Find My/ })).toHaveAttribute("href", "/find-my");
     expect(screen.getByRole("link", { name: "Essays" })).toHaveAttribute("href", "/blog");
   });

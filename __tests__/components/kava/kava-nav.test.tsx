@@ -38,7 +38,7 @@ describe("KavaFooter", () => {
     render(<KavaFooter />);
     expect(screen.getByText(/Not medical advice/)).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Kava Home" })).toHaveAttribute("href", "/kava");
-    expect(screen.getByRole("link", { name: "Full PRI" })).toHaveAttribute("href", "/psychedelic-readiness-index");
+    expect(screen.getByRole("link", { name: "Full PRI" })).toHaveAttribute("href", "https://psychedelicreadiness.com/");
     expect(screen.getByRole("link", { name: "TonyGreenberg.com" })).toHaveAttribute("href", "/");
   });
 });

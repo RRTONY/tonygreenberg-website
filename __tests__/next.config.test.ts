@@ -11,12 +11,12 @@ describe("next.config redirects", () => {
     });
   });
 
-  it("sends /medicine straight to the medicine hub on psychedelicreadiness.com, temporarily", async () => {
+  it("sends /medicine straight to the medicine hub on psychedelicreadiness.com, permanently", async () => {
     const redirects = await nextConfig.redirects!();
     expect(redirects).toContainEqual({
       source: "/medicine",
       destination: "https://psychedelicreadiness.com/",
-      permanent: false,
+      permanent: true,
     });
   });
 
@@ -25,17 +25,17 @@ describe("next.config redirects", () => {
     expect(redirects).toContainEqual({ source: "/heroes", destination: "/the-territory", permanent: true });
   });
 
-  it("sends the PRI pages to psychedelicreadiness.com, temporarily (QA, 2026-11-13)", async () => {
+  it("sends the PRI pages to psychedelicreadiness.com, permanently since its noindex was lifted (2026-11-20)", async () => {
     const redirects = await nextConfig.redirects!();
     const pri = (source: string) => redirects.find((r) => r.source === source);
     expect(pri("/psychedelic-readiness-index")).toEqual({
       source: "/psychedelic-readiness-index",
       destination: "https://psychedelicreadiness.com/",
-      permanent: false,
+      permanent: true,
     });
     expect(pri("/psychedelic-readiness-index/disclaimer")?.destination).toBe("https://psychedelicreadiness.com/disclaimer");
     for (const page of ["/pri-calibration", "/pri-efficacy", "/medicine-sequencing", "/iboga-ibogaine", "/iboga-compass", "/peyote-mescaline", "/facilitator-index"]) {
-      expect(pri(page)).toEqual({ source: page, destination: `https://psychedelicreadiness.com${page}`, permanent: false });
+      expect(pri(page)).toEqual({ source: page, destination: `https://psychedelicreadiness.com${page}`, permanent: true });
     }
     expect(pri("/pri-research")).toBeUndefined();
   });

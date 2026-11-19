@@ -25,6 +25,12 @@ describe("PostClosing", () => {
     expect(within(nav).getByRole("link", { name: /next\s*next one/i })).toHaveAttribute("href", "/blog/next-one");
   });
 
+  it("shows a tonygreenberg.com original address as text, since it only redirects back here", () => {
+    render(<PostClosing originalUrl="https://tonygreenberg.com/find-my-ev/" prev={null} next={null} />);
+    expect(screen.getByText(/originally published at/i)).toHaveTextContent("Originally published at tonygreenberg.com");
+    expect(screen.queryByRole("link", { name: "tonygreenberg.com" })).not.toBeInTheDocument();
+  });
+
   it("leaves out the nav and original link when there are none", () => {
     render(<PostClosing prev={null} next={null} />);
     expect(screen.queryByRole("navigation")).not.toBeInTheDocument();
