@@ -11,13 +11,18 @@ describe("next.config redirects", () => {
     });
   });
 
-  it("sends /medicine to the medicine hub, permanently", async () => {
+  it("sends /medicine straight to the medicine hub on psychedelicreadiness.com, temporarily", async () => {
     const redirects = await nextConfig.redirects!();
     expect(redirects).toContainEqual({
       source: "/medicine",
-      destination: "/psychedelic-readiness-index",
-      permanent: true,
+      destination: "https://psychedelicreadiness.com/",
+      permanent: false,
     });
+  });
+
+  it("sends /heroes to Tony's heroes and influences page, permanently", async () => {
+    const redirects = await nextConfig.redirects!();
+    expect(redirects).toContainEqual({ source: "/heroes", destination: "/the-territory", permanent: true });
   });
 
   it("sends the PRI pages to psychedelicreadiness.com, temporarily (QA, 2026-11-13)", async () => {
