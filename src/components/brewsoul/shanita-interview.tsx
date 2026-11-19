@@ -116,7 +116,7 @@ const QAS: QA[] = [
       "Real innovation: tokenizing origin-roasted coffee. Each batch becomes an NFT with the bean's thermodynamic profile, roast curve, harvest date, cupping score, farmer's name, village, processing method. Token holders include the farmer and community. When coffee sells, token holders capture value.",
     ],
     highlight: "That's financial architecture for regeneration—not blockchain on an extractive supply chain.",
-    sources: [{ label: "Tony Greenberg", url: "https://tonygreenberg.com/what-solutions-are-best-built-with-blockchain/" }],
+    sources: [{ label: "Tony Greenberg", url: "https://tonygreenberg.com/blog/what-solutions-are-best-built-with-blockchain" }],
   },
   {
     num: 10,

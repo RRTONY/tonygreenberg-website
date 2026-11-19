@@ -190,3 +190,13 @@ deploy preview. The `/medicine` redirect was checked on `next dev` (308 → 200)
 - Delete the tonygreenberg Manus project and database (owner's yes, in the Manus account). Not yet:
   rows after 2026-10-08 21:02 UTC are only on Manus; copy them first. Keep
   `clarisseart` and `fix-ai-pricing` until the two essays stop linking to them.
+
+## Search Console "Page with redirect" (2026-11-20)
+
+psychedelicreadiness.com's noindex was lifted (its PR #7), so the PRI move is now permanent
+(308, `pri-moved.ts`), and links stop pointing at redirecting addresses: moved PRI links go straight
+to psychedelicreadiness.com (`priHref`, also applied to Sanity essay links in
+`resolveInternalHref`), WordPress-era `/<post>/` links in essays go to `/blog/<slug>`, and the
+"Originally published at tonygreenberg.com" line is text, not a link to the old address. A crawl of
+every sitemap page on a production build went from 91 internal links that redirect to 1:
+`/flow-circuit` → flow.tonygreenberg.com, left as the short address on purpose.

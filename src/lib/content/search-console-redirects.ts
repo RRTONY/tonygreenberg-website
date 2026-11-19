@@ -45,8 +45,9 @@ export const SEARCH_CONSOLE_REDIRECTS: [source: string, destination: string][] =
   // Pages that moved.
   ["/pick-up", "/pick-up-the-phone"],
   ["/find-my/attachment-style", "/find-your-attachment-style"],
-  ["/psychedelic-readiness-index/calibration", "/pri-calibration"],
-  ["/psychedelic-readiness-index/efficacy", "/pri-efficacy"],
+  // The PRI pages live on psychedelicreadiness.com (pri-moved.ts): one hop, not two.
+  ["/psychedelic-readiness-index/calibration", "https://psychedelicreadiness.com/pri-calibration"],
+  ["/psychedelic-readiness-index/efficacy", "https://psychedelicreadiness.com/pri-efficacy"],
   // Same as the bare /youve-been-reported redirect in next.config.ts.
   ["/manifesto/youve-been-reported", "/"],
   ["/home", "/"],

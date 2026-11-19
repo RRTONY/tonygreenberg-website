@@ -31,8 +31,8 @@ describe("/pri-calibration", () => {
   it("links back to the PRI and the related research pages", () => {
     render(<PriCalibrationPage />);
     expect(screen.getByRole("link", { name: /Back to PRI/ })).toHaveAttribute("href", "/psychedelic-readiness-index");
-    expect(screen.getByRole("link", { name: /^PRI Efficacy Report/ })).toHaveAttribute("href", "/pri-efficacy");
-    expect(screen.getByRole("link", { name: /^The Facilitator Index/ })).toHaveAttribute("href", "/facilitator-index");
+    expect(screen.getByRole("link", { name: /^PRI Efficacy Report/ })).toHaveAttribute("href", "https://psychedelicreadiness.com/pri-efficacy");
+    expect(screen.getByRole("link", { name: /^The Facilitator Index/ })).toHaveAttribute("href", "https://psychedelicreadiness.com/facilitator-index");
   });
 
   it("walks through all 15 comparisons, the ranking and the opt-in, then saves and shows the profile", async () => {

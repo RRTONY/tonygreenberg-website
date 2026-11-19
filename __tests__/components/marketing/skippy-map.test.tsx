@@ -1,3 +1,4 @@
+import { priHref } from "@/lib/content/pri-moved";
 import { describe, expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -53,7 +54,7 @@ describe("SkippyMap", () => {
   it("stops with a page link to it; the rest say Coming Soon", () => {
     const { container } = render(<SkippyMap />);
     const linked = TENTACLES.flatMap((t) => t.stops).filter((s) => s.href);
-    for (const s of linked) expect(container.querySelector(`a[href="${s.href}"]`)).not.toBeNull();
+    for (const s of linked) expect(container.querySelector(`a[href="${priHref(s.href!)}"]`)).not.toBeNull();
     expect(screen.queryAllByText("Coming Soon")).toHaveLength(TOTAL_STOPS - linked.length);
   });
 });
