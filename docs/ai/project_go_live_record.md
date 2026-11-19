@@ -109,8 +109,10 @@ emailed invite; until then he still can't sign in. Check with `pnpm exec sanity 
 - Images: all 275 distinct Sanity images used by those pages return 200; zero Manus addresses.
 - Old site's router: 189 routes; 178 load, 11 are 404 on purpose (`/admin/*`, `/analytics`,
   `/edit/frqncy`, `/payment-success`, `/payment-cancel`, `/404`).
-- `/medicine` now 308s to `/psychedelic-readiness-index`, the medicine hub (2026-11-04, webmaster
-  asked; outside audits kept calling it required). Earlier note: `/medicine` and `/heroes`: never real pages (legacy had no `/medicine` route; `/heroes` showed
+- `/medicine` now 307s straight to https://psychedelicreadiness.com/ (2026-11-20; was 308 to
+  `/psychedelic-readiness-index` from 2026-11-04, which became a 308 → 307 chain once #49 moved the
+  PRI pages). `/heroes` now 308s to `/the-territory` (Tony's heroes and influences, 2026-11-20),
+  because the site watch kept flagging its 404. Earlier note: `/medicine` and `/heroes`: never real pages (legacy had no `/medicine` route; `/heroes` showed
   live's own 404), so the 404 is correct. Real pages `/iboga-ibogaine`, `/iboga-compass`,
   `/medicine-sequencing` are 200 with their Sanity images.
 - Search Console addresses (471, last 16 months): 465 land on a working page, 3 go to other sites

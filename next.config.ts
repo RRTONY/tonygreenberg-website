@@ -80,8 +80,13 @@ const nextConfig: NextConfig = {
       { source: "/united", destination: "/blog/united-airlines-the-case-of-the-creamy-thing", permanent: true },
       // /medicine was never a page (not in legacy's router), but outside audits
       // kept treating it as required (2026-11-04, webmaster asked to fix). It
-      // goes to the medicine hub, the Psychedelic Readiness Index.
-      { source: "/medicine", destination: "/psychedelic-readiness-index", permanent: true },
+      // goes to the medicine hub, the Psychedelic Readiness Index, which now lives on
+      // psychedelicreadiness.com. Straight there in one hop (site watch of 2026-11-19 flagged
+      // the 308 → 307 chain), temporary for the same reason as the PRI pages below.
+      { source: "/medicine", destination: "https://psychedelicreadiness.com/", permanent: false },
+      // /heroes was never a page either (legacy showed the homepage for any unknown address),
+      // but the site watch keeps checking it. Tony's heroes and influences are /the-territory.
+      { source: "/heroes", destination: "/the-territory", permanent: true },
       // The PRI pages now live on psychedelicreadiness.com (QA of 2026-11-13: this copy was
       // still scoring visitors). Temporary (307) on purpose: that site is still on hold and
       // noindex, so nothing here should tell Google the move is final. Query strings such as
