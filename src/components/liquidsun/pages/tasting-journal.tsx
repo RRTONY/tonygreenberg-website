@@ -41,7 +41,8 @@ export function TastingJournal() {
     listLogEntries()
       .then((r) => {
         if (!live) return;
-        if (r.ok) setSavedNotes(r.data);
+        // Keep anything logged while the list was loading (server entries already have numeric ids).
+        if (r.ok) setSavedNotes((prev) => [...prev.filter((n) => !r.data.some((d) => d.id === n.id)), ...r.data]);
         else toast.error(r.error);
       })
       .catch(() => live && toast.error("Couldn't reach the server. Check your connection and try again."))
@@ -180,7 +181,8 @@ export function TastingJournal() {
 
                   <button
                     type="submit"
-                    disabled={isSubmitting}
+                    // Wait for the account check, so a member's first pour is saved, not kept for this visit only.
+                    disabled={isSubmitting || !loaded || loading}
                     aria-busy={isSubmitting}
                     className="flex w-full items-center justify-center gap-2 rounded bg-primary py-3 font-bold tracking-widest text-primary-foreground uppercase transition-colors hover:bg-primary/90 disabled:opacity-50"
                   >

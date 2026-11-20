@@ -38,7 +38,11 @@ const renderPage = () =>
     </LiquidsunProviders>,
   );
 
-const logIt = () => userEvent.click(screen.getByRole("button", { name: /Log It/ }));
+// "Log It" waits for the account check (and a member's list) before it can be pressed.
+const logIt = async () => {
+  await waitFor(() => expect(screen.getByRole("button", { name: /Log It/ })).toBeEnabled());
+  await userEvent.click(screen.getByRole("button", { name: /Log It/ }));
+};
 
 beforeEach(() => {
   vi.mocked(getLiquidsunMember).mockResolvedValue(member(true));

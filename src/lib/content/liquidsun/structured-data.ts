@@ -1,19 +1,33 @@
 import { producers } from "@/lib/content/liquidsun/producers";
 import { ls } from "@/lib/content/liquidsun/nav";
-import { LIQUIDSUN_OG_IMAGE } from "@/lib/content/liquidsun/seo";
+import { liquidsunOgImage } from "@/lib/content/liquidsun/seo";
+import { bottles as matrixBottles } from "@/components/liquidsun/flavor-matrix/flavor-matrix.data";
+import { usSources } from "@/components/liquidsun/pages/us-hunt";
+import { jaliscoSources } from "@/components/liquidsun/pages/jalisco-source";
 
 // Structured data (JSON-LD) for /liquid-sun/*, same shape as SoulSmoke's
 // (src/lib/content/soulsmoke/structured-data.ts): a WebPage (CollectionPage for the bottle lists)
 // that belongs to LiquidSun, Tony's tequila guide on tonygreenberg.com, with a breadcrumb
-// (Tony Greenberg > LiquidSun > page). The home page and The Tequilas also list their bottles
-// (names only: no prices, scores or ratings, which Google would expect to verify).
+// (Tony Greenberg > LiquidSun > page). The home page, The Tequilas and the Flavor Matrix also list
+// their bottles, and US Hunt / Jalisco Source their places (names only: no prices, scores or
+// ratings, which Google would expect to verify).
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tonygreenberg.com";
 const PERSON_ID = `${siteUrl}/#person`;
 const GUIDE_ID = `${siteUrl}${ls("/")}#guide`;
 const GUIDE_NAME = "LiquidSun";
 
-const BOTTLE_PAGES = new Set(["/", "/tequila-encyclopedia"]);
+const unique = (names: string[]) => [...new Set(names)];
+const placeNames = (regions: { spots: { name: string }[] }[]) => unique(regions.flatMap((r) => r.spots.map((s) => s.name)));
+
+/** Pages that list things, and the names they list. */
+const LISTS: Record<string, string[]> = {
+  "/": producers.map((p) => p.brand),
+  "/tequila-encyclopedia": producers.map((p) => p.brand),
+  "/quadrant": unique(matrixBottles.map((b) => `${b.brand} ${b.expression}`)),
+  "/us-hunt": placeNames(usSources),
+  "/jalisco-source": placeNames(jaliscoSources),
+};
 
 /** The page's own name without the " | LiquidSun" suffix its <title> carries. */
 const pageName = (title: string) => title.replace(/\s*\|\s*LiquidSun.*$/, "");
@@ -21,7 +35,8 @@ const pageName = (title: string) => title.replace(/\s*\|\s*LiquidSun.*$/, "");
 export function liquidsunJsonLd({ path, title, description }: { path: string; title: string; description: string }) {
   const url = `${siteUrl}${ls(path)}`;
   const isHome = path === "/";
-  const listsBottles = BOTTLE_PAGES.has(path);
+  const names = LISTS[path];
+  const listsBottles = Boolean(names);
   const name = isHome ? GUIDE_NAME : pageName(title);
 
   const guide = {
@@ -45,7 +60,7 @@ export function liquidsunJsonLd({ path, title, description }: { path: string; ti
     inLanguage: "en",
     isPartOf: { "@id": GUIDE_ID },
     author: { "@id": PERSON_ID },
-    image: LIQUIDSUN_OG_IMAGE.url,
+    image: liquidsunOgImage(path).url,
     breadcrumb: { "@id": `${url}#breadcrumb` },
     ...(listsBottles ? { mainEntity: { "@id": `${url}#bottles` } } : {}),
   };
@@ -65,8 +80,8 @@ export function liquidsunJsonLd({ path, title, description }: { path: string; ti
     "@type": "ItemList",
     "@id": `${url}#bottles`,
     name: isHome ? "LiquidSun Curated Tequila Collection" : name,
-    numberOfItems: producers.length,
-    itemListElement: producers.map((p, i) => ({ "@type": "ListItem", position: i + 1, name: p.brand })),
+    numberOfItems: names.length,
+    itemListElement: names.map((n, i) => ({ "@type": "ListItem", position: i + 1, name: n })),
   };
 
   return { "@context": "https://schema.org", "@graph": [page, breadcrumb, guide, ...(list ? [list] : [])] };

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { LIQUIDSUN_COPYRIGHT, LIQUIDSUN_OG_IMAGE, liquidsunMetadata } from "@/lib/content/liquidsun/seo";
+import { LIQUIDSUN_COPYRIGHT, LIQUIDSUN_OG_IMAGE, liquidsunMetadata, liquidsunOgImage } from "@/lib/content/liquidsun/seo";
 import { liquidsunJsonLd } from "@/lib/content/liquidsun/structured-data";
 import { producers } from "@/lib/content/liquidsun/producers";
 
@@ -12,8 +12,11 @@ describe("liquidsunMetadata", () => {
     expect(m.alternates?.canonical).toBe("/liquid-sun/altar");
     expect(m.authors).toEqual([{ name: "Tony Greenberg", url: "https://tonygreenberg.com" }]);
     expect(m.other).toEqual({ copyright: LIQUIDSUN_COPYRIGHT });
-    expect(m.openGraph).toMatchObject({ siteName: "LiquidSun by Tony Greenberg", url: "/liquid-sun/altar", images: [LIQUIDSUN_OG_IMAGE] });
-    expect(m.twitter).toMatchObject({ images: [LIQUIDSUN_OG_IMAGE.url] });
+    // The Altar shares its own hero (the altar shrine), not the home hero.
+    expect(m.openGraph).toMatchObject({ siteName: "LiquidSun by Tony Greenberg", url: "/liquid-sun/altar", images: [liquidsunOgImage("/altar")] });
+    expect(m.twitter).toMatchObject({ images: [liquidsunOgImage("/altar").url] });
+    expect(liquidsunOgImage("/altar").url).toContain("ca1655e5763192e4a5e6693817fafd817515e737");
+    expect(liquidsunOgImage("/evolution")).toEqual(LIQUIDSUN_OG_IMAGE);
     expect(m.robots).toBeUndefined();
     expect(LIQUIDSUN_OG_IMAGE.url).toMatch(/^https:\/\/cdn\.sanity\.io\/.+\?w=1200&h=630&fit=crop&auto=format$/);
   });
@@ -44,5 +47,13 @@ describe("liquidsunJsonLd", () => {
     const encyclopedia = graph("/tequila-encyclopedia", "The Tequilas | LiquidSun");
     expect(encyclopedia[3]).toMatchObject({ name: "The Tequilas" });
     expect(JSON.stringify(encyclopedia)).not.toMatch(/price|rating/i);
+  });
+
+  it("lists the Flavor Matrix bottles and the US Hunt / Jalisco Source places by name", () => {
+    const list = (path: string) => graph(path, "x | LiquidSun").find((n) => n["@type"] === "ItemList") as { itemListElement: { name: string }[] };
+    expect(list("/quadrant").itemListElement.map((i) => i.name)).toContain("Fortaleza Blanco");
+    expect(list("/us-hunt").itemListElement.map((i) => i.name)).toContain("Old Town Tequila");
+    expect(list("/jalisco-source").itemListElement.map((i) => i.name)).toContain("La Capilla");
+    expect(graph("/process", "The Process | LiquidSun").some((n) => n["@type"] === "ItemList")).toBe(false);
   });
 });
