@@ -7,6 +7,7 @@ import { CHARITIES } from "@/lib/content/charity-data";
 import { isGatedPost } from "@/lib/gated-posts";
 import { POST_REDIRECTS } from "@/lib/content/post-redirects";
 import { soulsmokeRoutes, ss } from "@/lib/content/soulsmoke/nav";
+import { liquidsunRoutes, liquidsunUnlistedRoutes, ls } from "@/lib/content/liquidsun/nav";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tonygreenberg.com";
 
@@ -180,6 +181,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly" as const,
       priority: 0.6,
     })),
+    // LiquidSun, the tequila guide (app/liquid-sun, 2026-11-21), one entry per page of its router,
+    // minus the checkout return page and the hidden Speakeasy (both noindex).
+    ...liquidsunRoutes
+      .filter((path) => !(liquidsunUnlistedRoutes as readonly string[]).includes(path))
+      .map((path) => ({
+        url: `${siteUrl}${ls(path)}`,
+        changeFrequency: "monthly" as const,
+        priority: 0.6,
+      })),
     ...posts.filter((post) => !isUnlisted(post.slug)).map((post) => ({
       url: `${siteUrl}/blog/${post.slug}`,
       lastModified: post._updatedAt,

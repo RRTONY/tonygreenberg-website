@@ -125,6 +125,8 @@ const ECOSYSTEM_MAP = [
     proof: "The Regenerative Protocol tracks biological optimization. SoulSmoke and LiquidSun honor what enters the body. Sacred Waters maps the molecule that remembers.",
     links: [
       { label: "SoulSmoke", href: "/soul-smoke" },
+      // LiquidSun lives at /liquid-sun since 2026-11-21.
+      { label: "LiquidSun", href: "/liquid-sun" },
       { label: "The Liquid Library", href: "/spirits" },
     ],
   },

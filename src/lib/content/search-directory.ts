@@ -94,6 +94,18 @@ export const SEARCH_DIRECTORY: PageItem[] = [
   { title: "SoulSmoke Pilgrimage Guide", href: "/soul-smoke/pilgrimage", description: "Plan a mezcal pilgrimage to Oaxaca", tags: ["pilgrimage", "travel", "oaxaca", "trip", "mezcal", "soulsmoke"] },
   { title: "SoulSmoke Discovery Engine", href: "/soul-smoke/discovery", description: "Explore every mezcal by flavor, price and rarity", tags: ["discovery", "search", "flavor", "mezcal", "soulsmoke"] },
   { title: "SoulSmoke Site Map", href: "/soul-smoke/site-map", description: "Every page of SoulSmoke", tags: ["soulsmoke", "site map", "mezcal", "all pages"] },
+  // LiquidSun, Tony's tequila guide, ported from Manus to /liquid-sun (2026-11-21). Home first so
+  // "liquidsun" and "tequila" open it; its main pages follow (descriptions are the pages' own lines).
+  { title: "LiquidSun: The Soul of Tequila", href: "/liquid-sun", description: "LiquidSun, Tony's curation of the world's finest additive-free tequilas from Jalisco", tags: ["liquidsun", "liquid sun", "tequila", "additive-free", "agave", "jalisco", "spirits", "flavor matrix"] },
+  { title: "LiquidSun: The Flavor Matrix", href: "/liquid-sun/quadrant", description: "Map your palate. Find your soul. Every bottle by terroir and intensity", tags: ["flavor matrix", "quadrant", "palate", "tequila", "liquidsun"] },
+  { title: "LiquidSun: The Tequilas", href: "/liquid-sun/tequila-encyclopedia", description: "A curated index of the spirits that matter. No diffusers. No additives. Just soul", tags: ["tequila", "encyclopedia", "brands", "nom", "liquidsun"] },
+  { title: "LiquidSun: The Process", href: "/liquid-sun/process", description: "From jima to barrel: how real tequila is made, and where industry cheats", tags: ["process", "tahona", "distillation", "tequila", "liquidsun"] },
+  { title: "LiquidSun: The Altar", href: "/liquid-sun/altar", description: "The pinnacle of the spirit: Fuenteseca, Tears of Llorona, Rey Sol", tags: ["altar", "extra anejo", "rare", "tequila", "liquidsun"] },
+  { title: "LiquidSun Flavor Finder", href: "/liquid-sun/flavor-finder", description: "Spin the wheel to align your palate with the terroir", tags: ["flavor finder", "compass", "highlands", "valley", "tequila", "liquidsun"] },
+  { title: "LiquidSun Bottle Scanner", href: "/liquid-sun/bottle-scanner", description: "Upload a photo of a tequila label. Reveal the soul", tags: ["bottle scanner", "label", "oracle", "tequila", "liquidsun"] },
+  { title: "LiquidSun: The Pilgrimage", href: "/liquid-sun/pilgrimage", description: "Tequila country on a map: Highlands red clay and Valley volcanic soil", tags: ["pilgrimage", "map", "jalisco", "travel", "tequila", "liquidsun"] },
+  { title: "LiquidSun Cocktails", href: "/liquid-sun/cocktails", description: "Batanga, Tommy's Margarita, Paloma and more tequila rituals", tags: ["cocktails", "margarita", "paloma", "batanga", "tequila", "liquidsun"] },
+  { title: "LiquidSun Premium", href: "/liquid-sun/premium", description: "Buy links, panel scores, the full Flavor Matrix and price alerts", tags: ["premium", "membership", "subscribe", "tequila", "liquidsun"] },
   // Added 2026-11-09: a reader searched for SoulSmoke; /spirits describes all of Tony's drinks sites.
   { title: "The Liquid Library", href: "/spirits", description: "Mezcal, tequila, sake, coffee and wine: Tony's liquid obsessions, including SoulSmoke (mezcal) and LiquidSun (tequila)", tags: ["spirits", "liquid library", "soulsmoke", "soul smoke", "mezcal", "agave", "liquidsun", "liquid sun", "tequila", "sake", "wine", "drinks"] },
   { title: "Built by Tony G", href: "/recent-creations", description: "Things Tony has built recently", tags: ["built", "creations", "portfolio", "projects", "tony g"] },

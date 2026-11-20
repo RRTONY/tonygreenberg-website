@@ -94,6 +94,8 @@ const PROJECTS: Project[] = [
   {
     title: "LiquidSun",
     tagline: "Tequila, illuminated.",
+    // Rebuilt from its Manus app at /liquid-sun (2026-11-21).
+    url: "/liquid-sun",
     description: "A visual guide to tequila that treats the spirit with the reverence it deserves. From highland agave fields to the barrel. Not a buying guide. A love letter.",
     category: "Tequila Guide",
     accent: "#B45309",

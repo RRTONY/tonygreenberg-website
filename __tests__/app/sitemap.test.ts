@@ -109,4 +109,14 @@ describe("sitemap.xml", () => {
     await expect(sitemap()).resolves.toBeInstanceOf(Array);
     expect((await sitemap()).some((e) => /\/blog\/category\/(undefined|null)?$/.test(e.url))).toBe(false);
   });
+
+  it("lists every LiquidSun page except the checkout return and the hidden Speakeasy", async () => {
+    withData();
+    const urls = (await sitemap()).map((e) => e.url);
+    for (const p of ["", "/altar", "/quadrant", "/tasting-journal", "/premium", "/partner"]) {
+      expect(urls).toContain(`${SITE}/liquid-sun${p}`);
+    }
+    expect(urls).not.toContain(`${SITE}/liquid-sun/premium/success`);
+    expect(urls).not.toContain(`${SITE}/liquid-sun/speakeasy`);
+  });
 });

@@ -6,9 +6,8 @@ import { ArrowRight, ArrowUpRight, Wine, Flame, Droplets, Sparkles, type LucideI
 // Ported from legacy client/src/pages/Spirits.tsx ("The Liquid Library").
 // Real content, unchanged. Two of the five companion sites (SoulSmoke for
 // mezcal, LiquidSun for tequila) were hosted on *.manus.space. SoulSmoke was
-// rebuilt on this site at /soul-smoke (2026-11-10), so its card links there
-// again; LiquidSun's card stays unlinked, marked "no longer live", until it is
-// rebuilt the same way.
+// rebuilt on this site at /soul-smoke (2026-11-10) and LiquidSun at /liquid-sun
+// (2026-11-21), so both cards link there again.
 export const metadata: Metadata = {
   title: "Wine, Sake, Spirits & Mezcal",
   description:
@@ -94,7 +93,7 @@ const CATEGORIES: Category[] = [
       tagline: "Tequila, Illuminated",
       description:
         "A visual guide that treats tequila with the reverence it deserves. From highland agave fields to the barrel room. Not a buying guide — a love letter to the spirit and the people who make it.",
-      offline: true,
+      url: "/liquid-sun",
     },
     pullquote:
       "The difference between good tequila and transcendent tequila is the same as the difference between a photograph and a memory.",

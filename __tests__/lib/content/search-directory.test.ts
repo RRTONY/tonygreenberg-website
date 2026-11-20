@@ -60,9 +60,12 @@ describe("withEssayCount", () => {
     }
   });
 
-  it("finds SoulSmoke's own pages and still lists the Spirits page", () => {
+  it("finds SoulSmoke's and LiquidSun's own pages and still lists the Spirits page", () => {
     expect(searchPages("agave encyclopedia", SEARCH_DIRECTORY)[0]?.href).toBe("/soul-smoke/agave-encyclopedia");
     expect(searchPages("oaxaca", SEARCH_DIRECTORY).map((r) => r.href)).toContain("/soul-smoke/oaxaca-map");
-    expect(searchPages("tequila", SEARCH_DIRECTORY)[0]?.href).toBe("/spirits");
+    expect(searchPages("tequila", SEARCH_DIRECTORY)[0]?.href).toBe("/liquid-sun");
+    expect(searchPages("tequila", SEARCH_DIRECTORY).map((r) => r.href)).toContain("/spirits");
+    expect(searchPages("liquidsun", SEARCH_DIRECTORY)[0]?.href).toBe("/liquid-sun");
+    expect(searchPages("flavor matrix", SEARCH_DIRECTORY).map((r) => r.href)).toContain("/liquid-sun/quadrant");
   });
 });

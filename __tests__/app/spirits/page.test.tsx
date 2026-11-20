@@ -29,13 +29,13 @@ describe("/spirits", () => {
     expect(screen.getByText(/Wild agave varieties — Tobalá, Tepeztate, Jabalí, Cuishe/)).toBeInTheDocument();
   });
 
-  it("links SoulSmoke to its rebuilt pages, keeps LiquidSun unlinked, and has no Manus addresses", () => {
+  it("links SoulSmoke and LiquidSun to their rebuilt pages and has no Manus addresses", () => {
     const { container } = render(<SpiritsPage />);
     const soulSmoke = screen.getByRole("heading", { level: 3, name: "SoulSmoke" });
     expect(soulSmoke.closest("a")).toHaveAttribute("href", "/soul-smoke");
     const liquidSun = screen.getByRole("heading", { level: 3, name: "LiquidSun" });
-    expect(liquidSun.closest("a")).toBeNull();
-    expect(screen.getAllByText("Companion Site, No Longer Live").length).toBe(1);
+    expect(liquidSun.closest("a")).toHaveAttribute("href", "/liquid-sun");
+    expect(screen.queryAllByText("Companion Site, No Longer Live")).toHaveLength(0);
     expect(container.innerHTML).not.toMatch(/manus\.space|manuscdn|\/manus-storage\//);
   });
 
