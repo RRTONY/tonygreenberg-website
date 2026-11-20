@@ -36,6 +36,8 @@ export const KIT_TAG_MAP: Record<string, string> = {
   "living-declaration": "Community: Living Declaration",
   "soulsmoke-homepage-hero": "SoulSmoke: Homepage",
   "soulsmoke-quadrant-page": "SoulSmoke: Quadrant",
+  // LiquidSun (/liquid-sun) home "Join the Resistance" box (2026-11-21).
+  "liquidsun-homepage": "LiquidSun: Homepage",
   // The GemSpark (/gem-spark) newsletter popup on the short versions, its Manus source name.
   "short-form-popup": "GemSpark: Newsletter",
   // EmailGate always sources as `find-your-<assessmentSlug>` (see that
