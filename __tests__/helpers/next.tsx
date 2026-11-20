@@ -185,6 +185,7 @@ const GOOGLE_FONTS = [
   "Cormorant_Garamond", "DM_Mono", "Fraunces", "IM_Fell_English",
   "Libre_Baskerville", "Playfair_Display", "Source_Sans_3", "Space_Grotesk",
   "Cinzel", "Cinzel_Decorative", "Cormorant", "Special_Elite", "Inter",
+  "Space_Mono",
 ] as const;
 export const fontModule = Object.fromEntries(GOOGLE_FONTS.map((name) => [name, font]));
 export const localFontModule = { __esModule: true, default: font };
