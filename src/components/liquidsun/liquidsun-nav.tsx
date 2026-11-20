@@ -94,7 +94,13 @@ export function LiquidsunNav() {
                     <button
                       type="button"
                       aria-expanded={open}
-                      onClick={() => setActiveDropdown(open ? null : section.title)}
+                      // Click only opens: on a touch screen at lg+ a tap fires mouseenter (open) and
+                      // then click, so a toggle here would shut the menu at once. It closes on
+                      // mouse leave, focus leaving it, or Escape.
+                      onClick={() => setActiveDropdown(section.title)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Escape") setActiveDropdown(null);
+                      }}
                       className={
                         open
                           ? "flex items-center gap-1 px-2 py-1 font-sans text-sm tracking-widest text-amber-400 uppercase transition-colors"
