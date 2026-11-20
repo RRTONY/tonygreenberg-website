@@ -195,3 +195,42 @@ Live still served these from `/api/img/` only. Rescued by
 | `site-090-opt_66_peptide-hero-matrix-TUP48rggCiaJdBFdZh9eMF_…_aa8d491e.webp` | `src/app/peptide-matrix/page.tsx` (hero background) | https://cdn.sanity.io/images/a3q1cyqs/production/6e35eac72eced203da0889fe95617e0be7ac86f1-1200x509.webp |
 | `site-098-peptide-hero-shame-F3CU4ffRKBb77JgiCsFgmX_fb1ebaec57_1008dba4.webp` | `/peptide-hall-of-shame` hero background (**not wired yet**) | https://cdn.sanity.io/images/a3q1cyqs/production/f76b0029de9df63f14c832719a17e68d260314a9-1200x509.webp |
 | `site-099-peptide-hero-supply-PYCPqN9umsL4js9C6nUkYD_04fc7bf50c_8b06680b.webp` | `src/app/peptide-supply-chain/page.tsx` (hero background) | https://cdn.sanity.io/images/a3q1cyqs/production/39fd5977e53d37392aa091e7c15d381bd9980695-1200x509.webp |
+
+## LiquidSun media rescued (2026-11-21)
+
+From the LiquidSun Manus app (`tequilaazul-fxqrr3js.manus.space`, export `~/Downloads/tequila-azul`), for the `/liquid-sun` port
+(`docs/ai/project_liquidsun_port.md`). Each file was downloaded, checked to be a real image/audio (not an HTML fallback) and
+looked at, converted to WebP (max 1920px; the Manus "jpg" files were really 2752px PNGs), and uploaded to Sanity. 23 uploads
+cover 26 references (two pairs of Manus files were the same picture). Map in code: `src/lib/content/liquidsun/images.ts`.
+
+| Legacy URL | Used in | `liquidsunImages` / constant | Sanity URL |
+| --- | --- | --- | --- |
+| `https://files.manuscdn.com/user_upload_by_module/session_file/310519663242884547/JtUUDZeQRJiivtsd.jpg` | Home, Flavor Finder | `agaveFieldMoon` | https://cdn.sanity.io/images/a3q1cyqs/production/ac05bc38f7bc8d13f22b992924555b40c78f9360-1920x1072.webp |
+| `https://files.manuscdn.com/user_upload_by_module/session_file/310519663242884547/iQNorYHWVCXheNeK.jpg` | The Agaves, The Masters (same picture as JtUU) | `agaveFieldMoon` | https://cdn.sanity.io/images/a3q1cyqs/production/ac05bc38f7bc8d13f22b992924555b40c78f9360-1920x1072.webp |
+| `https://files.manuscdn.com/user_upload_by_module/session_file/310519663242884547/wXEioeOzBJTvyOtQ.jpg` | Home manifesto, producers | `tahonaWheel` | https://cdn.sanity.io/images/a3q1cyqs/production/8620aaa52cfbf12e57687b01913bcd3315b183eb-1920x1072.webp |
+| `https://files.manuscdn.com/user_upload_by_module/session_file/310519663242884547/qSdLzpyCqNgVHbKa.jpg` | Quadrant, Bottle Scanner | `tahonaMill` | https://cdn.sanity.io/images/a3q1cyqs/production/d226c65b523defa1004ffdf143b29e493ebd4198-1920x1072.webp |
+| `https://files.manuscdn.com/user_upload_by_module/session_file/310519663242884547/SPDjxRYIzrkZQZlx.jpg` | Altar, producers | `bottleVolcanico` | https://cdn.sanity.io/images/a3q1cyqs/production/dafffe172bd8bd73d0b01876548384dbf7ee53fc-1072x1920.webp |
+| `https://files.manuscdn.com/user_upload_by_module/session_file/310519663242884547/zdxjHMMaNneHEQQk.jpg` | producers | `pinaHalved` | https://cdn.sanity.io/images/a3q1cyqs/production/5cc1090577ac22e5bcb4744950dd46b8bbe3061c-1920x1920.webp |
+| `https://files.manuscdn.com/user_upload_by_module/session_file/310519663242884547/LkNIsUdMWwFIpypD.jpg` | producers | `agaveFieldDawn` | https://cdn.sanity.io/images/a3q1cyqs/production/e114615b2eb216ab3bfbe99fa8d4cca54853cf1c-1920x1072.webp |
+| `https://files.manuscdn.com/user_upload_by_module/session_file/310519663242884547/OlRLFmREgnnSeWwQ.jpg` | producers | `copperStills` | https://cdn.sanity.io/images/a3q1cyqs/production/2d9fdb8bdd414523655e6e1a612ca2a699d03ff0-1920x1072.webp |
+| `https://files.manuscdn.com/user_upload_by_module/session_file/310519663242884547/PHLHjtTTLoSKHGgF.jpg` | Trade Board | `barrelCellar` | https://cdn.sanity.io/images/a3q1cyqs/production/ef2660ba5b50812e791159c4c7ab1bab6ef21b61-1920x1072.webp |
+| `https://files.manuscdn.com/user_upload_by_module/session_file/310519663242884547/kPkSjYjlIqSptmCE.jpg` | Price Tracker (same picture as PHLH) | `barrelCellar` | https://cdn.sanity.io/images/a3q1cyqs/production/ef2660ba5b50812e791159c4c7ab1bab6ef21b61-1920x1072.webp |
+| `https://files.manuscdn.com/user_upload_by_module/session_file/310519663242884547/JfgLjlWIDjMbaaKY.jpg` | Altar background | `altarShrine` | https://cdn.sanity.io/images/a3q1cyqs/production/ca1655e5763192e4a5e6693817fafd817515e737-1920x1072.webp |
+| `https://files.manuscdn.com/user_upload_by_module/session_file/310519663242884547/ZvBWHmBTEDtZbDcD.jpg` | Agave Genetics, Jalisco Map | `agaveMoonlit` | https://cdn.sanity.io/images/a3q1cyqs/production/37e2a37270bc8f7647f8bb0290a1375992603840-1920x1072.webp |
+| `https://files.manuscdn.com/user_upload_by_module/session_file/310519663242884547/blnwHmtMTbBnITsZ.jpg` | Science of Spirit, Sacred Kitchens | `alchemyDistillery` | https://cdn.sanity.io/images/a3q1cyqs/production/5cdd40df2b668aadf072b8be7f7939f30da533d4-1920x1072.webp |
+| `https://files.manuscdn.com/user_upload_by_module/session_file/310519663242884547/nwKzrhVZRKEgkABi.jpg` | The Voices, The Gatekeepers | `candleCellar` | https://cdn.sanity.io/images/a3q1cyqs/production/220cf97db10637319c282a2cede06ca5752a3bb7-1920x1072.webp |
+| `https://files.manuscdn.com/user_upload_by_module/session_file/310519663242884547/wiywxdQhuzZiYUxf.jpg` | Squad Riders, Pilgrimage Guide | `jimadorSunset` | https://cdn.sanity.io/images/a3q1cyqs/production/46b5dcea0fec544c5c58715a43326d28f109f7e5-1920x1072.webp |
+| `https://files.manuscdn.com/user_upload_by_module/session_file/310519663242884547/UWhnQvZaDWKoltyD.jpg` | The Assholes | `industrialDistillery` | https://cdn.sanity.io/images/a3q1cyqs/production/a5c1438d4d96c91ccc22bb9098dbb0af0b803a95-1920x1072.webp |
+| `/images/bottle-fortaleza.jpg` | Flavor Matrix (and Speakeasy data, not shown) | `bottleFortaleza` | https://cdn.sanity.io/images/a3q1cyqs/production/9dbfc1529d796ba7510fabd9aaed933728b959ff-256x327.webp |
+| `/images/bottle-g4.jpg` | Flavor Matrix (and Speakeasy data, not shown) | `bottleG4` | https://cdn.sanity.io/images/a3q1cyqs/production/76f1be65a5fa604c5c636e6afb29c48c944f2f44-800x1020.webp |
+| `/images/bottle-caballito.jpg` | Flavor Matrix (and Speakeasy data, not shown) | `bottleCaballito` | https://cdn.sanity.io/images/a3q1cyqs/production/df1ad22d29ef6c1da1f1415182e9d03abdd14bad-1200x1200.webp |
+| `/images/bottle-fuenteseca.jpg` | Flavor Matrix (and Speakeasy data, not shown) | `bottleFuenteseca` | https://cdn.sanity.io/images/a3q1cyqs/production/68618bbe232a81e25474b5a7f069ed1028d622a8-1200x1200.webp |
+| `/images/bottle-rey.jpg` | Flavor Matrix (and Speakeasy data, not shown) | `bottleReySol` | https://cdn.sanity.io/images/a3q1cyqs/production/70d8f6a91297e9ae138e60969b344be8fb915547-800x800.webp |
+| `/images/bottle-tears.jpg` | Flavor Matrix (and Speakeasy data, not shown) | `bottleTears` | https://cdn.sanity.io/images/a3q1cyqs/production/b16fa8f074eb8ba4e63e35817bc944ea14f6145a-600x900.webp |
+| `https://www.transparenttextures.com/patterns/stardust.png` | stardust overlay (most pages) | `.ls-stardust / LIQUIDSUN_STARDUST_URL` | https://cdn.sanity.io/images/a3q1cyqs/production/ca610b5c7628a6e6aed384ebb744a5d1e4fc466c-798x798.png |
+| `/audio/wind.mp3` | AudioController | `LIQUIDSUN_AUDIO.wind` | https://cdn.sanity.io/files/a3q1cyqs/production/1a4e223a7e5f67d38ceb79a0c1fbba2d5b2b20c7.mp3 |
+| `/audio/grind.mp3` | AudioController | `LIQUIDSUN_AUDIO.grind` | https://cdn.sanity.io/files/a3q1cyqs/production/30400ddb2225daecddff9c73d3c67aca0647ff0b.mp3 |
+
+**Never existed on live** (Manus answered `200 text/html`, so the app showed a broken image or no sound; nothing to rescue):
+`/images/bottle-{cascahuin,don-fulano,la-gritona,lalo,ocho,siete,tapatio,tequileno,tesoro,volans,wild-common}.jpg`,
+`/images/hero-tahona.jpg` (Speakeasy background; the port uses the tahona photo) and `/audio/unlock.mp3` (Speakeasy; dropped).

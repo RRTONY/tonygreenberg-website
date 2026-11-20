@@ -37,6 +37,11 @@ how to handle a request is in [`TASK_GUIDE.md`](TASK_GUIDE.md). Last checked 202
 - **SoulSmoke (`/soul-smoke/*`, the mezcal guide):** in code, `src/components/soulsmoke/pages/` + data in
   `src/lib/content/soulsmoke/` (images in Sanity, map in `images.ts`). Own header and styles
   (`src/app/soul-smoke/layout.tsx`, `soulsmoke.css`). See `docs/ai/project_soulsmoke_port.md`.
+- **LiquidSun (`/liquid-sun/*`, the tequila guide, 2026-11-21):** in code, `src/components/liquidsun/pages/` + data in
+  `src/lib/content/liquidsun/` (images in Sanity, map in `images.ts`). Own header and styles
+  (`src/app/liquid-sun/layout.tsx`, `liquidsun.css`), server actions `src/app/liquid-sun/actions.ts`, Premium on
+  Stripe (`src/lib/stripe.ts`, webhook `src/app/api/liquid-sun/stripe-webhook`), tables `0009_liquidsun.sql`.
+  See `docs/ai/project_liquidsun_port.md`.
 - **Marketing, assessment, BrewSoul, PRI, Kava, peptide pages:** in code, in the route's
   `page.tsx`, its component under `src/components/`, and/or a data module in `src/lib/content/`.
 - **Blog posts (`/blog/[slug]`, `/blog/category/[slug]`, `/essays`):** Sanity `post` documents.
