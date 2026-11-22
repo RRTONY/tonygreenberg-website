@@ -88,13 +88,13 @@ const nextConfig: NextConfig = {
       // but the site watch keeps checking it. Tony's heroes and influences are /the-territory.
       { source: "/heroes", destination: "/the-territory", permanent: true },
       // The PRI pages now live on psychedelicreadiness.com (QA of 2026-11-13: this copy was
-      // still scoring visitors). Temporary (307) on purpose: that site is still on hold and
-      // noindex, so nothing here should tell Google the move is final. Query strings such as
-      // ?m=ibogaine are carried over. /pri-research (admin only) stays here.
+      // still scoring visitors). With the canonical site live and its site-wide search hold
+      // lifted (2026-11-19), make this migration permanent. Next.js uses 308 and keeps query
+      // strings such as ?m=ibogaine. /pri-research (admin only) stays here.
       ...PRI_MOVED_PAGES.map(([source, destination]) => ({
         source,
         destination: `https://psychedelicreadiness.com${destination}`,
-        permanent: false,
+        permanent: true,
       })),
       // Search Console 404s (2026-11-05). /bio was never a page, but Google keeps
       // finding it; Tony's bio is /about. The BrewSoul catalog.txt/.json files
