@@ -84,6 +84,8 @@ const nextConfig: NextConfig = {
       // psychedelicreadiness.com. Straight there in one hop (site watch of 2026-11-19 flagged
       // the 308 → 307 chain), temporary for the same reason as the PRI pages below.
       { source: "/medicine", destination: "https://psychedelicreadiness.com/", permanent: false },
+      // Short, easy-to-share address for the readiness assessment.
+      { source: "/go", destination: "https://psychedelicreadiness.com/", permanent: false },
       // /heroes was never a page either (legacy showed the homepage for any unknown address),
       // but the site watch keeps checking it. Tony's heroes and influences are /the-territory.
       { source: "/heroes", destination: "/the-territory", permanent: true },
