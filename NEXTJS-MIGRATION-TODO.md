@@ -13,7 +13,17 @@
 - UI: Tailwind CSS v4 + shadcn/ui (Radix base) — same design-system convention the team already uses elsewhere. `next/image` for all images. No framer-motion — CSS transitions / `tailwindcss-animate` only.
 
 
-## Current status — 2026-11-13
+## Current status — 2026-11-22
+
+**PRI legacy-route update pending publication:** TonyGreenberg.com’s assessment route currently
+redirects to psychedelicreadiness.com, and the old `?m=ibogaine` link reaches the newer site’s
+safety hold. PR #7 lifted psychedelicreadiness.com’s site-wide noindex on 2026-11-19; its live
+robots.txt allows crawling and the landing page has no robots meta tag. This review proposes
+permanent 308 redirects for all nine public PRI routes, preserving destinations and query strings
+while leaving `/pri-research` local. No scoring or safety code changes. Redirect tests are updated.
+The preview and independent mobile acceptance check remain pending. Publish after owner review.
+
+## Previous status — 2026-11-13
 
 **Domain outage + full site check (2026-11-13, branch `fix/soulsmoke-discovery-buy-links`):**
 tonygreenberg.com's `@`/`www` DNS had been switched back to Hostinger after the 2026-11-04 go-live, so
