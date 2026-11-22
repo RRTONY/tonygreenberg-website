@@ -13,6 +13,13 @@
 - UI: Tailwind CSS v4 + shadcn/ui (Radix base) — same design-system convention the team already uses elsewhere. `next/image` for all images. No framer-motion — CSS transitions / `tailwindcss-animate` only.
 
 
+## Current status — 2026-11-22
+
+**Short assessment address in review (PR #54), not live:** The proposed easy-to-type link is
+`tonygreenberg.com/go`, redirecting to the canonical assessment at psychedelicreadiness.com.
+The previous short-looking `/pri` address was checked and returns a 404. The new redirect and
+route test are staged; preview and publication are pending.
+
 ## Current status — 2026-11-13
 
 **Domain outage + full site check (2026-11-13, branch `fix/soulsmoke-discovery-buy-links`):**
