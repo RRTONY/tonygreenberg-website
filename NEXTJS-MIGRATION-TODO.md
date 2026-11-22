@@ -21,7 +21,7 @@ safety hold. PR #7 lifted psychedelicreadiness.com’s site-wide noindex on 2026
 robots.txt allows crawling and the landing page has no robots meta tag. This review proposes
 permanent 308 redirects for all nine public PRI routes, preserving destinations and query strings
 while leaving `/pri-research` local. No scoring or safety code changes. Redirect tests are updated.
-The preview and independent mobile acceptance check remain pending. Publish after owner review.
+The preview build passed, and the preview returned HTTP 308 with the query string preserved. An independent mobile acceptance check remains pending. Publish after owner review.
 
 ## Previous status — 2026-11-13
 
