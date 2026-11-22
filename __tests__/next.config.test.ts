@@ -20,6 +20,15 @@ describe("next.config redirects", () => {
     });
   });
 
+  it("sends the short /go address to the readiness assessment, temporarily", async () => {
+    const redirects = await nextConfig.redirects!();
+    expect(redirects).toContainEqual({
+      source: "/go",
+      destination: "https://psychedelicreadiness.com/",
+      permanent: false,
+    });
+  });
+
   it("sends /heroes to Tony's heroes and influences page, permanently", async () => {
     const redirects = await nextConfig.redirects!();
     expect(redirects).toContainEqual({ source: "/heroes", destination: "/the-territory", permanent: true });
