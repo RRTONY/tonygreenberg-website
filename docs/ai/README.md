@@ -41,6 +41,7 @@ connected session sees them on its first call.
 - [project_gemspark_port](project_gemspark_port.md): The GemSpark story rebuilt from its Manus export at `/gem-spark` (2026-11-10): where each piece lives, Supabase tables for stories, featured sparks and read counts
 - [project_soulsmoke_port](project_soulsmoke_port.md): SoulSmoke mezcal guide rebuilt from its Manus export at `/soul-smoke` (2026-11-10): where each piece lives, the porting rules, what replaced Manus login/database/maps/AI
 - [project_liquidsun_port](project_liquidsun_port.md): LiquidSun tequila guide rebuilt from its Manus export at `/liquid-sun` (2026-11-21): where each piece lives, framer-motion in CSS, Formik forms, Premium on Stripe (REST + webhook), what was left out and why
+- [project_aqueous_port](project_aqueous_port.md): Aqueous water guide rebuilt from its Manus export at `/aqueous` (2026-11-24): where each piece lives, stand-in photos, referrals/credit/reports on Supabase + Stripe + Claude, what changed and what the owner still has to do
 - [project_tonygreenberg_migration](project_tonygreenberg_migration.md): why Manus → Next.js/Sanity/Netlify, who signs off, which deploy is which
 - [project_production_restoration_branch](project_production_restoration_branch.md): the Manus branch audited 2026-09-29: what was carried over, what wasn't, and 8 owner decisions it surfaced
 - [project_legacy_database](project_legacy_database.md): the old Manus/TiDB database (2026-10-09): private backup location, what is real vs test data, short links carried over, what still needs a decision

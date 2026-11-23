@@ -13,7 +13,22 @@
 - UI: Tailwind CSS v4 + shadcn/ui (Radix base) — same design-system convention the team already uses elsewhere. `next/image` for all images. No framer-motion — CSS transitions / `tailwindcss-animate` only.
 
 
-## Current status — 2026-11-21
+## Current status — 2026-11-24
+
+**Aqueous rebuilt at /aqueous (2026-11-24, branch `feat/aqueous`):** Tony's water guide, ported from its Manus export
+(`aqwaterqpr-wvzsc3ph.manus.space`) the same way as LiquidSun. Notes: `docs/ai/project_aqueous_port.md`.
+- [x] All 21 routes of the app at `/aqueous/*` (own header/footer, same copy, look and animations; every framer-motion
+  effect in CSS), 8 water pages static. Manus login/AI/storage removed; "The Way Out" (Manus only) and fauxTony links removed.
+- [x] Photos: the app's 4 were already deleted on Manus; Unsplash stand-ins + 7 bottle photos in Sanity.
+- [x] Referrals, projects, Stripe checkout ($20 report, $5/month) + webhook, AI reports via Claude (streamed), Formik + Yup
+  forms re-checked on the server. Fixed from the app: free $20 reports, unlimited credit reuse, throwaway referral codes.
+- [x] Linked: Recent Creations card, sitemap (16 pages + 8 waters), site search, llms.txt.
+- [x] Checked: typecheck, lint, tests (341 Aqueous + changed-file suite), build (all static but the report page), fresh
+  server (status codes, 404s), browser at 375 / 820 / 1280 on all 20 pages (no errors, no sideways scroll, no broken images).
+- [ ] **Owner:** apply `supabase/migrations/0010_aqueous.sql`; Stripe endpoint + `AQUEOUS_STRIPE_WEBHOOK_SECRET` in Netlify;
+  live keys + pricing OK; payment-success wording; Tony's original photos.
+
+## Previous status — 2026-11-21
 
 **LiquidSun rebuilt at /liquid-sun (2026-11-21, branch `feat/liquidsun`, not pushed or merged):** Tony's tequila
 guide, ported from its Manus export (`tequilaazul-fxqrr3js.manus.space`) the same way as SoulSmoke. Notes:

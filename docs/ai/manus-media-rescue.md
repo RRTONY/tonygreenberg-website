@@ -234,3 +234,24 @@ cover 26 references (two pairs of Manus files were the same picture). Map in cod
 **Never existed on live** (Manus answered `200 text/html`, so the app showed a broken image or no sound; nothing to rescue):
 `/images/bottle-{cascahuin,don-fulano,la-gritona,lalo,ocho,siete,tapatio,tequileno,tesoro,volans,wild-common}.jpg`,
 `/images/hero-tahona.jpg` (Speakeasy background; the port uses the tahona photo) and `/audio/unlock.mp3` (Speakeasy; dropped).
+
+## Aqueous media (2026-11-24)
+
+The Aqueous app's 4 photos (`private-us-east-1.manuscdn.com/sessionFile/.../img-1..4`) were already gone on Manus
+(403 "Unknown Key", broken on the live Manus site too), so they could not be rescued. Free Unsplash stand-ins on the same
+subjects were uploaded instead (webmaster's choice); the app's own Unsplash bottle photos were copied too.
+Map in code: `src/lib/content/aqueous/images.ts` and `water-data.ts`.
+
+| Name | What | Sanity URL | Status |
+| --- | --- | --- | --- |
+| `heroWaterSacred` | Unsplash stand-in for a deleted Manus photo (photo-1432405972618-c60b0225b8f9) | https://cdn.sanity.io/images/a3q1cyqs/production/1ff9fa5261fb6fbdabb9d7c47373b1241bf024fd-1920x1280.jpg | in Sanity |
+| `waterDropsMacro` | Unsplash stand-in for a deleted Manus photo (photo-1559825481-12a05cc00344) | https://cdn.sanity.io/images/a3q1cyqs/production/ca272bcd41bda907be5aa8ff158cb11fa861f8a9-1920x2400.jpg | in Sanity |
+| `waterTestingLab` | Unsplash stand-in for a deleted Manus photo (photo-1532187863486-abf9dbad1b69) | https://cdn.sanity.io/images/a3q1cyqs/production/fafefc084d8227bd656fc3a096f8076dc79ac55a-1920x1280.jpg | in Sanity |
+| `natureSpringSource` | Unsplash stand-in for a deleted Manus photo (photo-1437482078695-73f5ca6c96e2) | https://cdn.sanity.io/images/a3q1cyqs/production/7113afd5c07fe4c023c9192301c31ad8bfb638ac-1920x1280.jpg | in Sanity |
+| `bottle1548839140` | bottle photo (was hot-linked from Unsplash) (photo-1548839140-29a749e1cf4d) | https://cdn.sanity.io/images/a3q1cyqs/production/9a3089b091e23d17cda2704b9b7e0d4db32ccbd1-800x800.jpg | in Sanity |
+| `bottle1560023907` | bottle photo (was hot-linked from Unsplash) (photo-1560023907-5f339617ea30) | https://cdn.sanity.io/images/a3q1cyqs/production/583609f78d6f3d1c5e3b79b491cf6aa23dbdb5c7-800x800.jpg | in Sanity |
+| `bottle1564419320` | bottle photo (was hot-linked from Unsplash) (photo-1564419320461-6870880221ad) | https://cdn.sanity.io/images/a3q1cyqs/production/aa855cacbdb62dbac415b31a861ab73b0749f3bd-800x800.jpg | in Sanity |
+| `bottle1606168094` | bottle photo (was hot-linked from Unsplash) (photo-1606168094336-48f205276929) | https://cdn.sanity.io/images/a3q1cyqs/production/b9b4838e1c5c5aac6cc26f6b98d0449bde4dd080-800x800.jpg | in Sanity |
+| `bottle1559839914` | bottle photo (was hot-linked from Unsplash) (photo-1559839914-17aae19cec71) | https://cdn.sanity.io/images/a3q1cyqs/production/020baf49f352d4e0a1d90cd52c8b626f34bc3210-800x800.jpg | in Sanity |
+| `bottle1523362628` | bottle photo (was hot-linked from Unsplash) (photo-1523362628745-0c100150b504) | https://cdn.sanity.io/images/a3q1cyqs/production/1a98505cdcd5b2e5b40182148a46ff13f00fd1b3-800x800.jpg | in Sanity |
+| `bottle1602143407` | bottle photo (was hot-linked from Unsplash) (photo-1602143407151-7111542de6e8) | https://cdn.sanity.io/images/a3q1cyqs/production/50a4f0257c1dd1d0cc9a822e9ffea9522d0cd9fb-800x800.jpg | in Sanity |
