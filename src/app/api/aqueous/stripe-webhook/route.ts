@@ -6,8 +6,8 @@ import { AQUEOUS_PRODUCTS } from "@/lib/content/aqueous/products";
 
 // Aqueous's Stripe webhook, ported from the Aqueous Manus app's server/stripe.ts handleWebhookEvent
 // (2026-11-24). Stripe calls it when a checkout finishes and when the $5/month plan changes; it marks
-// the purchase completed (aqueous_purchases), takes any referral credit used off the member's balance
-// (the app never did), records the plan's status (aqueous_subscriptions), and emails Tony (the app
+// the purchase completed (aqueous_purchases), gives back the referral credit an expired checkout was
+// holding (the hold is made when the checkout starts; the app never deducted credit), records the plan's status (aqueous_subscriptions), and emails Tony (the app
 // only logged it). The signature is checked against the raw body with AQUEOUS_STRIPE_WEBHOOK_SECRET
 // (its own Stripe endpoint, so its own signing secret) before anything is read.
 // Set up in Stripe: Developers > Webhooks > endpoint https://tonygreenberg.com/api/aqueous/stripe-webhook,
@@ -70,24 +70,26 @@ async function completeCheckout(db: Db, obj: Record<string, unknown>) {
   const p = purchase as { id: number; user_id: string; product_type: string; status: string; credit_applied: string | number };
   if (p.status === "completed") return; // Stripe can send the same event twice
 
+  const email = str(meta.customer_email) ?? str((obj.customer_details as Record<string, unknown> | undefined)?.email);
+  // Referral credit used here was already held off the balance when the checkout started (actions.ts).
+
+  const customerId = str(obj.customer);
+  if (customerId && UUID.test(p.user_id)) {
+    const { error: customerError } = await db
+      .from("aqueous_stripe_customers")
+      .upsert({ user_id: p.user_id, stripe_customer_id: customerId }, { onConflict: "user_id" });
+    if (customerError) throw new Error(customerError.message);
+  }
+  const subscriptionId = str(obj.subscription);
+  if (subscriptionId) await saveSubscription(db, await retrieveSubscription(subscriptionId), p.user_id);
+
+  // Marked completed last: if a step above fails, the 500 makes Stripe send the event again and every
+  // step runs again (each is safe to repeat).
   const { error } = await db
     .from("aqueous_purchases")
     .update({ status: "completed", stripe_payment_intent_id: str(obj.payment_intent) })
     .eq("id", p.id);
   if (error) throw new Error(error.message);
-
-  const email = str(meta.customer_email) ?? str((obj.customer_details as Record<string, unknown> | undefined)?.email);
-  const credit = Number(p.credit_applied);
-  if (credit > 0 && email) {
-    await db.from("aqueous_referral_credits").insert({ email, amount: -credit, reason: "checkout", purchase_id: p.id });
-  }
-
-  const customerId = str(obj.customer);
-  if (customerId && UUID.test(p.user_id)) {
-    await db.from("aqueous_stripe_customers").upsert({ user_id: p.user_id, stripe_customer_id: customerId }, { onConflict: "user_id" });
-  }
-  const subscriptionId = str(obj.subscription);
-  if (subscriptionId) await saveSubscription(db, await retrieveSubscription(subscriptionId), p.user_id);
 
   const isPlan = p.product_type === "subscription";
   await sendEmail(
@@ -116,7 +118,19 @@ export async function POST(request: NextRequest) {
         break;
       case "checkout.session.expired": {
         const sessionId = str(obj.id);
-        if (sessionId) await db.from("aqueous_purchases").update({ status: "expired" }).eq("stripe_session_id", sessionId).eq("status", "pending");
+        if (!sessionId) break;
+        const { data: expired } = await db
+          .from("aqueous_purchases")
+          .update({ status: "expired" })
+          .eq("stripe_session_id", sessionId)
+          .eq("status", "pending")
+          .select("id");
+        // Give back any referral credit this unpaid checkout was holding.
+        const ids = ((expired ?? []) as { id: number }[]).map((r) => r.id);
+        if (ids.length) {
+          const { error } = await db.from("aqueous_referral_credits").delete().in("purchase_id", ids).eq("reason", "checkout");
+          if (error) throw new Error(error.message);
+        }
         break;
       }
       case "customer.subscription.created":

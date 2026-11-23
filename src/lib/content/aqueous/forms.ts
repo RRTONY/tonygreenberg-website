@@ -11,7 +11,7 @@ export const claimSchema = Yup.object({
 export type ClaimValues = Yup.InferType<typeof claimSchema>;
 
 export const projectSchema = Yup.object({
-  name: Yup.string().trim().min(1).max(255).required("Please enter a project name."),
+  name: Yup.string().trim().min(1, "Please enter a project name.").max(255).required("Please enter a project name."),
   url: Yup.string()
     .trim()
     .max(500)

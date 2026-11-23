@@ -335,15 +335,18 @@
     opacity: 0;
   }
 }
-/* GemSpark: animate={{ y: [0, 8, 0] }}, 2s, repeat. */
-.aqueous-root .aq-bob {
-  animation: aq-bob 2s ease-in-out infinite;
-}
-.aqueous-root .aq-sway {
-  animation: aq-sway 4s ease-in-out infinite;
-}
-.aqueous-root .aq-ripple {
-  animation: aq-ripple 3s ease-out infinite both;
+/* In @layer components so Tailwind delay-* utilities can stagger them (the shorthand resets delay). */
+@layer components {
+  /* GemSpark: animate={{ y: [0, 8, 0] }}, 2s, repeat. */
+  .aqueous-root .aq-bob {
+    animation: aq-bob 2s ease-in-out infinite;
+  }
+  .aqueous-root .aq-sway {
+    animation: aq-sway 4s ease-in-out infinite;
+  }
+  .aqueous-root .aq-ripple {
+    animation: aq-ripple 3s ease-out infinite both;
+  }
 }
 /* TapWater's spinner (rotate 360, 1s, repeat) is Tailwind's animate-spin. */
 

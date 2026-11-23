@@ -81,7 +81,9 @@ export function AqueousNav() {
                 type="button"
                 aria-expanded={moreOpen}
                 aria-haspopup="true"
-                onClick={() => setMoreOpen((o) => !o)}
+                // Open only: hover/focus already opened it, so a toggle here closed it again on the same
+                // click or tap. It closes on mouse leave, focus leaving the menu, or Escape.
+                onClick={() => setMoreOpen(true)}
                 className={
                   aqueousMoreLinks.some((l) => isActive(l.href))
                     ? "flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-lg transition-colors text-primary"

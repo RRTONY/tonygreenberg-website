@@ -23,9 +23,10 @@ import { createAqueousCheckout, createAqueousCustomer } from "@/lib/content/aque
 // - A visitor who isn't signed in has no referral code (the app made a new, unusable code on every
 //   page load for them); members get one code each, credited to their email as before.
 // - One referral claim per email in total, not your own code, and a flood guard per code.
-// - Credit spent at checkout is taken off the balance (the app never deducted it).
+// - Credit used at checkout is held off the balance when the checkout starts and given back if it
+//   expires unpaid (the app never deducted it, so it could be spent again and again).
 // - A report needs a paid report purchase or the free report at 10 sign-ups (the app let any
-//   signed-in visitor generate the $20 report for free).
+//   signed-in visitor generate the $20 report for free); a failed report is retried, not replaced.
 
 const SITE = "https://tonygreenberg.com";
 const UNAVAILABLE = "This couldn't be done just now. Please try again in a minute.";
@@ -351,9 +352,21 @@ export async function startCheckout(productType: AqueousProductType, applyCredit
 
     const product = AQUEOUS_PRODUCTS[productType];
     let creditCents = 0;
-    if (applyCredit && product.mode === "payment") {
-      const credit = await creditFor(db, user.email);
-      creditCents = Math.max(0, Math.min(Math.round(credit * 100), product.priceInCents - 50)); // Stripe min $0.50
+    if (applyCredit && product.mode === "payment" && user.email) {
+      // Credit already held by another unfinished checkout isn't offered again (it's off the balance
+      // while held; see the hold below), and only one credit checkout may be open at a time.
+      const holdSince = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+      const { count: openWithCredit } = await db
+        .from("aqueous_purchases")
+        .select("id", { count: "exact", head: true })
+        .eq("user_id", user.id)
+        .eq("status", "pending")
+        .gt("credit_applied", 0)
+        .gte("created_at", holdSince);
+      if ((openWithCredit ?? 0) === 0) {
+        const credit = await creditFor(db, user.email);
+        creditCents = Math.max(0, Math.min(Math.round(credit * 100), product.priceInCents - 50)); // Stripe min $0.50
+      }
     }
 
     const session = await createAqueousCheckout({
@@ -364,14 +377,29 @@ export async function startCheckout(productType: AqueousProductType, applyCredit
       origin: await origin(),
       creditCents,
     });
-    const { error } = await db.from("aqueous_purchases").insert({
-      user_id: user.id,
-      stripe_session_id: session.id,
-      product_type: productType,
-      status: "pending",
-      credit_applied: money(creditCents / 100),
-    });
-    if (error) return fail("startCheckout record", error.message);
+    const { data: purchase, error } = await db
+      .from("aqueous_purchases")
+      .insert({
+        user_id: user.id,
+        stripe_session_id: session.id,
+        product_type: productType,
+        status: "pending",
+        credit_applied: money(creditCents / 100),
+      })
+      .select("id")
+      .single();
+    if (error || !purchase) return fail("startCheckout record", error?.message ?? "no row");
+    if (creditCents > 0) {
+      // Hold the credit now (a negative ledger row tied to this purchase), so it can't be spent twice.
+      // The webhook gives it back if the checkout expires unpaid.
+      const { error: holdError } = await db.from("aqueous_referral_credits").insert({
+        email: user.email,
+        amount: -(creditCents / 100),
+        reason: "checkout",
+        purchase_id: (purchase as { id: number }).id,
+      });
+      if (holdError) return fail("startCheckout hold", holdError.message);
+    }
     return { ok: true, data: { url: session.url } };
   } catch (err) {
     return fail("startCheckout", err instanceof Error ? err.message : String(err));
@@ -463,6 +491,26 @@ export async function createReport(waterProfile?: Record<string, number> | null)
             .slice(0, 20),
         )
       : null;
+  // A report that failed (closed tab, model error) is started again rather than adding a new one,
+  // so one allowance can't end up as two reports (failed reports don't count as made).
+  const { data: failed } = await db
+    .from("aqueous_reports")
+    .select("id")
+    .eq("user_id", user.id)
+    .eq("status", "failed")
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+  if (failed) {
+    const failedId = (failed as { id: number }).id;
+    const { error: resetError } = await db
+      .from("aqueous_reports")
+      .update({ status: "pending", water_profile: profile, report_content: null, updated_at: new Date().toISOString() })
+      .eq("id", failedId)
+      .eq("status", "failed");
+    if (resetError) return fail("createReport reset", resetError.message);
+    return { ok: true, data: { reportId: failedId } };
+  }
   const { data: purchase } = await db
     .from("aqueous_purchases")
     .select("id")

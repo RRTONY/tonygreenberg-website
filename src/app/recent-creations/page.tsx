@@ -104,6 +104,8 @@ const PROJECTS: Project[] = [
   {
     title: "Aqueous",
     tagline: "Know what flows through your life.",
+    // Rebuilt from its Manus app at /aqueous (2026-11-24).
+    url: "/aqueous",
     description: "The world's first personalized water rating. The AWI scores every bottled water on Quality, Purity, and Resonance — weighted to your priorities. Tap water lookup, Wall of Shame, and a filter guide that actually helps.",
     category: "Water Intelligence",
     accent: "#0369A1",
