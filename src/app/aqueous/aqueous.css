@@ -1,0 +1,371 @@
+/*
+ * Aqueous stylesheet, ported from the Aqueous Manus app's client/src/index.css (exported 2026-11-24),
+ * same approach as liquidsun.css / soulsmoke.css: every selector is scoped under .aqueous-root (the
+ * /aqueous layout's wrapper), the app's :root colors became the shadcn tokens on the wrapper so
+ * bg-background, text-primary, border-border etc. show Aqueous's palette inside this section only,
+ * and keyframes are prefixed aq-. The app was light-only (ThemeProvider defaultTheme="light", not
+ * switchable), so its unused .dark block isn't carried over and the section stays light even when the
+ * main site is in dark mode. Fonts come from next/font (src/lib/fonts/aqueous-fonts.ts).
+ * Its custom colors (teal, aquamarine, sand, copper, cream) are used as literal oklch values in the
+ * few places pages used them, rather than new site-wide tokens (globals.css already has a `cream`).
+ */
+.aqueous-root {
+  --radius: 0.75rem;
+  --background: oklch(0.97 0.005 80);
+  --foreground: oklch(0.2 0.02 180);
+  --card: oklch(0.99 0.003 80);
+  --card-foreground: oklch(0.2 0.02 180);
+  --popover: oklch(0.99 0.003 80);
+  --popover-foreground: oklch(0.2 0.02 180);
+  --primary: oklch(0.35 0.06 180);
+  --primary-foreground: oklch(0.97 0.005 80);
+  --secondary: oklch(0.82 0.04 80);
+  --secondary-foreground: oklch(0.25 0.03 180);
+  --muted: oklch(0.93 0.01 80);
+  --muted-foreground: oklch(0.5 0.02 180);
+  --accent: oklch(0.78 0.12 175);
+  --accent-foreground: oklch(0.15 0.04 180);
+  --destructive: oklch(0.55 0.22 25);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.9 0.01 80);
+  --input: oklch(0.9 0.01 80);
+  --ring: oklch(0.55 0.1 175);
+  --chart-1: oklch(0.78 0.12 175);
+  --chart-2: oklch(0.6 0.12 55);
+  --chart-3: oklch(0.35 0.06 180);
+  --chart-4: oklch(0.82 0.04 80);
+  --chart-5: oklch(0.55 0.22 25);
+  color-scheme: light;
+}
+
+@layer base {
+  .aqueous-root *,
+  .aqueous-root *::before,
+  .aqueous-root *::after {
+    border-color: var(--border);
+    outline-color: color-mix(in oklab, var(--ring) 50%, transparent);
+  }
+
+  /* The app's body: bg-background text-foreground, DM Sans. */
+  .aqueous-root {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-aq-dm-sans), "DM Sans", system-ui, -apple-system, sans-serif;
+  }
+
+  .aqueous-root h1,
+  .aqueous-root h2,
+  .aqueous-root h3,
+  .aqueous-root h4,
+  .aqueous-root h5,
+  .aqueous-root h6 {
+    font-family: var(--font-aq-cormorant), "Cormorant Garamond", Georgia, serif;
+  }
+
+  .aqueous-root img {
+    -webkit-user-drag: none;
+  }
+}
+
+@layer components {
+  /* The app's own .container (wider padding steps, 1280px cap). */
+  .aqueous-root .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .aqueous-root .container {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .aqueous-root .container {
+      padding-left: 2rem;
+      padding-right: 2rem;
+      max-width: 1280px;
+    }
+  }
+
+  /* Logo/heading face where the app wrote style={{ fontFamily: "'Cormorant Garamond', serif" }}. */
+  .aqueous-root .font-aq-display {
+    font-family: var(--font-aq-cormorant), "Cormorant Garamond", Georgia, serif;
+  }
+
+  /* Frosted glass card */
+  .aqueous-root .glass-card {
+    background: oklch(0.99 0.003 80 / 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid oklch(0.9 0.01 80 / 0.5);
+    box-shadow: 0 4px 24px oklch(0.35 0.06 180 / 0.06);
+  }
+
+  /* Hexagonal badge for QPR scores */
+  .aqueous-root .hex-badge {
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  }
+
+  /* Wave divider */
+  .aqueous-root .wave-divider {
+    position: relative;
+    overflow: hidden;
+  }
+  .aqueous-root .wave-divider::after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: var(--background);
+    clip-path: ellipse(60% 100% at 50% 100%);
+  }
+
+  /* Glitch on hover */
+  .aqueous-root .glitch-hover {
+    position: relative;
+    overflow: hidden;
+  }
+  .aqueous-root .glitch-hover::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: inherit;
+    opacity: 0;
+    mix-blend-mode: screen;
+    transition: opacity 0.3s ease;
+  }
+  .aqueous-root .glitch-hover:hover::after {
+    opacity: 0.15;
+    animation: aq-glitch-shift 0.4s steps(4) 1;
+  }
+
+  /* Subtle scan lines overlay for images */
+  .aqueous-root .scan-lines {
+    position: relative;
+  }
+  .aqueous-root .scan-lines::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, oklch(0 0 0 / 0.02) 2px, oklch(0 0 0 / 0.02) 4px);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Sacred geometry pattern */
+  .aqueous-root .sacred-geo-bg {
+    position: relative;
+  }
+  .aqueous-root .sacred-geo-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.03;
+    background-image:
+      radial-gradient(circle at 25% 25%, oklch(0.35 0.06 180) 1px, transparent 1px),
+      radial-gradient(circle at 75% 75%, oklch(0.78 0.12 175) 1px, transparent 1px),
+      radial-gradient(circle at 50% 50%, oklch(0.6 0.12 55) 0.5px, transparent 0.5px);
+    background-size:
+      60px 60px,
+      60px 60px,
+      30px 30px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Dynamic movement */
+  .aqueous-root .float-gentle {
+    animation: aq-float-gentle 6s ease-in-out infinite;
+  }
+  .aqueous-root .pulse-glow {
+    animation: aq-pulse-glow 4s ease-in-out infinite;
+  }
+  .aqueous-root .drift-horizontal {
+    animation: aq-drift-horizontal 8s ease-in-out infinite;
+  }
+
+  /* Grain texture overlay */
+  .aqueous-root .grain-overlay {
+    position: relative;
+  }
+  .aqueous-root .grain-overlay::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .aqueous-root .ripple-on-click {
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Typography */
+  .aqueous-root .text-gradient-water {
+    background: linear-gradient(135deg, #0a8754, #4ecdc4, #b87333);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Monospace accent for data/numbers */
+  .aqueous-root .font-data {
+    font-family: var(--font-aq-mono), "JetBrains Mono", "SF Mono", monospace;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+  }
+
+  /* Custom scrollbar for scroll boxes inside the section */
+  .aqueous-root ::-webkit-scrollbar {
+    width: 6px;
+  }
+  .aqueous-root ::-webkit-scrollbar-track {
+    background: oklch(0.93 0.01 80);
+  }
+  .aqueous-root ::-webkit-scrollbar-thumb {
+    background: oklch(0.7 0.04 180);
+    border-radius: 3px;
+  }
+  .aqueous-root ::-webkit-scrollbar-thumb:hover {
+    background: oklch(0.55 0.06 180);
+  }
+}
+
+@keyframes aq-glitch-shift {
+  0%,
+  100% {
+    clip-path: inset(0 0 0 0);
+    transform: translate(0);
+  }
+  20% {
+    clip-path: inset(20% 0 60% 0);
+    transform: translate(-2px, 1px);
+  }
+  40% {
+    clip-path: inset(60% 0 10% 0);
+    transform: translate(2px, -1px);
+  }
+  60% {
+    clip-path: inset(40% 0 30% 0);
+    transform: translate(-1px, 2px);
+  }
+  80% {
+    clip-path: inset(10% 0 70% 0);
+    transform: translate(1px, -2px);
+  }
+}
+
+@keyframes aq-float-gentle {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes aq-pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 oklch(0.78 0.12 175 / 0.2);
+  }
+  50% {
+    box-shadow: 0 0 20px 4px oklch(0.78 0.12 175 / 0.1);
+  }
+}
+
+@keyframes aq-drift-horizontal {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(6px);
+  }
+}
+
+/* framer-motion's infinite loops (animate={{ ... }} with repeat: Infinity) recreated as classes, so
+   pages keep the app's motion without the library. Durations match the app's transition values. */
+@keyframes aq-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+}
+/* GemSpark: animate={{ rotate: [0, 5, -5, 0] }}, 4s easeInOut, repeat. */
+@keyframes aq-sway {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  33% {
+    transform: rotate(5deg);
+  }
+  66% {
+    transform: rotate(-5deg);
+  }
+}
+/* NotFound ripples: animate={{ scale: [1, 1.5, 2], opacity: [0.4, 0.2, 0] }}, 3s easeOut, repeat
+   (staggered with animation-delay classes delay-1000 / delay-2000 on the page). */
+@keyframes aq-ripple {
+  0% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.2;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+/* GemSpark: animate={{ y: [0, 8, 0] }}, 2s, repeat. */
+.aqueous-root .aq-bob {
+  animation: aq-bob 2s ease-in-out infinite;
+}
+.aqueous-root .aq-sway {
+  animation: aq-sway 4s ease-in-out infinite;
+}
+.aqueous-root .aq-ripple {
+  animation: aq-ripple 3s ease-out infinite both;
+}
+/* TapWater's spinner (rotate 360, 1s, repeat) is Tailwind's animate-spin. */
+
+/* The app's print block (body hidden, a note instead): content protection. */
+@media print {
+  .aqueous-root {
+    display: none !important;
+  }
+}
+
+/* Smooth in-page scrolling (the app set it on html; here only while the section is on screen). */
+html:has(.aqueous-root) {
+  scroll-behavior: smooth;
+}
+
+/* "Reduce motion": stop the section's looping and entrance animations. */
+@media (prefers-reduced-motion: reduce) {
+  .aqueous-root *,
+  .aqueous-root *::before,
+  .aqueous-root *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
