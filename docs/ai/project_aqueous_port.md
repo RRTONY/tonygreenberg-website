@@ -33,7 +33,7 @@ follows). Ported 2026-11-24 on branch `feat/aqueous`.
 The app's 4 photos (hero, water drops, lab, spring) were **already deleted on Manus** (HTTP 403 "Unknown Key";
 the live Manus site showed them broken too). The webmaster chose free Unsplash stand-ins on the same subjects
 (ids in `images.ts`), uploaded to Sanity; Tony can swap the originals in. The 7 bottle photos the app
-hot-linked from Unsplash are in Sanity too (`water-data.ts`). The app's icons are replaced by the site's.
+hot-linked from Unsplash are in Sanity too (`water-data.ts`). The app's own water-drop icons (192px and the 180px phone icon) are `src/app/aqueous/icon.png` and `apple-icon.png`, copied once from Manus (2026-11-24), so /aqueous pages show them.
 
 ## Changed on purpose (rule 20 and security)
 
