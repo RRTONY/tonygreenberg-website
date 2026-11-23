@@ -13,7 +13,55 @@
 - UI: Tailwind CSS v4 + shadcn/ui (Radix base) — same design-system convention the team already uses elsewhere. `next/image` for all images. No framer-motion — CSS transitions / `tailwindcss-animate` only.
 
 
-## Current status — 2026-11-13
+## Current status — 2026-11-24
+
+**Aqueous rebuilt at /aqueous (2026-11-24, branch `feat/aqueous`):** Tony's water guide, ported from its Manus export
+(`aqwaterqpr-wvzsc3ph.manus.space`) the same way as LiquidSun. Notes: `docs/ai/project_aqueous_port.md`.
+- [x] All 21 routes of the app at `/aqueous/*` (own header/footer, same copy, look and animations; every framer-motion
+  effect in CSS), 8 water pages static. Manus login/AI/storage removed; "The Way Out" (Manus only) and fauxTony links removed.
+- [x] Photos: the app's 4 were already deleted on Manus; Unsplash stand-ins + 7 bottle photos in Sanity.
+- [x] Referrals, projects, Stripe checkout ($20 report, $5/month) + webhook, AI reports via Claude (streamed), Formik + Yup
+  forms re-checked on the server. Fixed from the app: free $20 reports, unlimited credit reuse, throwaway referral codes.
+- [x] Linked: Recent Creations card, sitemap (16 pages + 8 waters), site search, llms.txt.
+- [x] Checked: typecheck, lint, tests (341 Aqueous + changed-file suite), build (all static but the report page), fresh
+  server (status codes, 404s), browser at 375 / 820 / 1280 on all 20 pages (no errors, no sideways scroll, no broken images).
+- [ ] **Owner:** apply `supabase/migrations/0010_aqueous.sql`; Stripe endpoint + `AQUEOUS_STRIPE_WEBHOOK_SECRET` in Netlify;
+  live keys + pricing OK; payment-success wording; Tony's original photos.
+
+## Previous status — 2026-11-21
+
+**LiquidSun rebuilt at /liquid-sun (2026-11-21, branch `feat/liquidsun`, not pushed or merged):** Tony's tequila
+guide, ported from its Manus export (`tequilaazul-fxqrr3js.manus.space`) the same way as SoulSmoke. Notes:
+`docs/ai/project_liquidsun_port.md`.
+- [x] All 32 pages of the app at `/liquid-sun/*` (own header, EN/ES menu, same copy and style), every framer-motion
+  effect redone in CSS at the same timings (off under "reduce motion"), sound button with the wind/grind tracks.
+- [x] 23 images/sounds rescued from Manus into Sanity (`docs/ai/manus-media-rescue.md`); 13 files the code named never
+  existed on live. No Manus URL left in code or build.
+- [x] Every form on Formik + Yup, re-checked on the server. The Log and partner inquiries save to Supabase for
+  signed-in members (`0009_liquidsun.sql`, applied through the Management API, RLS on, no policies). Buy links and
+  panel scores stay behind a free sign-in, as on the app. Partner inquiries email Tony.
+- [x] Premium: real Stripe checkout ($9.99/mo, $79.99/yr) over Stripe's REST API (no new package), customer portal,
+  signed webhook at `/api/liquid-sun/stripe-webhook` recording status in Supabase. Tested in Stripe TEST mode end to
+  end (both checkout links, a test subscription, webhook, Premium unlock, portal, cancel); test data removed.
+- [x] Bottle Scanner reads labels for real (Anthropic); the app faked it. Pilgrimage map on OpenStreetMap.
+- [x] SEO: per-page title/description from the page, canonical, OG/Twitter with the page's own hero, author/copyright,
+  JSON-LD on every page (bottle/place lists on Home, The Tequilas, Flavor Matrix, US Hunt, Jalisco Source); own icon.
+- [x] Linked from the site: main menu ("Find Your Tequila"), Spirits and Recent Creations cards, Living Declaration,
+  sitemap (30 pages; Speakeasy and the checkout return page are noindex), search, llms.txt; `/liquidsun/*` 308s.
+  Sanity has no old LiquidSun links (all 203 documents checked, read-only).
+- [x] Checked: typecheck, lint, tests (every new file 90%+ lines), build (all 32 pages static), fresh server (32 x 200
+  with H1, unknown 404, redirects), browser at 375 and 1440 (no errors, no sideways scroll, no broken images).
+- [ ] **Owner:** live Stripe keys + pricing approval to take payments (steps in the port note); add the Netlify env
+  vars `STRIPE_SECRET_KEY`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`, `STRIPE_WEBHOOK_SECRET` (test keys for the
+  preview) and create the Stripe webhook endpoint.
+- [ ] **Owner:** decide on the app's inert/sample bits kept as they were: "Live" activity ticker (fixed sample lines),
+  Flavor Matrix "Notify Me" (says it will text, nothing is sent), "Submit a Sinner", "Download for Instagram", Trade
+  Board/Voices/Squad Riders buttons; partner page stats ("50K+ monthly visitors") and Premium feature claims.
+- [ ] Review and merge the `feat/liquidsun` pull request (not opened yet).
+
+**Next up:** owner decisions above; sake guide, Aqueous, Find My Stem Cells when their exports arrive.
+
+## Previous status — 2026-11-13
 
 **Domain outage + full site check (2026-11-13, branch `fix/soulsmoke-discovery-buy-links`):**
 tonygreenberg.com's `@`/`www` DNS had been switched back to Hostinger after the 2026-11-04 go-live, so
@@ -1125,7 +1173,7 @@ Every image below needs to exist as a real asset uploaded to Sanity (or explicit
 ## Explicitly deferred to a later, separate phase (not in this migration pass)
 
 - Admin dashboards (`/admin/*`, `/analytics`, `/pri-research` — no admin-auth system exists yet and its data source, `trpc.priCalibration.*`, was never built either)
-- Stripe billing (`/shop`, `/subscribe` full checkout flow — Phase 4 ports these as static/informational only)
+- Stripe billing (`/shop`, `/subscribe` full checkout flow — Phase 4 ports these as static/informational only). (LiquidSun Premium at /liquid-sun/premium has real Stripe checkout since 2026-11-21; /shop and /subscribe are still deferred.)
 - Spam-tracking system (`/youve-been-reported`, `/spamtoast`, admin spam tooling)
 - Supplier/vendor intake backend wiring (Phase 4 ports the form UI only, keeps pointing at legacy backend)
 - **MCP content-editing server for this project** — the user wants an MCP server for tonyg-site similar to the existing "claude.ai Ramprate - Admin" MCP server (`~/Desktop/ramprate-ui`), which lets Claude edit that site's code and Sanity content directly (github read/write, Sanity query/create/patch, analytics/PR/code-quality checks) instead of a hand-built in-app admin page. Explicitly deferred — not started — until the current PRI migration (Phase 7) is further along; revisit as its own dedicated task then.

@@ -80,7 +80,7 @@ describe("sitemap.xml", () => {
     const redirected = new Set([...config.matchAll(/source:\s*"(\/[^":*]*)"/g)].map((m) => m[1]));
     const fixed = (await sitemap())
       .map((e) => e.url.slice(SITE.length) || "/")
-      .filter((p) => p !== "/" && !/^\/(blog\/|blog\/category\/|brewsoul\/(coffee|cities)\/|charity-scorecard\/)./.test(p));
+      .filter((p) => p !== "/" && !/^\/(blog\/|blog\/category\/|brewsoul\/(coffee|cities)\/|charity-scorecard\/|aqueous\/water\/)./.test(p));
     const problems: string[] = [];
     for (const route of fixed) {
       const file = pages.get(route);
@@ -96,6 +96,18 @@ describe("sitemap.xml", () => {
     expect(problems).toEqual([]);
   });
 
+  it("lists each Aqueous water page once, for a real water, plus the Aqueous pages (not the dashboard or checkout return)", async () => {
+    withData();
+    const { bottledWaters } = await import("@/lib/content/aqueous/water-data");
+    const urls = (await sitemap()).map((e) => e.url.slice(SITE.length));
+    const waterPages = urls.filter((u) => u.startsWith("/aqueous/water/"));
+    expect(waterPages.sort()).toEqual(bottledWaters.map((w) => `/aqueous/water/${w.id}`).sort());
+    expect(urls).toContain("/aqueous");
+    expect(urls).toContain("/aqueous/tap-water");
+    expect(urls).not.toContain("/aqueous/dashboard");
+    expect(urls).not.toContain("/aqueous/payment/success");
+  });
+
   it("leaves out the account pages, Studio and member-only pages", async () => {
     withData();
     const urls = (await sitemap()).map((e) => e.url.slice(SITE.length));
@@ -108,5 +120,15 @@ describe("sitemap.xml", () => {
     withData([{ slug: null, postCount: 10 }]);
     await expect(sitemap()).resolves.toBeInstanceOf(Array);
     expect((await sitemap()).some((e) => /\/blog\/category\/(undefined|null)?$/.test(e.url))).toBe(false);
+  });
+
+  it("lists every LiquidSun page except the checkout return and the hidden Speakeasy", async () => {
+    withData();
+    const urls = (await sitemap()).map((e) => e.url);
+    for (const p of ["", "/altar", "/quadrant", "/tasting-journal", "/premium", "/partner"]) {
+      expect(urls).toContain(`${SITE}/liquid-sun${p}`);
+    }
+    expect(urls).not.toContain(`${SITE}/liquid-sun/premium/success`);
+    expect(urls).not.toContain(`${SITE}/liquid-sun/speakeasy`);
   });
 });

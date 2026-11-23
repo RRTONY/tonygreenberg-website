@@ -126,6 +126,8 @@ export const findYourMeGroups: { category: string; items: (NavLink & { badge?: s
     items: [
       // Legacy's first Taste & Ritual link went to SoulSmoke on Manus; it lives at /soul-smoke since 2026-11-10.
       { href: "/soul-smoke", label: "Find Your Mezcal" },
+      // LiquidSun, Tony's tequila guide, rebuilt from Manus at /liquid-sun (2026-11-21).
+      { href: "/liquid-sun", label: "Find Your Tequila" },
       { href: "/find-your-sake", label: "Find Your Sake" },
       { href: "/find-your-coffee", label: "Find Your Coffee" },
       { href: "/brewsoul", label: "BrewSoul Intelligence" },

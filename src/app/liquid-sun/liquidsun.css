@@ -1,0 +1,265 @@
+/*
+ * LiquidSun stylesheet, ported from the LiquidSun Manus app's client/src/index.css (exported 2026-11-21),
+ * same approach as soulsmoke.css: every selector is scoped under .liquidsun-root (the /liquid-sun
+ * layout's wrapper), the app's :root colors became the shadcn tokens on the wrapper so bg-background,
+ * text-primary etc. show LiquidSun's palette inside this section only, and keyframes are prefixed ls-.
+ * The app's index.css had no keyframes of its own (its motion was framer-motion); the ls- keyframes
+ * below recreate the framer-motion effects that tw-animate-css can't (see components/liquidsun/motion.tsx).
+ * Fonts come from next/font (src/lib/fonts/liquidsun-fonts.ts) instead of the Google Fonts <link>.
+ */
+.liquidsun-root {
+  --primary: #d4af37;
+  --primary-foreground: #0f172a;
+  --background: #0f172a;
+  --foreground: #e2e8f0;
+  --card: #1e293b;
+  --card-foreground: #e2e8f0;
+  --popover: #1e293b;
+  --popover-foreground: #e2e8f0;
+  --secondary: #334155;
+  --secondary-foreground: #e2e8f0;
+  --muted: #334155;
+  --muted-foreground: #94a3b8;
+  --accent: #a0522d;
+  --accent-foreground: #ffffff;
+  --destructive: #7f1d1d;
+  --border: #334155;
+  --input: #334155;
+  --ring: #d4af37;
+  /* Brutalist: sharp corners (rounded-sm/md/lg = 0; xl/2xl/3xl fixed below). */
+  --radius: 0rem;
+  --chart-1: #d4af37;
+  --chart-2: #a0522d;
+  --chart-3: #2e8b57;
+  --chart-4: #4b0082;
+  --chart-5: #800000;
+}
+
+@layer base {
+  .liquidsun-root *,
+  .liquidsun-root *::before,
+  .liquidsun-root *::after {
+    border-color: var(--border);
+    outline-color: color-mix(in oklab, var(--ring) 50%, transparent);
+  }
+
+  /* The app's body: bg-background text-foreground font-body antialiased, gold selection. */
+  .liquidsun-root {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-ls-space-mono), "Space Mono", monospace;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .liquidsun-root ::selection {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+  }
+
+  .liquidsun-root h1,
+  .liquidsun-root h2,
+  .liquidsun-root h3,
+  .liquidsun-root h4,
+  .liquidsun-root h5,
+  .liquidsun-root h6 {
+    font-family: "Playfair Display", serif;
+    letter-spacing: 0.05em;
+  }
+
+  .liquidsun-root button:not(:disabled),
+  .liquidsun-root [role="button"]:not([aria-disabled="true"]),
+  .liquidsun-root a[href],
+  .liquidsun-root select:not(:disabled),
+  .liquidsun-root input[type="checkbox"]:not(:disabled),
+  .liquidsun-root input[type="radio"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+@layer components {
+  .liquidsun-root .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .liquidsun-root .flex {
+    min-height: 0;
+    min-width: 0;
+  }
+
+  @media (min-width: 640px) {
+    .liquidsun-root .container {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .liquidsun-root .container {
+      padding-left: 2rem;
+      padding-right: 2rem;
+      max-width: 1280px;
+    }
+  }
+
+  /* Custom utilities for "Mystical Brutalism" (the app's names). */
+  .liquidsun-root .text-glow {
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+  }
+
+  .liquidsun-root .border-glow {
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+  }
+
+  .liquidsun-root .glass-panel {
+    background-color: rgb(2 6 23 / 0.3);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgb(255 255 255 / 0.1);
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  }
+
+  .liquidsun-root .glass-panel-hover {
+    transition: all 500ms;
+  }
+
+  .liquidsun-root .glass-panel-hover:hover {
+    background-color: rgb(2 6 23 / 0.5);
+    border-color: rgb(245 158 11 / 0.4);
+  }
+
+  .liquidsun-root .grain-overlay {
+    position: relative;
+  }
+
+  .liquidsun-root .grain-overlay::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  /* transparenttextures.com "stardust" tile, rescued to Sanity (LIQUIDSUN_STARDUST_URL). */
+  .liquidsun-root .ls-stardust {
+    background-image: url("https://cdn.sanity.io/images/a3q1cyqs/production/ca610b5c7628a6e6aed384ebb744a5d1e4fc466c-798x798.png");
+  }
+}
+
+/* Font utilities as the app's Tailwind defined them (its own font-display, Tailwind's default
+   sans/serif/mono stacks), scoped and unlayered like soulsmoke.css so the main site's font
+   tokens don't leak in. */
+.liquidsun-root .font-display {
+  font-family: "Playfair Display", serif;
+}
+.liquidsun-root .font-serif {
+  font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+}
+.liquidsun-root .font-sans {
+  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+.liquidsun-root .font-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+/* The app's radius scale with --radius: 0 (its theme only tied sm..xl to --radius; 2xl and 3xl
+   kept Tailwind's fixed sizes). The main site ties every size to --radius, so restore them here. */
+@layer utilities {
+  .liquidsun-root .rounded-xl {
+    border-radius: 4px;
+  }
+  .liquidsun-root .rounded-2xl {
+    border-radius: 1rem;
+  }
+  .liquidsun-root .rounded-3xl {
+    border-radius: 1.5rem;
+  }
+}
+
+/* framer-motion effects recreated as keyframes (timings from the app's transition props). */
+
+/* Home "Est. 2026" line: opacity 0 -> 1 and letter-spacing 0.5em -> 0.2em over 1.5s, easeOut. */
+@keyframes ls-tracking-in {
+  from {
+    opacity: 0;
+    letter-spacing: 0.5em;
+  }
+  to {
+    opacity: 1;
+    letter-spacing: 0.2em;
+  }
+}
+.liquidsun-root .ls-tracking-in {
+  animation: ls-tracking-in 1.5s ease-out both;
+}
+
+/* Home scroll arrow: fades in after 2s, then y 0 -> 10px -> 0 every 2s, forever. */
+@keyframes ls-bob {
+  0%,
+  100% {
+    transform: translate(-50%, 0);
+  }
+  50% {
+    transform: translate(-50%, 10px);
+  }
+}
+@keyframes ls-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.liquidsun-root .ls-bob {
+  animation:
+    ls-fade 2s ease 2s both,
+    ls-bob 2s ease-in-out 2s infinite;
+}
+
+/* Bottle Scanner beam: top 0% -> 100% -> 0% every 2s, linear. */
+@keyframes ls-scan-beam {
+  0%,
+  100% {
+    top: 0%;
+  }
+  50% {
+    top: 100%;
+  }
+}
+.liquidsun-root .ls-scan-beam {
+  animation: ls-scan-beam 2s linear infinite;
+}
+
+/* Bottle Scanner grid cells: opacity 0 -> 0.5 -> 0 every 0.5s, each with its own random delay. */
+@keyframes ls-cell-flicker {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+.liquidsun-root .ls-cell-flicker {
+  animation: ls-cell-flicker 0.5s ease-in-out infinite both;
+}
+
+/* Respect "reduce motion": every LiquidSun animation and transition settles at once, scroll
+   and mouse effects stay still (motion.tsx checks the same setting), sound stays opt-in. */
+@media (prefers-reduced-motion: reduce) {
+  .liquidsun-root *,
+  .liquidsun-root *::before,
+  .liquidsun-root *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+}

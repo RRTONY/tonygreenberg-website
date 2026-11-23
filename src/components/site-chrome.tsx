@@ -18,7 +18,9 @@ import { usePathname } from "next/navigation";
 // screen an AI app opens mid-connection, not part of the site.
 // /soul-smoke is the SoulSmoke mezcal guide (app/soul-smoke/layout.tsx), its own sub-site.
 // /gem-spark is The GemSpark story (app/gem-spark), a standalone page like it was on Manus.
-const SUPPRESSED_PREFIXES = ["/brewsoul", "/attention-theft", "/kava", "/humanos", "/oauth", "/soul-smoke", "/gem-spark"];
+// /liquid-sun is the LiquidSun tequila guide (app/liquid-sun/layout.tsx), its own sub-site (2026-11-21).
+// /aqueous is the Aqueous water guide (app/aqueous/layout.tsx), its own sub-site (2026-11-24).
+const SUPPRESSED_PREFIXES = ["/brewsoul", "/attention-theft", "/kava", "/humanos", "/oauth", "/soul-smoke", "/gem-spark", "/liquid-sun", "/aqueous"];
 
 export function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();

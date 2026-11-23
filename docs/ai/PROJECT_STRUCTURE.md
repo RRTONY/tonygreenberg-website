@@ -37,6 +37,16 @@ how to handle a request is in [`TASK_GUIDE.md`](TASK_GUIDE.md). Last checked 202
 - **SoulSmoke (`/soul-smoke/*`, the mezcal guide):** in code, `src/components/soulsmoke/pages/` + data in
   `src/lib/content/soulsmoke/` (images in Sanity, map in `images.ts`). Own header and styles
   (`src/app/soul-smoke/layout.tsx`, `soulsmoke.css`). See `docs/ai/project_soulsmoke_port.md`.
+- **LiquidSun (`/liquid-sun/*`, the tequila guide, 2026-11-21):** in code, `src/components/liquidsun/pages/` + data in
+  `src/lib/content/liquidsun/` (images in Sanity, map in `images.ts`). Own header and styles
+  (`src/app/liquid-sun/layout.tsx`, `liquidsun.css`), server actions `src/app/liquid-sun/actions.ts`, Premium on
+  Stripe (`src/lib/stripe.ts`, webhook `src/app/api/liquid-sun/stripe-webhook`), tables `0009_liquidsun.sql`.
+- **Aqueous (`/aqueous/*`, the water guide, 2026-11-24):** in code, `src/components/aqueous/pages/` + data in
+  `src/lib/content/aqueous/` (images in Sanity, map in `images.ts`). Own header and styles
+  (`src/app/aqueous/layout.tsx`, `aqueous.css`), server actions `src/app/aqueous/actions.ts`, checkout on Stripe
+  (`aqueous-stripe.ts`, webhook `src/app/api/aqueous/stripe-webhook`), AI reports `src/app/api/aqueous/reports/[id]/generate`,
+  tables `0010_aqueous.sql`. Notes: `docs/ai/project_aqueous_port.md`.
+  See `docs/ai/project_liquidsun_port.md`.
 - **Marketing, assessment, BrewSoul, PRI, Kava, peptide pages:** in code, in the route's
   `page.tsx`, its component under `src/components/`, and/or a data module in `src/lib/content/`.
 - **Blog posts (`/blog/[slug]`, `/blog/category/[slug]`, `/essays`):** Sanity `post` documents.
