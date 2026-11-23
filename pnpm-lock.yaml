@@ -3034,10 +3034,6 @@ packages:
   '@rtsao/scc@1.1.0':
     resolution: {integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==}
 
-  '@sanity-labs/design-tokens@0.0.2-alpha.10':
-    resolution: {integrity: sha512-ciJApVqAKAb5G1rESxxZvnPdwC0jpFjkJKVQJU9l1xiMoN25vXOLBirbTXSCrcfx55EFvlxlc2aKduO+bVVKag==}
-    engines: {node: '>=20.19 <22 || >=22.12'}
-
   '@sanity-labs/design-tokens@0.0.2-alpha.6':
     resolution: {integrity: sha512-4JMs6p0uUJjtU7hbHDZxCpx/4xEnbEpuBR/0vccE+BlOZYBZaH3MvV7+llV6+OYH5ANh3pvvMM+CEy5BPdf2KA==}
     engines: {node: '>=20.19 <22 || >=22.12'}
@@ -3296,8 +3292,8 @@ packages:
       react-dom: ^19.2
       styled-components: ^6.1
 
-  '@sanity/ui@5.0.0-alpha.22':
-    resolution: {integrity: sha512-qZS8WqrEIL6ynCExtiVVrO50ueSuWGAWToNNleHLE4pzTIs4mWOFickQ9ZJLUw/AnrsKJgMvcOGTAGzhMVU8ZA==}
+  '@sanity/ui@5.0.0-alpha.14':
+    resolution: {integrity: sha512-h+IdfVMoDpnwYxk1Z+RFal7yRKgukWHY3QQtf2P9dKTIFCSzKr4CIGyKuBfFFTe58cUBRMfHllRU2b/hlhHF6A==}
     engines: {node: '>=20.19 <22 || >=22.12'}
     hasBin: true
     peerDependencies:
@@ -11040,8 +11036,6 @@ snapshots:
 
   '@rtsao/scc@1.1.0': {}
 
-  '@sanity-labs/design-tokens@0.0.2-alpha.10': {}
-
   '@sanity-labs/design-tokens@0.0.2-alpha.6': {}
 
   '@sanity-labs/oclif-plugin-skills-flag@0.2.1(@oclif/core@4.14.0)':
@@ -11649,9 +11643,9 @@ snapshots:
       styled-components: 6.5.3(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       use-effect-event: 2.0.3(react@19.2.8)
 
-  '@sanity/ui@5.0.0-alpha.22(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
+  '@sanity/ui@5.0.0-alpha.14(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
     dependencies:
-      '@sanity-labs/design-tokens': 0.0.2-alpha.10
+      '@sanity-labs/design-tokens': 0.0.2-alpha.6
       '@sanity/icons': 5.2.1(react@19.2.8)
       clsx: 2.1.1
       comment-json: 5.0.0
@@ -15715,7 +15709,7 @@ snapshots:
       speakingurl: 14.0.1
       styled-components: 6.5.3(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       swr: 2.5.1(react@19.2.8)
-      ui5: '@sanity/ui@5.0.0-alpha.22(react-dom@19.2.8(react@19.2.8))(react@19.2.8)'
+      ui5: '@sanity/ui@5.0.0-alpha.14(react-dom@19.2.8(react@19.2.8))(react@19.2.8)'
       urlpattern-polyfill: 10.1.0
       use-device-pixel-ratio: 1.1.2(react@19.2.8)
       use-effect-event: 2.0.3(react@19.2.8)
