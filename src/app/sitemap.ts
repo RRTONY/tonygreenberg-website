@@ -10,6 +10,8 @@ import { soulsmokeRoutes, ss } from "@/lib/content/soulsmoke/nav";
 import { liquidsunRoutes, liquidsunUnlistedRoutes, ls } from "@/lib/content/liquidsun/nav";
 import { aq, aqueousRoutes, aqueousUnlistedRoutes } from "@/lib/content/aqueous/nav";
 import { bottledWaters } from "@/lib/content/aqueous/water-data";
+import { sakeDetailPath, sakeRoutes, sakeUnlistedRoutes, sk } from "@/lib/content/sake/nav";
+import { qprSakeDatabase } from "@/lib/content/sake/qpr-data";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tonygreenberg.com";
 
@@ -203,6 +205,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       })),
     ...bottledWaters.map((w) => ({
       url: `${siteUrl}${aq(`/water/${w.id}`)}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.5,
+    })),
+    // Sake for Sake's Sake, the sake guide (app/sake, 2026-11-26), one entry per page of its router
+    // plus each sake's detail page, minus the visitor's own lists and the two Terms duplicates.
+    ...sakeRoutes
+      .filter((path) => !(sakeUnlistedRoutes as readonly string[]).includes(path))
+      .map((path) => ({
+        url: `${siteUrl}${sk(path)}`,
+        changeFrequency: "monthly" as const,
+        priority: 0.6,
+      })),
+    ...qprSakeDatabase.map((sake) => ({
+      url: `${siteUrl}${sakeDetailPath(sake.id)}`,
       changeFrequency: "monthly" as const,
       priority: 0.5,
     })),

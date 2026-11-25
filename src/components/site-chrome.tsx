@@ -20,7 +20,8 @@ import { usePathname } from "next/navigation";
 // /gem-spark is The GemSpark story (app/gem-spark), a standalone page like it was on Manus.
 // /liquid-sun is the LiquidSun tequila guide (app/liquid-sun/layout.tsx), its own sub-site (2026-11-21).
 // /aqueous is the Aqueous water guide (app/aqueous/layout.tsx), its own sub-site (2026-11-24).
-const SUPPRESSED_PREFIXES = ["/brewsoul", "/attention-theft", "/kava", "/humanos", "/oauth", "/soul-smoke", "/gem-spark", "/liquid-sun", "/aqueous"];
+// /sake is Sake for Sake's Sake (app/sake/layout.tsx), its own sub-site (2026-11-26).
+const SUPPRESSED_PREFIXES = ["/brewsoul", "/attention-theft", "/kava", "/humanos", "/oauth", "/soul-smoke", "/gem-spark", "/liquid-sun", "/aqueous", "/sake"];
 
 export function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();

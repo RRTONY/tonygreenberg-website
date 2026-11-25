@@ -13,7 +13,37 @@
 - UI: Tailwind CSS v4 + shadcn/ui (Radix base) — same design-system convention the team already uses elsewhere. `next/image` for all images. No framer-motion — CSS transitions / `tailwindcss-animate` only.
 
 
-## Current status — 2026-11-24
+## Current status — 2026-11-26
+
+**Sake for Sake's Sake rebuilt at /sake (2026-11-26, branch `feat/sake`, pushed to `main` on the webmaster's
+request):** Tony's sake guide, ported from its Manus export (`~/Downloads/sake-for-sakes-sake`) the same way as
+Aqueous. Notes: `docs/ai/project_sake_port.md`.
+- [x] All 65 routes of the app at `/sake/*` (own header, phone bottom bar, footer; Kintsugi Noir and Austere looks,
+  EN/JP, Beginner/Connoisseur, favorites in the browser), every framer-motion effect in CSS, 96 sake pages at
+  `/sake/bottle/[id]`. Manus login/AI/storage/chat removed. Quizzes and the Ordering Guide as step registries.
+- [x] Favicon, phone icon and share card made from the app's gold 酒 logo (the app had none). SEO on every page:
+  title (menu name), description (the page's own intro), canonical, robots as the app had them, share card,
+  JSON-LD; sitemap (56 pages + 96 sakes; favorites, my reviews and the two Terms duplicates left out).
+- [x] Server: reviews, deal alerts, tracked sakes, orders and subscriptions (`0011_sake.sql`), Stripe checkout +
+  webhook (off until `SAKE_CHECKOUT_ENABLED=true`), Claude label scanner and menu analyzer. Fixed from the app:
+  client-set prices and names, unlimited upvotes, anyone recording prices, random "live" prices, unsigned webhooks.
+- [x] `/spirits` Sake card now links to `/sake` (there was no Manus Sake link anywhere in code or Sanity).
+- [x] Checked: typecheck, lint, full test suite (1,003 files), build (all /sake pages static), fresh server (60
+  pages + 96 sakes 200 with one H1, unknown 404), headless Chrome at 375 / 820 / 1280 / 2048 (no errors, no
+  sideways scroll, no broken images) and phone tap-throughs (menu, Austere/JP, quizzes, collection, bottom bar).
+  Fixed during checks: desktop menu cut off below ~2,000px (now the app's full menu below 2048px), nested `<main>`,
+  share image falling back to the site default.
+- [x] `supabase/migrations/0011_sake.sql` applied to the live database through the Management API (2026-11-26, on the
+  webmaster's yes): 9 empty `sake_` tables, RLS on, no policies; every column the code selects checked against them.
+- [ ] **Owner:** Stripe endpoint `/api/sake/stripe-webhook` + `SAKE_STRIPE_WEBHOOK_SECRET`; decide on selling sake by
+  mail (licences) before `SAKE_CHECKOUT_ENABLED=true`.
+- [ ] **Owner:** 16 pictures (15 deleted on Manus + the Taste Profile hero): stand-ins or originals into Sanity
+  (`src/lib/content/sake/images.ts`); until then the app's ink-wash gradient shows.
+- [ ] **Owner:** wording: "LIVE PRICES" (now a fixed estimate), "Ordering opens soon", the order success/cancel
+  notices, the Producers form now opening an email to Tony; producer applications have no saved store yet.
+- [ ] Optional: link /sake from Recent Creations, site search and llms.txt like Aqueous (new copy, owner's call).
+
+## Previous status — 2026-11-24
 
 **Aqueous rebuilt at /aqueous (2026-11-24, branch `feat/aqueous`):** Tony's water guide, ported from its Manus export
 (`aqwaterqpr-wvzsc3ph.manus.space`) the same way as LiquidSun. Notes: `docs/ai/project_aqueous_port.md`.
