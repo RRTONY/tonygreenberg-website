@@ -1,0 +1,525 @@
+/*
+ * Sake for Sake's Sake stylesheet, ported from the Sake Manus app's client/src/index.css (exported
+ * 2026-11-26), same approach as aqueous.css / liquidsun.css: every selector is scoped under
+ * .sake-root (the /sake layout's wrapper), the app's :root colors became the shadcn tokens on the
+ * wrapper so bg-background, text-primary, border-border etc. show the app's palette inside this
+ * section only, and keyframes are prefixed sk-.
+ *
+ * Two looks, as in the app:
+ * - Kintsugi Noir (default): deep indigo and gold. The app forced its dark theme
+ *   (ThemeProvider defaultTheme="dark", not switchable), so the section stays dark even when the
+ *   main site is in light mode.
+ * - Austere (枯山水, Karesansui): ink on washi paper, vermillion accent. The app toggled an
+ *   `austere` class on <html>; here the provider toggles `.sake-austere` on the wrapper.
+ *
+ * --sk-* variables are the colors the app picked in JS with `isAustere ? austere : kintsugi`
+ * (Navigation.tsx, GlobalFooter.tsx, AustereWrapper.tsx useAccentColor...). They switch with the
+ * look, so components use `text-(--sk-accent)` instead of an inline style.
+ *
+ * Fonts come from next/font (src/lib/fonts/sake-fonts.ts). `font-mono` and `font-serif` read
+ * --font-mono / --font-serif and `font-sans` reads --font-body (globals.css @theme inline), so they are pointed at the app's faces here; `font-sk-display` is the
+ * app's `font-[Cormorant_Garamond]` / `fontFamily: fontDisplay` (Cormorant, or Noto Sans JP in
+ * Austere), `font-sk-serif` is Cormorant in both looks, `font-sk-jp` is Noto Sans JP.
+ */
+.sake-root {
+  --radius: 0.5rem;
+  --background: oklch(0.1 0.02 270);
+  --foreground: oklch(0.95 0.01 85);
+  --card: oklch(0.2 0.025 270);
+  --card-foreground: oklch(0.95 0.01 85);
+  --popover: oklch(0.2 0.025 270);
+  --popover-foreground: oklch(0.95 0.01 85);
+  --primary: oklch(0.78 0.12 85);
+  --primary-foreground: oklch(0.1 0.02 270);
+  --secondary: oklch(0.25 0.025 270);
+  --secondary-foreground: oklch(0.9 0.01 85);
+  --muted: oklch(0.28 0.025 270);
+  --muted-foreground: oklch(0.72 0.015 85);
+  --accent: oklch(0.25 0.03 270);
+  --accent-foreground: oklch(0.95 0.01 85);
+  --destructive: oklch(0.5 0.2 25);
+  --destructive-foreground: oklch(0.96 0.01 85);
+  --border: oklch(0.35 0.04 270);
+  --input: oklch(0.25 0.025 270);
+  --ring: oklch(0.78 0.12 85);
+  --chart-1: oklch(0.78 0.12 85);
+  --chart-2: oklch(0.65 0.1 85);
+  --chart-3: oklch(0.55 0.08 85);
+  --chart-4: oklch(0.5 0.2 25);
+  --chart-5: oklch(0.4 0.06 270);
+
+  /* The JS-picked colors (Kintsugi values). */
+  --sk-accent: oklch(0.78 0.12 85);
+  --sk-accent-dim: oklch(0.65 0.1 85);
+  --sk-accent-bright: oklch(0.88 0.14 85);
+  --sk-accent-soft: oklch(0.78 0.12 85 / 0.08);
+  --sk-accent-wash: oklch(0.78 0.12 85 / 0.06);
+  --sk-accent-line: oklch(0.78 0.12 85 / 0.3);
+  --sk-accent-faint: oklch(0.78 0.12 85 / 0.2);
+  --sk-accent-gradient-from: oklch(0.78 0.12 85);
+  --sk-accent-gradient-to: oklch(0.65 0.15 60);
+  --sk-accent-shadow: oklch(0.78 0.12 85 / 0.3);
+  --sk-on-accent: oklch(0.1 0.02 270);
+  --sk-fg: oklch(0.95 0.01 85);
+  --sk-fg-soft: oklch(0.9 0.01 85);
+  --sk-fg-muted: oklch(0.75 0.015 85);
+  --sk-fg-dim: oklch(0.5 0.02 270);
+  --sk-fg-faint: oklch(0.45 0.02 270);
+  --sk-bg: oklch(0.12 0.025 270);
+  --sk-bg-card: oklch(0.16 0.03 270);
+  --sk-border: oklch(0.35 0.04 270);
+  --sk-border-soft: oklch(0.28 0.04 270);
+  --sk-nav-bg: oklch(0.1 0.02 270 / 0.92);
+  --sk-drop-bg: oklch(0.18 0.025 270);
+  --sk-mobile-bg: oklch(0.08 0.02 270);
+  --sk-bottom-bg: rgba(18, 16, 28, 0.97);
+  --sk-bottom-border: oklch(0.3 0.04 270);
+  --sk-bottom-muted: oklch(0.55 0.02 270);
+  --sk-share-bg: oklch(0.14 0.025 270);
+  --sk-share-text: oklch(0.85 0.01 85);
+  --sk-footer-border: oklch(0.78 0.12 85 / 0.1);
+  --sk-dot-off: oklch(0.5 0.02 270);
+
+  --font-body: var(--font-sk-noto), "Noto Sans", var(--font-sk-noto-jp), "Noto Sans JP", sans-serif;
+  --font-mono: var(--font-sk-mono), "JetBrains Mono", monospace;
+  --font-serif: var(--font-sk-cormorant), "Cormorant Garamond", Georgia, serif;
+  color-scheme: dark;
+}
+
+/* Austere (枯山水): the app's `.austere` block. */
+.sake-root.sake-austere {
+  --background: oklch(0.95 0.008 80);
+  --foreground: oklch(0.18 0.005 60);
+  --card: oklch(0.91 0.006 80);
+  --card-foreground: oklch(0.18 0.005 60);
+  --popover: oklch(0.92 0.006 80);
+  --popover-foreground: oklch(0.18 0.005 60);
+  --primary: oklch(0.52 0.19 30);
+  --primary-foreground: oklch(0.95 0.008 80);
+  --secondary: oklch(0.88 0.005 80);
+  --secondary-foreground: oklch(0.3 0.01 60);
+  --muted: oklch(0.86 0.005 80);
+  --muted-foreground: oklch(0.45 0.008 60);
+  --accent: oklch(0.88 0.005 80);
+  --accent-foreground: oklch(0.18 0.005 60);
+  --destructive: oklch(0.52 0.19 30);
+  --destructive-foreground: oklch(0.95 0.008 80);
+  --border: oklch(0.8 0.008 80);
+  --input: oklch(0.86 0.005 80);
+  --ring: oklch(0.52 0.19 30);
+  --chart-1: oklch(0.52 0.19 30);
+  --chart-2: oklch(0.4 0.01 60);
+  --chart-3: oklch(0.55 0.008 60);
+  --chart-4: oklch(0.7 0.005 60);
+  --chart-5: oklch(0.82 0.008 80);
+
+  --sk-accent: oklch(0.52 0.19 30);
+  --sk-accent-dim: oklch(0.42 0.15 30);
+  --sk-accent-bright: oklch(0.6 0.22 30);
+  --sk-accent-soft: oklch(0.52 0.19 30 / 0.08);
+  --sk-accent-wash: oklch(0.52 0.19 30 / 0.06);
+  --sk-accent-line: oklch(0.52 0.19 30 / 0.3);
+  --sk-accent-faint: oklch(0.52 0.19 30 / 0.2);
+  --sk-accent-gradient-from: oklch(0.52 0.19 30);
+  --sk-accent-gradient-to: oklch(0.45 0.16 20);
+  --sk-accent-shadow: oklch(0.52 0.19 30 / 0.3);
+  --sk-on-accent: oklch(0.98 0.005 80);
+  --sk-fg: oklch(0.18 0.005 60);
+  --sk-fg-soft: oklch(0.3 0.01 60);
+  --sk-fg-muted: oklch(0.4 0.008 60);
+  --sk-fg-dim: oklch(0.55 0.008 60);
+  --sk-fg-faint: oklch(0.75 0.005 60);
+  --sk-bg: oklch(0.95 0.008 80);
+  --sk-bg-card: oklch(0.92 0.006 80);
+  --sk-border: oklch(0.8 0.008 80);
+  --sk-border-soft: oklch(0.82 0.008 80);
+  --sk-nav-bg: oklch(0.95 0.008 80 / 0.95);
+  --sk-drop-bg: oklch(0.92 0.006 80);
+  --sk-mobile-bg: oklch(0.95 0.008 80);
+  --sk-bottom-bg: rgba(240, 238, 233, 0.97);
+  --sk-bottom-border: oklch(0.8 0.008 80);
+  --sk-bottom-muted: oklch(0.55 0.008 60);
+  --sk-share-bg: oklch(0.93 0.006 80);
+  --sk-share-text: oklch(0.35 0.01 60);
+  --sk-footer-border: oklch(0.82 0.008 80);
+  --sk-dot-off: oklch(0.75 0.005 60);
+
+  --font-body: var(--font-sk-noto-jp), "Noto Sans JP", var(--font-sk-noto), "Noto Sans", sans-serif;
+  color-scheme: light;
+}
+
+@layer base {
+  .sake-root *,
+  .sake-root *::before,
+  .sake-root *::after {
+    border-color: var(--border);
+    outline-color: color-mix(in oklab, var(--ring) 50%, transparent);
+  }
+
+  /* The app's body: bg-background text-foreground, Noto Sans, 18px on phones and 16px on desktop. */
+  .sake-root {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-body);
+    font-size: 1.125rem;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.5s ease, color 0.5s ease;
+  }
+
+  @media (min-width: 1024px) {
+    .sake-root {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+  }
+
+  /* The phone bottom bar covers the last 5rem (the app padded <body>). */
+  @media (max-width: 1023px) {
+    .sake-root:not(.sake-portal) {
+      padding-bottom: 5rem;
+    }
+  }
+
+  .sake-root h1,
+  .sake-root h2,
+  .sake-root h3,
+  .sake-root h4,
+  .sake-root h5,
+  .sake-root h6 {
+    font-family: var(--font-sk-cormorant), "Cormorant Garamond", serif;
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+  .sake-root h1 {
+    font-size: 2.5rem;
+  }
+  .sake-root h2 {
+    font-size: 2rem;
+  }
+  .sake-root h3 {
+    font-size: 1.5rem;
+  }
+  .sake-root h4 {
+    font-size: 1.25rem;
+  }
+  @media (min-width: 640px) {
+    .sake-root h1 {
+      font-size: 3rem;
+    }
+    .sake-root h2 {
+      font-size: 2.5rem;
+    }
+    .sake-root h3 {
+      font-size: 1.75rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .sake-root h1 {
+      font-size: 3.5rem;
+    }
+    .sake-root h2 {
+      font-size: 2.75rem;
+    }
+    .sake-root h3 {
+      font-size: 2rem;
+    }
+  }
+
+  .sake-root p {
+    text-wrap: pretty;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  /* 44px touch targets, except inline text links (the app's rule). */
+  .sake-root button:not(:disabled),
+  .sake-root [role="button"]:not([aria-disabled="true"]),
+  .sake-root a[href],
+  .sake-root select:not(:disabled),
+  .sake-root input[type="checkbox"]:not(:disabled),
+  .sake-root input[type="radio"]:not(:disabled) {
+    cursor: pointer;
+    min-height: 44px;
+    min-width: 44px;
+  }
+  .sake-root p a[href],
+  .sake-root li a[href],
+  .sake-root span a[href],
+  .sake-root td a[href] {
+    min-height: unset;
+    min-width: unset;
+  }
+}
+
+@layer components {
+  .sake-root .font-sk-display {
+    font-family: var(--font-sk-cormorant), "Cormorant Garamond", serif;
+  }
+  .sake-root.sake-austere .font-sk-display,
+  .sake-root .font-sk-jp {
+    font-family: var(--font-sk-noto-jp), "Noto Sans JP", sans-serif;
+  }
+  .sake-root .font-sk-serif {
+    font-family: var(--font-sk-cormorant), "Cormorant Garamond", serif;
+  }
+  .sake-root .font-sk-body {
+    font-family: var(--font-sk-noto), "Noto Sans", sans-serif;
+  }
+
+  /* The app's .container (it overrode Tailwind's). */
+  .sake-root .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+  @media (min-width: 640px) {
+    .sake-root .container {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .sake-root .container {
+      padding-left: 2rem;
+      padding-right: 2rem;
+      max-width: 1280px;
+    }
+  }
+
+  /* Kintsugi crack line divider */
+  .sake-root .kintsugi-line {
+    position: relative;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      oklch(0.78 0.12 85) 20%,
+      oklch(0.78 0.12 85) 40%,
+      transparent 50%,
+      oklch(0.78 0.12 85) 60%,
+      oklch(0.78 0.12 85) 80%,
+      transparent 100%
+    );
+    opacity: 0.6;
+  }
+  .sake-root .kintsugi-line::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      oklch(0.78 0.12 85 / 0.3) 20%,
+      oklch(0.78 0.12 85 / 0.3) 40%,
+      transparent 50%,
+      oklch(0.78 0.12 85 / 0.3) 60%,
+      oklch(0.78 0.12 85 / 0.3) 80%,
+      transparent 100%
+    );
+    filter: blur(4px);
+  }
+
+  /* Grain texture overlay */
+  .sake-root .grain-overlay {
+    position: relative;
+  }
+  .sake-root .grain-overlay::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Hanko stamp */
+  .sake-root .hanko {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid oklch(0.5 0.2 25);
+    color: oklch(0.5 0.2 25);
+    font-family: var(--font-sk-cormorant), "Cormorant Garamond", serif;
+    font-weight: 700;
+    padding: 0.375rem 0.75rem;
+    transform: rotate(-3deg);
+    letter-spacing: 0.05em;
+  }
+
+  /* Gold shimmer text */
+  .sake-root .gold-shimmer {
+    background: linear-gradient(90deg, oklch(0.78 0.12 85) 0%, oklch(0.88 0.14 85) 50%, oklch(0.78 0.12 85) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: sk-gold-shimmer 4s linear infinite;
+  }
+
+  .sake-root .score-badge {
+    font-family: var(--font-sk-mono), "JetBrains Mono", monospace;
+    font-weight: 600;
+    font-size: 0.875rem;
+    letter-spacing: 0.1em;
+  }
+
+  .sake-root .sake-card {
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--card-foreground);
+    transition: all 0.3s ease;
+  }
+  .sake-root .sake-card:hover {
+    border-color: oklch(0.78 0.12 85 / 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px oklch(0 0 0 / 0.3);
+  }
+  @media (min-width: 640px) {
+    .sake-root .sake-card {
+      padding: 2rem;
+    }
+  }
+
+  .sake-root .section-mobile {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+  @media (min-width: 640px) {
+    .sake-root .section-mobile {
+      padding-top: 4rem;
+      padding-bottom: 4rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .sake-root .section-mobile {
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+    }
+  }
+
+  /* The app's ContentProtection <Watermark> stripes. */
+  .sake-root .sk-watermark {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 200px,
+      rgba(201, 162, 39, 0.02) 200px,
+      rgba(201, 162, 39, 0.02) 201px
+    );
+  }
+
+  /* The app's ink-wash stand-in for a picture (AustereWrapper.tsx AustereImage), also shown while
+     a picture has no Sanity copy yet (src/lib/content/sake/images.ts). */
+  .sake-root .sk-image-wash {
+    background: linear-gradient(to bottom, oklch(0.22 0.04 270), oklch(0.14 0.03 270));
+  }
+  .sake-root.sake-austere .sk-image-wash {
+    background: linear-gradient(to bottom, oklch(0.88 0.005 80), oklch(0.92 0.006 80));
+  }
+}
+
+/*
+ * Austere overrides. Deliberately outside any layer, exactly as in the app: there these rules were
+ * unlayered too, so they beat utility classes (a heading with font-[Cormorant_Garamond] still turned
+ * into Noto Sans JP in Austere, and pictures faded out).
+ */
+.sake-root.sake-austere h1,
+.sake-root.sake-austere h2,
+.sake-root.sake-austere h3,
+.sake-root.sake-austere h4,
+.sake-root.sake-austere h5,
+.sake-root.sake-austere h6 {
+  font-family: var(--font-sk-noto-jp), "Noto Sans JP", var(--font-sk-noto), "Noto Sans", sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+}
+
+.sake-root.sake-austere .hero-image,
+.sake-root.sake-austere .decorative-image {
+  opacity: 0 !important;
+}
+
+.sake-root.sake-austere .gold-shimmer {
+  background: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+  -webkit-text-fill-color: oklch(0.52 0.19 30);
+  animation: none;
+}
+
+.sake-root.sake-austere .kintsugi-line {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    oklch(0.18 0.005 60 / 0.15) 30%,
+    oklch(0.18 0.005 60 / 0.15) 70%,
+    transparent 100%
+  );
+  height: 1px;
+  opacity: 1;
+}
+.sake-root.sake-austere .kintsugi-line::before {
+  display: none;
+}
+
+.sake-root.sake-austere .grain-overlay::after {
+  display: none;
+}
+
+.sake-root.sake-austere .hanko {
+  border-color: oklch(0.52 0.19 30);
+  color: oklch(0.52 0.19 30);
+}
+
+/* The app's thin scrollbars inside the section. */
+.sake-root ::-webkit-scrollbar {
+  width: 6px;
+}
+.sake-root ::-webkit-scrollbar-track {
+  background: oklch(0.1 0.02 270);
+}
+.sake-root ::-webkit-scrollbar-thumb {
+  background: oklch(0.4 0.05 270);
+  border-radius: 3px;
+}
+.sake-root ::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.78 0.12 85);
+}
+.sake-root.sake-austere ::-webkit-scrollbar-track {
+  background: oklch(0.95 0.008 80);
+}
+.sake-root.sake-austere ::-webkit-scrollbar-thumb {
+  background: oklch(0.75 0.005 60);
+}
+.sake-root.sake-austere ::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.52 0.19 30);
+}
+
+@keyframes sk-gold-shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sake-root .gold-shimmer {
+    animation: none;
+  }
+  .sake-root,
+  .sake-root .sake-card {
+    transition: none;
+  }
+}
