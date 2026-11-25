@@ -46,6 +46,11 @@ how to handle a request is in [`TASK_GUIDE.md`](TASK_GUIDE.md). Last checked 202
   (`src/app/aqueous/layout.tsx`, `aqueous.css`), server actions `src/app/aqueous/actions.ts`, checkout on Stripe
   (`aqueous-stripe.ts`, webhook `src/app/api/aqueous/stripe-webhook`), AI reports `src/app/api/aqueous/reports/[id]/generate`,
   tables `0010_aqueous.sql`. Notes: `docs/ai/project_aqueous_port.md`.
+- **Sake for Sake's Sake (`/sake/*`, the sake guide, 2026-11-26):** in code, `src/components/sake/pages/` + data in
+  `src/lib/content/sake/` (pictures pending, map in `images.ts`). Own header, bottom bar and styles
+  (`src/app/sake/layout.tsx`, `sake.css`, Kintsugi and Austere looks, EN/JP), server actions `src/app/sake/actions.ts`,
+  checkout on Stripe (off until `SAKE_CHECKOUT_ENABLED`), Claude label scanner under `src/app/api/sake/`, tables
+  `0011_sake.sql`. Notes: `docs/ai/project_sake_port.md`.
   See `docs/ai/project_liquidsun_port.md`.
 - **Marketing, assessment, BrewSoul, PRI, Kava, peptide pages:** in code, in the route's
   `page.tsx`, its component under `src/components/`, and/or a data module in `src/lib/content/`.

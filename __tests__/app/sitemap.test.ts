@@ -80,7 +80,7 @@ describe("sitemap.xml", () => {
     const redirected = new Set([...config.matchAll(/source:\s*"(\/[^":*]*)"/g)].map((m) => m[1]));
     const fixed = (await sitemap())
       .map((e) => e.url.slice(SITE.length) || "/")
-      .filter((p) => p !== "/" && !/^\/(blog\/|blog\/category\/|brewsoul\/(coffee|cities)\/|charity-scorecard\/|aqueous\/water\/)./.test(p));
+      .filter((p) => p !== "/" && !/^\/(blog\/|blog\/category\/|brewsoul\/(coffee|cities)\/|charity-scorecard\/|aqueous\/water\/|sake\/bottle\/)./.test(p));
     const problems: string[] = [];
     for (const route of fixed) {
       const file = pages.get(route);
@@ -106,6 +106,18 @@ describe("sitemap.xml", () => {
     expect(urls).toContain("/aqueous/tap-water");
     expect(urls).not.toContain("/aqueous/dashboard");
     expect(urls).not.toContain("/aqueous/payment/success");
+  });
+
+  it("lists each Sake bottle page once, for a real sake, plus the Sake pages (not the visitor's own lists or the Terms duplicates)", async () => {
+    withData();
+    const { qprSakeDatabase } = await import("@/lib/content/sake/qpr-data");
+    const urls = (await sitemap()).map((e) => e.url.slice(SITE.length));
+    const bottlePages = urls.filter((u) => u.startsWith("/sake/bottle/"));
+    expect(bottlePages.sort()).toEqual(qprSakeDatabase.map((s) => `/sake/bottle/${s.id}`).sort());
+    expect(urls).toContain("/sake");
+    expect(urls).toContain("/sake/rice");
+    expect(urls).toContain("/sake/terms");
+    for (const hidden of ["/sake/favorites", "/sake/my-reviews", "/sake/privacy", "/sake/dmca"]) expect(urls).not.toContain(hidden);
   });
 
   it("leaves out the account pages, Studio and member-only pages", async () => {

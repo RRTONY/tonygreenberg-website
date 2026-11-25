@@ -142,7 +142,15 @@ const CATEGORIES: Category[] = [
       "Koshu (aged sake) — the forgotten dimension of time",
       "The toji guild system — master brewers as living national treasures",
     ],
-    site: null,
+    // The Sake for Sake's Sake guide, rebuilt from its Manus app at /sake (2026-11-26). Name, tagline
+    // and description are the app's own (client/index.html title and og:description).
+    site: {
+      title: "Sake for Sake's Sake™",
+      tagline: "The Definitive Sake Experience",
+      url: "/sake",
+      description:
+        "The world's deepest sake guide. EXV™ scoring, 72 microseasons, namazake, and the soul of Japanese brewing.",
+    },
     pullquote:
       "If your sake doesn't have a story that makes you want to fly to Niigata and bow to someone, we're not interested.",
     comingSoon: "KUCHIKAMI — a sake education site — is in development. The mouth that chews the gods.",
