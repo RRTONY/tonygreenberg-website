@@ -33,8 +33,10 @@ Aqueous. Notes: `docs/ai/project_sake_port.md`.
   sideways scroll, no broken images) and phone tap-throughs (menu, Austere/JP, quizzes, collection, bottom bar).
   Fixed during checks: desktop menu cut off below ~2,000px (now the app's full menu below 2048px), nested `<main>`,
   share image falling back to the site default.
-- [ ] **Owner:** apply `supabase/migrations/0011_sake.sql`; Stripe endpoint `/api/sake/stripe-webhook` +
-  `SAKE_STRIPE_WEBHOOK_SECRET`; decide on selling sake by mail (licences) before `SAKE_CHECKOUT_ENABLED=true`.
+- [x] `supabase/migrations/0011_sake.sql` applied to the live database through the Management API (2026-11-26, on the
+  webmaster's yes): 9 empty `sake_` tables, RLS on, no policies; every column the code selects checked against them.
+- [ ] **Owner:** Stripe endpoint `/api/sake/stripe-webhook` + `SAKE_STRIPE_WEBHOOK_SECRET`; decide on selling sake by
+  mail (licences) before `SAKE_CHECKOUT_ENABLED=true`.
 - [ ] **Owner:** 16 pictures (15 deleted on Manus + the Taste Profile hero): stand-ins or originals into Sanity
   (`src/lib/content/sake/images.ts`); until then the app's ink-wash gradient shows.
 - [ ] **Owner:** wording: "LIVE PRICES" (now a fixed estimate), "Ordering opens soon", the order success/cancel

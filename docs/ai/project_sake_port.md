@@ -19,7 +19,7 @@ sub-site, the same way as Aqueous (`project_aqueous_port.md`) and LiquidSun. Por
 | pages | `src/components/sake/pages/` |
 | `lib/*.ts` data | `src/lib/content/sake/*.ts` (kebab-case names, contents unchanged) |
 | framer-motion | `src/components/sake/motion.tsx` (Aqueous/LiquidSun helpers) + tw-animate classes |
-| `server/routers/*`, `server/stripe/*`, `drizzle/schema.ts` | `src/app/sake/actions.ts`, `src/lib/content/sake/sake-stripe.ts`, `supabase/migrations/0011_sake.sql` (**not applied yet**) |
+| `server/routers/*`, `server/stripe/*`, `drizzle/schema.ts` | `src/app/sake/actions.ts`, `src/lib/content/sake/sake-stripe.ts`, `supabase/migrations/0011_sake.sql` (applied 2026-11-26) |
 | sake scanner / menu analyzer (Manus LLM + S3) | Claude over fetch (`src/app/api/sake/...`), no image storage |
 | images (Manus CDN) | `src/lib/content/sake/images.ts` (all `null` for now), `<SakeImage>` |
 | no favicon / share image | `src/app/sake/icon.png`, `apple-icon.png`, `opengraph-image.png`, `twitter-image.png`: the app's gold 酒 logo on its indigo, rendered from Hiragino Mincho (2026-11-26) |
@@ -55,7 +55,6 @@ everywhere that picture was used.
 
 ## Not finished / needs the owner
 
-- Apply `0011_sake.sql`. Until then reviews, deal alerts, server favorites, orders and subscriptions can't save.
 - Checkout is off until `SAKE_CHECKOUT_ENABLED=true`: selling alcohol by mail needs Tony's decision and the
   right licences. Then a Stripe webhook endpoint `https://tonygreenberg.com/api/sake/stripe-webhook` and
   `SAKE_STRIPE_WEBHOOK_SECRET` in Netlify.
