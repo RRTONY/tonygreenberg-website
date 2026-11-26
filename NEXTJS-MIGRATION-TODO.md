@@ -13,7 +13,20 @@
 - UI: Tailwind CSS v4 + shadcn/ui (Radix base) — same design-system convention the team already uses elsewhere. `next/image` for all images. No framer-motion — CSS transitions / `tailwindcss-animate` only.
 
 
-## Current status — 2026-11-26
+## Current status — 2026-11-27
+
+**Real hero for `grateful-smuggest-sentiment-or-selfish-act` (2026-11-27):** the team's "The Gratitude Circus" picture
+(1600x900) uploaded to Sanity (`image-ea4a0b1b6a8980cc445ba12436ee72d57621eb3e-1600x900-jpg`) and set as the post's
+`heroImage` (replaces the generated 2026-10-13 art). **Published 2026-11-27 (owner: "you can publish it").** Checked:
+live tonygreenberg.com essay page (200) serves the new image as hero and share image, the old art is gone.
+- [x] **Banner crop (2026-11-27, branch `fix/essay-hero-focus-point`):** the essay banner cut the picture to a centred
+  2000x900 strip and then trimmed it again, so the picture's own "The Gratitude Circus" sign was cut off. Now, when a
+  hero has a focus point (Sanity hotspot), the page sends the whole picture and positions it on that point; heroes
+  without one keep the old crop. This post's hotspot (x 0.5, y 0.12) is saved as a **draft**. Checked: typecheck,
+  lint, `test:changed`; a mock of the banner at 375 / 1280 / 2000px shows the full sign above the title.
+- [ ] **Owner:** yes to put the banner fix live (merge + publish the hotspot draft together).
+
+### Earlier — 2026-11-26
 
 **Sake for Sake's Sake rebuilt at /sake (2026-11-26, branch `feat/sake`, pushed to `main` on the webmaster's
 request):** Tony's sake guide, ported from its Manus export (`~/Downloads/sake-for-sakes-sake`) the same way as

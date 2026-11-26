@@ -279,7 +279,16 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
   const hasFaq = !!post.faq?.some((q) => q.question?.trim() && q.answer?.trim());
   const withFaq = (list: TocHeading[]): TocHeading[] => (hasFaq ? [...list, { id: POST_FAQ_ID, text: POST_FAQ_TITLE, level: 2 }] : list);
   const toc = withFaq(original.toc);
-  const heroSrc = post.heroImage ? urlFor(post.heroImage).width(2000).height(900).url() : DEFAULT_ESSAY_HERO.src;
+  // A focus point set in Studio (hotspot) decides which part of the picture the
+  // wide banner keeps: send the whole picture and position it there. Without
+  // one, keep the old centred 2000x900 crop so existing heroes don't move.
+  const heroHotspot = post.heroImage && "hotspot" in post.heroImage ? post.heroImage.hotspot : undefined;
+  const heroSrc = !post.heroImage
+    ? DEFAULT_ESSAY_HERO.src
+    : heroHotspot
+      ? urlFor(post.heroImage).width(2000).url()
+      : urlFor(post.heroImage).width(2000).height(900).url();
+  const heroPosition = heroHotspot ? `${Math.round(heroHotspot.x * 100)}% ${Math.round(heroHotspot.y * 100)}%` : undefined;
 
   const articleJsonLd = getArticleJsonLd({
     title: post.title,
@@ -310,6 +319,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
           loading="eager"
           sizes="100vw"
           className="object-cover object-[center_40%]"
+          style={heroPosition ? { objectPosition: heroPosition } : undefined}
         />
         <div aria-hidden="true" className="absolute inset-0 bg-linear-to-t from-black/65 via-black/10 via-50% to-transparent" />
         <div className="absolute inset-x-6 bottom-8 sm:inset-x-12">
