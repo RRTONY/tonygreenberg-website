@@ -10,7 +10,7 @@ describe("/thanksdoing", () => {
   it("has its own title, canonical and a video share preview", () => {
     expect(metadata.title).toBe("Happy ThanksDOING");
     expect(metadata.alternates?.canonical).toBe("/thanksdoing");
-    expect(metadata.openGraph).toMatchObject({ type: "video.other", videos: [{ url: "/thanksdoing.mp4", type: "video/mp4" }] });
+    expect(metadata.openGraph).toMatchObject({ type: "video.other", videos: [{ url: "https://tonygreenberg.com/thanksdoing.mp4", type: "video/mp4" }] });
     expect((metadata.openGraph as { images?: unknown }).images).toBeTruthy();
   });
 

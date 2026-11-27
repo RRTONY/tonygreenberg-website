@@ -17,7 +17,9 @@ export const metadata: Metadata = seoMetadata({
     url: "/thanksdoing",
     title: "Happy ThanksDOING",
     description: "Gratitude in action.",
-    videos: [{ url: videoPath, type: "video/mp4" }],
+    // Next doesn't resolve og:video against metadataBase, and link previews
+    // need an absolute address.
+    videos: [{ url: `https://tonygreenberg.com${videoPath}`, type: "video/mp4" }],
   },
   twitter: {
     ...defaultTwitter,
