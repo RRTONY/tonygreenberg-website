@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { verifyBlob } from "@/lib/admin/mcp-oauth";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { InMemoryTransport } from "@modelcontextprotocol/sdk/inMemory.js";
 import * as cs from "@/lib/admin/change-sets";
@@ -238,6 +239,24 @@ describe("change rules", () => {
     vi.unstubAllEnvs();
   });
 
+  it("request_upload_link can send an essay picture to Sanity, checked before a link is made", async () => {
+    vi.stubEnv("MCP_OAUTH_SECRET", "s");
+    const { call } = await connect(users.edit);
+    expect((await call("request_upload_link", { sanity_image: { filename: "a.pdf", alt: "x" }, change_id: KEY, ...gated })).json.error).toMatch(/must end in .png/);
+    expect((await call("request_upload_link", { sanity_image: { filename: "a.png", alt: " " }, change_id: KEY, ...gated })).json.error).toMatch(/alt is required/);
+    expect((await call("request_upload_link", { sanity_image: { filename: "a.png", alt: "x", attach_to: { documentId: "p1", field: "seo" } }, change_id: KEY, ...gated })).json.error).toMatch(/field must be/);
+
+    const placed = await call("request_upload_link", { sanity_image: { filename: "a.png", alt: "A turkey", caption: "2014", attach_to: { documentId: "p1", field: "body", afterBlockKey: "b1" } }, change_id: KEY, ...gated });
+    expect(placed.json).toMatchObject({ ok: true, path: "sanity:a.png" });
+    expect(placed.json.next).toMatch(/onto the draft of p1 \(body\)/);
+    const token = decodeURIComponent(String(placed.json.uploadUrl).split("?t=")[1]);
+    expect(verifyBlob<{ sanity: unknown }>("upload", token)?.sanity).toEqual({ filename: "a.png", alt: "A turkey", caption: "2014", attach_to: { documentId: "p1", field: "body", afterBlockKey: "b1" } });
+
+    const library = await call("request_upload_link", { sanity_image: { filename: "b.png", alt: "x" }, change_id: KEY, ...gated });
+    expect(library.json.next).toMatch(/sanity_query/);
+    vi.unstubAllEnvs();
+  });
+
   it("unknown tools are refused", async () => {
     const r = await (await connect(users.write)).call("rm_rf", {});
     expect(r.isError).toBe(true);
@@ -445,6 +464,28 @@ describe("edits through a change", () => {
     expect(r.isError).toBeFalsy();
     expect(cs.markEdited).toHaveBeenCalledTimes(1);
     expect(runAdminTool).toHaveBeenCalledWith("github_write_binary_file", { path: "public/a.png", base64Content: png, message: "Logo [by Kim]" }, {});
+  });
+
+  it("sanity_upload_image needs a change, checks the picture first and passes it on as base64", async () => {
+    const { call } = await connect(users.edit);
+    const noChange = await call("sanity_upload_image", { filename: "a.png", alt: "x", base64Content: png, ...gated });
+    expect(noChange.isError).toBe(true);
+    const bad = await call("sanity_upload_image", { filename: "a.png", alt: "x", base64Content: Buffer.from("<html>").toString("base64"), change_id: KEY, ...gated });
+    expect(bad.isError).toBe(true);
+    expect(runAdminTool).not.toHaveBeenCalled();
+    expect(cs.markEdited).not.toHaveBeenCalled();
+
+    const ok = await call("sanity_upload_image", { filename: "a.png", alt: "A turkey", base64Content: png, file: "ignored", change_id: KEY, ...gated });
+    expect(ok.isError).toBeFalsy();
+    expect(runAdminTool).toHaveBeenCalledWith("sanity_upload_image", { filename: "a.png", alt: "A turkey", base64Content: png }, {});
+  });
+
+  it("sanity_upload_image declares ChatGPT's file parameter", async () => {
+    const { client } = await connect(users.edit);
+    const { tools } = await client.listTools();
+    const tool = tools.find((t) => t.name === "sanity_upload_image")!;
+    expect(tool._meta).toMatchObject({ "openai/fileParams": ["file"] });
+    expect(tool.inputSchema.required).toEqual(expect.arrayContaining(["filename", "alt", "change_id", "rules_version"]));
   });
 
   it("refuses an edit to a discarded change", async () => {

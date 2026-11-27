@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import * as gh from "@/lib/admin/github-client";
 import { client } from "@/lib/sanity/client";
-import { createDraft, deleteDraft, getDocumentForEditing, patchDraft } from "@/lib/admin/sanity-content";
+import { attachImageToDraft, createDraft, deleteDraft, getDocumentForEditing, patchDraft, uploadImageAsset } from "@/lib/admin/sanity-content";
 import { getAnalyticsSummary } from "@/lib/admin/ga4-client";
 import { checkLighthouse } from "@/lib/admin/lighthouse-check";
 import { getSearchPerformance, inspectUrls, listSitemaps, listSites } from "@/lib/admin/gsc-client";
@@ -40,6 +40,9 @@ vi.mock("@/lib/admin/sanity-content", () => ({
   deleteDraft: vi.fn(async () => {}),
   getDocumentForEditing: vi.fn(),
   patchDraft: vi.fn(async () => {}),
+  uploadImageAsset: vi.fn(async () => ({ assetId: "image-abc-1600x900-png", url: "https://cdn.sanity.io/x.png", width: 1600, height: 900 })),
+  attachImageToDraft: vi.fn(async () => ({ key: "k123" })),
+  isImageField: (f: string) => ["heroImage", "body", "updatedBody"].includes(f),
 }));
 vi.mock("@/lib/admin/seo-check", () => ({ checkPageSeo: vi.fn(async (p: string) => ({ url: p })) }));
 vi.mock("@/lib/admin/code-check", () => ({ checkCode: vi.fn(async () => ({ eslint: { errorCount: 0 }, patternIssues: [] })) }));
@@ -84,7 +87,7 @@ describe("tool list", () => {
   });
 
   it("every tool that writes is rules-gated and not read-only", () => {
-    for (const name of ["github_write_file", "github_delete_file", "github_write_binary_file", "sanity_patch_document", "sanity_create_document"]) {
+    for (const name of ["github_write_file", "github_delete_file", "github_write_binary_file", "sanity_patch_document", "sanity_create_document", "sanity_upload_image"]) {
       expect(ADMIN_TOOLS.some((t) => t.name === name), name).toBe(true);
       expect(RULES_GATED_TOOLS.has(name), name).toBe(true);
       expect(READ_ONLY_TOOLS.has(name), name).toBe(false);
@@ -720,5 +723,82 @@ describe("github_edit_file", () => {
     const r = await edit({ message: undefined, edits: [{ old_text: "file body", new_text: "file body" }] });
     expect(r.output).toEqual({ ok: true, path: "src/app/page.tsx", branch: "admin/mcp-20261016-abc123", unchanged: true });
     expect(gh.putFile).not.toHaveBeenCalled();
+  });
+});
+
+describe("sanity_upload_image", () => {
+  const png = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 1, 2, 3]).toString("base64");
+  const post = { _id: "drafts.p1", _type: "post", title: "Gratitude" };
+
+  it("refuses a bad file name or missing alt before doing anything", async () => {
+    const r1 = await runAdminTool("sanity_upload_image", { filename: "art.pdf", alt: "x", base64Content: png }, ctx);
+    expect(r1.isError).toBe(true);
+    const r2 = await runAdminTool("sanity_upload_image", { filename: "art.png", alt: "  ", base64Content: png }, ctx);
+    expect(r2.output).toEqual({ error: "alt is required: describe what the picture shows in plain words." });
+    expect(uploadImageAsset).not.toHaveBeenCalled();
+  });
+
+  it("uploads only, returning an image value ready for sanity_patch_document", async () => {
+    const r = await runAdminTool("sanity_upload_image", { filename: "art.png", alt: "A turkey", base64Content: png }, ctx);
+    expect(r.isError).toBeFalsy();
+    expect(r.output).toMatchObject({ ok: true, assetId: "image-abc-1600x900-png", imageValue: { _type: "image", asset: { _type: "reference", _ref: "image-abc-1600x900-png" } } });
+    expect(uploadImageAsset).toHaveBeenCalledWith(expect.any(Buffer), "art.png");
+    expect(attachImageToDraft).not.toHaveBeenCalled();
+    expect(ctx.claimContent).not.toHaveBeenCalled();
+  });
+
+  it("refuses a file whose bytes aren't the named format, without uploading", async () => {
+    const html = Buffer.from("<html>login</html>").toString("base64");
+    const r = await runAdminTool("sanity_upload_image", { filename: "art.png", alt: "x", base64Content: html }, ctx);
+    expect(r.isError).toBe(true);
+    expect(uploadImageAsset).not.toHaveBeenCalled();
+  });
+
+  it("places the picture inline in a post's draft after claiming the post", async () => {
+    vi.mocked(getDocumentForEditing).mockResolvedValueOnce(post as never);
+    const r = await runAdminTool("sanity_upload_image", { filename: "art.png", alt: "A turkey", caption: "2014", base64Content: png, attach_to: { documentId: "p1", field: "body", afterBlockKey: "b7" } }, ctx);
+    expect(r.output).toMatchObject({ ok: true, documentId: "p1", field: "body", blockKey: "k123" });
+    expect(ctx.claimContent).toHaveBeenCalledWith({ id: "p1", type: "post", title: "Gratitude", isNew: false });
+    expect(attachImageToDraft).toHaveBeenCalledWith("p1", "body", { assetId: "image-abc-1600x900-png", alt: "A turkey", caption: "2014" }, "b7");
+  });
+
+  it("sets the hero image without a block key", async () => {
+    vi.mocked(getDocumentForEditing).mockResolvedValueOnce(post as never);
+    vi.mocked(attachImageToDraft).mockResolvedValueOnce({});
+    const r = await runAdminTool("sanity_upload_image", { filename: "hero.jpg", alt: "Hero", base64Content: Buffer.from([0xff, 0xd8, 0xff, 0]).toString("base64"), attach_to: { documentId: "p1", field: "heroImage" } }, ctx);
+    expect(r.output).toMatchObject({ ok: true, field: "heroImage" });
+    expect(r.output).not.toHaveProperty("blockKey");
+  });
+
+  it("refuses bad targets before uploading", async () => {
+    const field = await runAdminTool("sanity_upload_image", { filename: "a.png", alt: "x", base64Content: png, attach_to: { documentId: "p1", field: "seo" } }, ctx);
+    expect(field.output).toEqual({ error: 'attach_to.field must be "heroImage", "body" or "updatedBody".' });
+
+    vi.mocked(getDocumentForEditing).mockResolvedValueOnce(null as never);
+    const missing = await runAdminTool("sanity_upload_image", { filename: "a.png", alt: "x", base64Content: png, attach_to: { documentId: "nope", field: "body" } }, ctx);
+    expect(missing.output).toEqual({ error: "No document found for nope" });
+
+    vi.mocked(getDocumentForEditing).mockResolvedValueOnce({ _id: "a1", _type: "author" } as never);
+    const author = await runAdminTool("sanity_upload_image", { filename: "a.png", alt: "x", base64Content: png, attach_to: { documentId: "a1", field: "body" } }, ctx);
+    expect(author.isError).toBe(true);
+
+    vi.mocked(getDocumentForEditing).mockResolvedValueOnce(post as never);
+    const heroKey = await runAdminTool("sanity_upload_image", { filename: "a.png", alt: "x", base64Content: png, attach_to: { documentId: "p1", field: "heroImage", afterBlockKey: "b1" } }, ctx);
+    expect(heroKey.output).toEqual({ error: "afterBlockKey only applies to body or updatedBody." });
+
+    vi.mocked(getDocumentForEditing).mockResolvedValueOnce(post as never);
+    ctx = makeCtx({ claimContent: vi.fn(async () => "It belongs to another waiting change.") });
+    const claimed = await runAdminTool("sanity_upload_image", { filename: "a.png", alt: "x", base64Content: png, attach_to: { documentId: "p1", field: "body" } }, ctx);
+    expect(claimed.output).toEqual({ error: "It belongs to another waiting change." });
+    expect(uploadImageAsset).not.toHaveBeenCalled();
+  });
+
+  it("reports when the upload worked but placing it failed", async () => {
+    vi.mocked(getDocumentForEditing).mockResolvedValueOnce(post as never);
+    vi.mocked(attachImageToDraft).mockRejectedValueOnce(new Error('No paragraph with _key "zz" in body.'));
+    const r = await runAdminTool("sanity_upload_image", { filename: "a.png", alt: "x", base64Content: png, attach_to: { documentId: "p1", field: "body", afterBlockKey: "zz" } }, ctx);
+    expect(r.isError).toBe(true);
+    expect((r.output as { error: string }).error).toContain("image-abc-1600x900-png");
+    expect((r.output as { error: string }).error).toContain('No paragraph with _key "zz"');
   });
 });

@@ -381,8 +381,9 @@ Two specific Next.js App Router pitfalls to check for, since they're easy to int
 
 ## Images
 
-- **Every content image lives in Sanity**, uploaded through Studio (`/studio`) or a script using
-  the script client pattern in `scripts/sync-live-essays.ts`. `public/` in this app is for
+- **Every content image lives in Sanity**, uploaded through Studio (`/studio`), the MCP tool
+  `sanity_upload_image` (2026-11-28), or a script using the script client pattern in
+  `scripts/sync-live-essays.ts`. `public/` in this app is for
   site-chrome assets only (favicon, static brand marks that aren't editorial) — not content.
 - **Minimum 1200×630 for anything used as a hero or OG image.** Sanity's `urlFor().auto('format')`
   (see `src/lib/sanity/image.ts`) serves WebP/AVIF automatically — don't pre-convert before upload.
