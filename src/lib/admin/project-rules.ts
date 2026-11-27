@@ -45,6 +45,7 @@ export const RULES_GATED_TOOLS = new Set([
   "github_delete_file",
   "sanity_patch_document",
   "sanity_create_document",
+  "sanity_upload_image",
   "start_change",
   "confirm_change",
   "submit_for_review",

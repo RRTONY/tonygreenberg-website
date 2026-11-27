@@ -93,12 +93,15 @@ Tailwind v4 + shadcn/ui, Sanity for editorial content, deployed on Netlify from 
 - **Files the person attaches:** you only see a picture, you can't turn it into base64. In ChatGPT
   pass it as `file` to `github_write_binary_file`; anywhere else call `request_upload_link` and give
   the person the private link (30 minutes, one change, one path). Content images still belong in
-  Sanity (Studio), not the repo.
+  Sanity, not the repo: use `sanity_upload_image` for those.
 - **Only the task at hand** (owner, 2026-10-17): while working on a request, talk about that
   change only (its status, preview link, pull request). List the other waiting changes, branches
   or pull requests only when the person asks (`list_pending_changes` without a `change_id`).
+- **Pictures for essays:** `sanity_upload_image` uploads a picture into Sanity and can place it as
+  a post's hero or inline in `body` / `updatedBody` (draft only; alt text required). In ChatGPT pass
+  the attached file as `file`; otherwise use a public `source_url`.
 - Can't be done through MCP: env vars, `package.json`/lockfiles, `netlify.toml`, `src/proxy.ts`,
-  CI, DNS, uploading images into Sanity, or the MCP server's own code. Tell the person who can.
+  CI, DNS, or the MCP server's own code. Tell the person who can.
 - Details: [`docs/ai/project_mcp_server.md`](docs/ai/project_mcp_server.md).
 
 <!-- BEGIN:nextjs-agent-rules -->

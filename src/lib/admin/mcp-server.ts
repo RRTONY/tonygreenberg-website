@@ -100,7 +100,7 @@ const SESSION_TOOLS = [
   {
     name: "start_change",
     description:
-      "Start a new, separate change for ONE request from the person (e.g. 'change the homepage headline'). Returns a change_id. Every edit for this request (github_edit_file, github_write_file, github_write_binary_file, github_delete_file, sanity_patch_document, sanity_create_document) must pass this change_id, so each request is kept apart and publishing it never takes any other request live. Start a new change for each new request; keep using the same change_id for follow-up tweaks to the same request. Before calling, look at the site to work out what the person really means. If the request is at all unclear, set needs_confirmation: the card then shows the person 'I understand your request as: ...' with Desktop/Mobile/Both, and every edit is refused until they say yes (confirm_change). Non-technical people often use words like tabs, table, buttons, menu, header, box or section loosely, so treat those as unclear unless the page has exactly one thing they could mean.",
+      "Start a new, separate change for ONE request from the person (e.g. 'change the homepage headline'). Returns a change_id. Every edit for this request (github_edit_file, github_write_file, github_write_binary_file, github_delete_file, sanity_patch_document, sanity_create_document, sanity_upload_image) must pass this change_id, so each request is kept apart and publishing it never takes any other request live. Start a new change for each new request; keep using the same change_id for follow-up tweaks to the same request. Before calling, look at the site to work out what the person really means. If the request is at all unclear, set needs_confirmation: the card then shows the person 'I understand your request as: ...' with Desktop/Mobile/Both, and every edit is refused until they say yes (confirm_change). Non-technical people often use words like tabs, table, buttons, menu, header, box or section loosely, so treat those as unclear unless the page has exactly one thing they could mean.",
     input_schema: {
       type: "object" as const,
       properties: {
@@ -307,6 +307,7 @@ const CHANGE_REQUIRED_TOOLS = new Set([
   "github_delete_file",
   "sanity_patch_document",
   "sanity_create_document",
+  "sanity_upload_image",
 ]);
 const CHANGE_ACTION_TOOLS = new Set([
   "confirm_change",
@@ -460,6 +461,11 @@ const CHATGPT_TOOL_META: Record<string, Record<string, unknown>> = {
     "openai/fileParams": ["file"],
     "openai/toolInvocation/invoking": "Saving the file…",
     "openai/toolInvocation/invoked": "File saved",
+  },
+  sanity_upload_image: {
+    "openai/fileParams": ["file"],
+    "openai/toolInvocation/invoking": "Uploading the picture…",
+    "openai/toolInvocation/invoked": "Picture uploaded",
   },
   get_project_rules: {
     "openai/toolInvocation/invoking": "Loading the site's rules…",
@@ -987,6 +993,19 @@ export function createAdminMcpServer(
         const path = normalizeRepoPath(input.path);
         const problem = file.ok
           ? path && checkFileMatchesPath(path, file.bytes)
+          : file.error;
+        if (!file.ok || problem) return toResult({ error: problem }, true);
+        delete input.file;
+        delete input.source_url;
+        input.base64Content = file.bytes.toString("base64");
+      }
+      if (name === "sanity_upload_image") {
+        // Same up-front check: a bad picture never claims a post for this
+        // change or leaves anything in Sanity.
+        const file = await resolveBinaryInput(input);
+        const filename = String(input.filename ?? "");
+        const problem = file.ok
+          ? checkFileMatchesPath(filename, file.bytes)
           : file.error;
         if (!file.ok || problem) return toResult({ error: problem }, true);
         delete input.file;

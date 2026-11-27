@@ -447,6 +447,28 @@ describe("edits through a change", () => {
     expect(runAdminTool).toHaveBeenCalledWith("github_write_binary_file", { path: "public/a.png", base64Content: png, message: "Logo [by Kim]" }, {});
   });
 
+  it("sanity_upload_image needs a change, checks the picture first and passes it on as base64", async () => {
+    const { call } = await connect(users.edit);
+    const noChange = await call("sanity_upload_image", { filename: "a.png", alt: "x", base64Content: png, ...gated });
+    expect(noChange.isError).toBe(true);
+    const bad = await call("sanity_upload_image", { filename: "a.png", alt: "x", base64Content: Buffer.from("<html>").toString("base64"), change_id: KEY, ...gated });
+    expect(bad.isError).toBe(true);
+    expect(runAdminTool).not.toHaveBeenCalled();
+    expect(cs.markEdited).not.toHaveBeenCalled();
+
+    const ok = await call("sanity_upload_image", { filename: "a.png", alt: "A turkey", base64Content: png, file: "ignored", change_id: KEY, ...gated });
+    expect(ok.isError).toBeFalsy();
+    expect(runAdminTool).toHaveBeenCalledWith("sanity_upload_image", { filename: "a.png", alt: "A turkey", base64Content: png }, {});
+  });
+
+  it("sanity_upload_image declares ChatGPT's file parameter", async () => {
+    const { client } = await connect(users.edit);
+    const { tools } = await client.listTools();
+    const tool = tools.find((t) => t.name === "sanity_upload_image")!;
+    expect(tool._meta).toMatchObject({ "openai/fileParams": ["file"] });
+    expect(tool.inputSchema.required).toEqual(expect.arrayContaining(["filename", "alt", "change_id", "rules_version"]));
+  });
+
   it("refuses an edit to a discarded change", async () => {
     vi.mocked(cs.getChangeSet).mockResolvedValue(change({ status: "discarded" }));
     const r = await (await connect(users.edit)).call("sanity_patch_document", { id: "p1", patch: {}, change_id: KEY, ...gated });
