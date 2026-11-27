@@ -104,9 +104,9 @@ export function SiteHeader({ essayCount }: { essayCount: number }) {
       <div className="flex min-h-14 items-center justify-between gap-2 px-4 py-2.5">
         <Link href="/" className="flex min-h-11 flex-shrink-0 items-center gap-2">
           <span className="font-heading text-[1.15rem] font-bold whitespace-nowrap text-[#111] dark:text-[#F5F0E0]">
-            Tony<span className="text-brand-gold">G</span>
+            Tony<span className="text-primary">G</span>
           </span>
-          <span className="ml-1 hidden border-l border-[#4A1D6B]/30 pl-2.5 font-mono text-[0.7rem] tracking-[0.06em] whitespace-nowrap text-[#999] uppercase lg:inline xl:hidden 2xl:inline">
+          <span className="ml-1 hidden border-l border-[#4A1D6B]/30 pl-2.5 font-mono text-[0.7rem] tracking-[0.06em] whitespace-nowrap text-muted-foreground uppercase lg:inline xl:hidden 2xl:inline">
             Only Time Buys Trust
           </span>
         </Link>
@@ -117,7 +117,7 @@ export function SiteHeader({ essayCount }: { essayCount: number }) {
             {primaryNavLinks.map((link) =>
               link.href === "/find-my" ? (
                 <NavigationMenuItem key={link.href}>
-                  <NavigationMenuTrigger className="h-8 bg-transparent px-2 font-mono text-[0.78rem] font-semibold tracking-[0.05em] whitespace-nowrap text-[#555] uppercase transition-colors hover:bg-transparent hover:text-brand-gold data-open:text-brand-gold data-popup-open:bg-transparent data-popup-open:text-brand-gold dark:text-[#bbb]">
+                  <NavigationMenuTrigger className="h-8 bg-transparent px-2 font-mono text-[0.78rem] font-semibold tracking-[0.05em] whitespace-nowrap text-[#555] uppercase transition-colors hover:bg-transparent hover:text-primary data-open:text-primary data-popup-open:bg-transparent data-popup-open:text-primary dark:text-[#bbb]">
                     {link.label}
                   </NavigationMenuTrigger>
                   {/* forceMount keeps both menus' links in the server HTML while
@@ -128,7 +128,7 @@ export function SiteHeader({ essayCount }: { essayCount: number }) {
                     <div className="grid w-[720px] max-w-[calc(100vw-2rem)] grid-cols-5 gap-4 p-5">
                       {findYourMeGroups.map((group) => (
                         <div key={group.category}>
-                          <p className="mb-2 border-b border-border pb-1 font-heading text-[0.62rem] font-bold uppercase tracking-widest text-brand-gold">
+                          <p className="mb-2 border-b border-border pb-1 font-heading text-[0.62rem] font-bold uppercase tracking-widest text-primary">
                             {group.category}
                           </p>
                           {group.items.map((item) => (
@@ -149,7 +149,7 @@ export function SiteHeader({ essayCount }: { essayCount: number }) {
                 <NavigationMenuItem key={link.href}>
                   <Link
                     href={link.href}
-                    className={`inline-flex h-8 items-center px-2 font-mono text-[0.78rem] font-semibold tracking-[0.05em] whitespace-nowrap uppercase transition-colors hover:text-brand-gold ${
+                    className={`inline-flex h-8 items-center px-2 font-mono text-[0.78rem] font-semibold tracking-[0.05em] whitespace-nowrap uppercase transition-colors hover:text-primary ${
                       isActive(link.href) ? "text-brand-gold dark:text-brand-gold-light" : "text-[#555] dark:text-[#bbb]"
                     }`}
                   >
@@ -160,7 +160,7 @@ export function SiteHeader({ essayCount }: { essayCount: number }) {
             )}
 
             <NavigationMenuItem>
-              <NavigationMenuTrigger className="h-8 bg-transparent px-2 font-mono text-[0.78rem] font-semibold tracking-[0.05em] whitespace-nowrap text-[#555] uppercase transition-colors hover:bg-transparent hover:text-brand-gold data-open:text-brand-gold data-popup-open:bg-transparent data-popup-open:text-brand-gold dark:text-[#bbb]">
+              <NavigationMenuTrigger className="h-8 bg-transparent px-2 font-mono text-[0.78rem] font-semibold tracking-[0.05em] whitespace-nowrap text-[#555] uppercase transition-colors hover:bg-transparent hover:text-primary data-open:text-primary data-popup-open:bg-transparent data-popup-open:text-primary dark:text-[#bbb]">
                 Explore
               </NavigationMenuTrigger>
               {/* Rightmost trigger — left-aligned (Radix's default with
@@ -172,7 +172,7 @@ export function SiteHeader({ essayCount }: { essayCount: number }) {
                 <div className="grid w-[640px] max-w-[calc(100vw-2rem)] grid-cols-3 gap-4 p-5">
                   {navCategories.map((cat) => (
                     <div key={cat.title}>
-                      <p className="mb-2 border-b border-border pb-1 font-heading text-[0.62rem] font-bold uppercase tracking-widest text-brand-gold">
+                      <p className="mb-2 border-b border-border pb-1 font-heading text-[0.62rem] font-bold uppercase tracking-widest text-primary">
                         {cat.title}
                       </p>
                       {cat.items.map((item) => (
