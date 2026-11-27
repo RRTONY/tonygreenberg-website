@@ -150,10 +150,10 @@ export async function generateMetadata({
 // class string each; anything else gets live's fallback (#333).
 const FORMAT_BADGE: Record<string, string> = {
   "the crusade": "bg-[#8B0000]",
-  "the field report": "bg-[#2E8B57]",
-  "the systems map": "bg-[#4682B4]",
+  "the field report": "bg-[#226440]",
+  "the systems map": "bg-[#315f85]",
   "the lesson": "bg-[#5C4033]",
-  "the manifesto": "bg-[#6A5ACD]",
+  "the manifesto": "bg-[#5948b4]",
   "the review": "bg-[#836311]",
   "the reckoning": "bg-[#9B2335]",
   "the dispatch": "bg-[#1a1a1a]",
@@ -162,8 +162,8 @@ const FORMAT_BADGE: Record<string, string> = {
 
 function validityDotClass(value: number | string) {
   const score = Number(value);
-  if (score >= 90) return "bg-[#2E8B57]";
-  if (score >= 75) return "bg-[#4682B4]";
+  if (score >= 90) return "bg-[#226440]";
+  if (score >= 75) return "bg-[#315f85]";
   if (score >= 60) return "bg-[#B8860B]";
   return "bg-[#8B0000]";
 }
@@ -310,7 +310,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
 
       {/* Live's hero: the post's picture full width (or live's default arch
           art), the title over it at the bottom. */}
-      <header className="relative min-h-80 overflow-hidden bg-[#0a0a0a] sm:h-[50vh] sm:max-h-150">
+      <header className="relative isolate flex min-h-80 items-end overflow-hidden bg-[#171522] sm:min-h-[min(50vh,37.5rem)]">
         <Image
           src={heroSrc}
           alt={post.title}
@@ -321,20 +321,20 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
           className="object-cover object-[center_40%]"
           style={heroPosition ? { objectPosition: heroPosition } : undefined}
         />
-        <div aria-hidden="true" className="absolute inset-0 bg-linear-to-t from-black/65 via-black/10 via-50% to-transparent" />
-        <div className="absolute inset-x-6 bottom-8 sm:inset-x-12">
-          <h1 className="max-w-5xl font-fraunces text-[1.8rem] leading-[1.1] font-black text-white text-shadow-[0_2px_20px_rgba(0,0,0,0.5)] sm:text-[2.5rem] lg:text-5xl">
+        <div aria-hidden="true" className="absolute inset-0 bg-black/70" />
+        <div className="relative z-10 mx-auto w-full max-w-320 px-5 py-8 sm:px-12 sm:py-10">
+          <h1 className="max-w-5xl text-balance wrap-break-word font-fraunces text-[clamp(1.75rem,5vw,3rem)] leading-[1.15] font-bold text-white">
             {post.title}
           </h1>
-          {post.subtitle && <p className="mt-3 max-w-3xl text-lg text-white/85">{post.subtitle}</p>}
+          {post.subtitle && <p className="mt-3 max-w-3xl text-pretty wrap-break-word text-base leading-relaxed text-white sm:text-lg">{post.subtitle}</p>}
         </div>
       </header>
 
       <div className="mx-auto flex max-w-320 items-start gap-10 xl:pr-8">
-        <article className="w-full min-w-0 flex-1 px-4 pt-10 pb-12 sm:px-8">
+        <article className="w-full min-w-0 flex-1 px-5 pt-5 pb-12 sm:px-8 sm:pt-8">
           <Link
             href="/blog"
-            className="mb-2 inline-flex min-h-11 items-center gap-1.5 font-mono text-xs tracking-widest text-muted-foreground uppercase no-underline hover:text-foreground md:min-h-6"
+            className="mb-2 inline-flex min-h-11 items-center gap-1.5 font-mono text-sm tracking-widest text-muted-foreground uppercase no-underline hover:text-foreground md:min-h-6"
           >
             <ArrowLeft aria-hidden="true" className="size-3" />
             Back to the blog
@@ -343,12 +343,12 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
           <div className="mb-1 flex flex-wrap items-center gap-2">
             {extras?.formatTag && (
               <span
-                className={`rounded-xs px-2.5 py-1 font-mono text-xs tracking-[0.12em] text-white uppercase ${FORMAT_BADGE[extras.formatTag.toLowerCase()] ?? "bg-[#333]"}`}
+                className={`rounded-xs px-2.5 py-1 font-mono text-sm tracking-[0.12em] text-white uppercase ${FORMAT_BADGE[extras.formatTag.toLowerCase()] ?? "bg-[#333]"}`}
               >
                 {extras.formatTag}
               </span>
             )}
-            <span className="inline-flex min-w-0 flex-wrap items-center font-mono text-xs leading-relaxed tracking-[0.06em] text-muted-foreground">
+            <span className="inline-flex min-w-0 flex-wrap items-center font-mono text-sm leading-relaxed tracking-[0.06em] text-muted-foreground">
               <time dateTime={post.publishedAt} className="whitespace-nowrap">
                 {date}
               </time>
@@ -367,7 +367,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
                   <span aria-hidden="true" className="mx-1">
                     ·
                   </span>
-                  <Link href={`/blog/category/${post.category.slug.current}`} className="whitespace-nowrap hover:text-brand-gold">
+                  <Link href={`/blog/category/${post.category.slug.current}`} className="whitespace-nowrap underline-offset-4 hover:underline hover:text-foreground">
                     {post.category.title}
                   </Link>
                 </>
@@ -379,20 +379,20 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
             </span>
           </div>
           {extras?.validityScore && (
-            <p className="mb-1 flex items-center gap-1.5 font-mono text-xs text-muted-foreground">
+            <p className="mb-1 flex items-center gap-1.5 font-mono text-sm text-muted-foreground">
               <span aria-hidden="true" className={`inline-block size-1.75 rounded-full ${validityDotClass(extras.validityScore)}`} />
               Validity: {extras.validityScore} — {extras.validityLabel}
             </p>
           )}
           {seriesInfo && (
-            <p className="mb-1 inline-flex items-center gap-2 rounded-xs border border-foreground/10 bg-foreground/4 px-3 py-1.5 font-mono text-xs">
+            <p className="mb-1 inline-flex items-center gap-2 rounded-xs border border-foreground/10 bg-foreground/4 px-3 py-1.5 font-mono text-sm">
               <span className="font-semibold tracking-[0.08em] text-foreground uppercase">{seriesInfo.series.title}</span>
               <span className="text-muted-foreground">
                 Part {seriesInfo.part} of {seriesInfo.total}
               </span>
             </p>
           )}
-          <p className="mb-3 border-b border-foreground/6 pb-3 font-mono text-xs tracking-[0.06em] text-muted-foreground">
+          <p className="mb-3 border-b border-foreground/6 pb-3 font-mono text-sm tracking-[0.06em] text-muted-foreground">
             By{" "}
             <a href="https://linkedin.com/in/tonygreenberg" target="_blank" rel="noopener noreferrer" className="text-foreground no-underline">
               {post.byline || 'Tony "WhyNot" Greenberg'}
@@ -400,7 +400,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
           </p>
           <PostNotes editorsNote={post.editorsNote} provenanceNote={post.provenanceNote} />
           {post.excerpt && (
-            <p className="mb-4 max-w-170 border-l-2 border-essay-brown/35 pl-4 font-fell text-[1.05rem] leading-[1.8] text-essay-sepia italic sm:text-[1.12rem]">
+            <p className="mb-5 max-w-170 border-l-2 border-essay-brown pl-4 font-essay text-pretty text-[1.0625rem] leading-relaxed text-essay-sepia sm:text-lg">
               {post.excerpt}
             </p>
           )}
@@ -454,7 +454,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
             {post.tags && post.tags.length > 0 && (
               <ul aria-label="Tags" className="mt-8 flex flex-wrap gap-2">
                 {post.tags.map((tag) => (
-                  <li key={tag} className="rounded-xs bg-muted px-2.5 py-1 font-mono text-xs text-muted-foreground">
+                  <li key={tag} className="rounded-xs bg-muted px-2.5 py-1 font-mono text-sm text-muted-foreground">
                     #{tag}
                   </li>
                 ))}
@@ -464,7 +464,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
             {post.category && (
               <Link
                 href={`/blog/category/${post.category.slug.current}`}
-                className="mt-6 mb-6 inline-flex min-h-11 items-center gap-1.5 font-mono text-xs tracking-wide text-brand-gold uppercase hover:text-brand-gold-light"
+                className="mt-6 mb-6 inline-flex min-h-11 items-center gap-1.5 font-mono text-sm tracking-wide text-primary uppercase underline-offset-4 hover:underline"
               >
                 More in {post.category.title}
                 <ArrowRight aria-hidden="true" className="size-3.5" />
