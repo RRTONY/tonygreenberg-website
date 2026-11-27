@@ -140,6 +140,13 @@ describe("upload grants", () => {
     expect(readUploadGrant(token)).toMatchObject({ grant: { change: "abc123", path: "public/a.png" }, user: kim });
   });
 
+  it("carries a signed Sanity picture target when given one", () => {
+    const sanity = { filename: "a.png", alt: "A turkey", attach_to: { documentId: "p1", field: "body" } };
+    const { token } = signUploadGrant("abc123", "sanity:a.png", kim, sanity);
+    expect(readUploadGrant(token)).toMatchObject({ grant: { path: "sanity:a.png", sanity } });
+    expect(readUploadGrant(signUploadGrant("abc123", "public/a.png", kim).token)?.grant).not.toHaveProperty("sanity");
+  });
+
   it("refuses forged, wrong-kind, expired and malformed grants", () => {
     expect(readUploadGrant("tgmcp_up.x.y")).toBeNull();
     expect(readUploadGrant(signBlob("at", { change: "a", path: "p", email: "kim@example.com" }))).toBeNull();

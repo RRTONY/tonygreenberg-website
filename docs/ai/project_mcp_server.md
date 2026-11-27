@@ -108,6 +108,7 @@ ChatGPT by just adding `<site-origin>/api/mcp` and signing in, with no token to 
 | `sanity_patch_document`, `sanity_create_document` | edit | yes |
 | `start_change`, `confirm_change`, `submit_for_review`, `discard_change`, `undo_change` | edit | yes |
 | `request_upload_link` (private 30-minute page to drop a file into one change) | edit | yes |
+| `sanity_upload_image` (picture into Sanity; optional hero / inline placement on a post draft) | edit | yes |
 | `create_clickup_task`, `update_clickup_task` (real tasks on the live ClickUp board; default list tonygreenberg.com) | edit | yes |
 | `delete_clickup_task` (permanent) | write | yes |
 | `send_email` (live send via Resend, sender must be @tonygreenberg.com) | write | yes |
@@ -301,3 +302,28 @@ Pending Changes"), plus the review card we had left out, were merged in: a three
   `migrationStatus`, `list_pending_changes` returns `otherPending`, `check_code_quality` runs
   ESLint, `/api/mcp/upload` refuses a missing or bad link (401). Not yet run: a full change on a
   deploy preview (start, confirm, edit, review card, publish/discard).
+
+## `sanity_upload_image` (added 2026-11-28)
+
+Why: on 2026-11-26 Tony could edit essay text through ChatGPT but could not add a new picture.
+The only file tool (`github_write_binary_file`) writes into the repo, and essay images must live in
+Sanity, so the Thanksgiving art had to be uploaded by hand.
+
+- Takes the picture as `file` (ChatGPT attachment, declared in `openai/fileParams`), `source_url`
+  (public https, redirects re-checked) or `base64Content`; same 8 MB limit and file-signature check
+  as `github_write_binary_file` (`binary-upload.ts`). PNG, JPG, WebP, GIF, AVIF. `alt` required.
+- Without `attach_to` it only uploads to the asset library and returns `imageValue` for
+  `sanity_patch_document`. An unreferenced asset shows nowhere on the site.
+- With `attach_to: { documentId, field, afterBlockKey? }` (posts only): `heroImage` replaces the
+  hero; `body` / `updatedBody` add an inline image block (`alt`, optional `caption`) at the end or
+  after the paragraph with that `_key`. Always written to the post's draft
+  (`attachImageToDraft` in `sanity-content.ts`), and the post is claimed for the change first,
+  so publish / discard / undo work as for `sanity_patch_document`.
+- Order of checks: filename and alt, then target (exists, is a post, claim), then the file, and
+  only then the upload. A refused call leaves nothing in Sanity. The server also checks the file
+  before the change is marked edited (same as binary files).
+- **Claude.ai (no file hand-off):** `request_upload_link` takes `sanity_image` (same fields:
+  filename, alt, caption, attach_to) instead of `path`. The fields are checked when the link is
+  made and signed into it (`SanityImageGrant` in `binary-upload.ts`); the upload page then runs
+  `sanity_upload_image` with the dropped file, so placement, claiming and checks are identical.
+  The grant's path is `sanity:<filename>` (never treated as a repo path).

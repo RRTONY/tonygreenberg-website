@@ -3,7 +3,16 @@ import { isPathDenied, isPathReadDenied, isSanityTypeAllowed } from "@/lib/admin
 // Read-only admin lookups, not a page render — sanityFetch()'s revalidation
 // tags (CONTRIBUTING.md rule 9) don't apply to an ad-hoc GROQ query here.
 import { client as sanityReadClient } from "@/lib/sanity/client";
-import { createDraft, deleteDraft, getDocumentForEditing, patchDraft } from "@/lib/admin/sanity-content";
+import {
+  attachImageToDraft,
+  createDraft,
+  deleteDraft,
+  getDocumentForEditing,
+  isImageField,
+  patchDraft,
+  uploadImageAsset,
+  type ImageField,
+} from "@/lib/admin/sanity-content";
 import { checkPageSeo } from "@/lib/admin/seo-check";
 import { checkCode } from "@/lib/admin/code-check";
 import { checkLighthouse } from "@/lib/admin/lighthouse-check";
@@ -428,6 +437,64 @@ export const ADMIN_TOOLS = [
     },
   },
   {
+    name: "sanity_upload_image",
+    description:
+      "Upload a picture into Sanity (where every essay image lives) and, optionally, place it on a post as a DRAFT: as the hero image, or inline in the essay text (body = the original version, updatedBody = the updated version). Nothing goes live until the change is published. Send the picture ONE of these ways: `file` (ChatGPT: the file the person attached), `source_url` (a public https link straight to the image), or `base64Content` (only if you truly have the bytes; you cannot turn a picture you see in the chat into base64). PNG, JPG, WebP, GIF or AVIF, up to 8 MB; heroes should be at least 1200x630. `alt` is required: describe what the picture shows. Without `attach_to` it only uploads and returns the asset id, which you can then use in sanity_patch_document.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        filename: {
+          type: "string",
+          description:
+            "A short file name with the real ending, e.g. gratitude-circus-2014.png",
+        },
+        file: OPENAI_FILE_SCHEMA,
+        source_url: {
+          type: "string",
+          description: "A public https link straight to the image.",
+        },
+        base64Content: {
+          type: "string",
+          description: "The image's real bytes as base64. Not for attached files.",
+        },
+        alt: {
+          type: "string",
+          description:
+            "What the picture shows, in plain words (for screen readers and Google).",
+        },
+        caption: {
+          type: "string",
+          description:
+            "Optional caption under an inline picture. Without one, the alt text is shown.",
+        },
+        attach_to: {
+          type: "object",
+          description:
+            "Optional: where to put the picture on a post (written to its draft).",
+          properties: {
+            documentId: {
+              type: "string",
+              description: "The post's id (from sanity_query).",
+            },
+            field: {
+              type: "string",
+              enum: ["heroImage", "body", "updatedBody"],
+              description:
+                "heroImage replaces the main picture; body / updatedBody add it inside the original / updated essay text.",
+            },
+            afterBlockKey: {
+              type: "string",
+              description:
+                "For body / updatedBody: the _key of the paragraph the picture goes after (read it with sanity_get_document). Leave out to add it at the end.",
+            },
+          },
+          required: ["documentId", "field"],
+        },
+      },
+      required: ["filename", "alt"],
+    },
+  },
+  {
     name: "create_clickup_task",
     description:
       'Create a task in ClickUp. This is a REAL, immediately-visible task on the live board, not a draft, so confirm the details with the person before calling it. Defaults to the tonygreenberg.com list in the Technology & Web space; pass listId as the alias "tonygreenberg.com" or a raw ClickUp list ID to target a different list. If ClickUp access isn\'t set up on the server, it says so: tell the person to ask the webmaster.',
@@ -767,6 +834,8 @@ export function searchRepoFiles(
     textMatchFileCount: allText.length,
   };
 }
+
+export const IMAGE_NAME = /^[\w.-]{1,120}\.(png|jpe?g|webp|gif|avif)$/i;
 
 function pathRequired(): ToolCallResult {
   return {
@@ -1135,6 +1204,113 @@ export async function runAdminTool(
       }
       ctx.log(`Created Sanity draft ${created._id} (${docType})`);
       return { output: { ok: true, id: created._id } };
+    }
+
+    case "sanity_upload_image": {
+      const filename = String(input.filename ?? "").trim();
+      const alt = String(input.alt ?? "").trim();
+      const caption = String(input.caption ?? "").trim() || undefined;
+      const fail = (error: string): ToolCallResult => ({
+        output: { error },
+        isError: true,
+      });
+      if (!IMAGE_NAME.test(filename)) {
+        return fail(
+          "filename must end in .png, .jpg, .jpeg, .webp, .gif or .avif (e.g. gratitude-circus.png).",
+        );
+      }
+      if (!alt) {
+        return fail(
+          "alt is required: describe what the picture shows in plain words.",
+        );
+      }
+
+      // Check the target (and claim it for this change) before uploading,
+      // so a refused request never leaves an orphan asset in Sanity.
+      const attach = input.attach_to as
+        | { documentId?: unknown; field?: unknown; afterBlockKey?: unknown }
+        | undefined;
+      let target: { id: string; field: ImageField; after?: string } | null =
+        null;
+      if (attach) {
+        const id = String(attach.documentId ?? "");
+        const field = String(attach.field ?? "");
+        if (!isImageField(field)) {
+          return fail('attach_to.field must be "heroImage", "body" or "updatedBody".');
+        }
+        const current = (await getDocumentForEditing(id)) as {
+          _id: string;
+          _type?: string;
+          title?: string;
+        } | null;
+        if (!current) return fail(`No document found for ${id}`);
+        if (current._type !== "post") {
+          return fail(
+            `Pictures can only be placed on essays (post documents), not "${current._type}".`,
+          );
+        }
+        const refused = await ctx.claimContent({
+          id: current._id.replace(/^drafts\./, ""),
+          type: "post",
+          title: current.title || id,
+          isNew: false,
+        });
+        if (refused) return fail(refused);
+        const after =
+          attach.afterBlockKey === undefined || attach.afterBlockKey === ""
+            ? undefined
+            : String(attach.afterBlockKey);
+        if (field === "heroImage" && after) {
+          return fail("afterBlockKey only applies to body or updatedBody.");
+        }
+        target = { id, field, after };
+      }
+
+      const file = await resolveBinaryInput(input);
+      const problem = file.ok
+        ? checkFileMatchesPath(filename, file.bytes)
+        : file.error;
+      if (!file.ok || problem) return fail(problem!);
+
+      const uploaded = await uploadImageAsset(file.bytes, filename);
+      ctx.log(`Uploaded image ${uploaded.assetId} (${filename})`);
+      if (!target) {
+        return {
+          output: {
+            ok: true,
+            ...uploaded,
+            imageValue: {
+              _type: "image",
+              asset: { _type: "reference", _ref: uploaded.assetId },
+            },
+          },
+        };
+      }
+      try {
+        const { key } = await attachImageToDraft(
+          target.id,
+          target.field,
+          { assetId: uploaded.assetId, alt, caption },
+          target.after,
+        );
+        ctx.log(
+          `Placed ${uploaded.assetId} in ${target.field} of the draft of ${target.id}`,
+        );
+        return {
+          output: {
+            ok: true,
+            ...uploaded,
+            documentId: target.id,
+            field: target.field,
+            ...(key ? { blockKey: key } : {}),
+            note: "Saved to the draft only. It goes live when this change is published.",
+          },
+        };
+      } catch (err) {
+        return fail(
+          `The picture uploaded (${uploaded.assetId}) but couldn't be placed: ${err instanceof Error ? err.message : "unknown error"}`,
+        );
+      }
     }
 
     case "create_clickup_task": {

@@ -13,7 +13,41 @@
 - UI: Tailwind CSS v4 + shadcn/ui (Radix base) — same design-system convention the team already uses elsewhere. `next/image` for all images. No framer-motion — CSS transitions / `tailwindcss-animate` only.
 
 
-## Current status — 2026-11-27
+## Current status — 2026-11-28
+
+**Owner editing incident (Tony, 2026-11-26 P1): three causes found and fixed (2026-11-28, webmaster):**
+- [x] **Sanity webhook 401 since 2026-10-28:** the secret in Sanity no longer matched Netlify's
+  `SANITY_WEBHOOK_SECRET` (Netlify hides the value, so it couldn't be read back). New 64-character
+  secret set in Netlify (production, deploy previews, branch deploys) and `.env.local`, then on the
+  `tonygreenberg` webhook through Sanity's API. Checked: a correctly signed request to
+  `https://tonygreenberg.com/api/revalidate` and the netlify.app URL returns 200 `revalidated`; a
+  wrong signature returns 401. Still to confirm: the next real publish shows "success" in
+  `pnpm exec sanity hook logs tonygreenberg`.
+- [x] **Production builds failing since 2026-11-27** (both deploys of `4546e0a`, PR #61): Turbopack
+  "Can't resolve '@vercel/turbopack-next/internal/font/google/font'" right after "Next.js cache
+  restored"; deploy previews of the same code built fine. Rebuilt with the cache cleared: **ready**,
+  so PR #61 (essay contrast) is live now (checked on `/blog/your-blood-lies-without-your-dna`). If a
+  build fails like this again, retry with "Clear cache and deploy".
+- [x] **Tony not a Sanity member:** his 2026-11-03 invite (tony@tonygreenberg.com, Administrator)
+  was still pending. Re-sent 2026-11-28. Needs Tony to accept from that inbox.
+- [x] **No way to add pictures through MCP:** new `sanity_upload_image` tool (branch
+  `feat/sanity-image-upload`): uploads into Sanity and optionally sets the hero or adds an inline
+  picture to `body` / `updatedBody` as a draft. Checked: typecheck, lint, `test:changed` (197 tests,
+  changed files 100% lines). Notes: `docs/ai/project_mcp_server.md`. Not yet tested end to end on a
+  deploy preview with ChatGPT.
+- [ ] **Owner:** merge the tool, then run Tony's 15-step QA list (iPhone + desktop login, ChatGPT and
+  Claude connection, upload, place, preview, publish, undo) before calling the workflow fixed.
+- [x] **Claude.ai pictures (2026-11-28):** `request_upload_link` with `sanity_image` gives a private
+  page that uploads straight into Sanity and places the picture, same checks as the tool.
+  Checked: `test:changed` 228 tests. The site's Sanity token was confirmed able to upload
+  (1x1 test asset uploaded and deleted).
+- [ ] ThanksDOING `/thanksdoing` and `/thanksdoing.mp4` still 404 on live: **PR #60 is ready**
+  (2026-11-28: page made a Server Component with its own title, description, canonical and
+  absolute og:video; spinner on Share; 8 tests, 100%). Preview checked: page 200, MP4 200
+  `video/mp4`, byte ranges 206. **Needs:** iPhone test (share the file to WhatsApp and Messages,
+  forward from the recipient), then owner's yes to merge.
+
+### Earlier — 2026-11-27
 
 **Essay accessibility and responsive typography (2026-11-27, PR #61):** corrected the shared essay hero overlay to maintain white-text contrast even over a white image; removed the fixed-height text constraint; balanced headings, increased metadata sizes, improved quote legibility and tightened mobile spacing. Theme-aware gold labels and the site header wordmark now use the primary foreground accent. Code-quality checks passed for the four changed TSX files. No article wording or images changed.
 - [ ] Verify deploy preview and browser contrast, zoom and wrapping in both themes at 320 / 375 / 820 / 1280 / 1440px; owner approval before publishing.

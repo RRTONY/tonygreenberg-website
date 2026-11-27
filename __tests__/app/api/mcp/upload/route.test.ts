@@ -6,6 +6,7 @@ import { getChangeSet, isOpen, markEdited } from "@/lib/admin/change-sets";
 import { buildMcpToolContext } from "@/lib/admin/mcp-tool-context";
 import { putFileBase64 } from "@/lib/admin/github-client";
 import { isPathDenied } from "@/lib/admin/guardrails";
+import { runAdminTool } from "@/lib/admin/tools";
 
 // GitHub, the change store and the signed-link helper are all replaced.
 vi.mock("@/lib/admin/binary-upload", () => ({
@@ -18,6 +19,7 @@ vi.mock("@/lib/admin/change-sets", () => ({ getChangeSet: vi.fn(), isOpen: vi.fn
 vi.mock("@/lib/admin/mcp-tool-context", () => ({ buildMcpToolContext: vi.fn() }));
 vi.mock("@/lib/admin/github-client", () => ({ putFileBase64: vi.fn() }));
 vi.mock("@/lib/admin/guardrails", () => ({ isPathDenied: vi.fn(() => false) }));
+vi.mock("@/lib/admin/tools", () => ({ runAdminTool: vi.fn() }));
 
 const GRANT = { user: { name: "Darryl", email: "d@example.com", role: "edit" }, grant: { change: "chg1", path: "public/logo.png" } };
 const CHANGE = { key: "chg1", title: "New <logo>", status: "open" };
@@ -113,5 +115,58 @@ describe("POST /api/mcp/upload", () => {
     const res = await upload(png());
     expect(res.status).toBe(500);
     expect(await res.text()).toContain("couldn't be saved");
+  });
+});
+
+describe("uploads for an essay picture (Sanity)", () => {
+  const SANITY = { filename: "turkey.png", alt: "A turkey", attach_to: { documentId: "p1", field: "updatedBody" } };
+  beforeEach(() => {
+    vi.mocked(readUploadGrant).mockReturnValue({ ...GRANT, grant: { change: "chg1", path: "sanity:turkey.png", sanity: SANITY } } as never);
+    vi.mocked(isPathDenied).mockReturnValue(true); // "sanity:..." isn't a repo path; it must not be checked as one
+  });
+
+  it("the page says where the picture will go", async () => {
+    const html = await (await GET(new Request("https://tonygreenberg.com/api/mcp/upload?t=tok"))).text();
+    expect(html).toContain("picture library and placed on the essay draft (in the updated essay text)");
+    expect(html).toContain('accept=".png"');
+  });
+
+  it("the page names the library only when there's no placement", async () => {
+    vi.mocked(readUploadGrant).mockReturnValue({ ...GRANT, grant: { change: "chg1", path: "sanity:t.png", sanity: { filename: "t.png", alt: "x" } } } as never);
+    const html = await (await GET(new Request("https://tonygreenberg.com/api/mcp/upload?t=tok"))).text();
+    expect(html).toContain("added to the website's picture library.");
+  });
+
+  it("uploads through sanity_upload_image with the signed placement, never to GitHub", async () => {
+    vi.mocked(runAdminTool).mockResolvedValue({ output: { ok: true } });
+    const res = await upload(png());
+    expect(res.status).toBe(200);
+    expect(await res.text()).toContain("It's on the essay draft");
+    expect(checkFileMatchesPath).toHaveBeenCalledWith("turkey.png", expect.any(Buffer));
+    expect(runAdminTool).toHaveBeenCalledWith("sanity_upload_image", { ...SANITY, base64Content: Buffer.from([137, 80, 78, 71, 1, 2, 3]).toString("base64") }, { ensureWriteBranch });
+    expect(putFileBase64).not.toHaveBeenCalled();
+    expect(finalize).toHaveBeenCalled();
+  });
+
+  it("says library-only when there's no placement", async () => {
+    vi.mocked(readUploadGrant).mockReturnValue({ ...GRANT, grant: { change: "chg1", path: "sanity:t.png", sanity: { filename: "t.png", alt: "x" } } } as never);
+    vi.mocked(runAdminTool).mockResolvedValue({ output: { ok: true } });
+    expect(await (await upload(png())).text()).toContain("It's in the picture library");
+  });
+
+  it("shows the tool's refusal, escaped, and survives a crash", async () => {
+    vi.mocked(runAdminTool).mockResolvedValueOnce({ output: { error: "It belongs to <another> change." }, isError: true });
+    const refused = await upload(png());
+    expect(refused.status).toBe(400);
+    expect(await refused.text()).toContain("It belongs to &lt;another&gt; change.");
+
+    vi.mocked(runAdminTool).mockRejectedValueOnce(new Error("sanity down"));
+    const crashed = await upload(png());
+    expect(crashed.status).toBe(400);
+    expect(await crashed.text()).toContain("The picture couldn&#39;t be saved.");
+    expect(finalize).toHaveBeenCalledTimes(2);
+
+    vi.mocked(runAdminTool).mockResolvedValueOnce({ output: {}, isError: true });
+    expect((await upload(png())).status).toBe(400);
   });
 });
