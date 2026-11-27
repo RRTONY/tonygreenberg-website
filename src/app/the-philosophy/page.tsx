@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { MEDICINES } from "@/lib/content/pri-data";
-import { priPrefetch } from "@/lib/content/pri-moved";
+import { priHref } from "@/lib/content/pri-moved";
 
 // Ported from legacy client/src/pages/ThePhilosophy.tsx. Real content,
 // unchanged — Tony's "Diode of Perception" passage and its full "What This
@@ -146,8 +146,7 @@ export default function ThePhilosophyPage() {
             return inst.href ? (
               <Link
                 key={inst.label}
-                href={inst.href}
-                prefetch={priPrefetch(inst.href)}
+                href={priHref(inst.href)}
                 className="flex items-center justify-between gap-4 border border-[#c9a84c]/15 bg-[#F4F0E8]/4 px-5 py-4 transition-colors hover:border-[#c9a84c]/40 hover:bg-[#F4F0E8]/8"
               >
                 {body}

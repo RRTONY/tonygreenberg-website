@@ -82,19 +82,20 @@ const nextConfig: NextConfig = {
       // kept treating it as required (2026-11-04, webmaster asked to fix). It
       // goes to the medicine hub, the Psychedelic Readiness Index, which now lives on
       // psychedelicreadiness.com. Straight there in one hop (site watch of 2026-11-19 flagged
-      // the 308 → 307 chain), temporary for the same reason as the PRI pages below.
-      { source: "/medicine", destination: "https://psychedelicreadiness.com/", permanent: false },
+      // the 308 → 307 chain), permanent like the PRI pages below.
+      { source: "/medicine", destination: "https://psychedelicreadiness.com/", permanent: true },
       // /heroes was never a page either (legacy showed the homepage for any unknown address),
       // but the site watch keeps checking it. Tony's heroes and influences are /the-territory.
       { source: "/heroes", destination: "/the-territory", permanent: true },
       // The PRI pages now live on psychedelicreadiness.com (QA of 2026-11-13: this copy was
-      // still scoring visitors). Temporary (307) on purpose: that site is still on hold and
-      // noindex, so nothing here should tell Google the move is final. Query strings such as
-      // ?m=ibogaine are carried over. /pri-research (admin only) stays here.
+      // still scoring visitors). Temporary (307) while that site was noindex; permanent (308)
+      // since its noindex was lifted on 2026-11-20, so Google moves these pages there instead of
+      // reporting "Page with redirect". Query strings such as ?m=ibogaine are carried over.
+      // /pri-research (admin only) stays here.
       ...PRI_MOVED_PAGES.map(([source, destination]) => ({
         source,
         destination: `https://psychedelicreadiness.com${destination}`,
-        permanent: false,
+        permanent: true,
       })),
       // Search Console 404s (2026-11-05). /bio was never a page, but Google keeps
       // finding it; Tony's bio is /about. The BrewSoul catalog.txt/.json files

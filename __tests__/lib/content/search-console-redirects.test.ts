@@ -36,6 +36,8 @@ describe("search-console-redirects", () => {
     for (const [s, d] of ALL) {
       const essay = d.match(/^\/blog\/([^/]+)$/);
       if (essay) expect(POST_ORDER, `${s} -> ${d}`).toContain(essay[1]);
+      // The PRI pages moved to psychedelicreadiness.com (pri-moved.ts).
+      else if (d.startsWith("https://psychedelicreadiness.com/")) expect(d).toMatch(/^https:\/\/psychedelicreadiness\.com\/pri-(calibration|efficacy)$/);
       else expect(page(d), `${s} -> ${d}`).toBe(true);
     }
   });

@@ -54,6 +54,8 @@ export function PostCtas() {
   );
 }
 
+const ON_THIS_SITE = /^https?:\/\/(www\.)?tonygreenberg\.com(\/|$)/;
+
 type NavPost = { slug: string; title: string } | null;
 
 export function PostClosing({ originalUrl, prev, next }: { originalUrl?: string; prev: NavPost; next: NavPost }) {
@@ -62,9 +64,15 @@ export function PostClosing({ originalUrl, prev, next }: { originalUrl?: string;
       {originalUrl && (
         <p className="mb-8 font-mono text-xs tracking-[0.04em] text-muted-foreground">
           Originally published at{" "}
-          <a href={originalUrl} className="text-brand-gold underline-offset-2 hover:underline">
-            tonygreenberg.com
-          </a>
+          {/* The old tonygreenberg.com address only redirects back to this same post (Search
+              Console "Page with redirect", 2026-11-20), so it is shown as text, not a link. */}
+          {ON_THIS_SITE.test(originalUrl) ? (
+            <span className="text-brand-gold">tonygreenberg.com</span>
+          ) : (
+            <a href={originalUrl} className="text-brand-gold underline-offset-2 hover:underline">
+              tonygreenberg.com
+            </a>
+          )}
         </p>
       )}
 

@@ -29,9 +29,9 @@ describe("/the-philosophy", () => {
 
   it("links to the three instruments", () => {
     render(<ThePhilosophyPage />);
-    expect(screen.getByRole("link", { name: /^Psychedelic Readiness Index/ })).toHaveAttribute("href", "/psychedelic-readiness-index");
-    expect(screen.getByRole("link", { name: /^Facilitator Index/ })).toHaveAttribute("href", "/facilitator-index");
-    expect(screen.getByRole("link", { name: /^Medicine Sequencing/ })).toHaveAttribute("href", "/medicine-sequencing");
+    expect(screen.getByRole("link", { name: /^Psychedelic Readiness Index/ })).toHaveAttribute("href", "https://psychedelicreadiness.com/");
+    expect(screen.getByRole("link", { name: /^Facilitator Index/ })).toHaveAttribute("href", "https://psychedelicreadiness.com/facilitator-index");
+    expect(screen.getByRole("link", { name: /^Medicine Sequencing/ })).toHaveAttribute("href", "https://psychedelicreadiness.com/medicine-sequencing");
   });
 
   it("the PRI card's medicine count comes from the PRI dataset", () => {

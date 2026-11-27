@@ -35,7 +35,7 @@ describe("/skippy", () => {
     expect(goLinks).toHaveLength(LINKED.length);
     expect(screen.getAllByText("Coming Soon")).toHaveLength(TOTAL_STOPS - LINKED.length);
     expect(goLinks[0]).toHaveAttribute("href", "/start-here");
-    for (const a of goLinks) expect(a.getAttribute("href")).toMatch(/^\//);
+    for (const a of goLinks) expect(a.getAttribute("href")).toMatch(/^(\/|https:\/\/psychedelicreadiness\.com\/)/);
   });
 
   it("Friend Gate and Post-Intervention link to their live pages", () => {
