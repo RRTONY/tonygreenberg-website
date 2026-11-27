@@ -195,9 +195,20 @@ export async function resolveBinaryInput(
   };
 }
 
+// A link can send the picture to Sanity instead of the repo (Claude.ai has no
+// file hand-off, so this is how a Claude user adds an essay picture). The
+// placement is decided when the link is made and signed into it.
+export interface SanityImageGrant {
+  filename: string;
+  alt: string;
+  caption?: string;
+  attach_to?: { documentId: string; field: string; afterBlockKey?: string };
+}
+
 export interface UploadGrant {
   change: string;
   path: string;
+  sanity?: SanityImageGrant;
   name: string;
   email: string;
   role: McpUser["role"];
@@ -208,11 +219,13 @@ export function signUploadGrant(
   change: string,
   path: string,
   user: McpUser,
+  sanity?: SanityImageGrant,
 ): { token: string; expiresAt: string } {
   const exp = Math.floor(Date.now() / 1000) + UPLOAD_LINK_TTL_S;
   const token = signBlob("upload", {
     change,
     path,
+    ...(sanity ? { sanity } : {}),
     name: user.name,
     email: user.email ?? "",
     role: user.role,

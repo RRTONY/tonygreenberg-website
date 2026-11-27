@@ -99,7 +99,8 @@ Tailwind v4 + shadcn/ui, Sanity for editorial content, deployed on Netlify from 
   or pull requests only when the person asks (`list_pending_changes` without a `change_id`).
 - **Pictures for essays:** `sanity_upload_image` uploads a picture into Sanity and can place it as
   a post's hero or inline in `body` / `updatedBody` (draft only; alt text required). In ChatGPT pass
-  the attached file as `file`; otherwise use a public `source_url`.
+  the attached file as `file`; in Claude call `request_upload_link` with `sanity_image` (same fields)
+  and give the person the link; or use a public `source_url`.
 - Can't be done through MCP: env vars, `package.json`/lockfiles, `netlify.toml`, `src/proxy.ts`,
   CI, DNS, or the MCP server's own code. Tell the person who can.
 - Details: [`docs/ai/project_mcp_server.md`](docs/ai/project_mcp_server.md).

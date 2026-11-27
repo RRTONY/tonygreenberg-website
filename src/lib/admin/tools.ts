@@ -835,7 +835,7 @@ export function searchRepoFiles(
   };
 }
 
-const IMAGE_NAME = /^[\w.-]{1,120}\.(png|jpe?g|webp|gif|avif)$/i;
+export const IMAGE_NAME = /^[\w.-]{1,120}\.(png|jpe?g|webp|gif|avif)$/i;
 
 function pathRequired(): ToolCallResult {
   return {

@@ -322,5 +322,8 @@ Sanity, so the Thanksgiving art had to be uploaded by hand.
 - Order of checks: filename and alt, then target (exists, is a post, claim), then the file, and
   only then the upload. A refused call leaves nothing in Sanity. The server also checks the file
   before the change is marked edited (same as binary files).
-- Not covered yet: Claude.ai has no file hand-off, so in Claude the picture needs a public link.
-  `request_upload_link` still saves into the repo, not Sanity.
+- **Claude.ai (no file hand-off):** `request_upload_link` takes `sanity_image` (same fields:
+  filename, alt, caption, attach_to) instead of `path`. The fields are checked when the link is
+  made and signed into it (`SanityImageGrant` in `binary-upload.ts`); the upload page then runs
+  `sanity_upload_image` with the dropped file, so placement, claiming and checks are identical.
+  The grant's path is `sanity:<filename>` (never treated as a repo path).

@@ -37,9 +37,15 @@
   deploy preview with ChatGPT.
 - [ ] **Owner:** merge the tool, then run Tony's 15-step QA list (iPhone + desktop login, ChatGPT and
   Claude connection, upload, place, preview, publish, undo) before calling the workflow fixed.
-- [ ] Claude.ai can't hand attached files to the server, so in Claude a picture needs a public
-  link; `request_upload_link` still saves into the repo. Extend it to Sanity if Tony needs it.
-- [ ] ThanksDOING `/thanksdoing` and `/thanksdoing.mp4` still 404 on live (PR #60 not merged).
+- [x] **Claude.ai pictures (2026-11-28):** `request_upload_link` with `sanity_image` gives a private
+  page that uploads straight into Sanity and places the picture, same checks as the tool.
+  Checked: `test:changed` 228 tests. The site's Sanity token was confirmed able to upload
+  (1x1 test asset uploaded and deleted).
+- [ ] ThanksDOING `/thanksdoing` and `/thanksdoing.mp4` still 404 on live: **PR #60 is ready**
+  (2026-11-28: page made a Server Component with its own title, description, canonical and
+  absolute og:video; spinner on Share; 8 tests, 100%). Preview checked: page 200, MP4 200
+  `video/mp4`, byte ranges 206. **Needs:** iPhone test (share the file to WhatsApp and Messages,
+  forward from the recipient), then owner's yes to merge.
 
 ### Earlier — 2026-11-27
 
