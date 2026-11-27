@@ -15,6 +15,9 @@
 
 ## Current status — 2026-11-27
 
+**Essay accessibility and responsive typography (2026-11-27, PR #61):** corrected the shared essay hero overlay to maintain white-text contrast even over a white image; removed the fixed-height text constraint; balanced headings, increased metadata sizes, improved quote legibility and tightened mobile spacing. Theme-aware gold labels and the site header wordmark now use the primary foreground accent. Code-quality checks passed for the four changed TSX files. No article wording or images changed.
+- [ ] Verify deploy preview and browser contrast, zoom and wrapping in both themes at 320 / 375 / 820 / 1280 / 1440px; owner approval before publishing.
+
 **Real hero for `grateful-smuggest-sentiment-or-selfish-act` (2026-11-27):** the team's "The Gratitude Circus" picture
 (1600x900) uploaded to Sanity (`image-ea4a0b1b6a8980cc445ba12436ee72d57621eb3e-1600x900-jpg`) and set as the post's
 `heroImage` (replaces the generated 2026-10-13 art). **Published 2026-11-27 (owner: "you can publish it").** Checked:
