@@ -6,9 +6,8 @@ import { ArrowRight, ArrowUpRight, Wine, Flame, Droplets, Sparkles, type LucideI
 // Ported from legacy client/src/pages/Spirits.tsx ("The Liquid Library").
 // Real content, unchanged. Two of the five companion sites (SoulSmoke for
 // mezcal, LiquidSun for tequila) were hosted on *.manus.space. SoulSmoke was
-// rebuilt on this site at /soul-smoke (2026-11-10), so its card links there
-// again; LiquidSun's card stays unlinked, marked "no longer live", until it is
-// rebuilt the same way.
+// rebuilt on this site at /soul-smoke (2026-11-10) and LiquidSun at /liquid-sun
+// (2026-11-21), so both cards link there again.
 export const metadata: Metadata = {
   title: "Wine, Sake, Spirits & Mezcal",
   description:
@@ -94,7 +93,7 @@ const CATEGORIES: Category[] = [
       tagline: "Tequila, Illuminated",
       description:
         "A visual guide that treats tequila with the reverence it deserves. From highland agave fields to the barrel room. Not a buying guide — a love letter to the spirit and the people who make it.",
-      offline: true,
+      url: "/liquid-sun",
     },
     pullquote:
       "The difference between good tequila and transcendent tequila is the same as the difference between a photograph and a memory.",
@@ -143,7 +142,15 @@ const CATEGORIES: Category[] = [
       "Koshu (aged sake) — the forgotten dimension of time",
       "The toji guild system — master brewers as living national treasures",
     ],
-    site: null,
+    // The Sake for Sake's Sake guide, rebuilt from its Manus app at /sake (2026-11-26). Name, tagline
+    // and description are the app's own (client/index.html title and og:description).
+    site: {
+      title: "Sake for Sake's Sake™",
+      tagline: "The Definitive Sake Experience",
+      url: "/sake",
+      description:
+        "The world's deepest sake guide. EXV™ scoring, 72 microseasons, namazake, and the soul of Japanese brewing.",
+    },
     pullquote:
       "If your sake doesn't have a story that makes you want to fly to Niigata and bow to someone, we're not interested.",
     comingSoon: "KUCHIKAMI — a sake education site — is in development. The mouth that chews the gods.",

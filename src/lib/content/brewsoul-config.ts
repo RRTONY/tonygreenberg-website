@@ -24,8 +24,8 @@ export interface EcosystemLink {
   badge?: string;
 }
 
-// "SoulSmoke"/"LiquidSun" are live external sibling products (checked:
-// both 200 OK); "/find-your-sake" doesn't exist in this app yet — same
+// "SoulSmoke"/"LiquidSun" were external Manus sibling products; both now live on
+// this site (/soul-smoke since 2026-11-10, /liquid-sun since 2026-11-21); "/find-your-sake" doesn't exist in this app yet — same
 // deliberate forward-reference already used elsewhere in this migration
 // for /find-my, tracked as a real upcoming page rather than a mistake.
 export const BREWSOUL_ECOSYSTEM: EcosystemLink[] = [

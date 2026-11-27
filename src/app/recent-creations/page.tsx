@@ -94,6 +94,8 @@ const PROJECTS: Project[] = [
   {
     title: "LiquidSun",
     tagline: "Tequila, illuminated.",
+    // Rebuilt from its Manus app at /liquid-sun (2026-11-21).
+    url: "/liquid-sun",
     description: "A visual guide to tequila that treats the spirit with the reverence it deserves. From highland agave fields to the barrel. Not a buying guide. A love letter.",
     category: "Tequila Guide",
     accent: "#B45309",
@@ -102,6 +104,8 @@ const PROJECTS: Project[] = [
   {
     title: "Aqueous",
     tagline: "Know what flows through your life.",
+    // Rebuilt from its Manus app at /aqueous (2026-11-24).
+    url: "/aqueous",
     description: "The world's first personalized water rating. The AWI scores every bottled water on Quality, Purity, and Resonance — weighted to your priorities. Tap water lookup, Wall of Shame, and a filter guide that actually helps.",
     category: "Water Intelligence",
     accent: "#0369A1",

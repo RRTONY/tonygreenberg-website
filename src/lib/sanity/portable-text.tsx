@@ -74,7 +74,7 @@ const essayBlocks = {
   h2: ({ children, value }) => (
     <h2
       id={(value as { anchorId?: string }).anchorId}
-      className="mt-20 mb-4 scroll-mt-28 font-essay-heading text-[2.25rem] leading-[1.05] font-medium text-foreground italic sm:mt-28 sm:text-[3.5rem]"
+      className="mt-12 mb-4 scroll-mt-28 text-balance wrap-break-word font-essay-heading text-[clamp(1.75rem,4vw,2.75rem)] leading-tight font-semibold text-foreground sm:mt-16"
     >
       {hideHeadingOrnament(children)}
     </h2>
@@ -82,7 +82,7 @@ const essayBlocks = {
   h3: ({ children, value }) => (
     <h3
       id={(value as { anchorId?: string }).anchorId}
-      className="mt-12 mb-3 scroll-mt-28 font-essay-heading text-[1.75rem] leading-tight font-medium text-foreground italic sm:text-[2.25rem]"
+      className="mt-8 mb-3 scroll-mt-28 text-balance wrap-break-word font-essay-heading text-[clamp(1.375rem,3vw,2rem)] leading-tight font-semibold text-foreground sm:mt-10"
     >
       {hideHeadingOrnament(children)}
     </h3>
@@ -90,14 +90,14 @@ const essayBlocks = {
   h4: ({ children }) => <h4 className="mt-8 mb-2 font-heading text-lg font-semibold">{hideHeadingOrnament(children)}</h4>,
   normal: ({ children, value }) => (
     <p
-      className="mb-6 indent-[1.5em] font-essay text-[1.05rem] leading-[1.9] text-essay-ink sm:text-[1.2rem]"
+      className="mb-5 text-pretty font-essay text-[1.0625rem] leading-[1.75] text-essay-ink sm:text-[1.125rem]"
       data-no-drop-cap={opensWithoutLetter(value) || undefined}
     >
       {children}
     </p>
   ),
   blockquote: ({ children }) => (
-    <blockquote className="my-8 border-l-2 border-essay-brown/35 pl-5 font-fell text-[1.15rem] leading-relaxed text-essay-sepia italic">
+    <blockquote className="my-8 border-l-2 border-essay-brown/35 pl-5 font-essay text-pretty text-lg leading-relaxed text-essay-sepia">
       {children}
     </blockquote>
   ),
@@ -108,7 +108,7 @@ export const portableTextComponents: PortableTextComponents = {
     // essay-body.ts: the auto-picked pull quote, section breaks and the
     // GemSpark card (legacy ArticlePullQuote / divider / GemSparkCallout).
     essayPullQuote: ({ value }) => (
-      <blockquote className="mx-auto my-14 max-w-145 border-b-2 border-essay-red/45 bg-essay-parchment/70 px-6 py-9 text-center font-fell text-[1.35rem] leading-[1.6] text-essay-ink italic sm:text-[1.7rem]">
+      <blockquote className="mx-auto my-10 max-w-145 border-b-2 border-essay-red/45 bg-essay-parchment px-5 py-6 text-center font-essay text-pretty text-xl leading-relaxed text-essay-ink sm:text-2xl">
         <span aria-hidden="true" className="mb-4 block text-[0.7rem] tracking-[0.35em] text-essay-brown/55 not-italic">
           · · ·
         </span>
@@ -144,7 +144,7 @@ export const portableTextComponents: PortableTextComponents = {
             className="mx-auto h-auto max-h-155 w-auto max-w-full rounded-lg object-contain shadow-[0_4px_30px_rgba(0,0,0,0.08)]"
           />
           {caption && (
-            <figcaption className="mt-4 text-center text-xs leading-normal tracking-[0.02em] text-muted-foreground italic">
+            <figcaption className="mt-4 text-center text-sm leading-relaxed text-muted-foreground">
               {caption}
             </figcaption>
           )}
@@ -163,7 +163,7 @@ export const portableTextComponents: PortableTextComponents = {
             <thead className="bg-secondary">
               <tr>
                 {head.cells!.map((cell, i) => (
-                  <th key={i} scope="col" className="px-4 py-3 align-bottom font-mono text-xs font-semibold tracking-wide text-foreground uppercase">
+                  <th key={i} scope="col" className="px-4 py-3 align-bottom font-mono text-sm font-semibold tracking-wide text-foreground uppercase">
                     {cell}
                   </th>
                 ))}
@@ -173,7 +173,7 @@ export const portableTextComponents: PortableTextComponents = {
               {body.map((row, r) => (
                 <tr key={row._key ?? r} className="border-t border-border">
                   {row.cells!.map((cell, i) => (
-                    <td key={i} className="px-4 py-3 align-top leading-relaxed text-foreground/85">
+                    <td key={i} className="px-4 py-3 align-top leading-relaxed text-foreground">
                       {cell}
                     </td>
                   ))}
@@ -224,12 +224,12 @@ export const portableTextComponents: PortableTextComponents = {
           href={href}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-essay-red underline decoration-essay-red/55 underline-offset-2 hover:opacity-70"
+          className="text-essay-red underline decoration-essay-red underline-offset-2 hover:decoration-2"
         >
           {children}
         </a>
       ) : (
-        <Link href={href} className="text-essay-red underline decoration-essay-red/55 underline-offset-2 hover:opacity-70">
+        <Link href={href} className="text-essay-red underline decoration-essay-red underline-offset-2 hover:decoration-2">
           {children}
         </Link>
       );

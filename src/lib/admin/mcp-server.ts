@@ -11,6 +11,7 @@ import {
   ADMIN_TOOLS,
   normalizeRepoPath,
   runAdminTool,
+  IMAGE_NAME,
 } from "@/lib/admin/tools";
 import { isPathDenied } from "@/lib/admin/guardrails";
 import {
@@ -18,7 +19,9 @@ import {
   MAX_UPLOAD_PAGE_BYTES,
   resolveBinaryInput,
   signUploadGrant,
+  type SanityImageGrant,
 } from "@/lib/admin/binary-upload";
+import { isImageField } from "@/lib/admin/sanity-content";
 import {
   buildReview,
   changeHistory,
@@ -100,7 +103,7 @@ const SESSION_TOOLS = [
   {
     name: "start_change",
     description:
-      "Start a new, separate change for ONE request from the person (e.g. 'change the homepage headline'). Returns a change_id. Every edit for this request (github_edit_file, github_write_file, github_write_binary_file, github_delete_file, sanity_patch_document, sanity_create_document) must pass this change_id, so each request is kept apart and publishing it never takes any other request live. Start a new change for each new request; keep using the same change_id for follow-up tweaks to the same request. Before calling, look at the site to work out what the person really means. If the request is at all unclear, set needs_confirmation: the card then shows the person 'I understand your request as: ...' with Desktop/Mobile/Both, and every edit is refused until they say yes (confirm_change). Non-technical people often use words like tabs, table, buttons, menu, header, box or section loosely, so treat those as unclear unless the page has exactly one thing they could mean.",
+      "Start a new, separate change for ONE request from the person (e.g. 'change the homepage headline'). Returns a change_id. Every edit for this request (github_edit_file, github_write_file, github_write_binary_file, github_delete_file, sanity_patch_document, sanity_create_document, sanity_upload_image) must pass this change_id, so each request is kept apart and publishing it never takes any other request live. Start a new change for each new request; keep using the same change_id for follow-up tweaks to the same request. Before calling, look at the site to work out what the person really means. If the request is at all unclear, set needs_confirmation: the card then shows the person 'I understand your request as: ...' with Desktop/Mobile/Both, and every edit is refused until they say yes (confirm_change). Non-technical people often use words like tabs, table, buttons, menu, header, box or section loosely, so treat those as unclear unless the page has exactly one thing they could mean.",
     input_schema: {
       type: "object" as const,
       properties: {
@@ -160,7 +163,7 @@ const SESSION_TOOLS = [
   {
     name: "request_upload_link",
     description:
-      "Get a private link where the person can upload an image or PDF straight into this change, for when they attached a file in the chat but you can't pass it to github_write_binary_file (you only see the picture, never its bytes; Claude never passes attached files to this server). Give them the link in plain words, e.g. 'Open this link and drop the picture there, then tell me when it's done.' It works for 30 minutes, for this one file, and saves it to the path you choose. After they say it's done, carry on with the code change and submit_for_review.",
+      "Get a private link where the person can upload a file straight into this change, for when they attached a file in the chat but you can't pass it to a tool (you only see the picture, never its bytes; Claude never passes attached files to this server). Send EITHER `path` (save the file in the repo: site-chrome files only) OR `sanity_image` (an essay picture: it goes into Sanity, and with attach_to it is placed on the post's draft as soon as it's uploaded, exactly like sanity_upload_image). Give them the link in plain words, e.g. 'Open this link and drop the picture there, then tell me when it's done.' It works for 30 minutes, for this one file. After they say it's done, check the draft (sanity_get_document) and carry on to submit_for_review.",
     input_schema: {
       type: "object" as const,
       properties: {
@@ -169,9 +172,35 @@ const SESSION_TOOLS = [
           description:
             "Where to save it in the repo, e.g. public/images/tsi-hero.png. The upload must be the same kind of file as the ending.",
         },
+        sanity_image: {
+          type: "object",
+          description:
+            "For an essay picture instead of path: same fields as sanity_upload_image.",
+          properties: {
+            filename: {
+              type: "string",
+              description: "e.g. gratitude-circus-2014.png (.png .jpg .webp .gif .avif)",
+            },
+            alt: { type: "string", description: "What the picture shows." },
+            caption: { type: "string" },
+            attach_to: {
+              type: "object",
+              properties: {
+                documentId: { type: "string" },
+                field: {
+                  type: "string",
+                  enum: ["heroImage", "body", "updatedBody"],
+                },
+                afterBlockKey: { type: "string" },
+              },
+              required: ["documentId", "field"],
+            },
+          },
+          required: ["filename", "alt"],
+        },
       },
       // change_id is added by withChangeIdParam (CHANGE_REQUIRED_TOOLS).
-      required: ["path"],
+      required: [],
     },
   },
   {
@@ -307,6 +336,7 @@ const CHANGE_REQUIRED_TOOLS = new Set([
   "github_delete_file",
   "sanity_patch_document",
   "sanity_create_document",
+  "sanity_upload_image",
 ]);
 const CHANGE_ACTION_TOOLS = new Set([
   "confirm_change",
@@ -461,6 +491,11 @@ const CHATGPT_TOOL_META: Record<string, Record<string, unknown>> = {
     "openai/toolInvocation/invoking": "Saving the file…",
     "openai/toolInvocation/invoked": "File saved",
   },
+  sanity_upload_image: {
+    "openai/fileParams": ["file"],
+    "openai/toolInvocation/invoking": "Uploading the picture…",
+    "openai/toolInvocation/invoked": "Picture uploaded",
+  },
   get_project_rules: {
     "openai/toolInvocation/invoking": "Loading the site's rules…",
     "openai/toolInvocation/invoked": "Rules loaded",
@@ -556,6 +591,32 @@ const ATTRIBUTED_MESSAGE_TOOLS = new Set([
   "github_write_binary_file",
   "github_delete_file",
 ]);
+
+// Checks request_upload_link's sanity_image up front, so a link is never
+// handed out for an upload that would be refused. null = not a Sanity upload.
+function readSanityImageGrant(raw: unknown): SanityImageGrant | string | null {
+  if (raw === undefined || raw === null) return null;
+  const v = raw as Record<string, unknown>;
+  const filename = String(v.filename ?? "").trim();
+  const alt = String(v.alt ?? "").trim();
+  if (!IMAGE_NAME.test(filename)) {
+    return "sanity_image.filename must end in .png, .jpg, .jpeg, .webp, .gif or .avif.";
+  }
+  if (!alt) return "sanity_image.alt is required: describe what the picture shows.";
+  const grant: SanityImageGrant = { filename, alt };
+  const caption = String(v.caption ?? "").trim();
+  if (caption) grant.caption = caption;
+  const a = v.attach_to as Record<string, unknown> | undefined;
+  if (a) {
+    const field = String(a.field ?? "");
+    if (!isImageField(field)) {
+      return 'sanity_image.attach_to.field must be "heroImage", "body" or "updatedBody".';
+    }
+    grant.attach_to = { documentId: String(a.documentId ?? ""), field };
+    if (a.afterBlockKey) grant.attach_to.afterBlockKey = String(a.afterBlockKey);
+  }
+  return grant;
+}
 
 export function createAdminMcpServer(
   user: McpUser,
@@ -898,8 +959,12 @@ export function createAdminMcpServer(
     }
 
     if (name === "request_upload_link") {
-      const path = normalizeRepoPath(input.path);
-      if (!path || isPathDenied(path)) {
+      const sanity = readSanityImageGrant(input.sanity_image);
+      if (typeof sanity === "string") return toResult({ error: sanity }, true);
+      const path = sanity
+        ? `sanity:${sanity.filename}`
+        : normalizeRepoPath(input.path);
+      if (!sanity && (!path || isPathDenied(path))) {
         return toResult(
           {
             error: path
@@ -920,14 +985,24 @@ export function createAdminMcpServer(
           true,
         );
       }
-      const { token, expiresAt } = signUploadGrant(change!.key, path, user);
+      const { token, expiresAt } = signUploadGrant(
+        change!.key,
+        path,
+        user,
+        sanity ?? undefined,
+      );
       return toResult({
         ok: true,
         uploadUrl: `${origin}/api/mcp/upload?t=${encodeURIComponent(token)}`,
         path,
         expiresAt,
         maxSizeMb: MAX_UPLOAD_PAGE_BYTES / 1024 / 1024,
-        next: "Give the person this link in plain words and ask them to tell you when the upload is done. Then check it with github_list_dir (with this change_id) and carry on.",
+        next: sanity
+          ? "Give the person this link in plain words and ask them to tell you when the upload is done. The picture goes into Sanity" +
+            (sanity.attach_to
+              ? ` and onto the draft of ${sanity.attach_to.documentId} (${sanity.attach_to.field}); then check it with sanity_get_document and carry on.`
+              : "; then find it with sanity_query on sanity.imageAsset by originalFilename and place it with sanity_patch_document.")
+          : "Give the person this link in plain words and ask them to tell you when the upload is done. Then check it with github_list_dir (with this change_id) and carry on.",
       });
     }
 
@@ -987,6 +1062,19 @@ export function createAdminMcpServer(
         const path = normalizeRepoPath(input.path);
         const problem = file.ok
           ? path && checkFileMatchesPath(path, file.bytes)
+          : file.error;
+        if (!file.ok || problem) return toResult({ error: problem }, true);
+        delete input.file;
+        delete input.source_url;
+        input.base64Content = file.bytes.toString("base64");
+      }
+      if (name === "sanity_upload_image") {
+        // Same up-front check: a bad picture never claims a post for this
+        // change or leaves anything in Sanity.
+        const file = await resolveBinaryInput(input);
+        const filename = String(input.filename ?? "");
+        const problem = file.ok
+          ? checkFileMatchesPath(filename, file.bytes)
           : file.error;
         if (!file.ok || problem) return toResult({ error: problem }, true);
         delete input.file;

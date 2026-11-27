@@ -66,4 +66,11 @@ describe("next.config redirects", () => {
     // /soul-smoke is a real page now, so it must not redirect anywhere.
     expect(redirects.some((r) => r.source === "/soul-smoke")).toBe(false);
   });
+
+  it("sends /liquidsun (and deep links under it) to the LiquidSun guide, permanently", async () => {
+    const redirects = await nextConfig.redirects!();
+    expect(redirects).toContainEqual({ source: "/liquidsun", destination: "/liquid-sun", permanent: true });
+    expect(redirects).toContainEqual({ source: "/liquidsun/:path*", destination: "/liquid-sun/:path*", permanent: true });
+    expect(redirects.some((r) => r.source === "/liquid-sun")).toBe(false);
+  });
 });

@@ -6,6 +6,7 @@ import {
 } from "@/lib/admin/binary-upload";
 import { getChangeSet, isOpen, markEdited } from "@/lib/admin/change-sets";
 import { buildMcpToolContext } from "@/lib/admin/mcp-tool-context";
+import { runAdminTool } from "@/lib/admin/tools";
 import * as gh from "@/lib/admin/github-client";
 import { isPathDenied } from "@/lib/admin/guardrails";
 
@@ -74,6 +75,12 @@ const closed = () =>
     "<h1>This change isn't open any more</h1><p>It was published, discarded or isn't confirmed yet. Go back to the chat and ask for a new link.</p>",
   );
 
+const PLACE_LABEL: Record<string, string> = {
+  heroImage: "as the main picture",
+  body: "in the original essay text",
+  updatedBody: "in the updated essay text",
+};
+
 export async function GET(req: Request): Promise<Response> {
   const token = new URL(req.url).searchParams.get("t") ?? "";
   const access = readUploadGrant(token);
@@ -82,12 +89,16 @@ export async function GET(req: Request): Promise<Response> {
   if (!change) return closed();
   const ext = access.grant.path.split(".").pop() ?? "";
   const maxMb = MAX_UPLOAD_PAGE_BYTES / 1024 / 1024;
+  const sanity = access.grant.sanity;
+  const where = sanity
+    ? `It will be added to the website's picture library${sanity.attach_to ? ` and placed on the essay draft (${escape(PLACE_LABEL[sanity.attach_to.field] ?? sanity.attach_to.field)})` : ""}.`
+    : `It will be saved as <code>${escape(access.grant.path)}</code>.`;
   return page(
     200,
     "Upload a file",
     `<h1>Upload a file</h1>
 <p>For the change <strong>${escape(change.title)}</strong>.</p>
-<p>It will be saved as <code>${escape(access.grant.path)}</code>. Nothing goes live until the change is reviewed and published.</p>
+<p>${where} Nothing goes live until the change is reviewed and published.</p>
 <form method="post" enctype="multipart/form-data" onsubmit="this.querySelector('button').disabled=true;this.querySelector('button').textContent='Uploading…'">
 <input type="hidden" name="t" value="${escape(token)}">
 <label for="f">Choose the ${escape(ext.toUpperCase())} file (up to ${maxMb} MB)</label>
@@ -117,7 +128,9 @@ export async function POST(req: Request): Promise<Response> {
     );
   }
   const access = readUploadGrant(form.get("t"));
-  if (!access || isPathDenied(access.grant.path)) return expired();
+  if (!access) return expired();
+  const sanity = access.grant.sanity;
+  if (!sanity && isPathDenied(access.grant.path)) return expired();
   const file = form.get("file");
   if (!(file instanceof File) || file.size === 0) {
     return page(
@@ -134,7 +147,10 @@ export async function POST(req: Request): Promise<Response> {
     );
   }
   const bytes = Buffer.from(await file.arrayBuffer());
-  const problem = checkFileMatchesPath(access.grant.path, bytes);
+  const problem = checkFileMatchesPath(
+    sanity ? sanity.filename : access.grant.path,
+    bytes,
+  );
   if (problem) {
     return page(
       400,
@@ -151,6 +167,31 @@ export async function POST(req: Request): Promise<Response> {
   );
   await markEdited(change);
   const { ctx, finalize } = await buildMcpToolContext(change);
+  if (sanity) {
+    // Same checks and placement as the sanity_upload_image tool.
+    const result = await runAdminTool(
+      "sanity_upload_image",
+      { ...sanity, base64Content: bytes.toString("base64") },
+      ctx,
+    ).catch((err: unknown) => {
+      console.error(`[mcp] Sanity upload of ${sanity.filename} failed`, err);
+      return { output: { error: "The picture couldn't be saved." }, isError: true };
+    });
+    await finalize();
+    if (result.isError) {
+      const error = (result.output as { error?: string }).error ?? "";
+      return page(
+        400,
+        "Upload failed",
+        `<h1>That didn't work</h1><p>${escape(error)}</p><p>Tell the AI in the chat what this page says.</p>`,
+      );
+    }
+    return page(
+      200,
+      "Uploaded",
+      `<h1>Done, the picture is uploaded</h1><p>${sanity.attach_to ? "It's on the essay draft" : "It's in the picture library"} for the change <strong>${escape(change.title)}</strong>.</p><p>Go back to the chat and say it's done. You can close this page.</p>`,
+    );
+  }
   try {
     const branch = await ctx.ensureWriteBranch();
     await gh.putFileBase64(

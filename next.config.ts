@@ -107,6 +107,11 @@ const nextConfig: NextConfig = {
       // deep link under it) goes to the same page.
       { source: "/soulsmoke", destination: "/soul-smoke", permanent: true },
       { source: "/soulsmoke/:path*", destination: "/soul-smoke/:path*", permanent: true },
+      // LiquidSun (Tony's tequila guide) lives at /liquid-sun since 2026-11-21, ported from its
+      // Manus app (tequilaazul-fxqrr3js.manus.space). /liquidsun (and any old deep link under it)
+      // goes to the same page, like /soulsmoke above.
+      { source: "/liquidsun", destination: "/liquid-sun", permanent: true },
+      { source: "/liquidsun/:path*", destination: "/liquid-sun/:path*", permanent: true },
       { source: "/brewsoul/catalog.txt", destination: "/brewsoul/directory", permanent: true },
       { source: "/brewsoul/catalog.json", destination: "/brewsoul/directory", permanent: true },
       // Category pages used ?page=N until 2026-10-09; now /page/N, so each page is
