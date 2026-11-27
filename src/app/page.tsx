@@ -112,21 +112,25 @@ export default async function Home() {
 
       <EditorPicksSection />
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-14">
+      <section aria-label="Recently updated essay" className="mx-auto max-w-7xl px-4 py-6 sm:px-14">
         <Link
-          href="/protecting-your-business"
-          className="mb-6 inline-flex items-center gap-2 rounded-md border border-red-800/20 bg-red-800/5 px-3.5 py-2"
+          href="/blog/grateful-smuggest-sentiment-or-selfish-act"
+          className="block rounded-lg border border-[#49335C]/20 bg-[#E9E2D5] p-6 text-[#30323E] hover:border-[#49335C] sm:p-8"
         >
-          <span className="font-mono text-xs font-bold tracking-wide text-red-800 uppercase">
-            Case File
+          <span className="font-mono text-xs font-semibold tracking-wide text-[#49335C] uppercase">
+            Revisited · Thanksgiving 2026
           </span>
-          <span className="text-sm text-foreground/70">
-            She Had Two Theft Convictions. I Hired Her Anyway. She Stole $46,795. — Kristi
-            Klawiter, documented.
+          <h2 className="mt-2 font-heading text-2xl text-[#49335C] sm:text-3xl">
+            Grateful: Smuggest Sentiment or Second Most Selfish Act?
+          </h2>
+          <p className="mt-3 text-base leading-relaxed">
+            Is gratitude an act of generosity, or something we practice for ourselves? Revisit the original essay through today&apos;s lens.
+          </p>
+          <span className="mt-4 inline-flex items-center gap-1.5 font-semibold text-[#49335C]">
+            Read the updated essay <ArrowRight aria-hidden="true" className="size-4" />
           </span>
-          <ArrowRight aria-hidden="true" className="size-3.5 shrink-0 text-red-800" />
         </Link>
-      </div>
+      </section>
 
       <GemSparkStrip />
 
